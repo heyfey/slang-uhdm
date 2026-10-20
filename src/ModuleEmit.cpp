@@ -1652,6 +1652,7 @@ void trace214(const char* law, const std::string& detail);
 void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
 void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
+bool& defGenConnSelAtIndex416();  // § defGenConnSelAtIndex416 (TypeEmit.cpp)
 void trace202(const char* law, const std::string& detail);
 void trace200(const char* law, const std::string& detail);
 // § tfSigningSpanFollowsCompilePath200 — a GENERATE-block variable's builtin
@@ -63482,8 +63483,17 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                  syntax::SyntaxKind::ConditionalExpression)) {
                             std::string oscope9 = branchPrefix + "." + iname +
                                                   "." + formal;
-                            if (auto* op9 =
-                                    mkConnOpTree9(*actSyn9, p, oscope9))
+                            // § defGenConnSelAtIndex416 — also for the
+                            // operands the operator tree hands to the syntax
+                            // emitter (a parenthesized reduction
+                            // `(|grants_oi_one_hot_o[i])`, a replication
+                            // `{n{ready_and_i[i]}}`).
+                            bool sv416 = defGenConnSelAtIndex416();
+                            defGenConnSelAtIndex416() =
+                                lawOn(416, "R11U416_DEFGENCONNSEL_OFF");
+                            auto* op9 = mkConnOpTree9(*actSyn9, p, oscope9);
+                            defGenConnSelAtIndex416() = sv416;
+                            if (op9)
                                 p->High_conn(op9);
                         }
                         // § genConnTernSysActual315: the system call.
@@ -64153,8 +64163,18 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                     setLoc(r9, ce9->sourceRange());
                                     ov9->push_back(r9);
                                 }
-                                else if (auto* e9c = emitSyntaxExpr(*ce9, op9))
-                                    ov9->push_back(e9c);
+                                else {
+                                    // § defGenConnSelAtIndex416 (TypeEmit's
+                                    // bit_select branch reads the flag).
+                                    // Switch R11U416_DEFGENCONNSEL_OFF.
+                                    bool sv416 = defGenConnSelAtIndex416();
+                                    defGenConnSelAtIndex416() =
+                                        lawOn(416, "R11U416_DEFGENCONNSEL_OFF");
+                                    auto* e9c = emitSyntaxExpr(*ce9, op9);
+                                    defGenConnSelAtIndex416() = sv416;
+                                    if (e9c)
+                                        ov9->push_back(e9c);
+                                }
                             }
                             op9->Operands(ov9);
                             p->High_conn(op9);
@@ -64183,7 +64203,13 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             auto savedSP9 = syntaxRefPrefix;
                             syntaxRefPrefix =
                                 branchPrefix + "." + iname + "." + formal;
+                            // § defGenConnSelAtIndex416 (TypeEmit's bit_select
+                            // branch reads the flag).
+                            bool sv416 = defGenConnSelAtIndex416();
+                            defGenConnSelAtIndex416() =
+                                lawOn(416, "R11U416_DEFGENCONNSEL_OFF");
                             auto* e9 = emitSyntaxExpr(*actSyn9, p);
+                            defGenConnSelAtIndex416() = sv416;
                             syntaxRefPrefix = savedSP9;
                             if (e9)
                                 p->High_conn((UHDM::expr*)e9);
@@ -64718,11 +64744,65 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     NetMap unbound;
                     suppressRefActual = true;
                     defGenProcessEmit = true;
+                    // § genCaseItemProcNoFull416 (r11u416) — a process written
+                    // in a case-generate item with no label (`default: always
+                    // @* begin : nb ... end`, or inside an unnamed begin) sits
+                    // under the unparented case_item, so its statements read
+                    // no full name (golden bsg_lfsr.sv:34 the `begin` of an
+                    // assertion's else inside `default: initial assert
+                    // (...) else begin ... end`, empty where ours wrote
+                    // work@bsg_lfsr; a block local reads its bare name).  The
+                    // module prefix stood in for the empty branch prefix.
+                    // Switch R11U416_GENCASEPROC_OFF.
+                    const bool noFull416 =
+                        noFull && genCaseUnnamed152() && branchPrefix.empty() &&
+                        lawOn(416, "R11U416_GENCASEPROC_OFF");
+                    if (noFull416)
+                        lawTrace(416, "genCaseItemProcNoFull416", prefix);
                     auto* p = emitProcess(
-                        *pbs, m, branchPrefix.empty() ? prefix : branchPrefix,
+                        *pbs, m,
+                        noFull416 ? std::string()
+                                  : (branchPrefix.empty() ? prefix : branchPrefix),
                         unbound);
                     defGenProcessEmit = false;
                     suppressRefActual = false;
+                    // § genCaseItemProcNoFull416 — the names the statement
+                    // emitter built on the empty prefix (`.nb`, `.k`) are
+                    // stored by Surelog as no full name at all.
+                    if (p && noFull416) {
+                        struct Strip416 final : public UHDM::UhdmListener {
+                            void enterAny(const UHDM::any* const o) override {
+                                auto strip = [](auto* c) {
+                                    using T = std::remove_const_t<
+                                        std::remove_pointer_t<decltype(c)>>;
+                                    auto* bo = const_cast<T*>(c);
+                                    if (!bo->VpiFullName().empty() &&
+                                        bo->VpiFullName()[0] == '.')
+                                        bo->VpiFullName("");
+                                };
+                                if (auto* sc = dynamic_cast<const UHDM::scope*>(o))
+                                    strip(sc);
+                                else if (auto* va = dynamic_cast<const UHDM::variables*>(o))
+                                    strip(va);
+                                else if (auto* ro = dynamic_cast<const UHDM::ref_obj*>(o))
+                                    strip(ro);
+                                else if (auto* rt = dynamic_cast<const UHDM::ref_typespec*>(o))
+                                    strip(rt);
+                                else if (auto* hp = dynamic_cast<const UHDM::hier_path*>(o))
+                                    strip(hp);
+                                else if (auto* ne = dynamic_cast<const UHDM::nets*>(o))
+                                    strip(ne);
+                                else if (auto* ev = dynamic_cast<const UHDM::named_event*>(o))
+                                    strip(ev);
+                            }
+                        } st416;
+                        // read unparented: a name the getter computes (and
+                        // caches) must not be read through the module
+                        auto* par416 = p->VpiParent();
+                        p->VpiParent(nullptr);
+                        st416.listenAny(p);
+                        p->VpiParent(par416);
+                    }
                     if (p) {
                         p->VpiParent(b);
                         stmts->push_back(p);

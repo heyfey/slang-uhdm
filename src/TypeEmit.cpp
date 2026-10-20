@@ -321,6 +321,13 @@ bool& defGenInitRvalue202() {
     static bool armed = false;
     return armed;
 }
+// § defGenConnSelAtIndex416 — set by ModuleEmit around a definition-view
+// generate-block port connection written as a concatenation, a replication or
+// a cast (R11U416_DEFGENCONNSEL_OFF read there).
+bool& defGenConnSelAtIndex416() {
+    static bool armed = false;
+    return armed;
+}
 // § classSpecExprArgUnlocated202 (UhdmExporter.cpp).
 void respanSpecArgs202(
     UHDM::class_typespec* cts, const slang::ast::ClassType& cls,
@@ -24874,6 +24881,19 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 if (defGenInitRvalue202() && !selBaseScopeIdx) {
                     setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
                     trace202("defGenInitBitSelAtIndex202", std::string(bname));
+                }
+                // § defGenConnSelAtIndex416 (r11u416) — a bit_select inside a
+                // definition-view generate block's port connection written as
+                // a concatenation, a replication or a cast is anchored at its
+                // INDEX as the operator branch's select leaf already is (golden
+                // bsg_channel_tunnel_out `.down_i(lg_remote_credits_lp '
+                // (yumi_o [i]))` bit_select at the `i` 89:56-89:57, ours the
+                // whole select 89:47-89:58; bsg_dmc_phy `{dfi_wrdata_array
+                // [dq_group_lp+i], ...}` at the index 402:43-402:56).
+                if (defGenConnSelAtIndex416() && !selBaseScopeIdx &&
+                    !defGenInitRvalue202()) {
+                    setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
+                    lawTrace(416, "defGenConnSelAtIndex416", std::string(bname));
                 }
                 // Def gen-CA RHS: index subexpressions scope THROUGH the
                 // select base (prefix.base.<name>) — Surelog. A BARE

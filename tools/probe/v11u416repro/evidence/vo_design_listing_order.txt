@@ -1,0 +1,16 @@
+== VO/vo01_explicit_import (golden / pristine / law: the design's vpiTaskFunc order)
+\_function: (p::pf), line:3:3, endln:3:48 ; \_function: (F), line:6:1, endln:8:12 ; 
+\_function: (F), line:6:1, endln:8:12 ; 
+\_function: (F), line:6:1, endln:8:12 ; 
+== VO/vo03_task_before_import (golden / pristine / law: the design's vpiTaskFunc order)
+\_function: (p::pf), line:3:3, endln:3:48 ; \_function: (F), line:8:1, endln:10:12 ; 
+\_function: (F), line:8:1, endln:10:12 ; \_function: (p::pf), line:3:3, endln:3:48 ; 
+\_function: (p::pf), line:3:3, endln:3:48 ; \_function: (F), line:8:1, endln:10:12 ; 
+== VO/vo07_pkg_reexport_chain (golden / pristine / law: the design's vpiTaskFunc order)
+\_function: (p::qf), line:3:3, endln:3:48 ; \_function: (p::pf), line:7:3, endln:7:52 ; \_function: (F), line:10:1, endln:12:12 ; 
+\_function: (F), line:10:1, endln:12:12 ; \_function: (p::qf), line:3:3, endln:3:48 ; \_function: (p::pf), line:7:3, endln:7:52 ; 
+\_function: (p::qf), line:3:3, endln:3:48 ; \_function: (p::pf), line:7:3, endln:7:52 ; \_function: (F), line:10:1, endln:12:12 ; 
+== VO/vo12_shadow_name (golden / pristine / law: the design's vpiTaskFunc order)
+\_function: (p::pf), line:3:3, endln:3:48 ; \_function: (p::pg), line:4:3, endln:4:48 ; 
+\_function: (pg), line:7:1, endln:9:12 ; \_function: (p::pf), line:3:3, endln:3:48 ; \_function: (p::pg), line:4:3, endln:4:48 ; 
+\_function: (p::pf), line:3:3, endln:3:48 ; \_function: (p::pg), line:4:3, endln:4:48 ; \_function: (pg), line:7:1, endln:9:12 ; 

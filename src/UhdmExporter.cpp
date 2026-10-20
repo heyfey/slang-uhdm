@@ -5552,6 +5552,14 @@ std::map<std::pair<uint32_t, uint32_t>, std::pair<uint32_t, uint32_t>> ppPasteEn
 // whether the run's end wins an offset it shares with that token}.
 std::map<uint32_t, std::vector<std::tuple<uint32_t, uint32_t, bool, char>>> ppTokSeq160v;
 std::map<uint32_t, std::vector<std::array<uint32_t, 5>>> ppPasteChain160v;
+// § pasteBlankLedStartWritten416 (r11u416): (paste buffer id, offset) of a
+// token written after a paste's blank-free run on the paste's own line whose
+// offset the run's running layout overlaps (a positive shift) -> (the paste's
+// start offset, the paste's shift = pasted length - written span).
+std::map<std::pair<uint32_t, uint32_t>, std::pair<uint32_t, int32_t>> ppBlankLed416;
+// set by setLoc while it asks the START of an object's range (read once at
+// the entry of locLineCol, so the nested calls never see it)
+static bool locStartQuery416 = false;
 // (def buffer id, `define line) -> per body line: newline at its end dropped?
 std::map<std::pair<uint32_t, uint32_t>, std::vector<uint8_t>> ppDropped160;
 std::set<std::string> ppDefined160;
@@ -7321,6 +7329,29 @@ void UhdmExporter::locLineCol(SourceLocation lc, uint32_t& L, uint32_t& C) {
     // name was written (its own buffer holds only the literal).
     if (sm->isMacroLoc(lc) && !macroExpBuilt)
         buildMacroExpansions();
+    // § pasteBlankLedStartWritten416 — the START of an object at a token
+    // written after a paste's run, where the run's layout overlaps it: the
+    // paste's column plus the written distance plus the paste's shift.
+    {
+        bool start416 = locStartQuery416;
+        locStartQuery416 = false;
+        if (start416 && sm->isMacroLoc(lc) && !ppBlankLed416.empty())
+            if (auto bl = ppBlankLed416.find({lc.buffer().getId(), (uint32_t)lc.offset()});
+                bl != ppBlankLed416.end()) {
+                uint32_t L0 = 0, C0 = 0;
+                if (lawTraceOn(416))
+                    locLineCol(lc, L0, C0);  // the pristine reading, traced only
+                locLineCol(SourceLocation(lc.buffer(), bl->second.first), L, C);
+                C = (uint32_t)((int32_t)C + (int32_t)(lc.offset() - bl->second.first) +
+                               bl->second.second);
+                if (lawTraceOn(416))
+                    lawTrace(416, "pasteBlankLedStartWritten416",
+                             std::string(L0 == L && C0 == C ? "same " : "MOVED ") +
+                                 std::to_string(L0) + ":" + std::to_string(C0) + "->" +
+                                 std::to_string(L) + ":" + std::to_string(C));
+                return;
+            }
+    }
     if (sm->isMacroLoc(lc))
         if (auto pe = ppPasteEnd160.find({lc.buffer().getId(), (uint32_t)lc.offset()});
             pe != ppPasteEnd160.end()) {
@@ -7452,7 +7483,9 @@ void UhdmExporter::setLoc(UHDM::BaseClass* obj, SourceRange range) {
     if (range.start() == SourceLocation::NoLocation)
         return;
     uint32_t l = 0, c = 0;
+    locStartQuery416 = true;
     locLineCol(range.start(), l, c);
+    locStartQuery416 = false;
     obj->VpiLineNo(l);
     obj->VpiColumnNo(c);
     // § vpiFileOnEveryLocated117: Surelog stamps VpiFile on every located
@@ -19017,9 +19050,67 @@ UHDM::design* UhdmExporter::exportDesign() {
                 dv9 = s.MakeTask_funcVec();
                 d->Task_funcs(dv9);
             }
-            for (auto* tf9 : dtf9)
-                if (std::find(dv9->begin(), dv9->end(), tf9) == dv9->end())
-                    dv9->push_back(tf9);
+            // § unitImportTfSourceOrder416 (r11u416) — Surelog lists the
+            // design's subroutines in the order of the compilation unit's
+            // items: a wildcard import's group sits where the import is
+            // written, so `import uvm_pkg::*;` followed by a `$unit`
+            // function F lists uvm_pkg's subroutines first and F last (the
+            // three chapter-18 UVM rows with a $unit function, golden F at
+            // the end of 980 where ours led with it).  The own subroutines
+            // keep their order; the law abstains unless every own entry is
+            // matched by name, in order, to a subroutine item of the units
+            // (an item the listing does not hold is passed over).
+            // Switch R11U416_UNITTFORDER_OFF.
+            std::vector<UHDM::task_func*> own416(dv9->begin(), dv9->end());
+            bool done416 = false;
+            if (!own416.empty() && lawOn(416, "R11U416_UNITTFORDER_OFF")) {
+                std::vector<std::pair<int, const Symbol*>> seq416;
+                for (auto* cu : comp.getCompilationUnits())
+                    for (auto& mem : cu->members()) {
+                        if (mem.kind == SymbolKind::WildcardImport) {
+                            if (auto* p416 = mem.as<WildcardImportSymbol>().getPackage())
+                                seq416.push_back({1, p416});
+                        }
+                        else if (mem.kind == SymbolKind::Subroutine)
+                            seq416.push_back({0, &mem});
+                    }
+                std::vector<UHDM::task_func*> out416;
+                size_t oi416 = 0;
+                bool ok416 = true, moved416 = false;
+                for (auto& [k416, sym416] : seq416) {
+                    if (k416 == 0) {
+                        // a subroutine item the listing does not hold (a
+                        // `$unit` task) is passed over
+                        if (oi416 < own416.size() &&
+                            own416[oi416]->VpiName() == sym416->name)
+                            out416.push_back(own416[oi416++]);
+                        continue;
+                    }
+                    auto grp416 = materializedPkgTfGroup(
+                        sym416->as<PackageSymbol>());
+                    for (auto* tf9 : grp416)
+                        if (std::find(out416.begin(), out416.end(), tf9) == out416.end() &&
+                            std::find(own416.begin(), own416.end(), tf9) == own416.end()) {
+                            out416.push_back(tf9);
+                            if (oi416 < own416.size())
+                                moved416 = true;
+                        }
+                }
+                if (ok416 && moved416 && oi416 == own416.size()) {
+                    for (auto* tf9 : dtf9)
+                        if (std::find(out416.begin(), out416.end(), tf9) == out416.end())
+                            out416.push_back(tf9);
+                    lawTrace(416, "unitImportTfSourceOrder416",
+                                 std::to_string(own416.size()) + " own, " +
+                                     std::to_string(out416.size()) + " listed");
+                    dv9->assign(out416.begin(), out416.end());
+                    done416 = true;
+                }
+            }
+            if (!done416)
+                for (auto* tf9 : dtf9)
+                    if (std::find(dv9->begin(), dv9->end(), tf9) == dv9->end())
+                        dv9->push_back(tf9);
         }
     }
 
@@ -26614,6 +26705,34 @@ void UhdmExporter::buildMacroExpansions() {
                             ppPasteChain160v[pb].push_back(
                                 {po, po + pl, runEnd, firstBlank,
                                  (uint32_t)(last != ';' && last != ',')});
+                        // § pasteBlankLedStartWritten416 — with a positive
+                        // shift the running layout of the run reaches the
+                        // written offsets of the tokens after it: a token
+                        // written after the first blank at an offset the run
+                        // (or the pasted token itself) covers collides with a
+                        // run position, and the START of an object there (the
+                        // `begin` of UVM's `if (!((FLAG)&UVM_NO``OP)) begin`,
+                        // OP = COMPARE or PRINT) read the run's column where
+                        // Surelog writes the written column moved by the shift.
+                        // Switch R11U416_PASTEBLANKSTART_OFF.
+                        static const bool on416 =
+                            lawOn(416, "R11U416_PASTEBLANKSTART_OFF");
+                        if (on416 && (int32_t)pl > span && firstBlank != UINT32_MAX)
+                            for (size_t j = k + 1; j < seq.size(); j++) {
+                                uint32_t to = std::get<0>(seq[j]);
+                                if (to < firstBlank)
+                                    continue;
+                                if (to > runEnd)
+                                    break;
+                                SourceLocation tj = sm->getFullyOriginalLoc(
+                                    SourceLocation(ib->second.b0.buffer(), to));
+                                if (tj == SourceLocation::NoLocation || sm->isMacroLoc(tj) ||
+                                    tj.buffer() != o.buffer() ||
+                                    sm->getLineNumber(tj) != sm->getLineNumber(o) ||
+                                    to - po != (uint32_t)(tj.offset() - o.offset()))
+                                    break;
+                                ppBlankLed416[{pb, to}] = {po, (int32_t)pl - span};
+                            }
                     }
                 }
         }
@@ -27694,6 +27813,41 @@ void UhdmExporter::fileLineCol(SourceLocation lc, uint32_t& line,
     }
     line = (uint32_t)sm->getLineNumber(lc);
     col = (uint32_t)sm->getColumnNumber(lc);
+    // § lineDirectiveIgnored416 (r11u416) — Surelog keeps the PHYSICAL line
+    // of the file after a `line directive (sv-tests chapter-5/5.6.4--
+    // compiler-directives-debug-line.sv: `line 1 "<same file>" 1 inside a
+    // module, golden's module end line 18 where slang's directive-mapped
+    // line read 1): only a buffer whose text holds a `line directive is
+    // recounted, by its newlines.  Switch R11U416_LINEDIRECTIVE_OFF.
+    {
+        static const bool on416 = lawOn(416, "R11U416_LINEDIRECTIVE_OFF");
+        static std::map<uint32_t, std::vector<size_t>> starts416;
+        if (on416 && lc.buffer().valid()) {
+            auto it416 = starts416.find(lc.buffer().getId());
+            if (it416 == starts416.end()) {
+                std::vector<size_t> v;
+                auto t416 = sm->getSourceText(lc.buffer());
+                if (t416.find("`line") != std::string_view::npos) {
+                    v.push_back(0);
+                    for (size_t i = 0; i < t416.size(); i++)
+                        if (t416[i] == '\n')
+                            v.push_back(i + 1);
+                }
+                it416 = starts416.emplace(lc.buffer().getId(), std::move(v)).first;
+            }
+            if (!it416->second.empty()) {
+                auto& v = it416->second;
+                uint32_t raw416 = (uint32_t)(std::upper_bound(v.begin(), v.end(),
+                                                              (size_t)lc.offset()) -
+                                             v.begin());
+                if (raw416 != line) {
+                    lawTrace(416, "lineDirectiveIgnored416",
+                             std::to_string(line) + "->" + std::to_string(raw416));
+                    line = raw416;
+                }
+            }
+        }
+    }
 
     // § emptyRedefineObjLine130 — applied on the way OUT (every lookup below
     // is keyed by the raw source line); not for the include_file_info

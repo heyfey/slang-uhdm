@@ -1,0 +1,37 @@
+DC/dc01_concat_bitsel | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=df0ad02d | law rc=0 cmp=0 STRICT_EQUAL 243 objects md5=08ee358e | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc02_genif_concat_expr_index | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=b3c909a1 | law rc=0 cmp=0 STRICT_EQUAL 137 objects md5=7b933f45 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc03_replication | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=ef487cf4 | law rc=0 cmp=0 STRICT_EQUAL 253 objects md5=d3f74abb | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc04_nested_concat | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=acb27a90 | law rc=0 cmp=0 STRICT_EQUAL 268 objects md5=a5ac6cad | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc05_spaced_paren_index | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=52a50c1b | law rc=0 cmp=0 STRICT_EQUAL 243 objects md5=e1afd15e | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc06_sysfunc_in_concat | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=a3a5d526 | law rc=0 cmp=0 STRICT_EQUAL 248 objects md5=2a601d27 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc07_paren_reduction_in_op | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=0415bcf8 | law rc=0 cmp=0 STRICT_EQUAL 220 objects md5=0be4277f | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc08_replication_in_op | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=ef524b63 | law rc=0 cmp=0 STRICT_EQUAL 253 objects md5=649a5a47 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc09_ctl_plain_bitsel | pristine rc=0 cmp=0 STRICT_EQUAL 179 objects md5=27f707f5 | law rc=0 cmp=0 STRICT_EQUAL 179 objects md5=27f707f5 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc10_ctl_binary | pristine rc=0 cmp=0 STRICT_EQUAL 215 objects md5=f2c83804 | law rc=0 cmp=0 STRICT_EQUAL 215 objects md5=f2c83804 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc11_ctl_module_scope_concat | pristine rc=0 cmp=0 STRICT_EQUAL 116 objects md5=7b199fe8 | law rc=0 cmp=0 STRICT_EQUAL 116 objects md5=7b199fe8 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc12_ctl_unary | pristine rc=0 cmp=0 STRICT_EQUAL 205 objects md5=49bd036f | law rc=0 cmp=0 STRICT_EQUAL 205 objects md5=49bd036f | OFF same | R11U416_DEFGENCONNSEL_OFF same
+DC/dc13_param_cast_exit4 | pristine rc=4 cmp=0 STRICT_NOTEQUAL col md5=7324af94 | law rc=4 cmp=0 STRICT_EQUAL 236 objects md5=6e937483 | OFF same | R11U416_DEFGENCONNSEL_OFF same
+GC/gc01_initial_begin | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6f0237bf | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=9dabb731 | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc02_always_named_begin | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7c8ef21c | law rc=0 cmp=0 STRICT_EQUAL 36 objects md5=e6bb5f6e | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc03_unnamed_block | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=869b812d | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=09153167 | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc04_block_local | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=87ba6f9e | law rc=0 cmp=0 STRICT_EQUAL 64 objects md5=ac47c727 | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc05_ctl_genif | pristine rc=0 cmp=0 STRICT_EQUAL 33 objects md5=34c2134f | law rc=0 cmp=0 STRICT_EQUAL 33 objects md5=34c2134f | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc06_ctl_named_item | pristine rc=0 cmp=0 STRICT_EQUAL 34 objects md5=92796e36 | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=92796e36 | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc07_ctl_genif_noblock | pristine rc=0 cmp=0 STRICT_EQUAL 32 objects md5=b9a37c3c | law rc=0 cmp=0 STRICT_EQUAL 32 objects md5=b9a37c3c | OFF same | R11U416_GENCASEPROC_OFF same
+GC/gc08_assert_else_begin | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=b0f8df02 | law rc=0 cmp=46 NOT_EQUAL stage1 md5=8498ebdf | OFF same | R11U416_GENCASEPROC_OFF same
+LD/ld01_same_file | pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=5750346c | law rc=0 cmp=0 STRICT_EQUAL 18 objects md5=a836d313 | OFF same | R11U416_LINEDIRECTIVE_OFF same
+LD/ld02_other_file | pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=fd166765 | law rc=0 cmp=0 STRICT_EQUAL 20 objects md5=70b0b18e | OFF same | R11U416_LINEDIRECTIVE_OFF same
+LD/ld03_before_module | pristine rc=0 cmp=0 STRICT_NOTEQUAL line md5=93d171a2 | law rc=0 cmp=0 STRICT_EQUAL 9 objects md5=260e52dd | OFF same | R11U416_LINEDIRECTIVE_OFF same
+LD/ld04_ctl_line_named_macro | pristine rc=0 cmp=0 STRICT_EQUAL 31 objects md5=25143809 | law rc=0 cmp=0 STRICT_EQUAL 31 objects md5=25143809 | OFF same | R11U416_LINEDIRECTIVE_OFF same
+LD/ld05_line_then_instance | pristine rc=0 cmp=0 STRICT_NOTEQUAL endline md5=eae116e6 | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=91415ab5 | OFF same | R11U416_LINEDIRECTIVE_OFF same
+PB/pb01_uvm_op_begin | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=49fae752 | law rc=0 cmp=0 STRICT_EQUAL 293 objects md5=def7ea43 | OFF same | R11U416_PASTEBLANKSTART_OFF same
+PB/pb02_paste_len_1_to_7 | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=abd9e88e | law rc=0 cmp=0 STRICT_EQUAL 249 objects md5=b23ea3de | OFF same | R11U416_PASTEBLANKSTART_OFF same
+PB/pb03_ctl_negative_shift | pristine rc=0 cmp=0 STRICT_EQUAL 89 objects md5=2fac019d | law rc=0 cmp=0 STRICT_EQUAL 89 objects md5=2fac019d | OFF same | R11U416_PASTEBLANKSTART_OFF same
+PB/pb04_ctl_select_run_then_assign | pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=51662cd5 | law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=51662cd5 | OFF same | R11U416_PASTEBLANKSTART_OFF same
+PB/pb05_long_paste_over_begin | pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bda17489 | law rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=bda17489 | OFF same | R11U416_PASTEBLANKSTART_OFF same
+PB/pb06_multiline_case_label | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=2523859a | law rc=0 cmp=0 STRICT_EQUAL 129 objects md5=fe91b81d | OFF same | R11U416_PASTEBLANKSTART_OFF same
+UO/uo01_import_then_function | pristine rc=0 cmp=0 STRICT_NOTEQUAL name md5=8ffb35d6 | law rc=0 cmp=0 STRICT_EQUAL 81 objects md5=33659513 | OFF same | R11U416_UNITTFORDER_OFF same
+UO/uo02_ctl_function_then_import | pristine rc=0 cmp=0 STRICT_EQUAL 76 objects md5=f9367788 | law rc=0 cmp=0 STRICT_EQUAL 76 objects md5=f9367788 | OFF same | R11U416_UNITTFORDER_OFF same
+UO/uo03_import_function_task | pristine rc=0 cmp=0 STRICT_NOTEQUAL name md5=17dac9d8 | law rc=0 cmp=0 STRICT_EQUAL 70 objects md5=7adf7f03 | OFF same | R11U416_UNITTFORDER_OFF same
+UO/uo04_randomize_with | pristine rc=0 cmp=0 STRICT_NOTEQUAL name md5=ca20eebe | law rc=0 cmp=0 STRICT_EQUAL 92 objects md5=598fef7c | OFF same | R11U416_UNITTFORDER_OFF same
+UO/uo05_two_imports_between | pristine rc=0 cmp=0 STRICT_NOTEQUAL name md5=99a94621 | law rc=0 cmp=0 STRICT_EQUAL 136 objects md5=f681ca1b | OFF same | R11U416_UNITTFORDER_OFF same

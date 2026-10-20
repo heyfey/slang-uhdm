@@ -1,0 +1,46 @@
+# R11U416_TRACE census of the law sweep (law, same/MOVED for the paste law, stage)
+     37 defGenConnSelAtIndex416 - svtests
+      2 genCaseItemProcNoFull416 - downstream
+      1 genCaseItemProcNoFull416 - svtests
+      4 genCaseItemProcNoFull416 - uhdm2rtlil
+      2 lineDirectiveIgnored416 - svtests
+    332 pasteBlankLedStartWritten416 MOVED svtests
+     63 pasteBlankLedStartWritten416 same surelog
+   1874 pasteBlankLedStartWritten416 same svtests
+     18 pasteBlankLedStartWritten416 same uhdm2rtlil
+      4 unitImportTfSourceOrder416 - svtests
+
+# rows per non-paste law
+downstream/size_cast_param ::       2 genCaseItemProcNoFull416
+svtests/work/chapter-18/18.7.1--local-scope-resolution_1 ::       1 unitImportTfSourceOrder416
+svtests/work/chapter-18/18.7--in-line-constraints--randomize_4 ::       1 unitImportTfSourceOrder416
+svtests/work/chapter-18/18.7--in-line-constraints--randomize_6 ::       1 unitImportTfSourceOrder416
+svtests/work/chapter-5/5.6.4--compiler-directives-debug-line ::       2 lineDirectiveIgnored416
+svtests/work/generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link ::       2 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_out ::       1 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_phy ::       8 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_downstream ::       2 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_upstream ::       2 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_locking_o_by_i ::       1 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative ::       8 defGenConnSelAtIndex416
+svtests/work/generated/basejump/bsg_misc_BaseJumpSTL_bsg_lfsr ::       1 genCaseItemProcNoFull416
+svtests/work/generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router ::       1 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_default ::       2 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_multicore_1 ::       2 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_multicore_1_cce_ucode ::       2 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_multicore_4 ::       2 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_multicore_4_cce_ucode_cfg ::       2 defGenConnSelAtIndex416
+svtests/work/generated/black-parrot/bp_unicore ::       2 defGenConnSelAtIndex416
+svtests/work/generated/rsd/rsd ::       1 unitImportTfSourceOrder416
+uhdm2rtlil/default/size_cast_param-c4a5b263 ::       2 genCaseItemProcNoFull416
+uhdm2rtlil/testflags/size_cast_param-c4a5b263 ::       2 genCaseItemProcNoFull416
+
+# paste law MOVED positions by final sv-tests status
+     68 DIFFERENT 804:36->804:37
+     68 DIFFERENT 804:36->804:39
+     10 DIFFERENT 804:43->804:44
+     10 DIFFERENT 804:43->804:46
+     83 EQUAL 804:36->804:37
+     83 EQUAL 804:36->804:39
+      5 SLANG_ONLY 804:36->804:37
+      5 SLANG_ONLY 804:36->804:39
