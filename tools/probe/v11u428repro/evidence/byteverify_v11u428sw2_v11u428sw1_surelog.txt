@@ -1,0 +1,4 @@
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged

@@ -427,6 +427,13 @@ static void regTdArrElabNetPush251(UHDM::VectorOfnet* nets,
     lawTrace(251, "regTdArrElabIsNet251", std::string(av->VpiFullName()));
 }
 
+// § caAnySysCallLhsTs428 — the net-declaration stamps the drain
+// (UhdmExporter.cpp) resolves from the declared net, never from a port of the
+// same name: a non-ANSI port redeclared by `wire [64:1] net_r = ...;` keeps the
+// port's typespec at the port (golden p599: the call's actual 4:1-4:12, the
+// port's 2:8-2:14).
+std::set<const UHDM::ref_typespec*> g428NdaSysTs;
+
 static bool r191ME(const char* sw) {
     if (envSet("R11U191_OFF") || envSet("R11U196_OFF"))
         return false;
@@ -46667,13 +46674,25 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 if (qryDecl217)
                     lawTrace(217, "ndaQueryFoldsNoStamp217v",
                           std::string(it.sym->name) + " " + nm212);
-                if (!qryDecl217 && (cast212 ||
+                // § caAnySysCallLhsTs428 — the net-declaration half: every
+                // whole-initializer system call (`wire [64:1] net_r =
+                // $realtobits(r);`, sv-tests hdlconvertor_std2017_p599.sv).
+                bool any428n = sys212 && !qryDecl217 &&
+                               !(nm212 == "$signed" || nm212 == "$unsigned" ||
+                                 nm212 == "$bits" || nm212 == "$clog2" || qry212) &&
+                               lawOn(428, "R11U428_ANYSYSTS_OFF");
+                if (any428n)
+                    lawTrace(428, "caAnySysCallLhsTs428",
+                             "nda " + std::string(it.sym->name) + " " + nm212);
+                if (!qryDecl217 && (cast212 || any428n ||
                     (sys212 && (nm212 == "$signed" || nm212 == "$unsigned" ||
                                 nm212 == "$bits" || nm212 == "$clog2" || qry212)))) {
                     auto* rt = s.MakeRef_typespec();
                     rt->VpiFullName(prefix);
                     rt->VpiParent(rhs);
                     ((UHDM::expr*)rhs)->Typespec(rt);
+                    if (any428n)
+                        g428NdaSysTs.insert(rt);
                     pendingSysFuncTs.push_back({rt, defInfo->mod, it.sym, qry212});
                     trace212("ndaSysCallNetTs212", std::string(it.sym->name) + " " + nm212);
                 }
@@ -46921,7 +46940,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         const bool lawLhsTsLate271 =
             lawOnly271 && mnet->Typespec() && !mnet->Typespec()->Actual_typespec() &&
             lawFixOn(271, "R11V271_LAWLHSTS_OFF");
-        if (isLiteralExpr(stripImplicitConv(ncInit)) || containsOperation(ncInit) ||
+        // § ndaWholeSysCallSharesLhs428 (r11u428) — A NET-DECLARATION
+        // ASSIGNMENT WHOSE WHOLE INITIALIZER IS A SYSTEM CALL OF PLAIN NAMES
+        // KEEPS THE LISTED NET AS ITS LEFT SIDE.  writeCont_assign stamps the
+        // call (§ caAnySysCallLhsTs428) and clones the cell only when
+        // reduceExpr turns the call into a constant; `$realtobits(r)`,
+        // `$countones(x)` over a net or variable stay calls, so golden's Lhs
+        // is the module's own net (p599 `wire [64:1] net_r =
+        // $realtobits(r);`, cases SC sc01 sc06), where ours took the fresh
+        // net the recompiled-operation rule gives.  Switch
+        // R11U428_NDASYSSHARE_OFF.
+        bool share428 = false;
+        if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call &&
+            ((UHDM::expr*)rhs)->Typespec()) {
+            auto& w428 = stripImplicitConv(ncInit);
+            if (w428.kind == ExpressionKind::Call &&
+                w428.as<CallExpression>().isSystemCall()) {
+                bool plain428 = true;
+                for (auto* a428 : w428.as<CallExpression>().arguments()) {
+                    if (!a428 || stripImplicitConv(*a428).kind != ExpressionKind::NamedValue) {
+                        plain428 = false;
+                        continue;
+                    }
+                    auto sk428 = stripImplicitConv(*a428).as<NamedValueExpression>().symbol.kind;
+                    if (sk428 != SymbolKind::Net && sk428 != SymbolKind::Variable)
+                        plain428 = false;  // a parameter folds: Surelog clones
+                }
+                auto n428 = w428.as<CallExpression>().getSubroutineName();
+                // only the calls § caAnySysCallLhsTs428 stamps: the listed
+                // names keep their own sharing rules (`$bits`, `$clog2` and
+                // the range queries reduce in the instance and clone)
+                if (n428 == "$signed" || n428 == "$unsigned" || n428 == "$bits" ||
+                    n428 == "$clog2" || n428 == "$fell" || n428 == "$rose" ||
+                    n428 == "$stable" || n428 == "$past" || n428 == "$high" ||
+                    n428 == "$low" || n428 == "$left" || n428 == "$right" || n428 == "$size")
+                    plain428 = false;
+                if (plain428 && !n428.empty() && n428[0] == '$' &&
+                    lawOn(428, "R11U428_NDASYSSHARE_OFF")) {
+                    share428 = true;
+                    lawTrace(428, "ndaWholeSysCallSharesLhs428",
+                             prefix + "." + std::string(it.sym->name) + " " + std::string(n428));
+                }
+            }
+        }
+        if (isLiteralExpr(stripImplicitConv(ncInit)) ||
+            (containsOperation(ncInit) && !share428) ||
             (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant) || constRhs271) {
             bool isStructNet =
                 nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
@@ -47029,6 +47092,45 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
                     q->kind == syntax::SyntaxKind::ProgramDeclaration)
                     break;
+            }
+            // § uninstDefGenRegionCaUnlisted428 (r11u428) — A CONTINUOUS
+            // ASSIGNMENT WRITTEN INSIDE AN EXPLICIT `generate ... endgenerate`
+            // REGION OF A MODULE NOBODY INSTANTIATES IS NOT ONE OF ITS
+            // MODULE-LEVEL ASSIGNMENTS.  CompileModule's definition walk stops
+            // at a Generate_region (its stop points, CompileModule.cpp: the
+            // region is descended only by the GENERATE_REGIONS collection an
+            // instance's elaboration runs), so the definition of a module no
+            // instance reaches lists no cont_assign for it; the region itself
+            // is compiled once through compileGenStmt, whose begin holds the
+            // region's FIRST item only.  An instantiated module keeps the
+            // assignment at module level (the elaboration collected it).
+            // sv-tests generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv
+            // (`assign o = remainder[iters_p][...]` after the region's genvar
+            // and for loop, uhdm-cmp head at the definition's cont_assign
+            // list); cases GR.  Modules only.  Switch R11U428_UNINSTGRCA_OFF.
+            // § uninstGrCaExplicitTopOnly428v (v11u428) — only under an
+            // explicit --top: with none, Surelog elaborates EVERY uninstantiated
+            // module as a top (a default-less parameter included, which slang
+            // leaves to a definition-only listing), and that elaboration
+            // collects the region's assignment at module level, so golden
+            // keeps it (v11u428 case VG/vg09, no --top, `module m #(parameter
+            // W)`: two module-level cont_assigns at 7:12 in golden, the law
+            // dropped them, sorted-dump distance 350 -> 370).  Switch
+            // R11V428_GRCATOP_OFF.
+            bool noTop428v = comp.getOptions().topModules.empty() &&
+                             fixOn(428, "R11V428_GRCATOP_OFF");
+            if (inGenRegion && !topView && m && noTop428v &&
+                m->UhdmType() == UHDM::uhdmmodule_inst &&
+                defOnlyDefs.count(&body.getDefinition()) && lawOn(428, "R11U428_UNINSTGRCA_OFF"))
+                lawTrace(428, "uninstGrCaExplicitTopOnly428v",
+                         prefix + " " + std::to_string(sm->getLineNumber(member.location)));
+            if (inGenRegion && !topView && m && !noTop428v &&
+                m->UhdmType() == UHDM::uhdmmodule_inst &&
+                defOnlyDefs.count(&body.getDefinition()) &&
+                lawOn(428, "R11U428_UNINSTGRCA_OFF")) {
+                lawTrace(428, "uninstDefGenRegionCaUnlisted428",
+                         prefix + " " + std::to_string(sm->getLineNumber(member.location)));
+                continue;
             }
             (inGenRegion ? genRegionCas : caOrder).push_back(&member);
         }
@@ -49031,6 +49133,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // cont_assign stays in the serializer: traced).
             lawTrace(225, "ifArrElemLitCaFresh225", "nolhs " + prefix);
         }
+        // § caWholeSysCallSharesDefCell428 (r11u428) — the written half of
+        // § ndaWholeSysCallSharesLhs428: an `assign y = $countones(x);` whose
+        // whole right side is a system call of plain names stays a call in
+        // writeCont_assign (stamped, not reduced, not cloned), so an
+        // elaborated instance lists the DEFINITION's cell, its references
+        // named through the definition (golden sc07 work@m.x under
+        // work@top.u), where the recompiled-operation rule gave a fresh one.
+        // Only when the definition's cell carries the stamp.  Switch
+        // R11U428_CASYSSHARE_OFF.
+        bool share428w = false;
+        if (topView && shareWithDef && plainLhs && defInfo &&
+            myIdx < defInfo->contAssigns.size() && defInfo->contAssigns[myIdx]) {
+            auto* dc428 = defInfo->contAssigns[myIdx];
+            auto& w428 = stripImplicitConv(ae.right());
+            if (dc428->Rhs() && dc428->Rhs()->UhdmType() == UHDM::uhdmsys_func_call &&
+                ((const UHDM::expr*)dc428->Rhs())->Typespec() &&
+                w428.kind == ExpressionKind::Call &&
+                w428.as<CallExpression>().isSystemCall()) {
+                bool plain428 = true;
+                for (auto* a428 : w428.as<CallExpression>().arguments()) {
+                    if (!a428 || stripImplicitConv(*a428).kind != ExpressionKind::NamedValue) {
+                        plain428 = false;
+                        continue;
+                    }
+                    auto sk428 = stripImplicitConv(*a428).as<NamedValueExpression>().symbol.kind;
+                    if (sk428 != SymbolKind::Net && sk428 != SymbolKind::Variable)
+                        plain428 = false;  // a parameter folds: Surelog clones
+                }
+                auto n428 = w428.as<CallExpression>().getSubroutineName();
+                // only the calls § caAnySysCallLhsTs428 stamps: the listed
+                // names keep their own sharing rules (`$bits`, `$clog2` and
+                // the range queries reduce in the instance and clone)
+                if (n428 == "$signed" || n428 == "$unsigned" || n428 == "$bits" ||
+                    n428 == "$clog2" || n428 == "$fell" || n428 == "$rose" ||
+                    n428 == "$stable" || n428 == "$past" || n428 == "$high" ||
+                    n428 == "$low" || n428 == "$left" || n428 == "$right" || n428 == "$size")
+                    plain428 = false;
+                if (plain428 && !n428.empty() && n428[0] == '$' &&
+                    lawOn(428, "R11U428_CASYSSHARE_OFF")) {
+                    share428w = true;
+                    lawTrace(428, "caWholeSysCallSharesDefCell428",
+                             prefix + " " + std::string(n428));
+                }
+            }
+        }
         const bool shareCell301 =
             shareWithDef && defInfo && myIdx < defInfo->contAssigns.size() &&
             !unbasedShareRhs && !caReuseParamConst9 && !sysFold &&
@@ -49038,7 +49185,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             ((!plainLhs && !dottedLhs && !ifaceDotFresh && !callIdxLhs && !selLitLhs &&
               !callFold && !ternFold9 && !ternArm9 && !selOpFold269) ||
              (plainLhs &&
-              !containsOperation(ae.right()) && !literalRhs && !enumRhs && !cfr &&
+              (!containsOperation(ae.right()) || share428w) && !literalRhs && !enumRhs && !cfr &&
               !callFold && !ovParamRhs && !typedParamRhs && !constVarRhs &&
               !pkgParamSel && !unpackedParamSel && !noDefOvRhs &&
               !paramPartSelRhs && !structParamSetter));
@@ -52329,9 +52476,24 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // then leaves the ref unresolved instead of synthesizing one.
                 bool qry9 = nm == "$high" || nm == "$low" || nm == "$left" ||
                             nm == "$right" || nm == "$size";
+                // § caAnySysCallLhsTs428 (r11u428) — Surelog's
+                // writeCont_assign stamps EVERY system call that is the whole
+                // right side and carries no typespec (its `simplified ==
+                // false` branch is name-blind: a ref_typespec on the call whose
+                // actual is the left side's typespec), not only the names
+                // listed here: golden `assign y = $countones(x);`,
+                // `$onehot0`, `$rtoi`, `$realtobits` all carry
+                // `ref_typespec (work@<mod>)` (cases SC).  Switch
+                // R11U428_ANYSYSTS_OFF.
+                bool any428 = !(nm == "$signed" || nm == "$unsigned" || nm == "$bits" ||
+                                nm == "$clog2" || nm == "$fell" || nm == "$rose" ||
+                                nm == "$stable" || nm == "$past" || qry9) &&
+                              lawOn(428, "R11U428_ANYSYSTS_OFF");
+                if (any428)
+                    lawTrace(428, "caAnySysCallLhsTs428", prefix + " " + std::string(nm));
                 if (nm == "$signed" || nm == "$unsigned" || nm == "$bits" ||
                     nm == "$clog2" || nm == "$fell" || nm == "$rose" ||
-                    nm == "$stable" || nm == "$past" || qry9) {
+                    nm == "$stable" || nm == "$past" || qry9 || any428) {
                     auto& le = stripImplicitConv(ae.left());
                     if (le.kind == ExpressionKind::NamedValue) {
                         // An IMPLICIT-net LHS carries no typespec of its own,

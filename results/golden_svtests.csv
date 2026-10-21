@@ -904,7 +904,7 @@ generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma_to_wormhole.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_miss.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking.sv,EQUAL,,equal
-generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_decode.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_dma.sv,EQUAL,,equal
 generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_mhu.sv,EQUAL,,equal
@@ -1148,7 +1148,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool_with_reserve.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative_controller.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_unsigned_recip.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_imul_iterative.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_inv.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_less_than.sv,EQUAL,,equal
@@ -1227,7 +1227,7 @@ generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master.sv,EQUAL,,equal
 generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master_decentralized.sv,EQUAL,,equal
 generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,DIFFERENT,decompile:,
-generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv:10:8: error: design element does not have a time scale d,
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen_plusarg.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_delay_line.sv,EQUAL,,equal
@@ -1429,7 +1429,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p469.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p475.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p482.sv,SLANG_ONLY,[  ERROR] : 3,
 generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p490.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p490.sv:7:51: error: use of undeclared identifier 'p',
 generated/hdlconv_std2017/hdlconvertor_std2017_p491.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p493.sv,EQUAL,,equal
@@ -1453,7 +1453,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p541.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p577.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p597.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
 generated/hdlconv_std2017/hdlconvertor_std2017_p608.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p612.sv,SURELOG_CRASH,,
@@ -1484,7 +1484,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p759.sv,BOTH_REJECT,/home/heyfey/
 generated/hdlconv_std2017/hdlconvertor_std2017_p760.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p760.sv:6:24: error: top-level module 'dtype' has unconnected interface por,
 generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p766.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,SLANG_ONLY,[  ERROR] : 6,
@@ -2333,11 +2333,11 @@ generic/typedef/typedef_test_8__bad.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tes
 generic/typedef/typedef_test_9.sv,EQUAL,,equal
 generic/union/union_test_0.sv,EQUAL,,equal
 sanity.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,
-testbenches/uvm_agent_active.sv,DIFFERENT,decompile:,
+testbenches/uvm_agent_active.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 testbenches/uvm_agent_env.sv,EQUAL,,equal
-testbenches/uvm_agent_passive.sv,DIFFERENT,decompile:,
-testbenches/uvm_driver_sequencer_env.sv,DIFFERENT,decompile:,
-testbenches/uvm_monitor_env.sv,DIFFERENT,decompile:,
+testbenches/uvm_agent_passive.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+testbenches/uvm_driver_sequencer_env.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+testbenches/uvm_monitor_env.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 testbenches/uvm_resource_db_read_by_name.sv,EQUAL,,equal
 testbenches/uvm_scoreboard_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_scoreboard_monitor_agent_env.sv,DIFFERENT,decompile:,

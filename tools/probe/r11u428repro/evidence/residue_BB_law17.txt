@@ -1,0 +1,6 @@
+r11u428repro_evidence_residue_cases_BB_bb01 rc=0 cmp=0 STRICT_EQUAL 65 objects md5=b7b7072c
+r11u428repro_evidence_residue_cases_BB_bb02 rc=0 cmp=42 NOT_EQUAL stage1 md5=c04af626
+r11u428repro_evidence_residue_cases_BB_bb03 rc=0 cmp=42 NOT_EQUAL stage1 md5=b783f3a3
+r11u428repro_evidence_residue_cases_BB_bb04 rc=0 cmp=42 NOT_EQUAL stage1 md5=cc042087
+r11u428repro_evidence_residue_cases_BB_bb05 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=5e06f788
+r11u428repro_evidence_residue_cases_BB_bb06 rc=0 cmp=42 NOT_EQUAL stage1 md5=756cdd95

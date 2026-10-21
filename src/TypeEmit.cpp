@@ -19,6 +19,7 @@
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+extern bool g428ClsLocalSpec;  // § clsMethodLocalForeignPkgSpec428 (defined below)
 // § elabMisevalSpliceRefChain290 (r11u290, Scr1SvTests d/t scr1_pipe_tdu
 // `logic [MTRIG_NUM-1:0] csr_addr_mcontrol`) — a reference inside a tree
 // § elabVarRangeMisevalSubst splices into an elaborated var/net range stores
@@ -4393,6 +4394,106 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                 }
                 foreignPkgHome163 = genPkg163 && genPkg163 != declPkg163;
             }
+            // § clsMethodLocalForeignPkgSpec428 (r11u428) — § 163's
+            // residue R2 measured: a CLASS-METHOD BODY LOCAL written as a
+            // specialization of a package generic keeps its vpiParameter /
+            // vpiParamAssign when the method's class is not homed in that
+            // package.  The declaring component is the ClassDefinition and its
+            // parent scope its container (CompileClass.cpp), so for a class
+            // declared at $unit or in a module the three probes
+            // (CompileType.cpp `compileTypespec`) all miss
+            // `uvm_pkg::uvm_resource` and compileDatastructureTypespec lists
+            // the specialization; a class of the generic's own package hits
+            // the third probe and stays bare.  Golden testbenches/
+            // uvm_agent_active.sv: `uvm_resource#(uvm_integral_t)
+            // __tmp_rsrc__;` (the uvm_field_* macro body at 43:3) in
+            // work@packet_in::__m_uvm_execute_field_op lists T =
+            // uvm_integral_t and its param_assign (uhdm-cmp head of the 4
+            // testbenches rows); cases CL.  Switch R11U428_CLSLOCALSPEC_OFF.
+            bool clsLocal428 = false;
+            if (pkgGenericListing53 && !propSite163 && nested0 && inClassBody0 &&
+                declSymbol.kind != SymbolKind::FormalArgument &&
+                (siteKind53 == SymbolKind::Subroutine ||
+                 siteKind53 == SymbolKind::StatementBlock) &&
+                !isBuiltinStdClass(ct0) && lawOn(428, "R11U428_CLSLOCALSPEC_OFF")) {
+                auto& cls428 = ct0.as<ClassType>();
+                // a SPECIALIZATION only: a plain package class has no listing
+                const Symbol* g428 = cls428.genericClass;
+                const Symbol* gp428 =
+                    g428 && g428->getParentScope() ? &g428->getParentScope()->asSymbol()
+                                                   : nullptr;
+                const Symbol* hp428 = nullptr;
+                for (auto sc428 = declSymbol.getParentScope(); sc428;
+                     sc428 = sc428->asSymbol().getParentScope()) {
+                    auto k428 = sc428->asSymbol().kind;
+                    if (k428 == SymbolKind::Package) {
+                        hp428 = &sc428->asSymbol();
+                        break;
+                    }
+                    if (k428 != SymbolKind::Subroutine &&
+                        k428 != SymbolKind::StatementBlock &&
+                        k428 != SymbolKind::ClassType)
+                        break;
+                }
+                // ...and a class homed in ANOTHER package only when that
+                // package is compiled after the generic's: Surelog compiles
+                // packages in NAME order, and a method of a package compiled
+                // first finds no class definition yet and takes the bare
+                // typespec (probe r10sd1repro b27, `pb` before `rp`: no
+                // listing; `q` after `p`: the listing; cases CL cl06, cl07).
+                // § clsLocalTypeParamArgBare428v (v11u428) — a specialization
+                // whose argument names a TYPE PARAMETER of the enclosing class
+                // (`box #(U) b;` in a method of `class B #(type U = int)`)
+                // stays bare in golden: Surelog compiles the generic class's
+                // method once with U unresolved and lists nothing, where slang
+                // elaborates the method in each specialization (v11u428 cases
+                // VK/vk15, vk21, vk22: STRICT_EQUAL and judge-equal on pristine,
+                // NOT_EQUAL under the law; a value parameter `logic [N-1:0]`,
+                // vk20, and `box #(int)` in a generic class, vk19, keep the
+                // listing).  Switch R11V428_TPARGBARE_OFF.
+                bool tpArg428v = false;
+                if (gp428 && declared && declared->getTypeSyntax() &&
+                    fixOn(428, "R11V428_TPARGBARE_OFF")) {
+                    const Scope* lsc428 = declSymbol.getParentScope();
+                    std::function<void(const syntax::SyntaxNode&)> scan428 =
+                        [&](const syntax::SyntaxNode& n) {
+                            if (tpArg428v)
+                                return;
+                            if (n.kind == syntax::SyntaxKind::IdentifierName && lsc428) {
+                                auto nm = n.as<syntax::IdentifierNameSyntax>()
+                                              .identifier.valueText();
+                                // slang resolves a class type parameter's
+                                // name to the TypeAliasType it owns, in the
+                                // specialization's ClassType scope
+                                if (auto* hit = lsc428->lookupName(nm);
+                                    hit && (hit->kind == SymbolKind::TypeParameter ||
+                                            hit->kind == SymbolKind::TypeAlias) &&
+                                    hit->getParentScope() &&
+                                    hit->getParentScope()->asSymbol().kind ==
+                                        SymbolKind::ClassType)
+                                    for (auto& tp : hit->getParentScope()
+                                                        ->membersOfType<TypeParameterSymbol>())
+                                        if (tp.name == nm)
+                                            tpArg428v = true;
+                                return;
+                            }
+                            for (size_t i = 0; i < n.getChildCount(); i++)
+                                if (auto* c = n.childNode(i))
+                                    scan428(*c);
+                        };
+                    scan428(*declared->getTypeSyntax());
+                    if (tpArg428v)
+                        lawTrace(428, "clsLocalTypeParamArgBare428v",
+                                 std::string(declSymbol.name) + " " + std::string(ct0.name));
+                }
+                if (gp428 && hp428 != gp428 && !tpArg428v &&
+                    (!hp428 || std::string_view(hp428->name) > std::string_view(gp428->name))) {
+                    foreignPkgHome163 = true;
+                    clsLocal428 = true;
+                    lawTrace(428, "clsMethodLocalForeignPkgSpec428",
+                             std::string(declSymbol.name) + " " + std::string(ct0.name));
+                }
+            }
             // § modGenericHandleBare196 (r11u196, R11U196_MODGENHANDLE_OFF) —
             // a handle of a parameterized class declared in a MODULE, PROGRAM
             // or INTERFACE body takes the listing shape wherever it is
@@ -4564,10 +4665,15 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                         }
                 // NOTE § classPkgGenericSpecListing53 — the SUPPRESS half.
                 if (writtenSpec0 && !suppressParams163 && !modPkgSpec202 && !builtinMbx412) {
-                    if (foreignPkgHome163)
+                    if (foreignPkgHome163) {
+                        // § clsMethodLocalForeignPkgSpec428 — the builder
+                        // clones a package-typedef argument for this site.
+                        g428ClsLocalSpec = clsLocal428;
                         emitClassPropSpecParams163(cts, ct0.as<ClassType>(),
                                                    declared->getTypeSyntax(),
                                                    declSymbol.getParentScope());
+                        g428ClsLocalSpec = false;
+                    }
                     else {
                         emitClassTsParams(cts, ct0.as<ClassType>(),
                                           std::string(ct0.name));
@@ -23751,6 +23857,59 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
     }
 }
 
+// § clsMethodLocalForeignPkgSpec428 — set around emitClassPropSpecParams163
+// (UhdmExporter.cpp) for a class-method local's specialization.
+bool g428ClsLocalSpec = false;
+
+// § hpMacroSelDispExpanded428 (r11u428) — the display spelling of a dotted
+// path whose select holds a MACRO USE written outside the macro, rebuilt from
+// the expanded syntax the way Surelog's decompile re-lexes it: parentheses
+// dropped, binary operators and the conditional's `?` and `:` spaced, a range
+// select's `:`, `+:` and `-:` not.  Used only when some token of the path
+// comes from a macro expansion (the source text then reads the macro call).
+static bool synHasMacroTok428(const syntax::SyntaxNode& n, const slang::SourceManager& sm) {
+    for (size_t i = 0; i < n.getChildCount(); i++) {
+        if (auto* c = n.childNode(i)) {
+            if (synHasMacroTok428(*c, sm))
+                return true;
+        }
+        else if (auto t = n.childToken(i)) {
+            if (sm.isMacroLoc(t.location()))
+                return true;
+        }
+    }
+    return false;
+}
+static std::string synDisp428(const syntax::SyntaxNode& n) {
+    using SK = syntax::SyntaxKind;
+    if (n.kind == SK::ParenthesizedExpression)
+        return synDisp428(*n.as<syntax::ParenthesizedExpressionSyntax>().expression);
+    if (syntax::BinaryExpressionSyntax::isKind(n.kind)) {
+        auto& be = n.as<syntax::BinaryExpressionSyntax>();
+        return synDisp428(*be.left) + " " + std::string(be.operatorToken.rawText()) + " " +
+               synDisp428(*be.right);
+    }
+    if (n.kind == SK::ConditionalExpression) {
+        auto& ce = n.as<syntax::ConditionalExpressionSyntax>();
+        std::string p;
+        for (auto* c : ce.predicate->conditions)
+            p += synDisp428(*c->expr);
+        return p + " ? " + synDisp428(*ce.left) + " : " + synDisp428(*ce.right);
+    }
+    std::string out;
+    for (size_t i = 0; i < n.getChildCount(); i++) {
+        if (auto* c = n.childNode(i))
+            out += synDisp428(*c);
+        else if (auto t = n.childToken(i)) {
+            if (t.kind == parsing::TokenKind::OpenParenthesis ||
+                t.kind == parsing::TokenKind::CloseParenthesis)
+                continue;
+            out += t.rawText();
+        }
+    }
+    return out;
+}
+
 // Maps binary expression syntax kinds to vpi op codes (range-bound exprs).
 static int32_t mapSyntaxUnaryOp(syntax::SyntaxKind k) {
     switch (k) {
@@ -23831,6 +23990,28 @@ static int32_t mapSyntaxBinOp(syntax::SyntaxKind k) {
             return vpiBitOrOp;
         case syntax::SyntaxKind::BinaryXorExpression:
             return vpiBitXorOp;
+        // § synCaseEqXnorOps428 (r11u428) — the case equality operators and
+        // the binary xnor, written in a syntax-built expression (a
+        // definition-view generate block's continuous assignment, a range
+        // bound): without them the whole operand vanished, where Surelog's
+        // compileExpression writes vpiCaseEqOp (16), vpiCaseNeqOp (17) and
+        // vpiBitXnorOp (31) like any binary operation.  sv-tests
+        // generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv
+        // (`(ram[rd_ram_idx][i] === 1'bx) ? ...` in a generate-for, the
+        // ternary's condition missing; uhdm-cmp head at the operation
+        // 201:29); cases CE.  Switch R11U428_SYNCASEEQ_OFF.
+        case syntax::SyntaxKind::CaseEqualityExpression:
+        case syntax::SyntaxKind::CaseInequalityExpression:
+        case syntax::SyntaxKind::BinaryXnorExpression:
+            if (!lawOn(428, "R11U428_SYNCASEEQ_OFF"))
+                return 0;
+            lawTrace(428, "synCaseEqXnorOps428",
+                     k == syntax::SyntaxKind::CaseEqualityExpression     ? "==="
+                     : k == syntax::SyntaxKind::CaseInequalityExpression ? "!=="
+                                                                         : "~^");
+            return k == syntax::SyntaxKind::CaseEqualityExpression     ? vpiCaseEqOp
+                   : k == syntax::SyntaxKind::CaseInequalityExpression ? vpiCaseNeqOp
+                                                                       : vpiBitXnorOp;
         default:
             return 0;
     }
@@ -24938,6 +25119,22 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
             char base = basePos < raw.size() ? (char)tolower(raw[basePos]) : 'd';
             std::string digits = basePos + 1 <= raw.size() ? raw.substr(basePos + 1) : "";
             digits.erase(std::remove(digits.begin(), digits.end(), '_'), digits.end());
+            // § synOneBitXUpper428 (r11u428) — the expression emitter's quirk
+            // (a 1-bit `1'bx` formats uppercase in its decompile and value,
+            // ExprEmit's IntegerVectorExpression branch) holds for a literal
+            // built from syntax too: golden `1'bX` / `BIN:X` in a
+            // definition-view generate block's `=== 1'bx` (sv-tests
+            // bsg_nonsynth_axi_mem 201:53; cases CE).  Switch
+            // R11U428_SYNONEBITX_OFF.
+            if (sz == 1 && base == 'b' && digits.size() == 1 &&
+                (digits[0] == 'x' || digits[0] == 'X') && !raw.empty() &&
+                lawOn(428, "R11U428_SYNONEBITX_OFF")) {
+                digits = "X";
+                std::string dec428 = raw;
+                dec428.back() = 'X';
+                c->VpiDecompile(dec428);
+                lawTrace(428, "synOneBitXUpper428", raw);
+            }
             switch (base) {
                 case 'h':
                     c->VpiValue("HEX:" + digits);
@@ -26549,10 +26746,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         o += c9;
                 return o;
             };
-            auto spaceOps = [](const std::string& t) {
+            // § hpDispPowerOneToken428 (r11u428) — `**` is ONE operator in
+            // the display spelling, spaced like the other binary operators:
+            // golden `data_mem_pkt.data[0+:8 * 2 ** i]` where the character
+            // loop below spaced each star, `8 * 2 *  * i` (sv-tests
+            // bsg_cache_non_blocking_data_mem 110:62).  Switch
+            // R11U428_HPPOW_OFF.
+            const bool pow428 = lawOn(428, "R11U428_HPPOW_OFF");
+            auto spaceOps = [pow428](const std::string& t) {
                 std::string o;
                 for (size_t i2 = 0; i2 < t.size(); i2++) {
                     char ch = t[i2];
+                    if (pow428 && ch == '*' && i2 + 1 < t.size() && t[i2 + 1] == '*') {
+                        if (i2 > 0 && t[i2 - 1] != ' ' && t[i2 - 1] != '[')
+                            o += ' ';
+                        o += "**";
+                        i2++;
+                        if (i2 + 1 < t.size() && t[i2 + 1] != ' ')
+                            o += ' ';
+                        lawTrace(428, "hpDispPowerOneToken428", t);
+                        continue;
+                    }
                     // `+:` / `-:` is ONE token (the indexed part-select
                     // operator), not a binary operator: Surelog's re-lex
                     // prints `read_mask[0+:4]` with no interior spaces while
@@ -26591,6 +26805,16 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 return o;
             };
             std::string dispRaw = spaceOps(stripParens9(raw));
+            bool macroDisp428 = false;
+            if (!sm->isMacroLoc(syn.sourceRange().start()) && synHasMacroTok428(syn, *sm) &&
+                lawOn(428, "R11U428_HPMACROSEL_OFF")) {
+                std::string d428 = synDisp428(syn);
+                if (!d428.empty() && d428 != dispRaw) {
+                    lawTrace(428, "hpMacroSelDispExpanded428", dispRaw + " -> " + d428);
+                    dispRaw = d428;
+                    macroDisp428 = true;
+                }
+            }
             std::vector<std::pair<std::string, size_t>> parts;
             {
                 size_t pos = 0;
@@ -27325,6 +27549,10 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 {
                     std::string pd9 = spaceOps(stripParens9(pname));
                     dottedDisp += (i == 0 ? pd9 : "." + pd9);
+                    // § hpMacroSelDispExpanded428 — the last element's full
+                    // name is the whole path's expanded display spelling.
+                    if (macroDisp428 && i + 1 == parts.size())
+                        dottedDisp = dispRaw;
                 }
                 auto lb = pname.find('[');
                 auto rb = pname.find(']');

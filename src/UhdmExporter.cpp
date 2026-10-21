@@ -23,6 +23,10 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § clsMethodLocalForeignPkgSpec428 (TypeEmit.cpp) — the class-method local site.
+extern bool g428ClsLocalSpec;
+// § caAnySysCallLhsTs428 (ModuleEmit.cpp) — net-declaration stamps resolved past the port.
+extern std::set<const UHDM::ref_typespec*> g428NdaSysTs;
 bool& classParamRhs424();  // § classParamBitsKeywordFold424 (TypeEmit.cpp)
 // § assocTdIndexShapes402 — the widened one-dimension shape (TypeEmit.cpp).
 bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
@@ -12846,6 +12850,28 @@ void UhdmExporter::emitClassPropSpecParams163(
         }
         else {
             its163 = makeTypespec(m163, tps163.targetType.getTypeSyntax());
+            // § clsMethodLocalForeignPkgSpec428 — at a class-method local a
+            // bare PACKAGE-typedef argument takes its per-use alias clone
+            // (golden `logic_typespec (uvm_integral_t)` 59:9-59:28 under
+            // `uvm_resource.T`, its vpiTypedefAlias the package's listing
+            // `uvm_pkg::uvm_integral_t`), not the listing itself.
+            if (its163 && g428ClsLocalSpec && exprArm163 &&
+                a163->kind == syntax::SyntaxKind::IdentifierName &&
+                tps163.targetType.getType().kind == SymbolKind::TypeAlias)
+                if (auto* asc428 = tps163.targetType.getType().getParentScope();
+                    asc428 && asc428->asSymbol().kind == SymbolKind::Package)
+                    if (auto* cl428 = tdVecNamedClone42(tps163.targetType.getType(),
+                                                        (const void*)cts, its163, 428)) {
+                        lawTrace(428, "clsMethodLocalForeignPkgSpec428",
+                                 "aliasclone " + std::string(cl428->VpiName()));
+                        // the alias reference is named through the
+                        // specialization: `uvm_resource.T.uvm_integral_t`
+                        if (auto* ar428 = cl428->Typedef_alias())
+                            ar428->VpiFullName(std::string(cts->VpiName()) + "." +
+                                               std::string(tps163.name) + "." +
+                                               std::string(cl428->VpiName()));
+                        its163 = cl428;
+                    }
             if (its163) {
                 its163->VpiParent(tp163);
                 if (!exprArm163)
@@ -19292,7 +19318,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     // (no tail duplicate); fall back to a fresh one for non-port LHSs.
     for (auto& p : pendingSysFuncTs) {
         UHDM::typespec* act = nullptr;
-        if (p.mod && instGetPorts(p.mod))
+        if (!g428NdaSysTs.count(p.rt) && p.mod && instGetPorts(p.mod))
             for (auto* pt : *instGetPorts(p.mod))
                 if (pt->VpiName() == p.sym->name && pt->Typespec())
                     act = pt->Typespec()->Actual_typespec();
@@ -25495,6 +25521,295 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (d420->AllModules())
                     for (auto* m : *d420->AllModules())
                         apply(m);
+                if (d420->TopModules())
+                    for (auto* m : *d420->TopModules())
+                        walk(m);
+            }
+        }
+        // § ansiLogicLeaderFollowerNet428 (r11u428) — A BARE ANSI PORT AFTER
+        // A DIRECTION-LESS `logic` PORT IS A TYPELESS NET.  In a module header
+        // `module m(input clk, logic [7:0] a, b);` the port `a` names a data
+        // type but no direction; Surelog's compileAnsiPortDeclaration takes
+        // its no-direction branch, where a `logic` (or `reg`) data type builds the
+        // port Signal with no typespec node, and the bare `b` that follows
+        // reuses the LAST port's type through `last->getTypeSpecId()`, which
+        // is empty: `b` gets the logic type, the inherited direction, no
+        // typespec and none of its own unpacked dimensions, and the
+        // elaboration writes it as a logic_net with vpiNetType 36 and no
+        // typespec (a bare port after `b` chains the same nothing).  slang
+        // gives `b` the previous port's type and variable kind, so ours wrote
+        // a logic_var (an array_net with its own dimensions) typed by a
+        // typespec at its name.  The definition listing already matched; the
+        // law rewrites each elaborated instance: the variable (or array net)
+        // leaves, a logic_net at the same span joins vpiNet after the previous
+        // port's net, and the port's low connection binds it (sv-tests
+        // generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv, uhdm-cmp
+        // head at work@m's vpiVariables in2; cases PP).  Modules only, a
+        // `logic` leader only.  Switch R11U428_LOGICFOLLOWNET_OFF.
+        if (d420 && lawOn(428, "R11U428_LOGICFOLLOWNET_OFF")) {
+            std::map<std::string, std::set<std::string>> fol428, lead428;
+            for (auto* dsym : comp.getDefinitions()) {
+                if (!dsym || dsym->kind != SymbolKind::Definition)
+                    continue;
+                auto& def = dsym->as<DefinitionSymbol>();
+                if (def.definitionKind != DefinitionKind::Module)
+                    continue;
+                auto* syn = def.getSyntax();
+                if (!syn || syn->kind != syntax::SyntaxKind::ModuleDeclaration)
+                    continue;
+                auto& md = syn->as<syntax::ModuleDeclarationSyntax>();
+                if (!md.header || !md.header->ports ||
+                    md.header->ports->kind != syntax::SyntaxKind::AnsiPortList)
+                    continue;
+                bool inherit = false, sawDir = false;
+                for (auto* pm : md.header->ports->as<syntax::AnsiPortListSyntax>().ports) {
+                    if (!pm || pm->kind != syntax::SyntaxKind::ImplicitAnsiPort) {
+                        inherit = false;
+                        continue;
+                    }
+                    auto& ip = pm->as<syntax::ImplicitAnsiPortSyntax>();
+                    bool lead = false, bare = false;
+                    if (ip.header->kind == syntax::SyntaxKind::NetPortHeader &&
+                        ip.header->as<syntax::NetPortHeaderSyntax>().direction)
+                        sawDir = true;
+                    if (ip.header->kind == syntax::SyntaxKind::VariablePortHeader) {
+                        auto& vh = ip.header->as<syntax::VariablePortHeaderSyntax>();
+                        if (vh.direction)
+                            sawDir = true;
+                        bool plain = !vh.constKeyword && !vh.direction && !vh.varKeyword;
+                        // ...only after an explicit direction earlier in the
+                        // list: with none (`module m(logic a, b);`) golden
+                        // keeps slang's variables (probe r11u112repro p01).
+                        lead = plain && sawDir &&
+                               vh.dataType->kind == syntax::SyntaxKind::LogicType;
+                        bare = plain &&
+                               vh.dataType->kind == syntax::SyntaxKind::ImplicitType &&
+                               vh.dataType->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                               !vh.dataType->as<syntax::ImplicitTypeSyntax>().signing;
+                    }
+                    if (bare && inherit)
+                        fol428["work@" + std::string(def.name)].insert(
+                            std::string(ip.declarator->name.valueText()));
+                    if (lead)
+                        lead428["work@" + std::string(def.name)].insert(
+                            std::string(ip.declarator->name.valueText()));
+                    inherit = lead || (bare && inherit);
+                }
+            }
+            if (!fol428.empty()) {
+                auto apply = [&](UHDM::module_inst* m) {
+                    auto it = fol428.find(std::string(m->VpiDefName()));
+                    if (it == fol428.end() || !m->Ports())
+                        return;
+                    // The leader's Signal has no typespec node either: no
+                    // elaborated port of the chain carries a vpiTypedef
+                    // (golden, a child instance's ports; the top's had none).
+                    auto lt = lead428.find(std::string(m->VpiDefName()));
+                    for (auto* p : *m->Ports()) {
+                        std::string pn(p->VpiName());
+                        if ((it->second.count(pn) ||
+                             (lt != lead428.end() && lt->second.count(pn))) &&
+                            p->Typespec()) {
+                            p->Typespec(nullptr);
+                            lawTrace(428, "ansiLogicLeaderFollowerNet428",
+                                     "portts " + std::string(m->VpiFullName()) + "." + pn);
+                        }
+                        if (!it->second.count(pn))
+                            continue;
+                        UHDM::any* old = nullptr;
+                        if (m->Variables())
+                            for (auto vi = m->Variables()->begin(); vi != m->Variables()->end(); ++vi)
+                                if ((*vi)->VpiName() == pn &&
+                                    (*vi)->UhdmType() == UHDM::uhdmlogic_var) {
+                                    old = *vi;
+                                    m->Variables()->erase(vi);
+                                    break;
+                                }
+                        if (!old && m->Array_nets())
+                            for (auto ai = m->Array_nets()->begin(); ai != m->Array_nets()->end(); ++ai)
+                                if ((*ai)->VpiName() == pn) {
+                                    old = *ai;
+                                    m->Array_nets()->erase(ai);
+                                    break;
+                                }
+                        if (!old) {
+                            lawTrace(428, "ansiLogicLeaderFollowerNet428",
+                                     "abstain " + std::string(m->VpiFullName()) + "." + pn);
+                            continue;
+                        }
+                        if (m->Array_nets() && m->Array_nets()->empty())
+                            m->Array_nets(nullptr);
+                        if (m->Variables() && m->Variables()->empty())
+                            m->Variables(nullptr);
+                        auto* n = s.MakeLogic_net();
+                        n->VpiName(pn);
+                        n->VpiFullName(std::string(m->VpiFullName()) + "." + pn);
+                        n->VpiParent(m);
+                        n->VpiNetType(36);
+                        n->VpiFile(std::string(old->VpiFile()));
+                        n->VpiLineNo(old->VpiLineNo());
+                        n->VpiColumnNo(old->VpiColumnNo());
+                        n->VpiEndLineNo(old->VpiEndLineNo());
+                        n->VpiEndColumnNo(old->VpiEndColumnNo());
+                        if (!m->Nets())
+                            m->Nets(s.MakeNetVec());
+                        auto* nets = m->Nets();
+                        // after the net of the nearest earlier port, else first
+                        size_t at = 0;
+                        for (auto* p2 : *m->Ports()) {
+                            if (p2 == p)
+                                break;
+                            for (size_t k = 0; k < nets->size(); k++)
+                                if ((*nets)[k]->VpiName() == p2->VpiName())
+                                    at = k + 1;
+                        }
+                        nets->insert(nets->begin() + at, n);
+                        if (auto* lc = p->Low_conn();
+                            lc && lc->UhdmType() == UHDM::uhdmref_obj)
+                            ((UHDM::ref_obj*)lc)->Actual_group(n);
+                        lawTrace(428, "ansiLogicLeaderFollowerNet428",
+                                 std::string(m->VpiFullName()) + "." + pn);
+                    }
+                };
+                std::function<void(const UHDM::any*)> walk = [&](const UHDM::any* sc) {
+                    if (!sc)
+                        return;
+                    if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                        auto* m = (UHDM::module_inst*)sc;
+                        apply(m);
+                        if (m->Modules())
+                            for (auto* k : *m->Modules())
+                                walk(k);
+                        if (m->Gen_scope_arrays())
+                            for (auto* ga : *m->Gen_scope_arrays())
+                                walk(ga);
+                    }
+                    else if (sc->UhdmType() == UHDM::uhdmgen_scope_array) {
+                        auto* ga = (const UHDM::gen_scope_array*)sc;
+                        if (ga->Gen_scopes())
+                            for (auto* g : *ga->Gen_scopes())
+                                walk(g);
+                    }
+                    else if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                        auto* g = (const UHDM::gen_scope*)sc;
+                        if (g->Modules())
+                            for (auto* k : *g->Modules())
+                                walk(k);
+                        if (g->Gen_scope_arrays())
+                            for (auto* ga : *g->Gen_scope_arrays())
+                                walk(ga);
+                    }
+                };
+                if (d420->TopModules())
+                    for (auto* m : *d420->TopModules())
+                        walk(m);
+            }
+        }
+        // § modIfaceMethodImplLastNameless428 (r11u428) — A MODULE THAT
+        // IMPLEMENTS EXPORTED INTERFACE TASKS (`task a.Read(...); ...
+        // endtask` for an interface port `a`) LISTS ONE NAMELESS TASK.
+        // Surelog compiles each such definition as a module subroutine whose
+        // name it does not keep, so the module's name-keyed task map holds
+        // one entry: the LAST definition, a task with no name, the module's
+        // full name, vpiVisibility 1, the module as parent and instance, the
+        // span from its `task` keyword to its `endtask`, no ports and no
+        // body; the definition listing and every elaborated instance list
+        // that one object in vpiTaskFunc (golden p765 `task a.Write` at
+        // 43:1-49:8 under work@memMod, work@top.mem1 and work@top.mem2).
+        // Ours listed none (sv-tests generated/hdlconv_std2017/
+        // hdlconvertor_std2017_p765.sv, uhdm-cmp head at work@memMod's
+        // vpiTaskFunc; cases IM).  A function as the last definition
+        // (golden a nameless function with its return variable) abstains,
+        // and so does a module that lists subroutines of its own.  Switch
+        // R11U428_IFCMETHODIMPL_OFF.
+        if (d420 && d420->AllModules() && lawOn(428, "R11U428_IFCMETHODIMPL_OFF")) {
+            std::map<std::string, UHDM::task*> imp428;
+            for (auto* dsym : comp.getDefinitions()) {
+                if (!dsym || dsym->kind != SymbolKind::Definition)
+                    continue;
+                auto& def = dsym->as<DefinitionSymbol>();
+                if (def.definitionKind != DefinitionKind::Module)
+                    continue;
+                auto* syn = def.getSyntax();
+                if (!syn || syn->kind != syntax::SyntaxKind::ModuleDeclaration)
+                    continue;
+                const syntax::FunctionDeclarationSyntax* last = nullptr;
+                for (auto* mem : syn->as<syntax::ModuleDeclarationSyntax>().members) {
+                    if (mem->kind != syntax::SyntaxKind::TaskDeclaration &&
+                        mem->kind != syntax::SyntaxKind::FunctionDeclaration)
+                        continue;
+                    auto& fd = mem->as<syntax::FunctionDeclarationSyntax>();
+                    auto* nm = fd.prototype->name.get();
+                    if (nm->kind == syntax::SyntaxKind::ScopedName &&
+                        nm->as<syntax::ScopedNameSyntax>().separator.kind ==
+                            parsing::TokenKind::Dot)
+                        last = &fd;
+                }
+                if (!last)
+                    continue;
+                std::string dn = "work@" + std::string(def.name);
+                if (last->kind != syntax::SyntaxKind::TaskDeclaration) {
+                    lawTrace(428, "modIfaceMethodImplLastNameless428", "abstain-function " + dn);
+                    continue;
+                }
+                UHDM::module_inst* dm = nullptr;
+                for (auto* m : *d420->AllModules())
+                    if (m->UhdmType() == UHDM::uhdmmodule_inst && m->VpiDefName() == dn)
+                        dm = (UHDM::module_inst*)m;
+                if (!dm)
+                    continue;
+                if (dm->Task_funcs() && !dm->Task_funcs()->empty()) {
+                    lawTrace(428, "modIfaceMethodImplLastNameless428", "abstain-listed " + dn);
+                    continue;
+                }
+                auto* t = s.MakeTask();
+                t->VpiFullName(dn);
+                t->VpiParent(dm);
+                t->Instance(dm);
+                t->VpiVisibility(1);
+                setLoc(t, SourceRange(last->prototype->keyword.location(),
+                                      last->end.range().end()));
+                auto* v = s.MakeTask_funcVec();
+                v->push_back(t);
+                dm->Task_funcs(v);
+                imp428[dn] = t;
+                lawTrace(428, "modIfaceMethodImplLastNameless428", dn);
+            }
+            if (!imp428.empty()) {
+                std::function<void(UHDM::any*)> walk = [&](UHDM::any* sc) {
+                    if (!sc)
+                        return;
+                    if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+                        auto* m = (UHDM::module_inst*)sc;
+                        if (auto it = imp428.find(std::string(m->VpiDefName()));
+                            it != imp428.end() && (!m->Task_funcs() || m->Task_funcs()->empty())) {
+                            auto* v = s.MakeTask_funcVec();
+                            v->push_back(it->second);
+                            m->Task_funcs(v);
+                        }
+                        if (m->Modules())
+                            for (auto* k : *m->Modules())
+                                walk(k);
+                        if (m->Gen_scope_arrays())
+                            for (auto* ga : *m->Gen_scope_arrays())
+                                walk(ga);
+                    }
+                    else if (sc->UhdmType() == UHDM::uhdmgen_scope_array) {
+                        auto* ga = (UHDM::gen_scope_array*)sc;
+                        if (ga->Gen_scopes())
+                            for (auto* g : *ga->Gen_scopes())
+                                walk(g);
+                    }
+                    else if (sc->UhdmType() == UHDM::uhdmgen_scope) {
+                        auto* g = (UHDM::gen_scope*)sc;
+                        if (g->Modules())
+                            for (auto* k : *g->Modules())
+                                walk(k);
+                        if (g->Gen_scope_arrays())
+                            for (auto* ga : *g->Gen_scope_arrays())
+                                walk(ga);
+                    }
+                };
                 if (d420->TopModules())
                     for (auto* m : *d420->TopModules())
                         walk(m);

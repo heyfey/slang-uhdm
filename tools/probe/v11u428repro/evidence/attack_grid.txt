@@ -1,0 +1,86 @@
+VE/ve01 | synCaseEqXnorOps428 | pristine rc=0 cmp=61 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=31 l=2 v=2
+VE/ve02 | synCaseEqXnorOps428 | pristine rc=0 cmp=105 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=48 l=2 v=2
+VE/ve03 | synCaseEqXnorOps428 | pristine rc=0 cmp=53 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=29 l=4 v=4
+VE/ve04 | synOneBitXUpper428 | pristine rc=0 cmp=154 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=31 l=2 v=2
+VE/ve05 | synOneBitXUpper428 | pristine rc=0 cmp=36 NOT_EQUAL stage1 | law rc=0 cmp=36 NOT_EQUAL stage1 | verified rc=0 cmp=36 NOT_EQUAL stage1 | p=14 l=12 v=12
+VE/ve06 | synOneBitXUpper428 | pristine rc=0 cmp=168 NOT_EQUAL stage1 | law rc=0 cmp=50 NOT_EQUAL stage1 | verified rc=0 cmp=50 NOT_EQUAL stage1 | p=52 l=31 v=31
+VF/vf01 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=914 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=76 l=4 v=4
+VF/vf02 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=650 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=18 l=2 v=2
+VF/vf03 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=750 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=64 l=2 v=2
+VF/vf04 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=962 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=238 l=6 v=6
+VF/vf05 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=806 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=150 l=6 v=6
+VF/vf06 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=766 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=76 l=4 v=4
+VF/vf07 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=566 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=18 l=2 v=2
+VF/vf08 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=626 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1 | verified rc=0 cmp=62 NOT_EQUAL stage1 | p=20 l=3 v=3
+VF/vf09 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=686 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=18 l=2 v=2
+VF/vf10 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=28 NOT_EQUAL stage1 | verified rc=0 cmp=28 NOT_EQUAL stage1 | p=38 l=38 v=38
+VF/vf11 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=934 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=150 l=6 v=6
+VF/vf12 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=2 l=2 v=2
+VF/vf13 | ansiLogicLeaderFollowerNet428 | pristine rc=0 cmp=30 NOT_EQUAL stage1 | law rc=0 cmp=30 NOT_EQUAL stage1 | verified rc=0 cmp=30 NOT_EQUAL stage1 | p=20 l=4 v=4
+VG/vg01 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=313 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=27 l=2 v=2
+VG/vg02 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=267 NOT_EQUAL stage1 | law rc=0 cmp=237 NOT_EQUAL stage1 | verified rc=0 cmp=237 NOT_EQUAL stage1 | p=65 l=32 v=32
+VG/vg03 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=4 l=4 v=4
+VG/vg04 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=209 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=22 l=2 v=2
+VG/vg05 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=2 l=2 v=2
+VG/vg06 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=15 NOT_EQUAL stage1 | law rc=0 cmp=15 NOT_EQUAL stage1 | verified rc=0 cmp=15 NOT_EQUAL stage1 | p=6 l=6 v=6
+VG/vg07 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=217 NOT_EQUAL stage1 | law rc=0 cmp=217 NOT_EQUAL stage1 | verified rc=0 cmp=217 NOT_EQUAL stage1 | p=22 l=22 v=22
+VG/vg08 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=4 l=4 v=4
+VG/vg09 | uninstGrCaExplicitTopOnly428v | pristine rc=0 cmp=982 NOT_EQUAL stage1 | law rc=0 cmp=942 NOT_EQUAL stage1 | verified rc=0 cmp=982 NOT_EQUAL stage1 | p=350 l=370 v=350
+VG/vg10 | uninstDefGenRegionCaUnlisted428 | pristine rc=0 cmp=770 NOT_EQUAL stage1 | law rc=0 cmp=678 NOT_EQUAL stage1 | verified rc=0 cmp=678 NOT_EQUAL stage1 | p=57 l=11 v=11
+VH/vh01 | hpDispPowerOneToken428 | pristine rc=0 cmp=228 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=22 l=4 v=4
+VH/vh02 | hpDispPowerOneToken428 | pristine rc=0 cmp=228 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=22 l=4 v=4
+VH/vh03 | hpDispPowerOneToken428 | pristine rc=0 cmp=144 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=22 l=4 v=4
+VH/vh04 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=248 NOT_EQUAL stage1 | law rc=0 cmp=248 NOT_EQUAL stage1 | verified rc=0 cmp=248 NOT_EQUAL stage1 | p=22 l=22 v=22
+VH/vh05 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=292 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=26 l=8 v=8
+VH/vh06 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=208 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=22 l=4 v=4
+VH/vh07 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=144 NOT_EQUAL stage1 | law rc=0 cmp=144 NOT_EQUAL stage1 | verified rc=0 cmp=144 NOT_EQUAL stage1 | p=22 l=22 v=22
+VH/vh08 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=152 NOT_EQUAL stage1 | law rc=0 cmp=152 NOT_EQUAL stage1 | verified rc=0 cmp=152 NOT_EQUAL stage1 | p=104 l=104 v=104
+VH/vh09 | hpMacroSelDispExpanded428 | pristine rc=0 cmp=172 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=34 l=16 v=16
+VI/vi01 | modIfaceMethodImplLastNameless428 | pristine rc=0 cmp=85 NOT_EQUAL stage1 | law rc=0 cmp=43 NOT_EQUAL stage1 | verified rc=0 cmp=43 NOT_EQUAL stage1 | p=57 l=45 v=45
+VI/vi02 | modIfaceMethodImplLastNameless428 | pristine rc=0 cmp=111 NOT_EQUAL stage1 | law rc=0 cmp=62 NOT_EQUAL stage1 | verified rc=0 cmp=62 NOT_EQUAL stage1 | p=51 l=45 v=45
+VI/vi03 | modIfaceMethodImplLastNameless428 | pristine rc=0 cmp=87 NOT_EQUAL stage1 | law rc=0 cmp=38 NOT_EQUAL stage1 | verified rc=0 cmp=38 NOT_EQUAL stage1 | p=58 l=46 v=46
+VI/vi04 | modIfaceMethodImplLastNameless428 | pristine rc=0 cmp=85 NOT_EQUAL stage1 | law rc=0 cmp=43 NOT_EQUAL stage1 | verified rc=0 cmp=43 NOT_EQUAL stage1 | p=38 l=28 v=28
+VK/vk01 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=8 l=8 v=8
+VK/vk02 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=10 l=10 v=10
+VK/vk03 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=10 l=10 v=10
+VK/vk04 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=8 l=8 v=8
+VK/vk05 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=112 l=4 v=4
+VK/vk06 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=14 l=14 v=14
+VK/vk07 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=27 l=2 v=2
+VK/vk08 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=24 NOT_EQUAL stage1 | law rc=0 cmp=24 NOT_EQUAL stage1 | verified rc=0 cmp=24 NOT_EQUAL stage1 | p=16 l=16 v=16
+VK/vk12 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=58 l=6 v=6
+VK/vk13 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=58 l=4 v=4
+VK/vk14 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=27 l=2 v=2
+VK/vk15 | clsLocalTypeParamArgBare428v | pristine rc=0 cmp=0 STRICT_EQUAL | law rc=0 cmp=77 NOT_EQUAL stage1 | verified rc=0 cmp=0 STRICT_EQUAL | p=10 l=36 v=10
+VK/vk16 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1 | verified rc=0 cmp=17 NOT_EQUAL stage1 | p=54 l=35 v=35
+VK/vk17 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=83 l=4 v=4
+VK/vk18 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=210 NOT_EQUAL stage1 | verified rc=0 cmp=210 NOT_EQUAL stage1 | p=73 l=5 v=5
+VK/vk19 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=35 l=10 v=10
+VK/vk20 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=57 l=2 v=2
+VK/vk21 | clsLocalTypeParamArgBare428v | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname | law rc=0 cmp=77 NOT_EQUAL stage1 | verified rc=0 cmp=0 STRICT_NOTEQUAL fullname | p=16 l=42 v=16
+VK/vk22 | clsLocalTypeParamArgBare428v | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=77 NOT_EQUAL stage1 | verified rc=0 cmp=0 STRICT_EQUAL | p=27 l=28 v=2
+VK/vk23 | clsMethodLocalForeignPkgSpec428 | pristine rc=0 cmp=77 NOT_EQUAL stage1 | law rc=0 cmp=81 NOT_EQUAL stage1 | verified rc=0 cmp=81 NOT_EQUAL stage1 | p=54 l=41 v=41
+VS/vs01 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=24 l=2 v=2
+VS/vs02 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=36 l=2 v=2
+VS/vs03 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=26 l=2 v=2
+VS/vs04 | caWholeSysCallSharesDefCell428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=55 l=6 v=6
+VS/vs05 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=38 l=4 v=4
+VS/vs06 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=38 l=25 v=25
+VS/vs07 | caAnySysCallLhsTs428 | pristine rc=0 cmp=13 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=7 l=2 v=2
+VS/vs08 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=38 l=44 v=44
+VS/vs09 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=34 l=40 v=40
+VS/vs10 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=36 l=2 v=2
+VS/vs11 | caWholeSysCallSharesDefCell428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=30 l=4 v=4
+VS/vs12 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=26 l=2 v=2
+VS/vs13 | caWholeSysCallSharesDefCell428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL type | verified rc=0 cmp=0 STRICT_NOTEQUAL type | p=49 l=20 v=20
+VS/vs14 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=38 l=4 v=4
+VS/vs15 | caWholeSysCallSharesDefCell428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=55 l=6 v=6
+VS/vs16 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL type | verified rc=0 cmp=0 STRICT_NOTEQUAL type | p=27 l=20 v=20
+VS/vs17 | caAnySysCallLhsTs428 | pristine rc=0 cmp=13 NOT_EQUAL stage1 | law rc=0 cmp=13 NOT_EQUAL stage1 | verified rc=0 cmp=13 NOT_EQUAL stage1 | p=12 l=12 v=12
+VS/vs18 | caAnySysCallLhsTs428 | pristine rc=0 cmp=13 NOT_EQUAL stage1 | law rc=0 cmp=13 NOT_EQUAL stage1 | verified rc=0 cmp=13 NOT_EQUAL stage1 | p=7 l=7 v=7
+VS/vs19 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1 | verified rc=0 cmp=17 NOT_EQUAL stage1 | p=74 l=74 v=74
+VS/vs20 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=28 l=32 v=32
+VS/vs21 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=26 l=2 v=2
+VS/vs22 | caWholeSysCallSharesDefCell428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=30 l=4 v=4
+VS/vs23 | caAnySysCallLhsTs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=30 l=4 v=4
+VS/vs24 | ndaWholeSysCallSharesLhs428 | pristine rc=0 cmp=17 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL | verified rc=0 cmp=0 STRICT_EQUAL | p=74 l=6 v=6

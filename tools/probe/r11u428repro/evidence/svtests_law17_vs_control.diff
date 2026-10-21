@@ -1,0 +1,36 @@
+905c905
+< generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,EQUAL,,equal
+1151c1151
+< generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,EQUAL,,equal
+1230c1230
+< generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,EQUAL,,equal
+1432c1432
+< generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,EQUAL,,equal
+1456c1456
+< generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,EQUAL,,equal
+1487c1487
+< generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,EQUAL,,equal
+2336c2336
+< testbenches/uvm_agent_active.sv,DIFFERENT,decompile:,
+---
+> testbenches/uvm_agent_active.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+2338,2340c2338,2340
+< testbenches/uvm_agent_passive.sv,DIFFERENT,decompile:,
+< testbenches/uvm_driver_sequencer_env.sv,DIFFERENT,decompile:,
+< testbenches/uvm_monitor_env.sv,DIFFERENT,decompile:,
+---
+> testbenches/uvm_agent_passive.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+> testbenches/uvm_driver_sequencer_env.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+> testbenches/uvm_monitor_env.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)

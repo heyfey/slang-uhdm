@@ -1,0 +1,17 @@
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv: DIFFERENT -> EQUAL
+CONVERSION testbenches/uvm_agent_active.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION testbenches/uvm_agent_passive.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION testbenches/uvm_driver_sequencer_env.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION testbenches/uvm_monitor_env.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=45 EQUAL=1889 SLANG_ONLY=19 STRICT_NOTEQUAL=6 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=10 changes=0

@@ -1,0 +1,11 @@
+r11u405repro/cases/UB/ub03 | pristine rc=0 cmp=33 NOT_EQUAL stage1  | verified rc=0 cmp=33 NOT_EQUAL stage1  | p=42 l=35
+r11u415repro/cases/FJ/fj01 | pristine rc=0 cmp=85 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_EQUAL 99 objects  | p=16 l=6
+r11u415repro/cases/FJ/fj02 | pristine rc=0 cmp=85 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_EQUAL 90 objects  | p=16 l=6
+r11u417repro/cases/HP/hp01 | pristine rc=0 cmp=228 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_EQUAL 233 objects  | p=28 l=10
+r11u424repro/cases/ND/nd01 | pristine rc=0 cmp=17 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_EQUAL 41 objects  | p=36 l=23
+r11u424repro/cases/ND/nd02 | pristine rc=0 cmp=17 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_NOTEQUAL depth  | p=105 l=37
+v11u405repro/cases/VU/vu02 | pristine rc=0 cmp=17 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_NOTEQUAL type  | p=25 l=18
+v11u415repro/cases/VX/vx02 | pristine rc=0 cmp=85 NOT_EQUAL stage1  | verified rc=0 cmp=107 NOT_EQUAL stage1  | p=38 l=28
+v11u415repro/cases/VX/vx03 | pristine rc=0 cmp=41 NOT_EQUAL stage1  | verified rc=0 cmp=41 NOT_EQUAL stage1  | p=62 l=52
+v11u415repro/cases/VX/vx04 | pristine rc=0 cmp=85 NOT_EQUAL stage1  | verified rc=0 cmp=0 STRICT_EQUAL 89 objects  | p=20 l=8
+v11u415repro/cases/VX/vx05 | pristine rc=0 cmp=85 NOT_EQUAL stage1  | verified rc=0 cmp=91 NOT_EQUAL stage1  | p=38 l=28
