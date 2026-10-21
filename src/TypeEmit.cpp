@@ -328,6 +328,20 @@ bool& defGenConnSelAtIndex416() {
     static bool armed = false;
     return armed;
 }
+// § classParamBitsKeywordFold424 — armed by UhdmExporter's
+// emitClassParameters around a class parameter's initializer
+// (R11U424_CLSBITSKW_OFF read there).
+bool& classParamRhs424() {
+    static bool armed = false;
+    return armed;
+}
+// § defGenLpSelIdxThroughBase424 — armed by ModuleEmit around a
+// definition-view generate-block localparam's initializer
+// (R11U424_GENLPSELIDX_OFF read there).
+bool& defGenLpSelIdx424() {
+    static bool armed = false;
+    return armed;
+}
 // § classSpecExprArgUnlocated202 (UhdmExporter.cpp).
 void respanSpecArgs202(
     UHDM::class_typespec* cts, const slang::ast::ClassType& cls,
@@ -6891,6 +6905,24 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
+                        // § boundSizedLitKept424 (r11u424, cases/BV; sv-tests
+                        // hdlconvertor p600) — a packed range bound WRITTEN
+                        // as a sized or based literal is compiled by
+                        // compileConst and never reduced (reduceExpr hands
+                        // a constant back untouched): `typedef bit [9:1'b1]
+                        // word;` golden BIN:1 size 1 decompile `1'b1` over
+                        // the whole literal, `[4'd9:...]` DEC:9 size 4,
+                        // `[8'h0f:2'b00]` HEX:0f size 8 and BIN:00 size 2;
+                        // ours the folded UINT size 64 at the first token.
+                        // Switch R11U424_BOUNDLIT_OFF.
+                        if (bsyn->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                            lawOn(424, "R11U424_BOUNDLIT_OFF"))
+                            if (auto* e424 = emitSyntaxExpr(*bsyn, r)) {
+                                lawTrace(424, "boundSizedLitKept424",
+                                         std::string(declSymbol.name) + " " +
+                                             std::string(rawText(bsyn->sourceRange())));
+                                return (UHDM::expr*)e424;
+                            }
                         // § typeParamDefaultBoundNoReduce20 — the `Reduce::No`
                         // compile (see the gate above).  This runs BEFORE every
                         // fold arm below because none of them applies: the
@@ -24939,6 +24971,21 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 // (yumi_o [i]))` bit_select at the `i` 89:56-89:57, ours the
                 // whole select 89:47-89:58; bsg_dmc_phy `{dfi_wrdata_array
                 // [dq_group_lp+i], ...}` at the index 402:43-402:56).
+                // § defGenLpSysArgBitSelAtIndex424 (r11u424, cases/PB;
+                // sv-tests bsg_mesh_router STRICT_NOTEQUAL col(1)) — in a
+                // definition-view generate block's localparam initializer a
+                // bit_select that is a SYSTEM CALL's argument is anchored at
+                // its index, as § paramInitSysArgBitSelAtIndex421 anchors the
+                // module-level one (golden r11u421 PB/pb02
+                // `localparam W = ($bits(P[i]) < 65) ? 1 : 2;` in a
+                // for-generate: 5:29-5:30, ours the whole select 5:27-5:31).
+                // Switch R11U424_GENLPSYSBS_OFF.
+                if (defGenLpSelIdx424() && !selBaseScopeIdx && parent &&
+                    parent->UhdmType() == UHDM::uhdmsys_func_call &&
+                    lawOn(424, "R11U424_GENLPSYSBS_OFF")) {
+                    setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
+                    lawTrace(424, "defGenLpSysArgBitSelAtIndex424", std::string(bname));
+                }
                 if (defGenConnSelAtIndex416() && !selBaseScopeIdx &&
                     !defGenInitRvalue202()) {
                     setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
@@ -24984,6 +25031,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                          sel->as<syntax::BitSelectSyntax>().expr->kind !=
                              syntax::SyntaxKind::IdentifierName)
                     syntaxRefPrefix += syntaxRefSep + std::string(bname);
+                // § defGenLpSelIdxThroughBase424 (r11u424, cases/RD; sv-tests
+                // bsg_wormhole_router_decoder_dor STRICT_NOTEQUAL
+                // fullname(1)) — in a definition-view generate block's
+                // localparam initializer Surelog stores no full name on an
+                // index's references, so BaseClass::ComputeFullName reads
+                // them through the select (`localparam A = P[i+1];` in a
+                // for-generate: golden ref_obj work@top.rof.P.i, ours
+                // work@top.rof.i); a bare identifier index is the
+                // bit_select's direct child, which the chain skips, and
+                // stays scope-level (rof.i), and the select keeps its whole
+                // span.  Switch R11U424_GENLPSELIDX_OFF.
+                else if (defGenLpSelIdx424() && !selBaseScopeIdx && !lhsBs257 &&
+                         !syntaxRefPrefix.empty() &&
+                         ix257->kind != syntax::SyntaxKind::IdentifierName) {
+                    syntaxRefPrefix += syntaxRefSep + std::string(bname);
+                    lawTrace(424, "defGenLpSelIdxThroughBase424", std::string(bname));
+                }
                 if (auto* ix = emitSyntaxExpr(
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
                     bs->VpiIndex((UHDM::expr*)ix);
@@ -25167,6 +25231,49 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             lawTrace(410, "modStructMemberBitsTypeFold410",
                                      std::string(ty410->name));
                         }
+                // § classParamBitsKeywordFold424 (r11u424, cases/CB;
+                // sv-tests generic/class/class_test_51) — in a CLASS
+                // parameter's initializer `$bits(<keyword type>)` is folded
+                // by Surelog's compileBits from the keyword alone (`int` 32,
+                // `byte` 8, `logic`/`bit` 1, a range not counted, as
+                // § modStructMemberBitsTypeFold410's `$bits(logic [3:0])`
+                // measures UINT:1): golden `localparam Max_int =
+                // {$bits(int) - 1{1'b1}};` UINT:32 size 64 over the `$bits`
+                // name, ours a sys_func_call over a ref_obj `int`.
+                if (classParamRhs424() && sysName == "$bits" && inv.arguments &&
+                    inv.arguments->parameters.size() == 1) {
+                    const syntax::SyntaxNode* ka424 = inv.arguments->parameters[0];
+                    if (ka424->kind == syntax::SyntaxKind::OrderedArgument)
+                        ka424 = ka424->as<syntax::OrderedArgumentSyntax>().expr;
+                    if (ka424->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                        ka424 = ka424->as<syntax::SimplePropertyExprSyntax>().expr;
+                    if (ka424->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                        ka424 = ka424->as<syntax::SimpleSequenceExprSyntax>().expr;
+                    int kw424 = 0;
+                    switch (ka424->kind) {
+                        case syntax::SyntaxKind::IntType:
+                        case syntax::SyntaxKind::IntegerType: kw424 = 32; break;
+                        case syntax::SyntaxKind::ByteType: kw424 = 8; break;
+                        case syntax::SyntaxKind::ShortIntType: kw424 = 16; break;
+                        case syntax::SyntaxKind::LongIntType: kw424 = 64; break;
+                        case syntax::SyntaxKind::BitType:
+                        case syntax::SyntaxKind::LogicType:
+                        case syntax::SyntaxKind::RegType: kw424 = 1; break;
+                        default: break;
+                    }
+                    if (kw424) {
+                        auto* c = s.MakeConstant();
+                        c->VpiDecompile(std::to_string(kw424));
+                        c->VpiSize(64);
+                        c->VpiValue("UINT:" + std::to_string(kw424));
+                        c->VpiConstType(vpiUIntConst);
+                        c->VpiParent(parent);
+                        setLoc(c, inv.left->sourceRange());
+                        lawTrace(424, "classParamBitsKeywordFold424",
+                                 std::string(rawText(syn.sourceRange())));
+                        return c;
+                    }
+                }
                 if (selBitsArg9 && (lawOn(200, 202, "R11U200_GENBITS_OFF") && !landingOff(202)) &&
                     genBody200(&syn)) {
                     selBitsArg9 = nullptr;

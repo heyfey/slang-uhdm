@@ -1653,6 +1653,7 @@ void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
 void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
 bool& defGenConnSelAtIndex416();  // § defGenConnSelAtIndex416 (TypeEmit.cpp)
+bool& defGenLpSelIdx424();  // § defGenLpSelIdxThroughBase424 (TypeEmit.cpp)
 void trace202(const char* law, const std::string& detail);
 void trace200(const char* law, const std::string& detail);
 // § tfSigningSpanFollowsCompilePath200 — a GENERATE-block variable's builtin
@@ -4988,6 +4989,34 @@ class OwnedRename283 final : public UHDM::UhdmListener {
             }
     }
 };
+// § ifcUnitVarRefMintsNet424 — the definitions whose first instance minted.
+static std::set<const slang::ast::DefinitionSymbol*>& ifcUnitVarDefs424() {
+    static std::set<const slang::ast::DefinitionSymbol*> m;
+    return m;
+}
+// § ifcConcAssertListed424 — the definition's one shared assertion vector
+// and the instance path that names it now.
+struct IfcAsserts424 {
+    UHDM::VectorOfany* vec = nullptr;
+    std::string cur;
+};
+static std::map<const slang::ast::DefinitionSymbol*, IfcAsserts424>& ifcAsserts424() {
+    static std::map<const slang::ast::DefinitionSymbol*, IfcAsserts424> m;
+    return m;
+}
+// The test emitAssertion opens with, answered from syntax so nothing is minted.
+static bool isConcAssertMember424(const slang::ast::ProceduralBlockSymbol& pb) {
+    using namespace slang::ast;
+    auto* syn = pb.getSyntax();
+    if (!syn || syn->kind != slang::syntax::SyntaxKind::ConcurrentAssertionMember)
+        return false;
+    const Statement* inner = &pb.getBody();
+    if (inner->kind == StatementKind::Block)
+        inner = &inner->as<BlockStatement>().body;
+    if (inner->kind == StatementKind::List && !inner->as<StatementList>().list.empty())
+        inner = inner->as<StatementList>().list[0];
+    return inner->kind == StatementKind::ConcurrentAssertion;
+}
 std::map<const slang::ast::DefinitionSymbol*, UHDM::VectorOfprocess_stmt*>&
 ifaceFirstProcs283() {
     static std::map<const slang::ast::DefinitionSymbol*, UHDM::VectorOfprocess_stmt*> m;
@@ -21821,8 +21850,53 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             if (e->UhdmType() == UHDM::uhdmconstant &&
                                 ic.kind != ExpressionKind::StringLiteral &&
                                 rawText(ic.sourceRange).find('\'') == std::string::npos) {
-                                ((UHDM::constant*)e)->VpiSize(
-                                    (int32_t)dt->getType().getBitWidth());
+                                // § tpVarInitSizedByDefault424 (r11u424,
+                                // cases/TV; sv-tests hdlconvertor p88, p124)
+                                // — a variable typed by an OVERRIDDEN type
+                                // parameter sizes its bare-decimal
+                                // initializer at the parameter's DEFAULT
+                                // type: Surelog adjusts the constant when it
+                                // compiles the definition (`parameter type
+                                // p2 = shortint`, `p2 j = 0` under
+                                // `.p2(int)`: golden size 16, ours 32).
+                                // Switch R11U424_TPVARINIT_OFF.
+                                int32_t w424 = (int32_t)dt->getType().getBitWidth();
+                                if (dt->getType().kind == SymbolKind::TypeAlias &&
+                                    lawOn(424, "R11U424_TPVARINIT_OFF"))
+                                    if (auto* tp424 = typeParamOfAlias(
+                                            dt->getType().as<TypeAliasType>());
+                                        tp424 && tp424->isOverridden() &&
+                                        tp424->getParentScope() &&
+                                        tp424->getParentScope()->asSymbol().kind ==
+                                            SymbolKind::InstanceBody) {
+                                        auto& ib424 = tp424->getParentScope()
+                                                          ->asSymbol()
+                                                          .as<InstanceBodySymbol>();
+                                        const syntax::DataTypeSyntax* ds424 = nullptr;
+                                        if (auto* mds424 = ib424.getDefinition().getSyntax())
+                                            if (mds424->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                                                mds424->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                                                mds424->kind == syntax::SyntaxKind::ProgramDeclaration)
+                                                if (auto* ppl424 = mds424->as<syntax::ModuleDeclarationSyntax>()
+                                                                       .header->parameters)
+                                                    for (auto* d424 : ppl424->declarations)
+                                                        if (auto* tpd424 = d424->as_if<
+                                                                syntax::TypeParameterDeclarationSyntax>())
+                                                            for (auto* dd424 : tpd424->declarators)
+                                                                if (dd424->name.valueText() == tp424->name &&
+                                                                    dd424->assignment)
+                                                                    ds424 = dd424->assignment->type;
+                                        if (ds424) {
+                                            ASTContext ac424(ib424, LookupLocation::max);
+                                            const Type& dft424 = comp.getType(*ds424, ac424);
+                                            if (dft424.isIntegral() &&
+                                                (int32_t)dft424.getBitWidth() != w424) {
+                                                w424 = (int32_t)dft424.getBitWidth();
+                                                lawTrace(424, "tpVarInitSizedByDefault424", fullName);
+                                            }
+                                        }
+                                    }
+                                ((UHDM::constant*)e)->VpiSize(w424);
                                 // § varInitUintMask414 (r11u414,
                                 // R11U414_VARINITMASK_OFF; cases
                                 // tools/probe/r11u414repro/cases/VM; sv-tests
@@ -21833,8 +21907,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 // `byte a = 300` -> 44); the size alone was
                                 // adjusted here.
                                 auto* cm414 = (UHDM::constant*)e;
-                                const int32_t w414 =
-                                    (int32_t)dt->getType().getBitWidth();
+                                const int32_t w414 = w424;
                                 std::string_view uv414 = cm414->VpiValue();
                                 if (cm414->VpiConstType() == vpiUIntConst &&
                                     dt->getType().isIntegral() && w414 > 0 &&
@@ -53746,9 +53819,26 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
     // Measured on a four-way golden (pass only / else only / both / neither):
     // `assert p $display("P"); else $display("F");` carries $display("P")
     // alone (OneDivider).
+    // § coverClockedPropExprIsClock424 (r11u424, cases/CV) — Surelog's
+    // compileConcurrentAssertion reads an ACTION BLOCK only for assert and
+    // assume; a cover's `statement_or_null` is not one, so a cover (property
+    // or sequence) and a restrict carry no vpiStmt (golden CV/cv02
+    // `c1: cover property (...) $display("hit");`).  And only assume splits a
+    // clocking event off: assert, cover and restrict compile the
+    // property_spec's FIRST child as vpiPropertyExpr, the clocking operation
+    // alone when the property is clocked (cv01, cv03, cv05); a cover
+    // sequence's property_spec spans that event expression (cv03
+    // `cover sequence (@(posedge clk) ...)`: 4:21-4:32, `posedge clk`).
+    // Switch R11U424_COVERCLK_OFF.
+    const bool coverClk424 = lawOn(424, "R11U424_COVERCLK_OFF");
+    const bool coverLike424 = ca.assertionKind == AssertionKind::CoverProperty ||
+                              ca.assertionKind == AssertionKind::CoverSequence ||
+                              ca.assertionKind == AssertionKind::Restrict;
     if (const Statement* act9 = ca.ifTrue ? ca.ifTrue : ca.ifFalse)
-        if (auto* st = emitStmt(*act9, as, aprefix, netMap))
-            as->Stmt(st);
+        if (!(coverClk424 && coverLike424 &&
+              (lawTrace(424, "coverClockedPropExprIsClock424", aprefix + " nostmt"), true)))
+            if (auto* st = emitStmt(*act9, as, aprefix, netMap))
+                as->Stmt(st);
 
     // Property spec. An `assert` WITH an explicit clocking event keeps ONLY
     // the clocking op as VpiPropertyExpr (Surelog drops the body). Otherwise
@@ -53769,9 +53859,20 @@ UHDM::concurrent_assertions* UhdmExporter::emitAssertion(const ProceduralBlockSy
         pe = &pe->as<ClockingAssertionExpr>().expr;
     }
     bool isAssert = ca.assertionKind == AssertionKind::Assert;
+    if (coverClk424 && coverLike424 && clocking) {
+        isAssert = true;
+        lawTrace(424, "coverClockedPropExprIsClock424", aprefix + " clk");
+    }
     if (isAssert && clocking) {
-        if (auto* clk = emitEventExpr(*clocking, ps, aprefix, netMap))
+        if (auto* clk = emitEventExpr(*clocking, ps, aprefix, netMap)) {
             ps->VpiPropertyExpr(clk);
+            if (coverClk424 && ca.assertionKind == AssertionKind::CoverSequence) {
+                ps->VpiLineNo(clk->VpiLineNo());
+                ps->VpiColumnNo(clk->VpiColumnNo());
+                ps->VpiEndLineNo(clk->VpiEndLineNo());
+                ps->VpiEndColumnNo(clk->VpiEndColumnNo());
+            }
+        }
     }
     else {
         if (clocking)
@@ -59741,6 +59842,84 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     break;
                 }
         }
+    // § ifcUnitVarRefMintsNet424 (r11u424, cases/UI) — § unitVarRefMintsNet418
+    // on an INTERFACE: a `$unit` variable never resolves from an interface
+    // body either, and Surelog's late binding mints the wire on the
+    // ELABORATED instance (not on the definition, as a module's is): golden
+    // v11u418 VU/vu08 `string label` read by an interface's initial lists
+    // logic_net work@top.u.label (vpiNetType 1, at the first reference, last
+    // of the instance's nets) and the process's reference binds it; sv-tests
+    // 16.12--property-interface-uvm reads it from the interface assertion's
+    // `uvm_error.  The fences are § unitVarRefMintsNet418's and
+    // § unitVarNestedScopeAbstain418v's.  A port view mints nothing.  Switch
+    // R11U424_IFCUNITVAR_OFF.
+    // Only the FIRST elaborated instance of the definition mints (golden
+    // UI/ui02: two instances, one wire, work@top.u1.label), the one whose
+    // processes every instance shares.
+    if (!portView && lawOn(424, "R11U424_IFCUNITVAR_OFF") &&
+        ifcUnitVarDefs424().insert(&def).second) {
+        auto* nets = elabNets;
+        auto* bsy = body.asSymbol().getSyntax();
+        if (bsy && iface && nets) {
+        std::set<std::string> declNames;
+        std::function<void(const syntax::SyntaxNode&)> dwalk =
+            [&](const syntax::SyntaxNode& n) {
+                if (n.kind == syntax::SyntaxKind::Declarator)
+                    declNames.insert(std::string(
+                        n.as<syntax::DeclaratorSyntax>().name.valueText()));
+                for (size_t i = 0; i < n.getChildCount(); i++)
+                    if (auto* c = n.childNode(i))
+                        dwalk(*c);
+            };
+        dwalk(*bsy);
+        std::set<const Symbol*> minted;
+        std::function<void(const syntax::SyntaxNode&)> walk =
+            [&](const syntax::SyntaxNode& n) {
+                if (n.kind == syntax::SyntaxKind::IdentifierName) {
+                    auto nm = n.as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                    const Symbol* sym = nm.empty() ? nullptr : body.lookupName(nm);
+                    if (!sym || sym->kind != SymbolKind::Variable || !sym->getParentScope() ||
+                        sym->getParentScope()->asSymbol().kind != SymbolKind::CompilationUnit ||
+                        declNames.count(std::string(nm)) || minted.count(sym) ||
+                        netMap.count(sym) ||
+                        (n.parent && (n.parent->kind == syntax::SyntaxKind::MemberAccessExpression ||
+                                      n.parent->kind == syntax::SyntaxKind::ScopedName)))
+                        return;
+                    for (const syntax::SyntaxNode* a = n.parent; a && a != bsy; a = a->parent) {
+                        auto k = a->kind;
+                        if (k == syntax::SyntaxKind::GenerateBlock ||
+                            k == syntax::SyntaxKind::LoopGenerate ||
+                            k == syntax::SyntaxKind::IfGenerate ||
+                            k == syntax::SyntaxKind::CaseGenerate ||
+                            k == syntax::SyntaxKind::ClassDeclaration ||
+                            k == syntax::SyntaxKind::ModuleDeclaration ||
+                            k == syntax::SyntaxKind::InterfaceDeclaration ||
+                            k == syntax::SyntaxKind::ProgramDeclaration) {
+                            lawTrace(424, "ifcUnitVarNestedAbstain424",
+                                     prefix + "." + std::string(nm));
+                            return;
+                        }
+                    }
+                    auto* inet = s.MakeLogic_net();
+                    inet->VpiName(nm);
+                    inet->VpiFullName(prefix + "." + std::string(nm));
+                    inet->VpiParent(iface);
+                    inet->VpiNetType(1);
+                    setLoc(inet, n.sourceRange());
+                    inet->VpiFile("");  // the late-binding wire has no file
+                    nets->push_back(inet);
+                    minted.insert(sym);
+                    netMap[sym] = inet;
+                    lawTrace(424, "ifcUnitVarRefMintsNet424", prefix + "." + std::string(nm));
+                    return;
+                }
+                for (size_t i = 0; i < n.getChildCount(); i++)
+                    if (auto* c = n.childNode(i))
+                        walk(*c);
+            };
+        walk(*bsy);
+        }
+    }
     if (!elabNets->empty())
         iface->Nets(elabNets);
     if (elabArrayNets)
@@ -61691,6 +61870,72 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // compiled the body again for it and, being the last writer, handed its
     // set to the definition.  The view lists none and leaves the definition's
     // listing alone.  Switch R11U283_IFVIEWNOPROC_OFF.
+    // § ifcConcAssertListed424 (r11u424, cases/IA) — a CONCURRENT ASSERTION
+    // written as an interface item is not a process.  Surelog compiles it
+    // once on the definition (CompileAssertion compileAssertionItem pushes it
+    // into the component's Assertions vector) and UhdmWriter lists THAT
+    // vector under vpiAssertion for the definition and for every elaborated
+    // instance, re-parenting it at each one written, so the last instance
+    // names it (`work@top.d2`) while its references stay bound to the FIRST
+    // instance's signals (golden ia06: ref_obj work@top.d2.clk -> bit_var
+    // work@top.d1.clk); a port view lists none.  Ours wrapped it in an
+    // `always` under vpiProcess (16.12--property-interface-uvm and its -prec
+    // twin).  It is compiled at the first elaborated instance, listed by the
+    // definition and every instance, and renamed and re-parented at each
+    // later one (§ propAssertLastInstPath188's renamer).  Switch
+    // R11U424_IFCASSERT_OFF.
+    const bool ifcAssert424 = lawOn(424, "R11U424_IFCASSERT_OFF");
+    // § ifcProcCallArgNoTs424 (r11u424, cases/UC) — a call's actuals in an
+    // interface's PROCESS or concurrent-assertion action carry no formal
+    // typespec in golden, as a module's process's do (golden UI/ui12
+    // `initial if (en(1, label))`: bare constant and reference; ours stamped
+    // each with the formal's typespec because this loop runs outside the
+    // module road's process window).  The stamp's own gate is ExprEmit's
+    // (defOnlyDefEmit, the only flag that reads nothing else); the instance
+    // sets it over its process and assertion compile.  Switch
+    // R11U424_IFCARGTS_OFF.
+    struct IfcArgTsGuard424 {
+        bool& f;
+        bool saved;
+        ~IfcArgTsGuard424() { f = saved; }
+    } ifcArgTsG424{defOnlyDefEmit, defOnlyDefEmit};
+    if (!portView && lawOn(424, "R11U424_IFCARGTS_OFF"))
+        defOnlyDefEmit = true;
+    if (ifcAssert424 && !portView) {
+        auto& ent424 = ifcAsserts424()[&def];
+        if (!ent424.vec) {
+            auto* av424 = s.MakeAnyVec();
+            for (auto& member : body.members())
+                if (member.kind == SymbolKind::ProceduralBlock)
+                    if (auto* a424 = emitAssertion(member.as<ProceduralBlockSymbol>(),
+                                                   iface, prefix, netMap))
+                        av424->push_back(a424);
+            ent424.vec = av424;
+            ent424.cur = prefix;
+            if (!av424->empty())
+                lawTrace(424, "ifcConcAssertListed424",
+                         prefix + " n=" + std::to_string(av424->size()));
+        }
+        else if (!ent424.vec->empty()) {
+            for (auto* r424 : *ent424.vec) {
+                if (ent424.cur != prefix) {
+                    OwnedRename188 l424;
+                    l424.root = r424;
+                    l424.oldP = ent424.cur;
+                    l424.newP = prefix;
+                    l424.listenAny(r424);
+                }
+                r424->VpiParent(iface);
+            }
+            lawTrace(424, "ifcConcAssertListed424", ent424.cur + " -> " + prefix);
+            ent424.cur = prefix;
+        }
+        if (!ent424.vec->empty()) {
+            iface->Assertions(ent424.vec);
+            if (iitP != ifaceDefMap.end())
+                iitP->second->Assertions(ent424.vec);
+        }
+    }
     if (portView && lawOn(283, "R11U283_IFVIEWNOPROC_OFF")) {
         lawTrace(283, "IFVIEWNOPROC", prefix);
         goto ifaceProcsDone283;
@@ -61706,7 +61951,8 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     auto* procs = s.MakeProcess_stmtVec();
     for (auto& member : body.members()) {
         if (member.kind == SymbolKind::ProceduralBlock &&
-            !deferredAssertItemDropped406(member.as<ProceduralBlockSymbol>()))
+            !deferredAssertItemDropped406(member.as<ProceduralBlockSymbol>()) &&
+            !(ifcAssert424 && isConcAssertMember424(member.as<ProceduralBlockSymbol>())))
             if (auto* p = emitProcess(member.as<ProceduralBlockSymbol>(), procParent,
                                       procPrefix, netMap))
                 procs->push_back(p);
@@ -61734,6 +61980,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     }
 ifaceProcsDone283:
+    defOnlyDefEmit = ifcArgTsG424.saved;  // § ifcProcCallArgNoTs424 window ends
 
     // Elab-view ports carry both LowConn (own var) and HighConn (parent
     // signal), mirroring a module instance's port loop.
@@ -62818,8 +63065,11 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     pa2->Lhs(up2);
                     if (dcl->initializer) {
                         syntaxRefPrefix = branchPrefix;
-                        if (auto* rc2 =
-                                emitSyntaxExpr(*dcl->initializer->expr, pa2)) {
+                        // § defGenLpSelIdxThroughBase424 (TypeEmit.cpp)
+                        defGenLpSelIdx424() = lawOn(424, "R11U424_GENLPSELIDX_OFF");
+                        auto* rc2 = emitSyntaxExpr(*dcl->initializer->expr, pa2);
+                        defGenLpSelIdx424() = false;
+                        if (rc2) {
                             // § genSyntaxSimplePattern — a positional
                             // pattern's VALUE constants stay UNPARENTED
                             // (Surelog), exactly as the array-decl
@@ -64715,9 +64965,64 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             vs->VpiFullName(vsFull);
                             setLoc(vs, npc.expr->sourceRange());
                             auto* ixv = s.MakeExprVec();
+                            // § defGenConnVarSelRange424 (r11u424, cases/VR;
+                            // sv-tests bsg_mul_array, bsg_nonsynth_dramsim3)
+                            // — a SIMPLE RANGE as a later dimension of a
+                            // multi-dimension select (`prod_accum[i][i+1:0]`)
+                            // is a part_select index of the var_select in
+                            // golden: named after the base, full name through
+                            // the select (…prod_accum_o.prod_accum.prod_accum),
+                            // constant select, spanning the range text, its
+                            // bounds the written expressions with references
+                            // named through it and bare constants
+                            // unparented; ours one ref_obj named `i+1:0`.
+                            // Switch R11U424_GENVSRANGE_OFF.
+                            std::vector<const syntax::ElementSelectSyntax*> sels424;
+                            if (lawOn(424, "R11U424_GENVSRANGE_OFF")) {
+                                const syntax::SyntaxNode* e424 = actSyn9;
+                                if (e424->kind == syntax::SyntaxKind::IdentifierSelectName)
+                                    for (auto* es424 :
+                                         e424->as<syntax::IdentifierSelectNameSyntax>().selectors)
+                                        sels424.push_back(es424);
+                                if (sels424.size() != idxGroups.size())
+                                    sels424.clear();
+                            }
+                            size_t gi424 = 0;
                             for (auto& [off9, tx9] : idxGroups) {
                                 auto ixStart =
                                     npc.expr->sourceRange().start() + off9;
+                                const size_t g424 = gi424++;
+                                if (!sels424.empty() && sels424[g424]->selector &&
+                                    sels424[g424]->selector->kind ==
+                                        syntax::SyntaxKind::SimpleRangeSelect) {
+                                    auto& rs424 = sels424[g424]
+                                                      ->selector->as<syntax::RangeSelectSyntax>();
+                                    auto* ps424 = s.MakePart_select();
+                                    ps424->VpiParent(vs);
+                                    ps424->VpiName(base2);
+                                    ps424->VpiDefName(base2);
+                                    ps424->VpiFullName(vsFull + "." + base2);
+                                    ps424->VpiConstantSelect(true);
+                                    setLoc(ps424, rs424.sourceRange());
+                                    auto savedP424 = syntaxRefPrefix;
+                                    auto savedS424 = syntaxRefSep;
+                                    syntaxRefPrefix = vsFull + "." + base2;
+                                    syntaxRefSep = ".";
+                                    auto* l424 = emitSyntaxExpr(*rs424.left, ps424);
+                                    auto* r424 = emitSyntaxExpr(*rs424.right, ps424);
+                                    syntaxRefPrefix = savedP424;
+                                    syntaxRefSep = savedS424;
+                                    for (auto* c424 : {l424, r424})
+                                        if (c424 && c424->UhdmType() == UHDM::uhdmconstant)
+                                            ((UHDM::expr*)c424)->VpiParent(nullptr);
+                                    if (l424)
+                                        ps424->Left_range((UHDM::expr*)l424);
+                                    if (r424)
+                                        ps424->Right_range((UHDM::expr*)r424);
+                                    ixv->push_back(ps424);
+                                    lawTrace(424, "defGenConnVarSelRange424", vsFull + " " + tx9);
+                                    continue;
+                                }
                                 if (!tx9.empty() &&
                                     tx9.find_first_not_of("0123456789") ==
                                         std::string::npos) {
@@ -64860,7 +65165,90 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 };
                                 std::string fmScope9 = branchPrefix + "." +
                                                        iname + "." + formal;
-                                if (auto star9 = baseTx9.find('*');
+                                // § defGenConnIpsExprBounds424 (r11u424,
+                                // cases/RF; sv-tests bsg_async_fifo,
+                                // bsg_launch_sync_sync, bsg_tag_trace_replay,
+                                // bsg_cache) — a base or width that is not a
+                                // plain name, number or `a*b` product
+                                // (`(width_p-1)`, `width_p-1`, `(a+b)`, a
+                                // ternary, a macro) is the written
+                                // EXPRESSION in golden: an operation spanning
+                                // inside the parentheses, its references
+                                // named through the select
+                                // (work@top.ctrl.u.d.di.width_p), its
+                                // constants parented at it; ours text-parsed
+                                // the bound into one ref_obj named with its
+                                // source text.  Built from the selector's
+                                // syntax by emitSyntaxExpr.  Switch
+                                // R11U424_GENIPSBOUND_OFF.
+                                const syntax::RangeSelectSyntax* rs424 = nullptr;
+                                if (lawOn(424, "R11U424_GENIPSBOUND_OFF")) {
+                                    const syntax::SyntaxNode* e424 = npc.expr;
+                                    if (e424->kind == syntax::SyntaxKind::SimplePropertyExpr)
+                                        e424 = e424->as<syntax::SimplePropertyExprSyntax>().expr;
+                                    if (e424->kind == syntax::SyntaxKind::SimpleSequenceExpr)
+                                        e424 = e424->as<syntax::SimpleSequenceExprSyntax>().expr;
+                                    const syntax::SelectorSyntax* sl424 = nullptr;
+                                    if (e424->kind == syntax::SyntaxKind::ElementSelectExpression)
+                                        sl424 = e424->as<syntax::ElementSelectExpressionSyntax>()
+                                                    .select->selector;
+                                    else if (e424->kind == syntax::SyntaxKind::IdentifierSelectName &&
+                                             e424->as<syntax::IdentifierSelectNameSyntax>()
+                                                     .selectors.size() == 1)
+                                        sl424 = e424->as<syntax::IdentifierSelectNameSyntax>()
+                                                    .selectors[0]->selector;
+                                    {
+                                        if (sl424 &&
+                                            (sl424->kind == syntax::SyntaxKind::AscendingRangeSelect ||
+                                             sl424->kind == syntax::SyntaxKind::DescendingRangeSelect))
+                                            rs424 = &sl424->as<syntax::RangeSelectSyntax>();
+                                    }
+                                }
+                                auto plain424 = [](const std::string& tx) {
+                                    if (tx.empty())
+                                        return true;
+                                    for (char ch : tx)
+                                        if (!(isalnum((unsigned char)ch) || ch == '_' ||
+                                              ch == '*' || ch == ' '))
+                                            return false;
+                                    return std::count(tx.begin(), tx.end(), '*') <= 1;
+                                };
+                                auto viaSyn424 = [&](const syntax::ExpressionSyntax* x,
+                                                     const char* which) -> UHDM::expr* {
+                                    auto savedP = syntaxRefPrefix;
+                                    auto savedS = syntaxRefSep;
+                                    syntaxRefPrefix = ipsFull;
+                                    syntaxRefSep = ".";
+                                    auto* e = emitSyntaxExpr(*x, ips);
+                                    syntaxRefPrefix = savedP;
+                                    syntaxRefSep = savedS;
+                                    if (e)
+                                        lawTrace(424, "defGenConnIpsExprBounds424",
+                                                 ipsFull + " " + which);
+                                    return (UHDM::expr*)e;
+                                };
+                                UHDM::expr* synBase424 = nullptr;
+                                UHDM::expr* synWid424 = nullptr;
+                                // A bound written as a MACRO ARGUMENT
+                                // (`` `bss_if_clause(1) `` -> `[width_p-1-:num]`)
+                                // is the substituted token in golden (constant
+                                // 1, unparented, at the argument's place in
+                                // the macro body); the text parse reads the
+                                // macro body's `num`.
+                                auto macroArg424 = [&](const syntax::ExpressionSyntax* x,
+                                                       const std::string& tx) {
+                                    return std::string(rawText(x->sourceRange())) != tx;
+                                };
+                                if (rs424 && (!plain424(baseTx9) || macroArg424(rs424->left, baseTx9)))
+                                    synBase424 = viaSyn424(rs424->left, "base");
+                                if (rs424 && (!plain424(widTx9) || macroArg424(rs424->right, widTx9)))
+                                    synWid424 = viaSyn424(rs424->right, "width");
+                                for (auto* c424 : {synBase424, synWid424})
+                                    if (c424 && c424->UhdmType() == UHDM::uhdmconstant)
+                                        c424->VpiParent(nullptr);
+                                if (synBase424)
+                                    ips->Base_expr(synBase424);
+                                else if (auto star9 = baseTx9.find('*');
                                     star9 != std::string::npos) {
                                     auto* opB = s.MakeOperation();
                                     opB->VpiOpType(vpiMultOp);
@@ -64886,6 +65274,9 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 else
                                     ips->Base_expr(mkLeaf9(
                                         baseTx9, baseOff9, ips, ipsFull));
+                                if (synWid424)
+                                    ips->Width_expr(synWid424);
+                                else
                                 ips->Width_expr(mkLeaf9(widTx9, widOff9, ips,
                                                         fmScope9));
                             }
@@ -64990,8 +65381,55 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             auto [rt9, rof9] =
                                 trimR9(inner9.substr(colon9 + 1),
                                        innerBase9 + colon9 + 1);
-                            pss9->Left_range(mkB9(lt9, lof9, pss9));
-                            pss9->Right_range(mkB9(rt9, rof9, pss9));
+                            // § defGenConnPsExprBounds424 (r11u424, cases/PS;
+                            // sv-tests bsg_mem_1rw_sync_mask_write_var,
+                            // bsg_mem_1r1w_sync_mask_write_var) — the text
+                            // parser splits a bound at its first operator
+                            // and reads a parenthesis as part of a name
+                            // (`[(i+1)*mask_width_p-1:i*mask_width_p]`: ours
+                            // ref_obj `(i`); a bound holding parentheses, a
+                            // macro, a system call, a conditional or more
+                            // than one operator is built from the selector's
+                            // syntax instead, its references named through
+                            // the select as the text parser names them.
+                            // Switch R11U424_GENPSBOUND_OFF.
+                            const syntax::RangeSelectSyntax* prs424 = nullptr;
+                            if (lawOn(424, "R11U424_GENPSBOUND_OFF") &&
+                                actSyn9->kind == syntax::SyntaxKind::IdentifierSelectName &&
+                                actSyn9->as<syntax::IdentifierSelectNameSyntax>().selectors.size() == 1)
+                                if (auto* sl424 = actSyn9->as<syntax::IdentifierSelectNameSyntax>()
+                                                      .selectors[0]->selector;
+                                    sl424 && sl424->kind == syntax::SyntaxKind::SimpleRangeSelect)
+                                    prs424 = &sl424->as<syntax::RangeSelectSyntax>();
+                            auto complex424 = [](const std::string& tx) {
+                                if (tx.find_first_of("()$`?") != std::string::npos)
+                                    return true;
+                                int ops = 0;
+                                for (size_t i = 1; i < tx.size(); i++)
+                                    if (tx[i] == '+' || tx[i] == '-' || tx[i] == '*' || tx[i] == '/')
+                                        ops++;
+                                return ops > 1;
+                            };
+                            auto viaSynPs424 = [&](const syntax::ExpressionSyntax* x) {
+                                auto savedP = syntaxRefPrefix;
+                                auto savedS = syntaxRefSep;
+                                syntaxRefPrefix = psFull9;
+                                syntaxRefSep = ".";
+                                auto* e = emitSyntaxExpr(*x, pss9);
+                                syntaxRefPrefix = savedP;
+                                syntaxRefSep = savedS;
+                                if (e)
+                                    lawTrace(424, "defGenConnPsExprBounds424", psFull9);
+                                return (UHDM::expr*)e;
+                            };
+                            UHDM::expr* pl424 = nullptr;
+                            UHDM::expr* pr424 = nullptr;
+                            if (prs424 && complex424(lt9))
+                                pl424 = viaSynPs424(prs424->left);
+                            if (prs424 && complex424(rt9))
+                                pr424 = viaSynPs424(prs424->right);
+                            pss9->Left_range(pl424 ? pl424 : mkB9(lt9, lof9, pss9));
+                            pss9->Right_range(pr424 ? pr424 : mkB9(rt9, rof9, pss9));
                             p->High_conn(pss9);
                         }
                         else if (lb2 != std::string::npos && !act.empty() &&
@@ -66565,6 +67003,53 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     }
                     syntaxRefPrefix.clear();
                     gf->VpiForIncStmt(as9);
+                }
+                // § genForCompoundStep424 (r11u424, cases/GS; sv-tests
+                // bsg_pipeline_stall_collapse) — a COMPOUND assignment step
+                // (`i += 1`, `-=`, `*=`, `/=`) is an assignment too in golden,
+                // its vpiOpType the arithmetic operator (`+=` vpiAddOp 24),
+                // the genvar reference at the left token, the step
+                // expression as Rhs (a constant unparented), the whole step
+                // its span; ours fell to the increment branch and wrote a
+                // post-increment operation.  Switch R11U424_GENFORSTEP_OFF.
+                else if ((loopSyn->iterationExpr->kind ==
+                              syntax::SyntaxKind::AddAssignmentExpression ||
+                          loopSyn->iterationExpr->kind ==
+                              syntax::SyntaxKind::SubtractAssignmentExpression ||
+                          loopSyn->iterationExpr->kind ==
+                              syntax::SyntaxKind::MultiplyAssignmentExpression ||
+                          loopSyn->iterationExpr->kind ==
+                              syntax::SyntaxKind::DivideAssignmentExpression) &&
+                         lawOn(424, "R11U424_GENFORSTEP_OFF")) {
+                    auto ik424 = loopSyn->iterationExpr->kind;
+                    auto& ae424 = loopSyn->iterationExpr
+                                      ->as<syntax::BinaryExpressionSyntax>();
+                    auto* as424 = s.MakeAssignment();
+                    as424->VpiParent(gf);
+                    as424->VpiOpType(
+                        ik424 == syntax::SyntaxKind::AddAssignmentExpression ? vpiAddOp
+                        : ik424 == syntax::SyntaxKind::SubtractAssignmentExpression ? vpiSubOp
+                        : ik424 == syntax::SyntaxKind::MultiplyAssignmentExpression ? vpiMultOp
+                                                                                     : vpiDivOp);
+                    setLoc(as424, loopSyn->iterationExpr->sourceRange());
+                    auto* lr424 = s.MakeRef_obj();
+                    lr424->VpiName(gname);
+                    lr424->VpiFullName(gfull);
+                    lr424->Actual_group(iv);
+                    lr424->VpiParent(as424);
+                    setLoc(lr424, ae424.left->sourceRange());
+                    as424->Lhs((UHDM::expr*)lr424);
+                    syntaxRefPrefix = prefix;
+                    if (auto* rx424 = emitSyntaxExpr(*ae424.right, as424)) {
+                        bindGenvar(rx424);
+                        foldPkgLoopRefs(rx424);
+                        if (rx424->UhdmType() == UHDM::uhdmconstant)
+                            ((UHDM::expr*)rx424)->VpiParent(nullptr);
+                        as424->Rhs((UHDM::expr*)rx424);
+                    }
+                    syntaxRefPrefix.clear();
+                    gf->VpiForIncStmt(as424);
+                    lawTrace(424, "genForCompoundStep424", gfull);
                 }
                 else {
                     auto* op = s.MakeOperation();

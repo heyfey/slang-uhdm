@@ -4635,7 +4635,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // Surelog's two `compileFunction` calls and the golden g7 table:
             // src/EmitHelpers.h.
             UHDM::variables* lateRv10 = nullptr;
-            if (!crossImplicitRet)
+            // § tpRetOobRefVar424 (r11u424, cases/TP; sv-tests hdlconvertor
+            // p193_2) — the CLASS-BODY PROTOTYPE listing of an `extern` method
+            // whose return type is the class's TYPE PARAMETER keeps
+            // § typeParamRetIsRefVar58's ref_var: `class C #(type T = int);
+            // extern static function T f(); endclass` golden ref_var at the
+            // prototype's `T`, where § externProtoRetVarKindIsPrototypeCompile185
+            // answered class_var (its out-of-body branch models a TYPEDEF's late
+            // binding; the prototype compile reads the bound parameter).  The
+            // out-of-body DEFINITION listing (`function C::T C::f()`) stays
+            // class_var over an unsupported_typespec C::T in golden, as ours
+            // is.  A class binding keeps its class_var (the predicate's own
+            // exclusion).
+            // Switch R11U424_TPRETOOB_OFF.
+            if (!crossImplicitRet && protoOf && typeParamVarIsRefVar58(sub.getReturnType()) &&
+                lawOn(424, "R11U424_TPRETOOB_OFF") &&
+                externProtoRetVarKind185(sub, protoOf) == TdLocalVarKind10::ClassVar) {
+                lateRv10 = s.MakeRef_var();
+                lawTrace(424, "tpRetOobRefVar424", fullName);
+            }
+            if (!crossImplicitRet && !lateRv10)
                 switch (externProtoRetVarKind185(sub, protoOf)) {
                     case TdLocalVarKind10::ClassVar:
                         lateRv10 = s.MakeClass_var();
@@ -5331,6 +5350,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // enum_var element) rather than a flat logic_var.
             if (auto* pav = makeEnumArrayVar(ts, fullName, tf))
                 rv = pav;
+            // § tpRetOobRefVar424, the DEFINITION half — the out-of-body
+            // definition `function C::T C::f()` compiles its return through
+            // the class_var branch with the scoped name UNRESOLVED: golden an
+            // unsupported_typespec named `C::T` over the written name, ours
+            // the bound type's own typespec.  Switch R11U424_TPRETOOB_OFF.
+            UHDM::typespec* oobTpUt424 = nullptr;
+            SourceRange oobTpRange424;
+            if (!protoOf && rv && rv->UhdmType() == UHDM::uhdmclass_var &&
+                typeParamVarIsRefVar58(sub.getReturnType()) &&
+                lawOn(424, "R11U424_TPRETOOB_OFF"))
+                if (auto* rs424 = retTypeSyn175(sub);
+                    rs424 && rs424->kind == syntax::SyntaxKind::NamedType)
+                    if (const syntax::NameSyntax* qn424 =
+                            rs424->as<syntax::NamedTypeSyntax>().name;
+                        qn424 && qn424->kind == syntax::SyntaxKind::ScopedName) {
+                        auto* ut424 = s.MakeUnsupported_typespec();
+                        ut424->VpiName(std::string(rawText(qn424->sourceRange())));
+                        // Surelog locates it at the class scope `C::`: the
+                        // span ends where the type's own name begins.
+                        auto& sn424 = qn424->as<syntax::ScopedNameSyntax>();
+                        setLoc(ut424, SourceRange(qn424->sourceRange().start(),
+                                                  sn424.right->sourceRange().start()));
+                        ts = ut424;
+                        oobTpUt424 = ut424;
+                        oobTpRange424 = qn424->sourceRange();
+                        lawTrace(424, "tpRetOobRefVar424", fullName + " def");
+                    }
             auto* rt = s.MakeRef_typespec();
             rt->VpiFullName(fullName);
             rt->VpiParent(rv);
@@ -5468,6 +5514,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             }
             else {
                 copyLoc(rv, ts);
+                // § tpRetOobRefVar424 — the class_var keeps the whole name.
+                if (oobTpUt424 && ts == oobTpUt424)
+                    setLoc(rv, oobTpRange424);
                 // § classTdRetVarAtTypeToken412 (r11u412,
                 // R11U412_CLSTDRETLOC_OFF; cases
                 // tools/probe/r11u412repro/cases/OR) — a function whose

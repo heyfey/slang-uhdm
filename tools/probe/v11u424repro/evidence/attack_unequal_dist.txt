@@ -1,0 +1,47 @@
+v11u424repro/cases/VB/vb02 p:seq=54,ms=32 l:seq=46,ms=24
+v11u424repro/cases/VC/vc10 p:seq=49,ms=45 l:seq=28,ms=24
+v11u424repro/cases/VF/vf02 p:seq=23,ms=19 l:seq=12,ms=8
+v11u424repro/cases/VF/vf03 p:seq=43,ms=39 l:seq=10,ms=6
+v11u424repro/cases/VF/vf05 p:seq=14,ms=6 l:seq=14,ms=6
+v11u424repro/cases/VF/vf07 p:seq=16,ms=12 l:seq=16,ms=12
+v11u424repro/cases/VF/vf08 p:seq=29,ms=25 l:seq=12,ms=8
+v11u424repro/cases/VF/vf09 p:seq=18,ms=10 l:seq=18,ms=10
+v11u424repro/cases/VF/vf10 p:seq=34,ms=24 l:seq=18,ms=10
+v11u424repro/cases/VI/vi01 p:seq=175,ms=171 l:seq=100,ms=100
+v11u424repro/cases/VI/vi03 p:seq=211,ms=203 l:seq=50,ms=50
+v11u424repro/cases/VI/vi04 p:seq=145,ms=131 l:seq=114,ms=102
+v11u424repro/cases/VI/vi07 p:seq=95,ms=89 l:seq=40,ms=40
+v11u424repro/cases/VI/vi08 p:seq=115,ms=99 l:seq=80,ms=68
+v11u424repro/cases/VI/vi09 p:seq=134,ms=130 l:seq=83,ms=81
+v11u424repro/cases/VI/vi10 p:seq=83,ms=81 l:seq=36,ms=36
+v11u424repro/cases/VI/vi11 p:seq=107,ms=101 l:seq=36,ms=36
+v11u424repro/cases/VI/vi12 p:seq=20,ms=20 l:seq=20,ms=20
+v11u424repro/cases/VI/vi13 p:seq=251,ms=237 l:seq=72,ms=72
+v11u424repro/cases/VI/vi14 p:seq=235,ms=119 l:seq=186,ms=74
+v11u424repro/cases/VI/vi16 p:seq=81,ms=81 l:seq=36,ms=36
+v11u424repro/cases/VK/vk02 p:seq=65,ms=65 l:seq=25,ms=25
+v11u424repro/cases/VK/vk06 p:seq=20,ms=20 l:seq=10,ms=10
+v11u424repro/cases/VL/vl02 p:seq=121,ms=99 l:seq=113,ms=91 (rerun after a key collision)
+v11u424repro/cases/VM/vm03 p:seq=93,ms=73 l:seq=60,ms=48
+v11u424repro/cases/VM/vm06 p:seq=86,ms=62 l:seq=66,ms=54
+v11u424repro/cases/VP/vp01 p:seq=32,ms=28 l:seq=26,ms=18
+v11u424repro/cases/VP/vp03 p:seq=12,ms=12 l:seq=12,ms=12
+v11u424repro/cases/VP/vp06 p:seq=143,ms=141 l:seq=138,ms=132
+v11u424repro/cases/VS/vs01 p:seq=44,ms=38 l:seq=24,ms=20
+v11u424repro/cases/VS/vs02 p:seq=58,ms=54 l:seq=58,ms=54
+v11u424repro/cases/VS/vs04 p:seq=120,ms=102 l:seq=84,ms=72
+v11u424repro/cases/VS/vs05 p:seq=54,ms=46 l:seq=54,ms=46
+v11u424repro/cases/VS/vs07 p:seq=110,ms=88 l:seq=92,ms=84
+v11u424repro/cases/VS/vs08 p:seq=149,ms=127 l:seq=60,ms=56
+v11u424repro/cases/VS/vs09 p:seq=120,ms=108 l:seq=120,ms=108
+v11u424repro/cases/VT/vt04 p:seq=12,ms=10 l:seq=12,ms=10
+v11u424repro/cases/VT/vt05 p:seq=10,ms=10 l:seq=10,ms=10
+v11u424repro/cases/VT/vt07 p:seq=43,ms=41 l:seq=43,ms=41
+v11u424repro/cases/VT/vt10 p:seq=12,ms=10 l:seq=10,ms=8
+v11u424repro/cases/VU/vu02 p:seq=9,ms=9 l:seq=9,ms=9
+v11u424repro/cases/
+v11u424repro/cases/VU/vu10 p:seq=45,ms=45 l:seq=7,ms=7
+v11u424repro/cases/VW/vw05 p:seq=50,ms=50 l:seq=40,ms=40
+v11u424repro/cases/VW/vw07 p:seq=50,ms=50 l:seq=34,ms=34
+v11u424repro/cases/VX/vx04 p:seq=13,ms=9 l:seq=6,ms=2
+v11u424repro/cases/VU/vu08 p:seq=13,ms=9 l:seq=13,ms=9 (rerun after a key collision)

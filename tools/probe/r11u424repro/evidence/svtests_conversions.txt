@@ -1,0 +1,23 @@
+CONVERSION chapter-16/16.12--property-interface-prec-uvm.sv: DIFFERENT -> EQUAL
+CONVERSION chapter-16/16.12--property-interface-uvm.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_async_BaseJumpSTL_bsg_async_fifo.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_async_BaseJumpSTL_bsg_launch_sync_sync.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_async_BaseJumpSTL_bsg_sync_sync.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2012/hdlconvertor_std2012_p88.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generic/class/class_test_51.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=58 EQUAL=1880 SLANG_ONLY=19 STRICT_NOTEQUAL=2 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=20 changes=0
+svtests rc=0 Tue Oct 20 22:16:53 EDT 2026

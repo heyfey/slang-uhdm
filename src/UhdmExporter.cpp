@@ -23,6 +23,7 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+bool& classParamRhs424();  // § classParamBitsKeywordFold424 (TypeEmit.cpp)
 // § assocTdIndexShapes402 — the widened one-dimension shape (TypeEmit.cpp).
 bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
 // § unitAssocTdMultiDim406 — the multi-dimension listing (TypeEmit.cpp).
@@ -11880,7 +11881,10 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         auto* pa = s.MakeParam_assign();
         pa->VpiParent(cd);
         setLoc(pa, SourceRange(ps.location, rhsSyn->sourceRange().end()));
+        // § classParamBitsKeywordFold424 (TypeEmit.cpp)
+        classParamRhs424() = lawOn(424, "R11U424_CLSBITSKW_OFF");
         auto* rhs = emitSyntaxExpr(*rhsSyn, pa);
+        classParamRhs424() = false;
         if (!rhs) {
             pas->push_back(pa);
             pa->Lhs(pv);
@@ -11891,8 +11895,89 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         pas->push_back(pa);
         // A literal RHS folds: the parameter takes its value, and both the
         // parameter and the constant share the declaration's int_typespec.
-        if (rhs->UhdmType() != UHDM::uhdmconstant)
+        // § classParamWrittenKwTs424 (r11u424, cases/CP; sv-tests
+        // generic/class/class_test_49) — a class value parameter written with
+        // a keyword type other than `int` / `string` (§ classParamWritten-
+        // TypeTypespec54's two) is typed like any declaration of that keyword:
+        // `parameter reg P = '1;` golden logic_typespec over `reg` parented at
+        // the parameter (byte, shortint, longint and integer vpiSigned, and
+        // the parameter signed with them under a `parameter`/`localparam`
+        // keyword), where ours fell through to the whole-declaration
+        // int_typespec; a packed range is not written (residue).  And a
+        // parameter written `int`, `string` or such a keyword whose
+        // initializer does not fold to a constant still carries that
+        // typespec (golden `parameter int D = A + 1;` int_typespec 4:13-4:16
+        // signed, parented at the parameter), where ours wrote none.
+        // Switch R11U424_CLSPARAMKW_OFF.
+        const bool kw424 = lawOn(424, "R11U424_CLSPARAMKW_OFF");
+        auto writtenTs424 = [&](bool withIntString) -> UHDM::typespec* {
+            const DeclaredType* dt424 = ps.getDeclaredType();
+            const syntax::DataTypeSyntax* ws424 = dt424 ? dt424->getTypeSyntax() : nullptr;
+            if (!ws424 || ws424->kind == syntax::SyntaxKind::ImplicitType)
+                return nullptr;
+            auto& ct424 = ps.getType().getCanonicalType();
+            UHDM::typespec* t424 = nullptr;
+            bool sgn424 = false;
+            if (ct424.kind == SymbolKind::PredefinedIntegerType) {
+                switch (ct424.as<PredefinedIntegerType>().integerKind) {
+                    case PredefinedIntegerType::Byte: t424 = s.MakeByte_typespec(); break;
+                    case PredefinedIntegerType::ShortInt: t424 = s.MakeShort_int_typespec(); break;
+                    case PredefinedIntegerType::LongInt: t424 = s.MakeLong_int_typespec(); break;
+                    case PredefinedIntegerType::Integer: t424 = s.MakeInteger_typespec(); break;
+                    case PredefinedIntegerType::Int:
+                        if (withIntString)
+                            t424 = s.MakeInt_typespec();
+                        break;
+                    default: break;
+                }
+                sgn424 = t424 && ct424.isSigned();
+            }
+            else if (ct424.kind == SymbolKind::ScalarType &&
+                     syntax::IntegerTypeSyntax::isKind(ws424->kind) &&
+                     ws424->as<syntax::IntegerTypeSyntax>().dimensions.empty() &&
+                     !ws424->as<syntax::IntegerTypeSyntax>().signing) {
+                if (ct424.as<ScalarType>().scalarKind == ScalarType::Bit)
+                    t424 = s.MakeBit_typespec();
+                else
+                    t424 = s.MakeLogic_typespec();
+            }
+            else if (ct424.kind == SymbolKind::StringType && withIntString)
+                t424 = s.MakeString_typespec();
+            if (!t424)
+                return nullptr;
+            setLoc(t424, ws424->sourceRange());
+            t424->VpiParent(pv);
+            if (sgn424) {
+                switch (t424->UhdmType()) {
+                    case UHDM::uhdmbyte_typespec: ((UHDM::byte_typespec*)t424)->VpiSigned(true); break;
+                    case UHDM::uhdmshort_int_typespec: ((UHDM::short_int_typespec*)t424)->VpiSigned(true); break;
+                    case UHDM::uhdmlong_int_typespec: ((UHDM::long_int_typespec*)t424)->VpiSigned(true); break;
+                    case UHDM::uhdminteger_typespec: ((UHDM::integer_typespec*)t424)->VpiSigned(true); break;
+                    case UHDM::uhdmint_typespec: ((UHDM::int_typespec*)t424)->VpiSigned(true); break;
+                    default: break;
+                }
+                bool kwd424 = false;
+                if (auto* dn424 = declNodeOf(ps))
+                    if (auto* pd424 = dn424->as_if<syntax::ParameterDeclarationBaseSyntax>())
+                        kwd424 = pd424->keyword.kind == parsing::TokenKind::ParameterKeyword ||
+                                 pd424->keyword.kind == parsing::TokenKind::LocalParamKeyword;
+                if (kwd424)
+                    pv->VpiSigned(true);
+            }
+            lawTrace(424, "classParamWrittenKwTs424", fullName + "::" + std::string(ps.name));
+            return t424;
+        };
+        if (rhs->UhdmType() != UHDM::uhdmconstant) {
+            if (kw424 && !pv->Typespec())
+                if (auto* nt424 = writtenTs424(true)) {
+                    auto* prt424 = s.MakeRef_typespec();
+                    prt424->VpiParent(pv);
+                    prt424->VpiFullName(std::string(pv->VpiFullName()));
+                    prt424->Actual_typespec(nt424);
+                    pv->Typespec(prt424);
+                }
             continue;
+        }
         auto* rc = (UHDM::constant*)rhs;
         pv->VpiValue(rc->VpiValue());
         // ONE int_typespec per DECLARATOR (three declarators on one
@@ -11989,6 +12074,8 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         // v11u111repro/brk/f1/x01_class_param).  makeTypespec gives the
         // declaration's shared typedef object.  Grid
         // tools/probe/r11u303repro/cases/CP.  Switch R11U303_CLSPARAMTD_OFF.
+        if (!dts && kw424)
+            dts = writtenTs424(false);
         if (!dts && namedType303 && lawOn(303, "R11U303_CLSPARAMTD_OFF")) {
             if (auto* nts303 = makeTypespec(ps)) {
                 dts = nts303;

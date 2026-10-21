@@ -1,0 +1,87 @@
+BV/bv01 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 00fc4d0e | law rc=0 cmp=0 STRICT_EQUAL 42 539411ce | OFF same | R11U424_BOUNDLIT_OFF same
+BV/bv02 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 edb67264 | law rc=0 cmp=0 STRICT_EQUAL 40 9549293a | OFF same | R11U424_BOUNDLIT_OFF same
+BV/bv03 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 3bba5e40 | law rc=0 cmp=0 STRICT_EQUAL 24 7f2505a9 | OFF same | R11U424_BOUNDLIT_OFF same
+BV/bv04 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 4737920a | law rc=0 cmp=0 STRICT_EQUAL 121 732d3c39 | OFF same | R11U424_BOUNDLIT_OFF same
+BV/bv05 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 fbe97a14 | law rc=0 cmp=0 STRICT_EQUAL 72 d6d1eef2 | OFF same | R11U424_BOUNDLIT_OFF same
+BV/bv06 | boundSizedLitKept424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 c1593c51 | law rc=0 cmp=36 NOT_EQUAL stage1 c1593c51 | OFF same | R11U424_BOUNDLIT_OFF same
+CB/cb01 | classParamBitsKeywordFold424 | pristine rc=0 cmp=42 NOT_EQUAL stage1 cf8c4ba2 | law rc=0 cmp=0 STRICT_EQUAL 12 4c9f4b41 | OFF same | R11U424_CLSBITSKW_OFF same
+CB/cb02 | classParamBitsKeywordFold424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 cc4819be | law rc=0 cmp=0 STRICT_EQUAL 23 1a0a689d | OFF same | R11U424_CLSBITSKW_OFF DIFF
+CB/cb03 | classParamBitsKeywordFold424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 cbe05b8d | law rc=0 cmp=17 NOT_EQUAL stage1 cbe05b8d | OFF same | R11U424_CLSBITSKW_OFF same
+CP/cp01 | classParamWrittenKwTs424 | pristine rc=0 cmp=16 NOT_EQUAL stage1 79a5e50a | law rc=0 cmp=0 STRICT_EQUAL 18 3ce0ccc4 | OFF same | R11U424_CLSPARAMKW_OFF same
+CP/cp02 | classParamWrittenKwTs424 | pristine rc=0 cmp=16 NOT_EQUAL stage1 ff12be42 | law rc=0 cmp=0 STRICT_EQUAL 46 5aa0aa16 | OFF same | R11U424_CLSPARAMKW_OFF same
+CP/cp03 | classParamWrittenKwTs424 | pristine rc=0 cmp=76 NOT_EQUAL stage1 1b24fa26 | law rc=0 cmp=76 NOT_EQUAL stage1 1b24fa26 | OFF same | R11U424_CLSPARAMKW_OFF same
+CP/cp04 | classParamWrittenKwTs424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 ebdf3f00 | law rc=0 cmp=0 STRICT_EQUAL 32 62352186 | OFF same | R11U424_CLSPARAMKW_OFF DIFF
+CP/cp05 | classParamWrittenKwTs424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 18386719 | law rc=0 cmp=0 STRICT_EQUAL 49 ccb6ddbc | OFF same | R11U424_CLSPARAMKW_OFF same
+CV/cv01 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=29 NOT_EQUAL stage1 2981b12e | law rc=0 cmp=0 STRICT_EQUAL 48 229a4ad9 | OFF same | R11U424_COVERCLK_OFF same
+CV/cv02 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=29 NOT_EQUAL stage1 852e67c0 | law rc=0 cmp=0 STRICT_EQUAL 64 839a9235 | OFF same | R11U424_COVERCLK_OFF same
+CV/cv03 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=29 NOT_EQUAL stage1 e0c1b8b9 | law rc=0 cmp=0 STRICT_EQUAL 63 193fa6ec | OFF same | R11U424_COVERCLK_OFF same
+CV/cv04 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=74 NOT_EQUAL stage1 7ec75a9d | law rc=0 cmp=74 NOT_EQUAL stage1 7ec75a9d | OFF same | R11U424_COVERCLK_OFF same
+CV/cv05 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=29 NOT_EQUAL stage1 24725cb2 | law rc=0 cmp=0 STRICT_EQUAL 56 3d07df16 | OFF same | R11U424_COVERCLK_OFF same
+CV/cv06 | coverClockedPropExprIsClock424 | pristine rc=0 cmp=29 NOT_EQUAL stage1 6a05c1ad | law rc=0 cmp=0 STRICT_EQUAL 66 d9e67cff | OFF same | R11U424_COVERCLK_OFF same
+DV/dv01 | // | pristine rc=0 cmp=9 NOT_EQUAL stage1 563cf9e8 | law rc=0 cmp=9 NOT_EQUAL stage1 563cf9e8 | OFF same |  same
+GS/gs01 | genForCompoundStep424 | pristine rc=0 cmp=68 NOT_EQUAL stage1 7db96d7f | law rc=0 cmp=0 STRICT_EQUAL 77 0f4c9367 | OFF same | R11U424_GENFORSTEP_OFF same
+GS/gs02 | genForCompoundStep424 | pristine rc=0 cmp=68 NOT_EQUAL stage1 f8859979 | law rc=0 cmp=0 STRICT_EQUAL 130 86eb3c06 | OFF same | R11U424_GENFORSTEP_OFF same
+IA/ia01 | ifcConcAssertListed424 | pristine rc=0 cmp=205 NOT_EQUAL stage1 ad7bf975 | law rc=0 cmp=185 NOT_EQUAL stage1 8f4bcd5e | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia02 | ifcConcAssertListed424 | pristine rc=0 cmp=0 STRICT_EQUAL 75 00bd9e6e | law rc=0 cmp=0 STRICT_EQUAL 75 00bd9e6e | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia03 | ifcConcAssertListed424 | pristine rc=0 cmp=185 NOT_EQUAL stage1 7bc1bd76 | law rc=0 cmp=185 NOT_EQUAL stage1 7bc1bd76 | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia04 | ifcConcAssertListed424 | pristine rc=0 cmp=205 NOT_EQUAL stage1 946c400c | law rc=0 cmp=0 STRICT_EQUAL 82 480e1c09 | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia05 | ifcConcAssertListed424 | pristine rc=0 cmp=0 STRICT_EQUAL 82 c5781979 | law rc=0 cmp=0 STRICT_EQUAL 82 c5781979 | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia06 | ifcConcAssertListed424 | pristine rc=0 cmp=205 NOT_EQUAL stage1 81491ee5 | law rc=0 cmp=0 STRICT_EQUAL 141 ac6802a2 | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia07 | ifcConcAssertListed424 | pristine rc=0 cmp=335 NOT_EQUAL stage1 e498bfb9 | law rc=0 cmp=0 STRICT_EQUAL 142 1d5936d9 | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia08 | ifcConcAssertListed424 | pristine rc=0 cmp=205 NOT_EQUAL stage1 81f3f559 | law rc=0 cmp=0 STRICT_EQUAL 83 d865d4dc | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia09 | ifcConcAssertListed424 | pristine rc=0 cmp=341 NOT_EQUAL stage1 29b0cd82 | law rc=0 cmp=0 STRICT_EQUAL 223 d27dc8df | OFF same | R11U424_IFCASSERT_OFF same
+IA/ia10 | ifcConcAssertListed424 | pristine rc=0 cmp=205 NOT_EQUAL stage1 b2f22165 | law rc=0 cmp=0 STRICT_EQUAL 145 d297ca80 | OFF same | R11U424_IFCASSERT_OFF same
+ND/nd01 | // | pristine rc=0 cmp=17 NOT_EQUAL stage1 9db5ef37 | law rc=0 cmp=17 NOT_EQUAL stage1 9db5ef37 | OFF same |  same
+ND/nd02 | // | pristine rc=0 cmp=17 NOT_EQUAL stage1 d1ca11dd | law rc=0 cmp=17 NOT_EQUAL stage1 d1ca11dd | OFF same |  same
+ND/nd03 | // | pristine rc=0 cmp=29 NOT_EQUAL stage1 ff426ef6 | law rc=0 cmp=29 NOT_EQUAL stage1 ff426ef6 | OFF same |  same
+PB/pb01 | defGenLpSysArgBitSelAtIndex424 | pristine rc=0 cmp=15 NOT_EQUAL stage1 dbfd5358 | law rc=0 cmp=15 NOT_EQUAL stage1 4159ad40 | OFF same | R11U424_GENLPSYSBS_OFF same
+PB/pb02 | defGenLpSysArgBitSelAtIndex424 | pristine rc=0 cmp=15 NOT_EQUAL stage1 5cbfb813 | law rc=0 cmp=15 NOT_EQUAL stage1 dd0d2a51 | OFF same | R11U424_GENLPSYSBS_OFF same
+PB/pb06 | defGenLpSysArgBitSelAtIndex424 | pristine rc=0 cmp=15 NOT_EQUAL stage1 f9372db9 | law rc=0 cmp=15 NOT_EQUAL stage1 08cdf200 | OFF same | R11U424_GENLPSYSBS_OFF same
+PB/pb07 | defGenLpSysArgBitSelAtIndex424 | pristine rc=0 cmp=15 NOT_EQUAL stage1 3da5674a | law rc=0 cmp=15 NOT_EQUAL stage1 e8a45706 | OFF same | R11U424_GENLPSYSBS_OFF DIFF
+PS/ps01 | defGenConnPsExprBounds424 | pristine rc=0 cmp=120 NOT_EQUAL stage1 0fe2aef6 | law rc=0 cmp=46 NOT_EQUAL stage1 d6bd1f96 | OFF same | R11U424_GENPSBOUND_OFF same
+PS/ps02 | defGenConnPsExprBounds424 | pristine rc=0 cmp=38 NOT_EQUAL stage1 d89eb802 | law rc=0 cmp=46 NOT_EQUAL stage1 8781be2f | OFF same | R11U424_GENPSBOUND_OFF same
+PS/ps03 | defGenConnPsExprBounds424 | pristine rc=0 cmp=46 NOT_EQUAL stage1 3dc390e4 | law rc=0 cmp=46 NOT_EQUAL stage1 3dc390e4 | OFF same | R11U424_GENPSBOUND_OFF same
+RD/rd01 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 6be56b1d | law rc=0 cmp=17 NOT_EQUAL stage1 d8d2a3eb | OFF same | R11U424_GENLPSELIDX_OFF same
+RD/rd02 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 bcd5dd4a | law rc=0 cmp=17 NOT_EQUAL stage1 42bc9b93 | OFF same | R11U424_GENLPSELIDX_OFF same
+RD/rd03 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 626c5da3 | law rc=0 cmp=17 NOT_EQUAL stage1 dad2cc53 | OFF same | R11U424_GENLPSELIDX_OFF same
+RD/rd04 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=82 NOT_EQUAL stage1 5f262ce5 | law rc=0 cmp=82 NOT_EQUAL stage1 2e4e27a7 | OFF same | R11U424_GENLPSELIDX_OFF same
+RD/rd05 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 3f729a2b | law rc=0 cmp=17 NOT_EQUAL stage1 3f729a2b | OFF same | R11U424_GENLPSELIDX_OFF same
+RD/rd06 | defGenLpSelIdxThroughBase424 | pristine rc=0 cmp=26 NOT_EQUAL stage1 aa69bd8b | law rc=0 cmp=26 NOT_EQUAL stage1 a2d3f953 | OFF same | R11U424_GENLPSELIDX_OFF same
+RF/rf01 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=54 NOT_EQUAL stage1 18cfb907 | law rc=0 cmp=0 STRICT_EQUAL 108 a6809d76 | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf02 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=54 NOT_EQUAL stage1 5e86a7af | law rc=0 cmp=0 STRICT_EQUAL 108 bd0a7010 | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf03 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=50 NOT_EQUAL stage1 bf2be08c | law rc=0 cmp=28 NOT_EQUAL stage1 edbbea14 | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf04 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=54 NOT_EQUAL stage1 b0a31006 | law rc=0 cmp=28 NOT_EQUAL stage1 b9cc023f | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf05 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=0 STRICT_EQUAL 133 382fb9ae | law rc=0 cmp=0 STRICT_EQUAL 133 382fb9ae | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf06 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=54 NOT_EQUAL stage1 b59a3ea8 | law rc=0 cmp=0 STRICT_NOTEQUAL endcol 0b536a33 | OFF same | R11U424_GENIPSBOUND_OFF same
+RF/rf07 | defGenConnIpsExprBounds424 | pristine rc=0 cmp=32 NOT_EQUAL stage1 25c4d596 | law rc=0 cmp=45 NOT_EQUAL stage1 431882e2 | OFF same | R11U424_GENIPSBOUND_OFF same
+TP/tp01 | tpRetOobRefVar424 | pristine rc=0 cmp=52 NOT_EQUAL stage1 15072131 | law rc=0 cmp=0 STRICT_NOTEQUAL line d9342d4a | OFF same | R11U424_TPRETOOB_OFF same
+TP/tp02 | tpRetOobRefVar424 | pristine rc=0 cmp=52 NOT_EQUAL stage1 71b6099e | law rc=0 cmp=14 NOT_EQUAL stage1 76b0ab01 | OFF same | R11U424_TPRETOOB_OFF same
+TP/tp03 | tpRetOobRefVar424 | pristine rc=0 cmp=18 NOT_EQUAL stage1 2c736bef | law rc=0 cmp=18 NOT_EQUAL stage1 2c736bef | OFF same | R11U424_TPRETOOB_OFF same
+TR/tr01 | // | pristine rc=0 cmp=0 STRICT_EQUAL 87 023065a6 | law rc=0 cmp=0 STRICT_EQUAL 87 023065a6 | OFF same |  same
+TR/tr02 | // | pristine rc=0 cmp=0 STRICT_EQUAL 95 6ecd9155 | law rc=0 cmp=0 STRICT_EQUAL 95 6ecd9155 | OFF same |  same
+TR/tr03 | // | pristine rc=0 cmp=42 NOT_EQUAL stage1 d59fda63 | law rc=0 cmp=42 NOT_EQUAL stage1 d59fda63 | OFF same |  same
+TR/tr04 | // | pristine rc=0 cmp=56 NOT_EQUAL stage1 759c4382 | law rc=0 cmp=56 NOT_EQUAL stage1 759c4382 | OFF same |  same
+TR/tr05 | // | pristine rc=0 cmp=42 NOT_EQUAL stage1 730265c2 | law rc=0 cmp=42 NOT_EQUAL stage1 730265c2 | OFF same |  same
+TV/tv01 | tpVarInitSizedByDefault424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 6df216c0 | law rc=0 cmp=0 STRICT_EQUAL 40 0a9c70ce | OFF same | R11U424_TPVARINIT_OFF same
+TV/tv02 | tpVarInitSizedByDefault424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 6fb7179e | law rc=0 cmp=0 STRICT_EQUAL 68 b6cf9d37 | OFF same | R11U424_TPVARINIT_OFF same
+TV/tv03 | tpVarInitSizedByDefault424 | pristine rc=0 cmp=36 NOT_EQUAL stage1 e2e614cc | law rc=0 cmp=0 STRICT_EQUAL 52 61a48dfb | OFF same | R11U424_TPVARINIT_OFF same
+TV/tv04 | tpVarInitSizedByDefault424 | pristine rc=0 cmp=0 STRICT_EQUAL 40 0af84dfe | law rc=0 cmp=0 STRICT_EQUAL 40 0af84dfe | OFF same | R11U424_TPVARINIT_OFF same
+UC/uc01 | ifcProcCallArgNoTs424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 051401c1 | law rc=0 cmp=0 STRICT_EQUAL 167 ef952d36 | OFF same | R11U424_IFCARGTS_OFF same
+UC/uc02 | ifcProcCallArgNoTs424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 019247d4 | law rc=0 cmp=0 STRICT_EQUAL 116 88d44d65 | OFF same | R11U424_IFCARGTS_OFF same
+UC/uc03 | ifcProcCallArgNoTs424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 e23ea85e | law rc=0 cmp=0 STRICT_EQUAL 85 8a01bb0d | OFF same | R11U424_IFCARGTS_OFF same
+UC/uc04 | ifcProcCallArgNoTs424 | pristine rc=0 cmp=60 NOT_EQUAL stage1 e2ad2f11 | law rc=0 cmp=60 NOT_EQUAL stage1 e2ad2f11 | OFF same | R11U424_IFCARGTS_OFF same
+UC/uc05 | ifcProcCallArgNoTs424 | pristine rc=0 cmp=245 NOT_EQUAL stage1 d61b7dd6 | law rc=0 cmp=0 STRICT_EQUAL 135 c4080da0 | OFF same | R11U424_IFCARGTS_OFF DIFF
+UI/ui01 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 78d46c12 | law rc=0 cmp=0 STRICT_EQUAL 32 e6e32fe3 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui02 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 e7480574 | law rc=0 cmp=0 STRICT_EQUAL 24 4528aac7 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui03 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 fa8a890e | law rc=0 cmp=17 NOT_EQUAL stage1 4fe495ba | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui04 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=0 STRICT_EQUAL 27 99dce618 | law rc=0 cmp=0 STRICT_EQUAL 27 99dce618 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui05 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 86cac48e | law rc=0 cmp=17 NOT_EQUAL stage1 3dea9b6e | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui06 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=255 NOT_EQUAL stage1 836cce3a | law rc=0 cmp=0 STRICT_EQUAL 118 ee843e2d | OFF same | R11U424_IFCUNITVAR_OFF DIFF
+UI/ui07 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 7f8f795d | law rc=0 cmp=0 STRICT_EQUAL 74 37df8912 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui08 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=0 STRICT_EQUAL 16 11482cf2 | law rc=0 cmp=0 STRICT_EQUAL 16 11482cf2 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui09 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=431 NOT_EQUAL stage1 e6de6699 | law rc=0 cmp=0 STRICT_EQUAL 190 605cfca9 | OFF same | R11U424_IFCUNITVAR_OFF DIFF
+UI/ui10 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=0 STRICT_EQUAL 145 d1c90eb6 | law rc=0 cmp=0 STRICT_EQUAL 145 d1c90eb6 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui11 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname 622462c1 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname 622462c1 | OFF same | R11U424_IFCUNITVAR_OFF same
+UI/ui12 | ifcUnitVarRefMintsNet424 | pristine rc=0 cmp=17 NOT_EQUAL stage1 d2354d08 | law rc=0 cmp=0 STRICT_EQUAL 172 fbe840a2 | OFF same | R11U424_IFCUNITVAR_OFF DIFF
+VR/vr01 | defGenConnVarSelRange424 | pristine rc=0 cmp=82 NOT_EQUAL stage1 ca53d201 | law rc=0 cmp=32 NOT_EQUAL stage1 9f1d56ca | OFF same | R11U424_GENVSRANGE_OFF same
+VR/vr02 | defGenConnVarSelRange424 | pristine rc=0 cmp=82 NOT_EQUAL stage1 ac5463ca | law rc=0 cmp=0 STRICT_NOTEQUAL fullname 16a2f9bf | OFF same | R11U424_GENVSRANGE_OFF same
