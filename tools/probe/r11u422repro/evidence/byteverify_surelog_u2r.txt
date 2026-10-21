@@ -1,0 +1,13 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=d29191993a4a pristine=e60363ba3f2d
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=8bb97e66858f pristine=57a5aaad5589
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=049f4af52e42 pristine=f0c85a0be92c
+MOVERS: 3 / 962
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+MOVERS: 0 / 1608

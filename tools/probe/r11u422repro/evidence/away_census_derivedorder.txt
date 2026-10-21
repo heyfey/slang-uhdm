@@ -1,0 +1,39 @@
+chapter-16/16.12--property-interface-prec-uvm MOVED cmp_law=659513 cmp_ctl=659513
+chapter-16/16.12--property-interface-uvm MOVED cmp_law=659513 cmp_ctl=659513
+chapter-16/16.17--expect-uvm MOVED cmp_law=217 cmp_ctl=217
+chapter-18/18.14--random-stability_1 MOVED cmp_law=28 cmp_ctl=28
+chapter-18/18.5.11--static-constraint-blocks_1 NOGOLDEN
+generated/easyUVM/top MOVED cmp_law=659635 cmp_ctl=659635
+generated/uvm_classes_1/uvm_agent_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_component_class_1 MOVED cmp_law=0 cmp_ctl=663078
+generated/uvm_classes_1/uvm_driver_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_env_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_monitor_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_scoreboard_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_sequencer_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm_classes_1/uvm_test_class_1 MOVED cmp_law=0 cmp_ctl=0
+generated/uvm-examples/uvm_ac_config_db MOVED cmp_law=2207184 cmp_ctl=2207184
+generated/uvm-examples/uvm_ef_vif_config_db MOVED cmp_law=2207122 cmp_ctl=2207122
+generated/uvm-examples/uvm_generation_seq_persistence MOVED cmp_law=1398618 cmp_ctl=1398618
+generated/uvm-examples/uvm_generation_seq_poly MOVED cmp_law=1398618 cmp_ctl=1398618
+generated/uvm-examples/uvm_generation_seq_randomization MOVED cmp_law=1398618 cmp_ctl=1398618
+generated/uvm-examples/uvm_id_register MOVED cmp_law=2331772 cmp_ctl=2331772
+generated/uvm-examples/uvm_many_to_one MOVED cmp_law=1407978 cmp_ctl=1407978
+generated/uvm-examples/uvm_messaging_example MOVED cmp_law=2142426 cmp_ctl=2142426
+generated/uvm-examples/uvm_overriding NOGOLDEN
+generated/uvm-examples/uvm_param_vif_config_db MOVED cmp_law=2237622 cmp_ctl=2237622
+generated/uvm-examples/uvm_priority_arbitration MOVED cmp_law=2131924 cmp_ctl=2131924
+generated/uvm-examples/uvm_priority_grab_lock MOVED cmp_law=2155514 cmp_ctl=2155514
+generated/uvm-examples/uvm_slave_agent_multi_seq_item NOGOLDEN
+generated/uvm-examples/uvm_slave_agent NOGOLDEN
+generated/uvm-examples/uvm_test_init MOVED cmp_law=1465246 cmp_ctl=1465246
+generated/uvm-examples/uvm_use_models_pipelined_get_put MOVED cmp_law=2212066 cmp_ctl=2212066
+generated/uvm-examples/uvm_vif_config_db MOVED cmp_law=2209642 cmp_ctl=2209642
+testbenches/uvm_agent_active MOVED cmp_law=17 cmp_ctl=676352
+testbenches/uvm_agent_env MOVED cmp_law=0 cmp_ctl=0
+testbenches/uvm_agent_passive MOVED cmp_law=17 cmp_ctl=690148
+testbenches/uvm_driver_sequencer_env MOVED cmp_law=17 cmp_ctl=676352
+testbenches/uvm_monitor_env MOVED cmp_law=17 cmp_ctl=690148
+testbenches/uvm_scoreboard_env MOVED cmp_law=2202639 cmp_ctl=2202639
+testbenches/uvm_scoreboard_monitor_agent_env MOVED cmp_law=2232867 cmp_ctl=2232867
+testbenches/uvm_scoreboard_monitor_env MOVED cmp_law=2217921 cmp_ctl=2217921

@@ -1,0 +1,12 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv: DIFFERENT -> EQUAL
+CONVERSION generated/utd-sv/utd-sv_std-7.1.6-primitives.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm_classes_0/uvm_component_class_0.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm_classes_1/uvm_component_class_1.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/uvm_classes_2/uvm_component_class_2.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm_classes_3/uvm_component_class_3.sv: DIFFERENT -> EQUAL
+CONVERSION testbenches/uvm_sequence.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=79 EQUAL=1849 SLANG_ONLY=19 STRICT_NOTEQUAL=12 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=8 changes=0

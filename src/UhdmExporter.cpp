@@ -10061,8 +10061,25 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // c_qual_pstruct, c_qual_ustruct, a5 c_qual_arrtd / c_qual_qtd,
         // a2 c_qual_handle), against our enum_var / int_var / string_var /
         // chandle_var / bit_var / struct_var / array_var / class_var.
+        // § classChandleTdPropBareLogicVar422 (r11u422) — a property typed
+        // by a TYPEDEF of chandle (`typedef chandle ch_t; ch_t h;`) is, in
+        // golden, a bare logic_var with no typespec (name, full name, parent,
+        // span, automatic, visibility: makeVar_'s default branch, the
+        // typedef's chandle never reaching the subnettype chain
+        // § classChandlePropNoTs414 decodes for a written `chandle`); ours
+        // wrote a chandle_var (the v11u414 case VH/vh06, cases CH).  Switch
+        // R11U422_CHANDLETDPROP_OFF.
+        const bool chandleTd422 =
+            !foreignTd73 && cp.getType().kind == SymbolKind::TypeAlias &&
+            ct.kind == SymbolKind::CHandleType &&
+            lawOn(422, "R11U422_CHANDLETDPROP_OFF");
         if (foreignTd73)
             v = s.MakeLogic_var();
+        else if (chandleTd422) {
+            v = s.MakeLogic_var();
+            lawTrace(422, "classChandleTdPropBareLogicVar422",
+                     fullName + "::" + std::string(cp.name));
+        }
         // An ENUM-typed property is an enum_var, not the bit/logic_var its
         // integral base would give (SimpleConstraint `rand pkt_type ptype`);
         // the array-element path (classElemVar) already had this rule.
@@ -10614,7 +10631,7 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
         // vpiTypespec edge at all (the head's `logic_var
         // (uvm_pkg::uvm_sequence_request::request)` is six fields long and ours
         // was thirteen), so it must not reach the write-phase mint either.
-        if (vifProp6 || foreignTd73) {
+        if (vifProp6 || foreignTd73 || chandleTd422) {
             vars->push_back(v);
             continue;
         }
@@ -12142,10 +12159,55 @@ void UhdmExporter::drainPendingExtends() {
     pendingClassTsPa.clear();
     auto pend = pendingExtends;
     pendingExtends.clear();
-    std::stable_sort(pend.begin(), pend.end(), [](const PendingExtends& a,
-                                                  const PendingExtends& b) {
+    // § derivedClassFullNameOrder422 (r11u422) — the design-wide class map
+    // Surelog's bindBaseClasses_ walks is keyed by the class's FULL name
+    // (pkg::C for a package class, work@C for a $unit one), so a base's
+    // vpiDerivedClasses lists `uvm_pkg::uvm_sequence_library` before
+    // `work@C` ('u' < 'w') where the bare-name sort put C first (golden
+    // cases DC/dc01, dc02, dc05, dc06: p::Z before work@A, a::Y before p::Z;
+    // the uhdm-cmp head of the sv-tests UVM rows whose test class extends a
+    // UVM base another UVM class extends).  Switch R11U422_DERIVEDORDER_OFF.
+    static const bool full422 = lawOn(422, "R11U422_DERIVEDORDER_OFF");
+    // § derivedNestedBareKey422v (v11u422) — a class NESTED in a class is
+    // entered in that design-wide map under its BARE name (CompileDesign
+    // copies each class's own class map, keyed by ClassDefinition::getName),
+    // not its full name: golden lists work@top::X::N before work@top::X and
+    // work@A::zed after work@Y (the v11u422 cases VD/vd06, vd07, which the
+    // full-name key had moved from STRICT_EQUAL to NOT_EQUAL).  Switch
+    // R11V422_NESTEDKEY_OFF.
+    static const bool nested422v = full422 && fixOn(422, "R11V422_NESTEDKEY_OFF");
+    auto key422 = [](const PendingExtends& x) -> std::string {
+        if (nested422v && x.cd->VpiParent() &&
+            x.cd->VpiParent()->UhdmType() == UHDM::uhdmclass_defn)
+            return std::string(x.cd->VpiName());
+        return std::string(x.cd->VpiFullName());
+    };
+    std::stable_sort(pend.begin(), pend.end(), [&](const PendingExtends& a,
+                                                   const PendingExtends& b) {
+        if (full422 && a.cd && b.cd)
+            return key422(a) < key422(b);
         return a.cls->name < b.cls->name;
     });
+    if (nested422v && lawTraceOn(422))
+        for (auto& x : pend)
+            if (x.cd && x.cd->VpiParent() &&
+                x.cd->VpiParent()->UhdmType() == UHDM::uhdmclass_defn)
+                lawTrace(422, "derivedNestedBareKey422v",
+                         std::string(x.cd->VpiFullName()));
+    if (full422 && lawTraceOn(422)) {
+        auto byName = pend;
+        std::stable_sort(byName.begin(), byName.end(),
+                         [](const PendingExtends& a, const PendingExtends& b) {
+                             return a.cls->name < b.cls->name;
+                         });
+        for (size_t i = 0; i < pend.size(); i++)
+            if (pend[i].cd != byName[i].cd) {
+                lawTrace(422, "derivedClassFullNameOrder422",
+                         std::string(pend[i].cd->VpiFullName()) + " before " +
+                             std::string(byName[i].cd->VpiFullName()));
+                break;
+            }
+    }
     for (auto& pe : pend) {
         auto* base = pe.cls->getBaseClass();
         if (!base)
@@ -17954,6 +18016,19 @@ UHDM::design* UhdmExporter::exportDesign() {
                     }
                     ts->VpiParent(d);
                     lawTrace(402, "virtIfaceTd402", std::string(ta.name));
+                }
+                // § unitChandleTd422 (r11u422) — a $unit typedef of CHANDLE
+                // (`typedef chandle ch_t;`) had no branch (`typedef target:
+                // CHandleType`, exit 4; the v11u414 case VH/vh06).  Golden
+                // lists one chandle_typespec named like the typedef, spanning
+                // the `chandle` keyword, parented and Instanced at the design
+                // (cases CH).  Switch R11U422_UNITCHANDLETD_OFF.
+                else if (ct.kind == SymbolKind::CHandleType && typeSyn &&
+                         lawOn(422, "R11U422_UNITCHANDLETD_OFF")) {
+                    ts = s.MakeChandle_typespec();
+                    setLoc(ts, typeSyn->sourceRange());
+                    ts->VpiParent(d);
+                    lawTrace(422, "unitChandleTd422", std::string(ta.name));
                 }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));

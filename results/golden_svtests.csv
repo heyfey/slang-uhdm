@@ -1497,13 +1497,13 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p783.sv,SURELOG_ONLY,/home/heyfey
 generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p844.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p845.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p847.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p85.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p94.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/integers/6.11--integer_bit.sv,EQUAL,,equal
 generated/integers/6.11--integer_byte.sv,EQUAL,,equal
@@ -2058,7 +2058,7 @@ generated/utd-sv/utd-sv_spu_lsurpt.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_spu_ma_mon.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_std-6.1.2-contassign.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_std-6.1.2-contassign2.sv,EQUAL,,equal
-generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,DIFFERENT,decompile:,
+generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_terminator.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_test_stub_scan.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_addern_32.sv,EQUAL,,equal
@@ -2101,7 +2101,7 @@ generated/uvm-examples/uvm_vif_config_db.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_virt_seq_find_all.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_virt_seq_find_all/top.sv:175:5: error: use of undeclared identifier 'uvm_top',
 generated/uvm-examples/uvm_wait_for_signal.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm_classes_0/uvm_agent_class_0.sv,EQUAL,,equal
-generated/uvm_classes_0/uvm_component_class_0.sv,DIFFERENT,decompile:,
+generated/uvm_classes_0/uvm_component_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_driver_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_env_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_monitor_class_0.sv,EQUAL,,equal
@@ -2109,7 +2109,7 @@ generated/uvm_classes_0/uvm_scoreboard_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_sequencer_class_0.sv,EQUAL,,equal
 generated/uvm_classes_0/uvm_test_class_0.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_agent_class_1.sv,EQUAL,,equal
-generated/uvm_classes_1/uvm_component_class_1.sv,DIFFERENT,decompile:,
+generated/uvm_classes_1/uvm_component_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_driver_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_env_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_monitor_class_1.sv,EQUAL,,equal
@@ -2117,7 +2117,7 @@ generated/uvm_classes_1/uvm_scoreboard_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_sequencer_class_1.sv,EQUAL,,equal
 generated/uvm_classes_1/uvm_test_class_1.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_agent_class_2.sv,EQUAL,,equal
-generated/uvm_classes_2/uvm_component_class_2.sv,DIFFERENT,decompile:,
+generated/uvm_classes_2/uvm_component_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_driver_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_env_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_monitor_class_2.sv,EQUAL,,equal
@@ -2125,7 +2125,7 @@ generated/uvm_classes_2/uvm_scoreboard_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_sequencer_class_2.sv,EQUAL,,equal
 generated/uvm_classes_2/uvm_test_class_2.sv,EQUAL,,equal
 generated/uvm_classes_3/uvm_agent_class_3.sv,EQUAL,,equal
-generated/uvm_classes_3/uvm_component_class_3.sv,DIFFERENT,decompile:,
+generated/uvm_classes_3/uvm_component_class_3.sv,EQUAL,,equal
 generated/uvm_classes_3/uvm_driver_class_3.sv,EQUAL,,equal
 generated/uvm_classes_3/uvm_env_class_3.sv,EQUAL,,equal
 generated/uvm_classes_3/uvm_monitor_class_3.sv,EQUAL,,equal
@@ -2342,6 +2342,6 @@ testbenches/uvm_resource_db_read_by_name.sv,EQUAL,,equal
 testbenches/uvm_scoreboard_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_scoreboard_monitor_agent_env.sv,DIFFERENT,decompile:,
 testbenches/uvm_scoreboard_monitor_env.sv,DIFFERENT,decompile:,
-testbenches/uvm_sequence.sv,DIFFERENT,decompile:,
+testbenches/uvm_sequence.sv,EQUAL,,equal
 testbenches/uvm_test_run_test.sv,EQUAL,,equal
 uvm/uvm_files.sv,EQUAL,,equal

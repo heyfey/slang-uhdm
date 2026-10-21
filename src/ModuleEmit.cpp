@@ -5365,6 +5365,12 @@ static bool udpFormInstantiation(const syntax::SyntaxNode* from);
 //     as the absent `name_of_instance` (Implicit: `not (X_BAR, X)` emits one
 //     prim_term, for X, and no X_BAR net).
 // Both DO bind in the elaborated view, which is why the nets appear there.
+// § specifyRefNoDefNet422: names referenced inside specify blocks of the
+// definition being listed (filled only when the pass's trace is on).
+static std::set<std::string>& specifyNames422() {
+    static std::set<std::string> v;
+    return v;
+}
 static void collectDefBoundNames(const syntax::SyntaxNode* n, bool nonBinding,
                                  std::set<std::string>& bound) {
     if (!n)
@@ -5381,6 +5387,32 @@ static void collectDefBoundNames(const syntax::SyntaxNode* n, bool nonBinding,
              n->as<syntax::HierarchyInstantiationSyntax>().instances)
             for (auto* c : hinst->connections)
                 collectDefBoundNames(c, nonBinding || udp, bound);
+        return;
+    }
+    // § specifyRefNoDefNet422 (r11u422) — a SPECIFY BLOCK binds nothing in
+    // the definition view: an implicit net named only there (beside an
+    // unnamed gate's output terminal, a pullup terminal or nothing at all)
+    // gets no definition-view net in golden (sv-tests p884's `enable`, used
+    // as `$setup(data, posedge clock &&& enable, ...)`; cases IN/in01,
+    // in09, in10), where ours minted one at the specify reference.  The
+    // elaborated view keeps it.  Switch R11U422_SPECIFYNET_OFF.
+    if (n->kind == syntax::SyntaxKind::SpecifyBlock && !nonBinding &&
+        lawOn(422, "R11U422_SPECIFYNET_OFF")) {
+        // the names a specify block alone would have bound (the trace's
+        // census: see the definition-view net listing)
+        collectDefBoundNames(n, true, bound);
+        std::function<void(const syntax::SyntaxNode*)> seen422 =
+            [&](const syntax::SyntaxNode* x) {
+                if (!x)
+                    return;
+                if (x->kind == syntax::SyntaxKind::IdentifierName)
+                    specifyNames422().insert(std::string(
+                        x->as<syntax::IdentifierNameSyntax>().identifier.valueText()));
+                for (size_t i = 0; i < x->getChildCount(); i++)
+                    seen422(x->childNode(i));
+            };
+        if (lawTraceOn(422))
+            seen422(n);
         return;
     }
     if (n->kind == syntax::SyntaxKind::PrimitiveInstantiation) {
@@ -6772,6 +6804,186 @@ static bool strNetDropped90(const slang::ast::Symbol& sym, bool isPortNet,
                 site, (int)sym.name.size(), sym.name.data(), (int)str,
                 (int)isPortNet, (int)(str && !isPortNet && !strNetOff90()));
     return str && !isPortNet && !strNetOff90();
+}
+// § strNetRefMintsNet422 (r11u422) — A STRENGTH-DROPPED NET IS MINTED BACK
+// AS AN IMPLICIT NET WHERE A REFERENCE BINDS IT.  § caNetDeclStrengthDropped90
+// drops the declaration (`trireg (large) #(0,0,50) cap1;`), and the name then
+// reads to Surelog exactly as an undeclared one: the definition view mints a
+// wire (vpiNetType 1, no typespec, no file) at the FIRST reference its compile
+// binds, a continuous assignment, procedural code or a named port connection
+// (golden SD/sd02 $display, sd03 assign, sd07 the assign before the $display,
+// sd08 .i(c)), never at a gate terminal (sd01, sd09); the elaborated view
+// mints one at the first reference its netlist binds, a gate terminal or a
+// named port connection (sd01, sd05, sd09, sd08), never in procedural code or
+// an assignment (sd02, sd03).  Each is listed after the declared nets and
+// binds the references of its view (sv-tests generated/hdlconv_std2017/
+// hdlconvertor_std2017_p827.sv: cap1 at its $monitor in the definition and at
+// its nmos terminal in the elaborated view).  Any other reference (an ordered
+// module connection, a specify block, a declaration initializer, a function,
+// a generate block) abstains, and so does a nested module definition.  Switch
+// R11U422_STRNETMINT_OFF.
+struct StrNetRefs422 {
+    std::optional<SourceRange> def, elab;
+    bool abstain = false;
+};
+static StrNetRefs422 strNetRefs422(const slang::ast::Symbol& sym,
+                                   const SourceManager& sm) {
+    StrNetRefs422 r;
+    const syntax::SyntaxNode* decl = sym.getSyntax();
+    const syntax::SyntaxNode* mod = decl;
+    while (mod && mod->kind != syntax::SyntaxKind::ModuleDeclaration)
+        mod = mod->parent;
+    if (!mod) {
+        r.abstain = true;
+        return r;
+    }
+    // a NESTED module definition abstains: golden mints nothing for its
+    // assignment read (the probe case v11u93repro/grid/b09b_netdecl,
+    // `wire (weak0, weak1) [1:0] u` read by innermod's assign)
+    for (auto q = mod->parent; q; q = q->parent)
+        if (q->kind == syntax::SyntaxKind::ModuleDeclaration) {
+            r.abstain = true;
+            return r;
+        }
+    std::function<void(const syntax::SyntaxNode&)> walk =
+        [&](const syntax::SyntaxNode& n) {
+            if (r.abstain)
+                return;
+            if (n.kind == syntax::SyntaxKind::IdentifierName ||
+                n.kind == syntax::SyntaxKind::IdentifierSelectName) {
+                parsing::Token t =
+                    n.kind == syntax::SyntaxKind::IdentifierName
+                        ? n.as<syntax::IdentifierNameSyntax>().identifier
+                        : n.as<syntax::IdentifierSelectNameSyntax>().identifier;
+                if (t.valueText() != sym.name)
+                    return;
+                // § strNetRefNotNetSkip422v (v11u422) — a name that does not
+                // read the net is not a reference: a SELECT of it (c[0],
+                // c[1:0]: golden mints no implicit net for a select, and
+                // mints at a later whole reference, the v11u422 cases
+                // VS/vs03, vs09, vs11), a member or hierarchical name ending
+                // in it (s.c, top.c; vs02, vs06), or a name a begin-end
+                // block or for loop declares again (vs01).  Each is skipped
+                // and the walk goes on, where the law had minted the net at
+                // it.  Switch R11V422_STRREFSKIP_OFF.
+                if (fixOn(422, "R11V422_STRREFSKIP_OFF")) {
+                    bool skip = n.kind == syntax::SyntaxKind::IdentifierSelectName ||
+                                (n.parent &&
+                                 n.parent->kind == syntax::SyntaxKind::ScopedName);
+                    auto declares = [&](const syntax::SyntaxNode* x) -> bool {
+                        if (!x)
+                            return false;
+                        if (x->kind == syntax::SyntaxKind::DataDeclaration) {
+                            for (auto* d : x->as<syntax::DataDeclarationSyntax>().declarators)
+                                if (d->name.valueText() == sym.name)
+                                    return true;
+                        } else if (x->kind == syntax::SyntaxKind::NetDeclaration) {
+                            for (auto* d : x->as<syntax::NetDeclarationSyntax>().declarators)
+                                if (d->name.valueText() == sym.name)
+                                    return true;
+                        } else if (x->kind == syntax::SyntaxKind::ForVariableDeclaration) {
+                            return x->as<syntax::ForVariableDeclarationSyntax>()
+                                       .declarator->name.valueText() == sym.name;
+                        }
+                        return false;
+                    };
+                    for (auto q = n.parent; q && q != mod && !skip; q = q->parent) {
+                        if (q->kind == syntax::SyntaxKind::SequentialBlockStatement ||
+                            q->kind == syntax::SyntaxKind::ParallelBlockStatement) {
+                            for (auto* it : q->as<syntax::BlockStatementSyntax>().items)
+                                if (declares(it)) {
+                                    skip = true;
+                                    break;
+                                }
+                        } else if (q->kind == syntax::SyntaxKind::ForLoopStatement) {
+                            for (auto* it : q->as<syntax::ForLoopStatementSyntax>().initializers)
+                                if (declares(it)) {
+                                    skip = true;
+                                    break;
+                                }
+                        }
+                    }
+                    if (skip) {
+                        lawTrace(422, "strNetRefNotNetSkip422v",
+                                 std::string(sym.name));
+                        return;
+                    }
+                }
+                if (sm.isMacroLoc(t.location())) {
+                    r.abstain = true;
+                    return;
+                }
+                for (auto q = n.parent; q && q != mod; q = q->parent)
+                    if (q->kind == syntax::SyntaxKind::SpecifyBlock ||
+                        q->kind == syntax::SyntaxKind::NetDeclaration ||
+                        q->kind == syntax::SyntaxKind::DataDeclaration ||
+                        q->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                        q->kind == syntax::SyntaxKind::TaskDeclaration ||
+                        q->kind == syntax::SyntaxKind::GenerateRegion ||
+                        q->kind == syntax::SyntaxKind::GenerateBlock ||
+                        q->kind == syntax::SyntaxKind::LoopGenerate ||
+                        q->kind == syntax::SyntaxKind::IfGenerate ||
+                        q->kind == syntax::SyntaxKind::CaseGenerate) {
+                        r.abstain = true;
+                        return;
+                    }
+                bool d = false, e = false, known = false;
+                for (auto q = n.parent; q && q != mod && !known; q = q->parent) {
+                    switch (q->kind) {
+                        case syntax::SyntaxKind::NamedPortConnection:
+                            d = e = known = true;
+                            break;
+                        case syntax::SyntaxKind::PrimitiveInstantiation:
+                            e = known = true;
+                            break;
+                        case syntax::SyntaxKind::ContinuousAssign:
+                        case syntax::SyntaxKind::AlwaysBlock:
+                        case syntax::SyntaxKind::AlwaysCombBlock:
+                        case syntax::SyntaxKind::AlwaysFFBlock:
+                        case syntax::SyntaxKind::AlwaysLatchBlock:
+                        case syntax::SyntaxKind::InitialBlock:
+                        case syntax::SyntaxKind::FinalBlock:
+                            d = known = true;
+                            break;
+                        case syntax::SyntaxKind::OrderedPortConnection: {
+                            // a gate terminal; an ordered MODULE connection
+                            // abstains
+                            bool gate = false;
+                            for (auto g = q->parent; g && g != mod; g = g->parent)
+                                if (g->kind == syntax::SyntaxKind::PrimitiveInstantiation) {
+                                    gate = true;
+                                    break;
+                                }
+                            if (!gate) {
+                                r.abstain = true;
+                                return;
+                            }
+                            e = known = true;
+                            break;
+                        }
+                        default:
+                            break;
+                    }
+                }
+                if (!known) {
+                    r.abstain = true;
+                    return;
+                }
+                if (d && !r.def)
+                    r.def = t.range();
+                if (e && !r.elab)
+                    r.elab = t.range();
+                return;
+            }
+            // the declaration itself holds no reference
+            if (&n == decl)
+                return;
+            for (size_t i = 0; i < n.getChildCount(); i++)
+                if (auto* c = n.childNode(i))
+                    walk(*c);
+        };
+    walk(*mod);
+    return r;
 }
 // The CELL listing's answer — independent of the net's, as `u12_strnonansi`
 // proves, and carried on its own switch so either law drops alone.
@@ -9555,6 +9767,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     auto implicitLocs = defImplicitNetLocs(body);
     auto explicitPortSyms = explicitPortInternals(body);
     std::set<std::string> defBoundNames;
+    specifyNames422().clear();
     collectDefBoundNames(body.getSyntax(), false, defBoundNames);
     // § wildcardImportCopiesPkgVarsToDefNets223 — the MATERIALIZED
     // imported-package data hoist, shared verbatim with the INTERFACE
@@ -9594,6 +9807,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // home it deliberately does NOT claim: src/EmitHelpers.h).
     // § caProgramGenFlattens93 — and a PROGRAM DEFINITION lists its generate
     // blocks' declarations as its own (src/EmitHelpers.h).
+    // § strNetRefMintsNet422: the strength-dropped nets a definition-view
+    // reference mints back, listed after the loop.
+    std::vector<std::pair<const Symbol*, SourceRange>> strMintDef422;
     for (auto& ni93 : collectNetOrder93(body, /*strPortRevert=*/true,
                                         /*ifacePortMint=*/false,
                                         /*programFlat=*/m &&
@@ -9613,8 +9829,14 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             continue;
         }
         // § caNetDeclStrengthDropped90 — the MODULE DEFINITION's net listing.
-        if (strNetDropped90(*it.sym, it.port != nullptr, "moddef"))
+        if (strNetDropped90(*it.sym, it.port != nullptr, "moddef")) {
+            // § strNetRefMintsNet422: minted back after the listing.
+            if (lawOn(422, "R11U422_STRNETMINT_OFF"))
+                if (auto r422 = strNetRefs422(*it.sym, *sm);
+                    !r422.abstain && r422.def)
+                    strMintDef422.emplace_back(it.sym, *r422.def);
             continue;
+        }
         std::string name(it.sym->name);
         auto* n = s.MakeLogic_net();
         n->VpiName(name);
@@ -9640,8 +9862,11 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // (see collectDefBoundNames); the elaborated view still gets it.
         if (it.sym->kind == SymbolKind::Net &&
             it.sym->as<NetSymbol>().isImplicit && !it.port &&
-            !defBoundNames.count(name))
+            !defBoundNames.count(name)) {
+            if (specifyNames422().count(name))
+                lawTrace(422, "specifyRefNoDefNet422", prefix + "." + name);
             continue;
+        }
         // A net typed by an ALIAS-OF-ALIAS typedef omits its net type
         // (Surelog); other nets print it.
         // § aliasBindSimpleType67 LAW A — this guard's witness (uhdm2rtlil
@@ -9946,6 +10171,24 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // connection EXPRESSION binds its operands to the NET copy.
         defSigNet[it.sym] = n;
         nets->push_back(n);
+    }
+    // § strNetRefMintsNet422 — the definition view's minted wires.
+    // in the order of their minting references (golden SD/sd06)
+    std::stable_sort(strMintDef422.begin(), strMintDef422.end(), [](const auto& a, const auto& b) {
+        return a.second.start() < b.second.start();
+    });
+    for (auto& [sy422, rg422] : strMintDef422) {
+        auto* n = s.MakeLogic_net();
+        n->VpiName(sy422->name);
+        n->VpiFullName(prefix + "." + std::string(sy422->name));
+        n->VpiParent(m);
+        n->VpiNetType(vpiWire);
+        setLoc(n, rg422);
+        noteLateBindNet119(n);
+        info.nets[sy422] = n;
+        nets->push_back(n);
+        lawTrace(422, "strNetRefMintsNet422",
+                 "def " + prefix + "." + std::string(sy422->name));
     }
     // Each interface port produces a bare logic_net (no typespec) at the port
     // name, so hierarchical references through it resolve.
@@ -12218,7 +12461,23 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
             lawTrace(420, "arrayBcastConcatActual420",
                      prefix + "." + std::string(arr.name) + "." +
                          std::string(conn->port.name));
-        if (!ifaceArr && csA && ax->kind != ExpressionKind::NamedValue &&
+        // § arrayBcastConcatOneBit422 (r11u422) — the concatenation law
+        // also holds when slang's slice of the representative element is a
+        // single written operand (`.en({enh, enh, enl, enl})` on a 4-element
+        // array of 1-bit ports hands element 0 the bare `enl`, a
+        // NamedValue): Surelog's broadcast is still compiled from the
+        // written concatenation, where ours wrote the slice's ref alone
+        // (cases IA/ia01, ia09, ia11; sv-tests utd-sv primitives).
+        // Switch R11U422_BCASTONEBIT_OFF.
+        const bool oneBit422 = concat420 &&
+                               ax->kind == ExpressionKind::NamedValue &&
+                               lawOn(422, "R11U422_BCASTONEBIT_OFF");
+        if (oneBit422)
+            lawTrace(422, "arrayBcastConcatOneBit422",
+                     prefix + "." + std::string(arr.name) + "." +
+                         std::string(conn->port.name));
+        if (!ifaceArr && csA &&
+            (ax->kind != ExpressionKind::NamedValue || oneBit422) &&
             (csA->kind == syntax::SyntaxKind::ElementSelectExpression ||
              csA->kind == syntax::SyntaxKind::IdentifierSelectName || dotA37 ||
              concat420)) {
@@ -12227,6 +12486,58 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                               std::string(conn->port.name);
             hcA = emitSyntaxExpr(*csA, p);
             syntaxRefPrefix = spA;
+            // § arrayBcastConcatBound422 (r11u422) — THE BROADCAST
+            // CONCATENATION'S REFS ARE BOUND AND A REPLICATION'S COUNT IS
+            // UNPARENTED.  Surelog's module_array port connection (compiled
+            // from syntax, § arrayBcastConcatActual420) binds each written
+            // operand to the instantiating scope's net (vpiActual
+            // work@top.en) and leaves the replication count constant
+            // ({4{en}}'s 4) without a parent, as its elaborated element
+            // copies do (§ arrayElemConcatConnWhole422).  Cases IA/ia01 to
+            // ia12.  Switch R11U422_BCASTBIND_OFF.
+            if (concat420 && hcA && lawOn(422, "R11U422_BCASTBIND_OFF")) {
+                const Scope* scB = arr.getParentScope();
+                std::function<void(UHDM::any*)> bindB = [&](UHDM::any* o) {
+                    if (!o)
+                        return;
+                    if (o->UhdmType() == UHDM::uhdmref_obj) {
+                        auto* r = (UHDM::ref_obj*)o;
+                        if (!r->Actual_group() && scB)
+                            if (auto* sy = scB->lookupName(r->VpiName()))
+                                if (auto nit = nets.find(sy); nit != nets.end())
+                                    r->Actual_group(nit->second);
+                        return;
+                    }
+                    // A bit-select operand spans its index, as Surelog's
+                    // select anchors do elsewhere (x[0] at the 0; case
+                    // IA/ia06).
+                    if (o->UhdmType() == UHDM::uhdmbit_select) {
+                        if (auto* ix = ((UHDM::bit_select*)o)->VpiIndex();
+                            ix && ix->VpiLineNo() != 0) {
+                            o->VpiLineNo(ix->VpiLineNo());
+                            o->VpiColumnNo(ix->VpiColumnNo());
+                            o->VpiEndLineNo(ix->VpiEndLineNo());
+                            o->VpiEndColumnNo(ix->VpiEndColumnNo());
+                        }
+                        return;
+                    }
+                    if (o->UhdmType() != UHDM::uhdmoperation)
+                        return;
+                    auto* op = (UHDM::operation*)o;
+                    auto* ops = op->Operands();
+                    if (!ops)
+                        return;
+                    if (op->VpiOpType() == vpiMultiConcatOp && !ops->empty() &&
+                        (*ops)[0]->UhdmType() == UHDM::uhdmconstant)
+                        ((UHDM::constant*)(*ops)[0])->VpiParent(nullptr);
+                    for (auto* x : *ops)
+                        bindB(x);
+                };
+                bindB(hcA);
+                lawTrace(422, "arrayBcastConcatBound422",
+                         prefix + "." + std::string(arr.name) + "." +
+                             std::string(conn->port.name));
+            }
         }
         if (!hcA && !rsym)
             continue;
@@ -18398,6 +18709,40 @@ static void hcPathIdxBindsDefNet311(UHDM::instance* child, UHDM::instance* elabP
     }
 }
 
+// § arrayElemConcatConnWhole422 (r11u422) — the operand refs of a module
+// array element's whole concatenation actual are named through the element
+// and the formal (work@top.c[0].a.en), through nested concatenations and
+// replications, and bound to the instantiating scope's nets.
+static void elemConcatNames422(
+    UHDM::any* o, const std::string& sc, const Scope* scope,
+    const std::map<const slang::ast::Symbol*, UHDM::any*>* nets) {
+    if (!o)
+        return;
+    if (o->UhdmType() == UHDM::uhdmref_obj) {
+        auto* r = (UHDM::ref_obj*)o;
+        r->VpiFullName(sc + "." + std::string(r->VpiName()));
+                if (r->Actual_group() && scope && nets)
+            if (auto* sy = scope->lookupName(r->VpiName()))
+                if (auto it = nets->find(sy); it != nets->end() && it->second)
+                    r->Actual_group(it->second);
+    } else if (o->UhdmType() == UHDM::uhdmbit_select ||
+               o->UhdmType() == UHDM::uhdmpart_select ||
+               o->UhdmType() == UHDM::uhdmindexed_part_select) {
+        // A select operand is named the same way (work@top.c[0].b.o).
+        const std::string fn = sc + "." + std::string(o->VpiName());
+        if (o->UhdmType() == UHDM::uhdmbit_select)
+            ((UHDM::bit_select*)o)->VpiFullName(fn);
+        else if (o->UhdmType() == UHDM::uhdmpart_select)
+            ((UHDM::part_select*)o)->VpiFullName(fn);
+        else
+            ((UHDM::indexed_part_select*)o)->VpiFullName(fn);
+    } else if (o->UhdmType() == UHDM::uhdmoperation) {
+        if (auto* ops = ((UHDM::operation*)o)->Operands())
+            for (auto* x : *ops)
+                elemConcatNames422(x, sc, scope, nets);
+    }
+}
+
 UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std::string& path,
                                            UHDM::instance* parentM, NetMap* parentNets,
                                            std::set<const Symbol*>* parentRefs, bool isTop) {
@@ -19673,6 +20018,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // listing, the same answer as the definition's (src/EmitHelpers.h).
     // § caProgramGenFlattens93 — and the elaborated PROGRAM lists its
     // generate blocks' declarations as its own, exactly as the def does.
+    // § strNetRefMintsNet422: the strength-dropped nets an elaborated
+    // reference mints back, listed after the loop.
+    std::vector<std::pair<const Symbol*, SourceRange>> strMintElab422;
     for (auto& ni93 : collectNetOrder93(body, /*strPortRevert=*/true,
                                         /*ifacePortMint=*/false,
                                         /*programFlat=*/m &&
@@ -19712,8 +20060,14 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         }
         // § caNetDeclStrengthDropped90 — the MODULE/PROGRAM ELABORATED net
         // listing.
-        if (strNetDropped90(*it.sym, it.port != nullptr, "modelab"))
+        if (strNetDropped90(*it.sym, it.port != nullptr, "modelab")) {
+            // § strNetRefMintsNet422: minted back after the listing.
+            if (lawOn(422, "R11U422_STRNETMINT_OFF"))
+                if (auto r422 = strNetRefs422(*it.sym, *sm);
+                    !r422.abstain && r422.elab)
+                    strMintElab422.emplace_back(it.sym, *r422.elab);
             continue;
+        }
         // § vifVarNotElaborated402 (R11U402_VIFELAB_OFF; cases
         // tools/probe/r11u402repro/cases/VI) — a module-body VARIABLE of a
         // virtual interface type (written `virtual I v;` or through a
@@ -22231,6 +22585,24 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             nets->push_back(n);
         }
     }
+    // § strNetRefMintsNet422 — the elaborated view's minted wires.
+    // in the order of their minting references (golden SD/sd06)
+    std::stable_sort(strMintElab422.begin(), strMintElab422.end(), [](const auto& a, const auto& b) {
+        return a.second.start() < b.second.start();
+    });
+    for (auto& [sy422, rg422] : strMintElab422) {
+        auto* n = s.MakeLogic_net();
+        n->VpiName(sy422->name);
+        n->VpiFullName(prefix + "." + std::string(sy422->name));
+        n->VpiParent(m);
+        n->VpiNetType(vpiWire);
+        setLoc(n, rg422);
+        noteLateBindNet119(n);
+        topNets[sy422] = n;
+        nets->push_back(n);
+        lawTrace(422, "strNetRefMintsNet422",
+                 "elab " + prefix + "." + std::string(sy422->name));
+    }
     // MATERIALIZED imported package DATA declarations, ELAB view: the same
     // declaration the def view listed as a wire logic_net becomes a variable
     // here. An INTEGRAL TYPEDEF spelling is a logic_var with vpiVisibility=1
@@ -24215,6 +24587,9 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // An elab pattern HighConn folds to a based-decimal
                     // constant at the port width.
                     UHDM::any* h = nullptr;
+                    // § arrayElemConcatConnWhole422: the element-and-formal
+                    // scope its operand refs are named through (set below).
+                    std::string elemConcat422;
                     // § castOperandLeafElab193: the cast leaves kept on the
                     // instance's object, restored after § connExprBindsNet.
                     std::vector<std::pair<UHDM::ref_obj*, UHDM::any*>> castKeep193;
@@ -24848,6 +25223,100 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 h = emitExpr(*base9, p, hcPrefix, *parentNets);
                         }
                     }
+                    // § arrayElemConcatConnWhole422 (r11u422) — A MODULE
+                    // ARRAY ELEMENT'S CONNECTION WRITTEN AS A CONCATENATION
+                    // OR REPLICATION IS THE WHOLE WRITTEN EXPRESSION.  The
+                    // module_instantiation branch of Surelog's netlist
+                    // elaboration compiles the connection as written (see the
+                    // bare-identifier undo above), so every element of
+                    // `child c[3:0] (.a({4{en}}))` carries the replication
+                    // (op 34, its count constant unparented) and
+                    // `.out({bushigh, buslow})` the concatenation (op 33),
+                    // their refs named through the element and the formal
+                    // (work@top.c[0].a.en) and bound to the instantiating
+                    // scope's nets.  slang slices the actual per element into
+                    // a select of the concatenation, which the expression
+                    // writer rejected ('element select base', exit 4: the
+                    // replication) or wrote as the slice's last operand.
+                    // Named connections only.  Cases IA/ia01 to ia12 (sv-tests
+                    // generated/utd-sv/utd-sv_std-7.1.6-primitives.sv).
+                    // Switch R11U422_ELEMCONCAT_OFF.
+                    if (!h && !inst.arrayPath.empty() &&
+                        !udpFormInstantiation(inst.getSyntax()) &&
+                        inst.getParentScope() &&
+                        lawOn(422, "R11U422_ELEMCONCAT_OFF"))
+                        if (auto* npcC = findConnSyntax(inst, ps.name))
+                            if (auto* csC = connActualSyntax(npcC->expr);
+                                csC &&
+                                (csC->kind ==
+                                     syntax::SyntaxKind::ConcatenationExpression ||
+                                 csC->kind == syntax::SyntaxKind::
+                                                  MultipleConcatenationExpression)) {
+                                ASTContext actxC(*inst.getParentScope(),
+                                                 LookupLocation::max);
+                                auto& abeC = Expression::bind(*csC, actxC);
+                                if (!abeC.bad()) {
+                                    h = emitExpr(abeC, p, hcPrefix, *parentNets);
+                                    // § arrayElemReplCountFold422 (r11u422)
+                                    // — in the element's copy a replication
+                                    // count that is not a literal ({N{en}})
+                                    // is folded: an unparented constant at
+                                    // the count's span, its value and size
+                                    // the evaluated count's (UINT:4, 32 for
+                                    // an untyped parameter); the broadcast
+                                    // keeps the ref (case IA/ia05).  Switch
+                                    // R11U422_REPLCOUNT_OFF.
+                                    std::function<void(UHDM::any*, const Expression&)>
+                                        foldC = [&](UHDM::any* u,
+                                                    const Expression& e0) {
+                                            auto& e = stripImplicitConv(e0);
+                                            if (!u || u->UhdmType() != UHDM::uhdmoperation)
+                                                return;
+                                            auto* op = (UHDM::operation*)u;
+                                            auto* ops = op->Operands();
+                                            if (!ops)
+                                                return;
+                                            if (e.kind == ExpressionKind::Replication &&
+                                                op->VpiOpType() == vpiMultiConcatOp &&
+                                                ops->size() == 2) {
+                                                auto& re = e.as<ReplicationExpression>();
+                                                if ((*ops)[0]->UhdmType() !=
+                                                        UHDM::uhdmconstant &&
+                                                    lawOn(422, "R11U422_REPLCOUNT_OFF")) {
+                                                    ConstantValue cv = actxC.tryEval(re.count());
+                                                    if (cv && cv.isInteger() &&
+                                                        !cv.integer().hasUnknown()) {
+                                                        auto& iv = cv.integer();
+                                                        std::string dg = iv.toString(
+                                                            LiteralBase::Decimal, false);
+                                                        auto* k = s.MakeConstant();
+                                                        k->VpiDecompile(dg);
+                                                        k->VpiSize((int)iv.getBitWidth());
+                                                        k->VpiValue("UINT:" + dg);
+                                                        k->VpiConstType(vpiUIntConst);
+                                                        setLoc(k, re.count().sourceRange);
+                                                        (*ops)[0] = k;
+                                                        lawTrace(422, "arrayElemReplCountFold422", dg);
+                                                    }
+                                                }
+                                                foldC((*ops)[1], re.concat());
+                                                return;
+                                            }
+                                            if (e.kind == ExpressionKind::Concatenation &&
+                                                op->VpiOpType() == vpiConcatOp) {
+                                                auto eops = e.as<ConcatenationExpression>().operands();
+                                                if (eops.size() == ops->size())
+                                                    for (size_t k = 0; k < ops->size(); k++)
+                                                        foldC((*ops)[k], *eops[k]);
+                                            }
+                                        };
+                                    foldC(h, abeC);
+                                    elemConcat422 =
+                                        prefix + "." + std::string(ps.name);
+                                    lawTrace(422, "arrayElemConcatConnWhole422",
+                                             elemConcat422);
+                                }
+                            }
                     // ...and a WRITTEN-OUT select actual (`.din(wr_addr_gray
                     // [AW:0])`) keeps the select WHOLE for the same reason:
                     // Surelog compiles the connection from syntax, so every
@@ -26461,6 +26930,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             lawTrace(319, "modConnVarSelWholeNames319", pp319);
                             modConnIdxNestedNames317(h, pp319);
                         }
+                        // § arrayElemConcatConnWhole422: named last, after
+                        // the scalar-instance operand naming above (which
+                        // reads the element's empty slang name).
+                        if (!elemConcat422.empty())
+                            elemConcatNames422(h, elemConcat422,
+                                               inst.getParentScope(), &defSigNet);
                         p->High_conn(h);
                     }
                     refCollector = nullptr;
@@ -43301,6 +43776,16 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
         // past the (absent) instance-name slot, so terminal 0 never lands and
         // the rest shift down. The elab view builds the terminals properly.
         size_t skipTerms = (!topView && !isUdp && gateName.empty()) ? 1u : 0u;
+        // § unnamedUdpInstName422 (r11u422) — an UNNAMED udp instance
+        // (`posdff_udp (ffout, clock, ...);`) has no terminals at all in the
+        // definition view: Surelog's compileUdpInstantiation reads the
+        // terminal list off the instance-name node, which is absent (golden
+        // sv-tests hdlconvertor_std2017_p884, cases UU).  Switch
+        // R11U422_UNNAMEDUDP_OFF.
+        const bool udpNoTerms422 = !topView && isUdp && gateName.empty() &&
+                                   lawOn(422, "R11U422_UNNAMEDUDP_OFF");
+        if (udpNoTerms422)
+            skipTerms = conns.size();
         // DEF view: Surelog marks ONLY term 0 as the output — even for a
         // multi-output buf/not. ELAB view: TRUE directions (buf/not: all but
         // the last are outputs).
@@ -43465,7 +43950,8 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             terms->push_back(t);
             idx++;
         }
-        g->Prim_terms(terms);
+        if (!udpNoTerms422)
+            g->Prim_terms(terms);
         return g;
     };
 
@@ -43664,6 +44150,19 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             std::string gfull =
                 prefix + "." +
                 ((!topView && gname.empty()) ? ("work@" + pname) : gname);
+            // § unnamedUdpInstName422 (r11u422) — an UNNAMED udp instance is
+            // named after its definition: the definition view's full name
+            // takes the bare definition name (work@dff.posdff_udp, not the
+            // gates' work@dff.work@not), and the elaborated view's name and
+            // full name are the bare definition name too (vpiName posdff_udp,
+            // work@dff.posdff_udp), where ours left the elaborated name empty
+            // (work@dff.).  Switch R11U422_UNNAMEDUDP_OFF.
+            if (isUdp && gname.empty() && lawOn(422, "R11U422_UNNAMEDUDP_OFF")) {
+                gfull = prefix + "." + pname;
+                if (topView)
+                    gname = pname;
+                lawTrace(422, "unnamedUdpInstName422", gfull);
+            }
             // DEF view: term refs are scoped THROUGH the gate instance
             // (prefix.u_buf0.out_buf0); the ELAB view names them in the
             // module scope (prefix.out_buf0) — same split as a gate ARRAY.

@@ -1,0 +1,23 @@
+== surelog
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=d29191993a4a pristine=e60363ba3f2d
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=8bb97e66858f pristine=57a5aaad5589
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=049f4af52e42 pristine=f0c85a0be92c
+MOVERS: 3 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== surelog vs /tmp/v11u422_lw: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 SELFCHECK (every file vs one fixed file): 961 / 962 flagged 
+== surelog vs /tmp/intr11u420: PATH_SETS_IDENTICAL (962 paths) MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=d29191993a4a pristine=e60363ba3f2d MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=8bb97e66858f pristine=57a5aaad5589 MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=049f4af52e42 pristine=f0c85a0be92c MOVERS: 3 / 962 SELFCHECK (every file vs one fixed file): 961 / 
+== uhdm2rtlil vs /tmp/v11u422_lw: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+== uhdm2rtlil vs /tmp/intr11u420: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+== downstream vs /tmp/v11u422_lw: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 
+== downstream vs /tmp/intr11u420: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 
