@@ -1,0 +1,84 @@
+VB/vb01 | V rc=0 gerr=0 cmp=0 away=2 md5=9b2c05db | STRICT_EQUAL 112 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb02 | V rc=0 gerr=0 cmp=0 away=2 md5=c9ec26fa | STRICT_EQUAL 149 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb03 | V rc=0 gerr=0 cmp=0 away=2 md5=1f43b658 | STRICT_EQUAL 102 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb04 | V rc=0 gerr=0 cmp=0 away=2 md5=8ede3366 | STRICT_EQUAL 79 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb05 | V rc=0 gerr=0 cmp=0 away=4 md5=e81dd1a7 | STRICT_NOTEQUAL value | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb06 | V rc=0 gerr=0 cmp=0 away=8 md5=8b33ebec | STRICT_EQUAL 117 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb07 | V rc=0 gerr=0 cmp=0 away=4 md5=8ffed2f7 | STRICT_NOTEQUAL file | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb08 | V rc=0 gerr=0 cmp=0 away=2 md5=e129bcdc | STRICT_EQUAL 60 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb09 | V rc=0 gerr=0 cmp=39 away=82 md5=11f4f956 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb10 | V rc=0 gerr=0 cmp=36 away=6 md5=f91c6ca3 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb11 | V rc=0 gerr=0 cmp=0 away=2 md5=22cb65b4 | STRICT_EQUAL 70 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb12 | V rc=0 gerr=0 cmp=0 away=2 md5=7a79d36f | STRICT_EQUAL 72 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb13 | V rc=0 gerr=0 cmp=0 away=2 md5=b057f5d9 | STRICT_EQUAL 44 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VB/vb14 | V rc=0 gerr=0 cmp=0 away=2 md5=07b4dfcd | STRICT_EQUAL 74 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl01 | V rc=0 gerr=0 cmp=0 away=2 md5=e8d45847 | STRICT_EQUAL 41 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl02 | V rc=0 gerr=0 cmp=0 away=2 md5=73508979 | STRICT_EQUAL 22 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl03 | V rc=0 gerr=0 cmp=0 away=2 md5=331b022d | STRICT_EQUAL 41 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl04 | V rc=0 gerr=0 cmp=0 away=2 md5=1623c0d8 | STRICT_EQUAL 41 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl05 | V rc=0 gerr=0 cmp=36 away=26 md5=8db3cabe | NOT_EQUAL stage1 | V=L:n V_OFF=L:y U_OFF=P:y
+VL/vl06 | V rc=0 gerr=0 cmp=0 away=2 md5=7f80a394 | STRICT_EQUAL 22 objects | V=L:n V_OFF=L:y U_OFF=P:y
+VL/vl08 | V rc=0 gerr=0 cmp=64 away=10 md5=d579670d | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl09 | V rc=0 gerr=0 cmp=0 away=14 md5=1780ce14 | STRICT_NOTEQUAL endcol | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl10 | V rc=0 gerr=0 cmp=28 away=24 md5=094c67d6 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl11 | V rc=0 gerr=0 cmp=0 away=2 md5=06ff113a | STRICT_EQUAL 34 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl12 | V rc=0 gerr=0 cmp=0 away=2 md5=70f25aac | STRICT_EQUAL 22 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl13 | V rc=0 gerr=0 cmp=36 away=26 md5=52e770bc | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl14 | V rc=0 gerr=0 cmp=0 away=2 md5=abd54216 | STRICT_EQUAL 26 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl15 | V rc=0 gerr=0 cmp=0 away=2 md5=3f56d104 | STRICT_EQUAL 41 objects | V=L:n V_OFF=L:y U_OFF=P:y
+VL/vl16 | V rc=0 gerr=0 cmp=0 away=12 md5=804b2415 | STRICT_NOTEQUAL endcol | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl17 | V rc=0 gerr=0 cmp=28 away=6 md5=e92986b7 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VL/vl18 | V rc=0 gerr=0 cmp=0 away=2 md5=de0b846b | STRICT_EQUAL 22 objects | V=L:n V_OFF=L:y U_OFF=P:y
+VN/vn01 | V rc=0 gerr=0 cmp=0 away=6 md5=08788c77 | STRICT_EQUAL 204 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn02 | V rc=0 gerr=0 cmp=0 away=6 md5=e61e71bf | STRICT_EQUAL 214 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn03 | V rc=0 gerr=0 cmp=36 away=24 md5=27052086 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn04 | V rc=0 gerr=0 cmp=0 away=6 md5=eca68efb | STRICT_EQUAL 229 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn05 | V rc=0 gerr=0 cmp=0 away=8 md5=77ccf910 | STRICT_EQUAL 174 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn06 | V rc=0 gerr=0 cmp=64 away=21 md5=eb9260d9 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn07 | V rc=0 gerr=0 cmp=36 away=20 md5=24343198 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn08 | V rc=0 gerr=0 cmp=0 away=4 md5=49d50577 | STRICT_EQUAL 176 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn09 | V rc=0 gerr=0 cmp=0 away=8 md5=6fc01676 | STRICT_EQUAL 234 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn10 | V rc=0 gerr=0 cmp=32 away=12 md5=df769fb6 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn11 | V rc=0 gerr=0 cmp=0 away=6 md5=fcd5502c | STRICT_EQUAL 192 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn12 | V rc=0 gerr=0 cmp=36 away=14 md5=fae908ca | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn13 | V rc=0 gerr=0 cmp=0 away=10 md5=5f4839d6 | STRICT_EQUAL 326 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn14 | V rc=0 gerr=0 cmp=0 away=6 md5=7c93221e | STRICT_EQUAL 204 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn15 | V rc=0 gerr=0 cmp=0 away=8 md5=0eccf737 | STRICT_EQUAL 232 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn16 | V rc=0 gerr=0 cmp=0 away=6 md5=cdae17d2 | STRICT_EQUAL 156 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn17 | V rc=0 gerr=0 cmp=0 away=6 md5=ef76e581 | STRICT_EQUAL 156 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VN/vn18 | V rc=0 gerr=0 cmp=0 away=6 md5=cb338eb0 | STRICT_EQUAL 93 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq01 | V rc=0 gerr=0 cmp=0 away=2 md5=e56afa4c | STRICT_EQUAL 143 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq02 | V rc=0 gerr=0 cmp=0 away=2 md5=e4d5d013 | STRICT_EQUAL 113 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq03 | V rc=0 gerr=0 cmp=32 away=41 md5=e277625c | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq04 | V rc=0 gerr=0 cmp=0 away=6 md5=a1f2e5a4 | STRICT_EQUAL 124 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq05 | V rc=0 gerr=0 cmp=36 away=18 md5=d53b6da3 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq06 | V rc=0 gerr=0 cmp=0 away=4 md5=0f8595e2 | STRICT_EQUAL 106 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq07 | V rc=0 gerr=0 cmp=0 away=2 md5=ec589da5 | STRICT_EQUAL 83 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq08 | V rc=0 gerr=0 cmp=0 away=2 md5=0b470451 | STRICT_EQUAL 157 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq09 | V rc=0 gerr=0 cmp=34 away=11 md5=93477ab7 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq10 | V rc=0 gerr=0 cmp=0 away=61 md5=8332c243 | STRICT_EQUAL 127 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq11 | V rc=0 gerr=0 cmp=17 away=52 md5=b4392b01 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq12 | V rc=0 gerr=0 cmp=32 away=38 md5=a6d1277f | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq13 | V rc=0 gerr=0 cmp=64 away=4 md5=7ae4fbc0 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq14 | V rc=0 gerr=0 cmp=36 away=29 md5=9d2c77a1 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq15 | V rc=0 gerr=0 cmp=64 away=25 md5=8345e260 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq16 | V rc=0 gerr=0 cmp=0 away=2 md5=15a02d2e | STRICT_EQUAL 135 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq17 | V rc=0 gerr=0 cmp=0 away=6 md5=bef7a816 | STRICT_EQUAL 63 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq18 | V rc=0 gerr=0 cmp=36 away=33 md5=d5bf6351 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq19 | V rc=0 gerr=0 cmp=13 away=7 md5=a63176b2 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq20 | V rc=0 gerr=0 cmp=0 away=6 md5=632bc841 | STRICT_EQUAL 109 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq21 | V rc=0 gerr=0 cmp=0 away=2 md5=045069be | STRICT_EQUAL 127 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq22 | V rc=0 gerr=0 cmp=36 away=8 md5=235ede3e | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq23 | V rc=0 gerr=0 cmp=13 away=7 md5=013f70ed | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq24 | V rc=0 gerr=0 cmp=0 away=2 md5=a1035d28 | STRICT_EQUAL 100 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq25 | V rc=0 gerr=0 cmp=36 away=8 md5=21478250 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq26 | V rc=0 gerr=0 cmp=32 away=10 md5=3c6a4db2 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq27 | V rc=0 gerr=0 cmp=60 away=17 md5=14ffc3f0 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq28 | V rc=0 gerr=0 cmp=0 away=6 md5=f004df53 | STRICT_EQUAL 126 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq29 | V rc=0 gerr=0 cmp=17 away=24 md5=3c2b08cd | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq30 | V rc=0 gerr=0 cmp=0 away=8 md5=1c9f75e9 | STRICT_EQUAL 89 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq31 | V rc=0 gerr=0 cmp=36 away=42 md5=65cc2c4f | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq32 | V rc=0 gerr=0 cmp=0 away=2 md5=e51c5d3f | STRICT_EQUAL 56 objects | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq33 | V rc=0 gerr=0 cmp=36 away=12 md5=4324dbe6 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq34 | V rc=0 gerr=0 cmp=32 away=22 md5=7bae0e79 | NOT_EQUAL stage1 | V=L:y V_OFF=L:y U_OFF=P:y
+VQ/vq35 | V rc=0 gerr=0 cmp=0 away=10 md5=b7f01e58 | STRICT_EQUAL 121 objects | V=L:y V_OFF=L:y U_OFF=P:y

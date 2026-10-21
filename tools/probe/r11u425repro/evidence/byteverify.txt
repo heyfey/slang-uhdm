@@ -1,0 +1,21 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+MOVER ./testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm  patched=72d1ce85c5cb pristine=a659cd700109
+MOVER ./testbenches/uvm_scoreboard_monitor_env/slang.uhdm  patched=ef58709013ae pristine=675791c4e51c
+MOVERS: 80 / 80
+SELFCHECK (every file vs one fixed file): 80 / 80 flagged
+normalized-dump identical: 79 of 80; differing: ./generated/tnoc/tnoc/slang.uhdm
+tnoc: normalized dump cut by the 900 s timeout; databases equal size (230131612 bytes) and uhdm-cmp control vs law reads 0 lines

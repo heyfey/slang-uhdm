@@ -1,0 +1,12 @@
+VL/vl05 pristine rc=0 gerr=0 cmp=36 away=26 md5=8db3cabe | NOT_EQUAL stage1
+VL/vl05 law rc=0 gerr=0 cmp=36 away=26 md5=bce5e989 | NOT_EQUAL stage1
+VL/vl05 verified rc=0 gerr=0 cmp=36 away=26 md5=8db3cabe | NOT_EQUAL stage1
+VL/vl06 pristine rc=0 gerr=0 cmp=0 away=2 md5=7f80a394 | STRICT_EQUAL 22 objects
+VL/vl06 law rc=0 gerr=0 cmp=36 away=10 md5=c9314019 | NOT_EQUAL stage1
+VL/vl06 verified rc=0 gerr=0 cmp=0 away=2 md5=7f80a394 | STRICT_EQUAL 22 objects
+VL/vl15 pristine rc=0 gerr=0 cmp=0 away=2 md5=3f56d104 | STRICT_EQUAL 41 objects
+VL/vl15 law rc=0 gerr=0 cmp=36 away=18 md5=c93f31e8 | NOT_EQUAL stage1
+VL/vl15 verified rc=0 gerr=0 cmp=0 away=2 md5=3f56d104 | STRICT_EQUAL 41 objects
+VL/vl18 pristine rc=0 gerr=0 cmp=0 away=2 md5=de0b846b | STRICT_EQUAL 22 objects
+VL/vl18 law rc=0 gerr=0 cmp=36 away=10 md5=073dd601 | NOT_EQUAL stage1
+VL/vl18 verified rc=0 gerr=0 cmp=0 away=2 md5=de0b846b | STRICT_EQUAL 22 objects

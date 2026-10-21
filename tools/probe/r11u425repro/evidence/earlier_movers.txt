@@ -1,0 +1,5 @@
+r11u412repro/cases/UP/up03 P:rc=0 cmp=64 away=8 md5=d0d15cfe | NOT_EQUAL stage1 L:rc=0 cmp=0 away=6 md5=630d22d3 | STRICT_EQUAL 45 objects laws: oneTickUpperBNormalized425 
+r11u412repro/cases/UP/up06 P:rc=0 cmp=28 away=8 md5=b894b6a7 | NOT_EQUAL stage1 L:rc=0 cmp=0 away=2 md5=bcbb9de0 | STRICT_EQUAL 64 objects laws: oneTickUpperBNormalized425 
+v11u416repro/cases/VL/vl07_line_value_after P:rc=0 cmp=64 away=18 md5=d80a58fe | NOT_EQUAL stage1 L:rc=0 cmp=64 away=10 md5=86083d38 | NOT_EQUAL stage1 laws: lineMacroAfterDirectivePlus1_425 
+v11u423repro/cases/VS/vs03 P:rc=0 cmp=13 away=9 md5=e5282a39 | NOT_EQUAL stage1 L:rc=0 cmp=0 away=4 md5=66171773 | STRICT_EQUAL 91 objects laws: unszPkgFoldNdaNoTs425 
+v11u423repro/cases/VS/vs16 P:rc=0 cmp=32 away=20 md5=d5543f19 | NOT_EQUAL stage1 L:rc=0 cmp=0 away=6 md5=4908ee4d | STRICT_EQUAL 107 objects laws: unszPkgFoldElabForm425 

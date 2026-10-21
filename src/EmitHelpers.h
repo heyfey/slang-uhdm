@@ -14120,6 +14120,19 @@ inline bool unszBasedLit423(const Expression* init) {
         return false;
     return true;
 }
+/// § unszPkgFoldElabForm425 (r11u425) — the lowercase base letter ('b', 'o',
+/// 'h', 'd') of the literal § unszBasedLit423 accepts, or 0.
+inline char unszBasedLitBase425(const Expression* init) {
+    if (!unszBasedLit423(init))
+        return 0;
+    const Expression* e = init;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    auto& iv = e->syntax->as<slang::syntax::IntegerVectorExpressionSyntax>();
+    std::string_view b = iv.base.rawText();
+    return b.empty() ? (char)0 : (char)(b.back() | 0x20);
+}
 /// § decUnszElabRespellKeepsM1_423 (r11u423) — § unsizedBasedParamRhsSize106
 /// keeps size -1 on every view of an untyped parameter's UNSIZED based
 /// default, but its design-final drain re-checks the written spelling and so

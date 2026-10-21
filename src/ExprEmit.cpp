@@ -29242,6 +29242,19 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (base8 == 'b' || base8 == 'h' ||
                                     base8 == 'o' || base8 == 'd')
                                     c->VpiDecompile(stripSep(raw8));
+                                // § oneTickUpperBNormalized425 — the fold of
+                                // a package parameter written `1'B0` / `1'B1`
+                                // is the clone of its compiled Rhs, which
+                                // the lexer's dedicated token already spelled
+                                // `1'b0` / `1'b1` (grid OB/ob09).
+                                if (raw8.size() == 4 && raw8[0] == '1' &&
+                                    raw8[1] == '\'' && raw8[2] == 'B' &&
+                                    (raw8[3] == '0' || raw8[3] == '1') &&
+                                    lawOn(425, "R11U425_ONETICKB_OFF")) {
+                                    lawTrace(425, "oneTickUpperBNormalized425",
+                                             "fold " + raw8);
+                                    c->VpiDecompile(std::string("1'b") + raw8[3]);
+                                }
                             }
                         }
                     }
@@ -31212,6 +31225,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             parent &&
                             parent->UhdmType() == UHDM::uhdmcont_assign &&
                             fixOn(423, "R11V423_CAWHOLE_OFF");
+                        // The base letter of the parameter's written literal
+                        // and whether this read is written package-qualified
+                        // (the § 425 laws below read both).
+                        const char base425 = unszBasedLitBase425(psym.getInitializer());
+                        const bool qual425 =
+                            expr.syntax
+                                ? expr.syntax->kind == syntax::SyntaxKind::ScopedName
+                                : rawText(expr.sourceRange).find("::") != std::string::npos;
                         if (caWhole423v)
                             lawTrace(423, "unszFoldWholeCaRhsKeepsSize423v",
                                      std::string(psym.name));
@@ -31221,6 +31242,93 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             rt423->Actual_typespec(nullptr);
                         lawTrace(423, "unszBasedPkgFoldUnsized423",
                                  std::string(psym.name));
+                        // § unszPkgFoldElabForm425 (r11u425,
+                        // R11U425_ELABFORM_OFF) — a read written
+                        // package-QUALIFIED (`p::H`, any context), or the
+                        // whole initializer of a NET DECLARATION (`wire [7:0]
+                        // w = H;`, qualified or not, which Surelog compiles in
+                        // the netlist pass against the elaborated package),
+                        // is the package's ELABORATED parameter value, not
+                        // the clone of the definition's Rhs the unqualified
+                        // reads take: an unsized DECIMAL literal there is the
+                        // respelled `INT:<v>` with the decompile `<v>`
+                        // (§ impCopyBasedDecKeep's form) and an unsized OCTAL
+                        // one the bare decimal `UINT:<v>`
+                        // (§ octUnszElabRespell423's form), where ours copied
+                        // the written `'d200` / `'o17` (DEC / OCT).  Hex and
+                        // binary spellings already read the same in both
+                        // forms.  The size stays as written: the cont_assign's
+                        // own resize is ModuleEmit's.  An octal read that is
+                        // the whole right side of a plain continuous
+                        // assignment abstains (golden's definition view keeps
+                        // -1 there while the elaborated copy is resized,
+                        // two objects where ours shares one; the grid's
+                        // UP/up20 residue).  Values that do not fit 31 bits
+                        // or hold x/z digits abstain.  Grid
+                        // tools/probe/r11u425repro/cases/UP.
+                        const bool elabForm425 =
+                            (qual425 || ndaTop104) &&
+                            (base425 == 'd' || (base425 == 'o' && !(caWhole423v && !ndaTop104)));
+                        if (elabForm425 &&
+                            lawOn(425, "R11U425_ELABFORM_OFF")) {
+                            const ConstantValue& v425 = psym.getValue();
+                            if (v425.isInteger() && !v425.integer().hasUnknown()) {
+                                auto u425 = v425.integer().as<uint64_t>();
+                                if (u425 && *u425 <= 0x7fffffffULL) {
+                                    std::string d425 = std::to_string(*u425);
+                                    c->VpiDecompile(d425);
+                                    c->VpiValue((base425 == 'd' ? "INT:" : "UINT:") + d425);
+                                    c->VpiConstType(base425 == 'd' ? vpiIntConst
+                                                                   : vpiUIntConst);
+                                    lawTrace(425, "unszPkgFoldElabForm425",
+                                             std::string(psym.name) + " " + d425);
+                                }
+                            }
+                        }
+                        // § unszBinNdaKeepsTickText425 (r11u425,
+                        // R11U425_BINNDATICK_OFF) — at a net declaration's
+                        // whole initializer the reader resize
+                        // (§ readerWidthIsTheSecondAdjust104) treated an
+                        // unsized BINARY parameter as a 32-bit literal wider
+                        // than the net and wrote the truncation form, the
+                        // bare digits `101`; adjustSize's binary branch
+                        // truncates only when the constant's own size
+                        // exceeds the reader's, and an unsized literal's is
+                        // -1, so golden keeps the written `'b101` (size the
+                        // reader's).  Grid tools/probe/r11u425repro/cases/UP.
+                        if (ndaTop104 && base425 == 'b' &&
+                            c->VpiConstType() == vpiBinaryConst &&
+                            lawOn(425, "R11U425_BINNDATICK_OFF")) {
+                            const Expression* e425 = psym.getInitializer();
+                            while (e425->kind == ExpressionKind::Conversion &&
+                                   e425->as<ConversionExpression>().isImplicit())
+                                e425 = &e425->as<ConversionExpression>().operand();
+                            auto& iv425 =
+                                e425->syntax->as<syntax::IntegerVectorExpressionSyntax>();
+                            std::string t425 = std::string(iv425.base.rawText()) +
+                                               std::string(iv425.value.rawText());
+                            t425.erase(std::remove(t425.begin(), t425.end(), '_'),
+                                       t425.end());
+                            if (std::string(c->VpiDecompile()) != t425) {
+                                lawTrace(425, "unszBinNdaKeepsTickText425",
+                                         std::string(c->VpiDecompile()) + "->" + t425);
+                                c->VpiDecompile(t425);
+                            }
+                        }
+                        // § unszPkgFoldNdaNoTs425 (r11u425,
+                        // R11U425_NDANOTS_OFF) — the unqualified whole
+                        // initializer of a net declaration carries NO
+                        // typespec in golden (the elaborated value object
+                        // has none), where ours kept the actual-less
+                        // ref_typespec of § unszBasedPkgFoldUnsized423
+                        // (golden `wire [7:0] w = H` over `'h1F`, `'b101`,
+                        // `'o17` with no vpiTypespec; the v11u423 case
+                        // VS/vs03).  Grid tools/probe/r11u425repro/cases/UP.
+                        if (ndaTop104 && !qual425 && c->Typespec() &&
+                            lawOn(425, "R11U425_NDANOTS_OFF")) {
+                            lawTrace(425, "unszPkgFoldNdaNoTs425", std::string(psym.name));
+                            c->Typespec(nullptr);
+                        }
                     }
                     return c;
                 }
@@ -35370,6 +35478,110 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (b403 > 0 && isdigit((unsigned char)raw[b403 - 1])) {
                     lawTrace(403, "sizeTickSpaceDropped403", raw);
                     raw.erase(b403, tk403 - b403);
+                }
+            }
+            // § oneTickUpperBNormalized425 (r11u425, R11U425_ONETICKB_OFF) —
+            // a one-bit literal written with an UPPERCASE base, `1'B0`,
+            // `1'B1`, `1'Bx`, `1'BX`, decompiles as `1'b0`, `1'b1`, `1'bX`:
+            // Surelog's lexer has dedicated tokens for the eight spellings
+            // (SV3_1aTreeShapeListener::exitNumber, ONE_TICK_B0 ...
+            // ONE_TICK_BX) and CompileExpression's paNumber_1TickB0 /
+            // paNumber_1TickB1 / paNumber_1TickBx branches hard-code the
+            // lowercase decompile, as they do for the lowercase spellings
+            // (ours kept the written `1'B0`, and `1'BX` for the x digit).
+            // Only those exact four-character spellings: `1'Bz`, `4'B10x1`
+            // and `1'sB1` are ordinary integral tokens Surelog keeps
+            // verbatim.  Grid tools/probe/r11u425repro/cases/OB.
+            if (raw.size() == 4 && raw[0] == '1' && raw[1] == '\'' && raw[2] == 'B' &&
+                (raw[3] == '0' || raw[3] == '1' || raw[3] == 'x' || raw[3] == 'X') &&
+                lawOn(425, "R11U425_ONETICKB_OFF")) {
+                lawTrace(425, "oneTickUpperBNormalized425", raw);
+                raw[2] = 'b';
+            }
+            // § lineMacroAfterDirectivePlus1_425 (r11u425,
+            // R11U425_LINEPLUS1_OFF) — `__LINE__ written below a `line
+            // directive of the same file reads one more than slang's value:
+            // Surelog's preprocessor substitutes getLineNb(physical line),
+            // which maps a line L after a directive `line N written on line D
+            // to N + (L - D) (PreprocessFile::getLineNb over the
+            // LineTranslationInfo enterLine_directive records with the
+            // directive's OWN line as m_originalLine), where slang maps it
+            // to N + (L - D - 1) as IEEE 1800 22.12 says (golden `line 100
+            // then `__LINE__ on the next line: UINT:101, ours 100).  Only a
+            // `__LINE__ written directly in the file (not inside a macro
+            // body, where Surelog substitutes the calling line instead: the
+            // expansion location must be file text reading `__LINE__) with
+            // a `line directive at the start of an earlier line of the same
+            // buffer.  Grid tools/probe/r11u425repro/cases/LD.
+            if (expr.sourceRange.start() != SourceLocation::NoLocation &&
+                sm->isMacroLoc(expr.sourceRange.start()) && !raw.empty() &&
+                std::all_of(raw.begin(), raw.end(),
+                            [](char ch) { return ch >= '0' && ch <= '9'; }) &&
+                lawOn(425, "R11U425_LINEPLUS1_OFF")) {
+                SourceLocation o425 = sm->getExpansionLoc(expr.sourceRange.start());
+                if (o425.buffer().valid() && !sm->isMacroLoc(o425)) {
+                    auto t425 = sm->getSourceText(o425.buffer());
+                    size_t off425 = o425.offset();
+                    if (off425 + 9 <= t425.size() &&
+                        t425.substr(off425, 9) == "`__LINE__") {
+                        bool dir425 = false;
+                        for (size_t p = t425.find("`line"); p != std::string_view::npos &&
+                                                            p < off425;
+                             p = t425.find("`line", p + 1)) {
+                            size_t q = p;
+                            while (q > 0 && (t425[q - 1] == ' ' || t425[q - 1] == '\t'))
+                                q--;
+                            if ((q == 0 || t425[q - 1] == '\n') &&
+                                (p + 5 >= t425.size() || t425[p + 5] == ' ' ||
+                                 t425[p + 5] == '\t')) {
+                                // § lineDirectiveActive425v (v11u425,
+                                // R11V425_LINEACTIVE_OFF) — THE BREAK: the
+                                // text scan also took a `line written at the
+                                // start of a line INSIDE A BLOCK COMMENT,
+                                // which neither preprocessor applies (golden
+                                // reads the physical line there, as slang
+                                // does; the v11u425 cases VL/vl06, vl15 and
+                                // vl18 had gone STRICT_EQUAL -> NOT_EQUAL).
+                                // The directive counts only when slang itself
+                                // applied it: the line after it reads the
+                                // directive's own number N in slang's line
+                                // map.  A directive in an inactive `ifdef
+                                // branch, which Surelog applies and slang
+                                // does not, abstains too (pristine's value,
+                                // golden's N + (L - D) not reached: vl05).
+                                if (fixOn(425, "R11V425_LINEACTIVE_OFF")) {
+                                    size_t r = p + 5;
+                                    while (r < t425.size() &&
+                                           (t425[r] == ' ' || t425[r] == '\t'))
+                                        r++;
+                                    const size_t n0 = r;
+                                    uint64_t nv = 0;
+                                    while (r < t425.size() && r - n0 < 18 &&
+                                           t425[r] >= '0' && t425[r] <= '9')
+                                        nv = nv * 10 + (uint64_t)(t425[r++] - '0');
+                                    const size_t nl = t425.find('\n', p);
+                                    bool act = false;
+                                    if (r > n0 && nl != std::string_view::npos &&
+                                        nl + 1 <= off425)
+                                        act = sm->getLineNumber(SourceLocation(
+                                                  o425.buffer(), nl + 1)) == nv;
+                                    if (!act) {
+                                        lawTrace(425, "lineDirectiveActive425v",
+                                                 "abstain " + raw);
+                                        continue;
+                                    }
+                                }
+                                dir425 = true;
+                                break;
+                            }
+                        }
+                        if (dir425) {
+                            std::string n425 = std::to_string(std::stoull(raw) + 1);
+                            lawTrace(425, "lineMacroAfterDirectivePlus1_425",
+                                     raw + "->" + n425);
+                            raw = n425;
+                        }
+                    }
                 }
             }
             c->VpiDecompile(raw);

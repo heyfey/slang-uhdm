@@ -1,0 +1,109 @@
+LD/ld01 rc=0 gerr=0 cmp=36 away=18 md5=2e17fd80 | NOT_EQUAL stage1
+LD/ld02 rc=0 gerr=0 cmp=0 away=2 md5=27e05c36 | STRICT_EQUAL 22 objects
+LD/ld03 rc=0 gerr=0 cmp=36 away=10 md5=ce47183d | NOT_EQUAL stage1
+LD/ld04 rc=0 gerr=0 cmp=36 away=28 md5=d2f8064d | NOT_EQUAL stage1
+LD/ld05 rc=0 gerr=0 cmp=36 away=26 md5=b32e6656 | NOT_EQUAL stage1
+LD/ld06 rc=0 gerr=0 cmp=36 away=26 md5=f7e46d0c | NOT_EQUAL stage1
+LD/ld07 rc=0 gerr=0 cmp=28 away=6 md5=195c484b | NOT_EQUAL stage1
+OB/ob01 rc=0 gerr=0 cmp=36 away=14 md5=9cd7d4b1 | NOT_EQUAL stage1
+OB/ob02 rc=0 gerr=0 cmp=64 away=36 md5=6d17116a | NOT_EQUAL stage1
+OB/ob03 rc=0 gerr=0 cmp=28 away=8 md5=d5e9ccfb | NOT_EQUAL stage1
+OB/ob04 rc=0 gerr=0 cmp=36 away=12 md5=c951f050 | NOT_EQUAL stage1
+OB/ob05 rc=0 gerr=0 cmp=28 away=10 md5=ba3fbaa2 | NOT_EQUAL stage1
+OB/ob06 rc=0 gerr=0 cmp=36 away=8 md5=2e5468c5 | NOT_EQUAL stage1
+OB/ob07 rc=0 gerr=0 cmp=0 away=2 md5=60c50cb9 | STRICT_EQUAL 82 objects
+OB/ob08 rc=0 gerr=0 cmp=0 away=8 md5=02b7fb15 | STRICT_EQUAL 131 objects
+OB/ob09 rc=0 gerr=0 cmp=64 away=26 md5=18ff2f40 | NOT_EQUAL stage1
+OB/ob10 rc=0 gerr=0 cmp=36 away=8 md5=15e08372 | NOT_EQUAL stage1
+OB/ob11 rc=0 gerr=0 cmp=64 away=140 md5=d5580aac | NOT_EQUAL stage1
+OB/ob12 rc=0 gerr=0 cmp=64 away=8 md5=700b231f | NOT_EQUAL stage1
+UP/up01 rc=0 gerr=0 cmp=42 away=11 md5=5e29a5dd | NOT_EQUAL stage1
+UP/up02 rc=0 gerr=0 cmp=32 away=12 md5=f41e433c | NOT_EQUAL stage1
+UP/up03 rc=0 gerr=0 cmp=32 away=10 md5=a50232fb | NOT_EQUAL stage1
+UP/up04 rc=0 gerr=0 cmp=32 away=10 md5=cb2ff2fd | NOT_EQUAL stage1
+UP/up05 rc=0 gerr=0 cmp=13 away=12 md5=0b869fe9 | NOT_EQUAL stage1
+UP/up06 rc=0 gerr=0 cmp=36 away=14 md5=7678c475 | NOT_EQUAL stage1
+UP/up07 rc=0 gerr=0 cmp=0 away=4 md5=30696101 | STRICT_EQUAL 76 objects
+UP/up08 rc=0 gerr=0 cmp=0 away=4 md5=aa4a5fd5 | STRICT_EQUAL 74 objects
+UP/up09 rc=0 gerr=0 cmp=13 away=9 md5=71b8791c | NOT_EQUAL stage1
+UP/up10 rc=0 gerr=0 cmp=0 away=4 md5=6f77f513 | STRICT_EQUAL 100 objects
+UP/up11 rc=0 gerr=0 cmp=0 away=2 md5=925c19fa | STRICT_EQUAL 80 objects
+UP/up12 rc=0 gerr=0 cmp=0 away=2 md5=e5776f07 | STRICT_EQUAL 78 objects
+UP/up13 rc=0 gerr=0 cmp=56 away=6 md5=bfc6c22b | NOT_EQUAL stage1
+UP/up14 rc=0 gerr=0 cmp=32 away=6 md5=493942aa | NOT_EQUAL stage1
+UP/up15 rc=0 gerr=0 cmp=46 away=11 md5=6cbeeebe | NOT_EQUAL stage1
+UP/up16 rc=0 gerr=0 cmp=32 away=6 md5=a4b0635f | NOT_EQUAL stage1
+UP/up17 rc=0 gerr=0 cmp=0 away=2 md5=6c83ae0c | STRICT_EQUAL 80 objects
+UP/up18 rc=0 gerr=0 cmp=0 away=2 md5=a4950887 | STRICT_EQUAL 78 objects
+UP/up19 rc=0 gerr=0 cmp=0 away=4 md5=8b2ba1da | STRICT_EQUAL 76 objects
+UP/up20 rc=0 gerr=0 cmp=32 away=18 md5=afdf5a4b | NOT_EQUAL stage1
+UP/up21 rc=0 gerr=0 cmp=46 away=15 md5=36c65210 | NOT_EQUAL stage1
+UP/up22 rc=0 gerr=0 cmp=32 away=10 md5=1b900489 | NOT_EQUAL stage1
+UP/up23 rc=0 gerr=0 cmp=0 away=2 md5=5b76bff8 | STRICT_EQUAL 80 objects
+UP/up24 rc=0 gerr=0 cmp=36 away=14 md5=bf9b559f | NOT_EQUAL stage1
+UP/up25 rc=0 gerr=0 cmp=28 away=8 md5=61ca2385 | NOT_EQUAL stage1
+UP/up26 rc=0 gerr=0 cmp=36 away=8 md5=89bf2253 | NOT_EQUAL stage1
+UP/up27 rc=0 gerr=0 cmp=28 away=16 md5=3a7b7889 | NOT_EQUAL stage1
+UP/up28 rc=0 gerr=0 cmp=28 away=32 md5=77604759 | NOT_EQUAL stage1
+UP/up29 rc=0 gerr=0 cmp=32 away=10 md5=42839e85 | NOT_EQUAL stage1
+UP/up30 rc=0 gerr=0 cmp=32 away=10 md5=67a027d8 | NOT_EQUAL stage1
+UP/up31 rc=0 gerr=0 cmp=32 away=10 md5=47d8a271 | NOT_EQUAL stage1
+UP/up32 rc=0 gerr=0 cmp=36 away=12 md5=bd854d7a | NOT_EQUAL stage1
+UP/up33 rc=0 gerr=0 cmp=34 away=21 md5=381d5345 | NOT_EQUAL stage1
+UP/up34 rc=0 gerr=0 cmp=36 away=22 md5=e55c3365 | NOT_EQUAL stage1
+UP/up36 rc=0 gerr=0 cmp=32 away=10 md5=8c90f700 | NOT_EQUAL stage1
+UP/up37 rc=0 gerr=0 cmp=28 away=8 md5=2a63bfd3 | NOT_EQUAL stage1
+UP/up38 rc=0 gerr=0 cmp=36 away=8 md5=ef35edb8 | NOT_EQUAL stage1
+UP/up39 rc=0 gerr=0 cmp=28 away=16 md5=551c38e1 | NOT_EQUAL stage1
+UP/up40 rc=0 gerr=0 cmp=28 away=32 md5=b20a2c8b | NOT_EQUAL stage1
+UP/up41 rc=0 gerr=0 cmp=46 away=15 md5=c1d2ba93 | NOT_EQUAL stage1
+UP/up42 rc=0 gerr=0 cmp=46 away=15 md5=6c776b7e | NOT_EQUAL stage1
+UP/up43 rc=0 gerr=0 cmp=46 away=15 md5=6b7f415e | NOT_EQUAL stage1
+UP/up44 rc=0 gerr=0 cmp=46 away=17 md5=cc2bf686 | NOT_EQUAL stage1
+UP/up45 rc=0 gerr=0 cmp=34 away=21 md5=965c4375 | NOT_EQUAL stage1
+UP/up46 rc=0 gerr=0 cmp=36 away=27 md5=343ed8c2 | NOT_EQUAL stage1
+UP/up48 rc=0 gerr=0 cmp=32 away=10 md5=55829353 | NOT_EQUAL stage1
+UP/up49 rc=0 gerr=0 cmp=0 away=2 md5=60c405c3 | STRICT_EQUAL 64 objects
+UP/up50 rc=0 gerr=0 cmp=0 away=2 md5=d806513e | STRICT_EQUAL 69 objects
+UP/up51 rc=0 gerr=0 cmp=36 away=4 md5=a2e26f16 | NOT_EQUAL stage1
+UP/up52 rc=0 gerr=0 cmp=0 away=42 md5=c04cc4af | STRICT_NOTEQUAL type
+UP/up53 rc=0 gerr=0 cmp=13 away=9 md5=3d4c5d35 | NOT_EQUAL stage1
+UP/up54 rc=0 gerr=0 cmp=13 away=9 md5=3075fd66 | NOT_EQUAL stage1
+UP/up55 rc=0 gerr=0 cmp=13 away=9 md5=1d71e23f | NOT_EQUAL stage1
+UP/up56 rc=0 gerr=0 cmp=36 away=19 md5=1581e84e | NOT_EQUAL stage1
+UP/up57 rc=0 gerr=0 cmp=34 away=15 md5=fdfe85d1 | NOT_EQUAL stage1
+UP/up58 rc=0 gerr=0 cmp=13 away=9 md5=5275bd15 | NOT_EQUAL stage1
+UP/up60 rc=0 gerr=0 cmp=0 away=4 md5=e745aebf | STRICT_EQUAL 72 objects
+UP/up61 rc=0 gerr=0 cmp=0 away=2 md5=b7254bba | STRICT_EQUAL 64 objects
+UP/up62 rc=0 gerr=0 cmp=0 away=2 md5=c3f3d4c9 | STRICT_EQUAL 69 objects
+UP/up63 rc=0 gerr=0 cmp=36 away=4 md5=171a93c7 | NOT_EQUAL stage1
+UP/up64 rc=0 gerr=0 cmp=28 away=38 md5=7dc950c6 | NOT_EQUAL stage1
+UP/up65 rc=0 gerr=0 cmp=46 away=11 md5=6e1031a7 | NOT_EQUAL stage1
+UP/up66 rc=0 gerr=0 cmp=46 away=11 md5=70c747b5 | NOT_EQUAL stage1
+UP/up67 rc=0 gerr=0 cmp=13 away=9 md5=5868493a | NOT_EQUAL stage1
+UP/up68 rc=0 gerr=0 cmp=36 away=19 md5=875e98ae | NOT_EQUAL stage1
+UP/up69 rc=0 gerr=0 cmp=34 away=15 md5=07da3c1c | NOT_EQUAL stage1
+UP/up70 rc=0 gerr=0 cmp=46 away=11 md5=c4760076 | NOT_EQUAL stage1
+UP/up72 rc=0 gerr=0 cmp=0 away=4 md5=6d607617 | STRICT_EQUAL 72 objects
+UP/up73 rc=0 gerr=0 cmp=28 away=8 md5=6851bfc7 | NOT_EQUAL stage1
+UP/up74 rc=0 gerr=0 cmp=36 away=8 md5=c570d4d7 | NOT_EQUAL stage1
+UP/up75 rc=0 gerr=0 cmp=28 away=16 md5=c2bef703 | NOT_EQUAL stage1
+UP/up76 rc=0 gerr=0 cmp=28 away=32 md5=ae758d63 | NOT_EQUAL stage1
+UP/up77 rc=0 gerr=0 cmp=32 away=10 md5=63d2698d | NOT_EQUAL stage1
+UP/up78 rc=0 gerr=0 cmp=32 away=10 md5=12f865b9 | NOT_EQUAL stage1
+UP/up79 rc=0 gerr=0 cmp=32 away=10 md5=69869836 | NOT_EQUAL stage1
+UP/up80 rc=0 gerr=0 cmp=36 away=12 md5=b0479ee5 | NOT_EQUAL stage1
+UP/up81 rc=0 gerr=0 cmp=34 away=21 md5=6de2110e | NOT_EQUAL stage1
+UP/up82 rc=0 gerr=0 cmp=36 away=22 md5=1cd886b7 | NOT_EQUAL stage1
+UP/up84 rc=0 gerr=0 cmp=32 away=10 md5=8ecc7600 | NOT_EQUAL stage1
+UP/up85 rc=0 gerr=0 cmp=28 away=8 md5=9ca4a92f | NOT_EQUAL stage1
+UP/up86 rc=0 gerr=0 cmp=36 away=8 md5=e31afeda | NOT_EQUAL stage1
+UP/up87 rc=0 gerr=0 cmp=28 away=16 md5=f00726b6 | NOT_EQUAL stage1
+UP/up88 rc=0 gerr=0 cmp=28 away=36 md5=a68a6b8c | NOT_EQUAL stage1
+UP/up89 rc=0 gerr=0 cmp=32 away=10 md5=fe1a3972 | NOT_EQUAL stage1
+UP/up90 rc=0 gerr=0 cmp=32 away=10 md5=ebc6a2ab | NOT_EQUAL stage1
+UP/up91 rc=0 gerr=0 cmp=32 away=10 md5=b0a379e9 | NOT_EQUAL stage1
+UP/up92 rc=0 gerr=0 cmp=36 away=12 md5=7335aa8c | NOT_EQUAL stage1
+UP/up93 rc=0 gerr=0 cmp=34 away=21 md5=56adebc5 | NOT_EQUAL stage1
+UP/up94 rc=0 gerr=0 cmp=36 away=22 md5=d53d0903 | NOT_EQUAL stage1
+UP/up96 rc=0 gerr=0 cmp=32 away=10 md5=3313480d | NOT_EQUAL stage1

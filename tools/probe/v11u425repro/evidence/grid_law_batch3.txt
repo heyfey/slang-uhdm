@@ -1,0 +1,5 @@
+VQ/vq31 | P rc=0 gerr=0 cmp=36 away=42 md5=65cc2c4f | NOT_EQUAL stage1 | F rc=0 gerr=0 cmp=36 away=42 md5=65cc2c4f | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+VQ/vq32 | P rc=0 gerr=0 cmp=36 away=14 md5=aeb3ddfb | NOT_EQUAL stage1 | F rc=0 gerr=0 cmp=0 away=2 md5=e51c5d3f | STRICT_EQUAL 56 objects | OFF=pris:y moved:y restoredBy: ELABFORM_OFF
+VQ/vq33 | P rc=0 gerr=0 cmp=36 away=12 md5=4324dbe6 | NOT_EQUAL stage1 | F rc=0 gerr=0 cmp=36 away=12 md5=4324dbe6 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+VQ/vq34 | P rc=0 gerr=0 cmp=32 away=22 md5=7bae0e79 | NOT_EQUAL stage1 | F rc=0 gerr=0 cmp=32 away=22 md5=7bae0e79 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+VQ/vq35 | P rc=0 gerr=0 cmp=36 away=22 md5=f1812633 | NOT_EQUAL stage1 | F rc=0 gerr=0 cmp=0 away=10 md5=b7f01e58 | STRICT_EQUAL 121 objects | OFF=pris:y moved:y restoredBy: ELABFORM_OFF
