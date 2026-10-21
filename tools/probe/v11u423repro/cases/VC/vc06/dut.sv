@@ -1,0 +1,15 @@
+// § clsTfOpFoldTsLate423
+package p;
+  typedef bit [27:0] f_t;
+  parameter f_t A = (1<<4);
+endpackage
+interface ifc;
+  import p::*;
+  function automatic bit f(f_t x);
+    case (x)
+      A: return 1;
+    endcase
+    return x == A;
+  endfunction
+endinterface
+module top; ifc u(); endmodule

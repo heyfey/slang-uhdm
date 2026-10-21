@@ -2043,6 +2043,25 @@ static std::string ownerInstName192(const UHDM::any* p, int* gens = nullptr,
     }
     return std::string();
 }
+// § caseItemFoldClassOwner423: the class a subroutine body belongs to when
+// its parent chain reaches a class before any instance, package or design.
+static const UHDM::class_defn* ciClassOwner423(const UHDM::any* p) {
+    for (int g = 0; p && g < 256; ++g, p = p->VpiParent()) {
+        switch (p->UhdmType()) {
+            case UHDM::uhdmclass_defn:
+                return (const UHDM::class_defn*)p;
+            case UHDM::uhdmmodule_inst:
+            case UHDM::uhdminterface_inst:
+            case UHDM::uhdmprogram:
+            case UHDM::uhdmpackage:
+            case UHDM::uhdmdesign:
+                return nullptr;
+            default:
+                break;
+        }
+    }
+    return nullptr;
+}
 // § genCaReplCountInst282's left-side test: the continuous assignment's left
 // side is anything but a plain name (a select, a member path, a
 // concatenation).
@@ -30034,7 +30053,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         (caseItemTs116On() && parent &&
                          parent->UhdmType() == UHDM::uhdmcase_item &&
                          !inParamInit && typedPkgParam &&
-                         caseItemTs116Lit(psym)))
+                         caseItemTs116Lit(psym)) ||
+                        // § caseItemPkgFoldTsOps423 (EmitHelpers.h)
+                        (caseItemTs116On() && parent &&
+                         parent->UhdmType() == UHDM::uhdmcase_item &&
+                         !inParamInit && typedPkgParam &&
+                         caseItemTsOps423(psym) &&
+                         lawOn(423, "R11U423_CIOPS_OFF") &&
+                         (lawTrace(423, "caseItemPkgFoldTsOps423",
+                                   std::string(psym.name)), true)))
                         // Only a param MATERIALIZED into this module (read
                         // through an import, i.e. UNQUALIFIED) carries the ts
                         // ref; a QUALIFIED pkg::P read folds bare (the def ts
@@ -30454,6 +30481,21 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         hit282 = true;
                                     if (hit282) {
                                         std::string own282 = ownerInstName192(currentTf);
+                                        // § caseItemFoldClassOwner423 — a class
+                                        // method's case item names the CLASS
+                                        // (`work@C`, `q::C`): the getValue clone
+                                        // hangs at the param_assign copy the
+                                        // class or its package lists, not at
+                                        // the subroutine.  Cases
+                                        // tools/probe/r11u423repro/cases/CI.
+                                        // Switch R11U423_CICLSOWN_OFF.
+                                        if (own282.empty() &&
+                                            lawOn(423, "R11U423_CICLSOWN_OFF"))
+                                            if (auto* cd423 = ciClassOwner423(currentTf)) {
+                                                own282 = std::string(cd423->VpiFullName());
+                                                lawTrace(423, "caseItemFoldClassOwner423",
+                                                         nm192 + " -> " + own282);
+                                            }
                                         if (!own282.empty() && own282 != nm192) {
                                             lawTrace(282, "TFCASEINS", nm192 + " -> " + own282);
                                             nm192 = own282;
@@ -30648,6 +30690,94 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rt159->Actual_typespec(pit159->second);
                                 c->Typespec(rt159);
                             }
+                    }
+                    // § caseItemPkgFoldTsLate423 (EmitHelpers.h) — the
+                    // case-item stamp whose import copy binds its typespec
+                    // late: recorded here, written by drainShareDefParamTs.
+                    // § clsTfOpFoldTsLate423 (EmitHelpers.h, CiLateTs423) —
+                    // the class-method OPERAND half: § pkgImportTfOpFoldTs159
+                    // reads only a package's materialized copies, so an
+                    // operand folded from a $unit-imported typed parameter in
+                    // a $unit class method (`UVM_ALL_ON & what__` in the
+                    // `uvm_field_*` macro body) came out bare; golden names
+                    // the reference by the subroutine (`work@C::f`).
+                    // ...and a MODULE subroutine's operand the same way
+                    // (§ tfOpFold9 reads `importedParamDefTs`, which a
+                    // vector-typedef import copy fills only past the bodies).
+                    const UHDM::any* opOwn423 = nullptr;
+                    if (!c->Typespec() && currentTf && !inProcessEmit &&
+                        !inParamInit && parent &&
+                        parent->UhdmType() == UHDM::uhdmoperation &&
+                        typedPkgParam &&
+                        nv.symbol.kind == SymbolKind::Parameter &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos) {
+                        if (auto* cd423 = ciClassOwner423(currentTf)) {
+                            if (!pkgImportParamTs159.count(&nv.symbol))
+                                opOwn423 = cd423;
+                        }
+                        else if (!importedParamDefTs.count(&nv.symbol))
+                            for (const UHDM::any* w423 = currentTf; w423;
+                                 w423 = w423->VpiParent())
+                                if (w423->UhdmType() == UHDM::uhdmmodule_inst ||
+                                    w423->UhdmType() == UHDM::uhdminterface_inst ||
+                                    w423->UhdmType() == UHDM::uhdmprogram) {
+                                    opOwn423 = w423;
+                                    break;
+                                }
+                                else if (w423->UhdmType() == UHDM::uhdmpackage ||
+                                         w423->UhdmType() == UHDM::uhdmdesign)
+                                    break;
+                    }
+                    const bool clsOp423 =
+                        opOwn423 && lawOn(423, "R11U423_CLSOPLATE_OFF");
+                    if (clsOp423) {
+                        ciLateTs423().push_back({c, opOwn423,
+                                                 std::string(psym.name), prefix,
+                                                 &psym});
+                        lawTrace(423, "clsTfOpFoldTsLate423",
+                                 std::string(psym.name) + " @ " + prefix);
+                    }
+                    else if (!c->Typespec() && caseItemTs116On() && parent &&
+                        parent->UhdmType() == UHDM::uhdmcase_item &&
+                        !inParamInit && typedPkgParam &&
+                        nv.symbol.kind == SymbolKind::Parameter &&
+                        (caseItemTs116Lit(psym) ||
+                         (caseItemTsOps423(psym) &&
+                          lawOn(423, "R11U423_CIOPS_OFF"))) &&
+                        !importedParamDefTs.count(&nv.symbol) &&
+                        rawText(expr.sourceRange).find("::") ==
+                            std::string::npos &&
+                        lawOn(423, "R11U423_CILATE_OFF")) {
+                        const UHDM::any* own423 = nullptr;
+                        std::string nm423;
+                        const UHDM::any* from423 =
+                            currentTf ? (const UHDM::any*)currentTf : parent;
+                        if (auto* cd423 = ciClassOwner423(from423)) {
+                            own423 = cd423;
+                            if (lawOn(423, "R11U423_CICLSOWN_OFF"))
+                                nm423 = std::string(cd423->VpiFullName());
+                        }
+                        else
+                            for (const UHDM::any* w423 = from423; w423;
+                                 w423 = w423->VpiParent())
+                                if (w423->UhdmType() == UHDM::uhdmmodule_inst ||
+                                    w423->UhdmType() == UHDM::uhdminterface_inst ||
+                                    w423->UhdmType() == UHDM::uhdmprogram ||
+                                    w423->UhdmType() == UHDM::uhdmpackage) {
+                                    own423 = w423;
+                                    nm423 = std::string(
+                                        ((const UHDM::scope*)w423)->VpiFullName());
+                                    break;
+                                }
+                        if (nm423.empty())
+                            nm423 = prefix;
+                        if (own423) {
+                            ciLateTs423().push_back(
+                                {c, own423, std::string(psym.name), nm423, &psym});
+                            lawTrace(423, "caseItemPkgFoldTsLate423",
+                                     std::string(psym.name) + " @ " + nm423);
+                        }
                     }
                     // § qualPkgParamFoldTs — the QUALIFIED half of the same
                     // law.  The gate right above says "only a param
@@ -31048,6 +31178,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             red104ReaderResize104(c, ndaReaderWidth104,
                                                   rdMask104, rdSize104,
                                                   binLogic104, asInt104v);
+                    }
+                    // § unszBasedPkgFoldUnsized423 (EmitHelpers.h)
+                    if (!typedPkgParam && !inParamInit &&
+                        psym.getParentScope() &&
+                        psym.getParentScope()->asSymbol().kind ==
+                            SymbolKind::Package &&
+                        !isRangedUntypedParam(psym) &&
+                        !(psym.getDeclaredType() &&
+                          psym.getDeclaredType()->getTypeSyntax() &&
+                          psym.getDeclaredType()->getTypeSyntax()->kind ==
+                              syntax::SyntaxKind::ImplicitType &&
+                          psym.getDeclaredType()
+                              ->getTypeSyntax()
+                              ->as<syntax::ImplicitTypeSyntax>()
+                              .signing.valid()) &&
+                        unszBasedLit423(psym.getInitializer()) &&
+                        lawOn(423, "R11U423_UNSZFOLD_OFF")) {
+                        // § unszFoldWholeCaRhsKeepsSize423v (v11u423) — THE
+                        // BREAK: a fold that is the WHOLE right side of a
+                        // continuous assignment (plain or net-declaration)
+                        // is the copy Surelog shares with that read and
+                        // resizes to the reader's width (golden `assign y =
+                        // H` size 32, `assign z = H` with an 8-bit z size 8,
+                        // `wire [15:0] w = H` size 16), the same distinguisher
+                        // § decUnszElabRespellKeepsM1_423 abstains on; the
+                        // size stays as the reader wrote it, the actual-less
+                        // ref_typespec half still applies.  Procedural,
+                        // operand, argument and return reads keep -1.  Cases
+                        // tools/probe/v11u423repro/cases/VS.  Switch
+                        // R11V423_CAWHOLE_OFF.
+                        const bool caWhole423v =
+                            parent &&
+                            parent->UhdmType() == UHDM::uhdmcont_assign &&
+                            fixOn(423, "R11V423_CAWHOLE_OFF");
+                        if (caWhole423v)
+                            lawTrace(423, "unszFoldWholeCaRhsKeepsSize423v",
+                                     std::string(psym.name));
+                        else
+                            c->VpiSize(-1);
+                        if (auto* rt423 = (UHDM::ref_typespec*)c->Typespec())
+                            rt423->Actual_typespec(nullptr);
+                        lawTrace(423, "unszBasedPkgFoldUnsized423",
+                                 std::string(psym.name));
                     }
                     return c;
                 }

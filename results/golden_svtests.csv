@@ -1889,7 +1889,7 @@ generated/sampled_functions/20.13--sampled.sv,EQUAL,,equal
 generated/sampled_functions/20.13--stable.sv,EQUAL,,equal
 generated/sampled_functions/20.13--stable_gclk.sv,EQUAL,,equal
 generated/sampled_functions/20.13--steady_gclk.sv,EQUAL,,equal
-generated/scr1/scr1.sv,DIFFERENT,decompile:,
+generated/scr1/scr1.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_and_logical_operator.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_equiv_logical_operator.sv,EQUAL,,equal
 generated/simple_logical_operators_sim/11.4.7--simple_impl_logical_operator.sv,EQUAL,,equal

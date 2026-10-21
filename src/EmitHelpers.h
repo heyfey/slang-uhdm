@@ -14052,6 +14052,145 @@ inline bool caseItemTs116Lit(const ParameterSymbol& ps) {
     return e->kind == ExpressionKind::IntegerLiteral;
 }
 
+/// § caseItemPkgFoldTsOps423 (r11u423) — the literal fence of
+/// § caseItemPkgFoldTs116 widened to an initializer built ONLY of integer
+/// literals joined by unary and binary operators, parentheses included
+/// (UVM's `parameter uvm_field_flag_t UVM_PRINT = (1<<4);` read as a case
+/// item in a $unit class's `uvm_field_*` macro body, the testbenches rows
+/// uvm_agent_active and its three siblings): Surelog folds the clone to the
+/// same UINT value at the parameter's width that this site already writes,
+/// and stamps the parameter's typespec as it does for a literal.  An
+/// initializer naming another parameter, a call, a conditional, a concat or
+/// a select stays fenced (the encoding the 116 fence convicted).  Cases
+/// tools/probe/r11u423repro/cases/CI.  Switch R11U423_CIOPS_OFF.
+inline bool caseItemTsOps423Tree(const Expression& x, int depth = 0) {
+    if (depth > 32)
+        return false;
+    const Expression* e = &x;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    switch (e->kind) {
+        case ExpressionKind::IntegerLiteral:
+            return true;
+        case ExpressionKind::UnaryOp:
+            return caseItemTsOps423Tree(e->as<UnaryExpression>().operand(), depth + 1);
+        case ExpressionKind::BinaryOp: {
+            auto& b = e->as<BinaryExpression>();
+            return caseItemTsOps423Tree(b.left(), depth + 1) &&
+                   caseItemTsOps423Tree(b.right(), depth + 1);
+        }
+        default:
+            return false;
+    }
+}
+/// § unszBasedPkgFoldUnsized423 (r11u423) — a package parameter declared
+/// WITHOUT a type and initialized by an UNSIZED BASED literal (`parameter
+/// UVM_RADIX = 'hf000000;`, `'d12`, `'b101`; not the `'b0` / `'b1` grammar
+/// tokens, which carry size 0) keeps size -1 on its Rhs constant and no
+/// typespec on the parameter (§ unsizedBasedParamRhsSize106, the no-ts branch in
+/// ParamEmit).  A read folded from it in an importing scope is the clone of
+/// that Rhs (CompileExpression.cpp getValue), so it keeps size -1 and its
+/// ref_typespec carries no actual (the copy's `Lhs()->Typespec()` is null);
+/// ours sized it at the parameter's 32-bit int and stamped the import
+/// copy's unattached int_typespec.  Written spelling only: a parenthesized
+/// literal is not reached.  Cases tools/probe/r11u423repro/cases/US.  Switch
+/// R11U423_UNSZFOLD_OFF.
+inline bool unszBasedLit423(const Expression* init) {
+    if (!init)
+        return false;
+    const Expression* e = init;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    if (e->kind != ExpressionKind::IntegerLiteral || !e->syntax ||
+        e->syntax->kind != slang::syntax::SyntaxKind::IntegerVectorExpression)
+        return false;
+    auto& iv = e->syntax->as<slang::syntax::IntegerVectorExpressionSyntax>();
+    if (iv.size.valid() && !iv.size.rawText().empty())
+        return false;
+    std::string_view b = iv.base.rawText();
+    if (b.empty() || b[0] != '\'')
+        return false;
+    char bc = (char)(b.back() | 0x20);
+    if (std::string_view("bohd").find(bc) == std::string_view::npos)
+        return false;
+    std::string_view v = iv.value.rawText();
+    if (bc == 'b' && b.size() == 2 && (v == "0" || v == "1"))
+        return false;
+    return true;
+}
+/// § decUnszElabRespellKeepsM1_423 (r11u423) — § unsizedBasedParamRhsSize106
+/// keeps size -1 on every view of an untyped parameter's UNSIZED based
+/// default, but its design-final drain re-checks the written spelling and so
+/// skipped the ELABORATED copy of a DECIMAL one: the instance respells `'d12`
+/// as `INT:12` with the decompile `12` (§ impCopyBasedDecKeep), and golden
+/// keeps size -1 there too (`localparam TIMEOUT = 'd2000_000;` in scr1's
+/// testbench, golden INT:2000000 size -1, ours 32).  A copy a continuous
+/// assignment reads as its whole right-hand side is shared with that read and
+/// resized by it (golden parents it at the cont_assign, size = the reader's
+/// width), which ours already writes; the law reaches only a respelled copy
+/// still parented at its param_assign.  Cases tools/probe/r11u423repro/cases/UD.
+/// Switch R11U423_DECUNSZ_OFF.
+inline std::set<const void*>& decUnszElab423() {
+    static std::set<const void*> v;
+    return v;
+}
+/// § octUnszElabRespell423 (r11u423) — the OCTAL twin: the elaborated
+/// instance rebuilds an unsized octal default from its value as a bare decimal
+/// UINT (`localparam O = 'o17;` -> golden `UINT:15`, decompile `15`, size -1,
+/// in the instance's own listing and in a materialized import copy), exactly
+/// as § sizedOctElabRespell does for the sized spelling; ours kept `'o17`
+/// OCT.  The signed spelling is fenced as § unsizedBasedParamRhsSize106 fences
+/// it.  Cases tools/probe/r11u423repro/cases/UO.  Switch R11U423_OCTUNSZ_OFF.
+inline std::set<const void*>& octUnszElab423() {
+    static std::set<const void*> v;
+    return v;
+}
+/// § caseItemPkgFoldTsLate423 (r11u423) — the case-item stamp of
+/// § caseItemPkgFoldTs116 / § caseItemPkgFoldTsOps423 for a parameter whose
+/// import copy binds its typespec LATE: a parameter typed by a package VECTOR
+/// typedef (`parameter uvm_field_flag_t UVM_PRINT = (1<<4)`, `typedef bit
+/// [27:0] f_t`) defers its typespec past emitTypedefs (drainDefParamTs), so
+/// `importedParamDefTs` holds nothing for it while the subroutine bodies
+/// compile and the fold came out bare.  Golden's case item is the clone of the
+/// owning component's materialized param_assign Rhs carrying that copy's
+/// declaration typespec (CompileExpression.cpp getValue: `clone_tree(
+/// param_ass->Rhs())`, then `param_ass->Lhs()->Typespec()`).  The site records
+/// the constant, the component that compiled it and the reference name, and
+/// drainShareDefParamTs (ParamEmit, dead last) stamps a ref_typespec to the
+/// typespec of the first same-named imported param_assign copy found walking
+/// up from that component; no copy found writes nothing.  In a CLASS method
+/// golden's typespec is the per-reference clone of the declaration (a named
+/// clone of the typedef whose alias reaches a second bare clone instanced at
+/// the package, `bit_typespec (f_t)` both), not the class copy's object,
+/// whose alias reaches the package-qualified listing typespec (`p::f_t`): the
+/// class branch builds that clone through makeParamTs under the class's name.
+/// Switch R11U423_CILATE_OFF.
+struct CiLateTs423 {
+    UHDM::constant* c;
+    const UHDM::any* owner;
+    std::string name;
+    std::string rtName;
+    const ParameterSymbol* sym;
+};
+inline std::vector<CiLateTs423>& ciLateTs423() {
+    static std::vector<CiLateTs423> v;
+    return v;
+}
+inline bool caseItemTsOps423(const ParameterSymbol& ps) {
+    auto* init = ps.getInitializer();
+    if (!init)
+        return false;
+    const Expression* e = init;
+    while (e->kind == ExpressionKind::Conversion &&
+           e->as<ConversionExpression>().isImplicit())
+        e = &e->as<ConversionExpression>().operand();
+    if (e->kind == ExpressionKind::IntegerLiteral)
+        return false;  // § caseItemPkgFoldTs116's own cell
+    return caseItemTsOps423Tree(*e);
+}
+
 
 // ============================================================================
 // r11u118 — PAIR A, THE VALUE-AND-NAME GROUND (the downstream-lane fields the

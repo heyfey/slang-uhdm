@@ -1,0 +1,4 @@
+testbenches/uvm_agent_active c12(base+422+423) cmp_lines=77 head: class_typespec: (uvm_resource), id:208176, line:43:3, endln:43:15
+testbenches/uvm_agent_passive c12(base+422+423) cmp_lines=77 head: class_typespec: (uvm_resource), id:205918, line:43:3, endln:43:15
+testbenches/uvm_driver_sequencer_env c12(base+422+423) cmp_lines=77 head: class_typespec: (uvm_resource), id:203657, line:43:3, endln:43:15
+testbenches/uvm_monitor_env c12(base+422+423) cmp_lines=77 head: class_typespec: (uvm_resource), id:203687, line:43:3, endln:43:15

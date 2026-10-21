@@ -1,0 +1,35 @@
+CI/ci01 | P rc=0 cmp=17 away=1192 md5=ef887667 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1106 md5=ed8caaee | STRICT_EQUAL 588 objects | OFF=pris:y moved:y restoredBy: CIOPS_OFF CILATE_OFF
+CI/ci02 | P rc=0 cmp=17 away=708 md5=ae944e52 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=694 md5=4463fccc | STRICT_EQUAL 485 objects | OFF=pris:y moved:y restoredBy: CIOPS_OFF CILATE_OFF
+CI/ci08 | P rc=0 cmp=17 away=157 md5=dabd5c5c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=150 md5=232231ad | STRICT_EQUAL 178 objects | OFF=pris:y moved:y restoredBy: CIOPS_OFF CILATE_OFF
+CI/ci11 | P rc=0 cmp=0 away=2 md5=9ce35fd7 | STRICT_EQUAL 39 objects | F rc=0 cmp=0 away=2 md5=9ce35fd7 | STRICT_EQUAL 39 objects | OFF=pris:y moved:n restoredBy: -
+CI/ci12 | P rc=0 cmp=0 away=10 md5=aae82384 | STRICT_EQUAL 66 objects | F rc=0 cmp=0 away=10 md5=aae82384 | STRICT_EQUAL 66 objects | OFF=pris:y moved:n restoredBy: -
+CI/ci13 | P rc=0 cmp=0 away=10 md5=c1d7bb35 | STRICT_EQUAL 69 objects | F rc=0 cmp=0 away=10 md5=c1d7bb35 | STRICT_EQUAL 69 objects | OFF=pris:y moved:n restoredBy: -
+CI/ci18 | P rc=0 cmp=17 away=17 md5=a608b216 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=10 md5=70005662 | STRICT_EQUAL 66 objects | OFF=pris:y moved:y restoredBy: CIOPS_OFF
+CI/ci19 | P rc=0 cmp=17 away=157 md5=d1be554f | NOT_EQUAL stage1 | F rc=0 cmp=0 away=150 md5=1f92b472 | STRICT_EQUAL 186 objects | OFF=pris:y moved:y restoredBy: CILATE_OFF
+CI/ci20 | P rc=0 cmp=0 away=29 md5=e83a9069 | STRICT_EQUAL 99 objects | F rc=0 cmp=0 away=29 md5=e83a9069 | STRICT_EQUAL 99 objects | OFF=pris:y moved:n restoredBy: -
+CI/ci21 | P rc=0 cmp=17 away=338 md5=69459310 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=324 md5=bc0c34ae | STRICT_EQUAL 257 objects | OFF=pris:y moved:y restoredBy: CIOPS_OFF
+CO/co01 | P rc=0 cmp=17 away=612 md5=e172096d | NOT_EQUAL stage1 | F rc=0 cmp=0 away=578 md5=3d5001fb | STRICT_EQUAL 319 objects | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+CO/co02 | P rc=0 cmp=17 away=1198 md5=bdfc65b8 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=1112 md5=5e5620ef | STRICT_EQUAL 594 objects | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+CO/co03 | P rc=0 cmp=17 away=618 md5=fe393ba3 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=566 md5=80ce7626 | STRICT_EQUAL 336 objects | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+CO/co04 | P rc=0 cmp=17 away=364 md5=1df7414f | NOT_EQUAL stage1 | F rc=0 cmp=0 away=357 md5=f8c3411b | STRICT_EQUAL 269 objects | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+CO/co05 | P rc=0 cmp=76 away=474 md5=75ec7e07 | NOT_EQUAL stage1 | F rc=0 cmp=76 away=416 md5=c126e9cf | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+CO/co06 | P rc=0 cmp=17 away=430 md5=2159a8b1 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=430 md5=2159a8b1 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+CO/co07 | P rc=0 cmp=17 away=173 md5=27801382 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=166 md5=47e56bcb | STRICT_EQUAL 204 objects | OFF=pris:y moved:y restoredBy: CLSOPLATE_OFF
+UD/ud01 | P rc=0 cmp=36 away=4 md5=4eeef9bd | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=9528b2d0 | STRICT_EQUAL 17 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UD/ud02 | P rc=0 cmp=0 away=2 md5=46850887 | STRICT_EQUAL 28 objects | F rc=0 cmp=0 away=2 md5=46850887 | STRICT_EQUAL 28 objects | OFF=pris:y moved:n restoredBy: -
+UD/ud03 | P rc=0 cmp=36 away=4 md5=25db07d3 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=bd9448d0 | STRICT_EQUAL 35 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UD/ud05 | P rc=0 cmp=36 away=4 md5=c47215ab | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=1a2f6699 | STRICT_EQUAL 20 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UD/ud06 | P rc=0 cmp=36 away=4 md5=8313ffa8 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=870f3ef2 | STRICT_EQUAL 30 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UD/ud08 | P rc=0 cmp=36 away=4 md5=4a1352fd | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=aab5ac70 | STRICT_EQUAL 31 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UD/ud09 | P rc=0 cmp=0 away=2 md5=ab6a7c1c | STRICT_EQUAL 37 objects | F rc=0 cmp=0 away=2 md5=ab6a7c1c | STRICT_EQUAL 37 objects | OFF=pris:y moved:n restoredBy: -
+UD/ud10 | P rc=0 cmp=36 away=4 md5=a7666b89 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=5b4895f0 | STRICT_EQUAL 34 objects | OFF=pris:y moved:y restoredBy: DECUNSZ_OFF
+UO/uo01 | P rc=0 cmp=36 away=14 md5=6df26daa | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=214f4b12 | STRICT_EQUAL 17 objects | OFF=pris:y moved:y restoredBy: OCTUNSZ_OFF
+UO/uo02 | P rc=0 cmp=60 away=31 md5=736d95f6 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=247c0008 | STRICT_EQUAL 65 objects | OFF=pris:y moved:y restoredBy: -
+UO/uo03 | P rc=0 cmp=36 away=8 md5=c1b49c36 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=92c68ba9 | STRICT_EQUAL 49 objects | OFF=pris:y moved:y restoredBy: OCTUNSZ_OFF
+UO/uo04 | P rc=0 cmp=34 away=50 md5=3691215b | NOT_EQUAL stage1 | F rc=0 cmp=34 away=50 md5=3691215b | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+US/us01 | P rc=0 cmp=60 away=25 md5=1b07fe14 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=696b5239 | STRICT_EQUAL 63 objects | OFF=pris:y moved:y restoredBy: UNSZFOLD_OFF
+US/us02 | P rc=0 cmp=60 away=16 md5=da8d2a6c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=252dda53 | STRICT_EQUAL 71 objects | OFF=pris:y moved:y restoredBy: UNSZFOLD_OFF
+US/us03 | P rc=0 cmp=60 away=25 md5=94f1afe9 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=57f9837e | STRICT_EQUAL 87 objects | OFF=pris:y moved:y restoredBy: UNSZFOLD_OFF
+US/us04 | P rc=0 cmp=0 away=2 md5=22d44c11 | STRICT_EQUAL 71 objects | F rc=0 cmp=0 away=2 md5=22d44c11 | STRICT_EQUAL 71 objects | OFF=pris:y moved:n restoredBy: -
+US/us06 | P rc=0 cmp=17 away=627 md5=3ddd354a | NOT_EQUAL stage1 | F rc=0 cmp=17 away=627 md5=3ddd354a | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+US/us07 | P rc=0 cmp=60 away=45 md5=3b944c68 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=38cb04a3 | STRICT_EQUAL 105 objects | OFF=pris:y moved:y restoredBy: -

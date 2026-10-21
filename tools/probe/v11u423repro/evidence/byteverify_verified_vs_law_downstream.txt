@@ -1,0 +1,4 @@
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

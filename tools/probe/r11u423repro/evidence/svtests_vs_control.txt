@@ -1,0 +1,2 @@
+2346 2346
+generated/scr1/scr1.sv DIFFERENT -> EQUAL equal

@@ -27739,6 +27739,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                          (!defViewOrig9 && !inPackage) ||
                                              funcScope,
                                          pfx106});
+            // § decUnszElabRespellKeepsM1_423 (EmitHelpers.h)
+            if (!signedBase106 && decBasedInit && topView && !defViewOrig9 &&
+                !inPackage)
+                decUnszElab423().insert(pa->Rhs());
+            // § octUnszElabRespell423 (EmitHelpers.h)
+            if (!signedBase106 && topView && !defViewOrig9 && !inPackage &&
+                std::string_view(((const UHDM::constant*)pa->Rhs())->VpiValue())
+                        .rfind("OCT:", 0) == 0)
+                octUnszElab423().insert(pa->Rhs());
         }
         // DEF-view aggregate-typedef params (typedef struct/union/enum T; then
         // parameter T P) defer their ts binding past emitTypedefs so they can
@@ -38803,6 +38812,86 @@ void UhdmExporter::drainShareDefParamTs() {
     pkgAliasTdNames284(comp);
     // § ifPortViewArithIntForm419 / § ifPortViewPaLhsOwn419 (r11u419).
     ifPortViewPas419(s, d);
+    // § caseItemPkgFoldTsLate423 (law at EmitHelpers.h's CiLateTs423): stamp
+    // the recorded case-item folds with the typespec of the first same-named
+    // imported param_assign copy found walking up from the compiling
+    // component (its Rhs constant's typespec, else its Lhs's).
+    for (auto& r423 : ciLateTs423()) {
+        if (!r423.c || r423.c->Typespec())
+            continue;
+        const UHDM::typespec* ts423 = nullptr;
+        for (const UHDM::any* w423 = r423.owner; w423 && !ts423;
+             w423 = w423->VpiParent()) {
+            const UHDM::VectorOfparam_assign* pas423 = nullptr;
+            switch (w423->UhdmType()) {
+                case UHDM::uhdmclass_defn:
+                    pas423 = ((const UHDM::class_defn*)w423)->Param_assigns();
+                    break;
+                case UHDM::uhdmmodule_inst:
+                case UHDM::uhdminterface_inst:
+                case UHDM::uhdmprogram:
+                case UHDM::uhdmpackage:
+                    pas423 = ((const UHDM::instance*)w423)->Param_assigns();
+                    break;
+                case UHDM::uhdmdesign:
+                    pas423 = ((const UHDM::design*)w423)->Param_assigns();
+                    break;
+                default:
+                    break;
+            }
+            if (!pas423)
+                continue;
+            for (auto* pa423 : *pas423) {
+                if (!pa423 || !pa423->Lhs() ||
+                    pa423->Lhs()->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* lp423 = (const UHDM::parameter*)pa423->Lhs();
+                if (lp423->VpiName() != r423.name || lp423->VpiImported().empty())
+                    continue;
+                if (pa423->Rhs() && pa423->Rhs()->UhdmType() == UHDM::uhdmconstant)
+                    if (auto* rr423 = ((const UHDM::constant*)pa423->Rhs())->Typespec())
+                        ts423 = rr423->Actual_typespec();
+                if (!ts423 && lp423->Typespec())
+                    ts423 = lp423->Typespec()->Actual_typespec();
+                if (lawTraceOn(423))
+                    lawTrace(423, "caseItemPkgFoldTsLate423",
+                             "FOUND " + r423.name + " in " +
+                                 std::to_string((int)w423->UhdmType()) + " " +
+                                 std::string(ts423 ? ts423->VpiName() : "-"));
+                break;
+            }
+            if (w423->UhdmType() == UHDM::uhdmdesign)
+                break;
+        }
+        if (!ts423) {
+            lawTrace(423, "caseItemPkgFoldTsLate423", "ABSTAIN " + r423.name);
+            continue;
+        }
+        auto* rt423 = s.MakeRef_typespec();
+        rt423->VpiParent(r423.c);
+        rt423->VpiFullName(r423.rtName);
+        UHDM::typespec* cl423 = nullptr;
+        if (r423.owner && r423.owner->UhdmType() == UHDM::uhdmclass_defn &&
+            r423.sym) {
+            std::string savedPfx423 = syntaxRefPrefix;
+            const Scope* savedCS423 = currentScope;
+            syntaxRefPrefix = r423.rtName;
+            currentScope = r423.sym->getParentScope();
+            // a class scope joins the alias name with `::` (work@C::f_t)
+            bool savedImp423 = pkgImpParamTs210();
+            pkgImpParamTs210() = true;
+            cl423 = makeParamTs(*r423.sym, true);
+            pkgImpParamTs210() = savedImp423;
+            currentScope = savedCS423;
+            syntaxRefPrefix = savedPfx423;
+            if (cl423)
+                cl423->VpiParent(rt423);
+        }
+        rt423->Actual_typespec(cl423 ? cl423 : (UHDM::typespec*)ts423);
+        r423.c->Typespec(rt423);
+        lawTrace(423, "caseItemPkgFoldTsLate423", "STAMP " + r423.name + " " + r423.rtName);
+    }
+    ciLateTs423().clear();
 }
 
 // Deferred DEF-view aggregate-typedef param ts: bind the SHARED named typedef
@@ -38865,6 +38954,18 @@ void UhdmExporter::drainUnsizedBasedRhs106() {
         // view produces a different constant (`15`, `32'hf000000`) that
         // Surelog sizes from its own type, and those cells are left alone.
         std::string_view dec = c->VpiDecompile();
+        // § decUnszElabRespellKeepsM1_423 (EmitHelpers.h)
+        if (decUnszElab423().count(c) && !dec.empty() &&
+            dec.find_first_not_of("0123456789") == std::string_view::npos &&
+            c->VpiValue().rfind("INT:", 0) == 0 && c->VpiSize() != 0 &&
+            c->VpiParent() &&
+            c->VpiParent()->UhdmType() == UHDM::uhdmparam_assign &&
+            ((const UHDM::param_assign*)c->VpiParent())->Rhs() == c &&
+            lawOn(423, "R11U423_DECUNSZ_OFF")) {
+            c->VpiSize(-1);
+            lawTrace(423, "decUnszElabRespellKeepsM1_423", std::string(dec));
+            continue;
+        }
         if (dec.size() < 2 || dec[0] != '\'')
             continue;
         size_t bp = 1;
@@ -38890,6 +38991,35 @@ void UhdmExporter::drainUnsizedBasedRhs106() {
         c->Typespec(rt);
     }
     unsizedRhs106.clear();
+    decUnszElab423().clear();
+    // § octUnszElabRespell423 (EmitHelpers.h): after the 106 drain sized the
+    // copy at -1, respell its value as the decimal UINT.
+    for (const void* o423 : octUnszElab423()) {
+        auto* c = (UHDM::constant*)o423;
+        std::string_view v423 = c->VpiValue();
+        if (v423.rfind("OCT:", 0) != 0 || c->VpiSize() != -1 ||
+            !lawOn(423, "R11U423_OCTUNSZ_OFF"))
+            continue;
+        uint64_t ov423 = 0;
+        bool ok423 = v423.size() > 4 && v423.size() <= 4 + 21;
+        for (char ch : v423.substr(4)) {
+            if (ch == '_')
+                continue;
+            if (ch < '0' || ch > '7') {
+                ok423 = false;
+                break;
+            }
+            ov423 = ov423 * 8 + (uint64_t)(ch - '0');
+        }
+        if (!ok423)
+            continue;
+        std::string d423 = std::to_string(ov423);
+        c->VpiValue("UINT:" + d423);
+        c->VpiDecompile(d423);
+        c->VpiConstType(vpiUIntConst);
+        lawTrace(423, "octUnszElabRespell423", d423);
+    }
+    octUnszElab423().clear();
 }
 
 void UhdmExporter::drainDefParamTs() {
