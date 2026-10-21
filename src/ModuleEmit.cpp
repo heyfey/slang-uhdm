@@ -61899,8 +61899,16 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         bool saved;
         ~IfcArgTsGuard424() { f = saved; }
     } ifcArgTsG424{defOnlyDefEmit, defOnlyDefEmit};
-    if (!portView && lawOn(424, "R11U424_IFCARGTS_OFF"))
+    // r11u426 (the brief's ask): this law now logs its firing, and the
+    // write it makes is ExprEmit's definition-only flag `defOnlyDefEmit`
+    // (UhdmExporter.h), so EVERY reader of that flag under this window (the
+    // interface instance's process and assertion compile, up to
+    // `ifaceProcsDone283`) is gated by it too, not only the call-argument
+    // stamp it was written for.  The trace names the instance.
+    if (!portView && lawOn(424, "R11U424_IFCARGTS_OFF")) {
         defOnlyDefEmit = true;
+        lawTrace(424, "ifcProcCallArgNoTs424", prefix);
+    }
     if (ifcAssert424 && !portView) {
         auto& ent424 = ifcAsserts424()[&def];
         if (!ent424.vec) {

@@ -8222,6 +8222,28 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 v->VpiFullName(vfull);
                 v->VpiParent(tf);
                 bool blockLocal = isEnumArr || namedTypeLocal;
+                // § namedTypeLocalTfItemOutsideClass426 (r11u426; sv-tests
+                // generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,
+                // cases tools/probe/r11u426repro/cases/CV) — the
+                // block-member model above for a NAMED-type local (a
+                // typedef or a class name, `box_t r;`, `A a1;`) holds in a
+                // CLASS method only (case CV/cv11).  In the tf-item form
+                // (`blockItems9` false: a function written without a port
+                // list) of a $unit, module or interface subroutine golden
+                // compiles it through compileTfPortDecl's block-item branch like
+                // every other tf item (Surelog CompileStmt.cpp, the
+                // `var->VpiAutomatic(!is_static)` branch): located at its DATA
+                // TYPE (`A` 6:3-6:4, `p::C` 8:3-8:7, `C #(4)` 6:3-6:9),
+                // vpiAutomatic set and listed on the function, not moved to
+                // the body block (cases cv01-cv04, cv06-cv09, cv12-cv16:
+                // class, parameterized and package-scoped class, class and
+                // struct, enum and vector typedefs).  The typespec it binds
+                // is unchanged.  Switch R11U426_NAMEDTFITEM_OFF.
+                if (namedTypeLocal && !isEnumArr && !blockItems9 && !classScope &&
+                    lawOn(426, "R11U426_NAMEDTFITEM_OFF")) {
+                    blockLocal = false;
+                    lawTrace(426, "namedTypeLocalTfItemOutsideClass426", vfull);
+                }
                 // Initialized locals anchor at the name (and are later
                 // re-parented at their init assignment, without the
                 // automatic flag).

@@ -17881,12 +17881,52 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // span, ranges and element, every reference named after the
                 // new typedef) named by the new typedef, with a vpiTypedefAlias
                 // reference to the named typedef's listing object.
-                else if ((ct.kind == SymbolKind::DynamicArrayType ||
-                          ct.kind == SymbolKind::QueueType ||
-                          ct.kind == SymbolKind::AssociativeArrayType) &&
+                // § unitFixedArrTdAliasClone426 (r11u426, cases
+                // tools/probe/r11u426repro/cases/UR ur21, AC) — the same
+                // writer for a typedef naming a listed FIXED-SIZE unpacked
+                // array $unit typedef (`typedef ua_t ub_t;`), which had no
+                // branch either (`typedef target:
+                // FixedSizeUnpackedArrayType`, exit 4; upstream slang
+                // accepts).  Golden lists the clone named ub_t at ua_t's
+                // span with its ranges and element (references named ub_t)
+                // and the alias reaching ua_t's listing through the
+                // unparented copy, exactly as § dynTdAliasClone410's dynamic
+                // kinds.  Only a target listed by § unitArrTd245 (a $unit
+                // typedef of a non-alias fixed-size array).  Switch
+                // R11U426_UNITARRTDALIAS_OFF.
+                else if (((ct.kind == SymbolKind::DynamicArrayType ||
+                           ct.kind == SymbolKind::QueueType ||
+                           ct.kind == SymbolKind::AssociativeArrayType) ||
+                          (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+                           ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                           ta.targetType.getType().as<TypeAliasType>().targetType.getType().kind ==
+                               SymbolKind::FixedSizeUnpackedArrayType &&
+                           [&] {
+                               // an element that is itself a typedef
+                               // (`typedef nib_t na_t [2];`) names its chain
+                               // through the clone in golden (case AC/ac05,
+                               // unmeasured): left alone.
+                               const Type* el426 =
+                                   &ta.targetType.getType().as<TypeAliasType>().targetType.getType();
+                               while (el426->kind == SymbolKind::FixedSizeUnpackedArrayType)
+                                   el426 = &el426->as<FixedSizeUnpackedArrayType>().elementType;
+                               return el426->kind != SymbolKind::TypeAlias;
+                           }() &&
+                           ta.targetType.getType().as<TypeAliasType>().getParentScope() &&
+                           ta.targetType.getType().as<TypeAliasType>().getParentScope()
+                                   ->asSymbol().kind == SymbolKind::CompilationUnit &&
+                           typedefTs.count(&ta.targetType.getType()) &&
+                           typedefTs[&ta.targetType.getType()] &&
+                           typedefTs[&ta.targetType.getType()]->UhdmType() ==
+                               UHDM::uhdmarray_typespec &&
+                           lawOn(245, "R11U245_UNITARR_OFF") &&
+                           lawOn(426, "R11U426_UNITARRTDALIAS_OFF") &&
+                           (lawTrace(426, "unitFixedArrTdAliasClone426", std::string(ta.name)),
+                            true))) &&
                          ta.targetType.getType().kind == SymbolKind::TypeAlias &&
                          typedefTs.count(&ta.targetType.getType()) &&
-                         g249UnitDynTs.count(typedefTs[&ta.targetType.getType()]) &&
+                         (ct.kind == SymbolKind::FixedSizeUnpackedArrayType ||
+                          g249UnitDynTs.count(typedefTs[&ta.targetType.getType()])) &&
                          lawOn(410, "R11U410_DYNTDALIAS_OFF")) {
                     auto& ta0 = ta.targetType.getType().as<TypeAliasType>();
                     auto* tgt410 = typedefTs[&ta0];

@@ -1,0 +1,10 @@
+chg this_type base/uvm_heartbeat.svh:35:9 cls=uvm_callbacks from=messaging_pkg alias=uvm_pkg::uvm_heartbeat_cbs_t
+chg this_super_type base/uvm_heartbeat.svh:35:9 cls=uvm_derived_callbacks from=messaging_pkg alias=uvm_pkg::uvm_heartbeat_cbs_t
+chg this_user_type base/uvm_heartbeat.svh:35:9 cls=uvm_derived_callbacks from=messaging_pkg alias=uvm_pkg::uvm_heartbeat_cbs_t
+chg cbs_type base/uvm_heartbeat.svh:35:9 cls=uvm_event from=messaging_pkg alias=uvm_pkg::uvm_heartbeat_cbs_t
+chg this_type base/uvm_pool.svh:337:9 cls=uvm_object_string_pool from=messaging_pkg alias=uvm_pkg::uvm_barrier_pool
+chg this_type base/uvm_report_handler.svh:34:9 cls=uvm_pool from=messaging_pkg alias=uvm_pkg::uvm_id_actions_array
+chg sequencer_t seq/uvm_seq.svh:38:9 cls=uvm_sequence from=messaging_pkg alias=uvm_pkg::uvm_default_sequencer_param_type
+chg this_type seq/uvm_seq.svh:36:9 cls=uvm_sequencer from=messaging_pkg alias=uvm_pkg::uvm_default_sequencer_type
+chg this_type seq/uvm_seq.svh:38:9 cls=uvm_sequencer_param_base from=messaging_pkg alias=uvm_pkg::uvm_default_sequencer_param_type
+fixed 9

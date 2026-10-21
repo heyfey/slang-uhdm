@@ -3374,6 +3374,14 @@ static bool inClassBody234(const Symbol& declSymbol) {
     }
     return false;
 }
+// § unitTdBoundUnitParamFold426's folded name bounds (the constant and the
+// $unit parameter it reads), so a per-use copy of the listing
+// (copyArrayTypedefTs) carries the same typespec reference.
+static std::map<const UHDM::constant*, const Symbol*>& unitTdBoundSym426() {
+    static std::map<const UHDM::constant*, const Symbol*> m;
+    return m;
+}
+
 UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                            const syntax::SyntaxNode* typeSynOverride,
                                            const PortSymbol* portCtx) {
@@ -6905,6 +6913,55 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
+                        // § unitTdBoundUnitParamFold426, the PACKED half — a
+                        // $unit typedef's packed bound naming a $unit
+                        // parameter (`typedef bit [k:0] pk_t;`, `[(k):j]`) is
+                        // the parameter's value object at the name with a
+                        // reference named like the typedef to the
+                        // parameter's typespec, as the unpacked half
+                        // (buildUnpackedArrayTypedefTs); ours folded it to
+                        // a bare UINT at size 64 (cases UR/ur02, ur20).  An
+                        // operation bound already folds as golden does
+                        // (ur19).  Switch R11U426_UNITTDBOUND_OFF.
+                        if (declSymbol.kind == SymbolKind::TypeAlias &&
+                            declSymbol.getParentScope() &&
+                            declSymbol.getParentScope()->asSymbol().kind ==
+                                SymbolKind::CompilationUnit &&
+                            lawOn(426, "R11U426_UNITTDBOUND_OFF")) {
+                            const syntax::ExpressionSyntax* in426 = bsyn;
+                            while (in426 && in426->kind ==
+                                                syntax::SyntaxKind::ParenthesizedExpression)
+                                in426 = in426->as<syntax::ParenthesizedExpressionSyntax>()
+                                            .expression;
+                            if (in426 && in426->kind == syntax::SyntaxKind::IdentifierName) {
+                                std::string nm426(in426->as<syntax::IdentifierNameSyntax>()
+                                                      .identifier.valueText());
+                                const Symbol* sy426 = declSymbol.getParentScope()->find(nm426);
+                                auto rit426 = sy426 ? unitParamRhs.find(sy426)
+                                                    : unitParamRhs.end();
+                                if (sy426 && sy426->kind == SymbolKind::Parameter &&
+                                    unitParamMap.count(sy426) &&
+                                    rootFilePath(sy426->location) ==
+                                        rootFilePath(declSymbol.location) &&
+                                    rit426 != unitParamRhs.end() && rit426->second &&
+                                    rit426->second->UhdmType() == UHDM::uhdmconstant)
+                                    if (auto* cl426 = cloneUnitParamRhs(rit426->second, r)) {
+                                        setLoc(cl426, in426->sourceRange());
+                                        auto* rt426 = s.MakeRef_typespec();
+                                        rt426->VpiParent(cl426);
+                                        rt426->VpiFullName(std::string(declSymbol.name));
+                                        cl426->Typespec(rt426);
+                                        pendingUnitSubstTs.push_back({rt426, sy426});
+                                        if (cl426->UhdmType() == UHDM::uhdmconstant)
+                                            unitTdBoundSym426()[(const UHDM::constant*)cl426] =
+                                                sy426;
+                                        lawTrace(426, "unitTdBoundUnitParamFold426",
+                                                 std::string(declSymbol.name) + " packed " +
+                                                     nm426);
+                                        return cl426;
+                                    }
+                            }
+                        }
                         // § boundSizedLitKept424 (r11u424, cases/BV; sv-tests
                         // hdlconvertor p600) — a packed range bound WRITTEN
                         // as a sized or based literal is compiled by
@@ -12572,7 +12629,21 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
             // fenced out of the two listings that have their own measured
             // laws: a `$unit` enum (§ unitArith / § unitArithShape, whose ONE
             // listing is the top one) and an IMPORT-LISTING CLONE.
-            if (evInit && !unitEnum9 && !importCloneEmit) {
+            // § enumLitArithImportCloneFolds426 (r11u426; the 16
+            // generated/uvm-examples rows' `UVM_DEEP = (1<<16)` cells in the
+            // importing package's re-listed uvm_recursion_policy_enum, cases
+            // tools/probe/r11u426repro/cases/EC) — the IMPORT-LISTING CLONE
+            // takes the ELABORATED listing's folded form of the same
+            // arithmetic: the clone re-elaborates the member through the
+            // datatype map, which holds the reduced constant (golden
+            // `UINT:65536` decompile `65536` size 64 where ours wrote the
+            // definition text at the base width, `INT:65536` / `1<<16`, or
+            // `BIN` at 32 under an `int` base).  A shift over an unsized
+            // based literal (UHDM's unfolded render) abstains (unmeasured
+            // for the clone).  Switch R11U426_ENUMCLONEFOLD_OFF.
+            const bool clone426 = evInit && importCloneEmit && !unitEnum9 &&
+                                  lawOn(426, "R11U426_ENUMCLONEFOLD_OFF");
+            if (evInit && !unitEnum9 && (!importCloneEmit || clone426)) {
                 SrlgLitArith a188 = srlgEnumLitArith(
                     *evInit,
                     [this](slang::SourceRange sr) {
@@ -12590,6 +12661,11 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     auto fv188 = cv.integer().as<uint64_t>();
                     agree188 = fv188.has_value() && *fv188 == a188.uval;
                 }
+                if (clone426 && a188.noFold)
+                    agree188 = false;
+                if (agree188 && clone426)
+                    lawTrace(426, "enumLitArithImportCloneFolds426",
+                             std::string(ev.name) + " " + digits);
                 if (agree188) {
                     // The DEFINITION listing (and a class / module / interface
                     // home, which has only that one) carries the prettyPrinted
@@ -12597,7 +12673,7 @@ UHDM::enum_typespec* UhdmExporter::buildEnumTs(const EnumType& et,
                     // folded digits at 64 bits — except for a shift over an
                     // unsized based literal, which UHDM declines to fold, so
                     // both listings repeat the definition render.
-                    if (!pkgTopEmit || a188.noFold) {
+                    if ((!pkgTopEmit && !clone426) || a188.noFold) {
                         ec->VpiDecompile(a188.text);
                         ec->VpiSize(a188.size);
                         ec->VpiValue(
@@ -21533,6 +21609,166 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         aE = (*dims406)[0]->sourceRange().end();
     setLoc(ats, SourceRange(aS, aE));
     auto* rv406 = s.MakeRangeVec();
+    // § unitTdBoundUnitParamFold426 (r11u426; sv-tests
+    // generic/typedef/typedef_test_9.sv, cases
+    // tools/probe/r11u426repro/cases/UR) — a $unit typedef's unpacked
+    // dimension bound that reads a $unit PARAMETER is reduced by Surelog (the
+    // file-level typedef is compiled with the reducer on, as § 245's comment
+    // above the size form says of a package parameter), where the class
+    // builder below keeps the bound symbolic (`ref_obj my_array_t::k`).
+    // Golden, measured:
+    //   * a bare name, or a parenthesized one (`[k:0]`, `[(k):0]`, the size
+    //     form `[k]`): the parameter's own value object (UINT:2 size 32 for
+    //     an untyped `parameter k = 2`, DEC:200 size 8 for `logic [7:0] k =
+    //     8'd200`, HEX:5 size -1 for `'h5`) at the name, under a
+    //     ref_typespec named like the typedef whose actual is the
+    //     parameter's own typespec (none when the parameter has none);
+    //   * a binary + - * over such names and unsized decimals: the folded
+    //     constant at the LEFT OPERAND's span with no typespec, reduced as
+    //     UHDM's ExprEval does (+ unsigned when no operand is signed, at the
+    //     wider operand's size; - and * INT at size 64): `[k-1:0]` INT:3,
+    //     `[k+j:0]` UINT:6 size 32, `[(k+1)-j:0]` INT:3 at `k+1`.
+    // A parameter declared in another command-line root file, any other
+    // operand or operator, and a parenthesized expression keep the symbolic
+    // bound (unmeasured).  Switch R11U426_UNITTDBOUND_OFF.
+    const Scope* tdScope426 = ta.getParentScope();
+    const bool unit426 = !cloneForm && tdScope426 &&
+                         tdScope426->asSymbol().kind == SymbolKind::CompilationUnit &&
+                         lawOn(426, "R11U426_UNITTDBOUND_OFF");
+    const std::string tdRoot426 = unit426 ? rootFilePath(ta.location) : std::string();
+    auto stripParen426 = [](const syntax::ExpressionSyntax* e) {
+        while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            e = e->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        return e;
+    };
+    auto unitParamOf426 = [&](const syntax::ExpressionSyntax* e) -> const Symbol* {
+        if (!unit426 || !e || e->kind != syntax::SyntaxKind::IdentifierName)
+            return nullptr;
+        std::string nm(e->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+        const Symbol* sy = tdScope426->find(nm);
+        if (!sy || sy->kind != SymbolKind::Parameter || !unitParamMap.count(sy) ||
+            rootFilePath(sy->location) != tdRoot426)
+            return nullptr;
+        return sy;
+    };
+    struct Rv426 {
+        int64_t v = 0;
+        bool uns = false;
+        int32_t size = 0;
+        bool param = false;
+    };
+    std::function<bool(const syntax::ExpressionSyntax*, Rv426&)> red426 =
+        [&](const syntax::ExpressionSyntax* e, Rv426& out) -> bool {
+        if (!e)
+            return false;
+        if (e->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            return red426(e->as<syntax::ParenthesizedExpressionSyntax>().expression, out);
+        if (e->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+            std::string raw = rawText(e->sourceRange()), dig;
+            for (char ch : raw) {
+                if (ch == '_')
+                    continue;
+                if (ch < '0' || ch > '9')
+                    return false;
+                dig.push_back(ch);
+            }
+            if (dig.empty() || dig.size() > 18)
+                return false;
+            out.v = std::stoll(dig);
+            out.uns = true;
+            out.size = 64;
+            return true;
+        }
+        if (const Symbol* sy = unitParamOf426(e)) {
+            auto rit = unitParamRhs.find(sy);
+            if (rit == unitParamRhs.end() || !rit->second ||
+                rit->second->UhdmType() != UHDM::uhdmconstant)
+                return false;
+            auto* c = (const UHDM::constant*)rit->second;
+            std::string_view val = c->VpiValue();
+            bool u = val.rfind("UINT:", 0) == 0, i = val.rfind("INT:", 0) == 0;
+            if (!u && !i)
+                return false;
+            std::string num(val.substr(u ? 5 : 4));
+            if (num.empty() || num.size() > 18)
+                return false;
+            for (size_t k = 0; k < num.size(); k++)
+                if (!(num[k] >= '0' && num[k] <= '9') && !(k == 0 && num[k] == '-'))
+                    return false;
+            out.v = std::stoll(num);
+            out.uns = u;
+            out.size = c->VpiSize();
+            out.param = true;
+            return true;
+        }
+        if (e->kind == syntax::SyntaxKind::AddExpression ||
+            e->kind == syntax::SyntaxKind::SubtractExpression ||
+            e->kind == syntax::SyntaxKind::MultiplyExpression) {
+            auto& be = e->as<syntax::BinaryExpressionSyntax>();
+            Rv426 a, b;
+            if (!red426(be.left, a) || !red426(be.right, b))
+                return false;
+            out.param = a.param || b.param;
+            if (e->kind == syntax::SyntaxKind::AddExpression) {
+                out.uns = a.uns && b.uns;
+                out.v = a.v + b.v;
+                out.size = a.size > b.size ? a.size : b.size;
+            }
+            else {
+                out.uns = false;
+                out.v = e->kind == syntax::SyntaxKind::SubtractExpression ? a.v - b.v
+                                                                          : a.v * b.v;
+                out.size = 64;
+            }
+            return true;
+        }
+        return false;
+    };
+    auto unitBound426 = [&](const syntax::ExpressionSyntax* bs,
+                            UHDM::BaseClass* par) -> UHDM::expr* {
+        if (!unit426 || !bs)
+            return nullptr;
+        const syntax::ExpressionSyntax* in = stripParen426(bs);
+        if (const Symbol* sy = unitParamOf426(in)) {
+            auto rit = unitParamRhs.find(sy);
+            if (rit == unitParamRhs.end() || !rit->second ||
+                rit->second->UhdmType() != UHDM::uhdmconstant)
+                return nullptr;
+            auto* cl = cloneUnitParamRhs(rit->second, par);
+            if (!cl)
+                return nullptr;
+            setLoc(cl, in->sourceRange());
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(cl);
+            rt->VpiFullName(qname);
+            cl->Typespec(rt);
+            pendingUnitSubstTs.push_back({rt, sy});
+            if (cl->UhdmType() == UHDM::uhdmconstant)
+                unitTdBoundSym426()[(const UHDM::constant*)cl] = sy;
+            lawTrace(426, "unitTdBoundUnitParamFold426",
+                     qname + " name " + std::string(sy->name));
+            return cl;
+        }
+        if (in != bs)
+            return nullptr;
+        if (bs->kind != syntax::SyntaxKind::AddExpression &&
+            bs->kind != syntax::SyntaxKind::SubtractExpression &&
+            bs->kind != syntax::SyntaxKind::MultiplyExpression)
+            return nullptr;
+        Rv426 rv;
+        if (!red426(bs, rv) || !rv.param)
+            return nullptr;
+        auto* c = s.MakeConstant();
+        c->VpiParent(par);
+        std::string dg = std::to_string(rv.v);
+        c->VpiValue((rv.uns ? "UINT:" : "INT:") + dg);
+        c->VpiDecompile(dg);
+        c->VpiSize(rv.size);
+        c->VpiConstType(rv.uns ? vpiUIntConst : vpiIntConst);
+        setLoc(c, bs->as<syntax::BinaryExpressionSyntax>().left->sourceRange());
+        lawTrace(426, "unitTdBoundUnitParamFold426", qname + " expr " + dg);
+        return c;
+    };
     auto fixedRange406 = [&](const FixedSizeUnpackedArrayType& fua,
                              const syntax::VariableDimensionSyntax* dimSyn) -> UHDM::range* {
     auto* r = s.MakeRange();
@@ -21593,7 +21829,10 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
                         symSize = false;
                     }
             }
-        if (symSize) {
+        UHDM::expr* unitSz426 = symSize ? unitBound426(szSyn, op) : nullptr;
+        if (unitSz426)
+            ops->push_back(unitSz426);
+        else if (symSize) {
             auto* ro = s.MakeRef_obj();
             std::string idn(rawText(szSyn->sourceRange()));
             ro->VpiName(idn);
@@ -21644,8 +21883,10 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         // compiled once, so `[SIZE-1:0]` stays an operation over a ref to the
         // class's own formal (VirtualClass).
         if (unfoldedTypedefDims && lSyn && rSyn) {
-            r->Left_expr((UHDM::expr*)emitSyntaxExpr(*lSyn, r));
-            r->Right_expr((UHDM::expr*)emitSyntaxExpr(*rSyn, r));
+            UHDM::expr* l426 = unitBound426(lSyn, r);
+            UHDM::expr* r426 = unitBound426(rSyn, r);
+            r->Left_expr(l426 ? l426 : (UHDM::expr*)emitSyntaxExpr(*lSyn, r));
+            r->Right_expr(r426 ? r426 : (UHDM::expr*)emitSyntaxExpr(*rSyn, r));
         }
         else {
             r->Left_expr(mkB(fua.range.left, lSyn));
@@ -22522,6 +22763,29 @@ UHDM::array_typespec* UhdmExporter::copyArrayTypedefTs(
     }
     if (auto* rv = copyRangeVec(s, ((UHDM::array_typespec*)src)->Ranges(), cp))
         cp->Ranges(rv);
+    // § unitTdBoundUnitParamFold426 — the copy's folded bounds keep the
+    // listing's typespec reference (golden's per-use copy, case UR/ur05).
+    if (auto* sr426 = ((UHDM::array_typespec*)src)->Ranges();
+        sr426 && cp->Ranges() && sr426->size() == cp->Ranges()->size() &&
+        !unitTdBoundSym426().empty())
+        for (size_t i = 0; i < sr426->size(); i++)
+            for (int side = 0; side < 2; side++) {
+                auto* se = side ? (*sr426)[i]->Right_expr() : (*sr426)[i]->Left_expr();
+                auto* ce = side ? (*cp->Ranges())[i]->Right_expr()
+                                : (*cp->Ranges())[i]->Left_expr();
+                if (!se || !ce || se->UhdmType() != UHDM::uhdmconstant ||
+                    ce->UhdmType() != UHDM::uhdmconstant || ce->Typespec())
+                    continue;
+                auto it = unitTdBoundSym426().find((const UHDM::constant*)se);
+                if (it == unitTdBoundSym426().end() || !se->Typespec())
+                    continue;
+                auto* rt = s.MakeRef_typespec();
+                rt->VpiParent(ce);
+                rt->VpiFullName(std::string(se->Typespec()->VpiFullName()));
+                ((UHDM::constant*)ce)->Typespec(rt);
+                pendingUnitSubstTs.push_back({rt, it->second});
+                lawTrace(426, "unitTdBoundUnitParamFold426", "copy " + bareName);
+            }
     if (auto* er = ((UHDM::array_typespec*)src)->Elem_typespec()) {
         auto* ert = s.MakeRef_typespec();
         ert->VpiFullName(bareName);

@@ -1374,7 +1374,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p175.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p177.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p178.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p181.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p183.sv,EQUAL,,equal
@@ -2330,7 +2330,7 @@ generic/typedef/typedef_test_6.sv,EQUAL,,equal
 generic/typedef/typedef_test_7.sv,EQUAL,,equal
 generic/typedef/typedef_test_8.sv,EQUAL,,equal
 generic/typedef/typedef_test_8__bad.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generic/typedef/typedef_test_8__bad.sv:18:9: error: use of undeclared identifier 'some_other_type',
-generic/typedef/typedef_test_9.sv,DIFFERENT,decompile:,
+generic/typedef/typedef_test_9.sv,EQUAL,,equal
 generic/union/union_test_0.sv,EQUAL,,equal
 sanity.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,
 testbenches/uvm_agent_active.sv,DIFFERENT,decompile:,

@@ -1,0 +1,54 @@
+AC/ac01 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=358 NOT_EQUAL stage1 md5=03ed4666 | law rc=0 cmp=0 STRICT_EQUAL 49 objects md5=a68c1890 | OFF same | R11U426_UNITARRTDALIAS_OFF same
+AC/ac02 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=410 NOT_EQUAL stage1 md5=c60de6be | law rc=0 cmp=0 STRICT_EQUAL 41 objects md5=78c70f89 | OFF same | R11U426_UNITARRTDALIAS_OFF same
+AC/ac03 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=90 NOT_EQUAL stage1 md5=90c0de45 | law rc=0 cmp=0 STRICT_NOTEQUAL type md5=5318d855 | OFF same | R11U426_UNITARRTDALIAS_OFF same
+AC/ac04 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=372 NOT_EQUAL stage1 md5=db1fc300 | law rc=4 cmp=454 NOT_EQUAL stage1 md5=97da1fc9 | OFF same | R11U426_UNITARRTDALIAS_OFF same
+AC/ac05 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=466 NOT_EQUAL stage1 md5=ec420055 | law rc=4 cmp=466 NOT_EQUAL stage1 md5=ec420055 | OFF same | R11U426_UNITARRTDALIAS_OFF same
+AC/ac06 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=510 NOT_EQUAL stage1 md5=74c14e7b | law rc=0 cmp=0 STRICT_EQUAL 52 objects md5=3caf502a | OFF same | R11U426_UNITARRTDALIAS_OFF DIFF
+CV/cv01 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=4e3e10eb | law rc=0 cmp=0 STRICT_EQUAL 29 objects md5=94398416 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv02 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=4a9986bd | law rc=0 cmp=0 STRICT_EQUAL 45 objects md5=bc87e790 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv03 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=3b97e910 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=30b28e66 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv04 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=2354f67a | law rc=0 cmp=0 STRICT_EQUAL 28 objects md5=88d088e9 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv05 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=0 STRICT_EQUAL 7 objects md5=0a0e0134 | law rc=0 cmp=0 STRICT_EQUAL 7 objects md5=0a0e0134 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv06 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=b983cbb8 | law rc=0 cmp=0 STRICT_EQUAL 37 objects md5=ca4c6640 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv07 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=62145f6b | law rc=0 cmp=0 STRICT_EQUAL 30 objects md5=d0d38e8b | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv08 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=b5c84d93 | law rc=0 cmp=0 STRICT_EQUAL 25 objects md5=4067030f | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv09 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=dcd0a3db | law rc=0 cmp=0 STRICT_EQUAL 24 objects md5=90dc7061 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv10 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=0 STRICT_EQUAL 23 objects md5=3c30d8a3 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=3c30d8a3 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv11 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=0 STRICT_EQUAL 37 objects md5=569c9fb0 | law rc=0 cmp=0 STRICT_EQUAL 37 objects md5=569c9fb0 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv12 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=4a3680e3 | law rc=0 cmp=0 STRICT_EQUAL 43 objects md5=5456846a | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv13 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=c72eb70d | law rc=0 cmp=0 STRICT_EQUAL 22 objects md5=1909fee0 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv14 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=847a99c4 | law rc=0 cmp=0 STRICT_EQUAL 49 objects md5=5090c33d | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv15 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=28c3a835 | law rc=0 cmp=0 STRICT_EQUAL 18 objects md5=87b659c6 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv16 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=7dcf1cb6 | law rc=0 cmp=0 STRICT_EQUAL 73 objects md5=370681b1 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv17 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=94cf3a97 | law rc=0 cmp=0 STRICT_EQUAL 30 objects md5=dee9ca26 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv18 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=9acc029c | law rc=0 cmp=209 NOT_EQUAL stage1 md5=89c31025 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv19 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=0 STRICT_NOTEQUAL col md5=8eaf6de3 | law rc=0 cmp=0 STRICT_EQUAL 26 objects md5=14633082 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv20 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=c404c1a1 | law rc=0 cmp=0 STRICT_EQUAL 37 objects md5=79c8e7f3 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv21 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=0 STRICT_EQUAL 103 objects md5=8c89e483 | law rc=0 cmp=0 STRICT_EQUAL 103 objects md5=8c89e483 | OFF same | R11U426_NAMEDTFITEM_OFF same
+CV/cv22 | namedTypeLocalTfItemOutsideClass426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=2c7e1d09 | law rc=0 cmp=0 STRICT_EQUAL 130 objects md5=6bf844cf | OFF same | R11U426_NAMEDTFITEM_OFF same
+EC/ec01 | enumLitArithImportCloneFolds426 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=e8697008 | law rc=0 cmp=0 STRICT_EQUAL 85 objects md5=379d2e7f | OFF same | R11U426_ENUMCLONEFOLD_OFF same
+EC/ec02 | enumLitArithImportCloneFolds426 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=d42d89b3 | law rc=0 cmp=0 STRICT_EQUAL 112 objects md5=1cb22333 | OFF same | R11U426_ENUMCLONEFOLD_OFF same
+EC/ec03 | enumLitArithImportCloneFolds426 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=497db383 | law rc=0 cmp=0 STRICT_EQUAL 194 objects md5=d8b90dbf | OFF same | R11U426_ENUMCLONEFOLD_OFF same
+EC/ec04 | enumLitArithImportCloneFolds426 | pristine rc=0 cmp=0 STRICT_EQUAL 31 objects md5=11c7ab9c | law rc=0 cmp=0 STRICT_EQUAL 31 objects md5=11c7ab9c | OFF same | R11U426_ENUMCLONEFOLD_OFF same
+UR/ur01 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=fbbae040 | law rc=0 cmp=0 STRICT_EQUAL 35 objects md5=0310d12e | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur02 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=f973453c | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=a35f20e1 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur03 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=b98121ef | law rc=0 cmp=0 STRICT_EQUAL 18 objects md5=bdfeebd1 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur04 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=d9e2ff23 | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=db13ad35 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur05 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=ea04968e | law rc=0 cmp=0 STRICT_EQUAL 47 objects md5=a07fec6c | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur06 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=5ade0928 | law rc=0 cmp=0 STRICT_EQUAL 20 objects md5=1bdf7dbd | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur07 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=fa9beec0 | law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=905c8749 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur08 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=e5913a75 | law rc=0 cmp=32 NOT_EQUAL stage1 md5=e5913a75 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur09 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=54 NOT_EQUAL stage1 md5=a980f0a8 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=66e317d6 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur10 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=4ea94c59 | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=7da6debd | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur11 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=3226ec9a | law rc=0 cmp=0 STRICT_EQUAL 18 objects md5=ca7c0927 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur12 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=42 NOT_EQUAL stage1 md5=8e6a8687 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=179d374e | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur13 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=324e2ab1 | law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=eec52d46 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur14 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=46 NOT_EQUAL stage1 md5=673bb571 | law rc=0 cmp=0 STRICT_EQUAL 24 objects md5=69e66f8c | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur15 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=41264dc9 | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=dcec28f6 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur16 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=54 NOT_EQUAL stage1 md5=201b4f43 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=b133ee4b | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur17 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=2b3a7968 | law rc=0 cmp=0 STRICT_EQUAL 23 objects md5=161a0423 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur18 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=b8d91111 | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=9f1a0d54 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur19 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=0 STRICT_EQUAL 14 objects md5=671e6898 | law rc=0 cmp=0 STRICT_EQUAL 14 objects md5=671e6898 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur20 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=9a994647 | law rc=0 cmp=0 STRICT_EQUAL 25 objects md5=68adc445 | OFF same | R11U426_UNITTDBOUND_OFF same
+UR/ur21 | unitFixedArrTdAliasClone426 | pristine rc=4 cmp=446 NOT_EQUAL stage1 md5=6c3d0831 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=54457f9b | OFF same | R11U426_UNITARRTDALIAS_OFF DIFF
+UR/ur22 | unitTdBoundUnitParamFold426 | pristine rc=0 cmp=50 NOT_EQUAL stage1 md5=f861c5a4 | law rc=0 cmp=0 STRICT_NOTEQUAL type md5=3de1819f | OFF same | R11U426_UNITTDBOUND_OFF same

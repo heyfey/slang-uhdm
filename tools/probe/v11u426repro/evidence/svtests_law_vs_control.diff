@@ -1,0 +1,8 @@
+1377c1377
+< generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,EQUAL,,equal
+2333c2333
+< generic/typedef/typedef_test_9.sv,DIFFERENT,decompile:,
+---
+> generic/typedef/typedef_test_9.sv,EQUAL,,equal

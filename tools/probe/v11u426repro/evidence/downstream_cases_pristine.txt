@@ -1,0 +1,90 @@
+r11u426repro_cases_AC_ac01 IDENTICAL  
+r11u426repro_cases_AC_ac02 IDENTICAL  
+r11u426repro_cases_AC_ac03 EQUIVALENT nohier il synth ℹ️  No common assign statements to compare — skipping
+r11u426repro_cases_AC_ac04 IDENTICAL  
+r11u426repro_cases_AC_ac05 IDENTICAL  
+r11u426repro_cases_AC_ac06 IDENTICAL  
+r11u426repro_cases_CV_cv12 IDENTICAL  
+r11u426repro_cases_CV_cv13 IDENTICAL  
+r11u426repro_cases_CV_cv14 IDENTICAL  
+r11u426repro_cases_CV_cv15 IDENTICAL  
+r11u426repro_cases_CV_cv16 IDENTICAL  
+r11u426repro_cases_CV_cv17 IDENTICAL  
+r11u426repro_cases_CV_cv20 IDENTICAL  
+r11u426repro_cases_CV_cv21 IDENTICAL  
+r11u426repro_cases_CV_cv22 IDENTICAL  
+r11u426repro_cases_EC_ec04 IDENTICAL  
+r11u426repro_cases_UR_ur01 IDENTICAL  
+r11u426repro_cases_UR_ur02 IDENTICAL  
+r11u426repro_cases_UR_ur03 IDENTICAL  
+r11u426repro_cases_UR_ur04 IDENTICAL  
+r11u426repro_cases_UR_ur05 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+r11u426repro_cases_UR_ur06 IDENTICAL  
+r11u426repro_cases_UR_ur07 IDENTICAL  
+r11u426repro_cases_UR_ur08 IDENTICAL  
+r11u426repro_cases_UR_ur09 IDENTICAL  
+r11u426repro_cases_UR_ur10 IDENTICAL  
+r11u426repro_cases_UR_ur11 IDENTICAL  
+r11u426repro_cases_UR_ur12 IDENTICAL  
+r11u426repro_cases_UR_ur13 IDENTICAL  
+r11u426repro_cases_UR_ur14 IDENTICAL  
+r11u426repro_cases_UR_ur15 IDENTICAL  
+r11u426repro_cases_UR_ur16 IDENTICAL  
+r11u426repro_cases_UR_ur17 IDENTICAL  
+r11u426repro_cases_UR_ur18 IDENTICAL  
+r11u426repro_cases_UR_ur19 IDENTICAL  
+r11u426repro_cases_UR_ur20 IDENTICAL  
+r11u426repro_cases_UR_ur21 IDENTICAL  
+r11u426repro_cases_UR_ur22 IDENTICAL  
+v11u426repro_cases_VA_va01 EQUIVALENT nohier il synth ✅ All 1 common constant assignments match
+v11u426repro_cases_VA_va02 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VA_va03 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VA_va04 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VA_va05 IDENTICAL  
+v11u426repro_cases_VA_va06 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VA_va07 STATUS_DIFF  
+v11u426repro_cases_VA_va08 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VA_va09 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb01 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb02 IDENTICAL  
+v11u426repro_cases_VB_vb03 IDENTICAL  
+v11u426repro_cases_VB_vb04 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb05 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb06 IDENTICAL  
+v11u426repro_cases_VB_vb07 IDENTICAL  
+v11u426repro_cases_VB_vb08 IDENTICAL  
+v11u426repro_cases_VB_vb09 IDENTICAL  
+v11u426repro_cases_VB_vb10 IDENTICAL  
+v11u426repro_cases_VB_vb11 IDENTICAL  
+v11u426repro_cases_VB_vb12 IDENTICAL  
+v11u426repro_cases_VB_vb13 IDENTICAL  
+v11u426repro_cases_VB_vb14 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb15 IDENTICAL  
+v11u426repro_cases_VB_vb16 IDENTICAL  
+v11u426repro_cases_VB_vb17 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb18 IDENTICAL  
+v11u426repro_cases_VB_vb19 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VE_ve01 IDENTICAL  
+v11u426repro_cases_VE_ve02 IDENTICAL  
+v11u426repro_cases_VE_ve03 IDENTICAL  
+v11u426repro_cases_VE_ve04 IDENTICAL  
+v11u426repro_cases_VE_ve05 IDENTICAL  
+v11u426repro_cases_VE_ve06 IDENTICAL  
+v11u426repro_cases_VE_ve07 IDENTICAL  
+v11u426repro_cases_VE_ve08 IDENTICAL  
+v11u426repro_cases_VE_ve09 IDENTICAL  
+v11u426repro_cases_VE_ve10 IDENTICAL  
+v11u426repro_cases_VE_ve11 IDENTICAL  
+v11u426repro_cases_VN_vn01 IDENTICAL  
+v11u426repro_cases_VN_vn02 IDENTICAL  
+v11u426repro_cases_VN_vn03 IDENTICAL  
+v11u426repro_cases_VN_vn04 IDENTICAL  
+v11u426repro_cases_VN_vn06 IDENTICAL  
+v11u426repro_cases_VN_vn07 IDENTICAL  
+v11u426repro_cases_VN_vn08 IDENTICAL  
+v11u426repro_cases_VN_vn09 IDENTICAL  
+v11u426repro_cases_VN_vn10 IDENTICAL  
+v11u426repro_cases_VN_vn11 IDENTICAL  
+v11u426repro_cases_VN_vn12 IDENTICAL  
+v11u426repro_cases_VN_vn14 EQUIVALENT nohier il synth ✅ All 1 common constant assignments match
+v11u426repro_cases_VN_vn15 IDENTICAL  

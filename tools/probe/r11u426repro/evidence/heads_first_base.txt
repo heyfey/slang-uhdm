@@ -1,0 +1,266 @@
+== chapter-18/18.14--random-stability_1.sv
+r=-32 L=constant:@22:19
+   R=constant:@22:19
+candidates 0
+== chapter-7/structures/unpacked/default-value.sv
+r=1 L=ref_obj:c@21:17
+   R=null
+candidates 0
+== generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv
+r=10 L=hier_path:data_mem_pkt.data[0+:8 * 2 ** i]@110:62 < operation:@110 < operation:@110 < cont_assign:@110 < named_begin:input_sel@0
+   R=hier_path:data_mem_pkt.data[0+:8 * 2 *  * i]@110:62 < operation:@110 < operation:@110 < cont_assign:@110 < named_begin:input_sel@0
+candidates 0
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv
+r=49 L=sys_func_call:$clog2@794:22 < operation:@794 < operation:@794 < operation:@794 < range:@794
+   R=constant:@794:22 < operation:@794 < operation:@794 < operation:@794 < range:@794
+candidates 0
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv
+r=49 L=sys_func_call:$bits@143:53 < operation:@143 < indexed_part_select:out_calib_code@143 < cont_assign:@143 < begin:@0
+   R=constant:@143:53 < operation:@143 < indexed_part_select:out_calib_code@143 < cont_assign:@143 < begin:@0
+candidates 0
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv
+r=32 L=operation:@339:19 < range:@339 < logic_typespec:bsg_round_robin_fifo_to_fifo_t@339
+   R=constant:@339:19 < range:@339 < logic_typespec:bsg_round_robin_fifo_to_fifo_t@339
+candidates 0
+== generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv
+r=1 L=module_inst:@6:1 < design:work@top@0
+   R=module_inst:@6:1 < design:work@top@0
+candidates 0
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv
+r=1 L=named_begin:rof@0:0 < gen_for:@0 < module_inst:@570 < design:work@top@0
+   R=named_begin:rof@0:0 < gen_for:@0 < module_inst:@570 < design:work@top@0
+candidates 0
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv
+r=1 L=logic_typespec:@18:14
+   R=null
+candidates 0
+== generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv
+r=1 L=design:work@top@0:0
+   R=design:work@top@0:0
+candidates 0
+== generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv
+r=1 L=operation:@201:29 < cont_assign:@201 < begin:@0 < gen_for:@0 < module_inst:@7
+   R=operation:@201:29 < cont_assign:@201 < begin:@0 < gen_for:@0 < module_inst:@7
+candidates 0
+== generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv
+r=32 L=operation:@31:22 < range:@31 < bit_typespec:@31
+   R=constant:@31:22 < range:@31 < bit_typespec:@31
+candidates 0
+== generated/easyUVM/top.sv
+r=1 L=class_defn:work@sequencer@1:1 < design:work@top@0
+   R=null
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv
+r=-12 L=int_typespec:@7:22 < type_parameter:t_3@7 < module_inst:@5 < design:work@top@0
+   R=logic_typespec:@14:12
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv
+r=1 L=class_var:xtnd1@13:1 < function:test@12 < design:unnamed@0
+   R=class_var:xtnd1@13:7 < begin:@18 < function:test@12 < design:unnamed@0
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv
+r=0 L=null
+   R=null
+== generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv
+r=28 L=type_parameter:p@17:21 < class_typespec:C@12
+   R=type_parameter:T@17:33 < class_typespec:C@12
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv
+r=1 L=logic_typespec:@2:17
+   R=null
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv
+r=1 L=module_inst:work@m@12:1 < design:work@m@0
+   R=module_inst:work@m@12:1 < design:work@m@0
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv
+r=1 L=ref_typespec:@0:0 < sys_func_call:$realtobits@4 < cont_assign:@4 < module_inst:work@driver@1 < design:work@driver@0
+   R=null
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv
+r=0 L=null
+   R=null
+== generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv
+r=1 L=logic_net:nq1@16:11 < module_inst:i1@19 < module_inst:work@dff_nested@13 < design:work@dff_flat@0
+   R=null
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv
+r=-4 L=constant:@16:10 < range:@16 < logic_typespec:@16 < logic_var:out@16 < module_inst:m1@7
+   R=constant:@16:10 < range:@16 < logic_typespec:@16 < logic_var:out@16 < module_inst:m1@7
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv
+r=2 L=design:work@M@0:0
+   R=design:unnamed@0:0
+candidates 0
+== generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv
+r=1 L=module_inst:@30:1 < design:work@top@0
+   R=null
+candidates 0
+== generated/uvm-examples/apb_protocol_monitor.sv
+r=1 L=interface_inst:@22:1 < design:unnamed@0
+   R=null
+candidates 0
+== generated/uvm-examples/uvm_ac_config_db.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@hdl_top@0
+   R=package:sfr_test_pkg@39:1 < design:work@hdl_top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@hdl_top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@hdl_top@0
+== generated/uvm-examples/uvm_ef_vif_config_db.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@hvl_top@0
+   R=package:sfr_test_pkg@39:1 < design:work@hvl_top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@hvl_top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@hvl_top@0
+== generated/uvm-examples/uvm_generation_seq_persistence.sv
+r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+   R=package:test_lib_pkg@35:1 < design:work@top_tb@0
+candidates 1
+culprit golden: enum_typespec:uvm_pkg::uvm_radix_enum@976:32 < module_inst:@21 < design:work@top_tb@0
+after seeding: r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_generation_seq_poly.sv
+r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+   R=package:test_lib_pkg@35:1 < design:work@top_tb@0
+candidates 1
+culprit golden: enum_typespec:uvm_pkg::uvm_radix_enum@976:32 < module_inst:@21 < design:work@top_tb@0
+after seeding: r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_generation_seq_randomization.sv
+r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+   R=package:test_lib_pkg@35:1 < design:work@top_tb@0
+candidates 1
+culprit golden: enum_typespec:uvm_pkg::uvm_radix_enum@976:32 < module_inst:@21 < design:work@top_tb@0
+after seeding: r=1 L=package:test_lib_pkg@35:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_id_register.sv
+r=-4 L=package:uvm_pkg@28:1 < design:work@hvl_top@0
+   R=package:uvm_tb_pkg@19:1 < design:work@hvl_top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@hvl_top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@hvl_top@0
+== generated/uvm-examples/uvm_many_to_one.sv
+r=1 L=package:env_pkg@22:1 < design:work@top@0
+   R=package:env_pkg@22:1 < design:work@top@0
+candidates 1
+culprit golden: enum_typespec:uvm_pkg::uvm_radix_enum@976:32 < class_defn:work@test@32 < design:work@top@0
+after seeding: r=1 L=package:env_pkg@22:1 < design:work@top@0
+== generated/uvm-examples/uvm_messaging_example.sv
+r=8 L=package:uvm_pkg@28:1 < design:work@top@0
+   R=package:messaging_pkg@39:1 < design:work@top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top@0
+== generated/uvm-examples/uvm_param_vif_config_db.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@hdl_top@0
+   R=package:sfr_test_pkg@39:1 < design:work@hdl_top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@hdl_top@0
+after seeding: r=1 L=class_typespec:this_t@50:9 < class_defn:sfr_config_object@39 < package:sfr_agent_pkg@39 < design:work@hdl_top@0
+== generated/uvm-examples/uvm_priority_arbitration.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@top@0
+   R=package:seq_arb_priorities_pkg@49:1 < design:work@top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top@0
+== generated/uvm-examples/uvm_priority_grab_lock.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@top@0
+   R=package:seq_arb_priorities_pkg@54:1 < design:work@top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top@0
+== generated/uvm-examples/uvm_test_init.sv
+r=1 L=package:test_top_pkg@20:1 < design:work@top_tb@0
+   R=package:test_top_pkg@20:1 < design:work@top_tb@0
+candidates 1
+culprit golden: enum_typespec:uvm_pkg::uvm_radix_enum@976:32 < module_inst:@94 < design:work@top_tb@0
+after seeding: r=1 L=package:test_top_pkg@20:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_use_models_bidir_get_put.sv
+r=19 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+   R=package:bidirect_bus_pkg@30:1 < design:work@top_tb@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top_tb@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_use_models_bidir_item_done.sv
+r=19 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+   R=package:bidirect_bus_pkg@29:1 < design:work@top_tb@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top_tb@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_use_models_pipelined_get_put.sv
+r=8 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+   R=package:mbus_pipelined_env_pkg@24:1 < design:work@top_tb@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top_tb@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_use_models_unidirectional.sv
+r=20 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+   R=package:adpcm_pkg@26:1 < design:work@top_tb@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@top_tb@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@top_tb@0
+== generated/uvm-examples/uvm_vif_config_db.sv
+r=2 L=package:uvm_pkg@28:1 < design:work@hdl_top@0
+   R=package:sfr_test_pkg@39:1 < design:work@hdl_top@0
+candidates 1
+culprit golden: class_typespec:this_type@34:9 < class_defn:uvm_pool@38 < package:uvm_pkg@28 < design:work@hdl_top@0
+after seeding: r=1 L=package:uvm_pkg@28:1 < design:work@hdl_top@0
+== generic/class/class_test_49.sv
+r=-502 L=bit_select:glb::arr@27:29 < parameter:arr@17 < package:glb@16 < design:work@test@0
+   R=ref_obj:glb::arr[N]@27:20 < func_call:f@27 < operation:@27 < param_assign:@27 < class_defn:work@params_as_class_item@24
+candidates 0
+== generic/typedef/typedef_test_9.sv
+r=-601 L=constant:@19:28 < range:@19 < array_typespec:my_array_t@19 < design:work@test@0
+   R=ref_obj:k@19:28 < range:@19 < array_typespec:my_array_t@19 < design:work@test@0
+candidates 0
+== testbenches/uvm_agent_active.sv
+r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_in@39 < design:work@top@0
+   R=null
+candidates 0
+== testbenches/uvm_agent_passive.sv
+r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_out@39 < design:work@top@0
+   R=null
+candidates 0
+== testbenches/uvm_driver_sequencer_env.sv
+r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_in@39 < design:work@top@0
+   R=null
+candidates 0
+== testbenches/uvm_monitor_env.sv
+r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_out@39 < design:work@top@0
+   R=null
+candidates 0
+== testbenches/uvm_scoreboard_env.sv
+r=-1 L=null
+   R=design:work@top@0:0
+candidates 4000
+culprit golden: class_typespec:this_type@52:13 < class_defn:work@comparator@51 < design:work@top@0
+after seeding: r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_out@39 < design:work@top@0
+== testbenches/uvm_scoreboard_monitor_agent_env.sv
+r=-1 L=null
+   R=design:work@top@0:0
+candidates 4000
+culprit golden: class_typespec:this_type@113:13 < class_defn:work@comparator@112 < design:work@top@0
+after seeding: r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_out@39 < design:work@top@0
+== testbenches/uvm_scoreboard_monitor_env.sv
+r=-1 L=null
+   R=design:work@top@0:0
+candidates 4000
+culprit golden: class_typespec:this_type@91:13 < class_defn:work@comparator@90 < design:work@top@0
+after seeding: r=1 L=ref_typespec:@0:0 < constant:@202 < param_assign:@206 < class_defn:work@packet_out@39 < design:work@top@0

@@ -1,0 +1,30 @@
+v11u426repro_cases_VA_va10 STATUS_DIFF  
+v11u426repro_cases_VA_va11 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb20 IDENTICAL  
+v11u426repro_cases_VB_vb21 IDENTICAL  
+v11u426repro_cases_VB_vb22 IDENTICAL  
+v11u426repro_cases_VB_vb23 STATUS_DIFF  
+v11u426repro_cases_VB_vb24 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb25 EQUIVALENT nohier ℹ️  No common assign statements to compare — skipping
+v11u426repro_cases_VB_vb26 IDENTICAL  
+v11u426repro_cases_VB_vb27 IDENTICAL  
+v11u426repro_cases_VB_vb28 IDENTICAL  
+v11u426repro_cases_VN_vn16 IDENTICAL  
+v11u426repro_cases_VN_vn17 IDENTICAL  
+v11u426repro_cases_VN_vn18 IDENTICAL  
+v11u426repro_cases_VN_vn19 IDENTICAL  
+v11u426repro_cases_VA_va10 IDENTICAL  both READ_FAIL
+v11u426repro_cases_VA_va11 IDENTICAL  
+v11u426repro_cases_VB_vb20 IDENTICAL  
+v11u426repro_cases_VB_vb21 IDENTICAL  
+v11u426repro_cases_VB_vb22 IDENTICAL  
+v11u426repro_cases_VB_vb23 STATUS_DIFF  
+v11u426repro_cases_VB_vb24 IDENTICAL  
+v11u426repro_cases_VB_vb25 IDENTICAL  
+v11u426repro_cases_VB_vb26 IDENTICAL  
+v11u426repro_cases_VB_vb27 IDENTICAL  
+v11u426repro_cases_VB_vb28 IDENTICAL  
+v11u426repro_cases_VN_vn16 IDENTICAL  
+v11u426repro_cases_VN_vn17 IDENTICAL  
+v11u426repro_cases_VN_vn18 IDENTICAL  
+v11u426repro_cases_VN_vn19 IDENTICAL  
