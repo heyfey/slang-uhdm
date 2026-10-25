@@ -1,0 +1,3 @@
+VC/vc04 | clsParamCallSymBind432v | pristine rc=0 cmp=117 NOT_EQUAL stage1 md5=68a936d3 | law rc=0 cmp=206 NOT_EQUAL stage1 md5=af701590 | ver rc=0 cmp=117 NOT_EQUAL stage1 md5=7129edef | OFF same | R11V432_CLSCALLSYM_OFF DIFF | VOFF law | ver !=law
+VC/vc09 | clsParamCallSymBind432v | pristine rc=0 cmp=91 NOT_EQUAL stage1 md5=8d548a46 | law rc=0 cmp=0 STRICT_EQUAL 32 objects md5=f009fec5 | ver rc=0 cmp=0 STRICT_EQUAL 32 objects md5=f009fec5 | OFF same | R11V432_CLSCALLSYM_OFF DIFF | VOFF law | ver =law
+VC/vc11 | clsParamCallSymBind432v | pristine rc=0 cmp=117 NOT_EQUAL stage1 md5=959adbb6 | law rc=0 cmp=206 NOT_EQUAL stage1 md5=d3f00de6 | ver rc=0 cmp=117 NOT_EQUAL stage1 md5=8f98fb43 | OFF same | R11V432_CLSCALLSYM_OFF DIFF | VOFF law | ver !=law

@@ -889,7 +889,7 @@ r10uvm23repro/t34e_t,EQUAL,,equal
 r10uvm23repro/t34f_t,EQUAL,,equal
 r10uvm23repro/t34g_t,EQUAL,,equal
 r10uvm26repro/t36a,EQUAL,,equal
-r10uvm26repro/t36c,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
+r10uvm26repro/t36c,EQUAL,,equal
 r10uvm26repro/t36d,EQUAL,,equal
 r10uvm27repro/t37a,EQUAL,,equal
 r10uvm27repro/t37b,EQUAL,,equal

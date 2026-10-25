@@ -16,6 +16,7 @@
 
 #include <algorithm>
 #include <vector>
+#include <uhdm/UhdmListener.h>
 #include "LawSwitch.h"
 #include "LawState.h"
 
@@ -4635,6 +4636,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // Surelog's two `compileFunction` calls and the golden g7 table:
             // src/EmitHelpers.h.
             UHDM::variables* lateRv10 = nullptr;
+            // § tpProtoRetDefaultTs432 — set where § tpRetOobRefVar424 makes
+            // the prototype's ref_var; read at the typespec below.
+            bool tpProtoRet432 = false;
             // § tpRetOobRefVar424 (r11u424, cases/TP; sv-tests hdlconvertor
             // p193_2) — the CLASS-BODY PROTOTYPE listing of an `extern` method
             // whose return type is the class's TYPE PARAMETER keeps
@@ -4653,6 +4657,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 externProtoRetVarKind185(sub, protoOf) == TdLocalVarKind10::ClassVar) {
                 lateRv10 = s.MakeRef_var();
                 lawTrace(424, "tpRetOobRefVar424", fullName);
+                tpProtoRet432 = true;
             }
             if (!crossImplicitRet && !lateRv10)
                 switch (externProtoRetVarKind185(sub, protoOf)) {
@@ -5458,6 +5463,33 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 rt->Actual_typespec(uts11);
             else if (sub.returnValVar)
                 deferForeignTopTs(*sub.returnValVar, rt, ts);
+            // § tpProtoRetDefaultTs432 (r11u432, R11U432_TPRETTS_OFF; cases
+            // tools/probe/r11u432repro/cases/TP; sv-tests hdlconvertor
+            // p193_2's line(3)) — the CLASS-BODY PROTOTYPE of an `extern`
+            // method returning the class's TYPE PARAMETER (§ tpRetOobRefVar424's
+            // ref_var) references the type parameter's DEFAULT typespec, the
+            // object the class's type_parameter itself references: Surelog
+            // compiles the prototype in the class header, where the name binds
+            // to the parameter's default (`type T = int` -> the int_typespec at
+            // `int`, a typedef default with its alias, `logic [3:0]` with its
+            // range).  Ours minted a fresh typespec at the `T` token.  The
+            // out-of-body definition (class_var over C::T) is untouched.
+            if (tpProtoRet432 && m && m->UhdmType() == UHDM::uhdmclass_defn &&
+                lawOn(432, "R11U432_TPRETTS_OFF")) {
+                UHDM::typespec* def432 = nullptr;
+                if (auto* ps432 = ((UHDM::class_defn*)m)->Parameters())
+                    for (auto* p432 : *ps432)
+                        if (p432->UhdmType() == UHDM::uhdmtype_parameter &&
+                            p432->VpiName() == sub.getReturnType().name)
+                            if (auto* r432 = ((UHDM::type_parameter*)p432)->Typespec())
+                                def432 = (UHDM::typespec*)r432->Actual_typespec();
+                if (def432) {
+                    rt->Actual_typespec(def432);
+                    lawTrace(432, "tpProtoRetDefaultTs432", fullName);
+                }
+                else
+                    lawTrace(432, "tpProtoRetDefaultTs432", "abstain " + fullName);
+            }
             // A struct/enum/unpacked-array return's shared typespec sits at
             // the typedef, so the return var takes the return-TYPE syntax
             // span instead (a typedef'd-vector clone likewise).
@@ -8883,6 +8915,132 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         auto* body = (qualCtor27 || qualLifetime46)
                          ? nullptr
                          : emitStmt(sub.getBody(), tf, fullName, funcMap);
+        // § unitOobBodyRefChainName432 (r11u432, R11U432_UNITOOBREF_OFF;
+        // cases tools/probe/r11u432repro/cases/TN; sv-tests hdlconvertor
+        // p193_2's fullname cells) — in the body of a $unit class's
+        // out-of-body FUNCTION listed on the design (§ unitOobFuncOnDesign402,
+        // named `C::f` with no package or class on its parent chain) golden
+        // stores no full name on the body's objects: the reader synthesises
+        // `C::f.q` from the parent chain, joined by `.` since no package or
+        // class lies on it (golden TN/tn01 `C::f.p`, `C::f.C::p`).  Ours
+        // joined the scope `C::f` with `::` (joinRef's scoped-root rule,
+        // `C::f::q`).  The body's references named under `C::f::` keep no
+        // full name; its declared objects (a named block, a block's
+        // variable and its typespec reference) read the same chain spelled
+        // out, `C::f.blk.y` (golden TN/tn09); a package-homed definition (`pk::C::f::q`, golden the same
+        // synthesis through the package) is not on this path.  The
+        // references (ref_obj) are the objects that carry such a name.
+        // § unitOobBodyArgRefUnbound432 (r11u432, R11U432_UNITOOBARG_OFF;
+        // cases tools/probe/r11u432repro/cases/TP tp02, TN tn09) — in the
+        // same body a reference to one of the function's own arguments or
+        // locals carries no actual in golden (TP/tp02 `return a;` ref_obj a
+        // with no vpiActual, ours bound to the io_decl `a`; TN/tn02 a local
+        // `int x`): the design listing's body is compiled in `$unit`, where
+        // the definition's own declarations are not bound.
+        const bool oobRef432 = lawOn(432, "R11U432_UNITOOBREF_OFF");
+        const bool oobArg432 = lawOn(432, "R11U432_UNITOOBARG_OFF");
+        if (unitOobFn402 && body && (oobRef432 || oobArg432)) {
+            struct OobRefs432 final : public UHDM::UhdmListener {
+                const UHDM::any* root = nullptr;
+                std::string pfx;
+                std::string full;
+                int n = 0;
+                const UHDM::any* tf = nullptr;
+                bool names = true, args = true;
+                int na = 0;
+                bool inside(const UHDM::any* o, const UHDM::any* r) const {
+                    for (int k = 0; o && k < 512; ++k, o = o->VpiParent())
+                        if (o == r)
+                            return true;
+                    return false;
+                }
+                // `C::f::blk::y` -> `C::f.blk.y`: the chain below the
+                // function joined by `.` (a declared name has no `::`)
+                std::string dotted(std::string_view f) const {
+                    std::string rest(f.substr(pfx.size()));
+                    std::string out = full + ".";
+                    for (size_t i = 0; i < rest.size(); ++i) {
+                        if (rest.compare(i, 2, "::") == 0) {
+                            out += '.';
+                            ++i;
+                        }
+                        else
+                            out += rest[i];
+                    }
+                    return out;
+                }
+                bool under(std::string_view f) const {
+                    return f.size() > pfx.size() && f.compare(0, pfx.size(), pfx) == 0;
+                }
+                void enterAny(const UHDM::any* const o) override {
+                    if (!inside(o, root)) {
+                        visited.insert(o);
+                        return;
+                    }
+                    // a call of another `$unit` class's out-of-body function
+                    // listed on the design keeps no vpiFunction (golden
+                    // TN/tn10 `g()` unbound)
+                    if (args && o->UhdmType() == UHDM::uhdmfunc_call)
+                        if (auto* fn = ((const UHDM::func_call*)o)->Function();
+                            fn && fn->VpiParent() &&
+                            fn->VpiParent()->UhdmType() == UHDM::uhdmdesign &&
+                            fn->VpiName().find("::") != std::string_view::npos) {
+                            const_cast<UHDM::func_call*>((const UHDM::func_call*)o)
+                                ->Function(nullptr);
+                            ++na;
+                        }
+                    if (!names || o->UhdmType() == UHDM::uhdmref_obj)
+                        return;
+                    // a select (bit_select is-a ref_obj) reads its chain too
+                    if (auto* rs = any_cast<const UHDM::ref_obj*>(o)) {
+                        if (under(rs->VpiFullName())) {
+                            const_cast<UHDM::ref_obj*>(rs)->VpiFullName(std::string_view());
+                            ++n;
+                        }
+                        return;
+                    }
+                    if (auto* v = any_cast<const UHDM::variables*>(o); v && under(v->VpiFullName())) {
+                        const_cast<UHDM::variables*>(v)->VpiFullName(dotted(v->VpiFullName()));
+                        ++n;
+                    }
+                    else if (auto* sc = any_cast<const UHDM::scope*>(o); sc && under(sc->VpiFullName())) {
+                        const_cast<UHDM::scope*>(sc)->VpiFullName(dotted(sc->VpiFullName()));
+                        ++n;
+                    }
+                    else if (auto* rt = any_cast<const UHDM::ref_typespec*>(o); rt && under(rt->VpiFullName())) {
+                        const_cast<UHDM::ref_typespec*>(rt)->VpiFullName(dotted(rt->VpiFullName()));
+                        ++n;
+                    }
+                }
+                void enterRef_obj(const UHDM::ref_obj* const o) override {
+                    if (!inside(o, root))
+                        return;
+                    if (names && under(o->VpiFullName())) {
+                        const_cast<UHDM::ref_obj*>(o)->VpiFullName(std::string_view());
+                        ++n;
+                    }
+                    // § unitOobBodyArgRefUnbound432 — a reference to one of
+                    // the function's own arguments or locals keeps no actual.
+                    if (args && o->Actual_group() && inside(o->Actual_group(), tf)) {
+                        const_cast<UHDM::ref_obj*>(o)->Actual_group(nullptr);
+                        ++na;
+                    }
+                }
+            } w432;
+            w432.root = body;
+            w432.pfx = fullName + "::";
+            w432.full = fullName;
+            w432.tf = tf;
+            w432.names = oobRef432;
+            w432.args = oobArg432;
+            w432.listenAny(body);
+            if (oobRef432)
+                lawTrace(432, "unitOobBodyRefChainName432",
+                         fullName + " " + std::to_string(w432.n));
+            if (oobArg432)
+                lawTrace(432, "unitOobBodyArgRefUnbound432",
+                         fullName + " " + std::to_string(w432.na));
+        }
         // A constructor body that is one bare `super.new(...)` never reaches
         // the statement-list arm.  Golden emits NOTHING for it: with no
         // tf_port_list the super.new IS the mistaken port list, so the

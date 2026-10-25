@@ -28,6 +28,8 @@ extern bool g428ClsLocalSpec;
 // § caAnySysCallLhsTs428 (ModuleEmit.cpp) — net-declaration stamps resolved past the port.
 extern std::set<const UHDM::ref_typespec*> g428NdaSysTs;
 bool& classParamRhs424();  // § classParamBitsKeywordFold424 (TypeEmit.cpp)
+bool& classParamRhs432();  // § clsParamCallArgPkgSel432 (TypeEmit.cpp)
+const slang::ast::Scope*& classParamScope432v();  // § clsParamCallSymBind432v (TypeEmit.cpp)
 // § assocTdIndexShapes402 — the widened one-dimension shape (TypeEmit.cpp).
 bool unitDynTdShape402(const slang::ast::TypeAliasType& ta);
 // § unitAssocTdMultiDim406 — the multi-dimension listing (TypeEmit.cpp).
@@ -11905,8 +11907,16 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
         setLoc(pa, SourceRange(ps.location, rhsSyn->sourceRange().end()));
         // § classParamBitsKeywordFold424 (TypeEmit.cpp)
         classParamRhs424() = lawOn(424, "R11U424_CLSBITSKW_OFF");
+        // § clsParamCallArgPkgSel432 (TypeEmit.cpp) — the flag this pass
+        // writes across files; read only by emitSyntaxExpr.
+        classParamRhs432() = lawOn(432, "R11U432_CLSCALLARG_OFF");
+        // § clsParamCallSymBind432v (TypeEmit.cpp) — the class scope the
+        // call branch resolves a callee name from.
+        classParamScope432v() = &cls;
         auto* rhs = emitSyntaxExpr(*rhsSyn, pa);
         classParamRhs424() = false;
+        classParamRhs432() = false;
+        classParamScope432v() = nullptr;
         if (!rhs) {
             pas->push_back(pa);
             pa->Lhs(pv);
@@ -26068,6 +26078,201 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 lawTrace(420, "modOutOfBodyMethodIsModuleTf420", newFull);
             }
+        }
+        // § caCallConcatArgFormalTs432 (r11u432, R11U432_CACONCATARG_OFF;
+        // cases tools/probe/r11u432repro/cases/FA; sv-tests
+        // generated/fx68k's uaddrDecode head) — in a module's DEFINITION
+        // view a concatenation written as an argument of a function call in
+        // a continuous assignment's right side carries the FORMAL's
+        // typespec (golden FA/fa01 `assign y = f({op[8:6], op[11:9]});` the
+        // operation's ref_typespec `work@m` -> the logic_typespec of `input
+        // [5:0] b`, non-ANSI and ANSI formals alike, fa02), where ours wrote
+        // none.  Only a call that is the whole right side; one under an
+        // operation (fa07), a procedural call (fa04), another operation kind (fa03
+        // `+`, fa06 `~`) and the elaborated view (fa05) carry none in golden
+        // either and are left alone, and so does a concatenation of
+        // constants only (fa14, fa20; fa21 one constant operand stamps).
+        if (d420 && d420->AllModules() && lawOn(432, "R11U432_CACONCATARG_OFF")) {
+            std::function<void(UHDM::any*, const std::string&)> walk;
+            walk = [&](UHDM::any* e, const std::string& mfull) {
+                if (!e)
+                    return;
+                // only a call that IS the whole right side: under an
+                // operation golden stamps nothing (fa07 `f({..}) + 4'd1`)
+                if (e->UhdmType() != UHDM::uhdmfunc_call)
+                    return;
+                auto* fc = (UHDM::func_call*)e;
+                auto* fn = fc->Function();
+                auto* args = fc->Tf_call_args();
+                if (!fn || !args || !fn->Io_decls())
+                    return;
+                auto* ios = fn->Io_decls();
+                for (size_t i = 0; i < args->size() && i < ios->size(); ++i) {
+                    auto* a = (*args)[i];
+                    if (!a || a->UhdmType() != UHDM::uhdmoperation ||
+                        ((UHDM::operation*)a)->VpiOpType() != vpiConcatOp ||
+                        ((UHDM::operation*)a)->Typespec())
+                        continue;
+                    // a concatenation of constants only takes no typespec
+                    // (golden fa14, the uhdm2rtlil corpus test
+                    // TypedefedRangedFunctionArgument `{32'h1234, 32'h5678}`,
+                    // fa20 `{3'd1, 3'd2}`): the first sweep's two
+                    // regressions, narrowed here
+                    bool live432 = false;
+                    if (auto* os = ((UHDM::operation*)a)->Operands())
+                        for (auto* o : *os)
+                            if (o && o->UhdmType() != UHDM::uhdmconstant)
+                                live432 = true;
+                    if (!live432) {
+                        lawTrace(432, "caCallConcatArgFormalTs432",
+                                 "abstain constants " + std::string(fc->VpiName()));
+                        continue;
+                    }
+                    auto* ft = (*ios)[i]->Typespec();
+                    auto* fts = ft ? ft->Actual_typespec() : nullptr;
+                    if (!fts)
+                        continue;
+                    auto* rt = s.MakeRef_typespec();
+                    rt->VpiParent(a);
+                    rt->VpiFullName(mfull);
+                    rt->Actual_typespec(const_cast<UHDM::typespec*>(fts));
+                    ((UHDM::operation*)a)->Typespec(rt);
+                    lawTrace(432, "caCallConcatArgFormalTs432",
+                             mfull + " " + std::string(fc->VpiName()));
+                }
+            };
+            for (auto* md : *d420->AllModules())
+                if (md && md->Cont_assigns())
+                    for (auto* ca : *md->Cont_assigns())
+                        if (ca && ca->Rhs())
+                            walk(ca->Rhs(), std::string(md->VpiName()));
+        }
+        // § unitParamShadowDefBind432 (r11u432, R11U432_UNITSHADOW_OFF;
+        // cases tools/probe/r11u432repro/cases/UP; sv-tests generated/fx68k)
+        // — in a module's DEFINITION view a reference to the module's own
+        // parameter whose name a `$unit` parameter also carries binds to
+        // the `$unit` parameter: Surelog resolves a definition-view name
+        // against the compilation unit's parameters before the module's
+        // (golden UP/up03 `localparam CF = 0; module m; localparam CF = 1;
+        // assign o = a[CF];` ref_obj CF -> the design's CF; fx68kAlu's
+        // `ccrCore[ CF]` against fx68k.sv's `localparam CF = 0`), where
+        // ours left the reference unbound as it does for an unshadowed
+        // module parameter (up04, golden unbound too).  Only an unbound
+        // reference named like both a parameter of the module and a
+        // design-level parameter; a net of that name (up12, golden binds it
+        // too and folds the elaborated read) is left as it was.
+        if (d420 && d420->Parameters() && d420->AllModules() &&
+            lawOn(432, "R11U432_UNITSHADOW_OFF")) {
+            std::map<std::string, UHDM::parameter*> unit432;
+            for (auto* a : *d420->Parameters())
+                if (a && a->UhdmType() == UHDM::uhdmparameter)
+                    unit432.emplace(std::string(a->VpiName()), (UHDM::parameter*)a);
+            struct ShadowRefs432 final : public UHDM::UhdmListener {
+                const UHDM::any* root = nullptr;
+                std::set<std::string> names;
+                std::map<std::string, UHDM::parameter*>* unit = nullptr;
+                std::string mod;
+                bool inside(const UHDM::any* o) const {
+                    for (int k = 0; o && k < 512; ++k, o = o->VpiParent())
+                        if (o == root)
+                            return true;
+                    return false;
+                }
+                void enterAny(const UHDM::any* const o) override {
+                    if (o != root && !inside(o))
+                        visited.insert(o);
+                }
+                void enterRef_obj(const UHDM::ref_obj* const r) override {
+                    if (!inside(r) || r->Actual_group())
+                        return;
+                    if (r->VpiParent() && r->VpiParent()->UhdmType() == UHDM::uhdmhier_path)
+                        return;
+                    std::string n(r->VpiName());
+                    if (!names.count(n))
+                        return;
+                    auto it = unit->find(n);
+                    if (it == unit->end())
+                        return;
+                    const_cast<UHDM::ref_obj*>(r)->Actual_group(it->second);
+                    lawTrace(432, "unitParamShadowDefBind432", mod + " " + n);
+                }
+            };
+            for (auto* md : *d420->AllModules()) {
+                if (!md || !md->Parameters())
+                    continue;
+                ShadowRefs432 w;
+                for (auto* a : *md->Parameters())
+                    if (a && unit432.count(std::string(a->VpiName())))
+                        w.names.insert(std::string(a->VpiName()));
+                if (w.names.empty())
+                    continue;
+                w.root = md;
+                w.unit = &unit432;
+                w.mod = std::string(md->VpiName());
+                w.listenAny(md);
+            }
+        }
+        // § pkgVarEnumBaseRefName432 (r11u432, R11U432_ENUMBASENAME_OFF; cases
+        // tools/probe/r11u432repro/cases/EB; sv-tests hdlconvertor p600's
+        // fullname(4)) — a PACKAGE variable declared with an inline anonymous
+        // enum (`enum {A, B, C = 99} X;`, with or without a base type) carries
+        // its enum's base ref_typespec named after the variable (golden `A::X`),
+        // as a module's own variable already does (the patch in ModuleEmit's
+        // variable writer); so does the elaborated copy an importing instance
+        // lists (golden `work@top.X`'s enum_var).  makeTypespec builds the
+        // enum with an empty name for the caller to patch, and the package and
+        // import-copy writers never patched it.  The definition-view logic_net
+        // copy keeps its unnamed base reference (golden, EB/eb01).  Runs in
+        // final287, so every exit of exportDesign reaches it.
+        if (d420 && lawOn(432, "R11U432_ENUMBASENAME_OFF")) {
+            auto fix432 = [&](UHDM::VectorOfvariables* vs) {
+                if (!vs)
+                    return;
+                // the variables of one declaration (`enum {A, B} X, Y;`, keyed
+                // by the first enum constant's location) all read the LAST
+                // declarator's name (golden `A::Y` on both): Surelog names the
+                // base at every variable it compiles, in order, through the
+                // declaration's one data type node.
+                using Key432 = std::tuple<std::string, int, int>;
+                std::vector<std::pair<UHDM::ref_typespec*, Key432>> todo;
+                std::map<Key432, std::string> last;
+                for (auto* v : *vs) {
+                    if (!v || v->UhdmType() != UHDM::uhdmenum_var || v->VpiFullName().empty())
+                        continue;
+                    auto* r = v->Typespec();
+                    auto* et = r ? r->Actual_typespec() : nullptr;
+                    if (!et || et->UhdmType() != UHDM::uhdmenum_typespec || !et->VpiName().empty())
+                        continue;
+                    auto* b = ((UHDM::enum_typespec*)et)->Base_typespec();
+                    if (!b || !b->VpiFullName().empty())
+                        continue;
+                    Key432 k{"", 0, 0};
+                    if (auto* cs = ((UHDM::enum_typespec*)et)->Enum_consts(); cs && !cs->empty())
+                        k = {std::string((*cs)[0]->VpiFile()), (int)(*cs)[0]->VpiLineNo(),
+                             (int)(*cs)[0]->VpiColumnNo()};
+                    last[k] = std::string(v->VpiFullName());
+                    todo.push_back({b, k});
+                }
+                for (auto& [b, k] : todo) {
+                    b->VpiFullName(last[k]);
+                    lawTrace(432, "pkgVarEnumBaseRefName432", last[k]);
+                }
+            };
+            std::set<const UHDM::package*> seen432;
+            for (auto* pv : {d420->AllPackages(), d420->TopPackages()})
+                if (pv)
+                    for (auto* p : *pv)
+                        if (p && seen432.insert(p).second)
+                            fix432(p->Variables());
+            std::function<void(UHDM::module_inst*)> walk432 = [&](UHDM::module_inst* mi) {
+                fix432(mi->Variables());
+                if (auto* ms = mi->Modules())
+                    for (auto* c : *ms)
+                        walk432(c);
+            };
+            if (auto* tm = d420->TopModules())
+                for (auto* mi : *tm)
+                    walk432(mi);
         }
         return d420;
     };

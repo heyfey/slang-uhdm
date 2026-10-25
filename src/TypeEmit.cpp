@@ -336,6 +336,21 @@ bool& classParamRhs424() {
     static bool armed = false;
     return armed;
 }
+// § clsParamCallArgPkgSel432 — set by UhdmExporter's emitClassParameters
+// around a class parameter's initializer (R11U432_CLSCALLARG_OFF read there;
+// the flag is read only by emitSyntaxExpr's call and select branches).
+bool& classParamRhs432() {
+    static bool on432 = false;
+    return on432;
+}
+// § clsParamCallSymBind432v — the class whose parameter initializer
+// emitSyntaxExpr is building, set by UhdmExporter's emitClassParameters
+// beside classParamRhs432() (R11V432_CLSCALLSYM_OFF read at the call branch);
+// read only by emitSyntaxExpr's call branch.
+const slang::ast::Scope*& classParamScope432v() {
+    static const slang::ast::Scope* sc432v = nullptr;
+    return sc432v;
+}
 // § defGenLpSelIdxThroughBase424 — armed by ModuleEmit around a
 // definition-view generate-block localparam's initializer
 // (R11U424_GENLPSELIDX_OFF read there).
@@ -25579,6 +25594,17 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         *sel->as<syntax::BitSelectSyntax>().expr, bs))
                     bs->VpiIndex((UHDM::expr*)ix);
                 syntaxRefPrefix = savedPfx3;
+                // § clsParamCallArgPkgSel432 — a bit select written as a
+                // CALL ARGUMENT in a class parameter's initializer is located
+                // at its index expression, as the package-qualified one is
+                // everywhere there (golden CP/cp18 `f(a[N])` bit_select a
+                // 8:22-8:23, cp13 7:26-7:27; outside a call the select keeps
+                // its whole span, cp17, cp19).
+                if (classParamRhs432() && parent &&
+                    parent->UhdmType() == UHDM::uhdmfunc_call) {
+                    setLoc(bs, sel->as<syntax::BitSelectSyntax>().expr->sourceRange());
+                    lawTrace(432, "clsParamCallArgPkgSel432", "argsel " + std::string(bname));
+                }
             }
             return bs;
         }
@@ -26400,7 +26426,66 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                 inv.left->kind == syntax::SyntaxKind::ScopedName
                     ? &inv.left->as<syntax::ScopedNameSyntax>()
                     : nullptr;
-            if (cc137 && (boundCallNameSpan || genCondImportFold9)) {
+            // § clsParamCallArgPkgSel432 — a call in a CLASS parameter's
+            // initializer is compiled as a constant expression: located at
+            // its callee node (the name, or `pkg::` for a qualified call,
+            // § constCallNameSpan137's rule) and bound to the subroutine it
+            // names (golden CP/cp02 `func_call f` 7:18-7:19 with vpiFunction
+            // the $unit function; cp06 `glb::g` 8:18-8:23).
+            // A call written as another call's ARGUMENT keeps its whole span
+            // (golden cp12 `f(f(N))`, the inner call 7:20-7:24) and is bound.
+            const bool clsCall432 = classParamRhs432();
+            const bool clsArgCall432 =
+                clsCall432 && parent && parent->UhdmType() == UHDM::uhdmfunc_call;
+            if (clsCall432) {
+                if (clsArgCall432)
+                    setLoc(fc, syn.sourceRange());
+                else if (qsn137 && qsn137->left && qsn137->separator)
+                    setLoc(fc, SourceRange(qsn137->left->sourceRange().start(),
+                                           qsn137->separator.range().end()));
+                else
+                    setLoc(fc, inv.left->sourceRange());
+                // § clsParamCallSymBind432v (v11u432, R11V432_CLSCALLSYM_OFF;
+                // cases tools/probe/v11u432repro/cases/VC vc04, vc09, vc11) —
+                // a callee name the CLASS ITSELF declares as a subroutine (a
+                // static method `f` beside a `$unit` function `f`) is golden's
+                // vpiFunction work@C::f (vc04, vc11), where the name match
+                // bound the `$unit` f, a binding golden does not have; ours
+                // writes that method's object when it has one here, else it
+                // stays unbound as on pristine.  A name the class only
+                // inherits (vc09, a base-class static `f`) keeps the name
+                // match: golden binds the `$unit` f there.
+                const Symbol* own432v = nullptr;
+                if (!qualPkgFn18 && classParamScope432v() &&
+                    inv.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    fixOn(432, "R11V432_CLSCALLSYM_OFF"))
+                    if (auto* m432v = classParamScope432v()->find(
+                            inv.left->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                        m432v && m432v->getParentScope() == classParamScope432v() &&
+                        (m432v->kind == SymbolKind::Subroutine ||
+                         m432v->kind == SymbolKind::MethodPrototype))
+                        own432v = m432v;
+                if (own432v) {
+                    if (auto it432v = subMap.find(own432v); it432v != subMap.end() &&
+                        it432v->second.tf &&
+                        it432v->second.tf->UhdmType() == UHDM::uhdmfunction)
+                        fc->Function((UHDM::function*)it432v->second.tf);
+                    lawTrace(432, "clsParamCallSymBind432v",
+                             std::string(fc->VpiName()) +
+                                 (fc->Function() ? " own-class bound" : " own-class unbound"));
+                }
+                else if (!qualPkgFn18)
+                    for (auto& [subK, subI] : subMap)
+                        if (subI.tf && subI.tf->VpiName() == fc->VpiName() &&
+                            subI.tf->UhdmType() == UHDM::uhdmfunction) {
+                            fc->Function((UHDM::function*)subI.tf);
+                            break;
+                        }
+                lawTrace(432, "clsParamCallArgPkgSel432",
+                         "call " + std::string(fc->VpiName()) +
+                             (fc->Function() ? " bound" : " unbound"));
+            }
+            else if (cc137 && (boundCallNameSpan || genCondImportFold9)) {
                 if (qsn137 && qsn137->left && qsn137->separator)
                     setLoc(fc, SourceRange(qsn137->left->sourceRange().start(),
                                            qsn137->separator.range().end()));
@@ -27386,6 +27471,71 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                         // unchanged wrong object, never a half-built one.
                     }
                 }
+                // § clsParamCallArgPkgSel432 (r11u432, R11U432_CLSCALLARG_OFF;
+                // cases tools/probe/r11u432repro/cases/CP; sv-tests
+                // generic/class/class_test_49) — in a CLASS parameter's
+                // initializer a package parameter read with ONE bit select
+                // (`glb::arr[N]`, `glb::v[1]`) is the bit_select pass 40's
+                // residue R2 read off (golden named by the qualified base,
+                // located AT the index expression, the index at its own span):
+                // golden CP/cp04 `bit_select glb::arr` 7:27-7:28 over
+                // `ref_obj N`, where ours pasted the written text into one
+                // ref_obj.  Nothing is stored on the index reference, whose
+                // name the reader computes from the parent chain: under an
+                // operation `work@C::N` (cp04); as a call ARGUMENT golden
+                // parents the bit_select at the package parameter itself, so
+                // the chain reads `glb::arr::N` (cp01, cp06 to cp08).
+                if (classParamRhs432())
+                    if (const auto* isn432 =
+                            syn.as<syntax::ScopedNameSyntax>()
+                                .right->as_if<syntax::IdentifierSelectNameSyntax>();
+                        isn432 && isn432->selectors.size() == 1 &&
+                        isn432->selectors[0]->selector &&
+                        isn432->selectors[0]->selector->kind ==
+                            syntax::SyntaxKind::BitSelect) {
+                        const auto& sn432 = syn.as<syntax::ScopedNameSyntax>();
+                        const Symbol* ps432 = nullptr;
+                        if (sn432.left && sn432.left->kind == syntax::SyntaxKind::IdentifierName)
+                            if (auto* pk432 = comp.getPackage(
+                                    sn432.left->as<syntax::IdentifierNameSyntax>()
+                                        .identifier.valueText()))
+                                ps432 = pk432->findForImport(isn432->identifier.valueText());
+                        if (ps432 && ps432->kind == SymbolKind::Parameter) {
+                            auto& ix432 = *isn432->selectors[0]
+                                               ->selector->as<syntax::BitSelectSyntax>()
+                                               .expr;
+                            std::string savedPfx432 = syntaxRefPrefix;
+                            syntaxRefPrefix.clear();
+                            auto* bs432 = s.MakeBit_select();
+                            std::string qn432 = std::string(sn432.left->as<syntax::IdentifierNameSyntax>()
+                                                                .identifier.valueText()) +
+                                                "::" +
+                                                std::string(isn432->identifier.valueText());
+                            bs432->VpiName(qn432);
+                            // its own name as full name, which the reader
+                            // reports as none (§ pkgQualSelChainOwnName261's
+                            // var_select twin; golden prints no full name)
+                            bs432->VpiFullName(qn432);
+                            UHDM::BaseClass* par432 = parent;
+                            if (parent && parent->UhdmType() == UHDM::uhdmfunc_call)
+                                if (auto pit432 = pkgParamObj.find(ps432);
+                                    pit432 != pkgParamObj.end() && pit432->second)
+                                    par432 = pit432->second;
+                            bs432->VpiParent(par432);
+                            setLoc(bs432, ix432.sourceRange());
+                            auto* idx432 = emitSyntaxExpr(ix432, bs432);
+                            syntaxRefPrefix = savedPfx432;
+                            if (idx432) {
+                                if (idx432->UhdmType() == UHDM::uhdmref_obj)
+                                    ((UHDM::ref_obj*)idx432)->VpiFullName(std::string_view());
+                                bs432->VpiIndex((UHDM::expr*)idx432);
+                                lawTrace(432, "clsParamCallArgPkgSel432",
+                                         qn432 + (par432 != parent ? " pkgparent" : ""));
+                                return bs432;
+                            }
+                            lawTrace(432, "clsParamCallArgPkgSel432", "abstain index " + qn432);
+                        }
+                    }
                 auto* ref = s.MakeRef_obj();
                 ref->VpiName(raw);
                 // § pkgTsForeignQualRefUnstored144 (r11u144) — inside a
@@ -30188,6 +30338,32 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                             implicit26 = true;
                         sgnDecl26 = dimPar26->getType().isSigned();
                     }
+                    // § unitParamSizeDimWide432 (r11u432, R11U432_UNITDIMWIDE_OFF;
+                    // cases tools/probe/r11u432repro/cases/UD; sv-tests
+                    // generated/fx68k's nanoRom `nRam[ NANO_DEPTH]`) — a
+                    // `$unit` parameter initialized by a plain decimal
+                    // literal folds into a size-form dimension as a PACKAGE
+                    // parameter does (the compilation unit is compiled as a
+                    // package): untyped at SIXTY-FOUR (golden UD/ud01 the
+                    // right bound's operand UINT:336 at size 64, ours 32) and
+                    // never stamped with a typespec unqualified (ud05 `int D`,
+                    // golden none, ours the signed int's).  A sized initializer
+                    // (`4'd9`, ud07: golden INT:9 at size 4) abstains.
+                    if (dimPar26 && !pkgPar26 && !qual26 && dimPar26->getParentScope() &&
+                        dimPar26->getParentScope()->asSymbol().kind ==
+                            SymbolKind::CompilationUnit)
+                        if (auto* in432 = dimPar26->getDeclaredType()
+                                              ? dimPar26->getDeclaredType()->getInitializerSyntax()
+                                              : nullptr;
+                            in432 &&
+                            in432->kind == syntax::SyntaxKind::IntegerLiteralExpression &&
+                            in432->as<syntax::LiteralExpressionSyntax>().literal.kind ==
+                                parsing::TokenKind::IntegerLiteral &&
+                            lawOn(432, "R11U432_UNITDIMWIDE_OFF")) {
+                            pkgPar26 = true;
+                            lawTrace(432, "unitParamSizeDimWide432",
+                                     std::string(dimPar26->name));
+                        }
                     // ...AND AN OVERRIDDEN PARAMETER NEVER GETS THE ts, however
                     // it is declared.  § overriddenBoundParamNoFoldTs19 says so
                     // for the PACKED builder and pass-23's pt23 table says it

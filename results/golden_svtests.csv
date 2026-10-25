@@ -1389,7 +1389,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p190_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p190_2.sv:6:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
 generated/hdlconv_std2017/hdlconvertor_std2017_p193.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,STRICT_NOTEQUAL,differ:line(3),differ:line(3)
+generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p198.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p198.sv:23:25: error: cannot extend or implement an incomplete forward type,
@@ -1454,7 +1454,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p577.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p597.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,STRICT_NOTEQUAL,differ:fullname(6),differ:fullname(6)
+generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p608.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p612.sv,SURELOG_CRASH,,
 generated/hdlconv_std2017/hdlconvertor_std2017_p623.sv,EQUAL,,equal
@@ -2165,7 +2165,7 @@ generic/class/class_test_29.sv,EQUAL,,equal
 generic/class/class_test_30.sv,EQUAL,,equal
 generic/class/class_test_4.sv,EQUAL,,equal
 generic/class/class_test_48.sv,EQUAL,,equal
-generic/class/class_test_49.sv,DIFFERENT,decompile:,
+generic/class/class_test_49.sv,EQUAL,,equal
 generic/class/class_test_51.sv,EQUAL,,equal
 generic/class/class_test_52.sv,EQUAL,,equal
 generic/class/class_test_53.sv,EQUAL,,equal

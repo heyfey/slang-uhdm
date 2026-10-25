@@ -9338,6 +9338,47 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
                     SET_END295(ts9, SourceLocation::NoLocation, de275, "IMPDIM");
                 }
             }
+            // § impNetEnumSlotEnd432 (r11u432, R11U432_IMPENUMSLOT_OFF; cases
+            // tools/probe/r11u432repro/cases/EB; sv-tests hdlconvertor p600's
+            // file(2)/endline(2)/endcol(2)) — the module's re-created typespec
+            // of an imported package variable declared with an INLINE
+            // anonymous enum (`enum {A, B, C = 99} X;` in the package) takes
+            // writeNets' end-only populate as a module's own definition net
+            // does (§ defNetEndOnlyLoc130): the copy is listed as a definition
+            // net, so its typespec reads `<file> 0:0` to the end of the
+            // packed slot, the SECOND member with no base type, the FIRST
+            // with one (golden EB/eb01 `dut.sv 0:0-3:10`, eb03 3:13).  Ours
+            // left the copy unlocated.  A declarator with an initializer or
+            // an unpacked dimension, a `var` declaration and a one-member
+            // enum fill no packed slot and abstain.
+            if (ts9 && ts9->UhdmType() == UHDM::uhdmenum_typespec &&
+                ts9->VpiName().empty() && ts9->VpiLineNo() == 0 &&
+                ts9->VpiEndLineNo() == 0 && ts9->VpiFile().empty() && dt9 &&
+                !hasVarKeywordDecl(*iv9) &&
+                lawOn(432, "R11U432_IMPENUMSLOT_OFF")) {
+                const syntax::SyntaxNode* tsyn432 = dt9->getTypeSyntax();
+                auto* ds432 = iv9->getSyntax();
+                SourceLocation e432 = SourceLocation::NoLocation;
+                if (tsyn432 && tsyn432->kind == syntax::SyntaxKind::EnumType && ds432 &&
+                    ds432->kind == syntax::SyntaxKind::Declarator &&
+                    ds432->as<syntax::DeclaratorSyntax>().dimensions.empty() &&
+                    !ds432->as<syntax::DeclaratorSyntax>().initializer) {
+                    auto& et432 = tsyn432->as<syntax::EnumTypeSyntax>();
+                    size_t k432 = et432.baseType ? 0 : 1;
+                    if (et432.dimensions.empty() && et432.members.size() > k432)
+                        e432 = et432.members[k432]->sourceRange().end();
+                }
+                if (e432 != SourceLocation::NoLocation && !sm->isMacroLoc(e432)) {
+                    uint32_t l432 = 0, c432 = 0;
+                    locLineCol(e432, l432, c432);
+                    ts9->VpiEndLineNo(l432);
+                    ts9->VpiEndColumnNo(c432);
+                    ts9->VpiFile(fullFilePath(e432));
+                    lawTrace(432, "impNetEnumSlotEnd432", std::string(iv9->name));
+                }
+                else
+                    lawTrace(432, "impNetEnumSlotEnd432", "abstain " + std::string(iv9->name));
+            }
             if (ts9) {
                 auto* rt9 = s.MakeRef_typespec();
                 rt9->VpiFullName(prefix + "." + std::string(iv9->name));

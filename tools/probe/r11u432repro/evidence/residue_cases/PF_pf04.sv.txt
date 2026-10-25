@@ -1,0 +1,8 @@
+// § unitParamPortConnFold432
+module c(input b, output o);
+  assign o = b;
+endmodule
+module top(input [4:0] oper, output o);
+  localparam OP_SBCD = 6;
+  c u(.b(oper != OP_SBCD), .o(o));
+endmodule
