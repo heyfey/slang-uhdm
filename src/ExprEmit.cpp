@@ -37541,6 +37541,47 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      : "DEPTH172 top logic alias");
                     if (cts172 && cts->UhdmType() != UHDM::uhdmlogic_typespec)
                         cts = cts172;
+                    // § unitClsCastPkgEnumTdTopListing429 (r11u429,
+                    // R11U429_UNITCLSCAST_OFF) — a cast to a PACKAGE enum
+                    // typedef written in a subroutine of a class declared in
+                    // the compilation unit reaches the package's ELABORATED
+                    // typedef listing (the one whose base range is folded),
+                    // as the same class's declarations typed by that typedef
+                    // already do, not the definition listing.  Surelog
+                    // compiles a $unit class after the packages are
+                    // elaborated, and its cast branch (CompileExpression.cpp,
+                    // paCast -> compileTypespec) binds the typedef's current
+                    // typespec, the elaborated copy: golden
+                    // testbenches/uvm_agent_active.sv lists, under
+                    // packet_in::__m_uvm_execute_field_op's six
+                    // `uvm_radix_enum'(...)` casts (uvm_object_defines.svh
+                    // m_uvm_field_radix), the uvm_radix_enum copy whose base
+                    // uvm_field_flag_t range reads INT:27, where we reached
+                    // the definition listing's UVM_FIELD_FLAG_RESERVED_BITS-1
+                    // operation (differ:type(1)).  Grid
+                    // tools/probe/r11u429repro/cases/RC.
+                    if (!cts172 && currentSubSym && expr.type &&
+                        lawOn(429, "R11U429_UNITCLSCAST_OFF")) {
+                        const Scope* ps429 = currentSubSym->getParentScope();
+                        bool unitCls429 = false;
+                        if (ps429 && ps429->asSymbol().kind == SymbolKind::ClassType)
+                            if (auto* pp429 = ps429->asSymbol().getParentScope())
+                                unitCls429 = pp429->asSymbol().kind ==
+                                             SymbolKind::CompilationUnit;
+                        auto* hs429 = expr.type->getParentScope();
+                        if (unitCls429 && hs429 &&
+                            hs429->asSymbol().kind == SymbolKind::Package &&
+                            expr.type->getCanonicalType().kind == SymbolKind::EnumType)
+                            if (auto t429 = pkgTopTypedefTs.find((const void*)expr.type);
+                                t429 != pkgTopTypedefTs.end() && t429->second &&
+                                t429->second != cts &&
+                                t429->second->UhdmType() == cts->UhdmType()) {
+                                cts = t429->second;
+                                lawTrace(429, "unitClsCastPkgEnumTdTopListing429",
+                                         std::string(expr.type->name) + " in " +
+                                             std::string(currentSubSym->name));
+                            }
+                    }
                     // § modFnLocalTdCastClone112 — a module-local logic / bit
                     // / int typedef cast inside a function or task of the
                     // same module: a fresh self-named copy aliased to the
@@ -47315,6 +47356,52 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bitsKeep = true;
                     ownPropFold61 = false;
                     trace200("genBlockBitsKeepsSelect200", std::string(name));
+                }
+            }
+            // § genBodyBitsOuterNameKeeps429 (r11u429,
+            // R11U429_GENBITSNAME_OFF) — in a PROCESS of a generate scope
+            // (both views), a `$bits` whose argument is a bare name of a
+            // net or variable declared OUTSIDE every generate block (a
+            // module-level signal) keeps its sys_func_call, as
+            // § genBlockBitsKeepsSelect200 keeps a select: Surelog compiles
+            // the generate items unreduced (compileBits finds no typespec
+            // for a name of the enclosing module from the generate scope and
+            // mints the call, its argument a ref_obj named through the
+            // scope), and a gen-scope process is copied, not re-reduced
+            // (golden `always_comb y = $bits(x);` in `if (1) begin: g`:
+            // sys_func_call with ref_obj work@top.g.x in the definition's
+            // named_begin and in the elaborated gen_scope).  A name
+            // declared inside the generate block keeps its call in the
+            // definition's process only: the elaboration finds its typespec
+            // in the gen scope and folds it (golden gb18: the named_begin
+            // keeps `$bits(z)`, the gen_scope reads UINT:5).  A continuous
+            // assignment's right side is reduced whole by the elaboration
+            // (golden: one constant with no location sized at the left
+            // side) and is not this law; its definition view is TypeEmit's
+            // (the r11u428 residue cases BB, bsg_source_sync_channel_control_
+            // master 143:53).  Grid tools/probe/r11u429repro/cases/GB.
+            if (name == "$bits" && !bitsKeep && bitsArg27 &&
+                (inGenScopeProc || defGenProcessEmit) && bitsArg27->syntax &&
+                genBody200(bitsArg27->syntax) &&
+                lawOn(429, "R11U429_GENBITSNAME_OFF")) {
+                auto& sa429 = stripImplicitConv(*bitsArg27);
+                if (sa429.kind == ExpressionKind::NamedValue) {
+                    auto& sy429 = sa429.as<NamedValueExpression>().symbol;
+                    bool sig429 = sy429.kind == SymbolKind::Net ||
+                                  sy429.kind == SymbolKind::Variable;
+                    bool outer429 = true;
+                    for (auto* sc429 = sy429.getParentScope(); sc429;
+                         sc429 = sc429->asSymbol().getParentScope())
+                        if (sc429->asSymbol().kind == SymbolKind::GenerateBlock) {
+                            outer429 = false;
+                            break;
+                        }
+                    if (sig429 && (outer429 || defGenProcessEmit)) {
+                        bitsKeep = true;
+                        ownPropFold61 = false;
+                        lawTrace(429, "genBodyBitsOuterNameKeeps429",
+                                 std::string(sy429.name));
+                    }
                 }
             }
             if (name == "$bits" && !bitsKeep) {

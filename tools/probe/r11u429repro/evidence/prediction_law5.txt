@@ -1,0 +1,12 @@
+# prediction before the sweep (law5): candidates by fence-filtered source scan, traced targeted runs
+surelog rows 34 / u2r rows 7 / probe dirs 56 / sv-tests rows 534
+corpus + probe candidates: no firing, statuses and strict columns identical to the control
+sv-tests candidates firing:
+     18 unitClsCastPkgEnumTdTopListing429 :: generated/easyUVM/top
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_agent_active
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_agent_passive
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_driver_sequencer_env
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_monitor_env
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_scoreboard_env
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_scoreboard_monitor_agent_env
+      6 unitClsCastPkgEnumTdTopListing429 :: testbenches/uvm_scoreboard_monitor_env

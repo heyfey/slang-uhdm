@@ -1,0 +1,18 @@
+# uvm_agent_active: uhdm-strictcmp golden vs pristine (base) and vs law5
+## pristine
+#205756 type
+  A: 27	constant				uvm_object_globals.svh	68	14	68	42	27	64	INT:27	7
+  B: 27	operation				uvm_object_globals.svh	68	14	68	44		0		
+objects 444579 vs 444600
+fields: type=1 endcol=1 decompile=1 size=1 value=1 consttype=1 objects_differing=1 (walk diverged)
+STRICT_NOTEQUAL type
+## law (the law1 build; law5 adds only § genBodyBitsOuterNameKeeps429, which does not fire on this row; the law5 sweep reads the same differ:file(2))
+#206401 file
+  A: 23	int_typespec				uvm_resource_defines.svh	43	17	43	20				
+  B: 23	int_typespec				uvm_resource_specializations.svh	43	17	43	20				
+#219489 depth
+  A: 7	range				uvm_object_globals.svh	49	22	49	42				
+  B: 4	int_var	_size		uvm_pkg::uvm_report_message_int_element::_size	uvm_report_message.svh	117	30	117	35		0		
+objects 444579 vs 444576
+fields: depth=1 type=1 name=1 fullname=1 file=2 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL file

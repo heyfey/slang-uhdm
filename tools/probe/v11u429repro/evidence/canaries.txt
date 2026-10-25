@@ -1,0 +1,12 @@
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+  ParamFileMacro                     default   OK       SURELOG_FAIL/
+  ParamFileMacro                     testflags OK       SURELOG_FAIL/
+  BlackParrot                        default   OK       SURELOG_FAIL/
+  BlackParrot                        testflags OK       SURELOG_FAIL/
+  BlackUcode                         default   OK       SURELOG_FAIL/
+  BlackUcode                         testflags OK       SURELOG_FAIL/
+  BlackUnicore                       default   OK       SURELOG_FAIL/
+  BlackUnicore                       testflags OK       SURELOG_FAIL/
+PASS: every supplementary canary row is byte-identical to the baseline.
+PASS: every supplementary canary row is byte-identical to the baseline.

@@ -1,0 +1,2 @@
+checked 4087 movers 0
+positive control: VB/vb01 pristine vs law dumps differ

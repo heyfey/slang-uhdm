@@ -1,0 +1,21 @@
+// § unitClsCastPkgEnumTdTopListing429
+package p;
+  parameter RB = 28;
+  typedef bit [RB+3:0] ft;
+  typedef enum ft { A = 'h1000000, B = 0 } e_t;
+  typedef enum bit [RB-1:0] { C0 = 1, C1 = 2 } f_t;
+  typedef enum int { D0, D1 } g_t;
+endpackage
+import p::*;
+class C;
+  function e_t f(int x);
+    return e_t'(x);
+  endfunction
+  function void g(e_t r); endfunction
+  function void h(int x);
+    g(e_t'(x));
+  endfunction
+endclass
+module top;
+  C c = new;
+endmodule
