@@ -42217,12 +42217,152 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // instantiation actuals (param ts).
         UHDM::typespec* bare9 = nullptr;
         bool caRead9 = false;
-        if (gl.crt && gl.typedLp && !gl.intFold) {
+        // § defGenLpRangedTs430 — the ELABORATED half: a generate-scope
+        // localparam whose implicit type carries a packed range with literal
+        // bounds (`localparam [7:0] a = k;`) is described like the typed
+        // one: its own typespec the int_typespec spanning the range and
+        // carrying it, its param_assign constant's the bare value clone when
+        // a continuous assignment or port connection reads it.
+        const syntax::ImplicitTypeSyntax* rng430 = nullptr;
+        if (!gl.typedLp && gl.ps && lawOn(430, "R11U430_GENLPRANGEDTS_OFF"))
+            for (auto q430 = gl.ps->getSyntax(); q430; q430 = q430->parent)
+                if (q430->kind == syntax::SyntaxKind::ParameterDeclaration) {
+                    const syntax::DataTypeSyntax* t430 =
+                        q430->as<syntax::ParameterDeclarationSyntax>().type.get();
+                    if (t430 && t430->kind == syntax::SyntaxKind::ImplicitType) {
+                        auto& it430 = t430->as<syntax::ImplicitTypeSyntax>();
+                        bool lit430 = !it430.dimensions.empty() && !it430.signing;
+                        for (auto* d430 : it430.dimensions) {
+                            if (!d430->specifier ||
+                                d430->specifier->kind !=
+                                    syntax::SyntaxKind::RangeDimensionSpecifier) {
+                                lit430 = false;
+                                break;
+                            }
+                            auto& sl430 = d430->specifier
+                                              ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                              .selector;
+                            if (sl430->kind != syntax::SyntaxKind::SimpleRangeSelect ||
+                                sl430->as<syntax::RangeSelectSyntax>().left->kind !=
+                                    syntax::SyntaxKind::IntegerLiteralExpression ||
+                                sl430->as<syntax::RangeSelectSyntax>().right->kind !=
+                                    syntax::SyntaxKind::IntegerLiteralExpression) {
+                                lit430 = false;
+                                break;
+                            }
+                        }
+                        if (lit430)
+                            rng430 = &it430;
+                    }
+                    break;
+                }
+        if (gl.crt && (gl.typedLp || rng430) && !gl.intFold) {
             std::function<void(const Scope&)> scanCa9 = [&](const Scope& sc9) {
                 for (auto& mb9 : sc9.members()) {
                     if (caRead9)
                         return;
-                    if (mb9.kind == SymbolKind::ContinuousAssign) {
+                    // § rngGenLpCaReadShape430v (v11u430, the adversarial
+                    // verifier of r11u430; R11V430_RNGCAREAD_OFF; cases
+                    // tools/probe/v11u430repro/cases/VR vr06, vr11, vr15,
+                    // vr16, vr17 to vr40) — THE BREAK: § defGenLpRangedTs430
+                    // bound the bare value clone for a ranged untyped
+                    // generate localparam on ANY continuous-assignment read,
+                    // while golden keeps the declaration's int_typespec for
+                    // most expression reads: `assign o = i + a;` (pristine
+                    // int_typespec, the law a loc-less logic_typespec).  The
+                    // ranged law now counts a continuous assignment only when
+                    // its right side has a measured BARE shape: the name
+                    // itself, a unary operator on it, a binary operation whose
+                    // left operand is the name, whose right operand is the
+                    // name after a left operand that is an operation (or
+                    // after a constant at the top), a left operand that is
+                    // such an operation, a conditional whose predicate is the
+                    // name or whose true branch is the name after a predicate
+                    // that is not a plain name, a bit-select indexed by the
+                    // name, a select of it or an index expression of a bare
+                    // shape, a concatenation opening with
+                    // the name.  Typed localparams keep the visitor.
+                    if (mb9.kind == SymbolKind::ContinuousAssign && rng430 &&
+                        !gl.typedLp && fixOn(430, "R11V430_RNGCAREAD_OFF")) {
+                        auto& as430 = mb9.as<ContinuousAssignSymbol>().getAssignment();
+                        if (as430.kind != ExpressionKind::Assignment)
+                            continue;
+                        auto isPs430 = [&](const Expression& e) {
+                            auto& s = stripImplicitConv(e);
+                            return s.kind == ExpressionKind::NamedValue &&
+                                   &s.as<NamedValueExpression>().symbol ==
+                                       (const Symbol*)gl.ps;
+                        };
+                        auto isConst430 = [&](const Expression& e) {
+                            auto& s = stripImplicitConv(e);
+                            if (s.kind == ExpressionKind::IntegerLiteral ||
+                                s.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral)
+                                return true;
+                            return s.kind == ExpressionKind::NamedValue &&
+                                   s.as<NamedValueExpression>().symbol.kind ==
+                                       SymbolKind::Parameter;
+                        };
+                        std::function<bool(const Expression&, bool)> bare430 =
+                            [&](const Expression& e, bool top) -> bool {
+                            auto& s = stripImplicitConv(e);
+                            switch (s.kind) {
+                            case ExpressionKind::NamedValue:
+                                return isPs430(s);
+                            case ExpressionKind::UnaryOp:
+                                return top && isPs430(s.as<UnaryExpression>().operand());
+                            case ExpressionKind::BinaryOp: {
+                                auto& b = s.as<BinaryExpression>();
+                                auto& l = stripImplicitConv(b.left());
+                                if (isPs430(l))
+                                    return true;
+                                if (isPs430(b.right()))
+                                    return l.kind == ExpressionKind::BinaryOp ||
+                                           (top && isConst430(l));
+                                if (l.kind == ExpressionKind::BinaryOp)
+                                    return bare430(l, false);
+                                return false;
+                            }
+                            case ExpressionKind::ConditionalOp: {
+                                auto& c = s.as<ConditionalExpression>();
+                                if (c.conditions.size() != 1 || c.conditions[0].pattern)
+                                    return false;
+                                auto& p = stripImplicitConv(*c.conditions[0].expr);
+                                if (isPs430(p))
+                                    return true;
+                                return p.kind != ExpressionKind::NamedValue &&
+                                       isPs430(c.left());
+                            }
+                            case ExpressionKind::ElementSelect: {
+                                auto& sel = stripImplicitConv(
+                                    s.as<ElementSelectExpression>().selector());
+                                if (isPs430(sel))
+                                    return true;
+                                if (sel.kind == ExpressionKind::ElementSelect)
+                                    return isPs430(sel.as<ElementSelectExpression>().value());
+                                if (sel.kind == ExpressionKind::RangeSelect)
+                                    return isPs430(sel.as<RangeSelectExpression>().value());
+                                // An index expression is read as a whole
+                                // right side (`i[a - 3]`, `i[x + a]`).
+                                return bare430(sel, true);
+                            }
+                            case ExpressionKind::Concatenation: {
+                                auto ops = s.as<ConcatenationExpression>().operands();
+                                return !ops.empty() && isPs430(*ops[0]);
+                            }
+                            default:
+                                return false;
+                            }
+                        };
+                        if (bare430(as430.as<AssignmentExpression>().right(), true)) {
+                            caRead9 = true;
+                            lawTrace(430, "rngGenLpCaReadShape430v",
+                                     "bare " + std::string(gl.ps->name));
+                        }
+                        else
+                            lawTrace(430, "rngGenLpCaReadShape430v",
+                                     "decl " + std::string(gl.ps->name));
+                    }
+                    else if (mb9.kind == SymbolKind::ContinuousAssign) {
                         mb9.as<ContinuousAssignSymbol>().getAssignment().visit(
                             makeVisitor([&](auto& v9, const NamedValueExpression&
                                                           nv9) {
@@ -42419,7 +42559,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
             if (auto* psc9 = gl.ps->getParentScope())
                 scanCa9(*psc9);
         }
-        if (gl.crt && gl.typedLp && !gl.intFold && caRead9)
+        if (gl.crt && (gl.typedLp || rng430) && !gl.intFold && caRead9)
             if (auto* bare = makeBareVecParamTs(*gl.ps, false)) {
                 gl.crt->Actual_typespec(bare);
                 bare9 = bare;
@@ -42428,7 +42568,32 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
         // gen localparam resolves to an int_typespec spanning the FULL
         // parameter declaration (3rd sighting of the untyped->int rule).
         UHDM::typespec* its = nullptr;
-        if (!gl.typedLp) {
+        if (rng430) {
+            auto* it430 = s.MakeInt_typespec();
+            auto* rv430 = s.MakeRangeVec();
+            for (auto* d430 : rng430->dimensions) {
+                auto& rs430 = d430->specifier
+                                  ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                  .selector->as<syntax::RangeSelectSyntax>();
+                auto* r430 = s.MakeRange();
+                r430->VpiParent(it430);
+                setLoc(r430, d430->sourceRange());
+                if (auto* le430 = emitSyntaxExpr(*rs430.left, r430))
+                    r430->Left_expr((UHDM::expr*)le430);
+                if (auto* re430 = emitSyntaxExpr(*rs430.right, r430))
+                    r430->Right_expr((UHDM::expr*)re430);
+                rv430->push_back(r430);
+            }
+            it430->Ranges(rv430);
+            setLoc(it430, SourceRange(rng430->dimensions[0]->sourceRange().start(),
+                                      rng430->dimensions[rng430->dimensions.size() - 1]
+                                          ->sourceRange()
+                                          .end()));
+            lawTrace(430, "defGenLpRangedTs430",
+                     "elab " + std::string(gl.ps->name));
+            its = it430;
+        }
+        else if (!gl.typedLp) {
             auto* it9 = s.MakeInt_typespec();
             for (auto q9 = gl.ps->getSyntax(); q9; q9 = q9->parent)
                 if (q9->kind == syntax::SyntaxKind::ParameterDeclaration) {
@@ -62999,10 +63164,24 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
             // parameter carries the typed ts (via the AST symbol) and whose
             // Rhs keeps the source literal encoding, unparented (Surelog).
             std::map<std::string, UHDM::parameter*> branchParams;
+            // § defGenLpNoBlockListed430 (r11u430,
+            // R11U430_GENLPNOBLOCK_OFF; cases tools/probe/r11u430repro/
+            // cases/GL; sv-tests generated/basejump/
+            // bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv) — a generate block
+            // the elaboration never builds (a loop of zero iterations under
+            // an uninstantiated definition's default parameters) still lists
+            // its UNTYPED parameters in the definition view, as Surelog
+            // compiles the block from its text: the param_assign, its
+            // parameter (no typespec for a bare declaration; the declaration
+            // span's int_typespec with the packed range for a ranged one)
+            // and its syntax-built right side.  A typed parameter has no
+            // symbol to describe it and is not written.
+            const bool noBlock430 =
+                !astBlock && lawOn(430, "R11U430_GENLPNOBLOCK_OFF");
             for (auto* item : items) {
                 mark9(item);
                 if (item->kind != syntax::SyntaxKind::ParameterDeclarationStatement ||
-                    !astBlock)
+                    (!astBlock && !noBlock430))
                     continue;
                 auto& pds = item->as<syntax::ParameterDeclarationStatementSyntax>();
                 if (pds.parameter->kind != syntax::SyntaxKind::ParameterDeclaration)
@@ -63010,14 +63189,24 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                 auto& pd = pds.parameter->as<syntax::ParameterDeclarationSyntax>();
                 bool isLocal2 = pd.keyword.valueText() == "localparam";
                 bool typedP2 = pd.type->kind != syntax::SyntaxKind::ImplicitType;
+                UHDM::int_typespec* noBlockTs430 = nullptr;
                 for (auto* dcl : pd.declarators) {
                     std::string pname(dcl->name.valueText());
                     const ParameterSymbol* psym = nullptr;
-                    for (auto& mb : astBlock->members())
-                        if (mb.kind == SymbolKind::Parameter && mb.name == pname)
-                            psym = &mb.as<ParameterSymbol>();
-                    if (!psym)
+                    if (astBlock)
+                        for (auto& mb : astBlock->members())
+                            if (mb.kind == SymbolKind::Parameter && mb.name == pname)
+                                psym = &mb.as<ParameterSymbol>();
+                    if (!psym && !(noBlock430 && (!typedP2 ||
+                                                  pd.type->kind == syntax::SyntaxKind::IntType)))
                         continue;
+                    if (!psym && pd.type->kind == syntax::SyntaxKind::ImplicitType &&
+                        pd.type->as<syntax::ImplicitTypeSyntax>().signing)
+                        continue;
+                    if (!psym && !dcl->dimensions.empty())
+                        continue;
+                    if (!psym)
+                        lawTrace(430, "defGenLpNoBlockListed430", branchPrefix + "." + pname);
                     auto* pa2 = s.MakeParam_assign();
                     pa2->VpiParent(b);
                     setLoc(pa2, dcl->sourceRange());
@@ -63077,7 +63266,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     // `[4]` (size 4, the § genSyntaxSizeDim [0:N-1] shape) and
                     // GS_2D `[2][2]` (size 4 — the PRODUCT — two ranges).
                     bool unpkLp9 =
-                        typedP2 && !dcl->dimensions.empty() &&
+                        psym && typedP2 && !dcl->dimensions.empty() &&
                         psym->getType().getCanonicalType().kind ==
                             SymbolKind::FixedSizeUnpackedArrayType &&
                         (pd.type->kind == syntax::SyntaxKind::LogicType ||
@@ -63124,8 +63313,82 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             elt9->Ranges(prv9);
                         its2 = elt9;
                     }
-                    else
+                    else if (psym)
                         its2 = makeParamTs(*psym, typedP2);
+                    // § defGenLpNoBlockListed430 — with no symbol the
+                    // typespec is read from the declaration's type syntax:
+                    // `int` an int_typespec at the keyword, signed; a packed
+                    // range on the implicit type an int_typespec at the
+                    // range carrying it (UINT bounds as written); one object
+                    // per declaration, shared by its declarators.
+                    // § defGenLpRangedTs430 (r11u430,
+                    // R11U430_GENLPRANGEDTS_OFF; cases
+                    // tools/probe/r11u430repro/cases/GL gl04, gl07, gl08) — a
+                    // generate-block parameter whose implicit type carries a
+                    // packed range (`localparam [31:0] x7 = y + i - 6;`) is
+                    // described in the definition view by an int_typespec
+                    // spanning the range and carrying it (bounds as written,
+                    // UINT size 64), shared by the elaborated parameter, and
+                    // keeps that reference when its initializer reads the
+                    // genvar; the full-declaration span form without a range
+                    // is the bare declaration's.
+                    const bool ranged430 =
+                        pd.type->kind == syntax::SyntaxKind::ImplicitType &&
+                        !pd.type->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                        !pd.type->as<syntax::ImplicitTypeSyntax>().signing;
+                    const bool rangedTs430 =
+                        psym && ranged430 && lawOn(430, "R11U430_GENLPRANGEDTS_OFF");
+                    if (rangedTs430) {
+                        lawTrace(430, "defGenLpRangedTs430", branchPrefix + "." + pname);
+                        genvarInit2 = false;
+                    }
+                    if (!psym || rangedTs430) {
+                        if (!noBlockTs430) {
+                            auto* nt430 = s.MakeInt_typespec();
+                            setLoc(nt430, pd.type->sourceRange());
+                            if (pd.type->kind == syntax::SyntaxKind::IntType)
+                                nt430->VpiSigned(true);
+                            else if (pd.type->kind == syntax::SyntaxKind::ImplicitType) {
+                                auto* rv430 = s.MakeRangeVec();
+                                for (auto* pdim430 :
+                                     pd.type->as<syntax::ImplicitTypeSyntax>().dimensions) {
+                                    if (!pdim430->specifier ||
+                                        pdim430->specifier->kind !=
+                                            syntax::SyntaxKind::RangeDimensionSpecifier)
+                                        continue;
+                                    auto& sel430 =
+                                        pdim430->specifier
+                                            ->as<syntax::RangeDimensionSpecifierSyntax>()
+                                            .selector;
+                                    if (sel430->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                                        continue;
+                                    auto& rs430 = sel430->as<syntax::RangeSelectSyntax>();
+                                    auto* r430 = s.MakeRange();
+                                    r430->VpiParent(nt430);
+                                    setLoc(r430, pdim430->sourceRange());
+                                    if (auto* le430 = emitSyntaxExpr(*rs430.left, r430))
+                                        r430->Left_expr((UHDM::expr*)le430);
+                                    if (auto* re430 = emitSyntaxExpr(*rs430.right, r430))
+                                        r430->Right_expr((UHDM::expr*)re430);
+                                    rv430->push_back(r430);
+                                }
+                                if (!rv430->empty()) {
+                                    nt430->Ranges(rv430);
+                                    // The implicit type's own range runs one
+                                    // column past its dimensions; golden
+                                    // spans the dimensions.
+                                    auto& dims430 =
+                                        pd.type->as<syntax::ImplicitTypeSyntax>().dimensions;
+                                    setLoc(nt430, SourceRange(dims430[0]->sourceRange().start(),
+                                                              dims430[dims430.size() - 1]
+                                                                  ->sourceRange()
+                                                                  .end()));
+                                }
+                            }
+                            noBlockTs430 = nt430;
+                        }
+                        its2 = noBlockTs430;
+                    }
                     // § genLpUntypedDefNoTs410 (R11U410_GENLPNOTS_OFF; cases
                     // tools/probe/r11u410repro/cases/GP; sv-tests basejump
                     // bsg_encode_one_hot, bsg_mesh_router, ...) — in the
@@ -63149,7 +63412,8 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         lawTrace(410, "genLpUntypedDefNoTs410", branchPrefix + "." + pname);
                     }
                     if (its2) {
-                        defGenLpTs[psym] = its2; // shared into the elab ref
+                        if (psym)
+                            defGenLpTs[psym] = its2; // shared into the elab ref
                         if (!genvarInit2 && !untypedNoTs410) {
                             auto* prt2 = s.MakeRef_typespec();
                             prt2->VpiFullName(branchPrefix + "." + pname);

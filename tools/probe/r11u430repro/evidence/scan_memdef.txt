@@ -1,0 +1,2 @@
+third_party/Surelog/third_party/tests/Google/chapter-7/structures/packed/default-value.sv
+third_party/Surelog/third_party/tests/Google/chapter-7/structures/unpacked/default-value.sv

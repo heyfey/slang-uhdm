@@ -1,0 +1,6 @@
+module c #(parameter g = 0, parameter h = 1'b0, parameter k = 0) ();
+endmodule
+module p;
+  c #(.g(40'h1), .h(1'b1)) u();
+endmodule
+module top; endmodule

@@ -1,0 +1,51 @@
+== chapter-18/18.14--random-stability_1.sv cmp=10 strict=
+== chapter-7/structures/unpacked/default-value.sv cmp=10 strict=
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv cmp=42 strict=
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv cmp=42 strict=
+== generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv cmp=84902 strict=
+== generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv cmp=82034 strict=
+== generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv cmp=80 strict=
+== generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv cmp=79266 strict=
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv cmp=79996 strict=
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv cmp=27 strict=
+== generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv cmp=82202 strict=
+== generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv cmp=283 strict=
+== generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv cmp=79614 strict=
+== generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv cmp=56 strict=
+== generated/easyUVM/top.sv cmp=659635 strict=STRICT_FIFO), id:2819, line:374:3, endln:374:26
+== generated/fx68k/fx68k.sv cmp=31 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv cmp=18 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv cmp=0 strict=STRICT_NOTEQUAL line
+== generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv cmp=56 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv cmp=67 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv cmp=0 strict=STRICT_NOTEQUAL fullname
+== generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv cmp=17 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv cmp=36 strict=
+== generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv cmp=2386 strict=
+== generated/tnoc/tnoc.sv cmp=28 strict=
+== generated/uvm-examples/apb_protocol_monitor.sv cmp=2877 strict=
+== generated/uvm-examples/uvm_ac_config_db.sv cmp=2207184 strict=STRICT_FIFO), id:2819, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_ef_vif_config_db.sv cmp=2207122 strict=STRICT_FIFO), id:2815, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_generation_seq_persistence.sv cmp=1398618 strict=STRICT_FIFO), id:2824, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_generation_seq_poly.sv cmp=1398618 strict=STRICT_FIFO), id:2824, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_generation_seq_randomization.sv cmp=1398618 strict=STRICT_FIFO), id:2824, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_id_register.sv cmp=2331772 strict=STRICT_FIFO), id:2825, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_many_to_one.sv cmp=1407978 strict=STRICT_FIFO), id:2821, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_messaging_example.sv cmp=2142426 strict=STRICT_FIFO), id:2811, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_param_vif_config_db.sv cmp=2237622 strict=STRICT_FIFO), id:2817, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_priority_arbitration.sv cmp=2131924 strict=STRICT_FIFO), id:2810, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_priority_grab_lock.sv cmp=2155514 strict=STRICT_FIFO), id:2812, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_test_init.sv cmp=1465246 strict=STRICT_FIFO), id:2831, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_use_models_bidir_get_put.sv cmp=2122772 strict=STRICT_FIFO), id:2809, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_use_models_bidir_item_done.sv cmp=2122632 strict=STRICT_FIFO), id:2809, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_use_models_pipelined_get_put.sv cmp=2212066 strict=STRICT_FIFO), id:2817, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_use_models_unidirectional.sv cmp=2121690 strict=STRICT_FIFO), id:2809, line:374:3, endln:374:26
+== generated/uvm-examples/uvm_vif_config_db.sv cmp=2209642 strict=STRICT_FIFO), id:2815, line:374:3, endln:374:26
+== generic/class/class_test_49.sv cmp=36 strict=
+== testbenches/uvm_agent_active.sv cmp=0 strict=STRICT_NOTEQUAL type
+== testbenches/uvm_agent_passive.sv cmp=0 strict=STRICT_NOTEQUAL type
+== testbenches/uvm_driver_sequencer_env.sv cmp=0 strict=STRICT_NOTEQUAL type
+== testbenches/uvm_monitor_env.sv cmp=0 strict=STRICT_NOTEQUAL type
+== testbenches/uvm_scoreboard_env.sv cmp=2200983 strict=STRICT_FIFO), id:500, line:374:3, endln:374:26
+== testbenches/uvm_scoreboard_monitor_agent_env.sv cmp=2231211 strict=STRICT_FIFO), id:500, line:374:3, endln:374:26
+== testbenches/uvm_scoreboard_monitor_env.sv cmp=2216265 strict=STRICT_FIFO), id:500, line:374:3, endln:374:26

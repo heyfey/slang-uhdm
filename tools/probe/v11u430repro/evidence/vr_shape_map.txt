@@ -1,0 +1,39 @@
+vr17 <- t1 ty=none | o = i + a
+vr18 <- t2 ty=none | o = a + i
+vr19 <- t3 ty=none | o = i - a
+vr20 <- t4 ty=none | o = i & a
+vr21 <- t5 ty=none | o = i[a]
+vr22 <- t6 ty=none | o = i << a
+vr23 <- t7 ty=none | o = a + 1
+vr24 <- t8 ty=none | o = a ? i : 8'h0
+vr25 <- t9 ty=none | o = {i[3:0], a[3:0]}
+vr26 <- t10 ty=none | o = (a) + i
+vr27 <- t11 ty=none | o = a - i
+vr28 <- t12 ty=none | o = i * a
+vr29 <- u1 | o[a[2:0]] = i[0]
+vr30 <- u2 | o = i[3:0] + a
+vr31 <- u3 | o = a[3:0] + i
+vr32 <- u4 | o = -a + i
+vr33 <- u5 | o = i + (a + 1)
+vr34 <- u6 | o = k + a
+vr35 <- u7 | o = 2 + a
+vr36 <- u8 | o = {a[3:0], i[3:0]}
+vr37 <- u9 | o = i == 0 ? a : i
+vr38 <- u10 | o = i ? a : i
+vr39 <- u11 | o = 8'(a) + i
+vr40 <- u12 | o = i[a[2:0] +: 2]
+vr41 <- w1 | o = -a
+vr42 <- w2 | o = !a
+vr43 <- w3 | o = i[0] ? a : i
+vr44 <- w4 | o = (i == 0) ? i : a
+vr45 <- w5 | o = i > 2 ? a : 8'h0
+vr46 <- w6 | o = a & i
+vr47 <- w7 | o = a + i + 1
+vr48 <- w8 | o = 1 + a + i
+vr49 <- w9 | o = i + 1 + a
+vr50 <- w10 | o = ~a + i
+vr51 <- w11 | o = a << i
+vr52 <- w12 | o = {a, i}
+vr53 <- t13 ty=logic  | o = i + a
+vr54 <- t14 ty=logic  | o = a + i
+vr55 <- t17 ty=logic  | o = i[a]

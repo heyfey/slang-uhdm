@@ -1,0 +1,265 @@
+tests/probe/r10buvm31repro/g31a3/dut.sv:23:   int m_cat[]       = {6,7,8};
+tests/probe/r10svs6repro/b4_qual/dut.sv:29:   const int c15_constq[$] = {1, 2};
+tests/probe/r10uvm145repro/g145_b_kind/dut.sv:44:     int    qArr[$] = {1, 2, 3};
+tests/probe/r10uvm145repro/g145_b_kind/dut.sv:70:     int    qArr[$] = {1, 2, 3};
+tests/probe/r10v145repro/v145_e_oob/dut.sv:79:     int         k7[$] = {1,2};
+tests/probe/r10v145repro/v145_e_oob/dut.sv:95:     int         k7[$] = {1,2};
+tests/probe/r10vbuvm31repro/gv31a6/dut.sv:5: int  uq_cat[$]       = {1, 2};
+tests/probe/r10vbuvm31repro/gv31a6/dut.sv:6: int  ud_cat[]        = {1, 2};
+tests/probe/r10vbuvm31repro/gv31a6/dut.sv:7: int  ud_empty[]      = {};
+tests/probe/r10vbuvm31repro/gv31a6/dut.sv:8: int  uq_empty[$]     = {};
+tests/probe/r10vbuvm31repro/gv31a6/dut.sv:14:             int ucc[]        = {4, 5};
+third_party/Surelog/tests/BuiltInMethod/dut.sv:2:     byte b[] = {1, 1, 1};
+third_party/Surelog/tests/UnsizedArray/dut.sv:2:    byte b[] = {1, 1, 1};
+third_party/Surelog/third_party/tests/Google/chapter-18/18.14--random-stability_1.sv:20:   int tab1[5] = { 1, 2, 3, 4, 5 };
+third_party/Surelog/third_party/tests/Google/chapter-18/18.14--random-stability_1.sv:21:   int tab2[5] = { 1, 2, 3, 4, 5 };
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find-first-index.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find-first.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find-index.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find-last-index.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find-last.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/find.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/max.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/min.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/unique-index.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/associative/locator-methods/unique.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/index.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/ordering-methods/reverse.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/ordering-methods/rsort.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/ordering-methods/shuffle.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/ordering-methods/sort.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/reduction-methods/and.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/reduction-methods/or.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/reduction-methods/product.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/reduction-methods/sum.sv:17: 
+third_party/Surelog/third_party/tests/Google/chapter-7/arrays/unpacked/reduction-methods/xor.sv:17: 
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:44: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE, USER_MODE};
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:49: riscv_instr_name_t unsupported_instr[] = {FENCE_I};
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:55: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV32B};
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:58: mtvec_mode_t supported_interrupt_mode[$] = {VECTORED};
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:97: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:172: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:180: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/core_ibex/riscv_dv_extension/riscv_core_setting.sv:185: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/icache/dv/env/ibex_icache_scoreboard.sv:31:   bit [63:0]   mem_states[$] = {};
+third_party/Surelog/third_party/tests/Ibex/dv/uvm/icache/dv/env/seq_lib/ibex_icache_combo_vseq.sv:22:   string seq_names[] = {"ibex_icache_back_line_vseq",
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:212:                                              riscv_instr_name_t include_instr[$] = {},
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:213:                                              riscv_instr_name_t exclude_instr[$] = {},
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:214:                                              riscv_instr_category_t include_category[$] = {},
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:215:                                              riscv_instr_category_t exclude_category[$] = {},
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:216:                                              riscv_instr_group_t include_group[$] = {},
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:217:                                              riscv_instr_group_t exclude_group[$] = {});
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_debug_rom_gen.sv:44:     string sub_program_name[$] = {};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_gen_config.sv:255:   b_ext_group_t          enable_bitmanip_groups[] = {ZBB, ZBS, ZBP, ZBE, ZBF, ZBC, ZBR, ZBM, 
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1419: 
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1423: 
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1425: 
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_instr_sequence.sv:294:     riscv_instr_name_t jump_instr[$] = {JALR};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/src/riscv_privileged_common_seq.sv:39:     string ret_instr[] = {"mret"};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV32A};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/multi_harts/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV32B};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv32imcb/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {USER_MODE, SUPERVISOR_MODE, MACHINE_MODE
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:145: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:147: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:156: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:158: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:172: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:174: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:30: riscv_instr_name_t unsupported_instr[] = {};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:95: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:97: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:144: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:146: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:155: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:157: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:171: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:173: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV64I, RV64M, RV64C
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:95: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:97: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:118: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:120: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:129: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:131: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:139: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:141: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV32B, RV64I, RV64M
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:96: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:98: const privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:119: bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:121: const bit [11:0] custom_csr[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:130: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:132: const interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:140: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Ibex/vendor/google_riscv-dv/target/rv64imcb/riscv_core_setting.sv:142: const exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/src/riscv_asm_program_gen.sv:1221:     string debug_sub_program_name[$] = {};
+third_party/Surelog/third_party/tests/IbexGoogle/src/riscv_instr_base.sv:559:                                     riscv_reg_t excluded_reg[] = {});
+third_party/Surelog/third_party/tests/IbexGoogle/src/riscv_instr_pkg.sv:840: 
+third_party/Surelog/third_party/tests/IbexGoogle/src/riscv_instr_pkg.sv:844: 
+third_party/Surelog/third_party/tests/IbexGoogle/src/riscv_privileged_common_seq.sv:37:     string ret_instr[] = {"mret"};
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:57: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:83: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/ml/riscv_core_setting.sv:93: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:57: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:83: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32i/riscv_core_setting.sv:93: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:57: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:83: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv32imc/riscv_core_setting.sv:93: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {USER_MODE, SUPERVISOR_MODE, MACHINE_MODE
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:37: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:58: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:110: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64gc/riscv_core_setting.sv:126: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV64I, RV64M, RV64C
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:57: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:83: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/IbexGoogle/target/rv64imc/riscv_core_setting.sv:93: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/cip_lib/cip_base_env_cfg.sv:19:   string                list_of_alerts[] = {};
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/cip_lib/cip_base_vseq.sv:140:                                                int indices[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/cip_lib/cip_base_vseq.sv:192:                               int indices[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/cip_lib/cip_base_vseq.sv:213:                                 int indices[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/test_vectors/test_vectors_pkg.sv:15:   string sha_file_list[]  = {"SHA256ShortMsg.rsp", "SHA256LongMsg.rsp
+third_party/Surelog/third_party/tests/Opentitan/hw/dv/sv/test_vectors/test_vectors_pkg.sv:16:   string hmac_file_list[] = {"HMAC_RFC4868.rsp"};
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/aes/dv/env/seq_lib/aes_wake_up_vseq.sv:11: 
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/gpio/dv/env/seq_lib/gpio_stress_all_vseq.sv:14:     string seq_names[] = {"gpio_sanity_vseq",
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/hmac/dv/env/seq_lib/hmac_stress_all_vseq.sv:13:     string seq_names[] = {"hmac_sanity_vseq",
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/hmac/dv/tb/tb.sv:27:   string list_of_alerts[] = {"msg_push_sha_disabled"};
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/rv_timer/dv/env/seq_lib/rv_timer_stress_all_vseq.sv:14:     string seq_names[] = {"rv_timer_sanity_vseq",
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/tlul/generic_dv/env/seq_lib/xbar_stress_all_vseq.sv:17:     string seq_names[] = {"xbar_sanity_vseq",
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/uart/dv/env/seq_lib/uart_stress_all_vseq.sv:14:     string seq_names[] = {"uart_sanity_vseq",
+third_party/Surelog/third_party/tests/Opentitan/hw/ip/usbdev/dv/env/usbdev_env_cfg.sv:11:   string reset_kinds[] = {"HARD", "TL_IF", "USB_IF"};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/dv/uvm/riscv_dv_extension/riscv_core_setting.sv:33: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE, USER_MODE};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/dv/uvm/riscv_dv_extension/riscv_core_setting.sv:38: riscv_instr_name_t unsupported_instr[] = {FENCE_I};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/dv/uvm/riscv_dv_extension/riscv_core_setting.sv:44: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/dv/uvm/riscv_dv_extension/riscv_core_setting.sv:47: mtvec_mode_t supported_interrupt_mode[$] = {VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/deprecated/riscv_instr_base.sv:566:                                     riscv_reg_t excluded_reg[] = {});
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/deprecated/riscv_instr_base.sv:620:                              privileged_reg_t invalid_csrs[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:199:                                              riscv_instr_name_t include_instr[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:200:                                              riscv_instr_name_t exclude_instr[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:201:                                              riscv_instr_category_t include_category[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:202:                                              riscv_instr_category_t exclude_category[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:203:                                              riscv_instr_group_t include_group[$] = {},
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/isa/riscv_instr.sv:204:                                              riscv_instr_group_t exclude_group[$] = {});
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_debug_rom_gen.sv:43:     string sub_program_name[$] = {};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1067: 
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1071: 
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_instr_pkg.sv:1073: 
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_instr_sequence.sv:288:     riscv_instr_name_t jump_instr[$] = {JALR};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/src/riscv_privileged_common_seq.sv:37:     string ret_instr[] = {"mret"};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:92: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/ml/riscv_core_setting.sv:102: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:92: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32i/riscv_core_setting.sv:102: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:92: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv32imc/riscv_core_setting.sv:102: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {USER_MODE, SUPERVISOR_MODE, MACHINE_MODE
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:118: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gc/riscv_core_setting.sv:134: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {USER_MODE, SUPERVISOR_MODE, MACHINE_MODE
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:30: riscv_instr_name_t unsupported_instr[] = {VWMACCSU};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV64I, RV64M, RV32C, RV64C
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:118: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64gcv/riscv_core_setting.sv:134: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:27: privileged_mode_t supported_privileged_mode[] = {MACHINE_MODE};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:33: riscv_instr_group_t supported_isa[$] = {RV32I, RV32M, RV32C, RV64I, RV64M, RV64C
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:36: mtvec_mode_t supported_interrupt_mode[$] = {DIRECT, VECTORED};
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:66: privileged_reg_t implemented_csr[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:92: interrupt_cause_t implemented_interrupt[] = {
+third_party/Surelog/third_party/tests/Opentitan/hw/vendor/lowrisc_ibex/vendor/google_riscv-dv/target/rv64imc/riscv_core_setting.sv:102: exception_cause_t implemented_exception[] = {
+third_party/Surelog/third_party/tests/black-parrot/external/basejump_stl/testing/bsg_misc/bsg_imul_iterative/test_bsg.v:38:    logic [`WIDTH-1:0]  opA [0:`NUM-1] = {32'h0000_0000, 32'h0000_0001, 32'h8000_8
+third_party/Surelog/third_party/tests/black-parrot/external/basejump_stl/testing/bsg_misc/bsg_imul_iterative/test_bsg.v:39:    logic [`WIDTH-1:0]  opB [0:`NUM-1] = {32'h8000_0000, 32'h0000_0011, 32'h0000_0
+third_party/Surelog/third_party/tests/wav-lpddr-hw/verif/sv/sequences/regs/wddr_reg_direct_seq.sv:27: 

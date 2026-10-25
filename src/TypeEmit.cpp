@@ -19209,6 +19209,72 @@ UHDM::struct_typespec* UhdmExporter::buildStructTs(const Scope& structScope, boo
                                     dv414 = (UHDM::expr*)e414;
                         }
                     }
+                    // § structMemberDefaultParamRef430 (r11u430,
+                    // R11U430_MEMBERDEFPARAM_OFF; cases
+                    // tools/probe/r11u430repro/cases/DM; sv-tests
+                    // chapter-7/structures/unpacked/default-value.sv) — a
+                    // member default written as a bare module PARAMETER name
+                    // (`bit [3:0] lo = c;`).  Surelog compiles it twice: the
+                    // DEFINITION view's struct keeps the name as an unbound
+                    // ref_obj (vpiName and vpiFullName the bare name, no
+                    // actual, no parent); the ELABORATED view's struct holds
+                    // the parameter's value at the reference: an untyped
+                    // parameter not overridden by the instance, initialized
+                    // by a sized literal, gives that literal as compiled
+                    // (`4'h5`, HEX:5, size 4), by an unsized decimal the
+                    // value at size 32.  Any other elaborated shape (a typed
+                    // or overridden parameter, another initializer) is not
+                    // written.
+                    if (!dv414 &&
+                        ie414->kind == syntax::SyntaxKind::IdentifierName &&
+                        lawOn(430, "R11U430_MEMBERDEFPARAM_OFF"))
+                        if (auto* fin430 = fm.as<FieldSymbol>().getInitializer()) {
+                            auto& fc430 = stripImplicitConv(*fin430);
+                            const ParameterSymbol* ps430 = nullptr;
+                            if (fc430.kind == ExpressionKind::NamedValue &&
+                                fc430.as<NamedValueExpression>().symbol.kind ==
+                                    SymbolKind::Parameter)
+                                ps430 = &fc430.as<NamedValueExpression>()
+                                             .symbol.as<ParameterSymbol>();
+                            const Scope* psc430 = ps430 ? ps430->getParentScope() : nullptr;
+                            if (ps430 && psc430 &&
+                                psc430->asSymbol().kind == SymbolKind::InstanceBody) {
+                                if (moduleDefEmit) {
+                                    auto* ro430 = s.MakeRef_obj();
+                                    ro430->VpiName(std::string(ps430->name));
+                                    ro430->VpiFullName(std::string(ps430->name));
+                                    setLoc(ro430, ie414->sourceRange());
+                                    dv414 = ro430;
+                                    lawTrace(430, "structMemberDefaultParamRef430",
+                                             "def " + std::string(fm.name));
+                                } else if (!ps430->isOverridden()) {
+                                    bool untyped430 = false;
+                                    if (auto dt430 = ps430->getDeclaredType())
+                                        if (auto* ts430 = dt430->getTypeSyntax();
+                                            ts430 && ts430->kind == syntax::SyntaxKind::ImplicitType) {
+                                            auto& it430 = ts430->as<syntax::ImplicitTypeSyntax>();
+                                            untyped430 = it430.dimensions.empty() && !it430.signing;
+                                        }
+                                    const Expression* pin430 = untyped430 ? ps430->getInitializer() : nullptr;
+                                    if (pin430 && stripImplicitConv(*pin430).kind ==
+                                                      ExpressionKind::IntegerLiteral) {
+                                        auto& lit430 = stripImplicitConv(*pin430).as<IntegerLiteral>();
+                                        NetMap none430;
+                                        if (auto* e430 = emitExpr(lit430, nullptr, "", none430);
+                                            e430 && e430->UhdmType() == UHDM::uhdmconstant) {
+                                            auto* k430 = (UHDM::constant*)e430;
+                                            if (lit430.isDeclaredUnsized)
+                                                k430->VpiSize(32);
+                                            k430->VpiParent(nullptr);
+                                            setLoc(k430, ie414->sourceRange());
+                                            dv414 = k430;
+                                            lawTrace(430, "structMemberDefaultParamRef430",
+                                                     "elab " + std::string(fm.name));
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     if (dv414) {
                         tm->Default_value(dv414);
                         auto ee414 = ie414->sourceRange().end();
@@ -31432,6 +31498,34 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                 reg->Expr((UHDM::expr*)e);
             }
             suppressConstParent = savedSCP;
+        }
+        // § modArrConcatInitElemSize430 (r11u430,
+        // R11U430_MODARRCONCAT_OFF; cases
+        // tools/probe/r11u430repro/cases/CA) — the module-scope twin of
+        // § clsArrPropConcatInitElemSize430: an unpacked-array CONCATENATION
+        // initializing a fixed array (`int tab[3] = {1, 2, 3};`) is the
+        // pattern initializer's carrier pair (the operation parented at the
+        // element reg, referenced by both the array_var and the reg, leaf
+        // constants unparented) with its unsized decimal operands at the
+        // element width.
+        else if (ic.kind == ExpressionKind::Concatenation &&
+                 lawOn(430, "R11U430_MODARRCONCAT_OFF")) {
+            NetMap none430;
+            bool savedSCP430 = suppressConstParent;
+            suppressConstParent = true;
+            if (auto* e430 = emitExpr(ic, reg, fullName, none430);
+                e430 && e430->UhdmType() == UHDM::uhdmoperation) {
+                const int32_t w430 = (int32_t)leaf->getCanonicalType().getBitWidth();
+                if (w430 > 0)
+                    if (auto* os430 = ((UHDM::operation*)e430)->Operands())
+                        for (auto* o430 : *os430)
+                            if (bareDecimalDefault64_31(o430))
+                                ((UHDM::expr*)o430)->VpiSize(w430);
+                av->Expr((UHDM::expr*)e430);
+                reg->Expr((UHDM::expr*)e430);
+                lawTrace(430, "modArrConcatInitElemSize430", fullName);
+            }
+            suppressConstParent = savedSCP430;
         }
         // § arrStringInitAtElem414 (r11u414, R11U414_ARRSTRINIT_OFF; cases
         // tools/probe/r11u414repro/cases/AI; sv-tests

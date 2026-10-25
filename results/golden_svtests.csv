@@ -222,7 +222,7 @@ chapter-18/18.13.3--srandom_0.sv,EQUAL,,equal
 chapter-18/18.13.4--get_randstate_0.sv,EQUAL,,equal
 chapter-18/18.13.5--set_randstate_0.sv,EQUAL,,equal
 chapter-18/18.14--random-stability_0.sv,EQUAL,,equal
-chapter-18/18.14--random-stability_1.sv,DIFFERENT,decompile:,
+chapter-18/18.14--random-stability_1.sv,EQUAL,,equal
 chapter-18/18.14--random-stability_2.sv,EQUAL,,equal
 chapter-18/18.14--random-stability_3.sv,EQUAL,,equal
 chapter-18/18.14.2--thread-stability_0.sv,EQUAL,,equal
@@ -725,7 +725,7 @@ chapter-7/structures/packed/default-value.sv,BOTH_REJECT,/home/heyfey/git-repos/
 chapter-7/structures/packed/signed.sv,EQUAL,,equal
 chapter-7/structures/packed/unsigned.sv,EQUAL,,equal
 chapter-7/structures/unpacked/basic.sv,EQUAL,,equal
-chapter-7/structures/unpacked/default-value.sv,DIFFERENT,decompile:,
+chapter-7/structures/unpacked/default-value.sv,EQUAL,,equal
 chapter-7/unions/packed/basic.sv,EQUAL,,equal
 chapter-7/unions/tagged/basic.sv,EQUAL,,equal
 chapter-7/unions/tagged/packed.sv,EQUAL,,equal

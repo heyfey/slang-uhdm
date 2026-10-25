@@ -10037,6 +10037,24 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     }
                     suppressConstParent = savedSCP6;
                 }
+                // § clsArrPropConcatInitElemSize430 (r11u430,
+                // R11U430_CLSARRCONCAT_OFF; cases
+                // tools/probe/r11u430repro/cases/CA; sv-tests
+                // chapter-18/18.14--random-stability_1.sv) — a FIXED-size
+                // array property initialized by an unpacked-array
+                // CONCATENATION (`int tab1[5] = {1, 2, 3, 4, 5}`) takes the
+                // carrier § assocPropPatternInitRidesElem31 gives a dynamic
+                // array: the one operation parented at the vpiReg element,
+                // hung off both the element's and the array_var's vpiExpr,
+                // its unsized decimal operands at the element width (int 32,
+                // byte 8; a sized literal keeps its own width).
+                else if (ic6.kind == ExpressionKind::Concatenation &&
+                         lawOn(430, "R11U430_CLSARRCONCAT_OFF")) {
+                    lateInit29.push_back({av, &cp, pfn, reg,
+                                          (int32_t)et->getBitWidth()});
+                    lawTrace(430, "clsArrPropConcatInitElemSize430",
+                             std::string(cp.name));
+                }
                 else
                     lateInit29.push_back({av, &cp, pfn});
             }
