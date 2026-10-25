@@ -1163,7 +1163,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_add_unsigned.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array_row.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_synth.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux2_gatestack.sv,EQUAL,,equal

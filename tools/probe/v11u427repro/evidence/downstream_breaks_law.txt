@@ -1,0 +1,9 @@
+VD_vd02 IDENTICAL 0 0  
+VD_vd04 DIVERGENT 0 0 nohier il synth ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u427_dsL/VD_
+VD_vd08 IDENTICAL 0 0  
+VD_vd12 IDENTICAL 0 0  
+VE_ve04 DIVERGENT 0 0 nohier il synth ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u427_dsL/VE_
+VE_ve05 EQUIVALENT 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+VE_ve16 EQUIVALENT 0 0 nohier il ℹ️  No common assign statements to compare — skipping
+VS_vs09 EQUIVALENT 0 0 nohier il ✅ All 1 common constant assignments match
+VX_vx05 DIVERGENT 0 0 nohier il synth ❌ Constant value mismatch — circuits are NOT equivalent for /tmp/v11u427_dsL/VX_

@@ -28850,7 +28850,44 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     psym.getInitializer() &&
                     red102XzUnderOp102(*psym.getInitializer(), basedX102,
                                        false);
-                if (cv.isInteger() && !cv.integer().hasUnknown() && !xz102) {
+                // § xzPkgLeafFoldIsRhsCopy427 (r11u427, R11U427_XPKGFOLD_OFF)
+                // — a module-side read of a PACKAGE parameter whose
+                // initializer is a based literal LEAF holding x / z / ?
+                // digits (`parameter logic BX = 1'Bx`, `parameter B =
+                // 4'B10x1`) folds like any other based-literal package
+                // parameter: Surelog's substituteAssignedValue hands the read
+                // the parameter's compiled Rhs (the written digits, BIN:10x1
+                // decompile `4'B10x1`; the one-bit tokens `1'bx` / `1'Bx`
+                // spelled `1'bX` / BIN:X by paNumber_1Tickbx), where ours left
+                // a ref_obj because slang's value holds an unknown.  The
+                // x/z-under-an-operator initializer stays § unknownOperand
+                // DeclinesFold102's ref_obj (xz102), and this is the LEAF road
+                // that law recorded as a residue.  Grid
+                // tools/probe/r11u427repro/cases/XP.
+                bool xLeaf427 = false;
+                if (cv.isInteger() && cv.integer().hasUnknown() && !xz102 &&
+                    psym.getInitializer() &&
+                    stripImplicitConv(*psym.getInitializer()).kind ==
+                        ExpressionKind::IntegerLiteral) {
+                    std::string rl427(rawText(
+                        stripImplicitConv(*psym.getInitializer()).sourceRange));
+                    auto tk427 = rl427.find('\'');
+                    size_t bp427 = tk427 == std::string::npos ? 0 : tk427 + 1;
+                    if (bp427 && bp427 < rl427.size() &&
+                        (rl427[bp427] == 's' || rl427[bp427] == 'S'))
+                        bp427++;
+                    const char b427 = bp427 && bp427 < rl427.size()
+                                          ? (char)tolower((unsigned char)rl427[bp427])
+                                          : 0;
+                    if ((b427 == 'b' || b427 == 'h' || b427 == 'o') &&
+                        lawOn(427, "R11U427_XPKGFOLD_OFF")) {
+                        xLeaf427 = true;
+                        lawTrace(427, "xzPkgLeafFoldIsRhsCopy427",
+                                 std::string(psym.name) + " " + rl427);
+                    }
+                }
+                if ((cv.isInteger() && !cv.integer().hasUnknown() && !xz102) ||
+                    xLeaf427) {
                     auto* c = s.MakeConstant();
                     // ===== § pkgParamMinusIsIntReduce94 (r11u94) — r11u91's
                     // R2 (LAW B) and R3 (LAW C), one decoded rule with two
@@ -29254,6 +29291,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     lawTrace(425, "oneTickUpperBNormalized425",
                                              "fold " + raw8);
                                     c->VpiDecompile(std::string("1'b") + raw8[3]);
+                                }
+                                // § xzPkgLeafFoldIsRhsCopy427 — the one-bit x
+                                // tokens are compiled `1'bX` / BIN:X.
+                                if (xLeaf427 && raw8.size() == 4 &&
+                                    raw8[0] == '1' && raw8[1] == '\'' &&
+                                    (raw8[2] == 'b' || raw8[2] == 'B') &&
+                                    (raw8[3] == 'x' || raw8[3] == 'X')) {
+                                    c->VpiDecompile("1'bX");
+                                    c->VpiValue("BIN:X");
                                 }
                             }
                         }
@@ -35701,7 +35747,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // Surelog quirk: a 1-bit 'x' value (1'bx) formats uppercase in
                 // both the decompile and the value; 1-bit 'z' and multi-bit
                 // x/z stay lowercase.
-                if (expr.type->getBitWidth() == 1 && digits.size() == 1 &&
+                // § oneBitXQuirkTokenOnly427 (r11u427, R11U427_ONEBITX_OFF)
+                // — only the lexer's dedicated one-bit tokens `1'bx` / `1'bX`
+                // / `1'Bx` / `1'BX` (paNumber_1Tickbx) are spelled with the
+                // uppercase digit; every other one-bit x literal (`1'sbx`,
+                // `1'hx`, `1'ox`, `1'dx`) is compileConst's generic branch, which
+                // keeps the written digit (golden `1'sbx` / BIN:x where ours
+                // wrote `1'sbX` / BIN:X).  Grid tools/probe/r11u427repro/
+                // cases/OX.
+                const bool tok427 =
+                    raw.size() == 4 && raw[0] == '1' && raw[1] == '\'' &&
+                    (raw[2] == 'b' || raw[2] == 'B');
+                const bool oneBitX427 = !tok427 && lawOn(427, "R11U427_ONEBITX_OFF");
+                if (oneBitX427 && expr.type->getBitWidth() == 1 &&
+                    digits.size() == 1 && digits[0] == 'x')
+                    lawTrace(427, "oneBitXQuirkTokenOnly427", raw);
+                if (!oneBitX427 && expr.type->getBitWidth() == 1 && digits.size() == 1 &&
                     (digits[0] == 'x' || digits[0] == 'X')) {
                     digits = "X";
                     std::string dec = raw;

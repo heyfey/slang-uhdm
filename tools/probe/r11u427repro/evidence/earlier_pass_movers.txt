@@ -1,0 +1,37 @@
+tools/probe/r11u116repro/grid/f1/mv_n_ac | P rc=0 cmp=64 away=258 | NOT_EQUAL stage1 | L rc=0 cmp=46 away=232 | NOT_EQUAL stage1
+tools/probe/r11u116repro/grid/f1/mv_n_ch | P rc=0 cmp=64 away=686 | NOT_EQUAL stage1 | L rc=0 cmp=46 away=684 | NOT_EQUAL stage1
+tools/probe/r11u116repro/grid/f1/mv_n_ig | P rc=0 cmp=64 away=291 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=273 | STRICT_EQUAL 342 objects
+tools/probe/r11u116repro/grid/f1/mv_n_ms | P rc=0 cmp=64 away=160 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=158 | STRICT_EQUAL 298 objects
+tools/probe/r11u116repro/grid/f1/mv_n_lg | P rc=0 cmp=64 away=566 | NOT_EQUAL stage1 | L rc=0 cmp=64 away=564 | NOT_EQUAL stage1
+tools/probe/r11u215repro/cases/C/c01 | P rc=0 cmp=46 away=304 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=289 | STRICT_EQUAL 333 objects
+tools/probe/r11u215repro/cases/C/c02 | P rc=0 cmp=46 away=332 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=287 | STRICT_EQUAL 343 objects
+tools/probe/r11u217verify/cases/C/c02 | P rc=0 cmp=46 away=274 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=229 | STRICT_EQUAL 306 objects
+tools/probe/r11u217verify/cases/C/c04 | P rc=0 cmp=46 away=346 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=331 | STRICT_EQUAL 332 objects
+tools/probe/r11u266repro/cases/S/s14_shortint_ctl | P rc=0 cmp=64 away=40 | NOT_EQUAL stage1 | L rc=0 cmp=20 away=38 | NOT_EQUAL stage1
+tools/probe/r11u266repro/cases/S/s13_byte_ctl | P rc=0 cmp=64 away=40 | NOT_EQUAL stage1 | L rc=0 cmp=20 away=38 | NOT_EQUAL stage1
+tools/probe/r11u266repro/cases/S/s15_longint_ctl | P rc=0 cmp=64 away=40 | NOT_EQUAL stage1 | L rc=0 cmp=20 away=38 | NOT_EQUAL stage1
+tools/probe/r11u266repro/cases/S/s16_integer_ctl | P rc=0 cmp=64 away=40 | NOT_EQUAL stage1 | L rc=0 cmp=20 away=38 | NOT_EQUAL stage1
+tools/probe/r11u266repro/cases/S/s18_vec_ctl | P rc=0 cmp=64 away=36 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=34 | STRICT_EQUAL 77 objects
+tools/probe/r11u266repro/cases/S/s35_xz_ctl | P rc=0 cmp=64 away=32 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=30 | STRICT_NOTEQUAL file
+tools/probe/r11u301repro/cases/TP/a05_child_two | P rc=0 cmp=64 away=127 | NOT_EQUAL stage1 | L rc=0 cmp=66 away=121 | NOT_EQUAL stage1
+tools/probe/r11u301repro/cases/TP/a07_pkg_param_ctl | P rc=0 cmp=32 away=99 | NOT_EQUAL stage1 | L rc=0 cmp=74 away=93 | NOT_EQUAL stage1
+tools/probe/r11u425repro/cases/OB/ob12 | P rc=0 cmp=64 away=104 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=98 | STRICT_EQUAL 149 objects
+tools/probe/r11u425repro/cases/OB/ob11 | P rc=0 cmp=46 away=232 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=204 | STRICT_EQUAL 216 objects
+tools/probe/r11u425repro/evidence/residue_cases/ra04_upperB_multibit_elab | P rc=0 cmp=64 away=125 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=114 | STRICT_EQUAL 211 objects
+tools/probe/r11v124repro/pv/v08_trunc | P rc=0 cmp=64 away=28 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=26 | STRICT_EQUAL 56 objects
+tools/probe/v11u116repro/arms/k3_sized | P rc=0 cmp=64 away=637 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=635 | STRICT_EQUAL 625 objects
+tools/probe/v11u116repro/arms/r3_neg | P rc=0 cmp=56 away=874 | NOT_EQUAL stage1 | L rc=0 cmp=56 away=872 | NOT_EQUAL stage1
+tools/probe/v11u210repro/cases/C/vc09 | P rc=0 cmp=46 away=191 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=176 | STRICT_EQUAL 225 objects
+tools/probe/v11u215repro/cases/CW/w01_forms | P rc=0 cmp=46 away=254 | NOT_EQUAL stage1 | L rc=0 cmp=86 away=239 | NOT_EQUAL stage1
+tools/probe/v11u232repro/cases/MF/m02 | P rc=0 cmp=1181 away=216 | NOT_EQUAL stage1 | L rc=0 cmp=1181 away=210 | NOT_EQUAL stage1
+tools/probe/v11u243repro/cases/B/b02_signedoct | P rc=0 cmp=34 away=486 | NOT_EQUAL stage1 | L rc=0 cmp=34 away=478 | NOT_EQUAL stage1
+tools/probe/v11u243repro/cases/U/u03 | P rc=0 cmp=34 away=267 | NOT_EQUAL stage1 | L rc=0 cmp=34 away=263 | NOT_EQUAL stage1
+tools/probe/v11u266repro/cases/VS/vs26_header_and_body_mixed | P rc=0 cmp=18 away=102 | NOT_EQUAL stage1 | L rc=0 cmp=18 away=96 | NOT_EQUAL stage1
+tools/probe/v11u301repro/cases/VA/va01_ovr_x | P rc=0 cmp=64 away=91 | NOT_EQUAL stage1 | L rc=0 cmp=66 away=85 | NOT_EQUAL stage1
+tools/probe/v11u407repro/cases/VX/vx01 | P rc=0 cmp=64 away=105 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=78 | STRICT_EQUAL 86 objects
+tools/probe/v11u407repro/cases/VX/vx02 | P rc=0 cmp=64 away=98 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=96 | STRICT_EQUAL 132 objects
+tools/probe/v11u407repro/cases/VX/vx06 | P rc=0 cmp=64 away=98 | NOT_EQUAL stage1 | L rc=0 cmp=0 away=84 | STRICT_NOTEQUAL file
+tools/probe/v11u423repro/cases/VO/vo03 | P rc=0 cmp=17 away=129 | NOT_EQUAL stage1 | L rc=0 cmp=17 away=105 | NOT_EQUAL stage1
+tools/probe/v11u423repro/cases/VS/vs07 | P rc=0 cmp=42 away=126 | NOT_EQUAL stage1 | L rc=0 cmp=13 away=94 | NOT_EQUAL stage1
+tools/probe/v11u423repro/cases/VS/vs08 | P rc=0 cmp=34 away=204 | NOT_EQUAL stage1 | L rc=0 cmp=34 away=202 | NOT_EQUAL stage1
+tools/probe/v11u428repro/cases/VE/ve06 | P rc=0 cmp=168 away=52 | NOT_EQUAL stage1 | L rc=0 cmp=168 away=36 | NOT_EQUAL stage1

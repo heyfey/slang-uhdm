@@ -1,0 +1,102 @@
+# v11u427 — adversarial verification of r11u427 (expression/parameter ground)
+
+Base 42dfe016b. The implementer's patch is /tmp/r11u427.patch: nine laws in src/ParamEmit.cpp (7) and src/ExprEmit.cpp (2), read through lawOn(427, ...). This verification finds FOUR BREAKS on legal SV where pristine was right and the law wrong, and fixes them with four refinements in src/ParamEmit.cpp read through fixOn(427, ...). src/ExprEmit.cpp is the implementer's, byte-identical. The verified patch is /tmp/r11u427.verified.patch.
+
+## Binaries (frozen before any measurement; audited by path in every cmds.txt)
+
+- pristine: /tmp/v11u427_bin/pristine, md5 5026bfe26bde534bfcd774304a08183e — the implementer's frozen copy of the base build (equal to the brief's pristine md5), not rebuilt, as the budget requires.
+- law: /tmp/v11u427_bin/law, md5 d2522d91f296ff3830b8c5b80798faaa — rebuilt once in /tmp/wt_v11u427 from the patch applied clean on a fresh 42dfe016b; EQUAL to the implementer's law20.
+- verified: /tmp/v11u427_bin/verified, md5 2dfd213f31234e0e72b561c0a5ff6014 — the law plus the four refinements.
+- Two intermediate builds, used on case runs only and never swept: verified1 (37ab3c53..., the first form of § elabUnszXzReaderSize427v, which skipped the size re-application on every cont_assign parent and so undid the law's right size on VE/ve15 and VE/ve28) and verified2 (cb7380db..., the unsized abstain of § ovTsDeclParenUnszAbstain427v on every base, which undid the law's progress on the r11u427 cases OT/ot01, ot02, ot04, ot05, ot08, ot09, ot12). Both were incremental rebuilds of ParamEmit.cpp; this is over the budget's one verified build (see Process).
+- uhdm-strictcmp: md5 fa6e4f42f252ae0ab69d9845003e71c5 (the main tree's).
+
+## THE BREAKS and the refinements
+
+| case (shape) | pristine | law | verified |
+|---|---|---|---|
+| VD/vd12 `parameter P = (4'b1001)` overridden with `4'b0110` | STRICT_EQUAL | NOT_EQUAL (27 uhdm-cmp lines): the `[3:0]` range golden builds from the declaration dropped | STRICT_EQUAL |
+| VD/vd02 `(4'b1001)` overridden with `8'hFF` | STRICT_NOTEQUAL value | NOT_EQUAL (27) | STRICT_EQUAL |
+| VD/vd08 `((2'b10))`, one instance overridden with `6'd5` | STRICT_NOTEQUAL value | NOT_EQUAL (39) | STRICT_EQUAL |
+| VD/vd04 unsized `'b1` overridden with `4'b1010` (golden `[-1:0]`) | NOT_EQUAL, dump distance 8 | NOT_EQUAL, 28 (range dropped) | pristine's bytes, 8 |
+| VE/ve05 `logic [7:0] P = 'h1x` read by `assign o = P` into a 16-bit o | STRICT_EQUAL | NOT_EQUAL: vpiSize 16 -> 8 | STRICT_EQUAL |
+| VE/ve16 `int P = 8'h1x`, the same reader | NOT_EQUAL (decompile) | NOT_EQUAL: decompile right, vpiSize 32 where golden reads 16 | STRICT_EQUAL |
+| VS/vs09 package `parameter D = 4'sb1010` imported into a module | NOT_EQUAL, distance 55 | NOT_EQUAL, 60: the module's import-copy param_assign `4'b1010` / BIN:1010 (pristine right) rewritten INT:10 | 54 |
+| VE/ve04 `bit [3:0] P = 8'b1010_1010` | NOT_EQUAL (size only) | decompile `4'b10101010` too (pristine's `8'b10101010` right) | pristine's bytes |
+
+1. § ovTsDeclParenUnszAbstain427v (R11V427_OVTSPAREN_OFF, ParamEmit makeParamTs). § ovUntypedTsDeclWidth427 reads the declaration's width only off a bare sized literal (the pre-existing IntegerVectorExpressionSyntax read), so a parenthesized default lost its range. The refinement reads the declaration's literal through its parentheses, and abstains on an UNSIZED BINARY default, where golden writes `[-1:0]`. It keeps the law on an unsized HEX default: golden's instance parameter has no typespec at all there (VD/vd13, vd14), so the law's dropped range is closer (the r11u427 OT cases).
+2. § elabUnszXzReaderSize427v (R11V427_XZREADER_OFF, ParamEmit drainUnsizedBasedRhs106). § elabUnszXzTypedAdjust427 re-applies its size after the drains. A constant that a continuous assignment reads as its whole right side is shared with that reader and resized to the reader's width by the same adjustSize. The refinement skips the re-application there when the value is valid (first digit not x / z / ?). A leading-unknown value keeps the law's size under any reader (VE/ve28 `4'hx` stays 4, VE/ve15 `'bz1` stays -1, both STRICT_EQUAL / closer as on the law).
+3. § sgnBinPkgCopyAbstain427v (R11V427_SGNPKGCOPY_OFF, ParamEmit emitParameters). § sgnBinElabIntBranchStands427 also fired on a module's import copy of a PACKAGE parameter, where golden keeps the written binary. The refinement abstains when the parameter is declared in a package.
+4. § typedLitBitWideBinStands427v (R11V427_BITWIDEBIN_OFF, ParamEmit emitParameters). § typedLitElabAdjustLogic427 cut a binary wider than a BIT parameter's width. Golden lets it stand, as the law's own override comment says. The refinement abstains on a binary literal wider than a bit parameter (logic is unchanged; `bit [15:0] P = 8'hA5`, `bit [7:0] P = 4'b1010` and `bit [3:0] P = 8'hAB` keep the law, STRICT_EQUAL: VE/ve30, ve31, ve38).
+
+Switches: R11V427_OFF (or each fix's own switch on its own cases) gives the law's bytes on all 124 attack case dirs; R11U427_OFF gives pristine's bytes and exit code on all 124 and on the implementer's 67. Each fix's own switch alone gives the law's bytes on its cases (OVTSPAREN on vd02, vd04, vd08, vd12; XZREADER on ve05, ve16; SGNPKGCOPY on vs09; BITWIDEBIN on ve04). The verified binary equals the law on all 67 of the implementer's case dirs and on 116 of the 124 attack dirs (the 8 above differ). No getenv, no src/R*.h, no reader definition in the added lines.
+
+## Attack grid (124 case dirs in VD, VE, VO, VP, VS, VX; evidence/attack_grid.txt)
+
+Every case is accepted by upstream slang (~/.local/bin/slang --single-unit; ve10 rewritten once without a leading underscore after slang rejected it), every golden has 0 Surelog error or fatal lines, and every exit code is 0 on all three binaries. Pristine -> verified:
+
+- 39 NOT_EQUAL -> STRICT_EQUAL, 4 STRICT_NOTEQUAL -> STRICT_EQUAL (vd02, vd06, vd08, vd10), 4 NOT_EQUAL -> STRICT_NOTEQUAL (VE/ve34 file, VO/vo12 value, VP/vp16 fullname, VX/vx04 name).
+- 30 NOT_EQUAL on both, closer to golden by dump distance; 17 NOT_EQUAL and 28 STRICT_EQUAL controls at pristine's reading.
+- 2 NOT_EQUAL on both with the dump distance 40 -> 44 (VE/ve18 `logic [7:0] P = 'b01x`, VE/ve26 the same in an instance): the law writes golden's all-ones UINT:255 in the elaborated copy where pristine wrote `8'b01x`, uhdm-cmp 64 -> 46, but golden keeps two constants (param_assign at size 8, cont_assign at the reader's 16) where ours shares one parented at the param_assign, so the dump prints it in a different place. Not counted as a break: every value cell moved to golden's value, and the sharing shape is wrong on pristine too.
+
+Faces per law (pristine -> verified, exit 0 everywhere):
+- § xzOvLitKeepsText427 (VX/vx01 to vx23): 14 to STRICT_EQUAL, vx04 STRICT_NOTEQUAL name; vx05 (`12'o7x7` at int), vx08 (`8'b1x` at bit [3:0]), vx11 (`16'h?F`), vx14, vx15 (unsized `'b1x`), vx19 (an interface), vx20 (`integer`) closer; vx22 (a class specialization) unchanged STRICT_EQUAL.
+- § ovUntypedTsDeclWidth427 (VD): vd06, vd09, vd10 to STRICT_EQUAL; vd01, vd03, vd07 controls kept; vd05 (defparam) and vd11 (unsized, not overridden) unchanged; vd13, vd14 (unsized hex defaults overridden) closer; the four breaks above.
+- § elabBasedLitLowerBase427 / § elabUnszXzTypedAdjust427 / § typedLitElabAdjustLogic427 (VE): ve02, ve03, ve12, ve13, ve14, ve16, ve27 to ve31, ve38 to STRICT_EQUAL, ve34 STRICT_NOTEQUAL file; ve08 (interface), ve15 (`'bz1`), ve33 (`shortint P = 8'sh7`) closer; ve11 (generate-block localparam), ve17 (bit, wider x binary), ve23 (net declaration reader), ve36 (octal), ve39 (`integer`) unchanged.
+- § sgnBinElabIntBranchStands427 / § sgnBinUntypedFreshTsUnsigned427 (VS): vs04 to STRICT_EQUAL; vs01 to vs03, vs05, vs06, vs08 closer; vs07, vs10 unchanged.
+- § oneBitXQuirkTokenOnly427 (VO): vo01, vo07, vo08, vo14 to vo16 to STRICT_EQUAL, vo12 STRICT_NOTEQUAL value; vo02, vo10 (`1'sbx`, `1'sBx`), vo13 closer; the token spellings `1 'bx`, `1'b x`, `1'BX`, a macro, `1'bz` (vo03 to vo06, vo09, vo11) STRICT_EQUAL kept.
+- § xzPkgLeafFoldIsRhsCopy427 (VP): vp01, vp04, vp10, vp12, vp17 to STRICT_EQUAL, vp16 STRICT_NOTEQUAL fullname; vp02, vp03, vp06, vp14, vp18, vp19, vp21, vp22 closer; vp05 (`int B = 8'hxx`), vp07 (`4'dx`), vp09 ($unit), vp11 (octal), vp13 (a package function), vp15 (a generate-if condition), vp20 (a parameter-override actual) unchanged; vp08 (a port actual) STRICT_EQUAL kept.
+
+Downstream (the uhdm2rtlil harness one() on the 122 class-free attack dirs, VX/vx22 and VP/vp21 left out; evidence/downstream_cases.txt): pristine -> verified 11 DIVERGENT -> IDENTICAL, 18 EQUIVALENT -> IDENTICAL, 9 STATUS_DIFF -> IDENTICAL, 2 DIVERGENT -> EQUIVALENT, 62 IDENTICAL kept, 19 unchanged below IDENTICAL, and ONE WORSE: VX/vx05 (`parameter int P = 0` overridden with `12'o7x7`) EQUIVALENT -> DIVERGENT on the law and on the verified binary alike. The law writes golden's UINT:7 into the instance's param_assign (Surelog reads the octal digits up to the first x), so the module now aligns with Surelog's `$paramod\sub\P=7` and the equivalence check compares the continuous assignment, whose right side is still slang's fold UINT:455 (8'11000111) where golden copies 7. Pristine had 455 in both cells and its modules did not align (`No common assign statements`). Not a pristine-right cell, so not fixed here: the reader's fold of an x-overridden parameter (ExprEmit's parameter read) is the first residue below. On the law, VE/ve05 and VE/ve16 had left IDENTICAL for EQUIVALENT (evidence/downstream_breaks_law.txt); the verified binary is IDENTICAL on both again.
+
+## Reproduction of the implementer's numbers
+
+- Grid: all 67 case dirs in EB, OT, OX, XO and XP reproduced on exit code, uhdm-cmp line count and dump distance for pristine and law with 0 mismatches against tools/probe/r11u427repro/evidence/grid_final.txt (my own golden cache /tmp/v11u427_gold; output md5s differ by the worktree path). R11U427_OFF gives pristine's bytes on 67 of 67; verified equals law on 67 of 67 (evidence/impl_grid_reproduced.txt).
+- Earlier-pass census (drivers/bcensus.sh, evidence/earlier_census_bytes.txt): 27616 fence-filtered case dirs under tools/probe at the base (the path list filtered on the fence names before any file was opened; 191 paths dropped), plus VD/vd02 and VE/ve05 as positive controls, each run on pristine, law and verified. Exit codes equal on all 27618 (27358 at 0, 195 at 3, 65 at 4: dirs needing more files or arguments, the same on all three binaries). Law equals verified on every earlier dir; only the two positive controls differ. Pristine differs from law on 27 earlier dirs, every one closer to golden by dump distance (evidence/earlier_census_movers.txt): 10 to STRICT_EQUAL (r11u425 OB/ob11, ob12, r11u266 S/s18_vec_ctl, v11u407 VX/vx01, vx02, r11u217verify C/c02, c04, v11u210 C/vc09, r11u215 C/c01, c02), 2 to STRICT_NOTEQUAL file (r11u266 S/s35_xz_ctl, v11u407 VX/vx06) and 15 NOT_EQUAL closer, of which four show a larger uhdm-cmp count with a smaller dump distance (v11u215 CW/w01_forms 46 -> 86, r11u301 TP/a05_child_two 64 -> 66, TP/a07_pkg_param_ctl 32 -> 74, v11u301 VA/va01_ovr_x 64 -> 66). The implementer's 37 movers came from a larger list (37563 dirs, including the main tree's pass-428 dirs, which the base does not have).
+- Refinement trace census (drivers/census.sh): the verified binary with R11U427_TRACE on all 27616 earlier dirs logs no 427v firing; the positive controls VD/vd02 (two § ovTsDeclParenUnszAbstain427v lines) and VE/ve05 (one § elabUnszXzReaderSize427v line) log theirs.
+
+## Sweeps (one five-stage sweep on the law binary and one on the verified binary; tests/sweep.sh --jobs 3 from /tmp/wt_v11u427 for the four corpus stages, the sv-tests stage through the main tree's scripts/check_svtests.py with --baseline /tmp/wt_v11u427/results/golden_svtests.csv; each launched after three quiet readings; workdirs /tmp/v11u427swL and /tmp/v11u427swV, the same length as the master's /tmp/intr11u425; evidence/sweepL.log, sweepV.log)
+
+| stage | law (/tmp/v11u427swL) | verified (/tmp/v11u427swV) |
+|---|---|---|
+| probe | EQUAL 4018, STRICT_NOTEQUAL 69; 0/0/0; csv identical to the control | the same; csv identical to the law's and the control |
+| surelog | 480 + 0 default, 474 + 0 testflags, Tnoc d/t CMP_NOTEQUAL; 0/0/0; csv differs from the control only in the two LowMem log-path texts | the same; differs from the law only in those two texts |
+| uhdm2rtlil | 803 / 1 / 67 in both modes; 0/0/0; csv identical to the control | the same, identical |
+| downstream | 803 IDENTICAL / 66 SLANG_REJECT / 2 EQUIVALENT / 0 DIVERGENT; csv identical to the control | the same, identical |
+| sv-tests | EQUAL 1883, STRICT_NOTEQUAL 2, DIFFERENT 55, SURELOG_ONLY 75, BOTH_REJECT 303, SLANG_ONLY 19, SURELOG_CRASH 8, TIMEOUT 1; 0/0/0; csv identical to the control on all 2346 rows | the same; csv identical to the law's and the control |
+
+The corpus stages exit 1 on the stale law index alone (the index was regenerated after the README; scripts/law_index.py --check reads current).
+
+- byteverify (tools/probe/r11v75repro/byteverify.sh, SELFCHECK=1; evidence/byteverify.txt): law against the master's control 0 of 962, 0 of 1608, 0 of 805; verified against the control and against the law 0 of 962, 0 of 1608, 0 of 805; every self-check flags n-1 of n. Prediction: no corpus mover, since the law's trace census (below) fires on no corpus row.
+- Trace census: the law sweep's R11U427_TRACE logs only generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined, eight § ovUntypedTsDeclWidth427 lines on its "inv"-placeholder overrides (group_vec_p 40 -> -1, 48 -> -1, S_above_vec_p, dot_bar_vec_p, B_vec_p, one_vec_p 100 -> -1), as the implementer reports; the verified sweep logs the same eight lines and no 427v line (evidence/sweep_trace_law.txt, sweep_trace_verified.txt).
+- Kept sv-tests databases: the 78 slang.uhdm files the stage keeps differ in bytes between any two workdirs (path text inside the compressed database), so they were compared by uhdm-dump with the workdir normalized, law against verified (drivers/dumpcmp.sh): 77 of 78 identical; generated/tnoc/tnoc differs only because each dump was cut by its 900 s timeout at a different point (the two databases are the same size, 230131612 bytes, and neither sweep logs any firing on tnoc).
+- Canaries (tools/probe/r11u107repro/canaries.sh): ok=52 (surelog) and ok=16 (uhdm2rtlil) on both sweeps, changed=0; ctcan2 with EXPECT_UNKNOWN=1 and 6 PASS on both.
+- Binary audit (cmds.txt list filtered on the fence names first): 5609 of 5659 records name the binary under test on each sweep; the other 50 hold only a Surelog line.
+- Goal 1: all 75 SURELOG_ONLY rows carry an upstream slang `error:` diagnostic in their detail on both sweeps; no row carries an exporter message. bp_unicore was not re-measured alone (no change on this ground touches it; pass 403's size guard stands).
+
+## Residues (ranked; all wrong on pristine too)
+
+1. The elaborated read of an overridden parameter whose actual is an x/z/? based literal: golden copies the param_assign's compiled value into the reader (VX/vx05 `12'o7x7`: UINT:7 at the continuous assignment), ours folds slang's value (UINT:455). Downstream EQUIVALENT -> DIVERGENT on vx05 because the law aligned the module names (above). ExprEmit's parameter-read fold; not written (a size/value law on a shared reader must be measured at every parent kind).
+2. The unsized binary default's `[-1:0]` int_typespec range under an override (VD/vd04, vd11, not overridden too) where ours writes the literal's 32 or the override's width; the unsized hex default's missing typespec on golden's instance parameter (VD/vd13, vd14, the r11u427 OT cases) — the law drops the range and stays closer, but golden writes no typespec at all.
+3. The all-ones UINT elaborated copy of `'b01x` / `'b1x` at a logic parameter (VE/ve18, ve26): golden keeps a separate constant under the cont_assign at the reader's width, ours shares one constant parented at the param_assign (dump distance 40 -> 44 with every value cell at golden's value).
+4. A package parameter written `4'sb1010` imported into a module: golden's package view INT:10 where ours writes BIN:1010 (VS/vs09, both binaries), and the import copy's int_typespec range.
+5. The bit parameter with a wider binary default keeping its written size 8 in golden where ours writes 4 (VE/ve04, pristine's reading; the law's decompile change withdrawn by § typedLitBitWideBinStands427v).
+6. The implementer's residues: the int_typespec range on untyped x/z defaults (EB/eb01, eb03, eb06, XP/xp02), `parameter C = B` in a package (xp06), the elaborated param_assign constant's typespec link under an override chain (EB/eb07, OT/ot04, ot09, XO/xo27, xo28), the overridden parameter's typespec in the overriding instance (OT/ot01, ot02, ot05, ot08, ot12), OT/ot13, OX/ox02, XO/xo26, TP/a07's elaborated ternary.
+7. Faces the attack grid found unchanged: a defparam override (VD/vd05), a generate-block typed localparam (VE/ve11), a net-declaration reader of an x/z typed parameter (VE/ve23), octal and `integer` defaults (VE/ve36, ve39), `int B = 8'hxx`, `4'dx`, $unit, octal, a package function, a generate-if condition and a parameter-override actual on the package-fold law (VP/vp05, vp07, vp09, vp11, vp13, vp15, vp20), `1'sbx` (VO/vo02, vo10: closer, the literal's signed int typespec left), the shortint signed hex (VE/ve33), the interface port-view copies (VE/ve08, VX/vx19).
+
+## Sister-ground faces
+
+The implementer's report stands: the radix-enum cast typespec (the 4 testbenches rows' next head after pass 428) is chosen in ExprEmit's explicit-conversion branch and could not be measured at 42dfe016b, where those rows still differ first at TypeEmit's uvm_resource face; the one-bit x digit is written by pass 428's § synOneBitXUpper428 (TypeEmit) and this pass's § oneBitXQuirkTokenOnly427 (ExprEmit) through different builders, first measured together at integration on f713a2062. No new sister-ground face.
+
+## Process
+
+- The verifier built four times: the law once (equal to law20), then verified1 and verified2 as incremental ParamEmit rebuilds used on case runs only (each found to undo a law improvement on the grids and narrowed before any sweep), then the final verified binary. That is two builds over the budget's one verified build; only the law and the final verified binary were swept (one sweep each).
+- The first launch of the law sweep waited on a quiet check whose pattern matched two other agents' waiting shell loops (their command text holds `svtests_matrix[.]py`), and those loops in turn waited on this sweep's launcher: a mutual wait. The launcher (its own PID) was stopped, the quiet check rewritten to match only a running python3 script or bash tests/sweep.sh, and a second launch matched its own subshell and was stopped by its PID as well; the third launch ran. No other agent's process was touched.
+- The attack grid's case runs (pristine and law, about 250 short runs) and the byteverify after the law sweep overlapped the sister v11u430's sweeps; no sweep of this pass overlapped another sweep.
+- The first refinement trace census ran with its binary variable unexported, so every run exited 127 and nothing was measured; it was rerun with the variable exported and two positive controls.
+- The fence list was read into a file by a program and never printed; every tree-wide list (case dirs, cmds.txt records) was filtered on it before any file was opened. No fenced test was named, opened or run.
+
+## Files
+
+- cases/: 124 case dirs in VD (14), VE (39), VO (16), VP (22), VS (10), VX (23); each dut.sv's first line names its law (the eight break cases name the refinement). drivers/mk.py, mk2.py and mk3.py wrote them (vd11 to vd14 by hand; ve10 rewritten once).
+- drivers/: case.sh (golden cached by md5 of dut.sv under /tmp/v11u427_gold, prints rc, uhdm-cmp lines, dump distance, md5 and the strict verdict), vgrid.sh, ds.sh, fullsweep.sh, census.sh, bcensus.sh, dumpcmp.sh.
+- evidence/: attack_grid.txt, breaks.txt, impl_grid_reproduced.txt, downstream_cases.txt, downstream_breaks_law.txt, earlier_census_bytes.txt, earlier_census_movers.txt, byteverify.txt, sweepL.log, sweepV.log, sweep_trace_law.txt, sweep_trace_verified.txt, refinements.diff (the four refinements against the law's ParamEmit.cpp), dumpcmp.txt.

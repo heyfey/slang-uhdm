@@ -1,0 +1,143 @@
+--- src/ParamEmit.cpp	2026-10-25 12:04:35.847220081 -0400
++++ /tmp/wt_v11u427/src/ParamEmit.cpp	2026-10-25 10:58:26.745924887 -0400
+@@ -26188,9 +26188,24 @@
+                     // carry (its sign test reads the TARGET only) and so
+                     // rewrote the branch's INT back to `4'b1010`.  Grid
+                     // tools/probe/r11u427repro/cases/EB.
++                    // § sgnBinPkgCopyAbstain427v (v11u427,
++                    // R11V427_SGNPKGCOPY_OFF) — THE BREAK: a module's
++                    // import copy of a PACKAGE parameter written `4'sb1010`
++                    // keeps `4'b1010` / BIN:1010 in golden's elaborated
++                    // param_assign, where the law wrote INT:10 (pristine
++                    // right; the v11u427 case VS/vs09).
++                    const bool sgnPkg427v =
++                        ps.getParentScope() &&
++                        ps.getParentScope()->asSymbol().kind == SymbolKind::Package &&
++                        signedBinFoldParams.count(&ps) &&
++                        fixOn(427, "R11V427_SGNPKGCOPY_OFF");
++                    if (sgnPkg427v && !typedParam && !isRangedUntypedParam(ps) &&
++                        lawOn(427, "R11U427_SGNBINBRANCH_OFF"))
++                        lawTrace(427, "sgnBinPkgCopyAbstain427v",
++                                 std::string(ps.name));
+                     const bool sgnBranch427 =
+                         signedBinFoldParams.count(&ps) && !typedParam &&
+-                        !isRangedUntypedParam(ps) &&
++                        !isRangedUntypedParam(ps) && !sgnPkg427v &&
+                         lawOn(427, "R11U427_SGNBINBRANCH_OFF");
+                     if (sgnBranch427)
+                         lawTrace(427, "sgnBinElabIntBranchStands427",
+@@ -26221,6 +26236,24 @@
+                             std::string("bBhH").find(rw9[tk9 + 1]) != std::string::npos &&
+                             lawOn(427, "R11U427_TYPEDLITADJ_OFF"))
+                             tla427 = true;
++                        // § typedLitBitWideBinStands427v (v11u427,
++                        // R11V427_BITWIDEBIN_OFF) — THE BREAK: at a BIT
++                        // parameter a binary literal wider than the
++                        // declared width stands (golden `bit [3:0] P =
++                        // 8'b1010_1010` -> `8'b10101010` size 8, as the
++                        // override doc above reads it), where the law
++                        // rendered `4'b10101010` and pristine's decompile
++                        // was right (the v11u427 case VE/ve04).
++                        if (tla427 && tk52 == SrlgTsK::Bit &&
++                            (rw9[tk9 + 1] == 'b' || rw9[tk9 + 1] == 'B') &&
++                            rw9.substr(0, tk9).find_first_not_of("0123456789") ==
++                                std::string::npos &&
++                            tk9 < 7 && std::stol(rw9.substr(0, tk9)) > tw52 &&
++                            fixOn(427, "R11V427_BITWIDEBIN_OFF")) {
++                            tla427 = false;
++                            lawTrace(427, "typedLitBitWideBinStands427v",
++                                     std::string(ps.name) + " " + rw9);
++                        }
+                     }
+                     if (tla427 && ovEnc8(*init, 0, e52)) {
+                         srlgAdjustSize(e52, tk52, tsg52, tw52);
+@@ -35016,6 +35049,42 @@
+                         lawOn(427, "R11U427_OVTSDECLW_OFF")) {
+                         ovDecl427 = true;
+                     }
++        // § ovTsDeclParenUnszAbstain427v (v11u427, R11V427_OVTSPAREN_OFF)
++        // — THE BREAK: the declaration read above saw only a bare sized
++        // literal, so a PARENTHESIZED default (`parameter P = (4'b1001)`)
++        // overridden with a based literal lost the `[3:0]` range golden
++        // builds from the declaration (pristine STRICT_EQUAL -> NOT_EQUAL on
++        // the v11u427 cases VD/vd12, vd02, vd08), and an UNSIZED based default
++        // (`'b1`, golden's `[-1:0]`) lost its range entirely (vd04 further
++        // from golden).  The declaration's literal is read through its
++        // parentheses, and the law abstains on an unsized BINARY one (an
++        // unsized hex default has no typespec at all on golden's instance
++        // parameter, so the law's dropped range stays closer: VD/vd13,
++        // vd14, the r11u427 cases OT/ot01 and siblings).
++        const syntax::IntegerVectorExpressionSyntax* declLitSyn427v = nullptr;
++        if (ovDecl427 && fixOn(427, "R11V427_OVTSPAREN_OFF"))
++            if (auto* ini427v =
++                    ps.getSyntax()->as<syntax::DeclaratorSyntax>().initializer) {
++                const syntax::ExpressionSyntax* e427v = ini427v->expr;
++                while (e427v &&
++                       e427v->kind == syntax::SyntaxKind::ParenthesizedExpression)
++                    e427v = e427v->as<syntax::ParenthesizedExpressionSyntax>().expression;
++                if (e427v)
++                    declLitSyn427v = e427v->as_if<syntax::IntegerVectorExpressionSyntax>();
++                const std::string_view bt427v =
++                    declLitSyn427v ? declLitSyn427v->base.rawText() : std::string_view();
++                if (declLitSyn427v && !declLitSyn427v->size &&
++                    (bt427v.find('b') != std::string_view::npos ||
++                     bt427v.find('B') != std::string_view::npos)) {
++                    lawTrace(427, "ovTsDeclParenUnszAbstain427v",
++                             std::string(ps.name) + " unsized binary");
++                    ovDecl427 = false;
++                    declLitSyn427v = nullptr;
++                }
++                else if (declLitSyn427v && e427v != ini427v->expr)
++                    lawTrace(427, "ovTsDeclParenUnszAbstain427v",
++                             std::string(ps.name) + " paren");
++            }
+         if (auto init = ovDecl427 ? nullptr : ps.getInitializer()) {
+             auto& lit = stripImplicitConv(*init);
+             if (lit.kind == ExpressionKind::IntegerLiteral &&
+@@ -35035,7 +35104,8 @@
+                 dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator)
+                 if (auto* ini9 = dsyn9->as<syntax::DeclaratorSyntax>().initializer)
+                     if (auto* ive9 =
+-                            ini9->expr->as_if<syntax::IntegerVectorExpressionSyntax>())
++                            declLitSyn427v ? declLitSyn427v
++                                           : ini9->expr->as_if<syntax::IntegerVectorExpressionSyntax>())
+                         if (ive9->size) {
+                             std::string sz9;
+                             for (char ch9 : ive9->size.rawText())
+@@ -39467,9 +39537,35 @@
+     unsizedRhs106.clear();
+     decUnszElab423().clear();
+     // § elabUnszXzTypedAdjust427 — the law's sizes stand.
+-    for (auto& [c427, sz427] : elabUnszXz427())
++    // § elabUnszXzReaderSize427v (v11u427, R11V427_XZREADER_OFF) — THE
++    // BREAK: a constant a continuous assignment reads as its whole right
++    // side is shared with that reader and resized to the reader's width
++    // (golden `logic [7:0] P = 'h1x` read by `assign o = P` into a 16-bit
++    // o: 8'h1x at size 16), so re-applying the law's size there undid the
++    // reader's (pristine STRICT_EQUAL -> NOT_EQUAL on the v11u427 case
++    // VE/ve05, vpiSize 16 -> 8; VE/ve16 32 where golden reads 16).
++    // The reader's resize is adjustSize's too, so it follows the same
++    // validity rule: a value whose first digit is x / z / ? reads invalid
++    // and keeps the law's size (`logic [7:0] P = 4'hx` stays 4 under a
++    // 16-bit reader, VE/ve28; `'bz1` stays -1, VE/ve15).
++    for (auto& [c427, sz427] : elabUnszXz427()) {
++        std::string_view v427 = c427->VpiValue();
++        const auto vc427 = v427.find(':');
++        const bool valid427 =
++            vc427 != std::string_view::npos && vc427 + 1 < v427.size() &&
++            std::string_view("xXzZ?").find(v427[vc427 + 1]) == std::string_view::npos;
++        if (valid427 && c427->VpiParent() &&
++            c427->VpiParent()->UhdmType() == UHDM::uhdmcont_assign &&
++            fixOn(427, "R11V427_XZREADER_OFF")) {
++            if (c427->VpiSize() != sz427)
++                lawTrace(427, "elabUnszXzReaderSize427v",
++                         std::string(c427->VpiDecompile()) + " keeps " +
++                             std::to_string(c427->VpiSize()));
++            continue;
++        }
+         if (c427->VpiSize() != sz427)
+             c427->VpiSize(sz427);
++    }
+     elabUnszXz427().clear();
+     // § octUnszElabRespell423 (EmitHelpers.h): after the 106 drain sized the
+     // copy at -1, respell its value as the decimal UINT.

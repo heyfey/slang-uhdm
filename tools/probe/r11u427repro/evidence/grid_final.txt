@@ -1,0 +1,67 @@
+EB/eb01 | P rc=0 cmp=64 away=41 md5=49fe3f4b | NOT_EQUAL stage1 | F rc=0 cmp=27 away=13 md5=51ddfdf8 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+EB/eb02 | P rc=0 cmp=64 away=32 md5=334e1149 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=10 md5=d54042b9 | STRICT_EQUAL 160 objects | OFF=pris:y moved:y restoredBy: -
+EB/eb03 | P rc=0 cmp=64 away=32 md5=635c81ae | NOT_EQUAL stage1 | F rc=0 cmp=32 away=18 md5=89ec2e02 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+EB/eb04 | P rc=0 cmp=64 away=22 md5=c0d8810c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=2b4b1862 | STRICT_EQUAL 250 objects | OFF=pris:y moved:y restoredBy: ELABLOWBASE_OFF
+EB/eb05 | P rc=0 cmp=64 away=6 md5=b1016210 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=799a97c2 | STRICT_EQUAL 120 objects | OFF=pris:y moved:y restoredBy: ELABLOWBASE_OFF
+EB/eb06 | P rc=0 cmp=46 away=86 md5=82819037 | NOT_EQUAL stage1 | F rc=0 cmp=39 away=50 md5=ffeb1d4b | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+EB/eb07 | P rc=0 cmp=64 away=44 md5=7fe51e29 | NOT_EQUAL stage1 | F rc=0 cmp=60 away=40 md5=3a2aaceb | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: ELABLOWBASE_OFF
+EB/eb08 | P rc=0 cmp=64 away=14 md5=c73082b2 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=9f71951c | STRICT_EQUAL 238 objects | OFF=pris:y moved:y restoredBy: -
+EB/eb09 | P rc=0 cmp=64 away=32 md5=a00756f4 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=27501c6b | STRICT_EQUAL 323 objects | OFF=pris:y moved:y restoredBy: ELABUNSZXZ_OFF
+EB/eb10 | P rc=0 cmp=64 away=47 md5=7fcaf0fc | NOT_EQUAL stage1 | F rc=0 cmp=0 away=12 md5=780f74a4 | STRICT_EQUAL 205 objects | OFF=pris:y moved:y restoredBy: -
+EB/eb11 | P rc=0 cmp=64 away=18 md5=d808b4c0 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=51da30bb | STRICT_EQUAL 264 objects | OFF=pris:y moved:y restoredBy: ELABUNSZXZ_OFF
+EB/eb12 | P rc=0 cmp=64 away=10 md5=8d977244 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=b3b7d4ac | STRICT_EQUAL 188 objects | OFF=pris:y moved:y restoredBy: ELABUNSZXZ_OFF
+EB/eb13 | P rc=0 cmp=64 away=18 md5=ce18e3b2 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=9b167f60 | STRICT_EQUAL 278 objects | OFF=pris:y moved:y restoredBy: -
+EB/eb14 | P rc=0 cmp=64 away=6 md5=ad9e5bed | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=19dc90c0 | STRICT_EQUAL 253 objects | OFF=pris:y moved:y restoredBy: TYPEDLITADJ_OFF
+OT/ot01 | P rc=0 cmp=39 away=65 md5=78305d4e | NOT_EQUAL stage1 | F rc=0 cmp=17 away=31 md5=8d896b70 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot02 | P rc=0 cmp=39 away=69 md5=3a7b4e7c | NOT_EQUAL stage1 | F rc=0 cmp=17 away=33 md5=844161c2 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot03 | P rc=0 cmp=17 away=25 md5=40ad6399 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=25 md5=40ad6399 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+OT/ot04 | P rc=0 cmp=64 away=111 md5=fcb38bad | NOT_EQUAL stage1 | F rc=0 cmp=64 away=75 md5=0429784e | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot05 | P rc=0 cmp=39 away=65 md5=4ebb1fe7 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=29 md5=05099c04 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot06 | P rc=0 cmp=17 away=21 md5=744f5ba7 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=21 md5=744f5ba7 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+OT/ot07 | P rc=0 cmp=17 away=33 md5=690b3608 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=33 md5=690b3608 | NOT_EQUAL stage1 | OFF=pris:y moved:n restoredBy: -
+OT/ot08 | P rc=0 cmp=39 away=67 md5=e3c344f2 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=31 md5=0a71484d | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot09 | P rc=0 cmp=64 away=109 md5=0f5c1254 | NOT_EQUAL stage1 | F rc=0 cmp=64 away=73 md5=d251bcab | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot10 | P rc=0 cmp=64 away=20 md5=a538631b | NOT_EQUAL stage1 | F rc=0 cmp=64 away=8 md5=7de9272c | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot11 | P rc=0 cmp=0 away=30 md5=07c82892 | STRICT_NOTEQUAL value | F rc=0 cmp=0 away=16 md5=57f5a21b | STRICT_EQUAL 408 objects | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot12 | P rc=0 cmp=17 away=53 md5=6d0cc006 | NOT_EQUAL stage1 | F rc=0 cmp=17 away=29 md5=e9d5e7c4 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OT/ot13 | P rc=0 cmp=27 away=98 md5=2f716b05 | NOT_EQUAL stage1 | F rc=0 cmp=36 away=8 md5=e46a45cb | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: OVTSDECLW_OFF
+OX/ox01 | P rc=0 cmp=64 away=14 md5=73f6e5d9 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=e829dca3 | STRICT_EQUAL 117 objects | OFF=pris:y moved:y restoredBy: ONEBITX_OFF
+OX/ox02 | P rc=0 cmp=64 away=46 md5=bcf2cc14 | NOT_EQUAL stage1 | F rc=0 cmp=18 away=10 md5=6174c2f4 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+OX/ox03 | P rc=0 cmp=28 away=10 md5=19550a92 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=ba7c0898 | STRICT_EQUAL 68 objects | OFF=pris:y moved:y restoredBy: ONEBITX_OFF
+OX/ox04 | P rc=0 cmp=36 away=12 md5=48c25ddc | NOT_EQUAL stage1 | F rc=0 cmp=0 away=8 md5=c61ad8ab | STRICT_EQUAL 76 objects | OFF=pris:y moved:y restoredBy: ONEBITX_OFF
+XO/xo01 | P rc=0 cmp=64 away=72 md5=4ecc9319 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=3c6b51a5 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo02 | P rc=0 cmp=64 away=78 md5=2417c442 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=3f41b6bd | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo03 | P rc=0 cmp=64 away=86 md5=b9d0bb29 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=34866954 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo04 | P rc=0 cmp=64 away=86 md5=a9fac49f | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=a74c7666 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo05 | P rc=0 cmp=64 away=76 md5=2acd1290 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=62a9e8df | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo06 | P rc=0 cmp=64 away=86 md5=34e9412a | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=bc2d4e72 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo07 | P rc=0 cmp=64 away=60 md5=106ae466 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=03af321a | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo08 | P rc=0 cmp=64 away=70 md5=dba20d1b | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=72b0629e | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo09 | P rc=0 cmp=64 away=72 md5=5520003c | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=c31206ad | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo10 | P rc=0 cmp=64 away=72 md5=558e135a | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=96948a16 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo11 | P rc=0 cmp=64 away=68 md5=95f775e4 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=60b27a16 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo12 | P rc=0 cmp=64 away=78 md5=e9a5b58a | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=efc33dee | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo13 | P rc=0 cmp=64 away=76 md5=13338f68 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=162c48d6 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo14 | P rc=0 cmp=64 away=76 md5=667987bf | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=3778d0a1 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo15 | P rc=0 cmp=64 away=72 md5=01362381 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=b42f4e8f | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo16 | P rc=0 cmp=64 away=78 md5=6d4ac52b | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=dd58c2fd | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo17 | P rc=0 cmp=64 away=76 md5=6857165e | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=4bf15206 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo18 | P rc=0 cmp=64 away=76 md5=fa512ad6 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=ca520d60 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo19 | P rc=0 cmp=64 away=72 md5=704b47ca | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=c6bea7ca | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo20 | P rc=0 cmp=64 away=60 md5=68294b5f | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=dfb9a7c9 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo21 | P rc=0 cmp=64 away=48 md5=0e197c61 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=965089c5 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo22 | P rc=0 cmp=64 away=78 md5=e815d089 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=65757ded | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo23 | P rc=0 cmp=64 away=66 md5=f476f5b1 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=79e42107 | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo24 | P rc=0 cmp=64 away=78 md5=fae4168f | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=ec10c5eb | STRICT_EQUAL 1134 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo25 | P rc=0 cmp=64 away=22 md5=f6925201 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=d756f866 | STRICT_EQUAL 163 objects | OFF=pris:y moved:y restoredBy: -
+XO/xo26 | P rc=0 cmp=15 away=48 md5=01209802 | NOT_EQUAL stage1 | F rc=0 cmp=15 away=26 md5=82cfc51b | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+XO/xo27 | P rc=0 cmp=64 away=22 md5=6999fc2a | NOT_EQUAL stage1 | F rc=0 cmp=64 away=8 md5=84b20461 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: XZOVLIT_OFF
+XO/xo28 | P rc=0 cmp=64 away=12 md5=d39f82ce | NOT_EQUAL stage1 | F rc=0 cmp=64 away=6 md5=39d792f4 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: XZOVLIT_OFF
+XO/xo29 | P rc=0 cmp=64 away=14 md5=fe656edb | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=aa0133b4 | STRICT_EQUAL 191 objects | OFF=pris:y moved:y restoredBy: XZOVLIT_OFF
+XO/xo30 | P rc=0 cmp=64 away=24 md5=2318623b | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=bfa7c4fc | STRICT_EQUAL 201 objects | OFF=pris:y moved:y restoredBy: XZOVLIT_OFF
+XP/xp01 | P rc=0 cmp=46 away=110 md5=a9443138 | NOT_EQUAL stage1 | F rc=0 cmp=0 away=80 md5=b04a80e2 | STRICT_EQUAL 216 objects | OFF=pris:y moved:y restoredBy: XPKGFOLD_OFF
+XP/xp02 | P rc=0 cmp=46 away=264 md5=3c940a33 | NOT_EQUAL stage1 | F rc=0 cmp=39 away=212 md5=7960ba68 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: -
+XP/xp03 | P rc=0 cmp=32 away=34 md5=f068ff0b | NOT_EQUAL stage1 | F rc=0 cmp=0 away=2 md5=dbc073e1 | STRICT_EQUAL 134 objects | OFF=pris:y moved:y restoredBy: XPKGFOLD_OFF
+XP/xp04 | P rc=0 cmp=46 away=88 md5=e0f587cb | NOT_EQUAL stage1 | F rc=0 cmp=0 away=58 md5=4b34e1ca | STRICT_EQUAL 211 objects | OFF=pris:y moved:y restoredBy: XPKGFOLD_OFF
+XP/xp05 | P rc=0 cmp=46 away=120 md5=460685bd | NOT_EQUAL stage1 | F rc=0 cmp=39 away=100 md5=8ea851ec | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: XPKGFOLD_OFF
+XP/xp06 | P rc=0 cmp=17 away=274 md5=2f53838b | NOT_EQUAL stage1 | F rc=0 cmp=17 away=245 md5=721ccec5 | NOT_EQUAL stage1 | OFF=pris:y moved:y restoredBy: XPKGFOLD_OFF

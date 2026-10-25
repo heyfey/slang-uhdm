@@ -10066,6 +10066,14 @@ struct SrlgOvEnc {
     std::string dec;     // VpiDecompile
 };
 
+// § elabUnszXzTypedAdjust427 — the sizes the law decided, re-applied after
+// the design-final drains (a later typed-parameter pass re-sizes the
+// elaborated copy at slang's 32-bit unsized width).
+std::vector<std::pair<UHDM::constant*, int32_t>>& elabUnszXz427() {
+    static std::vector<std::pair<UHDM::constant*, int32_t>> v;
+    return v;
+}
+
 std::string srlgOvValue(const SrlgOvEnc& e) {
     switch (e.ct) {
         case vpiBinaryConst:
@@ -15427,6 +15435,161 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 bool tsg8;
                 int32_t tw8;
                 clsParam8(ps, defaultInit, tk8, tsg8, tw8);
+                // § xzOvLitKeepsText427 (r11u427, R11U427_XZOVLIT_OFF) — an
+                // override actual that IS a based literal holding x / z / ?
+                // digits (`#(.P(4'b10x1))`, `#('bz1)`, `#(8'hxF)`) keeps its
+                // written digits: Surelog's ExprBuilder stores such a literal
+                // as a string Value (StValue), and the instance's param_assign
+                // Rhs is `value->uhdmValue()` / `decompiledValue()`
+                // (NetlistElaboration.cpp, the untyped-override branch), i.e.
+                // `BIN:10x1` / `HEX:xF` with the decompile
+                // `[<size>]'<lowercase base><digits>` (Value.cpp
+                // StValue::decompiledValue: no size prefix for an unsized
+                // literal, the `s` dropped), then adjustSize against the
+                // parameter's typespec: a BINARY value at an int typespec
+                // takes min(size, width) (its digits stop strtoll at the first
+                // x, so the sign branch never fires), at a logic typespec a wider
+                // value is cut to its low digits with the bare digits as the
+                // decompile, at a bit typespec or none it stands; a HEX value
+                // keeps its own size (the per-branch detail below).  An OCTAL
+                // literal's digits are read up
+                // to the first x as an unsigned number (fromVpiValue has no
+                // octal branch) and take the UINT branch; a DECIMAL x/z literal
+                // (`4'dx`) is INT:0.  The one-bit tokens `1'bx` / `1'bX` /
+                // `1'Bx` / `1'BX` carry the uppercase digit (paNumber_1Tickbx).
+                // A value whose first digit is x / z / ? reads invalid in
+                // adjustSize (ExprEval::get_value parses up to the first
+                // unknown digit) and keeps its written size; a HEX value with
+                // a leading digit takes the typespec width, and an UNSIZED
+                // binary with a leading digit takes the width too (the
+                // all-ones UINT when its digits up to the first x read 1).
+                // Ours folded slang's 4-state value through the decimal branch
+                // (`X` / UINT:0).  Only a literal written directly as the
+                // actual.  Grid tools/probe/r11u427repro/cases/XO.
+                if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
+                    !enumCstOv8 && !strRefOv8 && overridden && boundInit &&
+                    stripImplicitConv(*boundInit).kind ==
+                        ExpressionKind::IntegerLiteral &&
+                    stripImplicitConv(*boundInit)
+                        .as<IntegerLiteral>()
+                        .getValue()
+                        .hasUnknown() &&
+                    lawOn(427, "R11U427_XZOVLIT_OFF")) {
+                    std::string rx(rawTextLit(stripImplicitConv(*boundInit)));
+                    std::string r427;
+                    for (char ch : rx)
+                        if (ch != '_' && ch != ' ' && ch != '\t')
+                            r427 += ch;
+                    const auto tk427 = r427.find('\'');
+                    size_t bp427 = tk427 == std::string::npos ? 0 : tk427 + 1;
+                    if (bp427 && bp427 < r427.size() &&
+                        (r427[bp427] == 's' || r427[bp427] == 'S'))
+                        bp427++;
+                    const char b427 =
+                        bp427 && bp427 < r427.size()
+                            ? (char)tolower((unsigned char)r427[bp427])
+                            : 0;
+                    std::string dg427 =
+                        bp427 && bp427 < r427.size() ? r427.substr(bp427 + 1)
+                                                     : std::string();
+                    const std::string sz427 =
+                        tk427 == std::string::npos ? std::string()
+                                                   : r427.substr(0, tk427);
+                    int32_t w427 = -1;
+                    bool ok427 = !dg427.empty() &&
+                                 (b427 == 'b' || b427 == 'h' || b427 == 'o' ||
+                                  b427 == 'd') &&
+                                 sz427.find_first_not_of("0123456789") ==
+                                     std::string::npos &&
+                                 sz427.size() < 7;
+                    if (ok427 && !sz427.empty())
+                        w427 = (int32_t)std::stol(sz427);
+                    if (ok427 && w427 == 0)
+                        ok427 = false;
+                    if (ok427 && w427 == 1 && b427 == 'b' && dg427.size() == 1 &&
+                        (dg427[0] == 'x' || dg427[0] == 'X'))
+                        dg427 = "X";
+                    if (ok427) {
+                        SrlgOvEnc e427;
+                        e427.size = w427;
+                        if (b427 == 'b' || b427 == 'h') {
+                            e427.ct = b427 == 'b' ? vpiBinaryConst : vpiHexConst;
+                            e427.dg = dg427;
+                            srlgOvRender(e427);
+                            // adjustSize reads the value through
+                            // ExprEval::get_value, which parses the digits up
+                            // to the first x / z: a value with no leading
+                            // digit reads invalid and keeps its own size.
+                            const bool lead427 =
+                                b427 == 'b' ? (dg427[0] == '0' || dg427[0] == '1')
+                                            : isxdigit((unsigned char)dg427[0]) != 0;
+                            if (b427 == 'h' && tw8 > 0 && lead427)
+                                e427.size = tw8;
+                            // An UNSIZED binary with a leading digit takes
+                            // adjustSize's `orig_size == -1` branch at any
+                            // typespec: a prefix reading 1 becomes the
+                            // all-ones UINT of the width, anything else
+                            // takes the width.
+                            if (b427 == 'b' && tw8 > 0 && w427 < 0 && lead427) {
+                                uint64_t pv427 = 0;
+                                for (char ch : dg427) {
+                                    if (ch != '0' && ch != '1')
+                                        break;
+                                    pv427 = (pv427 << 1) | (uint64_t)(ch - '0');
+                                }
+                                if (pv427 == 1 && tw8 <= 64) {
+                                    uint64_t m427 = tw8 == 64 ? ~0ull
+                                                              : (((uint64_t)1 << tw8) - 1);
+                                    e427.ct = vpiUIntConst;
+                                    e427.dg = std::to_string(m427);
+                                    e427.dec = e427.dg;
+                                }
+                                e427.size = tw8;
+                            }
+                            if (b427 == 'b' && tw8 > 0 && w427 > 0 && lead427) {
+                                if (tk8 == SrlgTsK::Logic) {
+                                    if (w427 > tw8) {
+                                        if ((int32_t)e427.dg.size() > w427 - tw8)
+                                            e427.dg = e427.dg.substr(
+                                                (size_t)(w427 - tw8));
+                                        e427.size = tw8;
+                                        e427.dec = e427.dg;
+                                    }
+                                }
+                                else if (tk8 == SrlgTsK::Int)
+                                    e427.size = std::min(w427, tw8);
+                            }
+                        }
+                        else {
+                            uint64_t v427 = 0;
+                            if (b427 == 'o')
+                                for (char ch : dg427) {
+                                    if (ch < '0' || ch > '7' ||
+                                        v427 > (~0ull >> 3))
+                                        break;
+                                    v427 = (v427 << 3) | (uint64_t)(ch - '0');
+                                }
+                            e427.ct = b427 == 'o' ? vpiUIntConst : vpiIntConst;
+                            e427.dg = std::to_string(v427);
+                            e427.dec = e427.dg;
+                            if (tw8 > 0) {
+                                if (b427 == 'o' && tw8 < 64)
+                                    v427 &= ((uint64_t)1 << tw8) - 1;
+                                e427.dg = std::to_string(v427);
+                                e427.dec = e427.dg;
+                                e427.size = tw8;
+                            }
+                        }
+                        lawTrace(427, "xzOvLitKeepsText427",
+                                 std::string(ps.name) + " " + r427 + " -> " +
+                                     e427.dec + " " + std::to_string(e427.size));
+                        c->VpiValue(srlgOvValue(e427));
+                        c->VpiConstType(e427.ct);
+                        c->VpiSize(e427.size);
+                        c->VpiDecompile(e427.dec);
+                        srcBaseOv8 = true;
+                    }
+                }
                 if (!srcBaseOv8 && !vecAliasOv8 && !strOv8 && !enumOv8 &&
                     !enumCstOv8 && !strRefOv8 && overridden && boundInit && tw8 > 0 &&
                     tw8 <= 64 && iv.getBitWidth() <= 64) {
@@ -26013,7 +26176,101 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     //  `int` one.  a1's 19 non-`int` probe rows stay unequal;
                     //  they were unequal before too, and a corpus row that
                     //  WAS equal outranks a probe row that was not.
-                    if (tk52 == SrlgTsK::Int && tw52 > 0 && tw52 <= 64 &&
+                    // § sgnBinElabIntBranchStands427 (r11u427,
+                    // R11U427_SGNBINBRANCH_OFF) — a SIGNED binary literal
+                    // default (`parameter D = 4'sb1010`, `4'SB1010`) was
+                    // already encoded by the signed-binary branch above
+                    // (signedBinFoldParams): adjustSize reads the CONSTANT's
+                    // own signed int_typespec (compileConst gives a signed
+                    // literal one), so a set MSB re-encodes as the INT value
+                    // even at an unsigned / untyped target (golden INT:10
+                    // size 4 decompile `10`), which the model here does not
+                    // carry (its sign test reads the TARGET only) and so
+                    // rewrote the branch's INT back to `4'b1010`.  Grid
+                    // tools/probe/r11u427repro/cases/EB.
+                    // § sgnBinPkgCopyAbstain427v (v11u427,
+                    // R11V427_SGNPKGCOPY_OFF) — THE BREAK: a module's
+                    // import copy of a PACKAGE parameter written `4'sb1010`
+                    // keeps `4'b1010` / BIN:1010 in golden's elaborated
+                    // param_assign, where the law wrote INT:10 (pristine
+                    // right; the v11u427 case VS/vs09).
+                    const bool sgnPkg427v =
+                        ps.getParentScope() &&
+                        ps.getParentScope()->asSymbol().kind == SymbolKind::Package &&
+                        signedBinFoldParams.count(&ps) &&
+                        fixOn(427, "R11V427_SGNPKGCOPY_OFF");
+                    if (sgnPkg427v && !typedParam && !isRangedUntypedParam(ps) &&
+                        lawOn(427, "R11U427_SGNBINBRANCH_OFF"))
+                        lawTrace(427, "sgnBinPkgCopyAbstain427v",
+                                 std::string(ps.name));
+                    const bool sgnBranch427 =
+                        signedBinFoldParams.count(&ps) && !typedParam &&
+                        !isRangedUntypedParam(ps) && !sgnPkg427v &&
+                        lawOn(427, "R11U427_SGNBINBRANCH_OFF");
+                    if (sgnBranch427)
+                        lawTrace(427, "sgnBinElabIntBranchStands427",
+                                 std::string(ps.name));
+                    // § typedLitElabAdjustLogic427 (r11u427,
+                    // R11U427_TYPEDLITADJ_OFF) — the same pipeline at a
+                    // TYPED logic or bit parameter for an UNSIGNED SIZED
+                    // binary or hex literal default: Surelog's elaborated copy
+                    // is the Value round trip, so a hex value takes the
+                    // declared width and is rendered at it (`logic [31:0] A =
+                    // 12'hFFF` -> `32'hFFF`, `logic [3:0] G = 8'hAB` ->
+                    // `4'hAB`), a binary value wider than a logic parameter is
+                    // cut to its low digits (`logic [3:0] H = 8'b1010_1010` ->
+                    // `4'b1010` size 4) and a narrower one keeps its own size
+                    // (`logic [7:0] D = 4'b1010` size 4); ours kept the
+                    // written spelling at the declared size.  F3's measured
+                    // exclusions stay: signed literals, sized decimals,
+                    // unbased-unsized fills, ranged untyped parameters.
+                    // Grid tools/probe/r11u427repro/cases/EB.
+                    bool tla427 = false;
+                    if (!sgnBranch427 && typedParam &&
+                        (tk52 == SrlgTsK::Logic || tk52 == SrlgTsK::Bit) &&
+                        tw52 > 0 && tw52 <= 64 &&
+                        stripImplicitConv(*init).kind == ExpressionKind::IntegerLiteral) {
+                        std::string rw9(rawTextLit(stripImplicitConv(*init)));
+                        const auto tk9 = rw9.find('\'');
+                        if (tk9 != std::string::npos && tk9 > 0 && tk9 + 1 < rw9.size() &&
+                            std::string("bBhH").find(rw9[tk9 + 1]) != std::string::npos &&
+                            lawOn(427, "R11U427_TYPEDLITADJ_OFF"))
+                            tla427 = true;
+                        // § typedLitBitWideBinStands427v (v11u427,
+                        // R11V427_BITWIDEBIN_OFF) — THE BREAK: at a BIT
+                        // parameter a binary literal wider than the
+                        // declared width stands (golden `bit [3:0] P =
+                        // 8'b1010_1010` -> `8'b10101010` size 8, as the
+                        // override doc above reads it), where the law
+                        // rendered `4'b10101010` and pristine's decompile
+                        // was right (the v11u427 case VE/ve04).
+                        if (tla427 && tk52 == SrlgTsK::Bit &&
+                            (rw9[tk9 + 1] == 'b' || rw9[tk9 + 1] == 'B') &&
+                            rw9.substr(0, tk9).find_first_not_of("0123456789") ==
+                                std::string::npos &&
+                            tk9 < 7 && std::stol(rw9.substr(0, tk9)) > tw52 &&
+                            fixOn(427, "R11V427_BITWIDEBIN_OFF")) {
+                            tla427 = false;
+                            lawTrace(427, "typedLitBitWideBinStands427v",
+                                     std::string(ps.name) + " " + rw9);
+                        }
+                    }
+                    if (tla427 && ovEnc8(*init, 0, e52)) {
+                        srlgAdjustSize(e52, tk52, tsg52, tw52);
+                        srlgOvRender(e52);
+                        auto* c52 = (UHDM::constant*)rhs;
+                        if (std::string(c52->VpiDecompile()) != e52.dec ||
+                            c52->VpiSize() != e52.size)
+                            lawTrace(427, "typedLitElabAdjustLogic427",
+                                     std::string(ps.name) + " " +
+                                         std::string(c52->VpiDecompile()) + " -> " +
+                                         e52.dec + " " + std::to_string(e52.size));
+                        c52->VpiValue(srlgOvValue(e52));
+                        c52->VpiConstType(e52.ct);
+                        c52->VpiSize(e52.size);
+                        c52->VpiDecompile(e52.dec);
+                    }
+                    else if (!sgnBranch427 && tk52 == SrlgTsK::Int && tw52 > 0 && tw52 <= 64 &&
                         ovEnc8(*init, 0, e52)) {
                         srlgAdjustSize(e52, tk52, tsg52, tw52);
                         srlgOvRender(e52);
@@ -26728,6 +26985,202 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             rc8->VpiDecompile(std::to_string(w8) + "'" + base8 +
                                               dg8);
                             rc8->VpiSize(w8);
+                        }
+                    }
+                }
+                // § elabBasedLitLowerBase427 (r11u427, R11U427_ELABLOWBASE_OFF)
+                // — the ELABORATED copy of a module parameter whose default
+                // is a binary or hex literal written with an uppercase base or
+                // keeping digits the adjustSize pipeline above declines (x / z
+                // / ? digits, an unsized literal) decompiles as Surelog's
+                // Value round trip renders it: StValue::decompiledValue
+                // (Value.cpp) writes `[<size>]'<lowercase base><digits>`, the
+                // `s` dropped, the digits as stored (`4'B10x1` -> `4'b10x1`,
+                // `'B101` -> `'b101`, `8'HxF` -> `8'hxF`, `4'Sb10x1` ->
+                // `4'b10x1`, `8'HAB` -> `8'hAB`; ours kept the written
+                // spelling).  Untyped and typed parameters alike; the ranged
+                // untyped re-render already writes the lowercase base.  The
+                // definition view and the package views keep the written text.
+                // Grid tools/probe/r11u427repro/cases/EB.
+                // § elabUnszXzTypedAdjust427 (r11u427, R11U427_ELABUNSZXZ_OFF)
+                // — at a TYPED or ranged parameter an UNSIZED binary / hex
+                // default holding x / z / ? digits goes through adjustSize at
+                // the declared width the way an override actual does
+                // (§ xzOvLitKeepsText427): ExprEval::get_value parses the
+                // digits up to the first unknown one, so a literal whose FIRST
+                // digit is x / z / ? reads invalid and keeps its own encoding
+                // (`'bx1` at size -1, no size prefix), while a leading digit
+                // takes the `orig_size == -1` branch: a binary prefix reading 1
+                // becomes the all-ones UINT of the width (`logic [7:0] A =
+                // 'b1x` -> UINT:255), any other value takes the width
+                // (`'b0x1` -> `8'b0x1` size 8, `'h1x` -> `8'h1x`).  Ours kept
+                // slang's 32-bit unsized width or the width prefix on a
+                // leading x.  Grid tools/probe/r11u427repro/cases/EB.
+                if (topView && !defViewOrig9 && !inPackage && !funcScope &&
+                    !overridden && !cliOv && init && rhs &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    stripImplicitConv(*init).kind == ExpressionKind::IntegerLiteral) {
+                    auto* c427 = (UHDM::constant*)rhs;
+                    const int32_t ct427 = c427->VpiConstType();
+                    std::string dc427(c427->VpiDecompile());
+                    std::string_view vv427 = c427->VpiValue();
+                    const auto cl427 = vv427.find(':');
+                    const auto tk427 = dc427.find('\'');
+                    auto& il427 = stripImplicitConv(*init).as<IntegerLiteral>();
+                    std::string rw427;
+                    for (char ch : rawTextLit(il427))
+                        if (ch != '_' && ch != ' ' && ch != '\t')
+                            rw427 += ch;
+                    const auto rtk427 = rw427.find('\'');
+                    size_t rbp427 = rtk427 == std::string::npos ? 0 : rtk427 + 1;
+                    if (rbp427 && rbp427 < rw427.size() &&
+                        (rw427[rbp427] == 's' || rw427[rbp427] == 'S'))
+                        rbp427++;
+                    const char rb427 = rbp427 && rbp427 < rw427.size()
+                                           ? (char)tolower((unsigned char)rw427[rbp427])
+                                           : 0;
+                    const std::string rdg427 = rbp427 && rbp427 < rw427.size()
+                                                   ? rw427.substr(rbp427 + 1)
+                                                   : std::string();
+                    const int32_t pw427 = (int32_t)ps.getType().getBitWidth();
+                    const bool sgn427 = rtk427 != std::string::npos &&
+                                        rtk427 + 1 < rw427.size() &&
+                                        (rw427[rtk427 + 1] == 's' ||
+                                         rw427[rtk427 + 1] == 'S');
+                    if (!sgn427 && rtk427 == 0 && (rb427 == 'b' || rb427 == 'h') &&
+                        !rdg427.empty() && il427.getValue().hasUnknown() &&
+                        (typedParam || isRangedUntypedParam(ps)) && pw427 > 0 &&
+                        pw427 <= 64 && lawOn(427, "R11U427_ELABUNSZXZ_OFF")) {
+                        const bool lead427 =
+                            rb427 == 'b' ? (rdg427[0] == '0' || rdg427[0] == '1')
+                                         : isxdigit((unsigned char)rdg427[0]) != 0;
+                        const std::string bs427(1, rb427);
+                        c427->VpiConstType(rb427 == 'b' ? vpiBinaryConst : vpiHexConst);
+                        c427->VpiValue((rb427 == 'b' ? "BIN:" : "HEX:") + rdg427);
+                        if (!lead427) {
+                            c427->VpiDecompile("'" + bs427 + rdg427);
+                            c427->VpiSize(-1);
+                        }
+                        else {
+                            uint64_t pv427 = 0;
+                            if (rb427 == 'b')
+                                for (char ch : rdg427) {
+                                    if (ch != '0' && ch != '1')
+                                        break;
+                                    pv427 = (pv427 << 1) | (uint64_t)(ch - '0');
+                                }
+                            if (rb427 == 'b' && pv427 == 1) {
+                                const uint64_t m427 =
+                                    pw427 == 64 ? ~0ull : (((uint64_t)1 << pw427) - 1);
+                                c427->VpiConstType(vpiUIntConst);
+                                c427->VpiValue("UINT:" + std::to_string(m427));
+                                c427->VpiDecompile(std::to_string(m427));
+                            }
+                            else
+                                c427->VpiDecompile(std::to_string(pw427) + "'" +
+                                                   bs427 + rdg427);
+                            c427->VpiSize(pw427);
+                        }
+                        elabUnszXz427().emplace_back(c427, c427->VpiSize());
+                        lawTrace(427, "elabUnszXzTypedAdjust427",
+                                 std::string(ps.name) + " " + rw427 + " -> " +
+                                     std::string(c427->VpiDecompile()));
+                    }
+                    // ...and a SIZED binary / hex default with x / z / ?
+                    // digits at a typed or ranged parameter: a leading
+                    // unknown digit keeps the literal's own width (`logic
+                    // [7:0] A = 4'hx` -> `4'hx` size 4, the hex twin of
+                    // § typedParamXzLitSize407), a leading digit takes the
+                    // declared width (`int D = 8'h1x` -> `32'h1x`), a wider
+                    // binary at a logic typespec cut to its low digits
+                    // (`logic [3:0] E = 8'b1x01_0011` -> `4'b0011`).  A wider
+                    // binary at an int or bit typespec abstains.
+                    else if (!sgn427 && rtk427 != std::string::npos && rtk427 > 0 &&
+                             (rb427 == 'b' || rb427 == 'h') && !rdg427.empty() &&
+                             il427.getValue().hasUnknown() &&
+                             (typedParam || isRangedUntypedParam(ps)) && pw427 > 0 &&
+                             pw427 <= 64 &&
+                             rw427.substr(0, rtk427).find_first_not_of("0123456789") ==
+                                 std::string::npos &&
+                             rtk427 < 7 && lawOn(427, "R11U427_ELABUNSZXZ_OFF")) {
+                        const int32_t w427 = (int32_t)std::stol(rw427.substr(0, rtk427));
+                        const bool lead427 =
+                            rb427 == 'b' ? (rdg427[0] == '0' || rdg427[0] == '1')
+                                         : isxdigit((unsigned char)rdg427[0]) != 0;
+                        SrlgTsK k427;
+                        bool sg427;
+                        int32_t tw427;
+                        clsParam8(ps, init, k427, sg427, tw427);
+                        std::string dg427 = rdg427;
+                        // the one-bit tokens `1'bx` / `1'Bx` are BIN:X
+                        // (paNumber_1Tickbx), as § typedParamXzLitSize407's
+                        // cells read.
+                        if (rw427.size() == 4 && rw427[0] == '1' &&
+                            (rw427[2] == 'b' || rw427[2] == 'B') &&
+                            (rw427[3] == 'x' || rw427[3] == 'X'))
+                            dg427 = "X";
+                        int32_t sz427 = w427;
+                        bool ok427 = w427 > 0;
+                        if (ok427 && lead427 && rb427 == 'h')
+                            sz427 = pw427;
+                        else if (ok427 && lead427 && w427 > pw427) {
+                            if (k427 == SrlgTsK::Logic) {
+                                if ((int32_t)dg427.size() > w427 - pw427)
+                                    dg427 = dg427.substr((size_t)(w427 - pw427));
+                                sz427 = pw427;
+                            }
+                            else
+                                ok427 = false;
+                        }
+                        if (ok427) {
+                            const std::string n427 = std::to_string(sz427) + "'" +
+                                                     std::string(1, rb427) + dg427;
+                            if (n427 != std::string(c427->VpiDecompile()) ||
+                                c427->VpiSize() != sz427) {
+                                c427->VpiConstType(rb427 == 'b' ? vpiBinaryConst
+                                                                : vpiHexConst);
+                                c427->VpiValue((rb427 == 'b' ? "BIN:" : "HEX:") + dg427);
+                                c427->VpiDecompile(n427);
+                                c427->VpiSize(sz427);
+                                elabUnszXz427().emplace_back(c427, sz427);
+                                lawTrace(427, "elabUnszXzTypedAdjust427",
+                                         std::string(ps.name) + " " + rw427 + " -> " + n427);
+                            }
+                        }
+                    }
+                    else if ((ct427 == vpiBinaryConst || ct427 == vpiHexConst) &&
+                             !isRangedUntypedParam(ps) &&
+                             cl427 != std::string_view::npos &&
+                             tk427 != std::string::npos &&
+                             dc427.find_first_not_of("0123456789") == tk427 &&
+                             lawOn(427, "R11U427_ELABLOWBASE_OFF")) {
+                        // A typed parameter's SIGNED HEX literal goes through
+                        // the signed evaluation and is rendered at its
+                        // declared width (a signed binary keeps its written
+                        // size: `int P = 8'sb0111_1111` -> `8'b01111111`) (`shortint P = 8'sh7` -> `16'h7`, `int P =
+                        // 12'shFxF` -> `32'hFxF`); an unsigned one, an untyped
+                        // one, and one whose first digit is x / z / ? (an
+                        // invalid value adjustSize leaves alone: `int Q =
+                        // 1'sbx` -> `1'bx`) keep the written size.
+                        std::string sp427 = dc427.substr(0, tk427);
+                        const std::string_view vd427 = vv427.substr(cl427 + 1);
+                        const bool xLead427 =
+                            !vd427.empty() &&
+                            std::string("xXzZ?").find(vd427[0]) != std::string::npos;
+                        const bool sgnW427 = rtk427 != std::string::npos &&
+                                             rtk427 + 1 < rw427.size() &&
+                                             (rw427[rtk427 + 1] == 's' ||
+                                              rw427[rtk427 + 1] == 'S');
+                        if (typedParam && sgnW427 && ct427 == vpiHexConst &&
+                            tk427 > 0 && pw427 > 0 && !xLead427)
+                            sp427 = std::to_string(pw427);
+                        std::string n427 = sp427 + "'" +
+                                           (ct427 == vpiBinaryConst ? "b" : "h") +
+                                           std::string(vv427.substr(cl427 + 1));
+                        if (n427 != dc427) {
+                            lawTrace(427, "elabBasedLitLowerBase427",
+                                     std::string(ps.name) + " " + dc427 + " -> " + n427);
+                            c427->VpiDecompile(n427);
                         }
                     }
                 }
@@ -34577,7 +35030,62 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
     // (loc-less, value-only INT constants).
     if (!typedParam && !explicitRange) {
         int64_t litW9 = -1;
-        if (auto init = ps.getInitializer()) {
+        // § ovUntypedTsDeclWidth427 (r11u427, R11U427_OVTSDECLW_OFF) — an
+        // OVERRIDDEN untyped parameter's implied `[w-1:0]` range is the
+        // DECLARATION default's width, also when the override actual is a
+        // based literal of another width: Surelog builds the typespec once,
+        // from the declaration (`parameter P = 1'b0` overridden with
+        // `4'b1001` keeps `[0:0]`; a bare-decimal default `parameter N = 8`
+        // keeps no range).  Ours read the width off the semantic
+        // initializer, which for an overridden parameter is the override
+        // actual.  Grid tools/probe/r11u427repro/cases/XO.
+        bool ovDecl427 = false;
+        if (auto init427 = ps.getInitializer())
+            if (auto dsyn427 = ps.getSyntax();
+                dsyn427 && dsyn427->kind == syntax::SyntaxKind::Declarator)
+                if (auto* ini427 = dsyn427->as<syntax::DeclaratorSyntax>().initializer)
+                    if (auto* syn427 = stripImplicitConv(*init427).syntax;
+                        syn427 && syn427 != ini427->expr &&
+                        lawOn(427, "R11U427_OVTSDECLW_OFF")) {
+                        ovDecl427 = true;
+                    }
+        // § ovTsDeclParenUnszAbstain427v (v11u427, R11V427_OVTSPAREN_OFF)
+        // — THE BREAK: the declaration read above saw only a bare sized
+        // literal, so a PARENTHESIZED default (`parameter P = (4'b1001)`)
+        // overridden with a based literal lost the `[3:0]` range golden
+        // builds from the declaration (pristine STRICT_EQUAL -> NOT_EQUAL on
+        // the v11u427 cases VD/vd12, vd02, vd08), and an UNSIZED based default
+        // (`'b1`, golden's `[-1:0]`) lost its range entirely (vd04 further
+        // from golden).  The declaration's literal is read through its
+        // parentheses, and the law abstains on an unsized BINARY one (an
+        // unsized hex default has no typespec at all on golden's instance
+        // parameter, so the law's dropped range stays closer: VD/vd13,
+        // vd14, the r11u427 cases OT/ot01 and siblings).
+        const syntax::IntegerVectorExpressionSyntax* declLitSyn427v = nullptr;
+        if (ovDecl427 && fixOn(427, "R11V427_OVTSPAREN_OFF"))
+            if (auto* ini427v =
+                    ps.getSyntax()->as<syntax::DeclaratorSyntax>().initializer) {
+                const syntax::ExpressionSyntax* e427v = ini427v->expr;
+                while (e427v &&
+                       e427v->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    e427v = e427v->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                if (e427v)
+                    declLitSyn427v = e427v->as_if<syntax::IntegerVectorExpressionSyntax>();
+                const std::string_view bt427v =
+                    declLitSyn427v ? declLitSyn427v->base.rawText() : std::string_view();
+                if (declLitSyn427v && !declLitSyn427v->size &&
+                    (bt427v.find('b') != std::string_view::npos ||
+                     bt427v.find('B') != std::string_view::npos)) {
+                    lawTrace(427, "ovTsDeclParenUnszAbstain427v",
+                             std::string(ps.name) + " unsized binary");
+                    ovDecl427 = false;
+                    declLitSyn427v = nullptr;
+                }
+                else if (declLitSyn427v && e427v != ini427v->expr)
+                    lawTrace(427, "ovTsDeclParenUnszAbstain427v",
+                             std::string(ps.name) + " paren");
+            }
+        if (auto init = ovDecl427 ? nullptr : ps.getInitializer()) {
             auto& lit = stripImplicitConv(*init);
             if (lit.kind == ExpressionKind::IntegerLiteral &&
                 rawTextLit(lit).find('\'') != std::string::npos)
@@ -34596,7 +35104,8 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                 dsyn9 && dsyn9->kind == syntax::SyntaxKind::Declarator)
                 if (auto* ini9 = dsyn9->as<syntax::DeclaratorSyntax>().initializer)
                     if (auto* ive9 =
-                            ini9->expr->as_if<syntax::IntegerVectorExpressionSyntax>())
+                            declLitSyn427v ? declLitSyn427v
+                                           : ini9->expr->as_if<syntax::IntegerVectorExpressionSyntax>())
                         if (ive9->size) {
                             std::string sz9;
                             for (char ch9 : ive9->size.rawText())
@@ -34605,6 +35114,22 @@ UHDM::typespec* UhdmExporter::makeParamTs(const ParameterSymbol& ps, bool typedP
                             if (!sz9.empty())
                                 litW9 = strtoll(sz9.c_str(), nullptr, 10);
                         }
+        // § ovUntypedTsDeclWidth427 — trace only a width the law moved.
+        if (ovDecl427 && lawTraceOn(427)) {
+            int64_t old427 = -1;
+            if (auto init0 = ps.getInitializer()) {
+                auto& l0 = stripImplicitConv(*init0);
+                if (l0.kind == ExpressionKind::IntegerLiteral &&
+                    rawTextLit(l0).find('\'') != std::string::npos)
+                    old427 = (int64_t)l0.type->getBitWidth();
+            }
+            if (old427 < 0)
+                old427 = litW9;
+            if (old427 != litW9)
+                lawTrace(427, "ovUntypedTsDeclWidth427",
+                         std::string(ps.name) + " " + std::to_string(old427) +
+                             " -> " + std::to_string(litW9));
+        }
         if (litW9 > 0) {
             auto* r = s.MakeRange();
             r->VpiParent(its);
@@ -35972,7 +36497,26 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
             if ((signedBinFoldParams.count(ps) || ternSgnLitFreshIntTs284(comp, *ps)) && rc0 &&
                 rc0->UhdmType() == UHDM::uhdmconstant) {
                 auto* sb9 = s.MakeInt_typespec();
-                if (ps->getType().isSigned())
+                // § sgnBinUntypedFreshTsUnsigned427 (r11u427,
+                // R11U427_SGNBINTSU_OFF) — at an UNTYPED, unranged parameter
+                // the fresh int_typespec of a signed BINARY literal default
+                // (`parameter D = 4'sb1010`) is unsigned: adjustSize's
+                // vpiBinaryConst branch clears the constant's own int_typespec
+                // signedness when the target typespec (the untyped
+                // parameter's implicit unsigned int_typespec) is unsigned
+                // (CompileHelper.cpp `if (!signedLhs) itps->VpiSigned(false)`);
+                // ours took the sign from slang's type of the parameter,
+                // which is the literal's own signed type.  Grid
+                // tools/probe/r11u427repro/cases/EB.
+                bool unsgn427 = false;
+                if (ps->getType().isSigned() && !typedParam &&
+                    !isRangedUntypedParam(*ps) && !ternSgnLitFreshIntTs284(comp, *ps) &&
+                    lawOn(427, "R11U427_SGNBINTSU_OFF")) {
+                    unsgn427 = true;
+                    lawTrace(427, "sgnBinUntypedFreshTsUnsigned427",
+                             std::string(ps->name));
+                }
+                if (ps->getType().isSigned() && !unsgn427)
                     sb9->VpiSigned(true);
                 rhsRt->Actual_typespec(sb9);
             }
@@ -38992,6 +39536,37 @@ void UhdmExporter::drainUnsizedBasedRhs106() {
     }
     unsizedRhs106.clear();
     decUnszElab423().clear();
+    // § elabUnszXzTypedAdjust427 — the law's sizes stand.
+    // § elabUnszXzReaderSize427v (v11u427, R11V427_XZREADER_OFF) — THE
+    // BREAK: a constant a continuous assignment reads as its whole right
+    // side is shared with that reader and resized to the reader's width
+    // (golden `logic [7:0] P = 'h1x` read by `assign o = P` into a 16-bit
+    // o: 8'h1x at size 16), so re-applying the law's size there undid the
+    // reader's (pristine STRICT_EQUAL -> NOT_EQUAL on the v11u427 case
+    // VE/ve05, vpiSize 16 -> 8; VE/ve16 32 where golden reads 16).
+    // The reader's resize is adjustSize's too, so it follows the same
+    // validity rule: a value whose first digit is x / z / ? reads invalid
+    // and keeps the law's size (`logic [7:0] P = 4'hx` stays 4 under a
+    // 16-bit reader, VE/ve28; `'bz1` stays -1, VE/ve15).
+    for (auto& [c427, sz427] : elabUnszXz427()) {
+        std::string_view v427 = c427->VpiValue();
+        const auto vc427 = v427.find(':');
+        const bool valid427 =
+            vc427 != std::string_view::npos && vc427 + 1 < v427.size() &&
+            std::string_view("xXzZ?").find(v427[vc427 + 1]) == std::string_view::npos;
+        if (valid427 && c427->VpiParent() &&
+            c427->VpiParent()->UhdmType() == UHDM::uhdmcont_assign &&
+            fixOn(427, "R11V427_XZREADER_OFF")) {
+            if (c427->VpiSize() != sz427)
+                lawTrace(427, "elabUnszXzReaderSize427v",
+                         std::string(c427->VpiDecompile()) + " keeps " +
+                             std::to_string(c427->VpiSize()));
+            continue;
+        }
+        if (c427->VpiSize() != sz427)
+            c427->VpiSize(sz427);
+    }
+    elabUnszXz427().clear();
     // § octUnszElabRespell423 (EmitHelpers.h): after the 106 drain sized the
     // copy at -1, respell its value as the decimal UINT.
     for (const void* o423 : octUnszElab423()) {
