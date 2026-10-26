@@ -1,0 +1,20 @@
+946c946
+< generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+989c989
+< generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,EQUAL,,equal
+1125c1125
+< generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,EQUAL,,equal
+1206c1206
+< generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,EQUAL,,equal
+1229c1229
+< generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,EQUAL,,equal

@@ -1,0 +1,10 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv: DIFFERENT -> STRICT_NOTEQUAL
+CONVERSION generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=27 EQUAL=1911 SLANG_ONLY=19 STRICT_NOTEQUAL=2 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=5 changes=0
+svtests stage rc=0

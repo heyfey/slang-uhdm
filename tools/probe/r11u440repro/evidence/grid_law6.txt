@@ -1,0 +1,50 @@
+MS/ms01 | errTypePortSyntaxRange440 | pristine rc=0 cmp=187 NOT_EQUAL stage1 md5=756408f8 | law rc=0 cmp=36 NOT_EQUAL stage1 md5=e41a5169 | OFF same | R11U440_ERRPORTRANGE_OFF same
+MS/ms02 | errTypePortSyntaxRange440 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=a41fcfa6 | law rc=0 cmp=36 NOT_EQUAL stage1 md5=a41fcfa6 | OFF same | R11U440_ERRPORTRANGE_OFF same
+MS/ms03 | errTypePortSyntaxRange440 | pristine rc=0 cmp=106 NOT_EQUAL stage1 md5=81624ca8 | law rc=0 cmp=0 STRICT_EQUAL 63 objects md5=92365042 | OFF same | R11U440_ERRPORTRANGE_OFF same
+MS/ms04 | errTypePortSyntaxRange440 | pristine rc=0 cmp=0 STRICT_EQUAL 44 objects md5=c6ffa005 | law rc=0 cmp=0 STRICT_EQUAL 44 objects md5=c6ffa005 | OFF same | R11U440_ERRPORTRANGE_OFF same
+MS/ms05 | errTypePortSyntaxRange440 | pristine rc=0 cmp=0 STRICT_EQUAL 46 objects md5=a4d3735a | law rc=0 cmp=0 STRICT_EQUAL 46 objects md5=a4d3735a | OFF same | R11U440_ERRPORTRANGE_OFF same
+MS/ms06 | errTypePortSyntaxRange440 | pristine rc=0 cmp=203 NOT_EQUAL stage1 md5=074b50ff | law rc=0 cmp=0 STRICT_EQUAL 93 objects md5=70285c39 | OFF same | R11U440_ERRPORTRANGE_OFF same
+NT/nt01 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=653c61c1 | law rc=0 cmp=0 STRICT_EQUAL 139 objects md5=7263b267 | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt02 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=0 STRICT_EQUAL 246 objects md5=763ee47a | law rc=0 cmp=0 STRICT_EQUAL 246 objects md5=763ee47a | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt03 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=fa423d62 | law rc=0 cmp=0 STRICT_NOTEQUAL endline md5=4aedb9c3 | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt04 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=c1defee6 | law rc=0 cmp=0 STRICT_EQUAL 36 objects md5=1e75be49 | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt05 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=adc7be1e | law rc=0 cmp=0 STRICT_EQUAL 57 objects md5=7eea6266 | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt06 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=2a3b9b50 | law rc=0 cmp=0 STRICT_EQUAL 31 objects md5=8c02d2ba | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+NT/nt07 | defOnlyAliasVarNoNetType440 | pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=121bb9c7 | law rc=0 cmp=0 STRICT_EQUAL 145 objects md5=5308d59a | OFF same | R11U440_DEFONLYNETTYPE_OFF same
+PH/ph01 | undefaultedPlaceholderRetry440 | pristine rc=0 cmp=654 NOT_EQUAL stage1 md5=8960592f | law rc=0 cmp=0 STRICT_EQUAL 53 objects md5=44673309 | OFF same | R11U440_PHRETRY_OFF same
+PH/ph02 | undefaultedPlaceholderRetry440 | pristine rc=0 cmp=0 STRICT_EQUAL 82 objects md5=e2188d9c | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=e2188d9c | OFF same | R11U440_PHRETRY_OFF same
+PH/ph03 | undefaultedPlaceholderRetry440 | pristine rc=0 cmp=298 NOT_EQUAL stage1 md5=2e434b30 | law rc=0 cmp=0 STRICT_EQUAL 29 objects md5=f0f467cb | OFF same | R11U440_PHRETRY_OFF same
+PH/ph04 | undefaultedPlaceholderRetry440 | pristine rc=0 cmp=452 NOT_EQUAL stage1 md5=73e6289a | law rc=0 cmp=452 NOT_EQUAL stage1 md5=73e6289a | OFF same | R11U440_PHRETRY_OFF same
+PH/ph05 | undefaultedPlaceholderRetry440 | pristine rc=0 cmp=0 STRICT_EQUAL 86 objects md5=e19e1b4c | law rc=0 cmp=0 STRICT_EQUAL 86 objects md5=e19e1b4c | OFF same | R11U440_PHRETRY_OFF same
+TD/td01 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=56dd1718 | law rc=0 cmp=0 STRICT_EQUAL 60 objects md5=8ed109ea | OFF same | R11U440_DEFTDCLONEBOUND_OFF DIFF
+TD/td02 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=2ba721bb | law rc=0 cmp=0 STRICT_EQUAL 65 objects md5=f182fed1 | OFF same | R11U440_DEFTDCLONEBOUND_OFF DIFF
+TD/td03 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=857ec146 | law rc=0 cmp=0 STRICT_EQUAL 111 objects md5=6faf6b6b | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td04 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=831aed02 | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=d3460658 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td05 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=3a70f0ef | law rc=0 cmp=0 STRICT_EQUAL 90 objects md5=97bc46b9 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td06 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=54 NOT_EQUAL stage1 md5=8136c43b | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=b1b1887b | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td07 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=84 NOT_EQUAL stage1 md5=46285bfc | law rc=0 cmp=0 STRICT_EQUAL 90 objects md5=c73f19c9 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td08 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=e8fa4361 | law rc=0 cmp=0 STRICT_EQUAL 82 objects md5=e2788e0d | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td09 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=80 NOT_EQUAL stage1 md5=840c2332 | law rc=0 cmp=0 STRICT_EQUAL 90 objects md5=47753220 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td10 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=32 NOT_EQUAL stage1 md5=521cb236 | law rc=0 cmp=32 NOT_EQUAL stage1 md5=521cb236 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td11 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=0 STRICT_EQUAL 74 objects md5=568c4a7f | law rc=0 cmp=0 STRICT_EQUAL 74 objects md5=568c4a7f | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td12 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=0 STRICT_EQUAL 62 objects md5=a62c3f50 | law rc=0 cmp=0 STRICT_EQUAL 62 objects md5=a62c3f50 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td13 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=1ee18ab7 | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=b98d02c0 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td14 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=4cd83b52 | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=bac810db | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td15 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=efc0b145 | law rc=0 cmp=0 STRICT_EQUAL 105 objects md5=f2bc9757 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td16 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=68 NOT_EQUAL stage1 md5=99664027 | law rc=0 cmp=0 STRICT_EQUAL 72 objects md5=47158fd5 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td17 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=75a018a1 | law rc=0 cmp=58 NOT_EQUAL stage1 md5=c2731c00 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td18 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=bb5a9a8e | law rc=0 cmp=0 STRICT_EQUAL 76 objects md5=fb37d31d | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td19 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=a9b784e8 | law rc=0 cmp=299 NOT_EQUAL stage1 md5=0a8c1f25 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td20 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=ffb33597 | law rc=0 cmp=243 NOT_EQUAL stage1 md5=efad03d7 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td21 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=c9f7c871 | law rc=0 cmp=0 STRICT_EQUAL 89 objects md5=f53af751 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td22 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=d407078d | law rc=0 cmp=0 STRICT_NOTEQUAL type md5=67e49c03 | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+TD/td23 | defNetModTdCloneBoundSyntax440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=2462bd1e | law rc=0 cmp=0 STRICT_EQUAL 68 objects md5=071365ef | OFF same | R11U440_DEFTDCLONEBOUND_OFF same
+VI/vi01 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=a85cac2b | law rc=0 cmp=58 NOT_EQUAL stage1 md5=a85cac2b | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi02 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=3180f685 | law rc=0 cmp=58 NOT_EQUAL stage1 md5=3180f685 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi03 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=214 NOT_EQUAL stage1 md5=8ad6e219 | law rc=0 cmp=214 NOT_EQUAL stage1 md5=8ad6e219 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi04 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e6209b62 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e6209b62 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi05 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=6a056a59 | law rc=0 cmp=58 NOT_EQUAL stage1 md5=6a056a59 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi06 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=70137526 | law rc=0 cmp=58 NOT_EQUAL stage1 md5=70137526 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi07 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=2d92cbf6 | law rc=0 cmp=0 STRICT_EQUAL 102 objects md5=92e27105 | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi08 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=bac28a3a | law rc=0 cmp=0 STRICT_EQUAL 102 objects md5=c69789ae | OFF same | R11U440_GENVSIDXPART_OFF same
+VI/vi09 | defGenConnVarSelIdxPart440 | pristine rc=0 cmp=188 NOT_EQUAL stage1 md5=ac75caf7 | law rc=0 cmp=0 STRICT_EQUAL 118 objects md5=37fdb7dd | OFF same | R11U440_GENVSIDXPART_OFF same

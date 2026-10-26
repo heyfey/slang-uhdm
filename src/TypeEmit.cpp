@@ -7227,6 +7227,148 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
             }
         }
     }
+    // § errTypePortSyntaxRange440 (R11U440_ERRPORTRANGE_OFF; cases
+    // tools/probe/r11u440repro/cases/MS; sv-tests basejump bsg_mesh_stitch)
+    // — in the listing of a module that is never elaborated (defOnlyDefs) a
+    // port or net whose packed dimensions read a parameter with no usable
+    // value (basejump's `x_max_p = "inv"`, a string read as a 24-bit width
+    // so the packed array overflows) is an error type in slang and ours
+    // wrote a bare logic_typespec at the name.  Surelog compiles the
+    // definition without evaluating it: each written packed dimension is a
+    // range at its brackets with the unreduced bounds, the typespec at the
+    // first dimension, as for any definition-view vector.
+    if (declared && declared->getType().isError() &&
+        lawOn(440, "R11U440_ERRPORTRANGE_OFF")) {
+        const InstanceBodySymbol* body440 = nullptr;
+        if (auto* ps440 = declSymbol.getParentScope();
+            ps440 && ps440->asSymbol().kind == SymbolKind::InstanceBody)
+            body440 = &ps440->asSymbol().as<InstanceBodySymbol>();
+        const syntax::SyntaxNode* tsyn440 = typeSynFor();
+        const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dims440 = nullptr;
+        bool bitKw440 = false, signedKw440 = false;
+        if (tsyn440 && syntax::IntegerTypeSyntax::isKind(tsyn440->kind)) {
+            auto& it440 = tsyn440->as<syntax::IntegerTypeSyntax>();
+            dims440 = &it440.dimensions;
+            bitKw440 = it440.keyword.kind == parsing::TokenKind::BitKeyword;
+            signedKw440 = it440.signing.kind == parsing::TokenKind::SignedKeyword;
+        }
+        else if (tsyn440 && tsyn440->kind == syntax::SyntaxKind::ImplicitType) {
+            auto& im440 = tsyn440->as<syntax::ImplicitTypeSyntax>();
+            dims440 = &im440.dimensions;
+            signedKw440 = im440.signing.kind == parsing::TokenKind::SignedKeyword;
+        }
+        bool ok440 = body440 && body440->getDefinition().definitionKind ==
+                                    DefinitionKind::Module &&
+                     defOnlyDefs.count(&body440->getDefinition()) &&
+                     (declSymbol.kind == SymbolKind::Net ||
+                      declSymbol.kind == SymbolKind::Variable ||
+                      declSymbol.kind == SymbolKind::Port || portCtx) &&
+                     dims440 && !dims440->empty();
+        if (ok440)
+            for (auto* d440 : *dims440)
+                if (!d440->specifier ||
+                    d440->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
+                    !d440->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                         .selector->as_if<syntax::RangeSelectSyntax>())
+                    ok440 = false;
+        if (ok440) {
+            UHDM::typespec* ts440 = bitKw440 ? (UHDM::typespec*)s.MakeBit_typespec()
+                                             : (UHDM::typespec*)s.MakeLogic_typespec();
+            setLoc(ts440, (*dims440)[0]->sourceRange());
+            // ...a `bit` vector from its keyword (MS/ms03, as Surelog's
+            // bit_typespec reads).
+            if (bitKw440)
+                setLoc(ts440, SourceRange(tsyn440->as<syntax::IntegerTypeSyntax>()
+                                              .keyword.location(),
+                                          (*dims440)[0]->sourceRange().end()));
+            // § errTypeTsLocAsVector440v (R11V440_ERRTSLOC_OFF; cases
+            // tools/probe/v11u440repro/cases/VE ve04, ve09 to ve13, ve20, ve21) — the
+            // error-typed vector takes the location the same declaration's
+            // vector typespec takes when its value is usable (the twins ve14
+            // to ve19 read STRICT_EQUAL on pristine), not the first dimension:
+            // a keyword type (`logic`, `reg`, `bit`) from the keyword (golden
+            // `reg [x-1:0][0:2] r` 3:3, `input logic [x-1:0][0:2] a` from
+            // `logic`), an implicit type with a net keyword from the net
+            // keyword (`input wire [..][..]`, `wire [..][..] n`), a signing
+            // keyword at the signing, and an implicit port type at its first
+            // dimension as before (bsg_mesh_stitch, MS/ms06).  A port ends at
+            // its last dimension and an initializer stretch still applies.
+            if (fixOn(440, "R11V440_ERRTSLOC_OFF")) {
+                SourceRange loc440v = range;
+                if (!syntax::IntegerTypeSyntax::isKind(tsyn440->kind) && !implicitSigning) {
+                    loc440v = SourceRange((*dims440)[0]->sourceRange().start(),
+                                          (*dims440)[dims440->size() - 1]->sourceRange().end());
+                    if (mergedPort) {
+                    }
+                    else if (auto nh440 = ansiNetHeader(declSymbol)) {
+                        loc440v = SourceRange(nh440->netType.range().start(), loc440v.end());
+                    }
+                    else {
+                        for (auto p440 = declSymbol.getSyntax(); p440; p440 = p440->parent)
+                            if (p440->kind == syntax::SyntaxKind::NetDeclaration) {
+                                loc440v = SourceRange(p440->as<syntax::NetDeclarationSyntax>()
+                                                          .netType.range()
+                                                          .start(),
+                                                      loc440v.end());
+                                break;
+                            }
+                    }
+                    if (dims440->size() > 1 &&
+                        loc440v.start() == (*dims440)[0]->sourceRange().start() &&
+                        lawOn(257, "R11U257_IMPLDIM1_OFF"))
+                        loc440v = (*dims440)[0]->sourceRange();
+                }
+                // ...a body declaration (not a port, no `var`) with two or
+                // more packed dimensions, no unpacked dimension and no
+                // initializer ends at its FIRST packed dimension, writeNets'
+                // end-only packed-slot write the usable vector gets (golden
+                // `reg [x-1:0][0:2] r` 3:3-3:14, `wire [x-1:0][0:2] n`
+                // 3:3-3:15, MS/ms03's `bit` 6:3-6:14).
+                if (!portCtx && !mergedPort &&
+                    (declSymbol.kind == SymbolKind::Net ||
+                     declSymbol.kind == SymbolKind::Variable) &&
+                    dims440->size() >= 2 && !hasVarKeywordDecl(declSymbol))
+                    if (auto* dsy440 = declSymbol.getSyntax();
+                        dsy440 && dsy440->kind == syntax::SyntaxKind::Declarator &&
+                        dsy440->parent &&
+                        (dsy440->parent->kind == syntax::SyntaxKind::DataDeclaration ||
+                         dsy440->parent->kind == syntax::SyntaxKind::NetDeclaration) &&
+                        dsy440->as<syntax::DeclaratorSyntax>().dimensions.empty() &&
+                        !dsy440->as<syntax::DeclaratorSyntax>().initializer)
+                        loc440v = SourceRange(loc440v.start(),
+                                              (*dims440)[0]->sourceRange().end());
+                if (loc440v.start() != SourceLocation::NoLocation) {
+                    setLoc(ts440, loc440v);
+                    lawTrace(440, "errTypeTsLocAsVector440v", std::string(declSymbol.name));
+                }
+            }
+            if (signedKw440) {
+                if (bitKw440)
+                    ((UHDM::bit_typespec*)ts440)->VpiSigned(true);
+                else
+                    ((UHDM::logic_typespec*)ts440)->VpiSigned(true);
+            }
+            auto* rv440 = s.MakeRangeVec();
+            for (auto* d440 : *dims440) {
+                auto& rs440 = d440->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                   .selector->as<syntax::RangeSelectSyntax>();
+                auto* r440 = s.MakeRange();
+                r440->VpiParent(ts440);
+                setLoc(r440, d440->sourceRange());
+                r440->Left_expr((UHDM::expr*)emitSyntaxExpr(*rs440.left, r440));
+                r440->Right_expr((UHDM::expr*)emitSyntaxExpr(*rs440.right, r440));
+                rv440->push_back(r440);
+            }
+            if (bitKw440)
+                ((UHDM::bit_typespec*)ts440)->Ranges(rv440);
+            else
+                ((UHDM::logic_typespec*)ts440)->Ranges(rv440);
+            lawTrace(440, "errTypePortSyntaxRange440",
+                     std::string(body440->getDefinition().name) + " " +
+                         std::string(declSymbol.name));
+            return ts440;
+        }
+    }
     if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;

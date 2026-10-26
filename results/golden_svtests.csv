@@ -943,7 +943,7 @@ generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_mas
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_input.sv,EQUAL,,equal
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_output.sv,EQUAL,,equal
-generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_decode_comb.sv,EQUAL,,equal
@@ -986,7 +986,7 @@ generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_ready_to_credit_flow_converter.s
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_relay_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_1_to_n.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_2_to_2.sv,EQUAL,,equal
-generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_n_to_1.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sbox.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_scatter_gather.sv,EQUAL,,equal
@@ -1124,7 +1124,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_async_reset.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_chain.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_bypass.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_gatestack.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_negedge_reset.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset.sv,EQUAL,,equal
@@ -1203,7 +1203,7 @@ generated/basejump/bsg_noc_BaseJumpSTL_bsg_barrier.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_buffered.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_decoder_dor.sv,EQUAL,,equal
-generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_pkg.sv,EQUAL,,equal
 generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_repeater_node.sv,EQUAL,,equal
@@ -1226,7 +1226,7 @@ generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_client_unsync.sv,EQUAL,,equal
 generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master.sv,EQUAL,,equal
 generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master_decentralized.sv,EQUAL,,equal
 generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv,EQUAL,,equal
-generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv:10:8: error: design element does not have a time scale d,
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen_plusarg.sv,EQUAL,,equal

@@ -1,0 +1,6 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+bsg_misc_BaseJumpSTL_bsg_dff_en_segmented,generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok
+bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo,generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok
+bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker,generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,JUDGE_EQUAL,differ:endline(1),JUDGE_EQUAL,ok,ok
+bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer,generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok
+bsg_noc_BaseJumpSTL_bsg_mesh_stitch,generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok

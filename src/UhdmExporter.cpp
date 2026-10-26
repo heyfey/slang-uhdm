@@ -15054,6 +15054,33 @@ UHDM::design* UhdmExporter::exportDesign() {
         // is a different path that is still unmeasured.
         // A definition with an undefaulted TYPE parameter abstains, as before.
         const HierarchyOverrideNode* ovr404 = nullptr;
+        // § undefaultedPlaceholderRetry440 (R11U440_PHRETRY_OFF): the
+        // placeholder of each undefaulted parameter may be swapped (0 the
+        // literal 8, 1 a string "inv", 2 an unpacked '{default: 8}); the first
+        // build always uses 0 (pass 404's bytes).
+        std::map<const syntax::DeclaratorSyntax*, int> phKind440;
+        auto phExpr440 = [&](int k) -> const syntax::ExpressionSyntax* {
+            static std::shared_ptr<syntax::SyntaxTree> tree440;
+            static const syntax::ExpressionSyntax* ex440[3] = {nullptr, nullptr, nullptr};
+            if (!tree440) {
+                tree440 = syntax::SyntaxTree::fromText(
+                    "module m440 #(parameter a440 = 8, parameter b440 = \"inv\", "
+                    "parameter int c440[1] = '{default: 8}); endmodule");
+                int n440 = 0;
+                std::function<void(const syntax::SyntaxNode&)> f440 =
+                    [&](const syntax::SyntaxNode& sn) {
+                        if (sn.kind == syntax::SyntaxKind::EqualsValueClause && n440 < 3) {
+                            ex440[n440++] = sn.as<syntax::EqualsValueClauseSyntax>().expr;
+                            return;
+                        }
+                        for (size_t ci = 0; ci < sn.getChildCount(); ++ci)
+                            if (auto* c = sn.childNode(ci))
+                                f440(*c);
+                    };
+                f440(tree440->root());
+            }
+            return (k >= 0 && k < 3) ? ex440[k] : nullptr;
+        };
         if (!allDefaulted) {
             static std::deque<HierarchyOverrideNode> ovrStore404;
             auto& node = ovrStore404.emplace_back();
@@ -15102,7 +15129,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             ovr404 = &node;
         }
-        auto& uinst = InstanceSymbol::createDefault(comp, udef, ovr404);
+        const InstanceSymbol* uinstP = &InstanceSymbol::createDefault(comp, udef, ovr404);
         // ...abstaining when the placeholder body holds an expression slang
         // could not bind at all (an undeclared name read in the
         // uninstantiated body, bsg_scheduler_dataflow's `bypass_lo`): the
@@ -15124,14 +15151,81 @@ UHDM::design* UhdmExporter::exportDesign() {
                 void handle(const InvalidStatement&) { bad = true; }
                 void handle(const InstanceSymbol&) {}
                 void handle(const UninstantiatedDefSymbol&) {}
-            } bad404;
-            uinst.body.visit(bad404);
-            if (bad404.bad) {
+            };
+            auto isBad404 = [](const InstanceSymbol& i404) {
+                Bad404 b404;
+                i404.body.visit(b404);
+                return b404.bad;
+            };
+            bool bad404 = isBad404(*uinstP);
+            // § undefaultedPlaceholderRetry440 (R11U440_PHRETRY_OFF; cases
+            // tools/probe/r11u440repro/cases/PH; sv-tests basejump
+            // bsg_nonsynth_ascii_writer and bsg_dff_en_segmented) — the
+            // placeholder 8 is itself what slang refuses in two placeholder
+            // bodies: a parameter read as a file name (`$fopen(filename_p,
+            // "w")`, an int where a string is wanted) and an unpacked-array
+            // parameter (`parameter int widths_p[els_p-1:0]`, 8 is no array
+            // initializer), so the definition was left unlisted where Surelog,
+            // which never evaluates it, lists it.  The body is rebuilt with an
+            // unpacked parameter's placeholder `'{default: 8}` and then, one
+            // parameter at a time, a string "inv" for a scalar one; the first
+            // body slang binds completely is listed.  A body still unbound
+            // (an undeclared name, a nonblocking write to an associative
+            // element, an upward hierarchical name) abstains as before.
+            if (bad404 && lawOn(440, "R11U440_PHRETRY_OFF")) {
+                std::vector<const DefinitionSymbol::ParameterDecl*> und440;
+                for (auto& up : udef.parameters)
+                    if (!up.hasDefault() && !up.isTypeParam && up.hasSyntax && up.valueDecl)
+                        und440.push_back(&up);
+                auto build440 = [&](int strIdx) -> const InstanceSymbol* {
+                    static std::deque<HierarchyOverrideNode> ovrStore440;
+                    auto& node440 = ovrStore440.emplace_back();
+                    for (size_t i440 = 0; i440 < und440.size(); ++i440) {
+                        auto* up440 = und440[i440];
+                        int k440 = !up440->valueDecl->dimensions.empty() ? 2
+                                   : ((int)i440 == strIdx ? 1 : 0);
+                        auto* e440 = phExpr440(k440);
+                        if (!e440)
+                            return nullptr;
+                        HierarchyOverrideNode::ParamOverride po440;
+                        po440.expr = e440;
+                        node440.paramOverrides.emplace(up440->valueDecl, std::move(po440));
+                    }
+                    return &InstanceSymbol::createDefault(comp, udef, &node440);
+                };
+                bool anyArr440 = false;
+                for (auto* up440 : und440)
+                    if (!up440->valueDecl->dimensions.empty())
+                        anyArr440 = true;
+                std::vector<int> tries440;
+                if (anyArr440)
+                    tries440.push_back(-1);
+                for (size_t i440 = 0; i440 < und440.size(); ++i440)
+                    if (und440[i440]->valueDecl->dimensions.empty())
+                        tries440.push_back((int)i440);
+                for (int s440 : tries440) {
+                    auto* c440 = build440(s440);
+                    if (c440 && !isBad404(*c440)) {
+                        uinstP = c440;
+                        bad404 = false;
+                        lawTrace(440, "undefaultedPlaceholderRetry440",
+                                 std::string(udef.name) + " " +
+                                     (s440 < 0 ? std::string("array")
+                                               : std::string(und440[s440]->name)));
+                        break;
+                    }
+                }
+                if (bad404)
+                    lawTrace(440, "undefaultedPlaceholderRetry440",
+                             "abstain " + std::string(udef.name));
+            }
+            if (bad404) {
                 lawTrace(404, "undefaultedDefInvalidInst404",
                          "abstain-unbound " + std::string(udef.name));
                 return;
             }
         }
+        auto& uinst = *uinstP;
         bool ifacePorted = false;
         for (auto pb : uinst.body.getPortList())
             if (pb->kind == SymbolKind::InterfacePort) {

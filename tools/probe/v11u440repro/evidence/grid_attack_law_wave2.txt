@@ -1,0 +1,22 @@
+VE/ve09 | pristine rc=0 cmp=107 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL col | OFF same | R11U440_ERRPORTRANGE_OFF same
+   0 s
+VE/ve10 | pristine rc=0 cmp=107 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL col | OFF same | R11U440_ERRPORTRANGE_OFF same
+   0 s
+VE/ve11 | pristine rc=0 cmp=107 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL col | OFF same | R11U440_ERRPORTRANGE_OFF same
+   0 s
+VE/ve12 | pristine rc=0 cmp=107 NOT_EQUAL stage1 | law rc=0 cmp=58 NOT_EQUAL stage1 | OFF same | R11U440_ERRPORTRANGE_OFF same
+   1 s
+VE/ve13 | pristine rc=0 cmp=107 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL col | OFF same | R11U440_ERRPORTRANGE_OFF same
+   0 s
+VP/vp14 | pristine rc=0 cmp=492 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 41 objects | OFF same | R11U440_PHRETRY_OFF same
+   0 s
+VP/vp15 | pristine rc=0 cmp=448 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 34 objects | OFF same | R11U440_PHRETRY_OFF same
+   1 s
+VP/vp16 | pristine rc=0 cmp=576 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 43 objects | OFF same | R11U440_PHRETRY_OFF same
+   0 s
+VP/vp17 | pristine rc=0 cmp=572 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 48 objects | OFF same | R11U440_PHRETRY_OFF same
+   1 s
+VP/vp18 | pristine rc=0 cmp=650 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 53 objects | OFF same | R11U440_PHRETRY_OFF same
+   0 s
+VP/vp19 | pristine rc=0 cmp=620 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 49 objects | OFF same | R11U440_PHRETRY_OFF same
+   0 s

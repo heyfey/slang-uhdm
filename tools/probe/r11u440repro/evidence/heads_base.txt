@@ -1,0 +1,46 @@
+== bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds
+== bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds
+== bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo (pristine at the base)
+#0 L=operation:@339:19 < range:@339 < logic_typespec:bsg_round_robin_fifo_to_fifo_t@339
+    R=constant:@339:19 < range:@339 < logic_typespec:bsg_round_robin_fifo_to_fifo_t@339
+#1 L=logic_net:zero_flat@342:35 < module_inst:@289 < design:work@top@0
+    R=logic_net:zero_flat@342:35 < module_inst:@289 < design:work@top@0
+#2 L=indexed_part_select:data_head@423:57 < var_select:data_head@423 < port:i@423 < ref_module:bm2Da@423 < named_begin:out_chan@0
+    R=ref_obj:0+:`BSG_MIN(i+1,middle_meet_lp)*width_p@423:57 < var_select:data_head@423 < port:i@423 < ref_module:bm2Da@423 < named_begin:out_chan@0
+EQUAL after 3 seeds
+== bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds
+== bsg_misc_BaseJumpSTL_bsg_dff_en_segmented (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds
+== bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds
+== bsg_noc_BaseJumpSTL_bsg_mesh_stitch (pristine at the base)
+#0 L=logic_typespec:@18:14
+    R=null
+#1 L=logic_typespec:@19:14
+    R=null
+#2 L=logic_typespec:@22:14
+    R=null
+#3 L=logic_typespec:@23:14
+    R=null
+#4 L=logic_typespec:@24:14
+    R=null
+#5 L=logic_typespec:@25:14
+    R=null
+EQUAL after 6 seeds
+== bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer (pristine at the base)
+#0 L=design:work@top@0:0
+    R=design:work@top@0:0
+EQUAL after 1 seeds

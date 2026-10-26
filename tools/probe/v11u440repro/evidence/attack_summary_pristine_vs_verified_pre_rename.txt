@@ -1,0 +1,87 @@
+VA/va01 | rc=0 68 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va02 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va03 | rc=0 48 NOT_EQUAL stage1 | rc=0 48 NOT_EQUAL stage1 | moved
+VA/va04 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va05 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va06 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va07 | rc=0 189 NOT_EQUAL stage1 | rc=0 189 NOT_EQUAL stage1 | bytesame
+VA/va08 | rc=0 231 NOT_EQUAL stage1 | rc=0 231 NOT_EQUAL stage1 | bytesame
+VA/va09 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | bytesame
+VA/va10 | rc=0 122 NOT_EQUAL stage1 | rc=0 32 NOT_EQUAL stage1 | moved
+VA/va11 | rc=0 99 NOT_EQUAL stage1 | rc=0 99 NOT_EQUAL stage1 | moved
+VA/va12 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VA/va13 | rc=0 58 NOT_EQUAL stage1 | rc=0 31 NOT_EQUAL stage1 | moved
+VA/va14 | rc=0 46 NOT_EQUAL stage1 | rc=0 46 NOT_EQUAL stage1 | moved
+VA/va15 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va16 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va17 | rc=0 80 NOT_EQUAL stage1 | rc=0 80 NOT_EQUAL stage1 | bytesame
+VA/va18 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va19 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | bytesame
+VA/va20 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VA/va21 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | bytesame
+VA/va22 | rc=0 54 NOT_EQUAL stage1 | rc=0 54 NOT_EQUAL stage1 | bytesame
+VE/ve01 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve02 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve03 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve04 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VE/ve05 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve06 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve07 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve08 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve09 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VE/ve10 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VE/ve11 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VE/ve12 | rc=0 107 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | moved
+VE/ve13 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VE/ve14 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve15 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve16 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve17 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | bytesame
+VE/ve18 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve19 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VE/ve20 | rc=0 107 NOT_EQUAL stage1 | rc=0 214 NOT_EQUAL stage1 | moved
+VE/ve21 | rc=0 107 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn01 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn02 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn03 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VN/vn04 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn05 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VN/vn06 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | bytesame
+VN/vn07 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn08 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn09 | rc=0 30 NOT_EQUAL stage1 | rc=0 30 NOT_EQUAL stage1 | moved
+VN/vn10 | rc=4 183 NOT_EQUAL stage1 | rc=4 183 NOT_EQUAL stage1 | bytesame
+VN/vn11 | rc=0 58 NOT_EQUAL stage1 | rc=0 58 NOT_EQUAL stage1 | moved
+VN/vn12 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn13 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VN/vn14 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VN/vn15 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp01 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VP/vp02 | rc=0 502 NOT_EQUAL stage1 | rc=0 36 NOT_EQUAL stage1 | moved
+VP/vp03 | rc=0 53 NOT_EQUAL stage1 | rc=0 53 NOT_EQUAL stage1 | bytesame
+VP/vp04 | rc=0 12 NOT_EQUAL stage1 | rc=0 12 NOT_EQUAL stage1 | bytesame
+VP/vp05 | rc=0 476 NOT_EQUAL stage1 | rc=0 476 NOT_EQUAL stage1 | bytesame
+VP/vp06 | rc=0 654 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp07 | rc=0 480 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp08 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VP/vp09 | rc=0 538 NOT_EQUAL stage1 | rc=0 538 NOT_EQUAL stage1 | bytesame
+VP/vp10 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VP/vp11 | rc=0 418 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp12 | rc=0 0 STRICT_EQUAL | rc=0 0 STRICT_EQUAL | bytesame
+VP/vp13 | rc=0 516 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp14 | rc=0 492 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp15 | rc=0 448 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp16 | rc=0 576 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp17 | rc=0 572 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp18 | rc=0 650 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VP/vp19 | rc=0 620 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx01 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx02 | rc=0 80 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx03 | rc=0 84 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx04 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx05 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx06 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx07 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx08 | rc=0 58 NOT_EQUAL stage1 | rc=0 30 NOT_EQUAL stage1 | moved
+VX/vx09 | rc=0 58 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved
+VX/vx10 | rc=0 84 NOT_EQUAL stage1 | rc=0 0 STRICT_EQUAL | moved

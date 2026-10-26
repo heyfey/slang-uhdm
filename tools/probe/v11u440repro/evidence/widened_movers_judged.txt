@@ -1,0 +1,7 @@
+r10rgg4repro/d6_typedef_range | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 124 objects | unsorted=29 sorted=21 -> unsorted=8 sorted=0
+r10vrgg4repro/w1_var_kinds | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=58 NOT_EQUAL stage1 | unsorted=59 sorted=43 -> unsorted=38 sorted=22
+r11u103repro/grid/b09_F_pkgstruct | rc=0 cmp=30 NOT_EQUAL stage1 | rc=0 cmp=30 NOT_EQUAL stage1 | unsorted=4 sorted=4 -> unsorted=3 sorted=3
+r11u141verify/cases/p134_elabnetalias/l03_sub_twice | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | unsorted=149 sorted=83 -> unsorted=144 sorted=62
+r11u261repro/cases/A/a07_typedef | rc=0 cmp=86 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | unsorted=73 sorted=49 -> unsorted=42 sorted=18
+r11v35repro/grid/v1_elab35 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=56 NOT_EQUAL stage1 | unsorted=356 sorted=124 -> unsorted=335 sorted=107
+v11u134repro/grid/nb01 | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL type | unsorted=101 sorted=41 -> unsorted=112 sorted=20

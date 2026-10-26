@@ -10161,7 +10161,81 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                        ? vpiReg
                        : 36;
         };
-        if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
+        // § defOnlyAliasVarNoNetType440 (R11U440_DEFONLYNETTYPE_OFF; cases
+        // tools/probe/r11u440repro/cases/NT; sv-tests basejump
+        // bsg_round_robin_fifo_to_fifo's `bsg_round_robin_fifo_to_fifo_t
+        // zero_flat;`) — a module that is never elaborated (defOnlyDefs: an
+        // unreferenced definition or one reached only from a generate branch
+        // not taken) has its typedef names unresolved in Surelog, so
+        // writeNets' getVpiNetType(netKeyword ?: sig->getType()) reads no
+        // type for a declaration written with a type name: a variable
+        // (`t z;`, `p::v_t v;`) prints no net type and a `wire t w;` net the
+        // keyword's vpiWire (1).  Once the module is instantiated the alias
+        // is resolved and both print vpiLogicNet as before (NT/nt02).
+        int32_t defOnly440 = -1;
+        if (!it.port && defOnlyDefs.count(&inst.getDefinition()) &&
+            lawOn(440, "R11U440_DEFONLYNETTYPE_OFF"))
+            if (auto* dt440 = it.sym->getDeclaredType())
+                if (auto* tsx440 = dt440->getTypeSyntax();
+                    tsx440 && tsx440->kind == syntax::SyntaxKind::NamedType)
+                    if (auto* ds440 = it.sym->getSyntax();
+                        ds440 && ds440->kind == syntax::SyntaxKind::Declarator &&
+                        ds440->parent) {
+                        if (ds440->parent->kind == syntax::SyntaxKind::DataDeclaration)
+                            defOnly440 = 0;
+                        else if (ds440->parent->kind ==
+                                 syntax::SyntaxKind::NetDeclaration) {
+                            // ...a package-scoped type name (`wire p::v_t w;`)
+                            // takes compileNetDeclaration's Data_type branch and
+                            // prints none (NT/nt03); a bare name the keyword's
+                            // VPI net type (NT/nt05, nt07).
+                            if (tsx440->as<syntax::NamedTypeSyntax>().name->kind ==
+                                syntax::SyntaxKind::ScopedName)
+                                defOnly440 = 0;
+                            else
+                                switch (ds440->parent->as<syntax::NetDeclarationSyntax>()
+                                            .netType.kind) {
+                                case parsing::TokenKind::WireKeyword: defOnly440 = 1; break;
+                                case parsing::TokenKind::WAndKeyword: defOnly440 = 2; break;
+                                case parsing::TokenKind::WOrKeyword: defOnly440 = 3; break;
+                                case parsing::TokenKind::TriKeyword: defOnly440 = 4; break;
+                                case parsing::TokenKind::Tri0Keyword: defOnly440 = 5; break;
+                                case parsing::TokenKind::Tri1Keyword: defOnly440 = 6; break;
+                                case parsing::TokenKind::TriRegKeyword: defOnly440 = 7; break;
+                                case parsing::TokenKind::TriAndKeyword: defOnly440 = 8; break;
+                                case parsing::TokenKind::TriOrKeyword: defOnly440 = 9; break;
+                                case parsing::TokenKind::Supply1Keyword: defOnly440 = 10; break;
+                                case parsing::TokenKind::Supply0Keyword: defOnly440 = 11; break;
+                                case parsing::TokenKind::UWireKeyword: defOnly440 = 13; break;
+                                default: break;
+                                }
+                            // § defOnlyNetLaterDeclNoType440v
+                            // (R11V440_LATERDECL_OFF; cases
+                            // tools/probe/v11u440repro/cases/VN vn11, vn16) —
+                            // only the FIRST declarator of such a net
+                            // declaration takes the keyword's net type; a later
+                            // one (`wire t a, b, c;` -> b, c) prints none in
+                            // golden, as a variable does.
+                            if (defOnly440 > 0 &&
+                                fixOn(440, "R11V440_LATERDECL_OFF")) {
+                                auto& nd440v =
+                                    ds440->parent->as<syntax::NetDeclarationSyntax>();
+                                if (!nd440v.declarators.empty() &&
+                                    nd440v.declarators[0] != ds440) {
+                                    defOnly440 = 0;
+                                    lawTrace(440, "defOnlyNetLaterDeclNoType440v",
+                                             std::string(it.sym->name));
+                                }
+                            }
+                        }
+                    }
+        if (defOnly440 >= 0) {
+            if (defOnly440)
+                n->VpiNetType(defOnly440);
+            lawTrace(440, "defOnlyAliasVarNoNetType440",
+                     std::string(n->VpiFullName()) + " " + std::to_string(defOnly440));
+        }
+        else if (int32_t nt = (aliasOfAlias0 || classScopeTypeRef(*it.sym) ||
                           vlogUnresolvedLogicNet(*it.sym) ||
                           strPortRevertedNet92(it))
                              ? 0
@@ -40836,6 +40910,74 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 art->Actual_typespec(mainTs);
                 ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
             }
+            // § defNetModTdCloneBoundSyntax440 (R11U440_DEFTDCLONEBOUND_OFF;
+            // cases tools/probe/r11u440repro/cases/TD; sv-tests basejump
+            // bsg_round_robin_fifo_to_fifo's `bsg_round_robin_fifo_to_fifo_t
+            // zero_flat;`) — the definition net's own copy of a MODULE vector
+            // typedef (`typedef logic [w-1:0] t; t z;` in a module that is not
+            // the single-view top) keeps each written non-literal bound as
+            // the unreduced syntax, its references named through the typedef
+            // (`t.w`), as the typedef's listing object does; ours folded the
+            // bound to INT at the left operand (`w-1` -> INT:7 at `w`).  A
+            // literal bound and a bare name bound stay as they were.
+            if (ts && (ts->UhdmType() == UHDM::uhdmlogic_typespec ||
+                       ts->UhdmType() == UHDM::uhdmbit_typespec) &&
+                targetSyn && syntax::IntegerTypeSyntax::isKind(targetSyn->kind) &&
+                ta2.getParentScope() &&
+                ta2.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody &&
+                lawOn(440, "R11U440_DEFTDCLONEBOUND_OFF")) {
+                auto& its440 = targetSyn->as<syntax::IntegerTypeSyntax>();
+                auto* rv440 = ts->UhdmType() == UHDM::uhdmlogic_typespec
+                                  ? ((UHDM::logic_typespec*)ts)->Ranges()
+                                  : ((UHDM::bit_typespec*)ts)->Ranges();
+                bool ok440 = rv440 && rv440->size() == its440.dimensions.size();
+                if (ok440)
+                    for (auto* d440 : its440.dimensions)
+                        if (!d440->specifier ||
+                            d440->specifier->kind !=
+                                syntax::SyntaxKind::RangeDimensionSpecifier ||
+                            d440->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                    .selector->kind != syntax::SyntaxKind::SimpleRangeSelect)
+                            ok440 = false;
+                if (ok440) {
+                    auto savedP440 = syntaxRefPrefix;
+                    auto savedS440 = syntaxRefSep;
+                    syntaxRefPrefix = std::string(t2.name);
+                    syntaxRefSep = ".";
+                    int n440 = 0;
+                    for (size_t i440 = 0; i440 < rv440->size(); ++i440) {
+                        auto* r440 = (*rv440)[i440];
+                        auto& rs440 = its440.dimensions[i440]
+                                          ->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                          .selector->as<syntax::RangeSelectSyntax>();
+                        for (int side440 = 0; side440 < 2; ++side440) {
+                            const syntax::ExpressionSyntax* bs440 =
+                                side440 ? rs440.right.get() : rs440.left.get();
+                            auto* cur440 = side440 ? r440->Right_expr() : r440->Left_expr();
+                            if (!bs440 || !cur440 ||
+                                bs440->kind == syntax::SyntaxKind::IntegerLiteralExpression ||
+                                // a bare name bound (`[w:0]`) is the parameter's
+                                // own value object in golden (TD/td10): left as is
+                                bs440->kind == syntax::SyntaxKind::IdentifierName ||
+                                cur440->UhdmType() != UHDM::uhdmconstant)
+                                continue;
+                            auto* e440 = (UHDM::expr*)emitSyntaxExpr(*bs440, r440);
+                            if (!e440)
+                                continue;
+                            if (side440)
+                                r440->Right_expr(e440);
+                            else
+                                r440->Left_expr(e440);
+                            ++n440;
+                        }
+                    }
+                    syntaxRefPrefix = savedP440;
+                    syntaxRefSep = savedS440;
+                    if (n440)
+                        lawTrace(440, "defNetModTdCloneBoundSyntax440",
+                                 std::string(t2.name) + " " + std::string(pn.sym->name));
+                }
+            }
         }
     }
     // An INTERFACE-def net typed by a FILE-level ($unit) VECTOR typedef binds
@@ -66177,6 +66319,63 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                         ps424->Right_range((UHDM::expr*)r424);
                                     ixv->push_back(ps424);
                                     lawTrace(424, "defGenConnVarSelRange424", vsFull + " " + tx9);
+                                    continue;
+                                }
+                                // § defGenConnVarSelIdxPart440
+                                // (R11U440_GENVSIDXPART_OFF; cases
+                                // tools/probe/r11u440repro/cases/VI; sv-tests
+                                // basejump bsg_round_robin_fifo_to_fifo's
+                                // `.i(data_head[in_top_channel_i][0+:W])`) —
+                                // the INDEXED twin of § defGenConnVarSelRange424:
+                                // a `+:` / `-:` select as a later dimension is an
+                                // indexed_part_select index of the var_select,
+                                // named after the base with its full name through
+                                // the select, constant select, its type 1 for
+                                // `+:` and 2 for `-:`, spanning the select text,
+                                // its base and width the written expressions with
+                                // references named through it and a bare constant
+                                // unparented; ours one ref_obj named by the text.
+                                // Only in a definition that is never elaborated
+                                // (defOnlyDefs): an elaborated view copies this
+                                // listing and golden folds the copy's base and
+                                // width to constants there (VI/vi03, vi06), a
+                                // fold this law does not model.
+                                if (!sels424.empty() && sels424[g424]->selector &&
+                                    (sels424[g424]->selector->kind ==
+                                         syntax::SyntaxKind::AscendingRangeSelect ||
+                                     sels424[g424]->selector->kind ==
+                                         syntax::SyntaxKind::DescendingRangeSelect) &&
+                                    defOnlyDefs.count(&body.getDefinition()) &&
+                                    lawOn(440, "R11U440_GENVSIDXPART_OFF")) {
+                                    auto& rs440 = sels424[g424]
+                                                      ->selector->as<syntax::RangeSelectSyntax>();
+                                    auto* ip440 = s.MakeIndexed_part_select();
+                                    ip440->VpiParent(vs);
+                                    ip440->VpiName(base2);
+                                    ip440->VpiDefName(base2);
+                                    ip440->VpiFullName(vsFull + "." + base2);
+                                    ip440->VpiConstantSelect(true);
+                                    ip440->VpiIndexedPartSelectType(
+                                        rs440.kind == syntax::SyntaxKind::AscendingRangeSelect
+                                            ? 1 : 2);
+                                    setLoc(ip440, rs440.sourceRange());
+                                    auto savedP440 = syntaxRefPrefix;
+                                    auto savedS440 = syntaxRefSep;
+                                    syntaxRefPrefix = vsFull + "." + base2;
+                                    syntaxRefSep = ".";
+                                    auto* b440 = emitSyntaxExpr(*rs440.left, ip440);
+                                    auto* w440 = emitSyntaxExpr(*rs440.right, ip440);
+                                    syntaxRefPrefix = savedP440;
+                                    syntaxRefSep = savedS440;
+                                    for (auto* c440 : {b440, w440})
+                                        if (c440 && c440->UhdmType() == UHDM::uhdmconstant)
+                                            ((UHDM::expr*)c440)->VpiParent(nullptr);
+                                    if (b440)
+                                        ip440->Base_expr((UHDM::expr*)b440);
+                                    if (w440)
+                                        ip440->Width_expr((UHDM::expr*)w440);
+                                    ixv->push_back(ip440);
+                                    lawTrace(440, "defGenConnVarSelIdxPart440", vsFull + " " + tx9);
                                     continue;
                                 }
                                 if (!tx9.empty() &&

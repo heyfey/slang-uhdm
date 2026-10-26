@@ -1,0 +1,7 @@
+r11u405repro/cases/PH/ph01 | rc=0 cmp=68 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 57 objects | unsorted=27 sorted=27 -> unsorted=0 sorted=0
+r11u424repro/cases/BV/bv02 | rc=0 cmp=0 STRICT_EQUAL 40 objects | rc=0 cmp=0 STRICT_EQUAL 40 objects | unsorted=0 sorted=0 -> unsorted=0 sorted=0
+r11u434repro/cases/TC/tc09 | rc=0 cmp=68 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 95 objects | unsorted=84 sorted=26 -> unsorted=72 sorted=0
+v11u424repro/cases/VK/vk05 | rc=0 cmp=0 STRICT_EQUAL 83 objects | rc=0 cmp=0 STRICT_EQUAL 83 objects | unsorted=66 sorted=0 -> unsorted=66 sorted=0
+v11u434repro/cases/VT/vt09 | rc=0 cmp=68 NOT_EQUAL stage1 | rc=0 cmp=493 NOT_EQUAL stage1 | unsorted=122 sorted=42 -> unsorted=142 sorted=20
+v11u434repro/cases/VT/vt17 | rc=0 cmp=68 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 57 objects | unsorted=32 sorted=26 -> unsorted=6 sorted=0
+v11u434repro/cases/VT/vt20 | rc=0 cmp=68 NOT_EQUAL stage1 | rc=0 cmp=58 NOT_EQUAL stage1 | unsorted=27 sorted=27 -> unsorted=1 sorted=1
