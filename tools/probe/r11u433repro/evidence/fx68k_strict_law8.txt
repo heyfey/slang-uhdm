@@ -1,0 +1,14 @@
+#65258 fullname
+  A: 4	bit_select	lineBmap		work@fx68k.uaddrDecode.lineBmap	fx68k.sv	1815	29	1815	32		0		
+  B: 4	bit_select	lineBmap		work@uaddrDecode.lineBmap	fx68k.sv	1815	29	1815	32		0		
+#65260 fullname
+  A: 4	ref_obj	isLineA		work@fx68k.uaddrDecode.isLineA	fx68k.sv	1815	9	1815	16		0		
+  B: 4	ref_obj	isLineA		work@uaddrDecode.isLineA	fx68k.sv	1815	9	1815	16		0		
+#65263 fullname
+  A: 4	bit_select	lineBmap		work@fx68k.uaddrDecode.lineBmap	fx68k.sv	1816	29	1816	32		0		
+  B: 4	bit_select	lineBmap		work@uaddrDecode.lineBmap	fx68k.sv	1816	29	1816	32		0		
+#65265 fullname
+  A: 4	ref_obj	isLineF		work@fx68k.uaddrDecode.isLineF	fx68k.sv	1816	9	1816	16		0		
+  B: 4	ref_obj	isLineF		work@uaddrDecode.isLineF	fx68k.sv	1816	9	1816	16		0		
+fields: fullname=4 objects_differing=4
+STRICT_NOTEQUAL fullname

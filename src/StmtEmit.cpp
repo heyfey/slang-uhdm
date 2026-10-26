@@ -8960,9 +8960,31 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // is set exactly for a package's own (non-class)
                     // subroutines, in both views.
                     auto& rl9 = stripImplicitConv(*rs.expr);
+                    // § classRetFillUnsized433 (r11u433,
+                    // R11U433_CLSRETFILL_OFF) — and not a CLASS method's:
+                    // a method's `return '0;` / `return '1;`, declared in the
+                    // class body or out of it, keeps the raw literal at size
+                    // -1 whatever the return type (golden cases/TR: `function
+                    // logic [3:0] g(); return '1;` in a class, the r11u432
+                    // case TP/tp03's `function C::T C::g(); return '0;`,
+                    // a typedef return C::w_t).
+                    bool clsRet433 = false;
+                    if (rl9.kind == ExpressionKind::UnbasedUnsizedIntegerLiteral &&
+                        !pkgScopeInst && e->UhdmType() == UHDM::uhdmconstant &&
+                        rs.expr->type && rs.expr->type->isIntegral() &&
+                        !rl9.as<UnbasedUnsizedIntegerLiteral>()
+                             .getLiteralValue()
+                             .isUnknown() &&
+                        currentSubSym && lawOn(433, "R11U433_CLSRETFILL_OFF"))
+                        if (auto* cs433 = currentSubSym->getParentScope();
+                            cs433 && cs433->asSymbol().kind == SymbolKind::ClassType) {
+                            clsRet433 = true;
+                            lawTrace(433, "classRetFillUnsized433",
+                                     std::string(currentSubSym->name));
+                        }
                     if (rl9.kind ==
                             ExpressionKind::UnbasedUnsizedIntegerLiteral &&
-                        !pkgScopeInst &&
+                        !pkgScopeInst && !clsRet433 &&
                         e->UhdmType() == UHDM::uhdmconstant && rs.expr->type &&
                         rs.expr->type->isIntegral()) {
                         logic_t b9 = rl9.as<UnbasedUnsizedIntegerLiteral>()

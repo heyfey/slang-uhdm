@@ -24878,9 +24878,713 @@ static slang::SourceRange tagPatParenSpan195(const slang::ast::Expression& val) 
     return outer->sourceRange();
 }
 
+// § genCaConstRhsWhole433 (r11u433, R11U433_GENCAWHOLE_OFF) — the reducer.
+// UhdmWriter::writeCont_assign (Surelog v1.87 src/DesignCompile/
+// UhdmWriter.cpp) hands an ELABORATED generate-scope cont_assign's Rhs to
+// m_helper.reduceExpr (UHDM ExprEval::reduceExpr) and, when that returns a
+// constant, installs it in the clone: a fresh constant with no location.
+// These are ExprEval's encodings for the operations it reduces, read off
+// the emitted tree (every leaf must already be a sized integer constant
+// without x / z digits; anything else abstains):
+//   + : UINT (INT when an operand is vpiIntConst or vpiDecConst), size the
+//       wider operand's;  - * / % : INT size 64;  unary - : INT at the
+//       operand's size;  << >> <<< >>> & | && || : UINT size 64;
+//   ~ : UINT at the operand's size, masked;  == != > >= < <= : BIN:0/1
+//       size 1 (an unsigned comparison).
+namespace {
+struct GcVal433 {
+    int64_t v = 0;
+    int32_t size = 0;
+    int ct = 0;
+};
+bool gcLeaf433(const UHDM::constant* c, GcVal433& out) {
+    std::string_view val = c->VpiValue();
+    auto cp = val.find(':');
+    if (cp == std::string_view::npos || c->VpiSize() <= 0 || c->VpiSize() > 64)
+        return false;
+    std::string pfx(val.substr(0, cp));
+    std::string dg(val.substr(cp + 1));
+    if (dg.empty() || dg.find_first_of("xXzZ?") != std::string::npos)
+        return false;
+    int base = 10;
+    if (pfx == "BIN")
+        base = 2;
+    else if (pfx == "HEX")
+        base = 16;
+    else if (pfx == "OCT")
+        base = 8;
+    else if (pfx != "UINT" && pfx != "INT" && pfx != "DEC")
+        return false;
+    errno = 0;
+    char* end = nullptr;
+    if (pfx == "INT") {
+        long long x = strtoll(dg.c_str(), &end, 10);
+        if (errno || !end || *end)
+            return false;
+        out.v = x;
+    }
+    else {
+        if (dg[0] == '-')
+            return false;
+        unsigned long long x = strtoull(dg.c_str(), &end, base);
+        if (errno || !end || *end)
+            return false;
+        out.v = (int64_t)x;
+    }
+    out.size = c->VpiSize();
+    out.ct = c->VpiConstType();
+    return true;
+}
+bool gcApply433(int t, const std::vector<GcVal433>& a, GcVal433& out) {
+    auto mask = [](int32_t sz) -> uint64_t {
+        return sz >= 64 ? ~0ULL : ((1ULL << sz) - 1);
+    };
+    if (a.size() == 1) {
+        if (t == vpiMinusOp) {
+            out = {-a[0].v, a[0].size, vpiIntConst};
+            return true;
+        }
+        if (t == vpiBitNegOp) {
+            uint64_t u = (uint64_t)a[0].v;
+            u = a[0].size == 1 ? (uint64_t)!u : (~u & mask(a[0].size));
+            out = {(int64_t)u, a[0].size, vpiUIntConst};
+            return true;
+        }
+        return false;
+    }
+    if (a.size() != 2)
+        return false;
+    const int64_t l = a[0].v, r = a[1].v;
+    switch (t) {
+    case vpiAddOp: {
+        bool sgn = false;
+        for (auto& g : a)
+            if (g.ct == vpiIntConst || g.ct == vpiDecConst)
+                sgn = true;
+        out = {(int64_t)((uint64_t)l + (uint64_t)r), std::max(a[0].size, a[1].size),
+               sgn ? vpiIntConst : vpiUIntConst};
+        return true;
+    }
+    case vpiSubOp: out = {l - r, 64, vpiIntConst}; return true;
+    case vpiMultOp: out = {l * r, 64, vpiIntConst}; return true;
+    case vpiDivOp:
+        if (r == 0)
+            return false;
+        out = {l / r, 64, vpiIntConst};
+        return true;
+    case vpiModOp:
+        if (r == 0)
+            return false;
+        out = {l % r, 64, vpiIntConst};
+        return true;
+    case vpiLShiftOp:
+    case vpiArithLShiftOp:
+        if ((uint64_t)r >= 64)
+            return false;
+        out = {(int64_t)((uint64_t)l << (uint64_t)r), 64, vpiUIntConst};
+        return true;
+    case vpiRShiftOp:
+    case vpiArithRShiftOp:
+        if ((uint64_t)r >= 64)
+            return false;
+        out = {(int64_t)((uint64_t)l >> (uint64_t)r), 64, vpiUIntConst};
+        return true;
+    case vpiBitAndOp: out = {(int64_t)((uint64_t)l & (uint64_t)r), 64, vpiUIntConst}; return true;
+    case vpiBitOrOp: out = {(int64_t)((uint64_t)l | (uint64_t)r), 64, vpiUIntConst}; return true;
+    case vpiLogAndOp: out = {(int64_t)(l && r), 64, vpiUIntConst}; return true;
+    case vpiLogOrOp: out = {(int64_t)(l || r), 64, vpiUIntConst}; return true;
+    case vpiEqOp: out = {(uint64_t)l == (uint64_t)r, 1, vpiBinaryConst}; return true;
+    case vpiNeqOp: out = {(uint64_t)l != (uint64_t)r, 1, vpiBinaryConst}; return true;
+    case vpiGtOp: out = {(uint64_t)l > (uint64_t)r, 1, vpiBinaryConst}; return true;
+    case vpiGeOp: out = {(uint64_t)l >= (uint64_t)r, 1, vpiBinaryConst}; return true;
+    case vpiLtOp: out = {(uint64_t)l < (uint64_t)r, 1, vpiBinaryConst}; return true;
+    case vpiLeOp: out = {(uint64_t)l <= (uint64_t)r, 1, vpiBinaryConst}; return true;
+    default: return false;
+    }
+}
+// the emitted tree: constants and operations only
+bool gcReduce433(const UHDM::any* x, GcVal433& out, int depth = 0) {
+    if (!x || depth > 64)
+        return false;
+    if (x->UhdmType() == UHDM::uhdmconstant)
+        return gcLeaf433((const UHDM::constant*)x, out);
+    if (x->UhdmType() != UHDM::uhdmoperation)
+        return false;
+    auto* op = (const UHDM::operation*)x;
+    auto* ops = op->Operands();
+    if (!ops)
+        return false;
+    std::vector<GcVal433> a;
+    for (auto* o : *ops) {
+        GcVal433 g;
+        if (!gcReduce433(o, g, depth + 1))
+            return false;
+        a.push_back(g);
+    }
+    return gcApply433(op->VpiOpType(), a, out);
+}
+// § genCaBitsSelectKeeps433v / § genCaBitsMemberDefFold433v (v11u433) — the
+// argument of a $bits / $size / $clog2 call: 0 any other, 1 a bit or range
+// select, 2 a member access whose field type reads no name, 3 a member
+// access whose field type reads a name (or cannot be read)
+int gcArgKind433(const Expression& a0) {
+    const Expression& a = stripImplicitConv(a0);
+    if (a.kind == ExpressionKind::ElementSelect || a.kind == ExpressionKind::RangeSelect)
+        return 1;
+    if (a.kind != ExpressionKind::MemberAccess)
+        return 0;
+    auto& m = a.as<MemberAccessExpression>().member;
+    if (m.kind != SymbolKind::Field)
+        return 3;
+    // the struct member declaration the field comes from (its type and
+    // declarators; a field's declared type carries no type syntax)
+    const syntax::SyntaxNode* fs = m.getSyntax();
+    const syntax::SyntaxNode* ts = fs ? fs->parent : nullptr;
+    if (!ts || ts->kind != syntax::SyntaxKind::StructUnionMember)
+        return 3;
+    bool dep = false;
+    std::function<void(const syntax::SyntaxNode*)> scan = [&](const syntax::SyntaxNode* n) {
+        if (!n || dep)
+            return;
+        if (n->kind == syntax::SyntaxKind::IdentifierName ||
+            n->kind == syntax::SyntaxKind::IdentifierSelectName ||
+            n->kind == syntax::SyntaxKind::ScopedName ||
+            n->kind == syntax::SyntaxKind::SystemName)
+            dep = true;
+        for (size_t k = 0; k < n->getChildCount(); ++k)
+            scan(n->childNode(k));
+    };
+    scan(ts);
+    return dep ? 3 : 2;
+}
+// the slang tree, for the Rhs our emitter already folded or whose leaves it
+// keeps as calls or genvar references: an unbased decimal is UINT size 64, a
+// based decimal vpiDecConst and a based hex / binary / octal literal its
+// own kind at its width, a genvar UINT size 64, $bits / $size / $clog2
+// UINT size 64; any other leaf abstains.
+bool gcSlang433(const Expression& e0, GcVal433& out, const Scope& root, int depth = 0) {
+    if (depth > 64)
+        return false;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+    case ExpressionKind::IntegerLiteral: {
+        const auto& v = e.as<IntegerLiteral>().getValue();
+        if (v.hasUnknown() || !e.syntax)
+            return false;
+        auto u = v.as<uint64_t>();
+        if (!u)
+            return false;
+        if (e.syntax->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+            out = {(int64_t)*u, 64, vpiUIntConst};
+            return true;
+        }
+        if (e.syntax->kind != syntax::SyntaxKind::IntegerVectorExpression)
+            return false;
+        auto& iv = e.syntax->as<syntax::IntegerVectorExpressionSyntax>();
+        if (iv.size.kind == parsing::TokenKind::Unknown || iv.size.valueText().empty())
+            return false;
+        std::string_view b = iv.base.valueText();
+        if (b.size() < 2 || b[1] == 's' || b[1] == 'S')
+            return false;
+        char bc = (char)tolower((unsigned char)b[1]);
+        int ct = bc == 'd' ? vpiDecConst : bc == 'h' ? vpiHexConst
+                 : bc == 'b' ? vpiBinaryConst : bc == 'o' ? vpiOctConst : 0;
+        if (!ct)
+            return false;
+        out = {(int64_t)*u, (int32_t)v.getBitWidth(), ct};
+        return true;
+    }
+    case ExpressionKind::NamedValue: {
+        // a genvar: the unrolling's Value, UINT size 64; an untyped,
+        // not-overridden module or generate-block parameter whose initializer
+        // is unbased decimals only: UINT size 32 (the parameter's elaborated
+        // value as the emitter's own operand fold writes it)
+        auto& sym = e.as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Parameter)
+            return false;
+        auto& ps = sym.as<ParameterSymbol>();
+        int32_t sz = 64;
+        if (!ps.isFromGenvar()) {
+            auto* sc = ps.getParentScope();
+            if (!sc || (sc->asSymbol().kind != SymbolKind::InstanceBody &&
+                        sc->asSymbol().kind != SymbolKind::GenerateBlock))
+                return false;
+            if (ps.isOverridden())
+                return false;
+            auto dt = ps.getDeclaredType();
+            auto ts = dt ? dt->getTypeSyntax() : nullptr;
+            if (!ts || ts->kind != syntax::SyntaxKind::ImplicitType ||
+                ts->as<syntax::ImplicitTypeSyntax>().signing ||
+                !ts->as<syntax::ImplicitTypeSyntax>().dimensions.empty())
+                return false;
+            auto* is = dt->getInitializerSyntax();
+            bool plain = is != nullptr;
+            std::function<void(const syntax::SyntaxNode*)> scan =
+                [&](const syntax::SyntaxNode* n) {
+                    if (!n || !plain)
+                        return;
+                    if (n->kind != syntax::SyntaxKind::IntegerLiteralExpression &&
+                        n->kind != syntax::SyntaxKind::ParenthesizedExpression &&
+                        !syntax::BinaryExpressionSyntax::isKind(n->kind))
+                        plain = false;
+                    for (size_t k = 0; k < n->getChildCount(); ++k)
+                        scan(n->childNode(k));
+                };
+            scan(is);
+            if (!plain)
+                return false;
+            sz = 32;
+        }
+        auto& cv = ps.getValue();
+        if (!cv.isInteger() || cv.integer().hasUnknown() || cv.integer().isNegative())
+            return false;
+        auto u = cv.integer().as<uint64_t>();
+        if (!u)
+            return false;
+        out = {(int64_t)*u, sz, vpiUIntConst};
+        return true;
+    }
+    case ExpressionKind::Call: {
+        auto& c = e.as<CallExpression>();
+        if (!c.isSystemCall())
+            return false;
+        auto n = c.getSubroutineName();
+        if (n != "$bits" && n != "$size" && n != "$clog2")
+            return false;
+        // $bits of a type is Surelog's own artefact (UINT:1): abstain
+        if (c.arguments().size() != 1 ||
+            c.arguments()[0]->kind == ExpressionKind::DataType)
+            return false;
+        // § genCaBitsSelectKeeps433v (v11u433, R11V433_GENBITSSEL_OFF) and
+        // § genCaBitsMemberDefFold433v (v11u433, R11V433_GENBITSMEMBER_OFF):
+        // reduceExpr does not fold a call over a select, nor over a member
+        // whose type reads a parameter, so the operation around it stays
+        // (golden `$bits(x[1]) + 1`, `$bits(pk[0]) * 2`: the v11u433 case
+        // VW/vw44)
+        if (int ak433 = gcArgKind433(*c.arguments()[0]);
+            (ak433 == 1 && fixOn(433, "R11V433_GENBITSSEL_OFF")) ||
+            (ak433 == 3 && fixOn(433, "R11V433_GENBITSMEMBER_OFF")))
+            return false;
+        ASTContext ctx(root, LookupLocation::max);
+        ConstantValue cv = ctx.tryEval(e);
+        if (!cv || !cv.isInteger() || cv.integer().hasUnknown() || cv.integer().isNegative())
+            return false;
+        auto u = cv.integer().as<uint64_t>();
+        if (!u)
+            return false;
+        out = {(int64_t)*u, 64, vpiUIntConst};
+        return true;
+    }
+    case ExpressionKind::UnaryOp: {
+        auto& u = e.as<UnaryExpression>();
+        int t = u.op == UnaryOperator::Minus ? vpiMinusOp
+                : u.op == UnaryOperator::BitwiseNot ? vpiBitNegOp : 0;
+        if (!t)
+            return false;
+        GcVal433 g;
+        if (!gcSlang433(u.operand(), g, root, depth + 1))
+            return false;
+        return gcApply433(t, {g}, out);
+    }
+    case ExpressionKind::BinaryOp: {
+        auto& b = e.as<BinaryExpression>();
+        int t = 0;
+        switch (b.op) {
+        case BinaryOperator::Add: t = vpiAddOp; break;
+        case BinaryOperator::Subtract: t = vpiSubOp; break;
+        case BinaryOperator::Multiply: t = vpiMultOp; break;
+        case BinaryOperator::Divide: t = vpiDivOp; break;
+        case BinaryOperator::Mod: t = vpiModOp; break;
+        case BinaryOperator::BinaryAnd: t = vpiBitAndOp; break;
+        case BinaryOperator::BinaryOr: t = vpiBitOrOp; break;
+        case BinaryOperator::LogicalAnd: t = vpiLogAndOp; break;
+        case BinaryOperator::LogicalOr: t = vpiLogOrOp; break;
+        case BinaryOperator::LogicalShiftLeft: t = vpiLShiftOp; break;
+        case BinaryOperator::LogicalShiftRight: t = vpiRShiftOp; break;
+        case BinaryOperator::ArithmeticShiftLeft: t = vpiArithLShiftOp; break;
+        case BinaryOperator::ArithmeticShiftRight: t = vpiArithRShiftOp; break;
+        case BinaryOperator::Equality: t = vpiEqOp; break;
+        case BinaryOperator::Inequality: t = vpiNeqOp; break;
+        case BinaryOperator::GreaterThan: t = vpiGtOp; break;
+        case BinaryOperator::GreaterThanEqual: t = vpiGeOp; break;
+        case BinaryOperator::LessThan: t = vpiLtOp; break;
+        case BinaryOperator::LessThanEqual: t = vpiLeOp; break;
+        default: return false;
+        }
+        GcVal433 l, r;
+        if (!gcSlang433(b.left(), l, root, depth + 1) || !gcSlang433(b.right(), r, root, depth + 1))
+            return false;
+        return gcApply433(t, {l, r}, out);
+    }
+    default:
+        return false;
+    }
+}
+// CompileHelper::adjustSize at a whole-name Lhs of `w` bits: a UINT is
+// masked and resized, an INT resized, a BIN kept when it already fits.
+// False abstains.
+bool gcAdjust433(GcVal433& g, int32_t w) {
+    if (w <= 0 || w > 64)
+        return false;
+    if (g.ct == vpiUIntConst) {
+        uint64_t m = w >= 64 ? ~0ULL : ((1ULL << w) - 1);
+        g.v = (int64_t)((uint64_t)g.v & m);
+        g.size = w;
+        return true;
+    }
+    if (g.ct == vpiIntConst) {
+        g.size = w;
+        return true;
+    }
+    if (g.ct == vpiBinaryConst)
+        return g.size <= w;
+    return false;
+}
+// a trace detail on one line
+std::string oneLine433(std::string_view t) {
+    std::string o;
+    for (char ch : t)
+        o += (ch == '\n' || ch == '\r' || ch == '\t') ? ' ' : ch;
+    return o;
+}
+// the busy flag of the whole-Rhs interception (the re-entry emits the Rhs
+// itself)
+bool gcBusy433 = false;
+// § unitParamPlainEval433v (v11u433, R11V433_UNITEVAL_OFF) — ExprEval over
+// a $unit parameter's initializer as WRITTEN: an unbased decimal is UINT
+// size 64 read from its own digits (slang wraps 3000000000 to a signed
+// 32-bit value and truncates 4294967296, Surelog keeps both whole), the
+// operators by gcApply433's encodings (`*` `-` `/` `%` INT, a comparison
+// BIN:0/1 size 1); any other node abstains.
+bool gcSyntax433(const syntax::SyntaxNode* n, GcVal433& out, int depth = 0) {
+    if (!n || depth > 64)
+        return false;
+    switch (n->kind) {
+    case syntax::SyntaxKind::ParenthesizedExpression:
+        return gcSyntax433(n->as<syntax::ParenthesizedExpressionSyntax>().expression, out,
+                           depth + 1);
+    case syntax::SyntaxKind::IntegerLiteralExpression: {
+        std::string t;
+        for (char ch : n->as<syntax::LiteralExpressionSyntax>().literal.rawText())
+            if (ch != '_')
+                t += ch;
+        if (t.empty() || t.size() > 19)
+            return false;
+        for (char ch : t)
+            if (!isdigit((unsigned char)ch))
+                return false;
+        errno = 0;
+        unsigned long long x = strtoull(t.c_str(), nullptr, 10);
+        if (errno)
+            return false;
+        out = {(int64_t)x, 64, vpiUIntConst};
+        return true;
+    }
+    case syntax::SyntaxKind::UnaryMinusExpression: {
+        GcVal433 g;
+        if (!gcSyntax433(n->as<syntax::PrefixUnaryExpressionSyntax>().operand, g, depth + 1))
+            return false;
+        return gcApply433(vpiMinusOp, {g}, out);
+    }
+    default:
+        break;
+    }
+    if (!syntax::BinaryExpressionSyntax::isKind(n->kind))
+        return false;
+    int t = 0;
+    switch (n->kind) {
+    case syntax::SyntaxKind::AddExpression: t = vpiAddOp; break;
+    case syntax::SyntaxKind::SubtractExpression: t = vpiSubOp; break;
+    case syntax::SyntaxKind::MultiplyExpression: t = vpiMultOp; break;
+    case syntax::SyntaxKind::DivideExpression: t = vpiDivOp; break;
+    case syntax::SyntaxKind::ModExpression: t = vpiModOp; break;
+    case syntax::SyntaxKind::LogicalShiftLeftExpression: t = vpiLShiftOp; break;
+    case syntax::SyntaxKind::LogicalShiftRightExpression: t = vpiRShiftOp; break;
+    case syntax::SyntaxKind::EqualityExpression: t = vpiEqOp; break;
+    case syntax::SyntaxKind::InequalityExpression: t = vpiNeqOp; break;
+    case syntax::SyntaxKind::GreaterThanExpression: t = vpiGtOp; break;
+    case syntax::SyntaxKind::GreaterThanEqualExpression: t = vpiGeOp; break;
+    case syntax::SyntaxKind::LessThanExpression: t = vpiLtOp; break;
+    case syntax::SyntaxKind::LessThanEqualExpression: t = vpiLeOp; break;
+    default: return false;
+    }
+    auto& b = n->as<syntax::BinaryExpressionSyntax>();
+    GcVal433 l, r;
+    if (!gcSyntax433(b.left, l, depth + 1) || !gcSyntax433(b.right, r, depth + 1))
+        return false;
+    return gcApply433(t, {l, r}, out);
+}
+} // namespace
+
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // § genCaConstRhsWhole433 (r11u433, R11U433_GENCAWHOLE_OFF) — the WHOLE
+    // Rhs of an ELABORATED generate-scope continuous assignment that
+    // Surelog's writeCont_assign reduces to one constant: an operation tree
+    // over constants, a system call our emitter folds ($bits, $size,
+    // $clog2), or an unbased decimal literal (the reducer above).
+    //   * a whole-name Lhs bound to a module net or variable (not a
+    //     generate-block local): the reduced constant is adjustSize'd to the
+    //     Lhs width; an operation Rhs (the clone-and-reduce leg) installs it
+    //     UNPARENTED and unlocated, a system call (the reduce leg) parents it
+    //     at the cont_assign, unlocated, and a literal keeps its own object
+    //     with only the size adjusted;
+    //   * a select or concatenation Lhs, or any Lhs in an interface: no
+    //     typespec reaches adjustSize, so the reduced constant keeps
+    //     ExprEval's size, parented at the cont_assign and unlocated; a
+    //     literal is left alone;
+    //   * a $bits the definition compile already folded (of a parameter, or
+    //     of a name declared in the assignment's own generate block and not
+    //     typed by a genvar) stays at the call's span.
+    // Golden: the r11u434 case BD/bd02 `assign y = $bits(x);` UINT:5 size 32
+    // with no location, pass 429's GB cases, cases/GR, GL, GC, GF, GV.  A
+    // ternary's selected branch, a generate-local whole-name Lhs, an unpacked or
+    // wider-than-64-bit Lhs, and any leaf that is not a sized x / z-free
+    // constant (or a genvar, a parameter or a call the slang-tree reducer
+    // reads) abstain.
+    if (!gcBusy433 && inGenScopeCaRhs && parent &&
+        parent->UhdmType() == UHDM::uhdmcont_assign &&
+        lawOn(433, "R11U433_GENCAWHOLE_OFF")) {
+        const Expression& core433 = stripImplicitConv(expr);
+        const syntax::SyntaxNode* sx433 = core433.syntax;
+        while (sx433 && sx433->parent &&
+               sx433->parent->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            sx433 = sx433->parent;
+        const syntax::SyntaxNode* as433 = sx433 ? sx433->parent : nullptr;
+        int lhsKind433 = 0; // 1 whole name, 2 select
+        if (as433 && as433->kind == syntax::SyntaxKind::AssignmentExpression &&
+            as433->as<syntax::BinaryExpressionSyntax>().right == sx433) {
+            auto lk433 = as433->as<syntax::BinaryExpressionSyntax>().left->kind;
+            if (lk433 == syntax::SyntaxKind::IdentifierName)
+                lhsKind433 = genCaLhsGenLocal23 ? 0 : 1;
+            else if (lk433 == syntax::SyntaxKind::ElementSelectExpression ||
+                     lk433 == syntax::SyntaxKind::IdentifierSelectName ||
+                     lk433 == syntax::SyntaxKind::ConcatenationExpression)
+                lhsKind433 = 2;
+            // CompileHelper::bindVariable stops at an interface: its whole-name
+            // Lhs takes the select road (no adjust, parented)
+            if (lhsKind433 == 1)
+                for (const syntax::SyntaxNode* up433 = as433->parent; up433;
+                     up433 = up433->parent)
+                    if (up433->kind == syntax::SyntaxKind::InterfaceDeclaration) {
+                        lhsKind433 = 2;
+                        break;
+                    }
+        }
+        int32_t w433 = 0;
+        if (expr.type && expr.type->isIntegral() && !expr.type->isUnpackedArray())
+            w433 = (int32_t)expr.type->getBitWidth();
+        if (lhsKind433 && w433 > 0 && w433 <= 64) {
+            gcBusy433 = true;
+            UHDM::any* r433 = nullptr;
+            try {
+                r433 = emitExpr(expr, parent, prefix, netMap);
+            } catch (...) {
+                gcBusy433 = false;
+                throw;
+            }
+            gcBusy433 = false;
+            if (!r433)
+                return r433;
+            const bool sysCall433 =
+                core433.kind == ExpressionKind::Call &&
+                core433.as<CallExpression>().isSystemCall() &&
+                core433.as<CallExpression>().arguments().size() == 1 &&
+                core433.as<CallExpression>().arguments()[0]->kind !=
+                    ExpressionKind::DataType &&
+                (core433.as<CallExpression>().getSubroutineName() == "$bits" ||
+                 core433.as<CallExpression>().getSubroutineName() == "$size" ||
+                 core433.as<CallExpression>().getSubroutineName() == "$clog2");
+            bool defFold433 = false;
+            // § genCaBitsSelectKeeps433v (v11u433, R11V433_GENBITSSEL_OFF) —
+            // a call over a bit or range select is not reduced: golden keeps
+            // the sys_func_call ($bits(x[3:0]), $bits(x[1]), $bits(pk[1]),
+            // $bits(m[0]), $size(x[3:0]): the v11u433 cases VW/vw41, vw43,
+            // vw44), as pristine writes it; the law folded it (vw41 uhdm-cmp
+            // 32 -> 84 lines, vw44 17 -> 80).
+            // § genCaBitsMemberDefFold433v (v11u433, R11V433_GENBITSMEMBER_OFF)
+            // — $bits of a member whose type reads no name is folded by the
+            // definition compile, so golden's constant is LOCATED at the call
+            // (vw30 `$bits(s.b)`, vw41, vw42, vw43's s.b), where the law
+            // dropped the location pristine had; a member whose type reads a
+            // parameter, or a member under $size or $clog2, is not folded at
+            // all and golden keeps the call (vw43 `$bits(s.a)` with
+            // `logic [W-1:0] a`)
+            if (sysCall433) {
+                const int ak433 = gcArgKind433(*core433.as<CallExpression>().arguments()[0]);
+                const bool bits433 = core433.as<CallExpression>().getSubroutineName() == "$bits";
+                if ((ak433 == 1 && fixOn(433, "R11V433_GENBITSSEL_OFF")) ||
+                    ((ak433 == 3 || (ak433 == 2 && !bits433)) &&
+                     fixOn(433, "R11V433_GENBITSMEMBER_OFF"))) {
+                    lawTrace(433, "genCaConstRhsWhole433",
+                             "abstain-arg" + std::to_string(ak433) + " " +
+                                 oneLine433(rawText(core433.sourceRange)));
+                    return r433;
+                }
+                if (ak433 == 2 && bits433 && fixOn(433, "R11V433_GENBITSMEMBER_OFF"))
+                    defFold433 = true;
+            }
+            // $bits only: $clog2(P) reads the parameter's value and $size(q)
+            // is compiled as a call, neither folded by the definition compile
+            // (golden unlocated: cases/GR gr05, cases/GF gf10)
+            if (sysCall433 &&
+                core433.as<CallExpression>().getSubroutineName() == "$bits") {
+                auto& a433 = stripImplicitConv(*core433.as<CallExpression>().arguments()[0]);
+                // a parameter's $bits is folded there too (golden UINT:0 at
+                // the call, the r11u429 case GB/gb06)
+                if (a433.kind == ExpressionKind::NamedValue &&
+                    a433.as<NamedValueExpression>().symbol.kind == SymbolKind::Parameter)
+                    defFold433 = true;
+                // a name declared in the very generate block that holds
+                // the assignment (golden located, the r11u429 case GB/gb03);
+                // one declared in an enclosing block is not folded there
+                // (golden unlocated, gb04, cases/GF gf06)
+                else if (a433.kind == ExpressionKind::NamedValue && castSiteScope57 &&
+                         a433.as<NamedValueExpression>().symbol.getParentScope() ==
+                             castSiteScope57 &&
+                         castSiteScope57->asSymbol().kind == SymbolKind::GenerateBlock)
+                    defFold433 = true;
+                // a declaration whose type reads a generate-loop genvar is
+                // not folded by the definition compile (golden unlocated,
+                // cases/GF gf08)
+                if (defFold433 && a433.kind == ExpressionKind::NamedValue &&
+                    a433.as<NamedValueExpression>().symbol.kind != SymbolKind::Parameter)
+                    if (auto* dsx433 = a433.as<NamedValueExpression>().symbol.getSyntax()) {
+                        std::set<std::string_view> gv433;
+                        for (const syntax::SyntaxNode* an433 = dsx433->parent; an433;
+                             an433 = an433->parent)
+                            if (an433->kind == syntax::SyntaxKind::LoopGenerate)
+                                gv433.insert(an433->as<syntax::LoopGenerateSyntax>()
+                                                 .identifier.valueText());
+                        const syntax::SyntaxNode* tsx433 = dsx433->parent;
+                        bool hit433 = false;
+                        std::function<void(const syntax::SyntaxNode*)> scan433 =
+                            [&](const syntax::SyntaxNode* n433) {
+                                if (!n433 || hit433)
+                                    return;
+                                if (n433->kind == syntax::SyntaxKind::IdentifierName &&
+                                    gv433.count(n433->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText()))
+                                    hit433 = true;
+                                for (size_t k = 0; k < n433->getChildCount(); ++k)
+                                    scan433(n433->childNode(k));
+                            };
+                        if (!gv433.empty() && tsx433)
+                            scan433(tsx433);
+                        if (hit433)
+                            defFold433 = false;
+                    }
+            }
+            const bool lit433 =
+                core433.kind == ExpressionKind::IntegerLiteral && core433.syntax &&
+                core433.syntax->kind == syntax::SyntaxKind::IntegerLiteralExpression;
+            GcVal433 g433;
+            bool ok433 = false;
+            int leg433 = 0; // 1 operation, 2 call, 3 literal or folded $bits, 4 built $bits
+            const bool opRhs433 = core433.kind == ExpressionKind::BinaryOp ||
+                                  core433.kind == ExpressionKind::UnaryOp;
+            if (r433->UhdmType() == UHDM::uhdmoperation ||
+                (opRhs433 && r433->UhdmType() == UHDM::uhdmconstant)) {
+                if (lhsKind433 == 2 || caBoundLhsOpRhs17) {
+                    leg433 = 1;
+                    ok433 = r433->UhdmType() == UHDM::uhdmoperation &&
+                            gcReduce433(r433, g433);
+                    if (!ok433 && opRhs433)
+                        ok433 = gcSlang433(core433, g433, comp.getRoot());
+                }
+            }
+            else if (sysCall433 && defFold433) {
+                // the definition compile already folded the call (its
+                // argument is a parameter or is declared inside a generate
+                // block, § genBodyBitsOuterNameKeeps429's other half):
+                // reduceExpr returns that LOCATED constant, so only the size
+                // moves; where our emitter kept the call, the constant is
+                // built at the call's span (leg 4)
+                leg433 = 3;
+                if (lhsKind433 == 1 && r433->UhdmType() == UHDM::uhdmconstant)
+                    ok433 = gcLeaf433((const UHDM::constant*)r433, g433) &&
+                            g433.ct == vpiUIntConst;
+                else if (r433->UhdmType() == UHDM::uhdmsys_func_call) {
+                    leg433 = 4;
+                    ASTContext ctx433(comp.getRoot(), LookupLocation::max);
+                    ConstantValue cv433 = ctx433.tryEval(core433);
+                    if (cv433 && cv433.isInteger() && !cv433.integer().hasUnknown() &&
+                        !cv433.integer().isNegative())
+                        if (auto u433 = cv433.integer().as<uint64_t>()) {
+                            g433 = {(int64_t)*u433, 64, vpiUIntConst};
+                            ok433 = true;
+                        }
+                }
+            }
+            else if (sysCall433) {
+                leg433 = 2;
+                if (r433->UhdmType() == UHDM::uhdmconstant)
+                    ok433 = gcLeaf433((const UHDM::constant*)r433, g433) &&
+                            g433.ct == vpiUIntConst;
+                else if (r433->UhdmType() == UHDM::uhdmsys_func_call) {
+                    ASTContext ctx433(comp.getRoot(), LookupLocation::max);
+                    ConstantValue cv433 = ctx433.tryEval(core433);
+                    if (cv433 && cv433.isInteger() && !cv433.integer().hasUnknown() &&
+                        !cv433.integer().isNegative())
+                        if (auto u433 = cv433.integer().as<uint64_t>()) {
+                            g433 = {(int64_t)*u433, 64, vpiUIntConst};
+                            ok433 = true;
+                        }
+                }
+            }
+            else if (lit433 && lhsKind433 == 1 &&
+                     r433->UhdmType() == UHDM::uhdmconstant) {
+                leg433 = 3;
+                ok433 = gcLeaf433((const UHDM::constant*)r433, g433) &&
+                        g433.ct == vpiUIntConst;
+            }
+            if (ok433 && lhsKind433 == 1 && !gcAdjust433(g433, w433))
+                ok433 = false;
+            if (!ok433) {
+                lawTrace(433, "genCaConstRhsWhole433",
+                         "abstain leg" + std::to_string(leg433) + " lhs" +
+                             std::to_string(lhsKind433) + " bound" +
+                             std::to_string((int)caBoundLhsOpRhs17) + " " +
+                             oneLine433(rawText(core433.sourceRange)));
+                return r433;
+            }
+            std::string dg433 = g433.ct == vpiIntConst ? std::to_string(g433.v)
+                                                       : std::to_string((uint64_t)g433.v);
+            if (leg433 == 3) {
+                auto* c433 = (UHDM::constant*)r433;
+                if (c433->VpiSize() == g433.size &&
+                    c433->VpiValue() == "UINT:" + dg433) {
+                    lawTrace(433, "genCaConstRhsWhole433", "literal-same " + dg433);
+                    return c433;
+                }
+                c433->VpiSize(g433.size);
+                c433->VpiDecompile(dg433);
+                c433->VpiValue("UINT:" + dg433);
+                lawTrace(433, "genCaConstRhsWhole433",
+                         "literal " + dg433 + " size " + std::to_string(g433.size));
+                return c433;
+            }
+            auto* c433 = s.MakeConstant();
+            c433->VpiDecompile(dg433);
+            c433->VpiSize(g433.size);
+            c433->VpiValue(std::string(g433.ct == vpiIntConst      ? "INT:"
+                                       : g433.ct == vpiBinaryConst ? "BIN:"
+                                                                   : "UINT:") +
+                           dg433);
+            c433->VpiConstType(g433.ct);
+            if (!(leg433 == 1 && lhsKind433 == 1))
+                c433->VpiParent(parent);
+            if (leg433 == 4)
+                setLoc(c433, core433.sourceRange);
+            lawTrace(433, "genCaConstRhsWhole433",
+                     "leg" + std::to_string(leg433) + " lhs" + std::to_string(lhsKind433) +
+                         " " + std::string(c433->VpiValue()) + " size " +
+                         std::to_string(g433.size) + " " +
+                         oneLine433(rawText(core433.sourceRange)));
+            return c433;
+        }
+    }
     // § connBitSelIdxNonOvParamFold431's producer (r11u431): the instance's
     // stored Value of a not-overridden module-scope parameter read in an
     // ELABORATED port High_conn, a copy of the parameter's elaborated
@@ -24983,6 +25687,252 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     lawTrace(431, "connBitSelIdxNonOvParamFold431",
                              "abstain " + std::string(ps431->name));
                 return nullptr;
+    };
+    // § connOpUnitParamFold433's and § connIdxUnitParamFold433's producer
+    // (r11u433): a COMPILATION-UNIT
+    // parameter read inside an ELABORATED port High_conn (an operation
+    // operand or a bit-select index) is Surelog's substituted Value of the
+    // $unit parameter, located at the read and parented at `par433`
+    // (NetlistElaboration::high_conn_ compiles the actual with Reduce::Yes,
+    // and the identifier branch's getValue returns the parameter's Value as
+    // built from its initializer).  Measured forms (golden cases/UG, UC):
+    //   an untyped initializer of unbased decimals: UINT:<v> size 64
+    //     (INT:<v> vpiIntConst when negative);
+    //   a typed integral one: UINT:<v> at the type's width (abstains on a
+    //     negative value);
+    //   a based decimal literal: INT:<v> at the literal's width;
+    //   a based hex / binary / octal literal: the literal itself, written
+    //     digits, its width or -1 when unsized.
+    // A typed parameter whose literal width differs from the type, a
+    // signed or x / z literal, an initializer reading another name, an
+    // enum, real or string type, and a `$unit::P` read abstain.  Null to
+    // abstain.
+    auto unitParamFold433 = [&](const Expression& sel433, UHDM::any* par433,
+                                const char* law433) -> UHDM::constant* {
+        auto& core433 = stripImplicitConv(sel433);
+        if (core433.kind != ExpressionKind::NamedValue)
+            return nullptr;
+        auto& sym433 = core433.as<NamedValueExpression>().symbol;
+        if (sym433.kind != SymbolKind::Parameter || !sym433.getParentScope() ||
+            sym433.getParentScope()->asSymbol().kind != SymbolKind::CompilationUnit)
+            return nullptr;
+        if (core433.syntax && core433.syntax->kind == syntax::SyntaxKind::ScopedName) {
+            lawTrace(433, law433, "abstain-qual " + std::string(sym433.name));
+            return nullptr;
+        }
+        auto& ps433 = sym433.as<ParameterSymbol>();
+        auto abst433 = [&](const char* why) -> UHDM::constant* {
+            lawTrace(433, law433,
+                     std::string("abstain-") + why + " " + std::string(ps433.name));
+            return nullptr;
+        };
+        const syntax::SyntaxNode* is433 = nullptr;
+        if (auto dti433 = ps433.getDeclaredType())
+            is433 = dti433->getInitializerSyntax();
+        if (!is433)
+            return abst433("noinit");
+        while (is433 && is433->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            is433 = is433->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        if (!is433)
+            return abst433("noinit");
+        bool typed433 = false;
+        if (auto dt433 = ps433.getDeclaredType())
+            if (auto ty433 = dt433->getTypeSyntax())
+                typed433 = ty433->kind != syntax::SyntaxKind::ImplicitType ||
+                           ty433->as<syntax::ImplicitTypeSyntax>().signing ||
+                           !ty433->as<syntax::ImplicitTypeSyntax>().dimensions.empty();
+        auto& ct433 = ps433.getType().getCanonicalType();
+        if (!ct433.isIntegral() || ct433.isEnum())
+            return abst433("type");
+        const int64_t tw433 = (int64_t)ct433.getBitWidth();
+        auto& cv433 = ps433.getValue();
+        if (!cv433.isInteger() || cv433.integer().hasUnknown())
+            return abst433("value");
+        // § unitParamNoOrphan433v (v11u433, R11V433_UNITORPHAN_OFF) — the
+        // constant is made only once every abstention has passed: one made
+        // first and abandoned by an abstention stayed in the database as an
+        // unreferenced object (bytes moved, dump identical: the v11u433 case
+        // VU/vu26)
+        UHDM::constant* c433 =
+            fixOn(433, "R11V433_UNITORPHAN_OFF") ? nullptr : s.MakeConstant();
+        std::string dec433, val433;
+        int ctk433 = 0;
+        int64_t sz433 = 0;
+        if (is433->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+            // a based literal, read as written
+            std::string raw433(rawText(is433->sourceRange()));
+            std::string lit433;
+            for (char ch433 : raw433)
+                if (!isspace((unsigned char)ch433))
+                    lit433 += ch433;
+            auto tk433 = lit433.find('\'');
+            if (tk433 == std::string::npos || tk433 + 2 > lit433.size())
+                return abst433("literal");
+            size_t bp433 = tk433 + 1;
+            if (lit433[bp433] == 's' || lit433[bp433] == 'S')
+                return abst433("signed");
+            char b433 = (char)tolower((unsigned char)lit433[bp433]);
+            std::string dg433;
+            for (char ch433 : lit433.substr(bp433 + 1))
+                if (ch433 != '_')
+                    dg433 += ch433;
+            if (dg433.empty() ||
+                dg433.find_first_of("xXzZ?") != std::string::npos)
+                return abst433("xz");
+            int64_t lw433 = -1;
+            if (tk433 > 0) {
+                for (size_t k433 = 0; k433 < tk433; ++k433)
+                    if (!isdigit((unsigned char)lit433[k433]))
+                        return abst433("literal");
+                lw433 = std::stoll(lit433.substr(0, tk433));
+            }
+            if (typed433 && lw433 != tw433)
+                return abst433("typed-width");
+            // § unitParamLitForm433v (v11u433, R11V433_UNITLIT_OFF) — golden
+            // writes an octal literal as its value, UINT:<v> with a decimal
+            // decompile at the literal's width (3'o5 UINT:5 size 3, 'o17
+            // UINT:15), and a hex or binary literal's decompile with the
+            // base lowercased and no underscores (8'hA_5 -> 8'hA5, 4'B1010
+            // -> 4'b1010); the octal form OCT:<digits> read as x by the
+            // downstream plugin (the v11u433 cases VU/vu20, vu22, vu24)
+            const bool litForm433 = fixOn(433, "R11V433_UNITLIT_OFF");
+            if (b433 == 'd') {
+                if (lw433 < 0)
+                    return abst433("unsized-dec");
+                std::string v433 = cv433.integer().toString(LiteralBase::Decimal, false);
+                dec433 = v433;
+                val433 = "INT:" + v433;
+                ctk433 = vpiIntConst;
+                sz433 = lw433;
+            }
+            else if (b433 == 'o' && litForm433) {
+                if (dg433.size() > 21)
+                    return abst433("literal");
+                for (char ch433 : dg433)
+                    if (ch433 < '0' || ch433 > '7')
+                        return abst433("literal");
+                errno = 0;
+                unsigned long long o433 = strtoull(dg433.c_str(), nullptr, 8);
+                if (errno)
+                    return abst433("literal");
+                dec433 = std::to_string(o433);
+                val433 = "UINT:" + dec433;
+                ctk433 = vpiUIntConst;
+                sz433 = lw433;
+            }
+            else if (b433 == 'h' || b433 == 'b' || b433 == 'o') {
+                dec433 = litForm433 ? (tk433 > 0 ? lit433.substr(0, tk433) : std::string()) +
+                                          "'" + std::string(1, b433) + dg433
+                                    : lit433;
+                val433 = std::string(b433 == 'h' ? "HEX:" : b433 == 'b' ? "BIN:" : "OCT:") +
+                         dg433;
+                ctk433 = b433 == 'h' ? vpiHexConst : b433 == 'b' ? vpiBinaryConst : vpiOctConst;
+                sz433 = lw433;
+            }
+            else
+                return abst433("literal");
+        }
+        else {
+            // an expression over unbased decimal literals only
+            bool plain433 = true;
+            std::function<void(const syntax::SyntaxNode*)> scan433 =
+                [&](const syntax::SyntaxNode* n433) {
+                    if (!n433 || !plain433)
+                        return;
+                    switch (n433->kind) {
+                    case syntax::SyntaxKind::IntegerLiteralExpression:
+                    case syntax::SyntaxKind::ParenthesizedExpression:
+                        break;
+                    default:
+                        if (!syntax::BinaryExpressionSyntax::isKind(n433->kind) &&
+                            !syntax::PrefixUnaryExpressionSyntax::isKind(n433->kind))
+                            plain433 = false;
+                    }
+                    for (size_t k433 = 0; k433 < n433->getChildCount(); ++k433)
+                        scan433(n433->childNode(k433));
+                };
+            scan433(is433);
+            if (!plain433)
+                return abst433("expr");
+            const auto& iv433 = cv433.integer();
+            const bool neg433 = iv433.isSigned() && iv433.isNegative();
+            // § unitParamPlainEval433v (v11u433, R11V433_UNITEVAL_OFF) — the
+            // value and kind are ExprEval's over the initializer as written
+            // (gcSyntax433), not slang's value: golden reads
+            // `localparam S = 3000000000` UINT:3000000000 where slang's value
+            // is -1294967296 (the law wrote INT:-1294967296, read by the
+            // downstream plugin as a negative 64-bit constant: the v11u433
+            // case VU/vu23 IDENTICAL -> EQUIVALENT), 4294967296 UINT:4294967296
+            // where slang's is 0, 2*3 INT:6, 10-3 INT:7, 7/2 INT:3 and 2 > 1
+            // BIN:1 size 1 decompile 1'b1; a typed parameter takes the kind at
+            // the type's width (int S = 2*3 INT:6, int S = -3 INT:-3, golden
+            // VU/vu15, vu21, vu25); a typed comparison (golden INT:-1, a
+            // Surelog artefact), a negative value in an unsigned type, a
+            // value the type cannot hold and any operator ExprEval's table
+            // here does not cover abstain
+            if (fixOn(433, "R11V433_UNITEVAL_OFF")) {
+                GcVal433 g433;
+                if (!gcSyntax433(is433, g433))
+                    return abst433("eval");
+                const bool sgnT433 = ct433.isSigned();
+                if (typed433) {
+                    if (g433.ct == vpiBinaryConst)
+                        return abst433("typed-cmp");
+                    if (g433.ct == vpiIntConst && g433.v < 0 && !sgnT433)
+                        return abst433("typed-neg");
+                    if (g433.ct == vpiUIntConst || g433.v >= 0) {
+                        const int64_t lim433 = sgnT433 ? tw433 - 1 : tw433;
+                        if (lim433 < 64 && (uint64_t)g433.v >= (1ULL << lim433))
+                            return abst433("typed-range");
+                    }
+                    else if (tw433 < 64 && g433.v < -(int64_t)(1ULL << (tw433 - 1)))
+                        return abst433("typed-range");
+                    sz433 = tw433;
+                }
+                else
+                    sz433 = g433.size;
+                if (g433.ct == vpiBinaryConst) {
+                    dec433 = "1'b" + std::to_string(g433.v);
+                    val433 = "BIN:" + std::to_string(g433.v);
+                }
+                else if (g433.ct == vpiIntConst) {
+                    dec433 = std::to_string(g433.v);
+                    val433 = "INT:" + dec433;
+                }
+                else {
+                    dec433 = std::to_string((uint64_t)g433.v);
+                    val433 = "UINT:" + dec433;
+                }
+                ctk433 = g433.ct;
+            }
+            else if (typed433) {
+                if (neg433)
+                    return abst433("typed-neg");
+                std::string v433 = iv433.toString(LiteralBase::Decimal, false);
+                dec433 = v433;
+                val433 = "UINT:" + v433;
+                ctk433 = vpiUIntConst;
+                sz433 = tw433;
+            }
+            else {
+                std::string v433 = iv433.toString(LiteralBase::Decimal, false);
+                dec433 = v433;
+                val433 = (neg433 ? "INT:" : "UINT:") + v433;
+                ctk433 = neg433 ? vpiIntConst : vpiUIntConst;
+                sz433 = 64;
+            }
+        }
+        if (!c433)
+            c433 = s.MakeConstant();
+        c433->VpiDecompile(dec433);
+        c433->VpiValue(val433);
+        c433->VpiConstType(ctk433);
+        c433->VpiSize((int)sz433);
+        c433->VpiParent(par433);
+        setLoc(c433, core433.sourceRange);
+        lawTrace(433, law433,
+                 std::string(ps433.name) + " " + std::string(c433->VpiValue()));
+        return c433;
     };
     // § operatorAttrsListed403 (r11u403, R11U403_OPATTR_OFF) — attributes
     // written on an operator (`b + (* mode = "cla" *) c`, `b ? (* no_glitch
@@ -35139,9 +36089,20 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
                 else
                     wholeConst431 = true;
+                // § connOpUnitParamFold433 (r11u433, R11U433_UNITOPFOLD_OFF)
+                // — the $unit twin: a compilation-unit parameter read as an
+                // operand there is the $unit parameter's Value (golden
+                // fx68k.sv's fx68kAlu `aluCorf aluCorf(.bAdd((oper !=
+                // OP_SBCD)), ...)` in work@fx68k.excUnit.alu: constant UINT:6
+                // size 64 where we kept the ref_obj; grid cases/UG, UC).
+                UHDM::constant* fu433 = nullptr;
+                if (!wholeConst431 && lawOn(433, "R11U433_UNITOPFOLD_OFF"))
+                    fu433 = unitParamFold433(expr, parent, "connOpUnitParamFold433");
                 if (wholeConst431)
                     lawTrace(431, "connOperandNonOvParamFold431",
                              "abstain-const " + std::string(nv.symbol.name));
+                else if (fu433)
+                    return fu433;
                 else if (auto* f431 = nonOvParamFold431(expr, parent)) {
                     // § connReplCountUnparented431v (v11u431,
                     // R11V431_REPLCOUNT_OFF) — the count of a replication
@@ -49629,6 +50590,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 lawOn(431, "R11U431_CONNIDXNONOV_OFF"))
                 if (auto* f431 = nonOvParamFold431(es.selector(), bs))
                     ix = f431;
+            // § connIdxUnitParamFold433 (r11u433, R11U433_UNITIDXFOLD_OFF) —
+            // the same index naming a compilation-unit parameter folds to
+            // the $unit parameter's Value (golden cases/UG c2 `.a(x[S])`:
+            // UINT:2 size 64 under the bit_select).
+            if (elabConnEmit21 && ix &&
+                ix->UhdmType() == UHDM::uhdmref_obj &&
+                callArgDepth - sysCallArgDepth22 == 0 &&
+                lawOn(433, "R11U433_UNITIDXFOLD_OFF"))
+                if (auto* f433 = unitParamFold433(es.selector(), bs,
+                                                   "connIdxUnitParamFold433"))
+                    ix = f433;
             // § patCaGenIdxValueRender112 — SITE 3 of 3, THE BARE BIT-SELECT
             // (r10earl117, § patCaGenIdxBareBitSel117).  Sites 1 and 2 are
             // inside `emitMixedHierPath`, so they reach only a DOTTED path's
