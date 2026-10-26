@@ -24881,6 +24881,109 @@ static slang::SourceRange tagPatParenSpan195(const slang::ast::Expression& val) 
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
+    // § connBitSelIdxNonOvParamFold431's producer (r11u431): the instance's
+    // stored Value of a not-overridden module-scope parameter read in an
+    // ELABORATED port High_conn, a copy of the parameter's elaborated
+    // param_assign constant (UINT / INT, nonnegative) located at the read and
+    // parented at `par431`, with the bare signed int_typespec when the
+    // declared type is a signed int / bit / logic one.  Null to abstain.
+    auto nonOvParamFold431 = [&](const Expression& sel431,
+                                 UHDM::any* par431) -> UHDM::constant* {
+                auto& core431 = stripImplicitConv(sel431);
+                const ParameterSymbol* ps431 = nullptr;
+                if (core431.kind == ExpressionKind::NamedValue &&
+                    core431.as<NamedValueExpression>().symbol.kind ==
+                        SymbolKind::Parameter)
+                    ps431 = &core431.as<NamedValueExpression>()
+                                 .symbol.as<ParameterSymbol>();
+                // A package parameter folds on § selFold9's path; an
+                // overridden one is § connBitSelIdxModParamFold81's producer.
+                if (ps431)
+                    for (auto* sc431 = ps431->getParentScope(); sc431;
+                         sc431 = sc431->asSymbol().getParentScope())
+                        if (sc431->asSymbol().kind == SymbolKind::Package) {
+                            ps431 = nullptr;
+                            break;
+                        }
+                if (ps431 && isOverriddenParam(*ps431))
+                    ps431 = nullptr;
+                const UHDM::constant* rhs431 = nullptr;
+                if (ps431)
+                    if (auto pit431 = elabParamPa.find(ps431);
+                        pit431 != elabParamPa.end() && pit431->second &&
+                        pit431->second->Rhs() &&
+                        pit431->second->Rhs()->UhdmType() == UHDM::uhdmconstant)
+                        rhs431 = (const UHDM::constant*)pit431->second->Rhs();
+                bool val431 = false;
+                if (rhs431) {
+                    std::string_view v431 = rhs431->VpiValue();
+                    // the measured encodings: UINT and INT (a hex, binary or
+                    // octal Value is written without its value by golden,
+                    // EC ec12: not modelled, abstain), nonnegative.
+                    val431 = (v431.rfind("UINT:", 0) == 0 ||
+                              v431.rfind("INT:", 0) == 0) &&
+                             v431.find('-') == std::string_view::npos &&
+                             rhs431->VpiSize() > 0;
+                }
+                if (val431) {
+                    auto* c431 = s.MakeConstant();
+                    c431->VpiDecompile(std::string(rhs431->VpiDecompile()));
+                    c431->VpiSize(rhs431->VpiSize());
+                    c431->VpiValue(std::string(rhs431->VpiValue()));
+                    c431->VpiConstType(rhs431->VpiConstType());
+                    c431->VpiParent(par431);
+                    setLoc(c431, core431.sourceRange);
+                    // valueRange's sign: a SIGNED int / bit / logic declared
+                    // type (§ connHpIpsBaseNonOvParamFold84's split).
+                    bool sgn431 = false;
+                    if (auto dt431 = ps431->getDeclaredType())
+                        if (auto ty431 = dt431->getTypeSyntax();
+                            ty431 &&
+                            (ty431->kind != syntax::SyntaxKind::ImplicitType ||
+                             ty431->as<syntax::ImplicitTypeSyntax>().signing ||
+                             !ty431->as<syntax::ImplicitTypeSyntax>()
+                                  .dimensions.empty())) {
+                            auto& ct431 = ps431->getType().getCanonicalType();
+                            if (ct431.isIntegral() && !ct431.isEnum() &&
+                                ct431.isSigned()) {
+                                if (ct431.kind == SymbolKind::PredefinedIntegerType)
+                                    sgn431 = ct431.as<PredefinedIntegerType>()
+                                                 .integerKind ==
+                                             PredefinedIntegerType::Int;
+                                else if (ct431.kind == SymbolKind::ScalarType)
+                                    sgn431 = true;
+                                else if (ct431.kind == SymbolKind::PackedArrayType) {
+                                    const Type* el431 = &ct431.as<PackedArrayType>()
+                                                             .elementType
+                                                             .getCanonicalType();
+                                    while (el431->kind == SymbolKind::PackedArrayType)
+                                        el431 = &el431->as<PackedArrayType>()
+                                                     .elementType.getCanonicalType();
+                                    sgn431 = el431->kind == SymbolKind::ScalarType;
+                                }
+                            }
+                        }
+                    if (sgn431) {
+                        auto* its431 = s.MakeInt_typespec();
+                        its431->VpiSigned(true);
+                        auto* rt431 = s.MakeRef_typespec();
+                        rt431->VpiParent(c431);
+                        // no full name of its own: the reader synthesizes
+                        // it from the parent chain, through the connection's
+                        // instance (golden work@top.u.c1.x)
+                        rt431->Actual_typespec(its431);
+                        c431->Typespec(rt431);
+                    }
+                    lawTrace(431, "connBitSelIdxNonOvParamFold431",
+                             std::string(ps431->name) + " " +
+                                 std::string(rhs431->VpiValue()));
+                    return c431;
+                }
+                if (ps431)
+                    lawTrace(431, "connBitSelIdxNonOvParamFold431",
+                             "abstain " + std::string(ps431->name));
+                return nullptr;
+    };
     // § operatorAttrsListed403 (r11u403, R11U403_OPATTR_OFF) — attributes
     // written on an operator (`b + (* mode = "cla" *) c`, `b ? (* no_glitch
     // *) c : d`) are listed on the operation as vpiAttribute objects parented
@@ -34894,6 +34997,182 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // ~16570); golden reduces `$clog2(E)` / `$signed(E)` WHOLE to a
             // constant, which neither binary reproduces, so leaving those
             // arguments alone is exactly the pristine behaviour there.
+            // § unitParamNameBindsDesign431 (r11u431, R11U431_UNITNAMEBIND_OFF)
+            // — in a module or interface DEFINITION listing, a read of a name
+            // declared directly in the definition body (a parameter, a net
+            // or a variable, ports included) that is also the name of a
+            // compilation-unit parameter binds the DESIGN-LEVEL parameter.
+            // Surelog leaves a definition-view reference to its own
+            // parameters unbound (golden cases/UB ub06) and binds the rest in
+            // UhdmWriter::lateBinding, whose parent walk reaches the `design`
+            // object and matches its Parameters() BY NAME before the module's
+            // own Nets() are searched; only a begin, function or task that
+            // declares the name itself binds first (ub20).  So a local
+            // `localparam CF = 0` shadowing the $unit `localparam CF` (fx68k's
+            // fx68kAlu.sv 63 under fx68k.sv 22) is read as the $unit one in
+            // the definition listing.  Grid tools/probe/r11u431repro/cases/UB.
+            // The ELABORATED copy of a continuous assignment keeps a
+            // bit-select index's reference as the clone of the definition's
+            // (golden cases/UB ub24 `assign z = ~x[CF];` in work@top.u, the
+            // ref bound to the $unit parameter; fx68k's
+            // `assign ze = ~ccrCore[ ZF];` in work@fx68k.excUnit.alu), so the
+            // same binding holds there for a parameter's index read.
+            bool elabCaIdx431 = contAssignView == 2 && !moduleDefEmit &&
+                                parent &&
+                                parent->UhdmType() == UHDM::uhdmbit_select &&
+                                nv.symbol.kind == SymbolKind::Parameter;
+            if (((moduleDefEmit || defRefModConn) || elabCaIdx431) &&
+                !elabConnEmit21 &&
+                !(parent && parent->UhdmType() == UHDM::uhdmport && !defRefModConn) &&
+                (nv.symbol.kind == SymbolKind::Parameter ||
+                 nv.symbol.kind == SymbolKind::Net ||
+                 nv.symbol.kind == SymbolKind::Variable) &&
+                nv.symbol.getParentScope() &&
+                nv.symbol.getParentScope()->asSymbol().kind ==
+                    SymbolKind::InstanceBody &&
+                !unitParamMap.empty() &&
+                lawOn(431, "R11U431_UNITNAMEBIND_OFF") &&
+                // § unitNameBindNotInClass431v (v11u431,
+                // R11V431_UNITCLASS_OFF) — not inside a class: Surelog runs
+                // no lateBinding over a class definition (UhdmWriter's class
+                // call is commented out), so a class declared in the module
+                // keeps its compiled binding of the module's own name
+                // (`class C; function int f(); return CF; endfunction`
+                // under `localparam CF = 1;` shadowing the $unit CF: golden
+                // and pristine leave CF unbound; cases VB vb18, vb21, vb22).
+                !(fixOn(431, "R11V431_UNITCLASS_OFF") &&
+                  [&]() {
+                      for (const UHDM::any* q431 = parent; q431;
+                           q431 = q431->VpiParent())
+                          if (q431->UhdmType() == UHDM::uhdmclass_defn) {
+                              lawTrace(431, "unitNameBindNotInClass431v",
+                                       "abstain " + std::string(nv.symbol.name));
+                              return true;
+                          }
+                      for (auto* sc431 = currentSubSym
+                                             ? currentSubSym->getParentScope()
+                                             : nullptr;
+                           sc431; sc431 = sc431->asSymbol().getParentScope())
+                          if (sc431->asSymbol().kind == SymbolKind::ClassType) {
+                              lawTrace(431, "unitNameBindNotInClass431v",
+                                       "abstain " + std::string(nv.symbol.name));
+                              return true;
+                          }
+                      return false;
+                  }())) {
+                for (auto& [usym431, up431] : unitParamMap)
+                    if (usym431 && up431 && usym431->name == nv.symbol.name) {
+                        ref->Actual_group(up431);
+                        lawTrace(431, "unitParamNameBindsDesign431",
+                                 std::string(nv.symbol.name));
+                        break;
+                    }
+            }
+            // § connOperandNonOvParamFold431 (r11u431,
+            // R11U431_CONNOPNONOV_OFF) — the operand twin of
+            // § connBitSelIdxNonOvParamFold431: in an ELABORATED port
+            // High_conn a not-overridden module-scope parameter read as an
+            // operand of an operation (`.a(x ^ XF)`, `.a(x + XI)`, a
+            // concatenation operand, a conditional branch) is the instance's
+            // stored Value, as the bare actual already is (golden
+            // work@top.u.c0: constant UINT:4 size 32 under the operation;
+            // cases/EC ec11, ec21 to ec26, a generate scope's connection
+            // included).  Not in a part-select bound or a user-call argument.
+            if (elabConnEmit21 && parent &&
+                parent->UhdmType() == UHDM::uhdmoperation &&
+                nv.symbol.kind == SymbolKind::Parameter && !inPsRangeBound &&
+                callArgDepth - sysCallArgDepth22 == 0 &&
+                lawOn(431, "R11U431_CONNOPNONOV_OFF")) {
+                // An operation that is constant as a whole is reduced whole
+                // by golden (`.a(XF + 1)` -> UINT:5 size 64; `x[XF+1]`'s index;
+                // cases/EC ec05), a different producer: abstain there.
+                bool wholeConst431 = false;
+                const syntax::SyntaxNode* up431 = expr.syntax ? expr.syntax->parent : nullptr;
+                while (up431 && up431->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    up431 = up431->parent;
+                if (up431 && syntax::ExpressionSyntax::isKind(up431->kind) &&
+                    nv.symbol.getParentScope()) {
+                    ASTContext oc431(*nv.symbol.getParentScope(), LookupLocation::max);
+                    auto& oe431 = Expression::bind(up431->as<syntax::ExpressionSyntax>(), oc431);
+                    if (!oe431.bad() && oc431.tryEval(oe431))
+                        wholeConst431 = true;
+                    // § connOpGenvarAbstain431v (v11u431,
+                    // R11V431_OPGENVAR_OFF) — an operation that reads the
+                    // genvar of an enclosing generate loop does not bind in
+                    // the parameter's scope and so read as non-constant, but
+                    // in the elaborated scope it is constant as a whole,
+                    // which golden reduces whole or keeps (the r11u428 case
+                    // HP/hp02 `p.sel[i+:`MAXV(W-i,1)]` under a generate
+                    // loop: golden's width is one constant INT:4 where the
+                    // law wrote UINT:4 for W inside `W - i` and pristine a
+                    // reference, the law further from golden by dump
+                    // distance; cases VC vc25, vc26).  Abstain there; an
+                    // operation over a generate-block net (vc27) keeps the
+                    // law.
+                    else if (oe431.bad() && fixOn(431, "R11V431_OPGENVAR_OFF")) {
+                        std::set<std::string_view> gv431;
+                        for (const syntax::SyntaxNode* an431 = up431->parent; an431;
+                             an431 = an431->parent)
+                            if (an431->kind == syntax::SyntaxKind::LoopGenerate)
+                                gv431.insert(an431->as<syntax::LoopGenerateSyntax>()
+                                                 .identifier.valueText());
+                        bool hit431 = false;
+                        std::function<void(const syntax::SyntaxNode*)> scan431 =
+                            [&](const syntax::SyntaxNode* n431) {
+                                if (!n431 || hit431)
+                                    return;
+                                if (n431->kind == syntax::SyntaxKind::IdentifierName &&
+                                    gv431.count(n431->as<syntax::IdentifierNameSyntax>()
+                                                    .identifier.valueText()))
+                                    hit431 = true;
+                                for (size_t k = 0; k < n431->getChildCount(); ++k)
+                                    scan431(n431->childNode(k));
+                            };
+                        if (!gv431.empty())
+                            scan431(up431);
+                        if (hit431) {
+                            wholeConst431 = true;
+                            lawTrace(431, "connOpGenvarAbstain431v",
+                                     "abstain " + std::string(nv.symbol.name));
+                        }
+                    }
+                }
+                else
+                    wholeConst431 = true;
+                if (wholeConst431)
+                    lawTrace(431, "connOperandNonOvParamFold431",
+                             "abstain-const " + std::string(nv.symbol.name));
+                else if (auto* f431 = nonOvParamFold431(expr, parent)) {
+                    // § connReplCountUnparented431v (v11u431,
+                    // R11V431_REPLCOUNT_OFF) — the count of a replication
+                    // `{P{x}}` is written UNPARENTED by golden (the
+                    // multiconcat's count is reduced on its own): the law
+                    // parented it at the operation, away from golden and
+                    // from pristine's unparented count on the r11u422 case
+                    // IA/ia05 `child c[N-1:0] (.a({N{en}}), ...)`
+                    // (cases VC vc03, vc28).
+                    if (expr.syntax && expr.syntax->parent &&
+                        expr.syntax->parent->kind ==
+                            syntax::SyntaxKind::MultipleConcatenationExpression &&
+                        expr.syntax->parent
+                                ->as<syntax::MultipleConcatenationExpressionSyntax>()
+                                .expression == expr.syntax &&
+                        fixOn(431, "R11V431_REPLCOUNT_OFF")) {
+                        f431->VpiParent(nullptr);
+                        lawTrace(431, "connReplCountUnparented431v",
+                                 std::string(nv.symbol.name));
+                    }
+                    return f431;
+                }
+                // an OVERRIDDEN parameter: § connBitSelIdxModParamFold81's
+                // producer (a bare decimal actual -> UINT at 64; golden
+                // cases/EC ec24 work@top.u0 `x & P` with `.P(3)`).
+                else if (auto* f81 = connBitSelIdxModParamFold81(expr, parent)) {
+                    lawTrace(431, "connOperandNonOvParamFold431",
+                             "overridden " + std::string(nv.symbol.name));
+                    return f81;
+                }
+            }
             if (elabConnEmit21 && nv.symbol.kind == SymbolKind::EnumValue &&
                 !inPsRangeBound && callArgDepth == 0 &&
                 !(parent && parent->UhdmType() == UHDM::uhdmpart_select))
@@ -44096,6 +44375,45 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         a->UhdmType() == UHDM::uhdmoperation &&
                                         ((UHDM::operation*)a)->VpiOpType() ==
                                             vpiConcatOp;
+                        // § caFnArgConcatFormalTs431 (r11u431,
+                        // R11U431_CAFNCONCAT_OFF) — only a concatenation of
+                        // CONSTANTS is bare there (uhdm2rtlil
+                        // TypedefedRangedFunctionArgument `{32'h1234,
+                        // 32'h5678}`; cases/FA fa16): one that holds a signal,
+                        // select or other non-constant operand wears the
+                        // formal's typespec in the definition's cont_assign
+                        // too, as every other operation actual does (golden
+                        // fx68k.sv 1824 `eaDecode( {opcode[ 8:6], opcode[ 11:9]} )`
+                        // in uaddrDecode; cases/FA).
+                        if (defOpArg && lawOn(431, "R11U431_CAFNCONCAT_OFF")) {
+                            bool allConst431 = true;
+                            if (auto* ops431 = ((UHDM::operation*)a)->Operands())
+                                for (auto* o431 : *ops431)
+                                    if (!o431 ||
+                                        o431->UhdmType() != UHDM::uhdmconstant)
+                                        allConst431 = false;
+                            // § caFnConcatWholeRhsOnly431v (v11u431,
+                            // R11V431_CAWHOLERHS_OFF) — only a call that IS
+                            // the continuous assignment's whole right side:
+                            // a call under an operation (`assign y =
+                            // f({a[2:0], a[5:3]}) + 4'd1;`) leaves its
+                            // concatenation argument bare in golden, which
+                            // pristine wrote and the law moved away from
+                            // (tools/probe/v11u431repro/cases/VF vf03, and
+                            // the pass 432 case FA/fa07).
+                            bool wholeRhs431v =
+                                !fixOn(431, "R11V431_CAWHOLERHS_OFF") ||
+                                (parent &&
+                                 parent->UhdmType() == UHDM::uhdmcont_assign);
+                            if (!allConst431 && !wholeRhs431v)
+                                lawTrace(431, "caFnConcatWholeRhsOnly431v",
+                                         "abstain " + std::string(prefix));
+                            if (!allConst431 && wholeRhs431v) {
+                                defOpArg = false;
+                                lawTrace(431, "caFnArgConcatFormalTs431",
+                                         std::string(prefix));
+                            }
+                        }
                         // A STRUCT/UNION-typed formal's arg ref carries no
                         // formal-ts stamp in pkg fn bodies (Surelog;
                         // jeras_union dec32's imm_b_f(op)).
@@ -49287,6 +49605,30 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 callArgDepth - sysCallArgDepth22 == 0)
                 if (auto* f81 = connBitSelIdxModParamFold81(es.selector(), bs))
                     ix = f81;
+            // § connBitSelIdxNonOvParamFold431 (r11u431,
+            // R11U431_CONNIDXNONOV_OFF) — the NOT-overridden half of
+            // § connBitSelIdxModParamFold81: an ELABORATED port High_conn's
+            // bit-select index naming a module-scope parameter or localparam
+            // that this instantiation does not override folds to the
+            // instance's stored Value, which is the parameter's own
+            // elaborated param_assign constant re-sized at the declared type
+            // (`collectParams_`'s adjustSize path), parented at the
+            // bit_select, with the bare signed int_typespec exactly when that
+            // Value is signed (CompileExpression's identifier branch under
+            // Reduce::Yes; the producer § connHpIpsBaseNonOvParamFold84
+            // already transcribes for an indexed part-select base).  Golden
+            // fx68k.sv's fx68kAlu `aluCorf aluCorf(.cin(pswCcr[ XF]), ...)`
+            // in work@fx68k.excUnit.alu: constant UINT:4 size 32 where we kept
+            // the ref_obj; the grid's untyped, int, int unsigned, ranged,
+            // logic, integer, byte, bit and signed localparams and parameters
+            // (tools/probe/r11u431repro/cases/EC).  A hex-valued parameter
+            // abstains: golden's fold there carries no value (cases EC ec12).
+            if (elabConnEmit21 && ix &&
+                ix->UhdmType() == UHDM::uhdmref_obj &&
+                callArgDepth - sysCallArgDepth22 == 0 &&
+                lawOn(431, "R11U431_CONNIDXNONOV_OFF"))
+                if (auto* f431 = nonOvParamFold431(es.selector(), bs))
+                    ix = f431;
             // § patCaGenIdxValueRender112 — SITE 3 of 3, THE BARE BIT-SELECT
             // (r10earl117, § patCaGenIdxBareBitSel117).  Sites 1 and 2 are
             // inside `emitMixedHierPath`, so they reach only a DOTTED path's

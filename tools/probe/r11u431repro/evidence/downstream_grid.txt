@@ -1,0 +1,95 @@
+pristine: EC_ec01 IDENTICAL   ||  law: EC_ec01 IDENTICAL
+pristine: EC_ec02 IDENTICAL   ||  law: EC_ec02 IDENTICAL
+pristine: EC_ec03 IDENTICAL   ||  law: EC_ec03 IDENTICAL
+pristine: EC_ec04 IDENTICAL   ||  law: EC_ec04 IDENTICAL
+pristine: EC_ec05 EQUIVALENT nohier il  ||  law: EC_ec05 EQUIVALENT nohier il
+pristine: EC_ec06 IDENTICAL   ||  law: EC_ec06 IDENTICAL
+pristine: EC_ec07 IDENTICAL   ||  law: EC_ec07 IDENTICAL
+pristine: EC_ec08 IDENTICAL   ||  law: EC_ec08 IDENTICAL
+pristine: EC_ec09 IDENTICAL   ||  law: EC_ec09 IDENTICAL
+pristine: EC_ec10 IDENTICAL   ||  law: EC_ec10 IDENTICAL
+pristine: EC_ec11 IDENTICAL   ||  law: EC_ec11 IDENTICAL
+pristine: EC_ec12 IDENTICAL   ||  law: EC_ec12 IDENTICAL
+pristine: EC_ec13 IDENTICAL   ||  law: EC_ec13 IDENTICAL
+pristine: EC_ec14 IDENTICAL   ||  law: EC_ec14 IDENTICAL
+pristine: EC_ec15 IDENTICAL   ||  law: EC_ec15 IDENTICAL
+pristine: EC_ec16 IDENTICAL   ||  law: EC_ec16 IDENTICAL
+pristine: EC_ec17 IDENTICAL   ||  law: EC_ec17 IDENTICAL
+pristine: EC_ec18 IDENTICAL   ||  law: EC_ec18 IDENTICAL
+pristine: EC_ec19 IDENTICAL   ||  law: EC_ec19 IDENTICAL
+pristine: EC_ec20 IDENTICAL   ||  law: EC_ec20 IDENTICAL
+pristine: EC_ec21 EQUIVALENT nohier il  ||  law: EC_ec21 IDENTICAL
+pristine: EC_ec22 IDENTICAL   ||  law: EC_ec22 IDENTICAL
+pristine: EC_ec23 IDENTICAL   ||  law: EC_ec23 IDENTICAL
+pristine: EC_ec24 EQUIVALENT nohier  ||  law: EC_ec24 IDENTICAL
+pristine: EC_ec25 IDENTICAL   ||  law: EC_ec25 IDENTICAL
+pristine: EC_ec26 EQUIVALENT nohier  ||  law: EC_ec26 EQUIVALENT nohier
+pristine: EC_ec27 IDENTICAL   ||  law: EC_ec27 IDENTICAL
+pristine: FA_fa01 IDENTICAL   ||  law: FA_fa01 IDENTICAL
+pristine: FA_fa02 IDENTICAL   ||  law: FA_fa02 IDENTICAL
+pristine: FA_fa03 IDENTICAL   ||  law: FA_fa03 IDENTICAL
+pristine: FA_fa04 IDENTICAL   ||  law: FA_fa04 IDENTICAL
+pristine: FA_fa05 IDENTICAL   ||  law: FA_fa05 IDENTICAL
+pristine: FA_fa06 IDENTICAL   ||  law: FA_fa06 IDENTICAL
+pristine: FA_fa07 IDENTICAL   ||  law: FA_fa07 IDENTICAL
+pristine: FA_fa08 IDENTICAL   ||  law: FA_fa08 IDENTICAL
+pristine: FA_fa09 IDENTICAL   ||  law: FA_fa09 IDENTICAL
+pristine: FA_fa10 IDENTICAL   ||  law: FA_fa10 IDENTICAL
+pristine: FA_fa11 IDENTICAL   ||  law: FA_fa11 IDENTICAL
+pristine: FA_fa12 IDENTICAL   ||  law: FA_fa12 IDENTICAL
+pristine: FA_fa13 IDENTICAL   ||  law: FA_fa13 IDENTICAL
+pristine: FA_fa14 IDENTICAL   ||  law: FA_fa14 IDENTICAL
+pristine: FA_fa15 IDENTICAL   ||  law: FA_fa15 IDENTICAL
+pristine: FA_fa16 IDENTICAL   ||  law: FA_fa16 IDENTICAL
+pristine: FA_fa17 IDENTICAL   ||  law: FA_fa17 IDENTICAL
+pristine: FA_fa18 IDENTICAL   ||  law: FA_fa18 IDENTICAL
+pristine: PA_pa01 EQUIVALENT nohier il  ||  law: PA_pa01 EQUIVALENT nohier il
+pristine: PA_pa02 EQUIVALENT nohier il  ||  law: PA_pa02 EQUIVALENT nohier il
+pristine: PA_pa03 EQUIVALENT nohier il  ||  law: PA_pa03 EQUIVALENT nohier il
+pristine: PA_pa04 IDENTICAL   ||  law: PA_pa04 IDENTICAL
+pristine: PA_pa05 EQUIVALENT nohier  ||  law: PA_pa05 EQUIVALENT nohier
+pristine: TP_tp01 IDENTICAL   ||  law: TP_tp01 IDENTICAL
+pristine: TP_tp02 IDENTICAL   ||  law: TP_tp02 IDENTICAL
+pristine: TP_tp03 IDENTICAL   ||  law: TP_tp03 IDENTICAL
+pristine: TP_tp04 IDENTICAL   ||  law: TP_tp04 IDENTICAL
+pristine: TP_tp06 IDENTICAL   ||  law: TP_tp06 IDENTICAL
+pristine: TP_tp07 IDENTICAL   ||  law: TP_tp07 IDENTICAL
+pristine: TP_tp08 IDENTICAL   ||  law: TP_tp08 IDENTICAL
+pristine: TP_tp09 IDENTICAL   ||  law: TP_tp09 IDENTICAL
+pristine: TP_tp10 IDENTICAL   ||  law: TP_tp10 IDENTICAL
+pristine: TP_tp11 IDENTICAL   ||  law: TP_tp11 IDENTICAL
+pristine: TP_tp12 IDENTICAL   ||  law: TP_tp12 IDENTICAL
+pristine: TP_tp13 IDENTICAL   ||  law: TP_tp13 IDENTICAL
+pristine: TP_tp14 IDENTICAL   ||  law: TP_tp14 IDENTICAL
+pristine: UB_ub01 IDENTICAL   ||  law: UB_ub01 IDENTICAL
+pristine: UB_ub02 IDENTICAL   ||  law: UB_ub02 IDENTICAL
+pristine: UB_ub03 IDENTICAL   ||  law: UB_ub03 IDENTICAL
+pristine: UB_ub04 IDENTICAL   ||  law: UB_ub04 IDENTICAL
+pristine: UB_ub05 IDENTICAL   ||  law: UB_ub05 IDENTICAL
+pristine: UB_ub06 IDENTICAL   ||  law: UB_ub06 IDENTICAL
+pristine: UB_ub07 IDENTICAL   ||  law: UB_ub07 IDENTICAL
+pristine: UB_ub08 IDENTICAL   ||  law: UB_ub08 IDENTICAL
+pristine: UB_ub09 IDENTICAL   ||  law: UB_ub09 IDENTICAL
+pristine: UB_ub10 IDENTICAL   ||  law: UB_ub10 IDENTICAL
+pristine: UB_ub11 IDENTICAL   ||  law: UB_ub11 IDENTICAL
+pristine: UB_ub12 IDENTICAL   ||  law: UB_ub12 IDENTICAL
+pristine: UB_ub13 IDENTICAL   ||  law: UB_ub13 IDENTICAL
+pristine: UB_ub14 IDENTICAL   ||  law: UB_ub14 IDENTICAL
+pristine: UB_ub15 DIVERGENT nohier il synth  ||  law: UB_ub15 DIVERGENT nohier il synth
+pristine: UB_ub16 IDENTICAL   ||  law: UB_ub16 IDENTICAL
+pristine: UB_ub17 IDENTICAL   ||  law: UB_ub17 IDENTICAL
+pristine: UB_ub18 DIVERGENT nohier il synth  ||  law: UB_ub18 DIVERGENT nohier il synth
+pristine: UB_ub19 IDENTICAL   ||  law: UB_ub19 IDENTICAL
+pristine: UB_ub20 IDENTICAL   ||  law: UB_ub20 IDENTICAL
+pristine: UB_ub21 IDENTICAL   ||  law: UB_ub21 IDENTICAL
+pristine: UB_ub22 DIVERGENT nohier il synth  ||  law: UB_ub22 DIVERGENT nohier il synth
+pristine: UB_ub23 DIVERGENT nohier il synth  ||  law: UB_ub23 DIVERGENT nohier il synth
+pristine: UB_ub24 IDENTICAL   ||  law: UB_ub24 IDENTICAL
+pristine: UB_ub25 IDENTICAL   ||  law: UB_ub25 IDENTICAL
+pristine: UB_ub26 IDENTICAL   ||  law: UB_ub26 IDENTICAL
+pristine: UB_ub27 IDENTICAL   ||  law: UB_ub27 IDENTICAL
+pristine: UB_ub28 IDENTICAL   ||  law: UB_ub28 IDENTICAL
+pristine: US_us01 IDENTICAL   ||  law: US_us01 IDENTICAL
+pristine: US_us02 IDENTICAL   ||  law: US_us02 IDENTICAL
+pristine: US_us03 IDENTICAL   ||  law: US_us03 IDENTICAL
+pristine: US_us04 IDENTICAL   ||  law: US_us04 IDENTICAL

@@ -1,0 +1,4 @@
+kept sv-tests databases, law sweep /tmp/v11u431sw1 vs verified sweep /tmp/v11u431sw2, path-normalized uhdm-dump md5 (300 s per dump)
+67 databases: 65 SAMEDUMP
+generated/uvm-examples/uvm_test_init: cut by the 300 s timeout; rerun at 1500 s: 6eea867d33b968a03c6e1e296ef84f41 on both (SAMEDUMP), size 72720246 on both
+generated/tnoc/tnoc: dump cut by the timeout on both, size 230131612 on both, no law firing logged on it

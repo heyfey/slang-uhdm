@@ -1235,7 +1235,7 @@ generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_clock_gen.sv,EQUAL,,equ
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_cycle_counter.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_from_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_gpio.sv,EQUAL,,equal
-generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_to_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv,EQUAL,,equal
 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_map.sv,EQUAL,,equal
@@ -1365,7 +1365,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p125.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p127.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p137_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p140.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p168.sv,EQUAL,,equal

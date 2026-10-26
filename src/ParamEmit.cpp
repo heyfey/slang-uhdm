@@ -29164,6 +29164,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             else
                 defTypeSyn = wsyn31;
+            // § bodyTypeParamDefKeepsDecl431 (r11u431,
+            // R11U431_BODYTPDEF_OFF) — a type parameter declared in the
+            // module BODY (`parameter type t_3 = int;` after a header with no
+            // parameter port list) is listed in the DEFINITION with its
+            // declaration default, as a header type parameter is above: the
+            // borrowed definition body is an instance's, and when that
+            // instance overrides the parameter (`sub #(.t_3(t_6)) s1 ()`) its
+            // bound type is the override, which ours wrote (a logic_typespec
+            // at the override's span, sv-tests hdlconvertor_std2017 p130)
+            // where golden keeps the `int_typespec` of the default
+            // (Surelog's compileParameterDeclaration compiles the
+            // definition's own declaration).  Only when the bound type is
+            // NOT the declarator's default syntax, so a definition borrowed
+            // from a non-overriding instance keeps its path.  Grid
+            // tools/probe/r11u431repro/cases/TP.
+            if (!topView && !defTypeSyn &&
+                lawOn(431, "R11U431_BODYTPDEF_OFF"))
+                if (auto* mds431 =
+                        msyn ? msyn->as_if<syntax::ModuleDeclarationSyntax>()
+                             : nullptr) {
+                    // The cloned body symbol has lost its declarator syntax:
+                    // read the declaration from the module's own members.
+                    const syntax::DataTypeSyntax* bd431 = nullptr;
+                    for (auto* mem431 : mds431->members)
+                        if (auto* pds431 = mem431->as_if<
+                                syntax::ParameterDeclarationStatementSyntax>())
+                            if (auto* tpd431 = pds431->parameter->as_if<
+                                    syntax::TypeParameterDeclarationSyntax>())
+                                for (auto* d431 : tpd431->declarators)
+                                    if (d431->name.valueText() == tps.name &&
+                                        d431->assignment && d431->assignment->type)
+                                        bd431 = d431->assignment->type;
+                    if (bd431 && tps.targetType.getTypeSyntax() != bd431) {
+                        defTypeSyn = bd431;
+                        lawTrace(431, "bodyTypeParamDefKeepsDecl431",
+                                 std::string(tps.name));
+                    }
+                }
         }
         // § elabTpNamedElemDimDefNamed163 — the references in the written
         // dimension of the ELABORATED wrapper are named through the
@@ -31160,6 +31198,56 @@ UHDM::array_typespec* UhdmExporter::makeUnpackedArrayParamTs(
                     auto mkb9 = [&](int64_t v9,
                                     const syntax::ExpressionSyntax* es9)
                         -> UHDM::expr* {
+                        // § modParamArrElemDefRangeSym431 (r11u431,
+                        // R11U431_MODARRELEMSYM_OFF) — an unpacked-array
+                        // MODULE parameter's DEFINITION listing keeps its
+                        // element's packed bound symbolic when it reads a
+                        // parameter: golden bsg_nonsynth_dpi_rom.sv 31
+                        // `parameter bit [width_p-1:0] arr_p [els_p-1:0]`
+                        // lists the element bit_typespec's left bound as the
+                        // operation `width_p - 1` over a bare, unbound
+                        // ref_obj `width_p` (no full name), where ours folded
+                        // it to UINT:0 (Surelog's compileParameterDeclaration
+                        // compiles the definition's element type with
+                        // Reduce::No; the package-homed twin is
+                        // § pkgParamUnpackedElemDefRange).  Only the
+                        // definition's own listing (not an elaboration clone,
+                        // not a materialized import copy) and only a bound
+                        // that reads a parameter of the module.  Grid
+                        // tools/probe/r11u431repro/cases/PA.
+                        // The ELABORATED clone keeps it symbolic too, its
+                        // reads named through the parameter
+                        // (`work@top.r.arr_p.width_p`, cases PA pa01-pa03).
+                        if (!paramRead9(es9) && es9 &&
+                            !importedParamElemClone16 && pHome9 &&
+                            pHome9->asSymbol().kind == SymbolKind::InstanceBody &&
+                            lawOn(431, "R11U431_MODARRELEMSYM_OFF")) {
+                            ASTContext mc431(*pHome9, LookupLocation::max);
+                            auto& me431 = Expression::bind(*es9, mc431);
+                            bool hit431 = false;
+                            if (!me431.bad())
+                                me431.visit(makeVisitor(
+                                    [&](auto& v431, const NamedValueExpression& nv431) {
+                                        if (nv431.symbol.kind == SymbolKind::Parameter &&
+                                            nv431.symbol.getParentScope() == pHome9)
+                                            hit431 = true;
+                                        v431.visitDefault(nv431);
+                                    }));
+                            if (hit431) {
+                                std::string savedPfx431 = syntaxRefPrefix;
+                                if (elabClone)
+                                    syntaxRefPrefix = elemFull;
+                                else
+                                    syntaxRefPrefix.clear();
+                                auto* e431 = (UHDM::expr*)emitSyntaxExpr(*es9, rng9);
+                                syntaxRefPrefix = savedPfx431;
+                                if (e431) {
+                                    lawTrace(431, "modParamArrElemDefRangeSym431",
+                                             std::string(ps.name));
+                                    return e431;
+                                }
+                            }
+                        }
                         if (!paramRead9(es9)) {
                             if (auto* fc9 = foldSubst9(es9))
                                 return fc9;

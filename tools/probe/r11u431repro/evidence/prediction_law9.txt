@@ -1,0 +1,16 @@
+# prediction (law9, before the sweep): candidate rows from the pristine-database scan (drivers/scan.py over the master's control databases) and the source scans (drivers/srcscan.py, drivers/svscan.py), run traced
+## corpus: probe 273 cases, surelog 38 rows (76 row-modes), uhdm2rtlil 30 rows (60), downstream 30 rows: statuses identical to the control, databases byte-identical (surelog/uhdm2rtlil) or identical by path-normalized dump (probe 273 of 273), no firing
+surelog + uhdm2rtlil databases written (90): 90 byte-identical to the control
+probe databases (273): 273 identical by path-normalized dump (a first comparison with the worktree path unnormalized flagged all 273: the comparator's positive control)
+## sv-tests: 764 candidate rows traced
+      1 generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom modParamArrElemDefRangeSym431
+      1 generated/fx68k/fx68k caFnArgConcatFormalTs431
+      2 generated/fx68k/fx68k connBitSelIdxNonOvParamFold431
+     49 generated/fx68k/fx68k unitParamNameBindsDesign431
+      1 generated/hdlconv_std2017/hdlconvertor_std2017_p130 bodyTypeParamDefKeepsDecl431
+     40 generated/rsd/rsd connOperandNonOvParamFold431
+status changes: dpi_rom DIFFERENT -> IDENTICAL, p130 DIFFERENT -> IDENTICAL; no other row moved
+## pristine-database scan candidate counts
+    831 L1name
+    298 L3idx
+  12566 L4op

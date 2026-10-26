@@ -1,0 +1,4 @@
+OUT /tmp/v11u431sw1/svtests/work/generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom/slang.uhdm
+OUT /tmp/v11u431sw1/svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p130/slang.uhdm
+OUT /tmp/v11u431sw1/svtests/work/generated/fx68k/fx68k/slang.uhdm
+OUT /tmp/v11u431sw1/svtests/work/generated/rsd/rsd/slang.uhdm
