@@ -1,0 +1,20 @@
+MOVE /tmp/wt_r11u434/tools/probe/r11u405repro/cases/PH/ph01 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u423repro/evidence/residue_cases/gb03 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u423repro/evidence/residue_cases/gb02 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u423repro/evidence/residue_cases/gb01 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u424repro/cases/TR/tr05 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u424repro/cases/TR/tr03 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u428repro/evidence/residue_cases/BB/bb04 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u428repro/evidence/residue_cases/BB/bb06 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u428repro/evidence/residue_cases/BB/bb03 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u428repro/evidence/residue_cases/BB/bb02 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb08 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb07 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb12 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb14 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb02 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb05 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb01 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/r11u429repro/cases/GB/gb13 rc=0/0
+MOVE /tmp/wt_r11u434/tools/probe/v11u429repro/cases/VB/vb21 rc=0/0
+CENSUSDONE

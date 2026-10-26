@@ -1,0 +1,20 @@
+940c940
+< generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv,EQUAL,,equal
+942c942
+< generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv,DIFFERENT,decompile:,
+---
+> generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv,EQUAL,,equal
+2336c2336
+< testbenches/uvm_agent_active.sv,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+---
+> testbenches/uvm_agent_active.sv,EQUAL,,equal
+2338,2340c2338,2340
+< testbenches/uvm_agent_passive.sv,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+< testbenches/uvm_driver_sequencer_env.sv,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+< testbenches/uvm_monitor_env.sv,STRICT_NOTEQUAL,differ:file(2),differ:file(2)
+---
+> testbenches/uvm_agent_passive.sv,EQUAL,,equal
+> testbenches/uvm_driver_sequencer_env.sv,EQUAL,,equal
+> testbenches/uvm_monitor_env.sv,EQUAL,,equal

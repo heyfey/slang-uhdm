@@ -1,0 +1,17 @@
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+corpus stages rc=1
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv: DIFFERENT -> EQUAL
+CONVERSION generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv: DIFFERENT -> EQUAL
+CONVERSION testbenches/uvm_agent_active.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION testbenches/uvm_agent_passive.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION testbenches/uvm_driver_sequencer_env.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION testbenches/uvm_monitor_env.sv: STRICT_NOTEQUAL -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=39 EQUAL=1901 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=6 changes=0
+svtests stage rc=0
+SWEEPDONE

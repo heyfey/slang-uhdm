@@ -20,6 +20,13 @@
 
 namespace slang_uhdm {
 extern bool g428ClsLocalSpec;  // § clsMethodLocalForeignPkgSpec428 (defined below)
+// § bareTdCopyOwnRangeAfterSpec434 (defined below): the package typedef listing
+// objects a class-method local's specialization alias clone reached.
+extern std::set<const UHDM::typespec*> g434SpecAliasListing;
+static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
+                                         const UHDM::VectorOfrange* src,
+                                         UHDM::any* parent,
+                                         const std::string& refPrefix);
 // § elabMisevalSpliceRefChain290 (r11u290, Scr1SvTests d/t scr1_pipe_tdu
 // `logic [MTRIG_NUM-1:0] csr_addr_mcontrol`) — a reference inside a tree
 // § elabVarRangeMisevalSubst splices into an elaborated var/net range stores
@@ -395,6 +402,18 @@ static bool genBody200(const slang::syntax::SyntaxNode* n) {
                 break;
         }
     }
+    return false;
+}
+// § modTdRangeClogKeeps434 — set by emitTypedefs around a module-body
+// vector typedef's typespec, read only by emitSyntaxExpr's query-call fold.
+static bool g434ModVecTd = false;
+// § genBodyDefBitsKeepsCall434 — the expression sits inside a continuous
+// assignment (the definition view builds a generate body's assignments from
+// syntax; the elaborated view binds them).
+static bool underContAssign434(const slang::syntax::SyntaxNode* n) {
+    for (const slang::syntax::SyntaxNode* p = n; p; p = p->parent)
+        if (p->kind == slang::syntax::SyntaxKind::ContinuousAssign)
+            return true;
     return false;
 }
 // § tfSigningSpanFollowsCompilePath200 — a formal written in the subroutine's
@@ -13961,6 +13980,39 @@ UHDM::typespec* UhdmExporter::bareScalarTdCopyOfFresh16(
     }
     if (!cp)
         return nullptr;
+    // § bareTdCopyOwnRangeAfterSpec434 (r11u434, cases RG; sv-tests
+    // testbenches uvm_agent_active, uvm_agent_passive, uvm_driver_sequencer_env,
+    // uvm_monitor_env) — Surelog compiles a variable's typedef'd type afresh at
+    // every declaration, so the bare copy owns its packed range (golden
+    // `uvm_report_message_int_element::_val`, typed `uvm_bitstream_t`, lists a
+    // range INT:4095 .. UINT:0 of its own under the copy).  Ours shared the
+    // listing object's range vector; the strict walk lists a class
+    // specialization's subtree once, so when § clsMethodLocalForeignPkgSpec428's
+    // alias clone (`uvm_resource#(uvm_bitstream_t) __tmp_rsrc__`) reached the
+    // listing first, the shared range was already walked and the copy read as
+    // range-less.  Only a copy of a listing object such an alias clone reached
+    // takes its own range vector (bounds copied as copyRangeVec copies them);
+    // every other copy keeps the shared vector and its bytes.  Switch
+    // R11U434_BARERANGE_OFF.
+    if (g434SpecAliasListing.count(src) && lawOn(434, "R11U434_BARERANGE_OFF")) {
+        UHDM::VectorOfrange* own434 = nullptr;
+        if (cp->UhdmType() == UHDM::uhdmlogic_typespec &&
+            ((const UHDM::logic_typespec*)src)->Ranges() &&
+            ((UHDM::logic_typespec*)cp)->Ranges() ==
+                ((const UHDM::logic_typespec*)src)->Ranges()) {
+            own434 = copyRangeVec(s, ((const UHDM::logic_typespec*)src)->Ranges(), cp, {});
+            ((UHDM::logic_typespec*)cp)->Ranges(own434);
+        }
+        else if (cp->UhdmType() == UHDM::uhdmbit_typespec &&
+                 ((const UHDM::bit_typespec*)src)->Ranges() &&
+                 ((UHDM::bit_typespec*)cp)->Ranges() ==
+                     ((const UHDM::bit_typespec*)src)->Ranges()) {
+            own434 = copyRangeVec(s, ((const UHDM::bit_typespec*)src)->Ranges(), cp, {});
+            ((UHDM::bit_typespec*)cp)->Ranges(own434);
+        }
+        if (own434)
+            lawTrace(434, "bareTdCopyOwnRangeAfterSpec434", std::string(src->VpiName()));
+    }
     std::string qn(src->VpiName());
     cp->VpiName(qn.substr(qn.rfind("::") + 2));
     cp->VpiFile(src->VpiFile());
@@ -23781,7 +23833,9 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             bool savedTf = tfContext;
             tfContext = true;
             typedefTsContext = true;
+            g434ModVecTd = true;  // § modTdRangeClogKeeps434
             auto* lts = makeTypespec(ta, typeSyn);
+            g434ModVecTd = false;
             typedefTsContext = false;
             tfContext = savedTf;
             bypassTypedefShare = false;
@@ -23941,6 +23995,10 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
 // § clsMethodLocalForeignPkgSpec428 — set around emitClassPropSpecParams163
 // (UhdmExporter.cpp) for a class-method local's specialization.
 bool g428ClsLocalSpec = false;
+// § bareTdCopyOwnRangeAfterSpec434 — written by emitClassPropSpecParams163
+// (UhdmExporter.cpp) where § clsMethodLocalForeignPkgSpec428 mints its alias
+// clone, read only by bareScalarTdCopyOfFresh16 above.
+std::set<const UHDM::typespec*> g434SpecAliasListing;
 
 // § hpMacroSelDispExpanded428 (r11u428) — the display spelling of a dotted
 // path whose select holds a MACRO USE written outside the macro, rebuilt from
@@ -25720,6 +25778,27 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                                  sy2->kind == SymbolKind::Variable) &&
                                 !typeWidthUsesParam(*sy2))
                                 foldQuery = true;
+                    // § genBodyDefBitsKeepsCall434 (r11u434, cases BD;
+                    // sv-tests basejump bsg_source_sync_channel_control_master
+                    // 143:53 `$bits(out_calib_code)`) — in the DEFINITION
+                    // listing of a continuous assignment written inside a
+                    // generate body, Surelog compiles the assignment without
+                    // reducing a query call: golden keeps `$bits(x)` and
+                    // `$size(x)` as a sys_func_call over a ref_obj for a
+                    // module-level net or variable (gen-if, else branch,
+                    // gen-for, gen-case, nested blocks; BD bd01 to bd05,
+                    // bd08, bd09, bd11, bd13, bd14), as it already does for a
+                    // block-local name (bd06) and a select
+                    // (§ genBlockBitsKeepsSelect200), while the same call
+                    // outside any generate construct folds (bd12).  Switch
+                    // R11U434_GENDEFBITS_OFF.
+                    if (foldQuery && !typedefTsContext && genBody200(&syn) &&
+                        underContAssign434(&syn) &&
+                        lawOn(434, "R11U434_GENDEFBITS_OFF")) {
+                        foldQuery = false;
+                        lawTrace(434, "genBodyDefBitsKeepsCall434",
+                                 std::string(rawText(syn.sourceRange())));
+                    }
                 }
                 // A MEMBER/SELECT argument (`$bits(a.pair[0])`) can never
                 // resolve through `currentScope->find`, which takes a bare
@@ -25843,6 +25922,23 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                     c->VpiParent(parent);
                     setLoc(c, syn.sourceRange());
                     return c;
+                }
+                // § modTdRangeClogKeeps434 (r11u434, cases TC; sv-tests
+                // basejump bsg_comm_link's `typedef logic
+                // [`BSG_MAX($clog2(core_channels_p),1)-1:0] ...`) — in a
+                // MODULE-body vector typedef's packed range Surelog keeps a
+                // `$clog2(...)` call unreduced, over a parameter, a localparam,
+                // a literal or an expression (golden `sys_func_call $clog2`
+                // over `ref_obj W`, `constant 8`, `operation W*2`; TC tc01,
+                // tc02, tc04, tc06, tc08 to tc10, tc12), where the typedef
+                // context folded it.  A package typedef (tc03), a struct
+                // member (tc07) and a variable's own range (tc11) are not
+                // reached.  Switch R11U434_MODTDCLOG_OFF.
+                if (foldQuery && g434ModVecTd && sysName == "$clog2" &&
+                    lawOn(434, "R11U434_MODTDCLOG_OFF")) {
+                    foldQuery = false;
+                    lawTrace(434, "modTdRangeClogKeeps434",
+                             std::string(rawText(syn.sourceRange())));
                 }
                 if (foldQuery && currentScope &&
                     (sysName == "$bits" || sysName == "$size" || sysName == "$clog2")) {
@@ -26029,6 +26125,26 @@ UHDM::any* UhdmExporter::emitSyntaxExpr(const syntax::SyntaxNode& syn, UHDM::Bas
                             (lawOn(200, 202, "R11U200_GENBITS_OFF") && !landingOff(202)) && genBody200(&syn)) {
                             exprArg9 = true;
                             trace200("genBlockBitsKeepsSelect200", "defarg");
+                        }
+                        // § genBodyDefSysArgCallTree434 (r11u434, cases BD
+                        // bd15, bd17, bd18) — in the same definition listing
+                        // of a generate body's continuous assignment, a
+                        // system-call argument that is itself a system call
+                        // (`$clog2($bits(x))`) is compiled as an expression:
+                        // golden writes the inner sys_func_call over its own
+                        // ref_obj, where the raw-text fallback below named a
+                        // ref_obj `$bits(x)`.  A range or typedef bound keeps
+                        // the raw-text ref_obj (the matrix above).  Switch
+                        // R11U434_GENDEFSYSARG_OFF.
+                        if (!exprArg9 && an9 &&
+                            an9->kind == syntax::SyntaxKind::InvocationExpression &&
+                            an9->as<syntax::InvocationExpressionSyntax>().left->kind ==
+                                syntax::SyntaxKind::SystemName &&
+                            !typedefTsContext && genBody200(&syn) &&
+                            underContAssign434(&syn) &&
+                            lawOn(434, "R11U434_GENDEFSYSARG_OFF")) {
+                            exprArg9 = true;
+                            lawTrace(434, "genBodyDefSysArgCallTree434", argName);
                         }
                         if (exprArg9) {
                             if (auto* e2 = emitSyntaxExpr(*an9, sfc)) {

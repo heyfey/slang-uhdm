@@ -1,0 +1,46 @@
+v11u434repro_cases_VB_vb01 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb02 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb03 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb04 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb05 | pristine DIVERGENT nohier il synth | law DIVERGENT nohier il synth
+v11u434repro_cases_VB_vb06 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb07 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb08 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb09 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb10 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb11 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb12 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb13 | pristine DIVERGENT nohier il synth | law DIVERGENT nohier il synth
+v11u434repro_cases_VB_vb14 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb15 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb16 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb17 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb18 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb19 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb20 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt01 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt02 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt03 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt04 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt05 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt06 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u434repro_cases_VT_vt07 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt08 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt09 | pristine EQUIVALENT nohier il synth | law EQUIVALENT nohier
+v11u434repro_cases_VT_vt10 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt11 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt12 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt13 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt14 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt15 | pristine DIVERGENT nohier il synth | law DIVERGENT nohier il synth
+v11u434repro_cases_VT_vt16 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb21 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb23 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb24 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb25 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb26 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VB_vb27 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt17 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt18 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt19 | pristine IDENTICAL  | law IDENTICAL 
+v11u434repro_cases_VT_vt20 | pristine IDENTICAL  | law IDENTICAL 

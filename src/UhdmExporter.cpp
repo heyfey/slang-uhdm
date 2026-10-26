@@ -25,6 +25,8 @@
 namespace slang_uhdm {
 // § clsMethodLocalForeignPkgSpec428 (TypeEmit.cpp) — the class-method local site.
 extern bool g428ClsLocalSpec;
+// § bareTdCopyOwnRangeAfterSpec434 (TypeEmit.cpp) — listings an alias clone reached.
+extern std::set<const UHDM::typespec*> g434SpecAliasListing;
 // § caAnySysCallLhsTs428 (ModuleEmit.cpp) — net-declaration stamps resolved past the port.
 extern std::set<const UHDM::ref_typespec*> g428NdaSysTs;
 bool& classParamRhs424();  // § classParamBitsKeywordFold424 (TypeEmit.cpp)
@@ -12877,7 +12879,18 @@ void UhdmExporter::emitClassPropSpecParams163(
             its163 = nts163;
         }
         else {
-            its163 = makeTypespec(m163, tps163.targetType.getTypeSyntax());
+            // § clsSpecArgTsFileAtArg434 — a data-type argument's typespec is
+            // compiled from the argument as written (its packed range too,
+            // golden `res#(bit [3:0])` ranges at the use, SF sf06), not from
+            // the specialization's first spelling slang keeps.
+            const syntax::SyntaxNode* tsyn434 = tps163.targetType.getTypeSyntax();
+            if (!exprArm163 && a163 && syntax::DataTypeSyntax::isKind(a163->kind) &&
+                lawOn(434, "R11U434_SPECARGFILE_OFF") && tsyn434 != a163) {
+                tsyn434 = a163;
+                lawTrace(434, "clsSpecArgTsFileAtArg434",
+                         "argsyn " + std::string(tps163.name));
+            }
+            its163 = makeTypespec(m163, tsyn434);
             // § clsMethodLocalForeignPkgSpec428 — at a class-method local a
             // bare PACKAGE-typedef argument takes its per-use alias clone
             // (golden `logic_typespec (uvm_integral_t)` 59:9-59:28 under
@@ -12894,6 +12907,11 @@ void UhdmExporter::emitClassPropSpecParams163(
                                  "aliasclone " + std::string(cl428->VpiName()));
                         // the alias reference is named through the
                         // specialization: `uvm_resource.T.uvm_integral_t`
+                        // § bareTdCopyOwnRangeAfterSpec434 — remember the
+                        // listing this clone aliases (TypeEmit reads it).
+                        if (auto* ar434 = cl428->Typedef_alias();
+                            ar434 && ar434->Actual_typespec())
+                            g434SpecAliasListing.insert(ar434->Actual_typespec());
                         if (auto* ar428 = cl428->Typedef_alias())
                             ar428->VpiFullName(std::string(cts->VpiName()) + "." +
                                                std::string(tps163.name) + "." +
@@ -12902,7 +12920,31 @@ void UhdmExporter::emitClassPropSpecParams163(
                     }
             if (its163) {
                 its163->VpiParent(tp163);
-                if (!exprArm163)
+                // § clsSpecArgTsFileAtArg434 (r11u434, cases SF; sv-tests
+                // testbenches uvm_agent_active, uvm_agent_passive,
+                // uvm_driver_sequencer_env, uvm_monitor_env) — the argument's
+                // typespec is located at the argument as written, its FILE
+                // included: Surelog compiles the written `paData_type` node
+                // (golden `uvm_resource#(int) __tmp_rsrc__` int_typespec
+                // uvm_resource_defines.svh 43:17-43:20, the macro body where
+                // the argument lands).  makeTypespec had already stamped the
+                // file of the specialization's FIRST spelling
+                // (uvm_resource_specializations.svh) and setLoc keeps a file
+                // that is set, so the object read that file with this
+                // argument's line and columns.  Switch
+                // R11U434_SPECARGFILE_OFF.
+                if (!exprArm163 && !its163->VpiFile().empty() &&
+                    lawOn(434, "R11U434_SPECARGFILE_OFF")) {
+                    std::string f434(its163->VpiFile());
+                    its163->VpiFile("");
+                    setLoc(its163, a163->sourceRange());
+                    if (its163->VpiFile() != f434)
+                        lawTrace(434, "clsSpecArgTsFileAtArg434",
+                                 f434 + " -> " + std::string(its163->VpiFile()));
+                    else
+                        lawTrace(434, "clsSpecArgTsFileAtArg434", "same " + f434);
+                }
+                else if (!exprArm163)
                     setLoc(its163, a163->sourceRange());
                 else if (its163->VpiName().empty() &&
                          a163->kind == syntax::SyntaxKind::IdentifierName) {

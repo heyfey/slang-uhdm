@@ -1,0 +1,10 @@
+uhdm-strictcmp --max 10 golden pristine (testbenches/uvm_agent_active, kept pair of the pristine runner call)
+#206401 file
+  A: 23	int_typespec				uvm_resource_defines.svh	43	17	43	20
+  B: 23	int_typespec				uvm_resource_specializations.svh	43	17	43	20
+#219489 depth
+  A: 7	range				uvm_object_globals.svh	49	22	49	42
+  B: 4	int_var	_size		uvm_pkg::uvm_report_message_int_element::_size	uvm_report_message.svh	117	30	117	35		0
+objects 444579 vs 444576
+STRICT_NOTEQUAL file
+(law2 and later: uhdm-cmp 0 lines, STRICT_EQUAL; runner agreement IDENTICAL)

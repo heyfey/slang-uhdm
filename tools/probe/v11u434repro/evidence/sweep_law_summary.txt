@@ -1,0 +1,11 @@
+probe cases: EQUAL=4019 STRICT_NOTEQUAL=68 (of 4087); goldens built now=0, from cache=4087
+[probe] EQUAL=4019 STRICT_NOTEQUAL=68
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+sv-tests: BOTH_REJECT=303 DIFFERENT=39 EQUAL=1901 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=6 changes=0
