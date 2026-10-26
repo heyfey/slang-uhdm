@@ -2058,6 +2058,31 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
     return ub;
 }
 
+// § foreachCgArrLoopVarRef437 — the declaration's own typespec reference
+// for the iterated reference: the net or variable the definition listed
+// for the covergroup array, when its typespec is (or is still to become)
+// that unsupported_typespec.
+static UHDM::ref_typespec* foreachCgDeclTs437(
+    const slang::ast::Symbol* sym,
+    const std::map<const slang::ast::Symbol*, UHDM::any*>& netMap) {
+    if (!sym)
+        return nullptr;
+    auto it = netMap.find(sym);
+    if (it == netMap.end() || !it->second)
+        return nullptr;
+    UHDM::ref_typespec* rt = nullptr;
+    if (auto* n = any_cast<UHDM::net*>(it->second))
+        rt = n->Typespec();
+    else if (auto* v = any_cast<UHDM::variables*>(it->second))
+        rt = v->Typespec();
+    // The definition's typespec may still be bound later (the drain mirrors
+    // it then); an already bound one must be the unsupported_typespec.
+    if (!rt || (rt->Actual_typespec() &&
+                rt->Actual_typespec()->UhdmType() != UHDM::uhdmunsupported_typespec))
+        return nullptr;
+    return rt;
+}
+
 // § foreachScopedArrayWrittenClassVar33 (r10buvm33) — THE DATA FACE OF THE
 // `::` QUALIFIER, decoded from Surelog and measured cell by cell on `g33a1.sv`
 // / `g33a2.sv` against golden, both views.
@@ -4876,6 +4901,35 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     }
             const bool uninstIfaceArrUnres220 =
                 uninstIfaceSubBody218 && !arrIsParam183 && !arrNameIsType220;
+            // § foreachCgArrLoopVarRef437 (r11u437) — A FOREACH OVER AN
+            // ARRAY OF COVERGROUP HANDLES LEAVES ITS LOOP VARIABLES
+            // UNRESOLVED.  Surelog's paFOREACH branch mints every loop variable
+            // as a ref_var over an unsupported_typespec named for it, and
+            // UhdmWriter::swapForSpecifiedVar replaces it only with what
+            // CompileHelper::getSimpleVarFromTypespec makes of the array's
+            // element typespec; a covergroup type is an unsupported_typespec
+            // there (§ cgArrayElemUnsupportedTs436), which that function's
+            // switch has no branch for, so it returns null and the placeholder
+            // stays: golden `ref_var i` over `unsupported_typespec i` where
+            // ours wrote the int_var fallback (v11u436 VC/vc05, sv-tests
+            // apb_protocol_monitor's interface twin already matched since an
+            // uninstantiated interface never swaps).  The iterated reference
+            // binds the declaration's own unsupported_typespec (the net's
+            // `cg cs[3]` object, 4:1-4:9) where ours minted an array_typespec.
+            // Grid tools/probe/r11u437repro/cases/FC.  Switch
+            // R11U437_FECGREF_OFF.
+            bool cgElem437 = false;
+            if (arrSym && !arrDotted21)
+                if (auto* vs437 = arrSym->as_if<ValueSymbol>()) {
+                    const Type* t437 = &vs437->getType().getCanonicalType();
+                    for (int d437 = 0; d437 < 16 && t437 && t437->isUnpackedArray(); ++d437)
+                        t437 = &t437->getArrayElementType()->getCanonicalType();
+                    cgElem437 = t437 && t437->kind == SymbolKind::CovergroupType &&
+                                lawOn(437, "R11U437_FECGREF_OFF");
+                    if (cgElem437)
+                        lawTrace(437, "foreachCgArrLoopVarRef437",
+                                 std::string(arrSym->name));
+                }
             bool foreachUnres9 = classMethodNoBind || pkgDefViewBody9 ||
                                  classPropArr9 || uninstIfaceArrUnres220 ||
                                  (pkgImportCloneEmit && !arrIsParam183);
@@ -5486,6 +5540,12 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         art->Actual_typespec(own246);
                     else if (auto* uip304 = uninstIfaceParamTs304(fs, parent))
                         art->Actual_typespec(uip304);
+                    else if (auto* cgrt437 = cgElem437 ? foreachCgDeclTs437(arrSym, netMap) : nullptr) {
+                        if (cgrt437->Actual_typespec())
+                            art->Actual_typespec(cgrt437->Actual_typespec());
+                        else
+                            pendingLoopVarTs9.push_back({art, cgrt437});
+                    }
                     else
                         pendingForeachArrayTs.push_back(
                             {art, arrSym, implicitNetModule});
@@ -5602,7 +5662,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // arm carries NO parameter fence — arm a1's `PAR220` resolves
                 // its ARRAY reference and still lists `i5` as the placeholder.
                 if (classMethodNoBind || pkgDefViewBody9 ||
-                    pkgImportCloneEmit || uninstIfaceSubBody218) {
+                    pkgImportCloneEmit || uninstIfaceSubBody218 || cgElem437) {
                     auto* lv0 = s.MakeRef_var();
                     lv0->VpiName(name);
                     lv0->VpiFullName(joinRef(prefix, lvn));

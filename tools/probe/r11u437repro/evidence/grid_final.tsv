@@ -1,0 +1,40 @@
+NS/ns01	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 54 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 54 objects]	p:u=0,s=0 l:u=0,s=0
+NS/ns02	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 47 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 47 objects]	p:u=8,s=0 l:u=8,s=0
+NS/ns03	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 55 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 55 objects]	p:u=0,s=0 l:u=0,s=0
+NS/ns04	slrc=0	rc=0 cmp=0 dist=4 [STRICT_NOTEQUAL endcol]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 40 objects]	p:u=6,s=6 l:u=0,s=0
+NS/ns05	slrc=0	rc=0 cmp=0 dist=4 [STRICT_NOTEQUAL endcol]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 57 objects]	p:u=18,s=8 l:u=12,s=2
+NS/ns06	slrc=0	rc=0 cmp=0 dist=4 [STRICT_NOTEQUAL col]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 50 objects]	p:u=4,s=4 l:u=0,s=0
+NS/ns07	slrc=0	rc=0 cmp=48 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=50,s=50 l:u=26,s=26
+NS/ns08	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 52 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 52 objects]	p:u=0,s=0 l:u=0,s=0
+NS/ns09	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 53 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 53 objects]	p:u=6,s=6 l:u=6,s=6
+NS/ns10	slrc=0	rc=0 cmp=20 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=20 dist=0 [NOT_EQUAL stage1]	p:u=29,s=29 l:u=29,s=29
+NS/ns11	slrc=0	rc=0 cmp=0 dist=2 [STRICT_NOTEQUAL col]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 34 objects]	p:u=4,s=4 l:u=0,s=0
+NS/ns12	slrc=0	rc=0 cmp=0 dist=0 [STRICT_EQUAL 59 objects]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 59 objects]	p:u=0,s=0 l:u=0,s=0
+NS/ns13	slrc=0	rc=0 cmp=0 dist=8 [STRICT_NOTEQUAL endcol]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 87 objects]	p:u=28,s=12 l:u=16,s=0
+NS/ns14	slrc=0	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=32,s=22 l:u=20,s=10
+NS/ns15	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 74 objects]	p:u=18,s=18 l:u=0,s=0
+NS/ns16	slrc=0	rc=0 cmp=0 dist=4 [STRICT_NOTEQUAL col]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 45 objects]	p:u=4,s=4 l:u=0,s=0
+NS/ns17	slrc=4	rc=0 cmp=211 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=211 dist=0 [NOT_EQUAL stage1]	p:u=28,s=20 l:u=28,s=20
+NS/ns18	slrc=0	rc=0 cmp=0 dist=4 [STRICT_NOTEQUAL endcol]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 60 objects]	p:u=20,s=10 l:u=12,s=2
+NS/ns19	slrc=4	rc=0 cmp=0 dist=8 [STRICT_NOTEQUAL endcol]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 77 objects]	p:u=12,s=12 l:u=0,s=0
+NS/ns20	slrc=0	rc=0 cmp=0 dist=2 [STRICT_NOTEQUAL col]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 51 objects]	p:u=16,s=6 l:u=12,s=2
+NS/ns22	slrc=4	rc=4 cmp=121 dist=0 [NOT_EQUAL stage1]	rc=4 cmp=121 dist=0 [NOT_EQUAL stage1]	p:u=60,s=60 l:u=54,s=54
+FC/fc01	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 65 objects]	p:u=18,s=18 l:u=0,s=0
+FC/fc02	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 76 objects]	p:u=18,s=18 l:u=0,s=0
+FC/fc03	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 80 objects]	p:u=31,s=31 l:u=0,s=0
+FC/fc04	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=393 dist=0 [NOT_EQUAL stage1]	p:u=87,s=59 l:u=70,s=42
+FC/fc05	slrc=4	rc=0 cmp=14 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=14 dist=0 [NOT_EQUAL stage1]	p:u=149,s=93 l:u=142,s=78
+FC/fc06	slrc=0	rc=0 cmp=490 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=490 dist=0 [NOT_EQUAL stage1]	p:u=29,s=29 l:u=13,s=13
+FC/fc07	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 103 objects]	p:u=22,s=18 l:u=4,s=0
+FC/fc08	slrc=4	rc=0 cmp=14 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 69 objects]	p:u=18,s=18 l:u=0,s=0
+FC/fc09	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 85 objects]	p:u=32,s=32 l:u=0,s=0
+FC/fc10	slrc=4	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=377 dist=0 [NOT_EQUAL stage1]	p:u=90,s=62 l:u=73,s=45
+FC/fc11	slrc=4	rc=0 cmp=602 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=602 dist=0 [NOT_EQUAL stage1]	p:u=16,s=16 l:u=9,s=9
+DN/dn01	slrc=0	rc=0 cmp=48 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=50,s=50 l:u=26,s=26
+DN/dn02	slrc=0	rc=0 cmp=48 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=63,s=63 l:u=26,s=26
+DN/dn03	slrc=0	rc=0 cmp=64 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=72,s=72 l:u=52,s=52
+DN/dn04	slrc=0	rc=0 cmp=194 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=194 dist=0 [NOT_EQUAL stage1]	p:u=48,s=48 l:u=36,s=36
+DN/dn05	slrc=0	rc=0 cmp=44 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=0 dist=0 [STRICT_EQUAL 41 objects]	p:u=18,s=10 l:u=8,s=0
+DN/dn06	slrc=0	rc=0 cmp=48 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=101 dist=0 [NOT_EQUAL stage1]	p:u=72,s=72 l:u=48,s=48
+DN/dn07	slrc=0	rc=0 cmp=194 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=194 dist=0 [NOT_EQUAL stage1]	p:u=96,s=96 l:u=72,s=72
+DN/dn08	slrc=0	rc=0 cmp=48 dist=0 [NOT_EQUAL stage1]	rc=0 cmp=56 dist=0 [NOT_EQUAL stage1]	p:u=38,s=38 l:u=26,s=26

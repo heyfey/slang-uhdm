@@ -1,0 +1,12 @@
+EM/r11u181repro_cases_adv_a04 p:u=56,s=22 l:u=44,s=10
+EM/r11u190verify_cases_NW_n01 p:u=37,s=29 l:u=8,s=0
+EM/r11u190verify_cases_NW_n02 p:u=10,s=10 l:u=4,s=4
+EM/r11u296repro_cases_CI_ci10_two_sel_path p:u=512,s=388 l:u=488,s=364
+EM/r11u436repro_cases_IU_iu12 p:u=4,s=4 l:u=0,s=0
+EM/r11u436repro_cases_IU_iu13 p:u=18,s=18 l:u=0,s=0
+EM/r11v158repro_cases_rz_z04 p:u=18,s=8 l:u=12,s=2
+EM/r11v181repro_cases_lv_l06 p:u=32,s=8 l:u=28,s=4
+EM/r11v181repro_cases_lv_l12 p:u=36,s=8 l:u=32,s=4
+EM/v11u413repro_cases_VS_vs04 p:u=4,s=4 l:u=0,s=0
+EM/v11u436repro_cases_VC_vc03 p:u=8,s=8 l:u=0,s=0
+EM/v11u436repro_cases_VC_vc05 p:u=18,s=18 l:u=0,s=0

@@ -2065,7 +2065,7 @@ generated/utd-sv/utd-sv_tlu_addern_32.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_incr64.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_prencoder16.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_unconnected_drive.sv,EQUAL,,equal
-generated/uvm-examples/apb_protocol_monitor.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
+generated/uvm-examples/apb_protocol_monitor.sv,EQUAL,,equal
 generated/uvm-examples/biquad_example.sv,SURELOG_ONLY,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uart_example.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uart_example/agents/apb_agent/apb_seq_item.svh:109:14: error: 'knobs' is a local member of 'uvm_p,
 generated/uvm-examples/uvm_ac_config_db.sv,DIFFERENT,decompile:,

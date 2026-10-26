@@ -738,6 +738,99 @@ static void hpLvNewFirstSpan224(UHDM::any* lhs, const Expression& left,
     hp->VpiEndColumnNo(c1);
     lawTrace(224, "hpLvNewClassFirstElemSpan224", std::string(hp->VpiName()));
 }
+// § newLhsSelCgCopyAtIndex437 (r11u437) — A COVERGROUP OR COPY `new`
+// ASSIGNED TO AN ARRAY ELEMENT ANCHORS THE ELEMENT AT ITS INDEX TOO.
+// Surelog's blocking_assignment grammar has one alternative for every
+// `class_new` right side (`new`, `new(args)` and the copy `new src`), and
+// the parser does not know whether the target is a class or a covergroup
+// handle; CompileHelper::compileBlockingAssignment's `= new ...` branch builds
+// its left side from the statement's name node, so a one-index element
+// select takes the rvalue anchor, the index (§ newLhsBitSelAtIndex181's
+// rule), whatever the handle's kind.  § newLhsBitSelAtIndex181 gated on
+// sourceIsNewClassExpr55, which slang's NewCovergroup (a covergroup array
+// element `APB_protocol_cg[i] = new();`, sv-tests apb_protocol_monitor
+// 145:21-145:22 in golden where ours spanned 145:5-145:23) and CopyClass
+// (`c[1] = new c[0];`) bound kinds miss.  Grid
+// tools/probe/r11u437repro/cases/NS.  Switch R11U437_NEWLHSKIND_OFF.
+static bool newLhsCgCopy437(const Expression& rhs) {
+    static const bool on = lawOn(437, "R11U437_NEWLHSKIND_OFF");
+    if (!on)
+        return false;
+    const Expression& e = stripImplicitConv(rhs);
+    if (e.kind == ExpressionKind::NewCovergroup)
+        return true;
+    // The copy form is the grammar's `NEW expression` alternative only when
+    // it is written `new src` (CopyClassExpression syntax).
+    return e.kind == ExpressionKind::CopyClass && e.syntax &&
+           e.syntax->kind == syntax::SyntaxKind::CopyClassExpression;
+}
+// § newLhsVarSelNameSpan437 (r11u437) — A MULTI-INDEX ELEMENT LEFT SIDE OF
+// A CLASS-NEW ASSIGNMENT SPANS ITS NAME.  `c[0][1] = new;` over a
+// two-dimensional array of handles: golden var_select `c` 5:15-5:16, the
+// name alone, where ours spanned the whole select 5:15-5:22 (the
+// `= new ...` branch compiles the name node with its select sibling; a
+// single index anchors at the index, § newLhsBitSelAtIndex181).  Class,
+// covergroup and copy forms alike (cases NS ns04, ns13, ns19).  Switch
+// R11U437_NEWLHSVS_OFF.
+// § newLhsHpSelFirstSpan437 (r11u437) — A DOTTED LEFT SIDE ENDING IN AN
+// ELEMENT SELECT ENDS AT ITS FIRST NAME.  § hpLvNewClassFirstElemSpan224
+// read member chains only; `h.c[0] = new(2);` and `h.d.c[1] = new;` are
+// hier_paths whose last element is a select: golden spans `h` alone
+// (6:32-6:33) where ours spanned the whole path (cases NS ns05, ns14,
+// ns18).  Switch R11U437_NEWLHSHP_OFF.
+static void newLhsSelSpan437(UHDM::any* lhs, const Expression& left,
+                             const slang::SourceManager* sm) {
+    if (!lhs || !sm)
+        return;
+    const Expression* e = &stripImplicitConv(left);
+    if (e->kind != ExpressionKind::ElementSelect)
+        return;
+    const auto t = lhs->UhdmType();
+    const bool vs = t == UHDM::uhdmvar_select;
+    const bool hp = t == UHDM::uhdmhier_path;
+    if (vs && !lawOn(437, "R11U437_NEWLHSVS_OFF"))
+        return;
+    if (hp && !lawOn(437, "R11U437_NEWLHSHP_OFF"))
+        return;
+    if (!vs && !hp)
+        return;
+    bool sawMember = false;
+    for (int d = 0; d < 64; ++d) {
+        if (e->kind == ExpressionKind::ElementSelect)
+            e = &stripImplicitConv(e->as<ElementSelectExpression>().value());
+        else if (e->kind == ExpressionKind::MemberAccess) {
+            sawMember = true;
+            e = &stripImplicitConv(e->as<MemberAccessExpression>().value());
+        }
+        else
+            break;
+    }
+    if (e->kind != ExpressionKind::NamedValue)
+        return;
+    // A var_select is the undotted multi-index form; a hier_path the dotted
+    // one.  Anything else is outside the measured grid.
+    if (vs == sawMember)
+        return;
+    auto* o = (UHDM::expr*)lhs;
+    const int l0 = o->VpiLineNo(), c0 = o->VpiColumnNo();
+    if (l0 <= 0)
+        return;
+    auto st = e->sourceRange.start();
+    auto end = e->sourceRange.end();
+    if (sm->isMacroLoc(end) || sm->isMacroLoc(st))
+        return;
+    if ((int)sm->getLineNumber(st) != l0 || (int)sm->getColumnNumber(st) != c0)
+        return;
+    const int l1 = (int)sm->getLineNumber(end), c1 = (int)sm->getColumnNumber(end);
+    if (l1 != l0 || c1 <= c0)
+        return;
+    if (o->VpiEndLineNo() == l1 && o->VpiEndColumnNo() == c1)
+        return;
+    o->VpiEndLineNo(l1);
+    o->VpiEndColumnNo(c1);
+    lawTrace(437, vs ? "newLhsVarSelNameSpan437" : "newLhsHpSelFirstSpan437",
+             std::string(o->VpiName()));
+}
 // § hpLvSelColumnJoin224 (r11u224) — THE LVALUE PATH'S ELEMENT SELECT IS
 // NAMED WITH `::` IN A PACKAGE OR CLASS SCOPE.  The lvalue arm named the
 // bit_select / var_select `<scope>.<path>.<member>`; Surelog's writer joins
@@ -9991,23 +10084,43 @@ static const slang::ast::Expression* dynArrayNewLvalueBase110(
     // lvalue is already the base and nothing changes there.
     const Expression* root110 = &ae.left();
     bool dotted110 = false;
+    bool sel437 = false, rng437 = false;
     while (true) {
         const Expression& c110 = stripImplicitConv(*root110);
         if (c110.kind == ExpressionKind::MemberAccess) {
             dotted110 = true;
             root110 = &c110.as<MemberAccessExpression>().value();
         }
-        else if (c110.kind == ExpressionKind::ElementSelect)
+        else if (c110.kind == ExpressionKind::ElementSelect) {
+            sel437 = true;
             root110 = &c110.as<ElementSelectExpression>().value();
-        else if (c110.kind == ExpressionKind::RangeSelect)
+        }
+        else if (c110.kind == ExpressionKind::RangeSelect) {
+            rng437 = true;
             root110 = &c110.as<RangeSelectExpression>().value();
+        }
         else {
             root110 = &c110;
             break;
         }
     }
-    if (!dotted110)
-        return nullptr;
+    // § dynArrNewElemLvalueBase437 (r11u437) — AN UNDOTTED ELEMENT LVALUE
+    // COLLAPSES TOO.  The grammar alternative is `nonrange_variable_lvalue =
+    // dynamic_array_new` whatever the lvalue's shape, and Surelog compiles
+    // that WRAPPER node to the base identifier with the whole lvalue's span:
+    // `int d[2][]; d[0] = new[3];` golden ref_obj `d` 4:15-4:19 bound to the
+    // module's net where ours wrote bit_select `d` with its index (cases NS
+    // ns07, DN).  Element selects only (`d[i][j] = new[n]` too); a range
+    // select is not a legal target.  Switch R11U437_DYNNEWELEM_OFF.
+    if (!dotted110) {
+        if (!sel437 || rng437 || !lawOn(437, "R11U437_DYNNEWELEM_OFF"))
+            return nullptr;
+        if (stripImplicitConv(*root110).kind == ExpressionKind::NamedValue)
+            lawTrace(437, "dynArrNewElemLvalueBase437",
+                     std::string(stripImplicitConv(*root110)
+                                     .as<NamedValueExpression>()
+                                     .symbol.name));
+    }
     // Only a LOCAL plain NAME can be the receiver.  Every measured golden
     // collapse cell has a `NamedValue` base; a HIERARCHICAL base is the
     // fenced-out half (R-hier110) — golden collapses `P.IB = new [3];`
@@ -27007,10 +27120,15 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // § newLhsBitSelAtIndex181 (r11u181) — see newLhsSel181.
             const bool savedNewLhs181 = newLhsSel181();
             const Expression* savedNewTop181 = newLhsTop181();
+            // § newLhsSelCgCopyAtIndex437 — the covergroup and copy forms
+            // of the class-new grammar alternative take the same anchor.
+            const bool newKind437 = newLhsCgCopy437(*rhsExpr);
             newLhsSel181() =
                 stripImplicitConv(*lhsE110).kind == ExpressionKind::ElementSelect &&
-                sourceIsNewClassExpr55(*rhsExpr) &&
+                (sourceIsNewClassExpr55(*rhsExpr) || newKind437) &&
                 lawOn(181, "R11U181_NEWLHS_OFF");
+            if (newLhsSel181() && newKind437)
+                lawTrace(437, "newLhsSelCgCopyAtIndex437", "bit_select");
             newLhsTop181() = &stripImplicitConv(*lhsE110);
             struct NewLhsRestore181 {
                 bool v;
@@ -27026,6 +27144,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // § hpLvNewClassFirstElemSpan224 (law at hpLvNewFirstSpan224)
                 else if (sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)))
                     hpLvNewFirstSpan224(lhs, ae.left(), sm);
+                // § newLhsVarSelNameSpan437 / § newLhsHpSelFirstSpan437
+                if (lhsE110 == &ae.left() &&
+                    (sourceIsNewClassExpr55(stripImplicitConv(*rhsExpr)) ||
+                     newKind437))
+                    newLhsSelSpan437(lhs, ae.left(), sm);
                 asn->Lhs((UHDM::expr*)lhs);
                 // A class-handle assignment (bar = new()) re-parents its Lhs
                 // ref through an artifact hier_path (weakly-tail only).

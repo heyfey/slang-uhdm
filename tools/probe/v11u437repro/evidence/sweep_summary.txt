@@ -1,0 +1,50 @@
+START Mon Oct 26 12:52:32 EDT 2026
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u437_LW/probe.csv
+probe cases: EQUAL=4023 STRICT_NOTEQUAL=64 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4023 differ:fullname=29 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:type=3 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u437_LW/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u437/build/uhdm-strictcmp
+
+  CMP_EQUAL: 480
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u437_LW/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u437/build/uhdm-strictcmp
+
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+CORPUS_RC=0 Mon Oct 26 12:59:49 EDT 2026
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/uvm-examples/apb_protocol_monitor.sv: STRICT_NOTEQUAL -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=32 EQUAL=1907 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+SVTESTS_RC=0 Mon Oct 26 13:16:01 EDT 2026

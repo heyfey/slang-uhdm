@@ -1,0 +1,17 @@
+== probe vs control /tmp/intr11u435
+== surelog vs control /tmp/intr11u435
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<W>/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<C>/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<W>/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "<C>/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil vs control /tmp/intr11u435
+== downstream vs control /tmp/intr11u435
+== svtests vs control /tmp/intr11u435
+2100c2100
+< generated/uvm-examples/apb_protocol_monitor.sv,EQUAL,,equal
+---
+> generated/uvm-examples/apb_protocol_monitor.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)

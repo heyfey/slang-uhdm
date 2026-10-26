@@ -1,0 +1,5 @@
+r11u436repro/iu12	slrc=0	p:rc=0 cmp=0 dist=2 md5=3981b388 [STRICT_NOTEQUAL col]	l:rc=0 cmp=0 dist=0 md5=390058bf [STRICT_EQUAL 34 objects]
+r11u436repro/iu13	slrc=4	p:rc=0 cmp=56 dist=0 md5=501140c2 [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=0 md5=bd246b36 [STRICT_EQUAL 69 objects]
+v11u413repro/vs04	slrc=0	p:rc=0 cmp=0 dist=4 md5=313f13ce [STRICT_NOTEQUAL col]	l:rc=0 cmp=0 dist=0 md5=08aa0a4c [STRICT_EQUAL 50 objects]
+v11u436repro/vc03	slrc=4	p:rc=0 cmp=0 dist=8 md5=7c1ef822 [STRICT_NOTEQUAL col]	l:rc=0 cmp=0 dist=0 md5=c8979cc8 [STRICT_EQUAL 72 objects]
+v11u436repro/vc05	slrc=4	p:rc=0 cmp=56 dist=0 md5=42fc3af0 [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=0 md5=470e01d6 [STRICT_EQUAL 65 objects]

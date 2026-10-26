@@ -1,0 +1,48 @@
+pristine DN/dn01 {'name': 'DN_dn01', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/v11u437_idsw_pristine/DN_dn01/equiv/DN_dn01 - the design is non-functional'}
+pristine DN/dn08 {'name': 'DN_dn08', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/v11u437_idsw_pristine/DN_dn08/equiv/DN_dn08 - the design is non-functional'}
+pristine DN/dn06 {'name': 'DN_dn06', 'verdict': 'STATUS_DIFF', 'surelog_status': 'TIMEOUT', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn07 {'name': 'DN_dn07', 'verdict': 'STATUS_DIFF', 'surelog_status': 'READ_FAIL', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc04 {'name': 'FC_fc04', 'verdict': 'STATUS_DIFF', 'surelog_status': 'CRASH', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn02 {'name': 'DN_dn02', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/v11u437_idsw_pristine/DN_dn02/equiv/DN_dn02 - the design is non-functional'}
+pristine FC/fc03 {'name': 'FC_fc03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn03 {'name': 'DN_dn03', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine FC/fc01 {'name': 'FC_fc01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc02 {'name': 'FC_fc02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc09 {'name': 'FC_fc09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc11 {'name': 'FC_fc11', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc07 {'name': 'FC_fc07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc05 {'name': 'FC_fc05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+pristine FC/fc06 {'name': 'FC_fc06', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+pristine FC/fc10 {'name': 'FC_fc10', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine NS/ns17 {'name': 'NS_ns17', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NS/ns08 {'name': 'NS_ns08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine FC/fc08 {'name': 'FC_fc08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NS/ns15 {'name': 'NS_ns15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NS/ns11 {'name': 'NS_ns11', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+pristine NS/ns07 {'name': 'NS_ns07', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '   This indicates a serious bug in /tmp/v11u437_idsw_pristine/NS_ns07/equiv/NS_ns07 - the design is non-functional'}
+pristine NS/ns19 {'name': 'NS_ns19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DN/dn04 {'name': 'DN_dn04', 'verdict': 'STATUS_DIFF', 'surelog_status': 'READ_FAIL', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn01 {'name': 'DN_dn01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn08 {'name': 'DN_dn08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn06 {'name': 'DN_dn06', 'verdict': 'STATUS_DIFF', 'surelog_status': 'CRASH', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn07 {'name': 'DN_dn07', 'verdict': 'STATUS_DIFF', 'surelog_status': 'READ_FAIL', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc04 {'name': 'FC_fc04', 'verdict': 'STATUS_DIFF', 'surelog_status': 'TIMEOUT', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn02 {'name': 'DN_dn02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc03 {'name': 'FC_fc03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn03 {'name': 'DN_dn03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc01 {'name': 'FC_fc01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc02 {'name': 'FC_fc02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc09 {'name': 'FC_fc09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc11 {'name': 'FC_fc11', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc07 {'name': 'FC_fc07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc05 {'name': 'FC_fc05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+law FC/fc06 {'name': 'FC_fc06', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+law FC/fc10 {'name': 'FC_fc10', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+law NS/ns17 {'name': 'NS_ns17', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law NS/ns08 {'name': 'NS_ns08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law FC/fc08 {'name': 'FC_fc08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law NS/ns15 {'name': 'NS_ns15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law NS/ns11 {'name': 'NS_ns11', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+law NS/ns07 {'name': 'NS_ns07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law NS/ns19 {'name': 'NS_ns19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law DN/dn04 {'name': 'DN_dn04', 'verdict': 'STATUS_DIFF', 'surelog_status': 'READ_FAIL', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
