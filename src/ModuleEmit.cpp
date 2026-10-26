@@ -2570,6 +2570,94 @@ bool rhsHasUnsized193(const UHDM::any* x, int depth = 0) {
         return false;
     }
 }
+// § caPlainLhsUnsizedClone438 / § ndaUnsizedRhsFreshLhs438 (r11u438) —
+// DetectUnsizedConstant's reach for these two legs: rhsHasUnsized193's
+// shapes plus an element select's indexes (`b['h1]['h2]`, a var_select).
+// A user function call anywhere in the Rhs is writeCont_assign's reduce
+// leg's to evaluate (it folds `f('0, i)` to a constant where the argument
+// it needs is known), which these laws do not transcribe: rhsHasUserCall438
+// makes them abstain (§ ifUnsizedUserCallAbstains305v's finding, measured
+// again on v11u417's VH/vh12).
+bool rhsHasUserCall438(const UHDM::any* x, int depth = 0) {
+    if (!x || depth > 64)
+        return false;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmfunc_call:
+        return true;
+    case UHDM::uhdmoperation:
+        if (auto* os = ((const UHDM::operation*)x)->Operands())
+            for (auto* o : *os)
+                if (rhsHasUserCall438(o, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmsys_func_call:
+        if (auto* as = ((const UHDM::sys_func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUserCall438(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmbit_select:
+        return rhsHasUserCall438(((const UHDM::bit_select*)x)->VpiIndex(), depth + 1);
+    case UHDM::uhdmpart_select:
+        return rhsHasUserCall438(((const UHDM::part_select*)x)->Left_range(), depth + 1) ||
+               rhsHasUserCall438(((const UHDM::part_select*)x)->Right_range(), depth + 1);
+    case UHDM::uhdmindexed_part_select:
+        return rhsHasUserCall438(((const UHDM::indexed_part_select*)x)->Base_expr(), depth + 1) ||
+               rhsHasUserCall438(((const UHDM::indexed_part_select*)x)->Width_expr(), depth + 1);
+    case UHDM::uhdmvar_select:
+        if (auto* es = ((const UHDM::var_select*)x)->Exprs())
+            for (auto* e : *es)
+                if (rhsHasUserCall438(e, depth + 1))
+                    return true;
+        return false;
+    default:
+        return false;
+    }
+}
+bool rhsHasUnsized438(const UHDM::any* x, int depth = 0) {
+    if (!x || depth > 64)
+        return false;
+    switch (x->UhdmType()) {
+    case UHDM::uhdmconstant:
+        return ((const UHDM::constant*)x)->VpiSize() == -1;
+    case UHDM::uhdmoperation:
+        if (auto* os = ((const UHDM::operation*)x)->Operands())
+            for (auto* o : *os)
+                if (rhsHasUnsized438(o, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmsys_func_call:
+        if (auto* as = ((const UHDM::sys_func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUnsized438(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmfunc_call:
+        if (auto* as = ((const UHDM::func_call*)x)->Tf_call_args())
+            for (auto* a : *as)
+                if (rhsHasUnsized438(a, depth + 1))
+                    return true;
+        return false;
+    case UHDM::uhdmbit_select:
+        return rhsHasUnsized438(((const UHDM::bit_select*)x)->VpiIndex(), depth + 1);
+    case UHDM::uhdmpart_select:
+        return rhsHasUnsized438(((const UHDM::part_select*)x)->Left_range(), depth + 1) ||
+               rhsHasUnsized438(((const UHDM::part_select*)x)->Right_range(), depth + 1);
+    case UHDM::uhdmindexed_part_select:
+        return rhsHasUnsized438(((const UHDM::indexed_part_select*)x)->Base_expr(),
+                                depth + 1) ||
+               rhsHasUnsized438(((const UHDM::indexed_part_select*)x)->Width_expr(),
+                                depth + 1);
+    case UHDM::uhdmvar_select:
+        if (auto* es = ((const UHDM::var_select*)x)->Exprs())
+            for (auto* e : *es)
+                if (rhsHasUnsized438(e, depth + 1))
+                    return true;
+        return false;
+    default:
+        return false;
+    }
+}
 } // namespace
 bool v11u193Law(const char* sw); // the v11u193 refinements (UhdmExporter.cpp)
 // The r11u199 refinements (tools/probe/r11u199verify/README.md, the second
@@ -34291,6 +34379,30 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         lawTrace(303, "genNdaOpRhsFreshNet303", nfull);
                     }
                 }
+                // § genNdaUnsizedFreshLhs438 (r11u438) — the generate-scope
+                // twin of § ndaUnsizedRhsFreshLhs438: an initializer that
+                // reads a net or variable and holds an unsized constant
+                // (`wire w = b['hA];`) is cloned by writeCont_assign's
+                // DetectUnsizedConstant leg, so the cell gets a fresh Lhs net
+                // even where the select rule (§ genNdaSelRhsSharesNet303) or
+                // a scalar loop scope shares the scope net.  Grid
+                // tools/probe/r11u438repro/cases/ND.  Switch
+                // R11U438_GENNDAUNSIZED_OFF.
+                if (loopScope9 && ca->Rhs() &&
+                    ca->Rhs()->UhdmType() != UHDM::uhdmhier_path &&
+                    rhsHasUnsized438(ca->Rhs()) && !rhsHasUserCall438(ca->Rhs()) &&
+                    lawOn(438, "R11U438_GENNDAUNSIZED_OFF")) {
+                    bool sig438 = false;
+                    dt->getInitializer()->visitSymbolReferences(
+                        [&](const Expression&, const Symbol& sy) {
+                            if (sy.kind == SymbolKind::Variable || sy.kind == SymbolKind::Net)
+                                sig438 = true;
+                        });
+                    if (sig438)
+                        loopScope9 = false;
+                    lawTrace(438, sig438 ? "genNdaUnsizedFreshLhs438" : "GENNDAUNSIZED438_ABSTAIN",
+                             nfull);
+                }
                 if (loopScope9) {
                     ca->Lhs((UHDM::expr*)(UHDM::any*)n);
                 }
@@ -47395,9 +47507,34 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 }
             }
         }
+        // § ndaUnsizedRhsFreshLhs438 (r11u438) — the net-declaration twin
+        // of § caPlainLhsUnsizedClone438: a cell no earlier leg cloned (no
+        // literal, operation, folded constant) whose initializer reads a net
+        // or variable and holds an unsized constant (`wire w = b['hB];`)
+        // takes writeCont_assign's DetectUnsizedConstant clone, its Lhs net
+        // included, so golden lists a fresh Lhs net with its own typespec
+        // copy where ours shared the module's net (`differ:depth`).  Grid
+        // tools/probe/r11u438repro/cases/PU, ND.  Switch
+        // R11U438_NDAUNSIZED_OFF.
+        bool unsized438 = false;
+        if (rhs && !share428 && !isLiteralExpr(stripImplicitConv(ncInit)) &&
+            !containsOperation(ncInit) &&
+            !(ndaSubst9 && rhs->UhdmType() == UHDM::uhdmconstant) && !constRhs271 &&
+            rhsHasUnsized438(rhs) && !rhsHasUserCall438(rhs) &&
+            lawOn(438, "R11U438_NDAUNSIZED_OFF")) {
+            bool sig438 = false;
+            ncInit.visitSymbolReferences([&](const Expression&, const Symbol& sy) {
+                if (sy.kind == SymbolKind::Variable || sy.kind == SymbolKind::Net)
+                    sig438 = true;
+            });
+            unsized438 = sig438;
+            lawTrace(438, sig438 ? "ndaUnsizedRhsFreshLhs438" : "NDAUNSIZED438_ABSTAIN",
+                     prefix + "." + std::string(it.sym->name));
+        }
         if (isLiteralExpr(stripImplicitConv(ncInit)) ||
             (containsOperation(ncInit) && !share428) ||
-            (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant) || constRhs271) {
+            (ndaSubst9 && rhs && rhs->UhdmType() == UHDM::uhdmconstant) || constRhs271 ||
+            unsized438) {
             bool isStructNet =
                 nit->second->UhdmType() == UHDM::uhdmstruct_net || arrOfStruct;
             UHDM::net* lnet = isStructNet ? (UHDM::net*)s.MakeStruct_net()
@@ -49659,6 +49796,51 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                      rhsHasUnsized193(defInfo->contAssigns[myIdx]->Rhs()))
                 unsizedClone193.push_back({cas, cas->size() - 1,
                                            defInfo->contAssigns[myIdx], m});
+            // § caPlainLhsUnsizedClone438 (r11u438) — the same unsized leg
+            // for a whole-name Lhs.  UhdmWriter::writeCont_assign clones a
+            // plain-name Lhs's cell in its operation leg only (bindVariable
+            // + an operation Rhs); a Rhs that is no operation (a bit, part or
+            // element select, a call) reaches the reduce leg, which keeps it
+            // when it reads a net or variable, and then the fourth leg
+            // (DetectUnsizedConstant) clones it whole when an unsized
+            // constant sits anywhere inside: golden fx68k.sv 1815 `assign
+            // isLineA = lineBmap['hA];` at `work@fx68k.uaddrDecode.*`, ours
+            // shared the definition's `work@uaddrDecode.*`.  A Rhs reading
+            // no net or variable, or holding a user call, is the reduce
+            // leg's and abstains.  The interface twin is
+            // § ifCaUnsizedRhsClonePerInst305 with R11U305_IFPLAINLHS_OFF.
+            // The drain is § caUnsizedRhsClonePerInst193's.  Grid
+            // tools/probe/r11u438repro/cases/PU.  Switch
+            // R11U438_PLAINUNSIZED_OFF.
+            else if (topView && m && plainLhs && !caMemSelBase &&
+                     lawOn(438, "R11U438_PLAINUNSIZED_OFF") &&
+                     !castRhsClones176(defInfo->contAssigns[myIdx]) &&
+                     defInfo->contAssigns[myIdx]->Rhs() &&
+                     !(defInfo->contAssigns[myIdx]->Delay() &&
+                       defInfo->contAssigns[myIdx]->Delay()->UhdmType() ==
+                           UHDM::uhdmref_obj) &&
+                     rhsHasUnsized438(defInfo->contAssigns[myIdx]->Rhs()) &&
+                     [&]() {
+                         bool sig438 = false;
+                         ae.right().visitSymbolReferences(
+                             [&](const Expression&, const Symbol& sy) {
+                                 if (sy.kind == SymbolKind::Variable ||
+                                     sy.kind == SymbolKind::Net)
+                                     sig438 = true;
+                             });
+                         if (!sig438 ||
+                             rhsHasUserCall438(defInfo->contAssigns[myIdx]->Rhs())) {
+                             lawTrace(438, "PLAINUNSIZED438_ABSTAIN", prefix);
+                             return false;
+                         }
+                         lawTrace(438, "caPlainLhsUnsizedClone438",
+                                  prefix + " " +
+                                      std::to_string(defInfo->contAssigns[myIdx]->VpiLineNo()));
+                         return true;
+                     }()) {
+                unsizedClone193.push_back({cas, cas->size() - 1,
+                                           defInfo->contAssigns[myIdx], m});
+            }
             // § caAsmMemberSliceFold (r11u16) — the SHARED slot.  The
             // definition listing's object is what both views carry today; if
             // the base turns out to have assembled, the drain replaces THIS
@@ -61800,8 +61982,29 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                  stripImplicitConv(*dt88->getInitializer()).kind ==
                      ExpressionKind::Inside) &&
                 lawOn(271, "R11U271_NDACONSTLHS_OFF");
+            // § ifNdaUnsizedFreshLhs438 (r11u438) — the interface twin of
+            // § ndaUnsizedRhsFreshLhs438 (DetectUnsizedConstant clones the
+            // cell, its Lhs net included).  Grid
+            // tools/probe/r11u438repro/cases/ND.  Switch
+            // R11U438_IFNDAUNSIZED_OFF.
+            bool unsized438 = false;
+            if (rhs88 && !constRhs271 &&
+                !isLiteralExpr(stripImplicitConv(*dt88->getInitializer())) &&
+                !containsOperation(*dt88->getInitializer()) &&
+                rhsHasUnsized438(rhs88) && !rhsHasUserCall438(rhs88) &&
+                lawOn(438, "R11U438_IFNDAUNSIZED_OFF")) {
+                bool sig438 = false;
+                dt88->getInitializer()->visitSymbolReferences(
+                    [&](const Expression&, const Symbol& sy) {
+                        if (sy.kind == SymbolKind::Variable || sy.kind == SymbolKind::Net)
+                            sig438 = true;
+                    });
+                unsized438 = sig438;
+                lawTrace(438, sig438 ? "ifNdaUnsizedFreshLhs438" : "IFNDAUNSIZED438_ABSTAIN",
+                         prefix + "." + std::string(it88.sym->name));
+            }
             if (isLiteralExpr(stripImplicitConv(*dt88->getInitializer())) ||
-                containsOperation(*dt88->getInitializer()) || constRhs271) {
+                containsOperation(*dt88->getInitializer()) || constRhs271 || unsized438) {
                 if (constRhs271 &&
                     !isLiteralExpr(stripImplicitConv(*dt88->getInitializer())) &&
                     !containsOperation(*dt88->getInitializer()))

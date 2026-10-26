@@ -1,0 +1,15 @@
+/tmp/v11u438_L/svtests.log:sv-tests: BOTH_REJECT=303 DIFFERENT=32 EQUAL=1907 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+/tmp/v11u438_L/svtests.log:regressions=0 conversions=1 changes=0
+/tmp/v11u438_L.log:probe cases: EQUAL=4019 STRICT_NOTEQUAL=68 (of 4087); goldens built now=0, from cache=4087
+/tmp/v11u438_L.log:[probe] EQUAL=4019 STRICT_NOTEQUAL=68
+/tmp/v11u438_L.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u438_L.log:[default] 798 tests
+/tmp/v11u438_L.log:[testflags] 798 tests
+/tmp/v11u438_L.log:[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+/tmp/v11u438_L.log:[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+/tmp/v11u438_L.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+/tmp/v11u438_L.log:[default] 871 tests
+/tmp/v11u438_L.log:[testflags] 871 tests
+/tmp/v11u438_L.log:[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+/tmp/v11u438_L.log:[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+/tmp/v11u438_L.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

@@ -1,0 +1,56 @@
+VA/va01 moved dist 74 -> 4
+VA/va02 moved dist 34 -> 2
+VA/va03 moved dist 50 -> 2
+VA/va04 moved dist 52 -> 4
+VA/va05 moved dist 54 -> 6
+VA/va06 moved dist 73 -> 8
+VA/va07 moved dist 26 -> 2
+VA/va08 moved dist 34 -> 2
+VA/va09 same
+VA/va10 moved dist 26 -> 2
+VA/va11 moved dist 26 -> 2
+VA/va12 moved dist 26 -> 2
+VA/va13 same
+VA/va14 moved dist 26 -> 2
+VA/va15 moved dist 26 -> 12
+VA/va16 moved dist 28 -> 2
+VA/va17 moved dist 37 -> 2
+VA/va18 moved dist 72 -> 4
+VA/va19 moved dist 37 -> 2
+VA/va20 moved dist 41 -> 6
+VA/va21 same
+VA/va22 same
+VA/va23 moved dist 52 -> 4
+VA/va24 same
+VA/va25 moved dist 31 -> 2
+VA/va26 moved dist 30 -> 6
+VA/va27 moved dist 26 -> 2
+VA/va28 same
+VA/va29 same
+VA/va30 moved dist 26 -> 2
+VG/vg01 moved dist 32 -> 2
+VG/vg02 moved dist 72 -> 2
+VG/vg03 moved dist 34 -> 4
+VG/vg04 moved dist 19 -> 6
+VG/vg05 moved dist 32 -> 2
+VG/vg06 moved dist 34 -> 4
+VG/vg07 moved dist 30 -> 0
+VI/vi01 moved dist 34 -> 4
+VI/vi02 moved dist 55 -> 20
+VI/vi03 moved dist 37 -> 2
+VI/vi04 moved dist 57 -> 42
+VN/vn01 moved dist 40 -> 10
+VN/vn02 moved dist 39 -> 4
+VN/vn03 moved dist 37 -> 2
+VN/vn04 same
+VN/vn05 moved dist 17 -> 2
+VN/vn06 moved dist 125 -> 118
+VN/vn07 moved dist 32 -> 2
+VN/vn08 moved dist 32 -> 2
+VN/vn09 moved dist 74 -> 4
+VN/vn10 moved dist 17 -> 2
+VN/vn11 moved dist 15 -> 0
+VN/vn12 moved dist 17 -> 2
+VA/va31 26 -> 2
+VN/vn13 30 -> 0
+VN/vn14 17 -> 2

@@ -1321,7 +1321,7 @@ generated/equality_operators_sim/11.4.5--equality_operator_7.sv,EQUAL,,equal
 generated/equality_operators_sim/11.4.5--equality_operator_8.sv,EQUAL,,equal
 generated/equality_operators_sim/11.4.5--equality_operator_9.sv,EQUAL,,equal
 generated/fusesoc/ibex-sim.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/build/lowrisc_ibex_ibex_simple_system_0/src/lowrisc_lint_common_0.1/tools/verilator/common.vlt:7:1: error: unknown macro or comp,
-generated/fx68k/fx68k.sv,STRICT_NOTEQUAL,differ:fullname(4),differ:fullname(4)
+generated/fx68k/fx68k.sv,EQUAL,,equal
 generated/hdlconv/expected_hdlconvertor_arbiter_tb.sv,EQUAL,,equal
 generated/hdlconv/expected_hdlconvertor_cam.sv,EQUAL,,equal
 generated/hdlconv/expected_hdlconvertor_decoder_using_case.sv,EQUAL,,equal
