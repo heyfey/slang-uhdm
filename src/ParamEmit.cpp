@@ -678,6 +678,13 @@ static bool concatBearing54(const Expression& e0) {
     }
 }
 
+// § patMemberSizeCastSignedInt435: the constants that law wrote, read by the
+// pattern walk's bail scan (membership only, never iterated).
+static std::unordered_set<const UHDM::any*>& patCastSignedObjs435() {
+    static std::unordered_set<const UHDM::any*> objs;
+    return objs;
+}
+
 bool UhdmExporter::cliOverridden(const ParameterSymbol& ps) const {
     if (cliParams.empty() || cliParams.find(std::string(ps.name)) == cliParams.end())
         return false;
@@ -21528,10 +21535,163 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                      ExpressionKind::Conversion) {
                                 std::string dgc = uvm.toString(
                                     LiteralBase::Decimal, false);
+                                // § patMemberSizeCastUbMask435 (r11u435) -- a
+                                // member written as a SIZE cast of 64 bits or
+                                // more keeps Surelog's UB-shift mask
+                                // (§ srlgSizeCastUbShiftMask93, ExprEmit):
+                                // ExprEval's vpiCastOp integer branch folds
+                                // `W'(x)` to `x & ((1ULL << W) - 1)`, a shift
+                                // x86-64 takes modulo 64, so `64'(1)` and a
+                                // `W'(1)` with W = 64 read UINT:0 at size 64,
+                                // `65'(3)` UINT:1 and `128'(1)` UINT:0
+                                // (tests/probe r11u109repro/grid/f1 p06, p07,
+                                // c04, c06: golden UINT:0 where this branch wrote
+                                // UINT:1 and UINT:2).  An operand ExprEval
+                                // reads as UNSIGNED: one whose reduced
+                                // constant carries no signed typespec (an
+                                // unsized decimal, `-1`, `-K`, `K + 1`, an
+                                // unsigned parameter); a signed leaf goes to
+                                // § patMemberSizeCastSignedInt435 below.  The
+                                // operand fits in 64 bits; the size this branch
+                                // writes is untouched.
+                                auto& cv435 = stripImplicitConv(*se);
+                                const Expression* od435 = nullptr;
+                                if (cv435.kind == ExpressionKind::Conversion)
+                                    od435 = &stripImplicitConv(
+                                        cv435.as<ConversionExpression>()
+                                            .operand());
+                                // A SIGNED LEAF (EmitHelpers.h
+                                // patCastOperandSignedLeaf435).
+                                int sl435 = od435
+                                    ? patCastOperandSignedLeaf435(*od435)
+                                    : 0;
+                                ConstantValue ov435;
+                                if (od435) {
+                                    ASTContext cx435(comp.getRoot(),
+                                                     LookupLocation::max);
+                                    ov435 = cx435.tryEval(*od435);
+                                }
+                                const bool okOp435 =
+                                    od435 && ov435 && ov435.isInteger() &&
+                                    !ov435.integer().hasUnknown() &&
+                                    ov435.integer().getBitWidth() <= 64;
+                                auto ub435 = srlgSizeCastUbMask93(*se);
+                                if (lawOn(435, "R11U435_PATCASTMASK_OFF") &&
+                                    okOp435 && sl435 == 0 && ub435.fires &&
+                                    ub435.depth == 1 && !uvm.hasUnknown()) {
+                                    uint64_t lo435 = 0;
+                                    uint32_t nb435 = uvm.getBitWidth() < 64u
+                                                         ? uvm.getBitWidth()
+                                                         : 64u;
+                                    for (uint32_t b435 = 0; b435 < nb435; b435++)
+                                        if (uvm[(int32_t)b435] ==
+                                            slang::logic_t(1))
+                                            lo435 |= (1ULL << b435);
+                                    uint64_t v435 = lo435 & ub435.mask;
+                                    lawTrace(435, "patMemberSizeCastUbMask435",
+                                             std::string(ps.name) + " " + dgc +
+                                                 " -> " + std::to_string(v435));
+                                    dgc = std::to_string(v435);
+                                }
+                                // § patMemberSizeCastSignedInt435 (r11u435) --
+                                // a size cast over a SIGNED LEAF folds through
+                                // ExprEval's `oper_signed` branch: `INT:` of the
+                                // masked value, sign-extended below 64 bits
+                                // and not at all from 64 up, vpiIntConst, and
+                                // a ref_typespec to a fresh unlocated signed
+                                // logic_typespec (`32'(K)` with `int K = 9`
+                                // INT:9, `16'(16'sd5)` INT:5, `64'(K)` INT:0;
+                                // where this branch wrote UINT with no typespec,
+                                // a uhdm-cmp difference at every width).
+                                if (lawOn(435, "R11U435_PATCASTSIGNED_OFF") &&
+                                    okOp435 && sl435 == 1 &&
+                                    ub435.depth == 1) {
+                                    // ExprEval's get_value reads a based
+                                    // literal's own bits unsigned (`8'sb1111_0000`
+                                    // is 240: `16'(..)` INT:240, PS/ps11) and a
+                                    // parameter's stored INT signed (INT:-3)
+                                    auto oi435 = ov435.integer();
+                                    if (od435->kind == ExpressionKind::IntegerLiteral)
+                                        oi435.setSigned(false);
+                                    // § patCastParamLitBits435v (v11u435) --
+                                    // a PARAMETER whose initializer is one
+                                    // integer literal keeps that literal's own
+                                    // value in Surelog's stored constant, not
+                                    // the value converted to the declared
+                                    // type: an unsigned literal zero-extends
+                                    // (`logic signed [7:0] K = 8'hF0`,
+                                    // `16'(K)` golden INT:240 where the law
+                                    // wrote INT:-16; `int K = 32'hFFFF_FFF0`,
+                                    // `40'(K)` INT:4294967280), an unsized
+                                    // decimal keeps its value (`K = 200`
+                                    // INT:200) and a signed literal
+                                    // sign-extends from its own width
+                                    // (`int K = 4'sb1101` INT:-3).  Measured,
+                                    // tools/probe/v11u435repro cases VS.
+                                    if (od435->kind == ExpressionKind::NamedValue &&
+                                        fixOn(435, "R11V435_PARAMLIT_OFF")) {
+                                        auto& psy435 =
+                                            od435->as<NamedValueExpression>().symbol;
+                                        if (psy435.kind == SymbolKind::Parameter) {
+                                            auto* pin435 =
+                                                psy435.as<ParameterSymbol>()
+                                                    .getInitializer();
+                                            if (pin435) {
+                                                auto& pl435 = stripImplicitConv(*pin435);
+                                                if (pl435.kind ==
+                                                    ExpressionKind::IntegerLiteral) {
+                                                    auto lv435 =
+                                                        pl435.as<IntegerLiteral>()
+                                                            .getValue();
+                                                    if (!lv435.hasUnknown() &&
+                                                        lv435.getBitWidth() <= 64) {
+                                                        oi435 = lv435;
+                                                        lawTrace(435,
+                                                                 "patCastParamLitBits435v",
+                                                                 std::string(ps.name));
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                    int64_t ov64 = oi435.isSigned()
+                                                       ? oi435.as<int64_t>().value_or(0)
+                                                       : (int64_t)oi435.as<uint64_t>().value_or(0);
+                                    uint64_t w435 = ub435.width;
+                                    uint64_t res435 =
+                                        (uint64_t)ov64 & ub435.mask;
+                                    int64_t sres435 = (int64_t)res435;
+                                    if (w435 > 0 && w435 < 64 &&
+                                        (res435 & (1ULL << (w435 - 1))))
+                                        sres435 = (int64_t)(res435 | ~ub435.mask);
+                                    lawTrace(435, "patMemberSizeCastSignedInt435",
+                                             std::string(ps.name) + " " + dgc +
+                                                 " -> INT:" +
+                                                 std::to_string(sres435));
+                                    c2->VpiSize(
+                                        (int32_t)fld.getType().getBitWidth());
+                                    c2->VpiValue("INT:" +
+                                                 std::to_string(sres435));
+                                    c2->VpiConstType(vpiIntConst);
+                                    std::string tsP435 = prefix;
+                                    if (tsP435.size() >= 2 &&
+                                        tsP435.compare(tsP435.size() - 2, 2,
+                                                       "::") == 0)
+                                        tsP435.resize(tsP435.size() - 2);
+                                    auto* rt435 = s.MakeRef_typespec();
+                                    rt435->VpiParent(c2);
+                                    rt435->VpiFullName(tsP435);
+                                    auto* lt435 = s.MakeLogic_typespec();
+                                    lt435->VpiSigned(true);
+                                    rt435->Actual_typespec(lt435);
+                                    c2->Typespec(rt435);
+                                    patCastSignedObjs435().insert(c2);
+                                } else {
                                 c2->VpiSize(
                                     (int32_t)fld.getType().getBitWidth());
                                 c2->VpiValue("UINT:" + dgc);
                                 c2->VpiConstType(vpiUIntConst);
+                                }
                             }
                             else {
                                 std::string dg = uvm.toString(
@@ -21930,6 +22090,14 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 i68 < opSet68.size() ? opSet68[i68] : nullptr;
                             if (bail68 < 0) {
                                 bool ref68 = patUvalueRefuses68(ob68);
+                                // § patMemberSizeCastSignedInt435 -- the
+                                // signed cast fold is no refusal: golden
+                                // stamps the member width on the operands
+                                // after a negative INT:-3 it wrote (PS/ps04,
+                                // ps10).
+                                if (ref68 &&
+                                    patCastSignedObjs435().count(ob68))
+                                    ref68 = false;
                                 // § patBailNegCorroborated68v (r11v68) — a
                                 // MINUS we wrote is a refusal only when the
                                 // producer's int64 arithmetic is negative too.

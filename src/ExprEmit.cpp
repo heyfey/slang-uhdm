@@ -15490,67 +15490,8 @@ static SrlgNatFold srlgNaturalFoldWidth(const Expression& expr,
 //   `parameter logic [LfsrDw-1:0] DefaultSeed = LfsrDw'(1)` with LfsrDw = 64
 //   golden UINT:0 vpiSize 64, ours UINT:1 -- THE HEAD.
 // uhdm2rtlil has NONE in any family.
-struct SizeCastUbMask93 {
-    bool fires = false;      // some cast in the chain has width >= 64
-    uint64_t mask = ~0ULL;   // the AND of every cast's Surelog mask
-    uint64_t width = 0;      // the OUTERMOST cast's width (diagnostics only)
-    int depth = 0;           // how many written size casts were walked
-    const char* stop = "-";  // why the walk stopped (diagnostics only)
-};
-
-static SizeCastUbMask93 srlgSizeCastUbMask93(const Expression& e) {
-    SizeCastUbMask93 r;
-    const Expression* p = &stripImplicitConv(e);
-    for (int g = 0; g < 32; g++) {
-        if (p->kind != ExpressionKind::Conversion) {
-            r.stop = "not-a-conversion";
-            break;
-        }
-        auto& cv = p->as<ConversionExpression>();
-        if (cv.isImplicit()) {
-            r.stop = "implicit";
-            break;
-        }
-        // THE OPERAND'S SYNTAX IS THE PARENTHESIZED NODE.  A cast's operand
-        // is bound from `CastExpressionSyntax::right`, which is the
-        // parenthesised `( ... )` node, so a NESTED cast carries
-        // `ParenthesizedExpression` as its own `syntax` and not
-        // `CastExpression` (the same one-level-down walk
-        // § elabConnWrittenCastFold83 needs for its literal).  Without this
-        // unwrap the chain stopped at depth 1 and `96'(65'(all-ones))` kept
-        // 4294967295 where golden has 1 -- measured, and it is why the walk
-        // exists at all.
-        const syntax::SyntaxNode* sy93 = p->syntax;
-        while (sy93 &&
-               sy93->kind == syntax::SyntaxKind::ParenthesizedExpression)
-            sy93 = sy93->as<syntax::ParenthesizedExpressionSyntax>().expression;
-        if (!sy93 || sy93->kind != syntax::SyntaxKind::CastExpression) {
-            r.stop = sy93 ? "not-a-cast-syntax" : "no-syntax";
-            break;
-        }
-        auto& ce = sy93->as<syntax::CastExpressionSyntax>();
-        if (isTypeSyntaxKind(ce.left->kind)) {
-            r.stop = "type-cast";
-            break;
-        }
-        const Type* tt = p->type;
-        if (!tt || !tt->isIntegral() || tt->isAlias() || tt->isEnum()) {
-            r.stop = "target-not-plain-integral";
-            break;
-        }
-        uint64_t w = (uint64_t)tt->getBitWidth();
-        if (w == 0)
-            break;
-        if (w >= 64)
-            r.fires = true;
-        if (r.depth == 0)
-            r.width = w;
-        r.mask &= (w % 64 == 0) ? 0ULL : ((1ULL << (w % 64)) - 1ULL);
-        r.depth++;
-        p = &stripImplicitConv(cv.operand());
-    }
-    return r;
-}
+// (The helper itself lives in EmitHelpers.h since pass 435, which reads it
+// from ParamEmit's struct-pattern member branches: § patMemberSizeCastUbMask435.)
 
 UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* typedConv,
                                       bool paramCtx) {
@@ -25062,6 +25003,103 @@ int gcArgKind433(const Expression& a0) {
 // based decimal vpiDecConst and a based hex / binary / octal literal its
 // own kind at its width, a genvar UINT size 64, $bits / $size / $clog2
 // UINT size 64; any other leaf abstains.
+// § genCaAddParamIntCt435 (r11u435, R11U435_GENCAADDINT_OFF) -- the
+// ENCODING ExprEval's `+` branch gives the reduced generate-scope Rhs reads the
+// parameter leaves' OWN stored constants: `+` is INT when an operand is
+// vpiIntConst or vpiDecConst, and a parameter's stored constant is the
+// encoding of its initializer as written (the instance's actual when
+// overridden), not the UINT our emitted operand fold carries.  Measured
+// (golden, the v11u433 cases VW/vw10, vw11, vw26 and tools/probe/
+// r11u435repro cases GA): `W = 4'd2` -> `W + 1` INT:3; `.W(4'd4)` INT:5,
+// `.W(3)` UINT:4; `L = 2*3` INT:7; `M = 10 - 3` INT:8; `N = 3000000000`
+// UINT; `$bits(x) + L` INT:10.  Returns the encoding of an expression under
+// that table, 0 where it is not modelled (a typed parameter, any other
+// leaf), so the caller only ever moves a UINT the table answers INT.
+int gcCtSlang435(const Expression& e0, int depth = 0) {
+    if (depth > 32)
+        return 0;
+    const Expression& e = stripImplicitConv(e0);
+    switch (e.kind) {
+    case ExpressionKind::IntegerLiteral: {
+        if (!e.syntax)
+            return 0;
+        if (e.syntax->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+            return vpiUIntConst;
+        if (e.syntax->kind != syntax::SyntaxKind::IntegerVectorExpression)
+            return 0;
+        std::string_view b =
+            e.syntax->as<syntax::IntegerVectorExpressionSyntax>().base.valueText();
+        if (b.size() < 2 || b[1] == 's' || b[1] == 'S')
+            return 0;
+        char bc = (char)tolower((unsigned char)b[1]);
+        return bc == 'd' ? vpiDecConst : bc == 'h' ? vpiHexConst
+               : bc == 'b' ? vpiBinaryConst : bc == 'o' ? vpiOctConst : 0;
+    }
+    case ExpressionKind::NamedValue: {
+        auto& sym = e.as<NamedValueExpression>().symbol;
+        if (sym.kind != SymbolKind::Parameter)
+            return 0;
+        auto& ps = sym.as<ParameterSymbol>();
+        if (ps.isFromGenvar())
+            return vpiUIntConst;
+        auto dt = ps.getDeclaredType();
+        auto ts = dt ? dt->getTypeSyntax() : nullptr;
+        if (!ts || ts->kind != syntax::SyntaxKind::ImplicitType ||
+            ts->as<syntax::ImplicitTypeSyntax>().signing ||
+            !ts->as<syntax::ImplicitTypeSyntax>().dimensions.empty())
+            return 0;
+        auto* init = ps.getInitializer();
+        return init ? gcCtSlang435(*init, depth + 1) : 0;
+    }
+    case ExpressionKind::Call: {
+        auto& c = e.as<CallExpression>();
+        if (!c.isSystemCall())
+            return 0;
+        auto n = c.getSubroutineName();
+        return (n == "$bits" || n == "$size" || n == "$clog2") ? vpiUIntConst : 0;
+    }
+    case ExpressionKind::UnaryOp: {
+        auto& u = e.as<UnaryExpression>();
+        if (u.op == UnaryOperator::Minus)
+            return gcCtSlang435(u.operand(), depth + 1) ? vpiIntConst : 0;
+        if (u.op == UnaryOperator::BitwiseNot)
+            return gcCtSlang435(u.operand(), depth + 1) ? vpiUIntConst : 0;
+        return 0;
+    }
+    case ExpressionKind::BinaryOp: {
+        auto& b = e.as<BinaryExpression>();
+        int l = gcCtSlang435(b.left(), depth + 1);
+        int r = gcCtSlang435(b.right(), depth + 1);
+        if (!l || !r)
+            return 0;
+        switch (b.op) {
+        case BinaryOperator::Add:
+            return (l == vpiIntConst || l == vpiDecConst || r == vpiIntConst ||
+                    r == vpiDecConst)
+                       ? vpiIntConst
+                       : vpiUIntConst;
+        case BinaryOperator::Subtract:
+        case BinaryOperator::Multiply:
+        case BinaryOperator::Divide:
+        case BinaryOperator::Mod:
+            return vpiIntConst;
+        case BinaryOperator::LogicalShiftLeft:
+        case BinaryOperator::LogicalShiftRight:
+        case BinaryOperator::ArithmeticShiftLeft:
+        case BinaryOperator::ArithmeticShiftRight:
+        case BinaryOperator::BinaryAnd:
+        case BinaryOperator::BinaryOr:
+        case BinaryOperator::LogicalAnd:
+        case BinaryOperator::LogicalOr:
+            return vpiUIntConst;
+        default:
+            return 0;
+        }
+    }
+    default:
+        return 0;
+    }
+}
 bool gcSlang433(const Expression& e0, GcVal433& out, const Scope& root, int depth = 0) {
     if (depth > 64)
         return false;
@@ -25492,6 +25530,17 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             gcReduce433(r433, g433);
                     if (!ok433 && opRhs433)
                         ok433 = gcSlang433(core433, g433, comp.getRoot());
+                    // § genCaAddParamIntCt435 (r11u435): a `+` over a
+                    // parameter whose stored constant is INT or DEC is INT
+                    if (ok433 && g433.ct == vpiUIntConst &&
+                        core433.kind == ExpressionKind::BinaryOp &&
+                        core433.as<BinaryExpression>().op == BinaryOperator::Add &&
+                        lawOn(435, "R11U435_GENCAADDINT_OFF") &&
+                        gcCtSlang435(core433) == vpiIntConst) {
+                        g433.ct = vpiIntConst;
+                        lawTrace(435, "genCaAddParamIntCt435",
+                                 oneLine433(rawText(core433.sourceRange)));
+                    }
                 }
             }
             else if (sysCall433 && defFold433) {
@@ -56047,12 +56096,41 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             !scv7.integer().hasUnknown()) {
                             auto siv7 = scv7.integer();
                             siv7.setSigned(false);
+                            std::string dg7 =
+                                siv7.toString(LiteralBase::Decimal, false);
+                            // § patMemberSizeCastUbMask435 (r11u435) -- the
+                            // DEF view's size-cast fold keeps Surelog's
+                            // UB-shift mask too (§ srlgSizeCastUbShiftMask93):
+                            // a 64-bit cast folds to `x & 0`.  Operands
+                            // ExprEval reads unsigned only, as at ParamEmit's
+                            // elaborated branch (patCastOperandSignedLeaf435).
+                            if (lawOn(435, "R11U435_PATCASTMASKDEF_OFF")) {
+                                auto ub7 = srlgSizeCastUbMask93(sc7);
+                                ASTContext ox7(comp.getRoot(),
+                                               LookupLocation::max);
+                                auto ov7 = ox7.tryEval(
+                                    sc7.as<ConversionExpression>().operand());
+                                if (ub7.fires && ub7.depth == 1 && ov7 &&
+                                    ov7.isInteger() &&
+                                    !ov7.integer().hasUnknown() &&
+                                    ov7.integer().getBitWidth() <= 64 &&
+                                    patCastOperandSignedLeaf435(
+                                        stripImplicitConv(
+                                            sc7.as<ConversionExpression>()
+                                                .operand())) == 0) {
+                                    uint64_t v7 =
+                                        siv7.as<uint64_t>().value_or(0) &
+                                        ub7.mask;
+                                    lawTrace(435, "patMemberSizeCastUbMask435",
+                                             "def " + dg7 + " -> " +
+                                                 std::to_string(v7));
+                                    dg7 = std::to_string(v7);
+                                }
+                            }
                             auto* sc7c = s.MakeConstant();
                             setLoc(sc7c, setter.expr->sourceRange);
                             sc7c->VpiSize((int32_t)sc7.type->getBitWidth());
-                            sc7c->VpiValue(
-                                "UINT:" +
-                                siv7.toString(LiteralBase::Decimal, false));
+                            sc7c->VpiValue("UINT:" + dg7);
                             sc7c->VpiConstType(vpiUIntConst);
                             preE = sc7c;
                         }

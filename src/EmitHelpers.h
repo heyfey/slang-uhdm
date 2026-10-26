@@ -15540,4 +15540,122 @@ UHDM::logic_net* mintImplicitNet403(UHDM::Serializer& s, UHDM::instance* mod,
     nets->push_back(in);
     return in;
 }
+
+// § srlgSizeCastUbShiftMask93 (r10earl93) -- the size-cast UB-shift mask
+// walk; the law statement and its measurements stay at its ExprEmit site.
+// Moved here unchanged by pass 435 so ParamEmit can read it
+// (§ patMemberSizeCastUbMask435).
+struct SizeCastUbMask93 {
+    bool fires = false;      // some cast in the chain has width >= 64
+    uint64_t mask = ~0ULL;   // the AND of every cast's Surelog mask
+    uint64_t width = 0;      // the OUTERMOST cast's width (diagnostics only)
+    int depth = 0;           // how many written size casts were walked
+    const char* stop = "-";  // why the walk stopped (diagnostics only)
+};
+
+inline SizeCastUbMask93 srlgSizeCastUbMask93(const Expression& e) {
+    SizeCastUbMask93 r;
+    const Expression* p = &stripImplicitConv(e);
+    for (int g = 0; g < 32; g++) {
+        if (p->kind != ExpressionKind::Conversion) {
+            r.stop = "not-a-conversion";
+            break;
+        }
+        auto& cv = p->as<ConversionExpression>();
+        if (cv.isImplicit()) {
+            r.stop = "implicit";
+            break;
+        }
+        // THE OPERAND'S SYNTAX IS THE PARENTHESIZED NODE.  A cast's operand
+        // is bound from `CastExpressionSyntax::right`, which is the
+        // parenthesised `( ... )` node, so a NESTED cast carries
+        // `ParenthesizedExpression` as its own `syntax` and not
+        // `CastExpression` (the same one-level-down walk
+        // § elabConnWrittenCastFold83 needs for its literal).  Without this
+        // unwrap the chain stopped at depth 1 and `96'(65'(all-ones))` kept
+        // 4294967295 where golden has 1 -- measured, and it is why the walk
+        // exists at all.
+        const syntax::SyntaxNode* sy93 = p->syntax;
+        while (sy93 &&
+               sy93->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            sy93 = sy93->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        if (!sy93 || sy93->kind != syntax::SyntaxKind::CastExpression) {
+            r.stop = sy93 ? "not-a-cast-syntax" : "no-syntax";
+            break;
+        }
+        auto& ce = sy93->as<syntax::CastExpressionSyntax>();
+        if (isTypeSyntaxKind(ce.left->kind)) {
+            r.stop = "type-cast";
+            break;
+        }
+        const Type* tt = p->type;
+        if (!tt || !tt->isIntegral() || tt->isAlias() || tt->isEnum()) {
+            r.stop = "target-not-plain-integral";
+            break;
+        }
+        uint64_t w = (uint64_t)tt->getBitWidth();
+        if (w == 0)
+            break;
+        if (w >= 64)
+            r.fires = true;
+        if (r.depth == 0)
+            r.width = w;
+        r.mask &= (w % 64 == 0) ? 0ULL : ((1ULL << (w % 64)) - 1ULL);
+        r.depth++;
+        p = &stripImplicitConv(cv.operand());
+    }
+    return r;
+}
+// § patMemberSizeCastSignedInt435 (r11u435) -- is a size cast's operand a
+// SIGNED LEAF for Surelog's ExprEval?  Its `oper_signed` reads the reduced
+// operand constant's typespec, which is signed only for a signed based
+// literal (`16'sd5`) and for a read of a parameter declared `int` or as a
+// signed `logic` / `bit` / `reg` vector (measured, tools/probe/r11u435repro
+// cases PS); `integer`, `byte`, `shortint` and `longint` parameters and every
+// operation (`-1`, `-K`, `K + 1`) read unsigned.  1 = signed leaf, 0 = read
+// unsigned, -1 = not modelled (an untyped or typedef-typed parameter, an
+// instance override whose value is the override's own constant, a chain of
+// casts, any other read).
+inline int patCastOperandSignedLeaf435(const Expression& od) {
+    if (od.kind == ExpressionKind::IntegerLiteral) {
+        // a cast's operand carries the parenthesized `( ... )` node as its
+        // syntax (CastExpressionSyntax::right)
+        const syntax::SyntaxNode* sy = od.syntax;
+        while (sy && sy->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            sy = sy->as<syntax::ParenthesizedExpressionSyntax>().expression;
+        return (od.type && od.type->isSigned() && sy &&
+                sy->kind == syntax::SyntaxKind::IntegerVectorExpression)
+                   ? 1
+                   : 0;
+    }
+    if (od.kind == ExpressionKind::Conversion)
+        return -1;
+    if (od.kind != ExpressionKind::NamedValue)
+        return 0;
+    auto& sym = od.as<NamedValueExpression>().symbol;
+    if (sym.kind != SymbolKind::Parameter)
+        return -1;
+    if (!od.type || !od.type->isSigned())
+        return 0;
+    const DeclaredType* dt = static_cast<const Symbol&>(sym).getDeclaredType();
+    auto* tsy = dt ? dt->getTypeSyntax() : nullptr;
+    if (!tsy || isOverriddenParam(sym))
+        return -1;
+    using SK = syntax::SyntaxKind;
+    switch (tsy->kind) {
+        case SK::IntType:
+        case SK::LogicType:
+        case SK::BitType:
+        case SK::RegType:
+            return 1;
+        case SK::IntegerType:
+        case SK::ByteType:
+        case SK::ShortIntType:
+        case SK::LongIntType:
+            return 0;
+        default:
+            return -1;
+    }
+}
+
 } // namespace slang_uhdm

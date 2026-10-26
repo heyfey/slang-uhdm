@@ -1,0 +1,73 @@
+GA/ga01 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=32de9ac8 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=f21f026c strict=STRICT_EQUAL 37 objects | OFF_eq_pris=yes
+GA/ga02 slang=0 | PRIS rc=0 cmp=28 dumpdist=10 md5=d47b57b1 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=e7674179 strict=STRICT_EQUAL 80 objects | OFF_eq_pris=yes
+GA/ga03 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=f0b30600 strict=STRICT_EQUAL 58 objects | LAW rc=0 cmp=0 dumpdist=2 md5=f0b30600 strict=STRICT_EQUAL 58 objects | OFF_eq_pris=yes
+GA/ga04 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=0ccea07b strict=STRICT_EQUAL 52 objects | LAW rc=0 cmp=0 dumpdist=2 md5=0ccea07b strict=STRICT_EQUAL 52 objects | OFF_eq_pris=yes
+GA/ga05 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=4a6b5745 strict=STRICT_EQUAL 37 objects | LAW rc=0 cmp=0 dumpdist=2 md5=4a6b5745 strict=STRICT_EQUAL 37 objects | OFF_eq_pris=yes
+GA/ga06 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=0ceec458 strict=STRICT_EQUAL 44 objects | LAW rc=0 cmp=0 dumpdist=2 md5=0ceec458 strict=STRICT_EQUAL 44 objects | OFF_eq_pris=yes
+GA/ga07 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=524abe87 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=8aec498d strict=STRICT_EQUAL 39 objects | OFF_eq_pris=yes
+GA/ga08 slang=0 | PRIS rc=0 cmp=36 dumpdist=10 md5=0620e7ea strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=6 md5=d93c2d4a strict=STRICT_EQUAL 41 objects | OFF_eq_pris=yes
+GA/ga09 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=38052eae strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=f6c0ebaa strict=STRICT_EQUAL 65 objects | OFF_eq_pris=yes
+GA/ga10 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=7e3cd69a strict=STRICT_EQUAL 52 objects | LAW rc=0 cmp=0 dumpdist=2 md5=7e3cd69a strict=STRICT_EQUAL 52 objects | OFF_eq_pris=yes
+GA/ga11 slang=0 | PRIS rc=0 cmp=58 dumpdist=27 md5=9e8d83d0 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=58 dumpdist=27 md5=9e8d83d0 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+GA/ga12 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=ee59e916 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=bbd4fb9e strict=STRICT_EQUAL 37 objects | OFF_eq_pris=yes
+GA/ga13 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=e71497cd strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=11ea4e73 strict=STRICT_EQUAL 51 objects | OFF_eq_pris=yes
+GA/ga14 slang=0 | PRIS rc=0 cmp=28 dumpdist=10 md5=d511f42e strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=2 md5=f2dc0a2c strict=STRICT_EQUAL 155 objects | OFF_eq_pris=yes
+GA/ga15 slang=0 | PRIS rc=0 cmp=28 dumpdist=6 md5=398b5ea0 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=28 dumpdist=6 md5=398b5ea0 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+GA/ga16 slang=0 | PRIS rc=0 cmp=0 dumpdist=2 md5=e7a7b4ca strict=STRICT_EQUAL 39 objects | LAW rc=0 cmp=0 dumpdist=2 md5=e7a7b4ca strict=STRICT_EQUAL 39 objects | OFF_eq_pris=yes
+PD/pd01 slang=0 | PRIS rc=0 cmp=0 dumpdist=26 md5=074a7c14 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=18 md5=6b859040 strict=STRICT_EQUAL 177 objects | OFF_eq_pris=yes
+PD/pd02 slang=0 | PRIS rc=0 cmp=0 dumpdist=22 md5=ca7c40c9 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=18 md5=37131d0b strict=STRICT_EQUAL 177 objects | OFF_eq_pris=yes
+PD/pd03 slang=0 | PRIS rc=0 cmp=0 dumpdist=38 md5=cc2e1dfc strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=30 md5=c9a64ae0 strict=STRICT_NOTEQUAL type | OFF_eq_pris=yes
+PD/pd04 slang=0 | PRIS rc=0 cmp=54 dumpdist=72 md5=c006d5f2 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=54 dumpdist=72 md5=c006d5f2 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PD/pd05 slang=0 | PRIS rc=0 cmp=0 dumpdist=22 md5=a859b217 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=18 md5=6bdf297f strict=STRICT_EQUAL 177 objects | OFF_eq_pris=yes
+PD/pd06 slang=0 | PRIS rc=0 cmp=15 dumpdist=84 md5=5b729557 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=15 dumpdist=83 md5=834c68b8 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PD/pd07 slang=0 | PRIS rc=0 cmp=15 dumpdist=56 md5=3fe203e5 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=15 dumpdist=52 md5=b53c2116 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PD/pd08 slang=0 | PRIS rc=0 cmp=11 dumpdist=64 md5=f206e1ca strict=NOT_EQUAL stage1 | LAW rc=0 cmp=11 dumpdist=64 md5=f206e1ca strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PD/pd09 slang=0 | PRIS rc=0 cmp=50 dumpdist=60 md5=e414ef41 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=50 dumpdist=60 md5=e414ef41 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PD/pd10 slang=0 | PRIS rc=0 cmp=60 dumpdist=186 md5=b84024e7 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=60 dumpdist=180 md5=aff416b8 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm01 slang=0 | PRIS rc=0 cmp=0 dumpdist=128 md5=24371b3f strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=ba84e321 strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm02 slang=0 | PRIS rc=0 cmp=0 dumpdist=158 md5=311dd375 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=154 md5=086eac10 strict=STRICT_EQUAL 177 objects | OFF_eq_pris=yes
+PM/pm03 slang=0 | PRIS rc=0 cmp=0 dumpdist=124 md5=49d96063 strict=STRICT_EQUAL 167 objects | LAW rc=0 cmp=0 dumpdist=124 md5=49d96063 strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm04 slang=0 | PRIS rc=0 cmp=0 dumpdist=126 md5=7b3f643e strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=ea9f0adb strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm05 slang=0 | PRIS rc=0 cmp=0 dumpdist=128 md5=9360cc2f strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=4c605afb strict=STRICT_EQUAL 168 objects | OFF_eq_pris=yes
+PM/pm06 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=2d4b7523 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=138 md5=a685ae93 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm09 slang=0 | PRIS rc=0 cmp=0 dumpdist=126 md5=1e0d79de strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=34e3cef3 strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm10 slang=0 | PRIS rc=0 cmp=0 dumpdist=128 md5=6c6d292f strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=6b7f5652 strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm12 slang=0 | PRIS rc=0 cmp=36 dumpdist=126 md5=24abc76c strict=NOT_EQUAL stage1 | LAW rc=0 cmp=36 dumpdist=126 md5=24abc76c strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm13 slang=0 | PRIS rc=0 cmp=0 dumpdist=118 md5=f3a00852 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=114 md5=abbdfd78 strict=STRICT_EQUAL 160 objects | OFF_eq_pris=yes
+PM/pm14 slang=0 | PRIS rc=0 cmp=60 dumpdist=169 md5=d30f430b strict=NOT_EQUAL stage1 | LAW rc=0 cmp=60 dumpdist=160 md5=8fbd58e7 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm17 slang=0 | PRIS rc=0 cmp=0 dumpdist=174 md5=d2dd8efc strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=170 md5=74b63215 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm18 slang=0 | PRIS rc=0 cmp=0 dumpdist=128 md5=61e2e003 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=124 md5=79cac3c7 strict=STRICT_EQUAL 167 objects | OFF_eq_pris=yes
+PM/pm19 slang=0 | PRIS rc=0 cmp=0 dumpdist=174 md5=29cd0535 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=170 md5=da8fb785 strict=STRICT_EQUAL 193 objects | OFF_eq_pris=yes
+PM/pm20 slang=0 | PRIS rc=0 cmp=0 dumpdist=170 md5=00ba8aa3 strict=STRICT_EQUAL 183 objects | LAW rc=0 cmp=0 dumpdist=170 md5=00ba8aa3 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm21 slang=0 | PRIS rc=0 cmp=0 dumpdist=170 md5=35c1efd5 strict=STRICT_EQUAL 183 objects | LAW rc=0 cmp=0 dumpdist=170 md5=35c1efd5 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm22 slang=0 | PRIS rc=0 cmp=182 dumpdist=147 md5=927a6dea strict=NOT_EQUAL stage1 | LAW rc=0 cmp=182 dumpdist=143 md5=78b10ea1 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm23 slang=0 | PRIS rc=0 cmp=58 dumpdist=306 md5=3d4db61a strict=NOT_EQUAL stage1 | LAW rc=0 cmp=58 dumpdist=296 md5=80a73f83 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm24 slang=0 | PRIS rc=0 cmp=0 dumpdist=26 md5=71378324 strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=18 md5=eefd38a2 strict=STRICT_EQUAL 177 objects | OFF_eq_pris=yes
+PM/pm25 slang=0 | PRIS rc=0 cmp=60 dumpdist=186 md5=309669e3 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=60 dumpdist=180 md5=686f4a4c strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PM/pm26 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=4000c69b strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=138 md5=a56c3a72 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm27 slang=0 | PRIS rc=0 cmp=17 dumpdist=143 md5=034bf72e strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=2b1d00a5 strict=STRICT_EQUAL 171 objects | OFF_eq_pris=yes
+PM/pm28 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=f363113a strict=STRICT_EQUAL 183 objects | LAW rc=0 cmp=0 dumpdist=132 md5=f363113a strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PM/pm29 slang=0 | PRIS rc=0 cmp=0 dumpdist=136 md5=14da03db strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=132 md5=c629e37b strict=STRICT_EQUAL 184 objects | OFF_eq_pris=yes
+PM/pm30 slang=0 | PRIS rc=0 cmp=60 dumpdist=193 md5=9737c01f strict=NOT_EQUAL stage1 | LAW rc=0 cmp=60 dumpdist=182 md5=135b9e5e strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PS/ps01 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=b6ae56ef strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=138 md5=770ecfa0 strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PS/ps02 slang=0 | PRIS rc=0 cmp=17 dumpdist=143 md5=3a76a30c strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=742d807f strict=STRICT_EQUAL 171 objects | OFF_eq_pris=yes
+PS/ps03 slang=0 | PRIS rc=0 cmp=17 dumpdist=149 md5=ccda7e20 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=138 md5=e531b84d strict=STRICT_EQUAL 183 objects | OFF_eq_pris=yes
+PS/ps04 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=1c4f573c strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=1bca3936 strict=STRICT_EQUAL 182 objects | OFF_eq_pris=yes
+PS/ps05 slang=0 | PRIS rc=0 cmp=0 dumpdist=126 md5=64fbdf11 strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=126 md5=64fbdf11 strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes
+PS/ps06 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=f3955256 strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=132 md5=f3955256 strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes
+PS/ps07 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=81bd72d0 strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=132 md5=81bd72d0 strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes
+PS/ps08 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=411629ba strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=132 md5=411629ba strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes
+PS/ps09 slang=0 | PRIS rc=0 cmp=60 dumpdist=191 md5=f4ee4100 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=60 dumpdist=182 md5=55628d04 strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PS/ps10 slang=0 | PRIS rc=0 cmp=17 dumpdist=191 md5=423307b7 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=178 md5=c179b90a strict=STRICT_EQUAL 193 objects | OFF_eq_pris=yes
+PS/ps11 slang=0 | PRIS rc=0 cmp=17 dumpdist=143 md5=d233d8f0 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=8558f5b1 strict=STRICT_EQUAL 171 objects | OFF_eq_pris=yes
+PS/ps12 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=c700117b strict=STRICT_NOTEQUAL value | LAW rc=0 cmp=0 dumpdist=128 md5=db009518 strict=STRICT_EQUAL 170 objects | OFF_eq_pris=yes
+PS/ps13 slang=0 | PRIS rc=0 cmp=0 dumpdist=132 md5=80525c8c strict=STRICT_EQUAL 180 objects | LAW rc=0 cmp=0 dumpdist=132 md5=80525c8c strict=STRICT_EQUAL 180 objects | OFF_eq_pris=yes
+PS/ps14 slang=0 | PRIS rc=0 cmp=0 dumpdist=130 md5=2541a479 strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=130 md5=2541a479 strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes
+PS/ps15 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=010a8d07 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=ac8f7d81 strict=STRICT_EQUAL 182 objects | OFF_eq_pris=yes
+PS/ps16 slang=0 | PRIS rc=0 cmp=17 dumpdist=169 md5=6181e739 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=160 md5=4e383f3a strict=STRICT_EQUAL 323 objects | OFF_eq_pris=yes
+PS/ps17 slang=0 | PRIS rc=0 cmp=17 dumpdist=191 md5=c29ef064 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=178 md5=e33d06c8 strict=STRICT_EQUAL 193 objects | OFF_eq_pris=yes
+PS/ps18 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=5cd3215c strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=c628a04a strict=STRICT_EQUAL 182 objects | OFF_eq_pris=yes
+PS/ps19 slang=0 | PRIS rc=0 cmp=17 dumpdist=162 md5=155a9354 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=144 md5=2eb41486 strict=STRICT_EQUAL 185 objects | OFF_eq_pris=yes
+PS/ps20 slang=0 | PRIS rc=0 cmp=17 dumpdist=147 md5=2861dbe7 strict=NOT_EQUAL stage1 | LAW rc=0 cmp=0 dumpdist=134 md5=295bbbf6 strict=STRICT_EQUAL 182 objects | OFF_eq_pris=yes
+PS/ps21 slang=0 | PRIS rc=0 cmp=17 dumpdist=170 md5=dc60f47e strict=NOT_EQUAL stage1 | LAW rc=0 cmp=17 dumpdist=170 md5=dc60f47e strict=NOT_EQUAL stage1 | OFF_eq_pris=yes
+PS/ps22 slang=0 | PRIS rc=0 cmp=0 dumpdist=130 md5=0b3e39c6 strict=STRICT_EQUAL 181 objects | LAW rc=0 cmp=0 dumpdist=130 md5=0b3e39c6 strict=STRICT_EQUAL 181 objects | OFF_eq_pris=yes

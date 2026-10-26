@@ -1831,9 +1831,9 @@ r11u109repro/grid/f1/b04_dec,EQUAL,,equal
 r11u109repro/grid/f1/c01_x64,EQUAL,,equal
 r11u109repro/grid/f1/c02_x3,EQUAL,,equal
 r11u109repro/grid/f1/c03_x8,EQUAL,,equal
-r11u109repro/grid/f1/c04_x64cast,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r11u109repro/grid/f1/c04_x64cast,EQUAL,,equal
 r11u109repro/grid/f1/c05_x3sub,EQUAL,,equal
-r11u109repro/grid/f1/c06_x64plain,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r11u109repro/grid/f1/c06_x64plain,EQUAL,,equal
 r11u109repro/grid/f1/f02_xlen32,EQUAL,,equal
 r11u109repro/grid/f1/f03_const_first,EQUAL,,equal
 r11u109repro/grid/f1/f04_const_after,EQUAL,,equal
@@ -1853,8 +1853,8 @@ r11u109repro/grid/f1/p02_noread,EQUAL,,equal
 r11u109repro/grid/f1/p03_ready,EQUAL,,equal
 r11u109repro/grid/f1/p04_three,EQUAL,,equal
 r11u109repro/grid/f1/p05_reorder,EQUAL,,equal
-r11u109repro/grid/f1/p06_plainparam,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
-r11u109repro/grid/f1/p07_litcast,STRICT_NOTEQUAL,differ:value(2),differ:value(2)
+r11u109repro/grid/f1/p06_plainparam,EQUAL,,equal
+r11u109repro/grid/f1/p07_litcast,EQUAL,,equal
 r11u109repro/grid/f1/p09_shift,EQUAL,,equal
 r11u109repro/grid/f5/k01_dim_assign,EQUAL,,equal
 r11u109repro/grid/f5/k02_dim_comb,EQUAL,,equal

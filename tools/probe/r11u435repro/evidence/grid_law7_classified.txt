@@ -1,0 +1,73 @@
+GA/ga01 to STRICT_EQUAL from NOT_EQUAL
+GA/ga02 to STRICT_EQUAL from NOT_EQUAL
+GA/ga03 byte-identical
+GA/ga04 byte-identical
+GA/ga05 byte-identical
+GA/ga06 byte-identical
+GA/ga07 to STRICT_EQUAL from NOT_EQUAL
+GA/ga08 to STRICT_EQUAL from NOT_EQUAL
+GA/ga09 to STRICT_EQUAL from NOT_EQUAL
+GA/ga10 byte-identical
+GA/ga11 byte-identical
+GA/ga12 to STRICT_EQUAL from NOT_EQUAL
+GA/ga13 to STRICT_EQUAL from NOT_EQUAL
+GA/ga14 to STRICT_EQUAL from NOT_EQUAL
+GA/ga15 byte-identical
+GA/ga16 byte-identical
+PD/pd01 to STRICT_EQUAL from STRICT_NOTEQUAL
+PD/pd02 to STRICT_EQUAL from STRICT_NOTEQUAL
+PD/pd03 unequal both, dd 38->30
+PD/pd04 byte-identical
+PD/pd05 to STRICT_EQUAL from STRICT_NOTEQUAL
+PD/pd06 unequal both, dd 84->83
+PD/pd07 unequal both, dd 56->52
+PD/pd08 byte-identical
+PD/pd09 byte-identical
+PD/pd10 unequal both, dd 186->180
+PM/pm01 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm02 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm03 byte-identical
+PM/pm04 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm05 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm06 to STRICT_EQUAL from NOT_EQUAL
+PM/pm09 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm10 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm12 byte-identical
+PM/pm13 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm14 unequal both, dd 169->160
+PM/pm17 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm18 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm19 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm20 byte-identical
+PM/pm21 byte-identical
+PM/pm22 unequal both, dd 147->143
+PM/pm23 unequal both, dd 306->296
+PM/pm24 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm25 unequal both, dd 186->180
+PM/pm26 to STRICT_EQUAL from NOT_EQUAL
+PM/pm27 to STRICT_EQUAL from NOT_EQUAL
+PM/pm28 byte-identical
+PM/pm29 to STRICT_EQUAL from STRICT_NOTEQUAL
+PM/pm30 unequal both, dd 193->182
+PS/ps01 to STRICT_EQUAL from NOT_EQUAL
+PS/ps02 to STRICT_EQUAL from NOT_EQUAL
+PS/ps03 to STRICT_EQUAL from NOT_EQUAL
+PS/ps04 to STRICT_EQUAL from NOT_EQUAL
+PS/ps05 byte-identical
+PS/ps06 byte-identical
+PS/ps07 byte-identical
+PS/ps08 byte-identical
+PS/ps09 unequal both, dd 191->182
+PS/ps10 to STRICT_EQUAL from NOT_EQUAL
+PS/ps11 to STRICT_EQUAL from NOT_EQUAL
+PS/ps12 to STRICT_EQUAL from STRICT_NOTEQUAL
+PS/ps13 byte-identical
+PS/ps14 byte-identical
+PS/ps15 to STRICT_EQUAL from NOT_EQUAL
+PS/ps16 to STRICT_EQUAL from NOT_EQUAL
+PS/ps17 to STRICT_EQUAL from NOT_EQUAL
+PS/ps18 to STRICT_EQUAL from NOT_EQUAL
+PS/ps19 to STRICT_EQUAL from NOT_EQUAL
+PS/ps20 to STRICT_EQUAL from NOT_EQUAL
+PS/ps21 byte-identical
+PS/ps22 byte-identical
