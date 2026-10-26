@@ -1,0 +1,194 @@
+r11u436repro_cases_CS_cs01 | ver rc=0 cmp=0 STRICT_EQUAL 27 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs02 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs03 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs04 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs05 | ver rc=0 cmp=0 STRICT_EQUAL 17 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs06 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs07 | ver rc=0 cmp=0 STRICT_EQUAL 51 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs08 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs09 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs10 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs11 | ver rc=0 cmp=0 STRICT_EQUAL 36 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs12 | ver rc=0 cmp=56 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs13 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs14 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs15 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_CS_cs16 | ver rc=0 cmp=0 STRICT_EQUAL 51 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl01 | ver rc=0 cmp=0 STRICT_EQUAL 28 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl02 | ver rc=0 cmp=0 STRICT_EQUAL 27 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl03 | ver rc=0 cmp=0 STRICT_EQUAL 26 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl04 | ver rc=0 cmp=0 STRICT_EQUAL 16 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl05 | ver rc=0 cmp=0 STRICT_EQUAL 41 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl06 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl07 | ver rc=0 cmp=0 STRICT_EQUAL 28 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl08 | ver rc=0 cmp=0 STRICT_EQUAL 29 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl09 | ver rc=0 cmp=0 STRICT_EQUAL 32 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl10 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl11 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl12 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl13 | ver rc=0 cmp=251 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl14 | ver rc=0 cmp=197 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl15 | ver rc=0 cmp=151 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl16 | ver rc=0 cmp=0 STRICT_EQUAL 33 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl17 | ver rc=0 cmp=0 STRICT_EQUAL 32 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl18 | ver rc=0 cmp=89 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl19 | ver rc=0 NOGOLDEN | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl20 | ver rc=0 cmp=175 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl21 | ver rc=0 cmp=56 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl22 | ver rc=0 cmp=19 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl23 | ver rc=0 cmp=0 STRICT_EQUAL 38 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl24 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl25 | ver rc=0 cmp=0 STRICT_EQUAL 29 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_DL_dl26 | ver rc=0 cmp=0 STRICT_EQUAL 58 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu01 | ver rc=0 cmp=0 STRICT_EQUAL 12 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu02 | ver rc=0 cmp=0 STRICT_EQUAL 28 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu03 | ver rc=0 cmp=0 STRICT_EQUAL 24 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu04 | ver rc=0 cmp=209 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu05 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu06 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu07 | ver rc=0 cmp=0 STRICT_EQUAL 27 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu08 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu09 | ver rc=0 cmp=0 STRICT_EQUAL 55 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+r11u436repro_cases_IU_iu10 | ver rc=0 cmp=395 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu11 | ver rc=0 cmp=0 STRICT_EQUAL 39 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu12 | ver rc=0 cmp=0 STRICT_NOTEQUAL col | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu13 | ver rc=0 cmp=56 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+r11u436repro_cases_IU_iu14 | ver rc=0 cmp=0 STRICT_EQUAL 27 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu15 | ver rc=0 cmp=0 STRICT_EQUAL 140 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu16 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_IU_iu17 | ver rc=0 cmp=58 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm01 | ver rc=0 cmp=0 STRICT_EQUAL 62 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm02 | ver rc=0 cmp=31 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm03 | ver rc=0 cmp=0 STRICT_EQUAL 86 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm04 | ver rc=0 cmp=0 STRICT_EQUAL 98 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm05 | ver rc=0 cmp=0 STRICT_EQUAL 62 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm06 | ver rc=0 cmp=0 STRICT_EQUAL 50 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm07 | ver rc=0 cmp=0 STRICT_EQUAL 75 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm08 | ver rc=0 cmp=0 STRICT_EQUAL 59 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm09 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm10 | ver rc=0 cmp=0 STRICT_EQUAL 54 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm11 | ver rc=0 cmp=0 STRICT_EQUAL 74 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+r11u436repro_cases_NM_nm12 | ver rc=0 cmp=0 STRICT_EQUAL 84 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va01 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va02 | ver rc=0 cmp=0 STRICT_EQUAL 27 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va03 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va04 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va05 | ver rc=0 cmp=0 STRICT_EQUAL 33 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va06 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va07 | ver rc=0 cmp=15 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va08 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va09 | ver rc=0 cmp=0 STRICT_EQUAL 28 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va10 | ver rc=0 cmp=0 STRICT_EQUAL 38 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va11 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va12 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va13 | ver rc=0 cmp=0 STRICT_EQUAL 12 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va14 | ver rc=0 cmp=187 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va15 | ver rc=0 cmp=0 STRICT_EQUAL 12 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va16 | ver rc=0 cmp=31 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va17 | ver rc=0 cmp=0 STRICT_EQUAL 23 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va18 | ver rc=0 cmp=0 STRICT_EQUAL 36 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va19 | ver rc=0 cmp=0 STRICT_EQUAL 23 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VA_va20 | ver rc=0 cmp=0 STRICT_EQUAL 12 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc01 | ver rc=0 cmp=213 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc02 | ver rc=0 cmp=213 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc03 | ver rc=0 cmp=0 STRICT_NOTEQUAL col | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc04 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc05 | ver rc=0 cmp=56 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc06 | ver rc=0 cmp=0 STRICT_NOTEQUAL endcol | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc07 | ver rc=0 cmp=17 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VC_vc08 | ver rc=0 cmp=156 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc09 | ver rc=0 cmp=187 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc10 | ver rc=0 cmp=0 STRICT_EQUAL 32 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc11 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VC_vc12 | ver rc=0 cmp=0 STRICT_EQUAL 43 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd01 | ver rc=0 cmp=0 STRICT_EQUAL 63 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd02 | ver rc=0 cmp=0 STRICT_EQUAL 33 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd03 | ver rc=0 cmp=46 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd04 | ver rc=0 cmp=0 STRICT_EQUAL 86 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd05 | ver rc=0 cmp=0 STRICT_EQUAL 39 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd06 | ver rc=0 cmp=0 STRICT_EQUAL 83 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd07 | ver rc=0 cmp=0 STRICT_EQUAL 85 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd08 | ver rc=0 cmp=0 STRICT_EQUAL 50 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd09 | ver rc=0 cmp=1024 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd10 | ver rc=0 cmp=0 STRICT_EQUAL 36 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd11 | ver rc=0 cmp=0 STRICT_EQUAL 140 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd12 | ver rc=0 cmp=0 STRICT_EQUAL 123 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd13 | ver rc=0 cmp=0 STRICT_EQUAL 82 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd14 | ver rc=0 cmp=29 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd15 | ver rc=0 cmp=0 STRICT_EQUAL 31 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VD_vd16 | ver rc=0 cmp=233 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn01 | ver rc=0 cmp=153 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn02 | ver rc=0 cmp=0 STRICT_EQUAL 110 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn03 | ver rc=0 cmp=127 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn04 | ver rc=0 cmp=0 STRICT_EQUAL 66 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn05 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn06 | ver rc=0 cmp=0 STRICT_EQUAL 72 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn07 | ver rc=0 cmp=0 STRICT_EQUAL 87 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn08 | ver rc=0 cmp=0 STRICT_EQUAL 55 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn09 | ver rc=0 cmp=17 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn10 | ver rc=0 cmp=0 STRICT_EQUAL 142 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn11 | ver rc=0 cmp=0 STRICT_EQUAL 88 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn12 | ver rc=0 cmp=0 STRICT_EQUAL 80 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn13 | ver rc=0 cmp=0 STRICT_EQUAL 52 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn14 | ver rc=0 cmp=121 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn15 | ver rc=0 cmp=0 STRICT_EQUAL 101 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn16 | ver rc=0 cmp=27 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn17 | ver rc=0 cmp=0 STRICT_EQUAL 59 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VN_vn18 | ver rc=0 cmp=0 STRICT_NOTEQUAL fullname | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VP_vp01 | ver rc=0 cmp=66 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp02 | ver rc=0 cmp=0 STRICT_EQUAL 24 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp03 | ver rc=0 cmp=0 STRICT_EQUAL 22 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp04 | ver rc=0 cmp=0 STRICT_EQUAL 24 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp05 | ver rc=0 cmp=0 STRICT_EQUAL 23 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp06 | ver rc=0 cmp=0 STRICT_EQUAL 29 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp07 | ver rc=0 cmp=0 STRICT_EQUAL 24 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp08 | ver rc=0 cmp=0 STRICT_EQUAL 17 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp09 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp10 | ver rc=0 cmp=0 STRICT_EQUAL 16 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp11 | ver rc=0 cmp=19 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp12 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp13 | ver rc=0 cmp=0 STRICT_EQUAL 24 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp14 | ver rc=0 cmp=95 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp15 | ver rc=0 cmp=199 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VP_vp16 | ver rc=0 cmp=125 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr01 | ver rc=0 cmp=0 STRICT_EQUAL 33 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr02 | ver rc=0 cmp=0 STRICT_EQUAL 13 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr03 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr04 | ver rc=0 cmp=0 STRICT_EQUAL 19 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr05 | ver rc=0 cmp=0 STRICT_EQUAL 19 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr06 | ver rc=0 cmp=0 STRICT_EQUAL 25 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr07 | ver rc=0 cmp=126 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr08 | ver rc=0 cmp=0 STRICT_EQUAL 26 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr09 | ver rc=0 cmp=0 STRICT_EQUAL 18 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr10 | ver rc=0 cmp=0 STRICT_EQUAL 40 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr11 | ver rc=0 cmp=0 STRICT_EQUAL 31 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr12 | ver rc=0 cmp=0 STRICT_EQUAL 22 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr13 | ver rc=0 cmp=0 STRICT_EQUAL 40 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr14 | ver rc=0 cmp=0 STRICT_EQUAL 17 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr15 | ver rc=0 cmp=58 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr16 | ver rc=0 cmp=0 STRICT_EQUAL 32 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VR_vr17 | ver rc=0 cmp=0 STRICT_EQUAL 21 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs01 | ver rc=0 cmp=0 STRICT_EQUAL 51 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VS_vs02 | ver rc=0 cmp=0 STRICT_EQUAL 51 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs03 | ver rc=0 cmp=0 STRICT_EQUAL 20 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs04 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs05 | ver rc=0 cmp=77 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs06 | ver rc=4 cmp=125 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs07 | ver rc=0 cmp=0 STRICT_EQUAL 22 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs08 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs09 | ver rc=0 cmp=0 STRICT_EQUAL 30 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs10 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs11 | ver rc=0 cmp=0 STRICT_EQUAL 34 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs12 | ver rc=0 cmp=0 STRICT_EQUAL 41 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs13 | ver rc=0 cmp=53 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs14 | ver rc=0 cmp=0 STRICT_EQUAL 54 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs15 | ver rc=0 cmp=0 STRICT_EQUAL 44 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs16 | ver rc=0 cmp=0 STRICT_EQUAL 41 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law no
+v11u436repro_cases_VS_vs17 | ver rc=0 cmp=0 STRICT_EQUAL 40 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs18 | ver rc=0 cmp=0 STRICT_EQUAL 39 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs19 | ver rc=0 cmp=19 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs20 | ver rc=0 cmp=202 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs22 | ver rc=0 cmp=77 NOT_EQUAL stage1 | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs23 | ver rc=0 cmp=0 STRICT_EQUAL 40 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs24 | ver rc=0 cmp=0 STRICT_EQUAL 46 objects | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes
+v11u436repro_cases_VS_vs25 | ver rc=0 cmp=0 STRICT_NOTEQUAL endcol | R11V436_OFF =law | R11U436_OFF =pristine | ver==law yes

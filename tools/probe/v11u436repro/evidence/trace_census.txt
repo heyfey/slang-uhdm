@@ -1,0 +1,20 @@
+## trace_law
+generated/hdlconv_std2017/hdlconvertor_std2017_p203/slang.uhdm :: clsSpecSurelogOrder436 x4; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p334/slang.uhdm :: genClsNoDefRangeSyntax436 x4; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p719/slang.uhdm :: nestedModGateUpwardNet436 x45; 
+generated/rsd/rsd/slang.uhdm :: ifaceDefArrNetDimSym436 x386; 
+generated/uvm-examples/apb_protocol_monitor/slang.uhdm :: cgArrayElemUnsupportedTs436 x1; ifaceDefArrNetDimSym436 x1; uninstIfaceAssertListing436 x17; 
+## trace_ver
+probe/r10svs8repro__a4_context.uhdm :: cgArrDefNetDimEnd436v x1; 
+probe/r10uvm99repro__g99_a10_other.uhdm :: cgArrDefNetDimEnd436v x1; 
+surelog/default/CrossFunc-4005346d/slang.uhdm :: cgArrDefNetDimEnd436v x1; 
+surelog/testflags/CrossFunc-4005346d/slang.uhdm :: cgArrDefNetDimEnd436v x1; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p203/slang.uhdm :: clsSpecSurelogOrder436 x4; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p334/slang.uhdm :: genClsNoDefRangeSyntax436 x4; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p577/slang.uhdm :: cgArrDefNetDimEnd436v x1; 
+generated/hdlconv_std2017/hdlconvertor_std2017_p719/slang.uhdm :: nestedModGateUpwardNet436 x45; 
+generated/rsd/rsd/slang.uhdm :: ifaceDefArrNetDimSym436 x386; 
+generated/uvm-examples/apb_protocol_monitor/slang.uhdm :: cgArrayElemUnsupportedTs436 x1; cgArrDefNetDimEnd436v x1; ifaceDefArrNetDimSym436 x1; uninstIfaceAssertListing436 x17; 
+## trace_v4 (ver4, the probe stage alone and the surelog stage filtered on CrossFunc, both modes)
+no trace file written: cgArrDefNetDimEnd436v's trace now sits behind the array-kind test, so the four
+single-covergroup-handle databases above (no array dimension, writeEnd171 never reached, bytes identical to law) no longer log

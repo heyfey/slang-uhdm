@@ -1397,7 +1397,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p200.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p200.sv:10:20: error: return type 'bit' of virtual method 'funcBase' does n,
 generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p234.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p238.sv,EQUAL,,equal
@@ -1419,7 +1419,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p328.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p330.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p331.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p347.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p347.sv:26:32: error: could not resolve hierarchical path name 'p',
 generated/hdlconv_std2017/hdlconvertor_std2017_p348.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p371.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p371.sv:31:12: error: implicit named port 'clk' of type 'logic' connects to,
@@ -1466,7 +1466,7 @@ generated/hdlconv_std2017/hdlconvertor_std2017_p703.sv,SURELOG_ONLY,/home/heyfey
 generated/hdlconv_std2017/hdlconvertor_std2017_p705.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p705.sv:16:23: error: top-level module 'mh20' has unconnected 'ref' port 'x,
 generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,EQUAL,,equal
-generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p723.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,EQUAL,,equal
 generated/hdlconv_std2017/hdlconvertor_std2017_p729.sv,EQUAL,,equal
@@ -2065,7 +2065,7 @@ generated/utd-sv/utd-sv_tlu_addern_32.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_incr64.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_tlu_prencoder16.sv,EQUAL,,equal
 generated/utd-sv/utd-sv_unconnected_drive.sv,EQUAL,,equal
-generated/uvm-examples/apb_protocol_monitor.sv,DIFFERENT,decompile:,
+generated/uvm-examples/apb_protocol_monitor.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)
 generated/uvm-examples/biquad_example.sv,SURELOG_ONLY,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uart_example.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uart_example/agents/apb_agent/apb_seq_item.svh:109:14: error: 'knobs' is a local member of 'uvm_p,
 generated/uvm-examples/uvm_ac_config_db.sv,DIFFERENT,decompile:,

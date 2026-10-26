@@ -1,0 +1,16 @@
+1400c1400
+< generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,EQUAL,,equal
+1422c1422
+< generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,EQUAL,,equal
+1469c1469
+< generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,DIFFERENT,decompile:,
+---
+> generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,EQUAL,,equal
+2100c2100
+< generated/uvm-examples/apb_protocol_monitor.sv,DIFFERENT,decompile:,
+---
+> generated/uvm-examples/apb_protocol_monitor.sv,STRICT_NOTEQUAL,differ:col(1),differ:col(1)

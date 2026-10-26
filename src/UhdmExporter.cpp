@@ -27,6 +27,9 @@ namespace slang_uhdm {
 extern bool g428ClsLocalSpec;
 // § bareTdCopyOwnRangeAfterSpec434 (TypeEmit.cpp) — listings an alias clone reached.
 extern std::set<const UHDM::typespec*> g434SpecAliasListing;
+extern std::set<const slang::ast::ClassType*> g436InvalidSpecCls;  // § genClsNoDefRangeSyntax436
+void drainNestGateDefRefs436();  // § nestedModGateUpwardNet436 (ModuleEmit.cpp)
+bool noDefPropRangeOk436(const slang::ast::ClassPropertySymbol& cp);  // § genClsNoDefPropRange436
 // § caAnySysCallLhsTs428 (ModuleEmit.cpp) — net-declaration stamps resolved past the port.
 extern std::set<const UHDM::ref_typespec*> g428NdaSysTs;
 bool& classParamRhs424();  // § classParamBitsKeywordFold424 (TypeEmit.cpp)
@@ -10227,6 +10230,19 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             lawTrace(402, "classCovergroupPropSilent402", std::string(cp.name));
             continue;
         }
+        // § genClsNoDefPropRange436 (TypeEmit.cpp) — a vector property over
+        // the unset parameter of a default-less generic class is the keyword's
+        // variable (bit_var for `bit`, logic_var otherwise), its typespec the
+        // law's ranged one.
+        if (!v && ct.kind == SymbolKind::ErrorType && noDefPropRangeOk436(cp)) {
+            auto* ts436 = cp.getDeclaredType()->getTypeSyntax();
+            if (ts436->as<syntax::IntegerTypeSyntax>().keyword.kind ==
+                parsing::TokenKind::BitKeyword)
+                v = s.MakeBit_var();
+            else
+                v = s.MakeLogic_var();
+            lawTrace(436, "genClsNoDefPropRange436", "var " + std::string(cp.name));
+        }
         if (!v) {
             noteUnsupportedAt("class property type: " +
                               std::string(toString(ct.kind)), cp.location);
@@ -11577,10 +11593,15 @@ static const ClassType* genericClassNoDefault408(const GenericClassDefSymbol& gc
     for (auto& m408 : isp.as<ClassType>().members())
         if (m408.kind == SymbolKind::TypeParameter ||
             (m408.kind == SymbolKind::ClassProperty &&
-             m408.as<ClassPropertySymbol>().getType().isError()))
+             m408.as<ClassPropertySymbol>().getType().isError() &&
+             // § genClsNoDefPropRange436 (TypeEmit.cpp) — a vector property
+             // over the unset parameter has a shape now.
+             !noDefPropRangeOk436(m408.as<ClassPropertySymbol>())))
             return nullptr;
     lawTrace(408, "genericClassNoDefaultListed408", std::string(gc.name));
     g_invalidSpec408.insert(&isp.as<ClassType>());
+    // § genClsNoDefRangeSyntax436 (TypeEmit.cpp) — the cross-file flag.
+    g436InvalidSpecCls.insert(&isp.as<ClassType>());
     return &isp.as<ClassType>();
 }
 
@@ -24949,6 +24970,10 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // r11u287's design-final steps, after every drain above.
     auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+        // § nestedModGateUpwardNet436 (ModuleEmit.cpp) — the definition-view
+        // gate terminals of nested modules bind the first instance's net,
+        // once every instance is elaborated.
+        drainNestGateDefRefs436();
         // § pvRecvBodyParamTs287 (ModuleEmit, the port view's shadowed value)
         for (auto& [rt287, ps287] : pvRecvTs287())
             if (auto it = elabParamOwnTs.find((const Symbol*)ps287);

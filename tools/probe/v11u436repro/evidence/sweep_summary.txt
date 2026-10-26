@@ -1,0 +1,61 @@
+##### v11u436sw1 (law 5763a78b)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u436sw1/probe.csv
+probe cases: EQUAL=4019 STRICT_NOTEQUAL=68 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=4019 STRICT_NOTEQUAL=68
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u436sw1/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u436sw1/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+[2346/2346] BOTH_REJECT=303 DIFFERENT=33 IDENTICAL=1906 JUDGE_EQUAL=1 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1
+done
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm-examples/apb_protocol_monitor.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=33 EQUAL=1906 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=4 changes=0
+##### v11u436sw2 (ver3 b841e9bc)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u436sw2/probe.csv
+probe cases: EQUAL=4019 STRICT_NOTEQUAL=68 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=4019 STRICT_NOTEQUAL=68
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u436sw2/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u436sw2/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+[2346/2346] BOTH_REJECT=303 DIFFERENT=33 IDENTICAL=1906 JUDGE_EQUAL=1 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1
+done
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv: DIFFERENT -> EQUAL
+CONVERSION generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv: DIFFERENT -> EQUAL
+CONVERSION generated/uvm-examples/apb_protocol_monitor.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=33 EQUAL=1906 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=4 changes=0
+##### v11u436sw4 (ver4 8a6ba112: probe stage alone, surelog stage filtered on CrossFunc)
+v11u436sw4.probe.log:probe cases: EQUAL=4019 STRICT_NOTEQUAL=68 (of 4087); goldens built now=0, from cache=4087
+v11u436sw4.probe.log:[probe] EQUAL=4019 STRICT_NOTEQUAL=68
+v11u436sw4.probe.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+v11u436sw4.sl.log:[default] CMP_EQUAL=1
+v11u436sw4.sl.log:[testflags] CMP_EQUAL=1
+v11u436sw4.sl.log:regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0

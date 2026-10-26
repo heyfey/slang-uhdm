@@ -1,0 +1,17 @@
+r11u436repro_cases_NM_nm01 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm02 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm03 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm04 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm05 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm06 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm07 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm08 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm09 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm10 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm11 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_NM_nm12 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_IU_iu01 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_IU_iu02 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_IU_iu03 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_IU_iu06 | pristine IDENTICAL  | law IDENTICAL
+r11u436repro_cases_IU_iu11 | pristine IDENTICAL  | law IDENTICAL

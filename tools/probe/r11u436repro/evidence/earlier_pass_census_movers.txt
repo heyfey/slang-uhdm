@@ -1,0 +1,11 @@
+v11u424repro/cases/VI/vi12 0 547a11ec3b41 0 3b7f576d38cf
+v11u424repro/cases/VP/vp06 0 77c89d3c764d 0 3bafd4c8c261
+v11u432repro/cases/VD/vd06 0 2084af571831 0 3762217f43d0
+v11u408repro/cases/VG/vg15 0 333db3f8d0b9 0 a004ba39e584
+r11u408repro/cases/GC/gc05 0 64de0bf36f2c 0 0b8bc7f0d1a7
+rows=4689 rc_differ=0 bytes_differ=5
+v11u424repro/cases/VI/vi12 | pristine rc=0 cmp=123 NOT_EQUAL stage1 md5=547a11ec | law rc=0 cmp=0 STRICT_EQUAL 20 objects md5=3b7f576d | sorted dump distance 20 -> 0
+v11u424repro/cases/VP/vp06 | pristine rc=0 cmp=77 NOT_EQUAL stage1 md5=77c89d3c | law rc=0 cmp=28 NOT_EQUAL stage1 md5=3bafd4c8 | sorted dump distance 131 -> 13
+v11u432repro/cases/VD/vd06 | pristine rc=0 cmp=36 NOT_EQUAL stage1 md5=2084af57 | law rc=0 cmp=0 STRICT_EQUAL 89 objects md5=3762217f | sorted dump distance 12 -> 2
+v11u408repro/cases/VG/vg15 | pristine rc=0 cmp=67 NOT_EQUAL stage1 md5=333db3f8 | law rc=0 cmp=0 STRICT_EQUAL 26 objects md5=a004ba39 | sorted dump distance 30 -> 0
+r11u408repro/cases/GC/gc05 | pristine rc=0 cmp=215 NOT_EQUAL stage1 md5=64de0bf3 | law rc=0 cmp=0 STRICT_EQUAL 30 objects md5=0b8bc7f0 | sorted dump distance 81 -> 0

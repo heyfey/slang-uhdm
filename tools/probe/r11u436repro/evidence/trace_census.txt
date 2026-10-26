@@ -1,0 +1,7 @@
+# lawTrace(436) firings: corpus stages of the law17 sweep (probe, surelog, uhdm2rtlil, downstream) and the law19 sv-tests stage
+corpus stages: no firing on any probe case, surelog row, uhdm2rtlil row or downstream database (the only trace files written in that sweep came from its sv-tests stage)
+generated/hdlconv_std2017/hdlconvertor_std2017_p203/slang.uhdm        4 clsSpecSurelogOrder436
+generated/hdlconv_std2017/hdlconvertor_std2017_p334/slang.uhdm        4 genClsNoDefRangeSyntax436
+generated/hdlconv_std2017/hdlconvertor_std2017_p719/slang.uhdm       45 nestedModGateUpwardNet436
+generated/rsd/rsd/slang.uhdm      386 ifaceDefArrNetDimSym436
+generated/uvm-examples/apb_protocol_monitor/slang.uhdm        1 cgArrayElemUnsupportedTs436       1 ifaceDefArrNetDimSym436      17 uninstIfaceAssertListing436

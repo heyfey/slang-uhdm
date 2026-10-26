@@ -30,6 +30,7 @@
 #include "LawState.h"
 
 namespace slang_uhdm {
+int& ifaceDefArrNet436();  // § ifaceDefArrNetDimSym436 (TypeEmit.cpp)
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
 // `location + name.size()` MISSES AN ESCAPED IDENTIFIER'S BACKSLASH, SO THE
 // SPAN ENDS ONE COLUMN SHORT OF THE LEXEME AND § escIdPpColumnShift146'S
@@ -4949,6 +4950,36 @@ class OwnedRename188 final : public UHDM::UhdmListener {
         }
     }
 };
+// § uninstIfaceAssertListing436 — in an uninstantiated interface's
+// definition every reference is left unbound, the ones naming a listed
+// property or sequence declaration too: clear such an actual on every
+// reference the root owns.
+class UnbindDecl436 final : public UHDM::UhdmListener {
+  public:
+    const UHDM::any* root = nullptr;
+    size_t cleared = 0;
+    void enterAny(const UHDM::any* const o) override {
+        if (o != root) {
+            const UHDM::any* p = o->VpiParent();
+            int guard = 0;
+            while (p && p != root && guard++ < 256)
+                p = p->VpiParent();
+            if (p != root) {
+                getVisited().insert(o);
+                return;
+            }
+        }
+        if (o->UhdmType() == UHDM::uhdmref_obj) {
+            auto* r = (UHDM::ref_obj*)const_cast<UHDM::any*>(o);
+            if (auto* a = r->Actual_group();
+                a && (a->UhdmType() == UHDM::uhdmproperty_decl ||
+                      a->UhdmType() == UHDM::uhdmsequence_decl)) {
+                r->Actual_group(nullptr);
+                cleared++;
+            }
+        }
+    }
+};
 // § progDefKeepsLastInstProcs283 — the renamer: every object OWNED by the
 // process (its parent chain reaches the root) whose stored full name starts
 // with the previous instance's path takes the new one; a reference's target
@@ -6491,7 +6522,18 @@ UHDM::array_net* UhdmExporter::makeIfaceDefArrayNet225(
     an->VpiSize(1);
     // Def-view array_net keeps PARAM-based dim bounds symbolic
     // (ref_obj <arraynet>.<param>), so pass the array_net fullname.
+    // § ifaceDefArrNetDimSym436 (TypeEmit.cpp) — the flag, written here only.
+    // 1 = an uninstantiated interface, 2 = an instantiated one (whose
+    // `$unit` parameter references Surelog's late binding resolves).
+    ifaceDefArrNet436() = 1;
+    if (auto* ps436 = sym.getParentScope();
+        ps436 && ps436->asSymbol().kind == SymbolKind::InstanceBody)
+        if (auto ic436 = defAllInstCount.find(
+                &ps436->asSymbol().as<InstanceBodySymbol>().getDefinition());
+            ic436 != defAllInstCount.end() && ic436->second > 0)
+            ifaceDefArrNet436() = 2;
     auto* rngs = buildUnpackedRanges(sym, an, afull, &hook225);
+    ifaceDefArrNet436() = 0;
     // THE GATE IS THE WRITTEN DIMENSION.  No written unpacked bracket, no
     // array_net — a typedef that hides one is listed by golden as a plain net
     // and nothing else (arm a14_tdhide).
@@ -41113,11 +41155,37 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             if (clsArr293)
                 lawTrace(293, "defNetClassArrTsDimEnd293", std::string(pn.sym->name));
         }
+        // § cgArrDefNetDimEnd436v (v11u436, the adversarial verification of
+        // r11u436; R11V436_CGDIMEND_OFF) — § cgArrayElemUnsupportedTs436
+        // names the element typespec of a covergroup-handle array after the
+        // covergroup (`cg`), which the unnamed-typespec gate below then
+        // skipped, so a MODULE definition net's typespec kept the type's own
+        // end (`cg c4[4];` 4:1-4:3) where golden and pristine's
+        // logic_typespec read the end of the first unpacked dimension
+        // (4:1-4:9; dynamic, queue and associative dims too).  The law's
+        // unsupported_typespec of a covergroup element takes the same end.
+        // Grid tools/probe/v11u436repro/cases/VC.
+        bool cgArr436v = false;
+        if (ts->UhdmType() == UHDM::uhdmunsupported_typespec &&
+            (dck3 == SymbolKind::FixedSizeUnpackedArrayType ||
+             dck3 == SymbolKind::DynamicArrayType ||
+             dck3 == SymbolKind::AssociativeArrayType ||
+             dck3 == SymbolKind::QueueType) &&
+            lawFixOn(436, "R11V436_CGDIMEND_OFF")) {
+            const Type* el436v = &dt3->getType();
+            for (int g436v = 0; g436v < 16 && el436v->isUnpackedArray(); g436v++)
+                el436v = el436v->getArrayElementType();
+            cgArr436v = el436v &&
+                        el436v->getCanonicalType().kind == SymbolKind::CovergroupType &&
+                        lawOn(436, "R11U436_CGARRAY_OFF");
+            if (cgArr436v)
+                lawTrace(436, "cgArrDefNetDimEnd436v", std::string(pn.sym->name));
+        }
         if ((dck3 == SymbolKind::FixedSizeUnpackedArrayType ||
              dck3 == SymbolKind::DynamicArrayType ||
              dck3 == SymbolKind::AssociativeArrayType ||
              dck3 == SymbolKind::QueueType) &&
-            (ts->VpiName().empty() || clsArr293)) {
+            (ts->VpiName().empty() || clsArr293 || cgArr436v)) {
             if (auto dsyn = pn.sym->getSyntax();
                 dsyn && dsyn->kind == syntax::SyntaxKind::Declarator) {
                 auto& dd = dsyn->as<syntax::DeclaratorSyntax>();
@@ -43820,9 +43888,51 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
 // enum, and a prim_term per connection (output first, TermIndex from 1; buf/
 // not have the INPUT last instead). Term exprs are ref_objs scoped through
 // the GATE instance (prefix.<gate>.<actual>), actual -> the module net.
+// § nestedModGateUpwardNet436 — the implicit nets minted per elaborated
+// nested instance, the first instance's net per definition and name, and the
+// definition-view terminal references waiting for it.
+std::map<std::pair<const UHDM::BaseClass*, std::string>, UHDM::logic_net*>& nestGateNets436() {
+    static std::map<std::pair<const UHDM::BaseClass*, std::string>, UHDM::logic_net*> m;
+    return m;
+}
+std::map<std::pair<const void*, std::string>, UHDM::logic_net*>& nestGateFirst436() {
+    static std::map<std::pair<const void*, std::string>, UHDM::logic_net*> m;
+    return m;
+}
+struct NestGateDefRef436 {
+    UHDM::ref_obj* ref;
+    const void* def;
+    std::string name;
+};
+std::vector<NestGateDefRef436>& nestGateDefRefs436() {
+    static std::vector<NestGateDefRef436> v;
+    return v;
+}
+// Called last by exportDesign: bind each definition-view reference.
+void drainNestGateDefRefs436() {
+    for (auto& d : nestGateDefRefs436())
+        if (auto it = nestGateFirst436().find({d.def, d.name});
+            it != nestGateFirst436().end() && !d.ref->Actual_group())
+            d.ref->Actual_group(it->second);
+    nestGateDefRefs436().clear();
+}
+
 void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                              const std::string& prefix, NetMap& netMap,
                              bool topView) {
+    // § nestedModGateUpwardNet436 — the nested module this gate listing
+    // belongs to (null for a module declared at file level).
+    const Scope* gateBody436 = nullptr;
+    const void* gateDef436 = nullptr;
+    if (body.asSymbol().kind == SymbolKind::InstanceBody) {
+        auto& ib436 = body.asSymbol().as<InstanceBodySymbol>();
+        auto& def436 = ib436.getDefinition();
+        if (auto* dps436 = def436.getParentScope();
+            dps436 && dps436->asSymbol().kind == SymbolKind::InstanceBody) {
+            gateBody436 = &body;
+            gateDef436 = &def436;
+        }
+    }
     static const std::map<std::string, int32_t> primMap = {
         {"and", vpiAndPrim},   {"nand", vpiNandPrim}, {"nor", vpiNorPrim},
         {"or", vpiOrPrim},     {"xor", vpiXorPrim},   {"xnor", vpiXnorPrim},
@@ -44156,6 +44266,89 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                         lawTrace(418, "genGateTermGenNetBind418",
                                  refScope + "." + std::string(nv.symbol.name));
                     }
+                // § nestedModGateUpwardNet436 (R11U436_NESTGATE_OFF; cases
+                // tools/probe/r11u436repro/cases/NM; sv-tests hdlconvertor
+                // p719) — a gate in a NESTED module definition whose terminal
+                // names a net of the enclosing module (an upward reference
+                // slang resolves) gets, in each elaborated instance of the
+                // nested module, an implicit net of that name: Surelog's
+                // nested definition does not see the outer scope, so its
+                // NetlistElaboration mints a logic_net (vpiNetType 1) in the
+                // instance at the name's first terminal use, listed after the
+                // instance's own nets in first-use order, and binds the
+                // terminal to it.  The definition view's terminal binds the
+                // net of the FIRST elaborated instance (drained at the end).
+                if (!r->Actual_group() && gateBody436 &&
+                    lawOn(436, "R11U436_NESTGATE_OFF")) {
+                    bool inside436 = false;
+                    for (auto* sc436 = nv.symbol.getParentScope(); sc436;
+                         sc436 = sc436->asSymbol().getParentScope())
+                        if (sc436 == gateBody436) {
+                            inside436 = true;
+                            break;
+                        }
+                    if (!inside436 && nv.symbol.kind == SymbolKind::Net &&
+                        gateDef436) {
+                        std::string nm436(nv.symbol.name);
+                        if (topView) {
+                            // § nestGateNetInstOwner436v (v11u436, the
+                            // adversarial verification of r11u436;
+                            // R11V436_NESTGATEOWNER_OFF) — a terminal of a
+                            // GATE ARRAY (`and g1 [1:0] (y, a, b);`) has the
+                            // gate_array as its parent, so the law minted the
+                            // net under it and listed it nowhere (an orphan,
+                            // the v11u436 case VN/vn18 59 -> 65 dump lines
+                            // away); golden lists it under the nested
+                            // INSTANCE (`vpiParent module_inst work@top.i1`)
+                            // like a single gate's.  The owner is the
+                            // enclosing module_inst, which also keys the net.
+                            UHDM::BaseClass* own436 = (UHDM::BaseClass*)parent;
+                            if (own436 && own436->UhdmType() != UHDM::uhdmmodule_inst &&
+                                fixOn(436, "R11V436_NESTGATEOWNER_OFF")) {
+                                const UHDM::BaseClass* up436 = own436;
+                                for (int g436 = 0; up436 && g436 < 64 &&
+                                                   up436->UhdmType() != UHDM::uhdmmodule_inst;
+                                     g436++)
+                                    up436 = up436->VpiParent();
+                                if (up436) {
+                                    own436 = (UHDM::BaseClass*)up436;
+                                    lawTrace(436, "nestGateNetInstOwner436v",
+                                             refScope + "." + nm436);
+                                }
+                            }
+                            auto key436 = std::make_pair((const UHDM::BaseClass*)own436, nm436);
+                            auto& slot436 = nestGateNets436()[key436];
+                            if (!slot436) {
+                                auto* n436 = s.MakeLogic_net();
+                                n436->VpiParent(own436);
+                                n436->VpiName(nm436);
+                                n436->VpiFullName(refScope + "." + nm436);
+                                n436->VpiNetType(1);
+                                setLoc(n436, termLoc);
+                                slot436 = n436;
+                                if (auto* mi436 = (own436 && own436->UhdmType() == UHDM::uhdmmodule_inst ? (UHDM::module_inst*)own436 : nullptr)) {
+                                    auto* nv436 = mi436->Nets();
+                                    if (!nv436) {
+                                        nv436 = s.MakeNetVec();
+                                        mi436->Nets(nv436);
+                                    }
+                                    nv436->push_back(n436);
+                                }
+                                auto fk436 = std::make_pair((const void*)gateDef436, nm436);
+                                if (!nestGateFirst436().count(fk436))
+                                    nestGateFirst436()[fk436] = n436;
+                                lawTrace(436, "nestedModGateUpwardNet436",
+                                         "mint " + refScope + "." + nm436);
+                            }
+                            r->Actual_group(slot436);
+                        }
+                        else {
+                            nestGateDefRefs436().push_back({r, gateDef436, nm436});
+                            lawTrace(436, "nestedModGateUpwardNet436",
+                                     "defref " + refScope + "." + nm436);
+                        }
+                    }
+                }
                 t->Expr(r);
             }
             // Any other terminal expression (`y[0]`, `{a,b}`, a constant)
@@ -44455,6 +44648,19 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             auto* g = buildGate(pi, pname, primType, gname,
                                 gfull, topView ? termScope171 : gfull, m, nullptr,
                                 false, *sw, isUdp);
+            // § nestedModGateUpwardNet436 — the definition view of a gate in
+            // a nested module is named through the enclosing definition, as
+            // its nets are (`work@dff_nested.work@dff_nested::ff1.g1b`); its
+            // terminal references keep the gate's own scope.
+            if (!topView && gateBody436 && m->VpiParent() &&
+                m->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst &&
+                lawOn(436, "R11U436_NESTGATE_OFF")) {
+                std::string outer436(((UHDM::module_inst*)m->VpiParent())->VpiDefName());
+                if (!outer436.empty()) {
+                    g->VpiFullName(outer436 + "." + gfull);
+                    lawTrace(436, "nestedModGateUpwardNet436", "defname " + outer436 + "." + gfull);
+                }
+            }
             if (!prims)
                 prims = s.MakePrimitiveVec();
             prims->push_back(g);
@@ -56669,6 +56875,249 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // § shadowedImportParamFold — def-listing processes take the same fold
         // the def-listing cont_assigns above take.
         defStmtImportScope9 = &body;
+        // § uninstIfaceAssertListing436 (R11U436_IFCUNINST_OFF; cases
+        // tools/probe/r11u436repro/cases/IU; sv-tests uvm-examples
+        // apb_protocol_monitor) — an UNINSTANTIATED interface's definition
+        // lists its named sequence and property declarations and its
+        // concurrent assertions, as the module road's definition view does
+        // (Surelog's writeInterface lists mod->getPropertyDecls(),
+        // getSequenceDecls() and getAssertions() whether or not the interface
+        // is elaborated): the same objects, named through the definition
+        // (`work@ifc.P`, `work@ifc.A1`), every reference in them left unbound
+        // as the processes beside them are.  Pass 424's
+        // § ifcConcAssertListed424 lists an INSTANTIATED interface's
+        // assertions; this is its uninstantiated twin (the gap R2 the note
+        // above names).
+        const bool ifcUninst436 = lawOn(436, "R11U436_IFCUNINST_OFF");
+        bool decls436 = false;
+        for (auto& m436 : body.members())
+            if (m436.kind == SymbolKind::Property || m436.kind == SymbolKind::Sequence)
+                decls436 = true;
+        if (ifcUninst436 && decls436) {
+            auto* savedINM436 = implicitNetModule;
+            implicitNetModule = nullptr;
+            // The module road's sequence and property declaration listing
+            // (emitModuleDef), transcribed for the interface definition: the
+            // laws it carries keep their own switches.
+            if (lawOn(406, "R11U406_SEQDECL_OFF")) {
+                auto* sdecls = s.MakeSequence_declVec();
+                for (auto& member : body.members()) {
+                    if (member.kind != SymbolKind::Sequence)
+                        continue;
+                    auto& seq = member.as<SequenceSymbol>();
+                    auto* sd = s.MakeSequence_decl();
+                    sd->VpiName(seq.name);
+                    std::string sfull = prefix + "." + std::string(seq.name);
+                    sd->VpiFullName(sfull);
+                    sd->VpiParent(iface);
+                    setLoc(sd, ESC_NAME_SPAN295(seq.location, seq.name, "sequence_decl"));
+                    SourceRange fr406;
+                    if (auto* ssyn = seq.getSyntax();
+                        ssyn && ssyn->kind == syntax::SyntaxKind::SequenceDeclaration)
+                        if (auto* pl = ssyn->as<syntax::SequenceDeclarationSyntax>().portList;
+                            pl && !pl->ports.empty())
+                            fr406 = SourceRange(pl->ports[0]->sourceRange().start(),
+                                                pl->ports[pl->ports.size() - 1]->sourceRange().end());
+                    auto* sfd = s.MakeSeq_formal_declVec();
+                    for (auto& fp : seq.membersOfType<AssertionPortSymbol>()) {
+                        auto* fd = s.MakeSeq_formal_decl();
+                        fd->VpiName(fp.name);
+                        if (fr406.start() != SourceLocation::NoLocation)
+                            setLoc(fd, fr406);
+                        auto* frt = s.MakeRef_typespec();
+                        if (auto* fdt = fp.getDeclaredType())
+                            if (auto* fsyn = fdt->getTypeSyntax();
+                                fsyn && fsyn->kind != syntax::SyntaxKind::ImplicitType)
+                                if (auto* fts = makeTypespec(fp, fsyn))
+                                    frt->Actual_typespec(fts);
+                        fd->Typespec(frt);
+                        sfd->push_back(fd);
+                    }
+                    auto& defInst = AssertionInstanceExpression::makeDefault(seq);
+                    if (defInst.kind == ExpressionKind::AssertionInstance) {
+                        auto& aie = defInst.as<AssertionInstanceExpression>();
+                        auto* savedINM = implicitNetModule;
+                        auto savedINP = implicitNetPrefix;
+                        implicitNetModule = nullptr;  // § uninstIfaceAssertListing436: formals mint no net
+                        implicitNetPrefix = prefix;
+                        propDeclScope = &seq;
+                        propDeclRefPrefix = sfull;
+                        const AssertionExpr* sbody = &aie.body;
+                        UHDM::any* se = nullptr;
+                        if (sbody->kind == AssertionExprKind::Clocking) {
+                            auto& cae = sbody->as<ClockingAssertionExpr>();
+                            auto* mse = s.MakeMulticlock_sequence_expr();
+                            if (sbody->syntax)
+                                setLoc(mse, sbody->syntax->sourceRange());
+                            auto* cs = s.MakeClocked_seq();
+                            propSpecClockEvent = true;
+                            if (auto* clk = emitEventExpr(cae.clocking, sd, sfull, info.nets))
+                                cs->VpiClockingEvent((UHDM::expr*)clk);
+                            propSpecClockEvent = false;
+                            if (auto* e = emitAssertionExpr(cae.expr, sd, sfull, info.nets))
+                                cs->VpiSequenceExpr(e);
+                            auto* csv = s.MakeClocked_seqVec();
+                            csv->push_back(cs);
+                            mse->Clocked_seqs(csv);
+                            se = mse;
+                        }
+                        else
+                            se = emitAssertionExpr(*sbody, sd, sfull, info.nets);
+                        if (se)
+                            sd->Sequence_expr_multiclock_group(se);
+                        propDeclScope = nullptr;
+                        propDeclRefPrefix.clear();
+                        implicitNetModule = savedINM;
+                        implicitNetPrefix = savedINP;
+                    }
+                    if (!sfd->empty())
+                        sd->Seq_formal_decls(sfd);
+                    g406SeqDecls[&seq] = sd;
+                    sdecls->push_back(sd);
+                    lawTrace(406, "sequenceDeclListed406", sfull);
+                }
+                if (!sdecls->empty())
+                    iface->Sequence_decls(sdecls);
+            }
+            auto* pdecls = s.MakeProperty_declVec();
+            for (auto& member : body.members()) {
+                if (member.kind != SymbolKind::Property)
+                    continue;
+                auto& prop = member.as<PropertySymbol>();
+                auto* pd = s.MakeProperty_decl();
+                pd->VpiName(prop.name);
+                pd->VpiFullName(prefix + "." + std::string(prop.name));
+                pd->VpiParent(iface);
+                setLoc(pd, ESC_NAME_SPAN295(prop.location, prop.name, "property_decl"));
+                auto* fdecls = s.MakeProp_formal_declVec();
+                for (auto& fp : prop.membersOfType<AssertionPortSymbol>()) {
+                    auto* fd = s.MakeProp_formal_decl();
+                    fd->VpiName(fp.name);
+                    auto* frt = s.MakeRef_typespec();
+                    if (auto* fdt = fp.getDeclaredType())
+                        if (auto* fsyn = fdt->getTypeSyntax();
+                            fsyn && fsyn->kind != syntax::SyntaxKind::ImplicitType)
+                            if (auto* fts = makeTypespec(fp, fsyn))
+                                frt->Actual_typespec(fts);
+                    fd->Typespec(frt);
+                    fdecls->push_back(fd);
+                }
+                if (!fdecls->empty())
+                    pd->Prop_formal_decls(fdecls);
+                std::vector<std::pair<AssertionPortSymbol*, const syntax::PropertyExprSyntax*>>
+                    savedDefaults;
+                for (auto& fp0 : prop.membersOfType<AssertionPortSymbol>()) {
+                    if (!fp0.defaultValueSyntax)
+                        continue;
+                    auto* mut0 = const_cast<AssertionPortSymbol*>(&fp0);
+                    savedDefaults.push_back({mut0, mut0->defaultValueSyntax});
+                    mut0->defaultValueSyntax = nullptr;
+                }
+                auto& defInst = AssertionInstanceExpression::makeDefault(prop);
+                for (auto& [sym0, syn0] : savedDefaults)
+                    sym0->defaultValueSyntax = syn0;
+                const AssertionInstanceExpression* aie412 =
+                    defInst.kind == ExpressionKind::AssertionInstance
+                        ? &defInst.as<AssertionInstanceExpression>()
+                        : nullptr;
+                if (aie412 && lawOn(412, "R11U412_PROPLOCALVAR_OFF")) {
+                    auto* pv412 = s.MakeVariablesVec();
+                    for (auto* lvp : aie412->localVars) {
+                        auto& lv = *lvp;
+                        const DeclaredType* dt412 = lv.getDeclaredType();
+                        auto* ts412syn = dt412 ? dt412->getTypeSyntax() : nullptr;
+                        if (!ts412syn || ts412syn->kind == syntax::SyntaxKind::ImplicitType)
+                            continue;
+                        auto& ct412 = lv.getType().getCanonicalType();
+                        UHDM::variables* v412 = nullptr;
+                        if (ct412.kind == SymbolKind::PredefinedIntegerType) {
+                            switch (ct412.as<PredefinedIntegerType>().integerKind) {
+                                case PredefinedIntegerType::Int: v412 = s.MakeInt_var(); break;
+                                case PredefinedIntegerType::Integer: v412 = s.MakeInteger_var(); break;
+                                case PredefinedIntegerType::Byte: v412 = s.MakeByte_var(); break;
+                                case PredefinedIntegerType::ShortInt: v412 = s.MakeShort_int_var(); break;
+                                case PredefinedIntegerType::LongInt: v412 = s.MakeLong_int_var(); break;
+                                default: break;
+                            }
+                            if (v412 && ct412.isSigned())
+                                v412->VpiSigned(true);
+                        }
+                        if (!v412)
+                            continue;
+                        auto* ts412 = makeTypespec(lv, ts412syn);
+                        if (!ts412)
+                            continue;
+                        ts412->VpiParent(nullptr);
+                        v412->VpiName(lv.name);
+                        v412->VpiFullName(lv.name);
+                        setLoc(v412, nameSpan(lv.location, lv.name));
+                        auto* rt412 = s.MakeRef_typespec();
+                        rt412->VpiFullName(std::string(lv.name));
+                        rt412->VpiParent(v412);
+                        rt412->Actual_typespec(ts412);
+                        v412->Typespec(rt412);
+                        auto* as412 = s.MakeAssignment();
+                        as412->VpiOpType(vpiAssignmentOp);
+                        as412->VpiBlocking(true);
+                        setLoc(as412, nameSpan(lv.location, lv.name));
+                        as412->Lhs(v412);
+                        v412->VpiParent(as412);
+                        pv412->push_back(v412);
+                        lawTrace(412, "propLocalVarListed412",
+                                 std::string(prop.name) + "." + std::string(lv.name));
+                    }
+                    if (!pv412->empty())
+                        pd->Variables(pv412);
+                }
+                if (defInst.kind == ExpressionKind::AssertionInstance) {
+                    auto& aie = defInst.as<AssertionInstanceExpression>();
+                    auto* psSpec = s.MakeProperty_spec();
+                    psSpec->VpiParent(pd);
+                    if (aie.body.syntax)
+                        setLoc(psSpec, aie.body.syntax->sourceRange());
+                    auto* savedINM = implicitNetModule;
+                    auto savedINP = implicitNetPrefix;
+                    implicitNetModule = nullptr;  // § uninstIfaceAssertListing436: formals mint no net
+                    implicitNetPrefix = prefix;
+                    propDeclScope = &prop;
+                    propDeclRefPrefix = prefix + "." + std::string(prop.name);
+                    const AssertionExpr* pbody = &aie.body;
+                    if (pbody->kind == AssertionExprKind::Clocking) {
+                        auto& cae = pbody->as<ClockingAssertionExpr>();
+                        propSpecClockEvent = true;
+                        if (auto* clk = emitEventExpr(
+                                cae.clocking, psSpec,
+                                prefix + "." + std::string(prop.name),
+                                info.nets))
+                            psSpec->VpiClockingEvent((UHDM::expr*)clk);
+                        propSpecClockEvent = false;
+                        pbody = &cae.expr;
+                    }
+                    if (pbody->kind == AssertionExprKind::DisableIff &&
+                        propDeclDisableIffSkip112() &&
+                        !propBodyFenced112(
+                            pbody->as<DisableIffAssertionExpr>().expr))
+                        pbody = &pbody->as<DisableIffAssertionExpr>().expr;
+                    if (auto* bodyE =
+                            emitAssertionExpr(*pbody, psSpec,
+                                              prefix + "." + std::string(prop.name),
+                                              info.nets))
+                        psSpec->VpiPropertyExpr(bodyE);
+                    propDeclScope = nullptr;
+                    propDeclRefPrefix.clear();
+                    implicitNetModule = savedINM;
+                    implicitNetPrefix = savedINP;
+                    pd->Property_spec(psSpec);
+                }
+                propertyDeclMap[&prop] = pd;
+                pdecls->push_back(pd);
+            }
+            if (!pdecls->empty())
+                iface->Property_decls(pdecls);
+            implicitNetModule = savedINM436;
+            lawTrace(436, "uninstIfaceAssertListing436", "decls " + prefix);
+        }
+        UHDM::VectorOfany* asserts436 = nullptr;
         for (auto& member : body.members()) {
             if (member.kind != SymbolKind::ProceduralBlock)
                 continue;
@@ -56678,8 +57127,18 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             // `emitAssertion` opens with).
             if (auto* psyn226 = pb226.getSyntax();
                 psyn226 &&
-                psyn226->kind == syntax::SyntaxKind::ConcurrentAssertionMember)
+                psyn226->kind == syntax::SyntaxKind::ConcurrentAssertionMember) {
+                // § uninstIfaceAssertListing436 — listed now.
+                if (ifcUninst436)
+                    if (auto* a436 = emitAssertion(pb226, iface, prefix, info.nets)) {
+                        if (!asserts436)
+                            asserts436 = s.MakeAnyVec();
+                        asserts436->push_back(a436);
+                        lawTrace(436, "uninstIfaceAssertListing436",
+                                 "assert " + prefix + "." + std::string(pb226.name));
+                    }
                 continue;
+            }
             if (deferredAssertItemDropped406(pb226))
                 continue;
             if (auto* p226 = emitProcess(pb226, iface, prefix, info.nets)) {
@@ -56707,6 +57166,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         suppressRefActual = savedSRA226;
         if (!procs226->empty())
             instSetProcess(iface, procs226);
+        if (asserts436)
+            iface->Assertions(asserts436);
+        if (ifcUninst436) {
+            std::vector<UHDM::any*> roots436;
+            if (asserts436)
+                for (auto* a436 : *asserts436)
+                    roots436.push_back(a436);
+            if (iface->Property_decls())
+                for (auto* p436 : *iface->Property_decls())
+                    roots436.push_back(p436);
+            if (iface->Sequence_decls())
+                for (auto* q436 : *iface->Sequence_decls())
+                    roots436.push_back(q436);
+            for (auto* r436 : roots436) {
+                UnbindDecl436 u436;
+                u436.root = r436;
+                u436.listenAny(r436);
+            }
+        }
     }
 
     // Modports: name + one io_decl (direction + name) per modport port.

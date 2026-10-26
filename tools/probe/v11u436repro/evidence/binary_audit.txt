@@ -1,0 +1,4 @@
+v11u436sw1 surelog: 1523 of 1573 fence-filtered records name /tmp/v11u436_bin/law; other slang-uhdm binaries named: 0; the 50 others hold only a Surelog command
+v11u436sw1 uhdm2rtlil: 1740 of 1740 fence-filtered records name /tmp/v11u436_bin/law; other slang-uhdm binaries named: 0; the 0 others hold only a Surelog command
+v11u436sw2 surelog: 1523 of 1573 fence-filtered records name /tmp/v11u436_bin/ver3; other slang-uhdm binaries named: 0; the 50 others hold only a Surelog command
+v11u436sw2 uhdm2rtlil: 1740 of 1740 fence-filtered records name /tmp/v11u436_bin/ver3; other slang-uhdm binaries named: 0; the 0 others hold only a Surelog command

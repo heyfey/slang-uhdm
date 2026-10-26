@@ -1,0 +1,5 @@
+r11u408repro/cases/GC/gc05 | pristine rc=0 cmp=215 NOT_EQUAL stage1 d=81 | verified rc=0 cmp=0 STRICT_EQUAL 30 d=0
+v11u408repro/cases/VG/vg15 | pristine rc=0 cmp=67 NOT_EQUAL stage1 d=30 | verified rc=0 cmp=0 STRICT_EQUAL 26 d=0
+v11u424repro/cases/VI/vi12 | pristine rc=0 cmp=123 NOT_EQUAL stage1 d=20 | verified rc=0 cmp=0 STRICT_EQUAL 20 d=0
+v11u424repro/cases/VP/vp06 | pristine rc=0 cmp=77 NOT_EQUAL stage1 d=131 | verified rc=0 cmp=28 NOT_EQUAL stage1 d=13
+v11u432repro/cases/VD/vd06 | pristine rc=0 cmp=36 NOT_EQUAL stage1 d=12 | verified rc=0 cmp=0 STRICT_EQUAL 89 d=2

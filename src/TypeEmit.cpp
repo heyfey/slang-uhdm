@@ -23,6 +23,13 @@ extern bool g428ClsLocalSpec;  // § clsMethodLocalForeignPkgSpec428 (defined be
 // § bareTdCopyOwnRangeAfterSpec434 (defined below): the package typedef listing
 // objects a class-method local's specialization alias clone reached.
 extern std::set<const UHDM::typespec*> g434SpecAliasListing;
+// § genClsNoDefRangeSyntax436 (defined below): the invalid specializations
+// § genericClassNoDefaultListed408 lists (written only by UhdmExporter's
+// genericClassNoDefault408, read for membership only).
+extern std::set<const slang::ast::ClassType*> g436InvalidSpecCls;
+int& ifaceDefArrNet436();
+std::string noDefClsFullName436(const slang::ast::ClassType& cls);
+bool noDefPropRangeOk436(const slang::ast::ClassPropertySymbol& cp);
 static UHDM::VectorOfrange* copyRangeVec(UHDM::Serializer& s,
                                          const UHDM::VectorOfrange* src,
                                          UHDM::any* parent,
@@ -4729,6 +4736,215 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                         setLoc(o, sr);
                                     },
                                     "modvar");
+                        // § clsSpecSurelogOrder436 (R11U436_SPECORDER_OFF;
+                        // cases tools/probe/r11u436repro/cases/CS; sv-tests
+                        // hdlconvertor p203) — a MODULE variable written as a
+                        // specialization lists only its WRITTEN arguments, as
+                        // Surelog's compileDatastructureTypespec walks the
+                        // written Ordered_parameter_assignment list against
+                        // the class's ORDERED formals (CompileType.cpp, the
+                        // ClassDefinition branch): a type formal with no written
+                        // argument is not listed (CS cs09, cs10), a NAMED
+                        // argument list lists nothing (cs03, cs04), and the
+                        // formal an argument pairs with is Surelog's ordered
+                        // one, where a header `type T` written without its own
+                        // keyword after a `parameter` value declaration is
+                        // compiled BEFORE the header's value parameters
+                        // (`#(parameter p = 2, type T = int)` orders T, p, so
+                        // `C#(1, real)` names the entry p, located at p, with
+                        // the value formal p as its Lhs: cs02, cs07, cs08).
+                        if (declInInstance53 && lawOn(436, "R11U436_SPECORDER_OFF"))
+                            if (auto* ntS436 = declared->getTypeSyntax()
+                                                   ? declared->getTypeSyntax()
+                                                         ->as_if<syntax::NamedTypeSyntax>()
+                                                   : nullptr;
+                                ntS436 && ntS436->name &&
+                                ntS436->name->kind == syntax::SyntaxKind::ClassName)
+                            {
+                                auto& cn436 = ntS436->name->as<syntax::ClassNameSyntax>();
+                                auto& cls436 = ct0.as<ClassType>();
+                                // Surelog's ordered formals, from the header.
+                                const syntax::ParameterPortListSyntax* ppl436 = nullptr;
+                                const Symbol* gsym436 = cls436.genericClass
+                                                            ? (const Symbol*)cls436.genericClass
+                                                            : (const Symbol*)&cls436;
+                                if (auto* gs436 = gsym436->getSyntax())
+                                    if (auto* cd436 = gs436->as_if<syntax::ClassDeclarationSyntax>())
+                                        ppl436 = cd436->parameters;
+                                struct F436 { std::string name; SourceRange span; };
+                                std::vector<F436> moved436, rest436;
+                                bool ok436 = ppl436 != nullptr;
+                                if (ppl436) {
+                                    bool inheritParam436 = false;
+                                    for (auto* d436 : ppl436->declarations) {
+                                        bool kw436 = d436->keyword.kind != parsing::TokenKind::Unknown;
+                                        if (auto* tpd436 = d436->as_if<syntax::TypeParameterDeclarationSyntax>()) {
+                                            bool mv436 = !kw436 && inheritParam436;
+                                            if (kw436)
+                                                inheritParam436 = false;
+                                            for (auto* ta436 : tpd436->declarators)
+                                                (mv436 ? moved436 : rest436).push_back(
+                                                    {std::string(ta436->name.valueText()),
+                                                     ta436->name.range()});
+                                        }
+                                        else if (auto* pd436 = d436->as_if<syntax::ParameterDeclarationSyntax>()) {
+                                            if (kw436)
+                                                inheritParam436 =
+                                                    d436->keyword.kind == parsing::TokenKind::ParameterKeyword;
+                                            for (auto* dc436 : pd436->declarators)
+                                                rest436.push_back({std::string(dc436->name.valueText()),
+                                                                   dc436->name.range()});
+                                        }
+                                        else
+                                            ok436 = false;
+                                    }
+                                }
+                                std::vector<F436> ordered436 = moved436;
+                                ordered436.insert(ordered436.end(), rest436.begin(), rest436.end());
+                                // § clsSpecKwlessFirstOrder436v (v11u436, the
+                                // adversarial verification of r11u436;
+                                // R11V436_KWLESSORDER_OFF) — Surelog's ordered
+                                // formals are every header declaration written
+                                // WITHOUT a `parameter` / `localparam` keyword,
+                                // type or value, in written order (compiled by
+                                // CompileClass's Parameter_port_list loop),
+                                // followed by the keyword declarations in
+                                // written order (compiled later with the
+                                // class's parameter declarations): golden
+                                // `#(type T = int, parameter p = 2, type U =
+                                // int)` orders T, U, p (C#(real, 3, bit) lists
+                                // C.T and C.p) and `#(parameter p = 2, type T
+                                // = int, int r = 4)` orders T, r, p (C#(1,
+                                // real, 7) lists C.r), where the law's rule,
+                                // moving only a keyword-less TYPE declaration
+                                // after a `parameter` one, wrote U, T, p and
+                                // T, p, r (the v11u436 cases VS/vs01 and vs16,
+                                // NOT_EQUAL on both, the law renaming the
+                                // entries away from golden's).  The law's own
+                                // grid orders the same either way.
+                                if (ppl436 && fixOn(436, "R11V436_KWLESSORDER_OFF")) {
+                                    std::vector<F436> kwless436v, kw436v;
+                                    for (auto* d436 : ppl436->declarations) {
+                                        bool kwd436v =
+                                            d436->keyword.kind != parsing::TokenKind::Unknown;
+                                        auto& dst436v = kwd436v ? kw436v : kwless436v;
+                                        if (auto* tpd436 = d436->as_if<syntax::TypeParameterDeclarationSyntax>())
+                                            for (auto* ta436 : tpd436->declarators)
+                                                dst436v.push_back({std::string(ta436->name.valueText()),
+                                                                   ta436->name.range()});
+                                        else if (auto* pd436 = d436->as_if<syntax::ParameterDeclarationSyntax>())
+                                            for (auto* dc436 : pd436->declarators)
+                                                dst436v.push_back({std::string(dc436->name.valueText()),
+                                                                   dc436->name.range()});
+                                    }
+                                    std::vector<F436> o436v = kwless436v;
+                                    o436v.insert(o436v.end(), kw436v.begin(), kw436v.end());
+                                    bool differs436v = o436v.size() != ordered436.size();
+                                    for (size_t j436v = 0; !differs436v && j436v < o436v.size(); j436v++)
+                                        differs436v = o436v[j436v].name != ordered436[j436v].name;
+                                    if (differs436v)
+                                        lawTrace(436, "clsSpecKwlessFirstOrder436v",
+                                                 std::string(declSymbol.name));
+                                    ordered436 = o436v;
+                                }
+                                // slang's formals in member order.
+                                std::vector<const Symbol*> mem436;
+                                for (auto& m436 : cls436.members())
+                                    if (m436.kind == SymbolKind::TypeParameter ||
+                                        m436.kind == SymbolKind::Parameter)
+                                        mem436.push_back(&m436);
+                                bool named436 = false, ordArgs436 = false;
+                                std::vector<const syntax::ExpressionSyntax*> args436;
+                                if (cn436.parameters)
+                                    for (auto* pa436 : cn436.parameters->parameters) {
+                                        if (pa436->kind == syntax::SyntaxKind::NamedParamAssignment)
+                                            named436 = true;
+                                        else if (pa436->kind == syntax::SyntaxKind::OrderedParamAssignment) {
+                                            ordArgs436 = true;
+                                            args436.push_back(
+                                                &*pa436->as<syntax::OrderedParamAssignmentSyntax>().expr);
+                                        }
+                                    }
+                                if (ok436 && named436 && !ordArgs436) {
+                                    if (cts->Parameters()) {
+                                        cts->Parameters(nullptr);
+                                        cts->Param_assigns(nullptr);
+                                        lawTrace(436, "clsSpecSurelogOrder436",
+                                                 "named " + std::string(declSymbol.name));
+                                    }
+                                }
+                                else if (ok436 && ordArgs436 && !named436 && cts->Parameters()) {
+                                    auto* nps436 = s.MakeAnyVec();
+                                    auto* npa436 = s.MakeParam_assignVec();
+                                    bool changed436 = false;
+                                    for (size_t i436 = 0; i436 < args436.size(); i436++) {
+                                        if (i436 >= mem436.size() || i436 >= ordered436.size())
+                                            break;
+                                        if (mem436[i436]->kind != SymbolKind::TypeParameter)
+                                            continue;
+                                        std::string sn436(mem436[i436]->name);
+                                        UHDM::type_parameter* tp436 = nullptr;
+                                        for (auto* q436 : *cts->Parameters())
+                                            if (q436->UhdmType() == UHDM::uhdmtype_parameter &&
+                                                q436->VpiName() == sn436)
+                                                tp436 = (UHDM::type_parameter*)q436;
+                                        if (!tp436)
+                                            continue;
+                                        UHDM::param_assign* pa436 = nullptr;
+                                        if (cts->Param_assigns())
+                                            for (auto* q436 : *cts->Param_assigns())
+                                                if (q436->Rhs() == tp436)
+                                                    pa436 = q436;
+                                        auto& fg436 = ordered436[i436];
+                                        if (fg436.name != sn436) {
+                                            changed436 = true;
+                                            tp436->VpiName(fg436.name);
+                                            std::string fn436 = std::string(ct0.name) + "." + fg436.name;
+                                            tp436->VpiFullName(fn436);
+                                            if (tp436->Typespec())
+                                                tp436->Typespec()->VpiFullName(fn436);
+                                            if (tp436->VpiLineNo())
+                                                setLoc(tp436, fg436.span);
+                                            if (pa436) {
+                                                if (pa436->VpiLineNo()) {
+                                                    std::string f436(pa436->VpiFile());
+                                                    setLoc(pa436, fg436.span);
+                                                    pa436->VpiFile(f436);
+                                                }
+                                                pa436->Lhs(nullptr);
+                                                bool bound436 = false;
+                                                if (auto* bcd436 = classDefnFor(cls436);
+                                                    bcd436 && bcd436->Parameters())
+                                                    for (auto* p436 : *bcd436->Parameters())
+                                                        if (p436->VpiName() == fg436.name) {
+                                                            pa436->Lhs(p436);
+                                                            bound436 = true;
+                                                            break;
+                                                        }
+                                                for (auto& pp436 : pendingClassTsPa)
+                                                    if (pp436.pa == pa436)
+                                                        pp436.paramName = bound436 ? "" : fg436.name;
+                                                if (!bound436 &&
+                                                    std::none_of(pendingClassTsPa.begin(),
+                                                                 pendingClassTsPa.end(),
+                                                                 [&](auto& x) { return x.pa == pa436; }))
+                                                    pendingClassTsPa.push_back({pa436, &cls436, fg436.name});
+                                            }
+                                        }
+                                        nps436->push_back(tp436);
+                                        if (pa436)
+                                            npa436->push_back(pa436);
+                                    }
+                                    if (nps436->size() != cts->Parameters()->size())
+                                        changed436 = true;
+                                    if (changed436) {
+                                        cts->Parameters(nps436->empty() ? nullptr : nps436);
+                                        cts->Param_assigns(npa436->empty() ? nullptr : npa436);
+                                        lawTrace(436, "clsSpecSurelogOrder436",
+                                                 "ordered " + std::string(declSymbol.name));
+                                    }
+                                }
+                            }
                     }
                 }
             }
@@ -6679,6 +6895,32 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     UHDM::typespec* ts0;
     const Type* fsLeaf0 =
         unpackedLeaf0(declared ? &declared->getType().getCanonicalType() : nullptr);
+    // § cgArrayElemUnsupportedTs436 (R11U436_CGARRAY_OFF; cases
+    // tools/probe/r11u436repro/cases/IU iu07 to iu10; sv-tests uvm-examples
+    // apb_protocol_monitor) — the ELEMENT of an array of covergroup handles
+    // (`cg cgs[N];`) is the covergroup branch's unsupported_typespec named after
+    // the written type, as a single handle's is (Surelog's CompileType
+    // catch-all), at the span this fallback computes; ours wrote a
+    // logic_typespec.
+    if (fsLeaf0 && fsLeaf0->kind == SymbolKind::CovergroupType &&
+        lawOn(436, "R11U436_CGARRAY_OFF")) {
+        auto* u436 = s.MakeUnsupported_typespec();
+        u436->VpiName(fsLeaf0->name);
+        setLoc(u436, range);
+        // In an INTERFACE the definition's net types at the whole
+        // declaration, type through declarator (IU iu08: golden 6:1-6:10),
+        // as the module definition's already reads.
+        if (auto* ps436 = declSymbol.getParentScope();
+            ps436 && ps436->asSymbol().kind == SymbolKind::InstanceBody &&
+            ps436->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+                DefinitionKind::Interface)
+            if (auto* ds436 = declSymbol.getSyntax();
+                ds436 && ds436->kind == syntax::SyntaxKind::Declarator &&
+                range.start() != SourceLocation::NoLocation)
+                setLoc(u436, SourceRange(range.start(), ds436->sourceRange().end()));
+        lawTrace(436, "cgArrayElemUnsupportedTs436", std::string(declSymbol.name));
+        return u436;
+    }
     if (fsLeaf0 && fsLeaf0->isIntegral() && !fsLeaf0->isFourState())
         ts0 = s.MakeBit_typespec();
     else
@@ -6893,6 +7135,98 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
     };
     const syntax::StructUnionTypeSyntax* anonAgg107 = nullptr;
     SourceRange implicitArgInner155 = SourceRange::NoLocation;
+    // § genClsNoDefRangeSyntax436 (R11U436_NODEFRANGE_OFF; cases
+    // tools/probe/r11u436repro/cases/DL; sv-tests hdlconvertor p334) — in the
+    // listing of a parameterized class whose parameter has no default
+    // (slang's invalid specialization, § genericClassNoDefaultListed408), a
+    // subroutine's return, argument or local typespec written as a vector
+    // over the unset parameter (`logic [N-1:0]`) is an error type in slang
+    // and ours wrote a bare logic_typespec.  Surelog compiles the
+    // declaration without a value for N: it keeps each written packed
+    // dimension as a range at the brackets whose bounds are the unreduced
+    // syntax, a reference to the parameter staying an unbound ref_obj with no
+    // full name, and a `bit` keyword keeps its bit_typespec.
+    if (declared && declared->getType().isError() &&
+        !portCtx && lawOn(436, "R11U436_NODEFRANGE_OFF")) {
+        const syntax::SyntaxNode* tsyn436 = typeSynFor();
+        const ClassType* cls436 = nullptr;
+        bool inSub436 = false;
+        for (auto* sc436 = declSymbol.getParentScope(); sc436;
+             sc436 = sc436->asSymbol().getParentScope()) {
+            auto& ss436 = sc436->asSymbol();
+            if (ss436.kind == SymbolKind::Subroutine)
+                inSub436 = true;
+            if (ss436.kind == SymbolKind::ClassType) {
+                cls436 = &ss436.as<ClassType>();
+                break;
+            }
+        }
+        // § genClsNoDefPropRange436 (R11U436_NODEFPROP_OFF) — the same
+        // ranges on a PROPERTY of such a class, whose references Surelog
+        // names through the variable (`work@C::v::N`, `p::C::v::N`); the
+        // class is listed then (§ genericClassNoDefaultListed408's
+        // abstention lifted by noDefPropRangeOk436 below).
+        std::string prop436;
+        if (cls436 && !inSub436 && declSymbol.kind == SymbolKind::ClassProperty &&
+            declSymbol.getParentScope() == cls436 &&
+            noDefPropRangeOk436(declSymbol.as<ClassPropertySymbol>()))
+            prop436 = noDefClsFullName436(*cls436) + "::" + std::string(declSymbol.name);
+        if (tsyn436 && syntax::IntegerTypeSyntax::isKind(tsyn436->kind) && cls436 &&
+            (inSub436 || !prop436.empty()) && g436InvalidSpecCls.count(cls436)) {
+            auto& its436 = tsyn436->as<syntax::IntegerTypeSyntax>();
+            bool ok436 = !its436.dimensions.empty();
+            for (auto* d436 : its436.dimensions)
+                if (!d436->specifier ||
+                    d436->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
+                    !d436->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                         .selector->as_if<syntax::RangeSelectSyntax>())
+                    ok436 = false;
+            if (ok436) {
+                UHDM::typespec* ts436 = ts;
+                if (its436.keyword.kind == parsing::TokenKind::BitKeyword) {
+                    auto* bt436 = s.MakeBit_typespec();
+                    bt436->VpiParent(ts->VpiParent());
+                    bt436->VpiFile(ts->VpiFile());
+                    bt436->VpiLineNo(ts->VpiLineNo());
+                    bt436->VpiColumnNo(ts->VpiColumnNo());
+                    bt436->VpiEndLineNo(ts->VpiEndLineNo());
+                    bt436->VpiEndColumnNo(ts->VpiEndColumnNo());
+                    if (ts->VpiSigned())
+                        bt436->VpiSigned(true);
+                    s.Erase(ts);
+                    ts436 = bt436;
+                }
+                // A written `signed` keeps vpiSigned (DL/dl16).
+                if (its436.signing.kind == parsing::TokenKind::SignedKeyword)
+                    { if (ts436->UhdmType() == UHDM::uhdmbit_typespec) ((UHDM::bit_typespec*)ts436)->VpiSigned(true); else ((UHDM::logic_typespec*)ts436)->VpiSigned(true); }
+                auto* rv436 = s.MakeRangeVec();
+                std::string savedPfx436 = syntaxRefPrefix;
+                syntaxRefPrefix = prop436;
+                std::string savedSep436 = syntaxRefSep;
+                syntaxRefSep = "::";
+                for (auto* d436 : its436.dimensions) {
+                    auto& rs436 = d436->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                                       .selector->as<syntax::RangeSelectSyntax>();
+                    auto* r436 = s.MakeRange();
+                    r436->VpiParent(ts436);
+                    setLoc(r436, d436->sourceRange());
+                    r436->Left_expr((UHDM::expr*)emitSyntaxExpr(*rs436.left, r436));
+                    r436->Right_expr((UHDM::expr*)emitSyntaxExpr(*rs436.right, r436));
+                    rv436->push_back(r436);
+                }
+                syntaxRefPrefix = savedPfx436;
+                syntaxRefSep = savedSep436;
+                if (ts436->UhdmType() == UHDM::uhdmbit_typespec)
+                    ((UHDM::bit_typespec*)ts436)->Ranges(rv436);
+                else
+                    ((UHDM::logic_typespec*)ts436)->Ranges(rv436);
+                lawTrace(436, prop436.empty() ? "genClsNoDefRangeSyntax436"
+                                              : "genClsNoDefPropRange436",
+                         std::string(cls436->name) + " " + std::string(declSymbol.name));
+                return ts436;
+            }
+        }
+    }
     if (packedLeaf && packedLeaf->isPackedArray()) {
         auto tsyn = typeSynFor();
         const syntax::SyntaxList<syntax::VariableDimensionSyntax>* dimSyns = nullptr;
@@ -23999,6 +24333,90 @@ bool g428ClsLocalSpec = false;
 // (UhdmExporter.cpp) where § clsMethodLocalForeignPkgSpec428 mints its alias
 // clone, read only by bareScalarTdCopyOfFresh16 above.
 std::set<const UHDM::typespec*> g434SpecAliasListing;
+std::set<const slang::ast::ClassType*> g436InvalidSpecCls;
+// § ifaceDefArrNetDimSym436 — armed only by ModuleEmit's
+// makeIfaceDefArrayNet225 around its buildUnpackedRanges call.
+int& ifaceDefArrNet436() {
+    static int armed = 0;
+    return armed;
+}
+// § genClsNoDefPropRange436 — the full name Surelog gives a default-less
+// generic class declared at $unit (`work@C`) or in a package (`p::C`); empty
+// elsewhere (no listing measured).
+std::string noDefClsFullName436(const ClassType& cls) {
+    auto* sc = cls.getParentScope();
+    if (!sc && cls.genericClass)
+        sc = cls.genericClass->getParentScope();
+    if (!sc)
+        return {};
+    auto& ps = sc->asSymbol();
+    if (ps.kind == SymbolKind::CompilationUnit)
+        return "work@" + std::string(cls.name);
+    if (ps.kind == SymbolKind::Package)
+        return std::string(ps.name) + "::" + std::string(cls.name);
+    return {};
+}
+// § genClsNoDefPropRange436 — a property of a default-less generic class
+// whose type the unset parameter leaves in error, written as a vector keyword
+// with only [l:r] packed dimensions and no unpacked dimension, in a class
+// declared at $unit or in a package: the shape the law writes.  Read by
+// UhdmExporter's genericClassNoDefault408 (the listing) and by makeTypespec.
+bool noDefPropRangeOk436(const ClassPropertySymbol& cp) {
+    if (!lawOn(436, "R11U436_NODEFPROP_OFF") || !cp.getType().isError())
+        return false;
+    auto* sc = cp.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::ClassType ||
+        noDefClsFullName436(sc->asSymbol().as<ClassType>()).empty())
+        return false;
+    const DeclaredType* dt = cp.getDeclaredType();
+    auto* ts = dt ? dt->getTypeSyntax() : nullptr;
+    if (!ts || !syntax::IntegerTypeSyntax::isKind(ts->kind))
+        return false;
+    auto& its = ts->as<syntax::IntegerTypeSyntax>();
+    if (its.dimensions.empty())
+        return false;
+    for (auto* d : its.dimensions)
+        if (!d->specifier ||
+            d->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier ||
+            !d->specifier->as<syntax::RangeDimensionSpecifierSyntax>()
+                 .selector->as_if<syntax::RangeSelectSyntax>())
+            return false;
+    if (auto* ds = cp.getSyntax(); ds && ds->kind == syntax::SyntaxKind::Declarator &&
+                                   !ds->as<syntax::DeclaratorSyntax>().dimensions.empty())
+        return false;
+    // Every name a bound reads is a parameter of the class with NO default:
+    // a defaulted parameter over it (`int M = N * 2`) is substituted by
+    // Surelog at a property's bound (its default's tree spliced at the use,
+    // DL/dl13), a shape not written; a system call is not measured.
+    auto& clsScope = sc->asSymbol().as<ClassType>();
+    std::function<bool(const syntax::SyntaxNode&)> namesOk =
+        [&](const syntax::SyntaxNode& n) -> bool {
+        for (size_t i = 0, c = n.getChildCount(); i < c; i++) {
+            if (auto* ch = n.childNode(i)) {
+                if (!namesOk(*ch))
+                    return false;
+                continue;
+            }
+            auto tk = n.childToken(i);
+            if (tk.kind == parsing::TokenKind::SystemIdentifier)
+                return false;
+            if (tk.kind != parsing::TokenKind::Identifier)
+                continue;
+            auto* m = clsScope.find(tk.valueText());
+            if (!m || m->kind != SymbolKind::Parameter)
+                return false;
+            auto* ms = m->getSyntax();
+            if (!ms || ms->kind != syntax::SyntaxKind::Declarator ||
+                ms->as<syntax::DeclaratorSyntax>().initializer)
+                return false;
+        }
+        return true;
+    };
+    for (auto* d : its.dimensions)
+        if (!namesOk(*d))
+            return false;
+    return true;
+}
 
 // § hpMacroSelDispExpanded428 (r11u428) — the display spelling of a dotted
 // path whose select holds a MACRO USE written outside the macro, rebuilt from
@@ -29989,11 +30407,25 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                 }
                 // DEF-view port array_typespec: a PARAM-sized dim ([N]) keeps
                 // the size symbolic — a bare ref_obj <prefix>.N (no actual).
+                // § ifaceDefArrNetDimSym436 (R11U436_IFCDEFDIM_OFF; cases
+                // tools/probe/r11u436repro/cases/IU iu07, iu10, iu11; sv-tests
+                // uvm-examples apb_protocol_monitor) — an INTERFACE
+                // definition's array_net (makeIfaceDefArrayNet225, the one
+                // caller that sets the flag) keeps a parameter-sized [N]
+                // symbolic the same way: Surelog's interface definition is
+                // never reduced (golden `ref_obj work@ifc.arr.N`, unbound,
+                // where ours folded the value 4).
+                bool ifcArr436 = ifaceDefArrNet436() &&
+                                 parent->UhdmType() == UHDM::uhdmarray_net &&
+                                 lawOn(436, "R11U436_IFCDEFDIM_OFF");
+                if (ifcArr436 && !defDimRefPrefix.empty() &&
+                    sizeSyn->kind == syntax::SyntaxKind::IdentifierName)
+                    lawTrace(436, "ifaceDefArrNetDimSym436", defDimRefPrefix);
                 if (!defDimRefPrefix.empty() &&
                     sizeSyn->kind == syntax::SyntaxKind::IdentifierName &&
                     (parent->UhdmType() == UHDM::uhdmarray_typespec ||
                      parent->UhdmType() == UHDM::uhdmio_decl ||
-                     parent->UhdmType() == UHDM::uhdmparameter)) {
+                     parent->UhdmType() == UHDM::uhdmparameter || ifcArr436)) {
                     std::string nm0(sizeSyn->as<syntax::IdentifierNameSyntax>()
                                         .identifier.valueText());
                     // § defDimPkgParamFold — "a MODULE dim ref stays unbound"
@@ -30083,6 +30515,25 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                             if (auto ai0 = paramRhsObj.find(tgt0);
                                 ai0 != paramRhsObj.end() && ai0->second)
                                 ro->Actual_group(ai0->second);
+                    // § ifaceDefArrNetDimSym436 — in the definition of an
+                    // INSTANTIATED interface a `$unit` parameter is bound:
+                    // Surelog's late binding finds the design-level parameter
+                    // where a module parameter stays dangling (v11u432
+                    // VD/vd06, IU/iu15: golden `vpiActual parameter D`); an
+                    // uninstantiated interface's stays unbound (iu14).
+                    if (ifcArr436 && ifaceDefArrNet436() == 2 && !ro->Actual_group())
+                        if (auto sc436 = sym.getParentScope())
+                            if (auto* u436 = Lookup::unqualified(*sc436, nm);
+                                u436 && u436->kind == SymbolKind::Parameter &&
+                                u436->getParentScope() &&
+                                u436->getParentScope()->asSymbol().kind ==
+                                    SymbolKind::CompilationUnit)
+                                if (auto up436 = unitParamMap.find(u436);
+                                    up436 != unitParamMap.end() && up436->second) {
+                                    ro->Actual_group(up436->second);
+                                    lawTrace(436, "ifaceDefArrNetDimSym436",
+                                             "unit " + std::string(ro->VpiFullName()));
+                                }
                     ops->push_back(ro);
                     auto* one = s.MakeConstant();
                     one->VpiSize(64);
