@@ -22226,6 +22226,19 @@ bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta) {
     }
     else
         return false;
+    // § unitDynQRealTdElem442 (r11u442, R11U442_REALTDELEM_OFF; cases
+    // tools/probe/r11u442repro/cases/UQ, the v11u410 case VU/vu02) — a
+    // `real`, `shortreal` or `realtime` typedef element (`typedef real r_t;
+    // typedef r_t rq_t[$];`) is listed the same way (golden UQ/uq03: the
+    // element an unparented copy of the r_t listing aliasing it, the uses
+    // binding the listing), where it had no branch (`typedef target:
+    // QueueType`, exit 4).
+    if (el->kind == ast::SymbolKind::TypeAlias &&
+        el->getCanonicalType().kind == ast::SymbolKind::FloatingType &&
+        lawOn(442, "R11U442_REALTDELEM_OFF")) {
+        lawTrace(442, "unitDynQRealTdElem442", std::string(ta.name));
+        return true;
+    }
     return el->kind == ast::SymbolKind::TypeAlias && el->getCanonicalType().isIntegral() &&
            !el->getCanonicalType().isUnpackedArray();
 }
@@ -22260,9 +22273,55 @@ bool boundedQTdShape410(const slang::ast::TypeAliasType& ta) {
     auto* el = &ct.as<ast::QueueType>().elementType;
     if (el->getCanonicalType().isUnpackedArray())
         return false;
+    // § unitDynQRealTdElem442 — the bounded twin: a real typedef element
+    // (`typedef r_t rq_t[$:3];`, golden UQ/uq01, uq02, VU/vu02).
+    if (el->kind == ast::SymbolKind::TypeAlias && !el->getCanonicalType().isIntegral()) {
+        if (!(el->getCanonicalType().kind == ast::SymbolKind::FloatingType &&
+              lawOn(442, "R11U442_REALTDELEM_OFF")))
+            return false;
+        lawTrace(442, "unitDynQRealTdElem442", "bounded " + std::string(ta.name));
+    }
+    return lawOn(410, "R11U410_BOUNDEDQTD_OFF");
+}
+
+// § paramBoundQTd442 (r11u442, R11U442_PARAMBOUNDQTD_OFF; cases
+// tools/probe/r11u442repro/cases/AQ, the r11u410 case AQ/aq09) — a MODULE-body
+// bounded queue typedef whose bound NAMES a value parameter (`parameter P =
+// 3; typedef int q_t [$:P];`) had no branch (`typedef target: QueueType`,
+// exit 4).  Golden lists it as § unitBoundedQTd410's literal form lists, the
+// bound a reference named under the typedef (`work@top.q_t.P`) at the name,
+// with no actual (Surelog's Reduce::No module route, the symbolic bounds of
+// § assocIdxParamBoundTs406).  An expression bound (`[$:P-1]`, AQ/aq04) and
+// the $unit form (folded in golden, AQ/aq03) are not this shape.
+bool boundedQTdParamShape442(const slang::ast::TypeAliasType& ta) {
+    using namespace slang;
+    auto* syn = ta.getSyntax();
+    if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto* psc = ta.getParentScope();
+    if (!psc || psc->asSymbol().kind != ast::SymbolKind::InstanceBody)
+        return false;
+    auto& td = syn->as<syntax::TypedefDeclarationSyntax>();
+    if (td.dimensions.size() != 1)
+        return false;
+    auto& ct = ta.targetType.getType().getCanonicalType();
+    if (ct.kind != ast::SymbolKind::QueueType)
+        return false;
+    auto* sp = td.dimensions[0]->specifier;
+    if (!sp || sp->kind != syntax::SyntaxKind::QueueDimensionSpecifier)
+        return false;
+    auto* mc = sp->as<syntax::QueueDimensionSpecifierSyntax>().maxSizeClause;
+    if (!mc || mc->expr->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    auto* ps = psc->lookupName(mc->expr->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+    if (!ps || ps->kind != ast::SymbolKind::Parameter)
+        return false;
+    auto* el = &ct.as<ast::QueueType>().elementType;
+    if (el->getCanonicalType().isUnpackedArray())
+        return false;
     if (el->kind == ast::SymbolKind::TypeAlias && !el->getCanonicalType().isIntegral())
         return false;
-    return lawOn(410, "R11U410_BOUNDEDQTD_OFF");
+    return lawOn(442, "R11U442_PARAMBOUNDQTD_OFF");
 }
 
 UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
@@ -22638,6 +22697,30 @@ UHDM::array_typespec* UhdmExporter::buildUnpackedArrayTypedefTs(
         l->VpiSize(64);
         l->VpiValue("UINT:0");
         l->VpiConstType(vpiUIntConst);
+        if (ct.kind == SymbolKind::QueueType && dimSyn && dimSyn->specifier &&
+                 dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>()
+                     .maxSizeClause &&
+                 boundedQTdParamShape442(ta)) {
+            // § paramBoundQTd442 — `[$:P]`: the range at the brackets, `$`
+            // then a reference to the parameter named under the typedef.
+            auto& qs = dimSyn->specifier->as<syntax::QueueDimensionSpecifierSyntax>();
+            setLoc(r, dimSyn->sourceRange());
+            setLoc(l, qs.dollar.range());
+            l->VpiDecompile("$");
+            l->VpiSize(1);
+            l->VpiValue("STRING:$");
+            l->VpiConstType(vpiUnboundedConst);
+            auto& bn442 = qs.maxSizeClause->expr->as<syntax::IdentifierNameSyntax>();
+            auto* ro442 = s.MakeRef_obj();
+            ro442->VpiName(bn442.identifier.valueText());
+            ro442->VpiFullName(qname + "." + std::string(bn442.identifier.valueText()));
+            ro442->VpiParent(r);
+            setLoc(ro442, bn442.sourceRange());
+            r->Left_expr(l);
+            r->Right_expr(ro442);
+            lawTrace(442, "paramBoundQTd442", qname);
+            return r;
+        }
         auto* m = s.MakeConstant();
         m->VpiParent(r);
         if (ct.kind == SymbolKind::DynamicArrayType) {
@@ -23831,6 +23914,218 @@ static slang::SourceRange modTfArgLastTok155(const InstanceBodySymbol& body,
 // listing at all.
 std::vector<std::tuple<UHDM::typespec*, UHDM::instance*, std::string>> g412NettypeFns;
 
+// § modClassTdListing442 — the span of a class typedef's class name as
+// Surelog writes it: a plain or specialized name at its identifier, a scoped
+// `p::C` from its first token to the START of the last identifier (golden
+// `typedef p::C c_t;` 7:11-7:14, `pkg_a::Cls` 7:11-7:18).
+static std::optional<slang::SourceRange> tdClassNameSpan442(
+    const slang::syntax::NamedTypeSyntax& nt) {
+    using namespace slang::syntax;
+    auto lastId = [](const NameSyntax* n) -> slang::parsing::Token {
+        if (auto* cn = n->as_if<ClassNameSyntax>())
+            return cn->identifier;
+        if (auto* in = n->as_if<IdentifierNameSyntax>())
+            return in->identifier;
+        return {};
+    };
+    if (auto* sn = nt.name->as_if<ScopedNameSyntax>()) {
+        auto t = lastId(sn->right);
+        if (!t)
+            return std::nullopt;
+        return slang::SourceRange(sn->sourceRange().start(), t.location());
+    }
+    auto t = lastId(nt.name);
+    if (!t)
+        return std::nullopt;
+    return t.range();
+}
+
+static std::string tdClassNameText442(const slang::syntax::NamedTypeSyntax& nt) {
+    using namespace slang::syntax;
+    const NameSyntax* n = nt.name;
+    if (auto* sn = n->as_if<ScopedNameSyntax>())
+        n = sn->right;
+    if (auto* cn = n->as_if<ClassNameSyntax>())
+        return std::string(cn->identifier.valueText());
+    if (auto* in = n->as_if<IdentifierNameSyntax>())
+        return std::string(in->identifier.valueText());
+    return {};
+}
+
+// § modClassTdListing442 — every typedef of one class shares the location of
+// the FIRST such typedef Surelog compiles (its class_typespec location is
+// taken from that declaration; only the end moves per object): the
+// packages' typedefs first, then $unit's in source order, then the module
+// and interface definitions in the order of their names, each in source
+// order (golden MC/mc24 a later $unit typedef beating an earlier module,
+// mc23 and mc25 module `aa` / `abc` beating `zz` / `top`, mc28 module `top`
+// beating interface `zif`, mc26 a package typedef first; mc14 and mc22
+// alike).  Matched on the class name's last identifier.
+std::map<const void*, UHDM::class_typespec*> g442ClsTdBySyn;
+// § modDynTdDefNetCopy442 — the module-body dynamic, queue and associative
+// typedef listings of § modDynArrTd249, by listing object.
+std::map<const UHDM::typespec*, const slang::ast::TypeAliasType*> g442ModDynTd;
+std::vector<std::tuple<UHDM::class_typespec*, const void*, std::string>> g442ClsTdAliasPending;
+
+// § clsTdFirstSameClass442v (v11u442, R11V442_CLSTDSAMECLASS_OFF; cases
+// tools/probe/v11u442repro/cases/VM vm01, vm02, vm13 to vm16) — the first
+// typedef that lends its location and becomes the alias target must name a
+// class of the SAME PACKAGE as the target class (none for a $unit or
+// definition-local class), not only a class of the same last identifier:
+// `typedef C pc_t;` in package p naming p::C does not lend its location to a
+// module's `typedef q::C c_t;` (golden vm01: c_t at its own 14:11-14:14,
+// Instanced at top, no alias, where the law took 6:11 and aliased p::pc_t;
+// vm15 the same with q's own typedef present, which golden shares), and a
+// module aa's `typedef C d_t;` naming aa's own STRUCT typedef C does not lend
+// its location to top's class typedef (vm02).  Surelog shares by name across
+// a $unit class and a module-local class of one name (golden vm14: top's
+// typedef of the $unit C takes aa's typedef of aa's local class C), so only
+// the package is compared.  A package or $unit candidate is resolved through
+// its symbol; a candidate in a module or interface definition through its
+// written name: a scoped p::C names package p, an unscoped C declared by a
+// typedef in that definition is not a class, and any other unscoped C names
+// the target's package only when the definition imports it (golden vm21:
+// aa's `typedef C d_t;` of the $unit C does not lend its location to top's
+// `typedef q::C c_t;`).
+static std::string clsPkg442v(const slang::ast::Type& t, bool& isClass) {
+    auto& c = t.getCanonicalType();
+    isClass = c.kind == slang::ast::SymbolKind::ClassType;
+    if (!isClass)
+        return {};
+    auto& ct = c.as<slang::ast::ClassType>();
+    const slang::ast::Symbol* cs =
+        ct.genericClass ? (const slang::ast::Symbol*)ct.genericClass : (const slang::ast::Symbol*)&ct;
+    auto* ps = cs->getParentScope();
+    if (ps && ps->asSymbol().kind == slang::ast::SymbolKind::Package)
+        return std::string(ps->asSymbol().name);
+    return {};
+}
+
+static std::optional<std::pair<slang::SourceRange, const void*>> firstClassTdSpan442(
+    const slang::ast::Compilation& comp, const std::string& cls,
+    const slang::ast::Type* target = nullptr) {
+    using namespace slang;
+    using namespace slang::syntax;
+    if (cls.empty())
+        return std::nullopt;
+    const bool same442v = target && fixOn(442, "R11V442_CLSTDSAMECLASS_OFF");
+    bool tgtIsCls442v = false;
+    const std::string tgtPkg442v = same442v ? clsPkg442v(*target, tgtIsCls442v) : std::string();
+    const void* root442v = same442v ? (const void*)target : nullptr;
+    static std::map<std::tuple<const void*, std::string, const void*>,
+                    std::optional<std::pair<SourceRange, const void*>>> memo;
+    auto key = std::make_tuple((const void*)&comp, cls, root442v);
+    if (auto it = memo.find(key); it != memo.end())
+        return it->second;
+    std::optional<std::pair<SourceRange, const void*>> found;
+    // ctxPkg / ctxCu: the candidate's symbol scope; ctxDef: its definition syntax
+    const ast::PackageSymbol* ctxPkg = nullptr;
+    const ast::Symbol* ctxCu = nullptr;
+    const ModuleDeclarationSyntax* ctxDef = nullptr;
+    auto sameClass442v = [&](const TypedefDeclarationSyntax& tdd,
+                             const NamedTypeSyntax& nt) -> bool {
+        if (!same442v)
+            return true;
+        if (!tgtIsCls442v)
+            return false;
+        auto bySym = [&](const ast::Symbol* sym) {
+            if (!sym || sym->kind != ast::SymbolKind::TypeAlias)
+                return false;
+            bool isc = false;
+            auto pk = clsPkg442v(sym->as<ast::TypeAliasType>(), isc);
+            return isc && pk == tgtPkg442v;
+        };
+        if (ctxCu)
+            return bySym(ctxCu);
+        if (ctxPkg)
+            return bySym(ctxPkg->find(tdd.name.valueText()));
+        if (!ctxDef)
+            return false;
+        if (auto* sn = nt.name->as_if<ScopedNameSyntax>()) {
+            auto* ln = sn->left->as_if<IdentifierNameSyntax>();
+            return ln && std::string(ln->identifier.valueText()) == tgtPkg442v;
+        }
+        bool imports = false;
+        auto seeImport = [&](const PackageImportDeclarationSyntax& id) {
+            for (auto* it : id.items)
+                if (std::string(it->package.valueText()) == tgtPkg442v &&
+                    (it->item.kind == parsing::TokenKind::Star || it->item.valueText() == cls))
+                    imports = true;
+        };
+        if (ctxDef->header)
+            for (auto* id : ctxDef->header->imports)
+                seeImport(*id);
+        for (auto* mem : ctxDef->members) {
+            if (auto* td = mem->as_if<TypedefDeclarationSyntax>())
+                if (td->name.valueText() == cls)
+                    return false;
+            if (auto* id = mem->as_if<PackageImportDeclarationSyntax>())
+                seeImport(*id);
+        }
+        // an unscoped name reaches a package class only through an import
+        return tgtPkg442v.empty() || imports;
+    };
+    auto scanTd = [&](const SyntaxNode* n) {
+        if (found || !n || n->kind != SyntaxKind::TypedefDeclaration)
+            return;
+        auto& tdd = n->as<TypedefDeclarationSyntax>();
+        const DataTypeSyntax* ty = tdd.type;
+        if (!ty || ty->kind != SyntaxKind::NamedType)
+            return;
+        auto& nt = ty->as<NamedTypeSyntax>();
+        if (!tdd.dimensions.empty())
+            return;
+        if (tdClassNameText442(nt) != cls)
+            return;
+        if (!sameClass442v(tdd, nt)) {
+            lawTrace(442, "clsTdFirstSameClass442v", std::string(tdd.name.valueText()));
+            return;
+        }
+        if (auto r = tdClassNameSpan442(nt))
+            found = std::make_pair(*r, (const void*)n);
+    };
+    auto scanDecl = [&](const SyntaxNode* d) {
+        if (!d || found)
+            return;
+        if (auto* md = d->as_if<ModuleDeclarationSyntax>()) {
+            ctxDef = md;
+            for (auto* mem : md->members)
+                scanTd(mem);
+            ctxDef = nullptr;
+        }
+    };
+    for (auto* pk : comp.getPackages())
+        if (pk && !found) {
+            ctxPkg = pk;
+            scanDecl(pk->getSyntax());
+            ctxPkg = nullptr;
+        }
+    for (auto* cu : comp.getCompilationUnits())
+        for (auto& mem : cu->members())
+            if (!found && mem.kind == ast::SymbolKind::TypeAlias)
+                if (auto* ts = mem.getSyntax()) {
+                    ctxCu = &mem;
+                    scanTd(ts);
+                    ctxCu = nullptr;
+                }
+    if (!found) {
+        std::vector<std::pair<std::string, const SyntaxNode*>> defs;
+        for (auto* d : comp.getDefinitions())
+            if (d && d->kind == ast::SymbolKind::Definition) {
+                auto& ds = d->as<ast::DefinitionSymbol>();
+                if (ds.definitionKind == ast::DefinitionKind::Module ||
+                    ds.definitionKind == ast::DefinitionKind::Interface)
+                    defs.emplace_back(std::string(ds.name), ds.getSyntax());
+            }
+        std::stable_sort(defs.begin(), defs.end(),
+                         [](auto& a, auto& b) { return a.first < b.first; });
+        for (auto& [nm, syn] : defs)
+            scanDecl(syn);
+    }
+    memo[key] = found;
+    return found;
+}
+
 void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* m,
                                 const std::string& prefix, DefInfo& info) {
     auto* tds = s.MakeTypespecVec();
@@ -24041,7 +24336,7 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
                   (unitDynTdShape402(ta) && lawOn(402, "R11U402_ASSOCTD_OFF")) ||
                   (multiDimTdShape406(ta) && lawOn(406, "R11U406_TDMULTIDIM_OFF")) ||
                   (aliasElemDynTdShape406(ta) && lawOn(406, "R11U406_ALIASELEMDYN_OFF")) ||
-                  boundedQTdShape410(ta)) &&
+                  boundedQTdShape410(ta) || boundedQTdParamShape442(ta)) &&
                  lawOn(249, "R11U249_MODDYNTD_OFF")) {
             bool savedUfE = unfoldedTypedefElemDims;
             std::string savedPfxE = syntaxRefPrefix;
@@ -24062,6 +24357,18 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             ats->VpiParent(m);
             ts = ats;
             lawTrace(249, "modDynArrTd249", prefix + "." + std::string(ta.name));
+            // § modDynTdDefNetCopy442 — not a listing whose innermost
+            // element is itself a typedef (§ aliasElemDynTd406's shape):
+            // golden binds that listing itself at the net and the variable
+            // (r11u406 AY/ay01, ay04, r11u402 AA/aa07, v11u402 VY/vy08).
+            if (lawOn(442, "R11U442_MODDYNTDDEFNET_OFF")) {
+                const Type* le442 = &ta.targetType.getType();
+                for (int g442 = 0; g442 < 16 && le442->getCanonicalType().isUnpackedArray();
+                     g442++)
+                    le442 = le442->getCanonicalType().getArrayElementType();
+                if (le442 && le442->kind != SymbolKind::TypeAlias)
+                    g442ModDynTd[ats] = &ta;
+            }
         }
         // § dynTdAliasClone410 (R11U410_DYNTDALIAS_OFF; cases
         // tools/probe/r11u410repro/cases/YA) — the module-body twin of the
@@ -24396,6 +24703,86 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             // aliased copy (the end-of-design pass in UhdmExporter.cpp).
             g410ModVifTs.insert(vts410);
             lawTrace(410, "modVirtIfaceTd410", prefix + "." + std::string(ta.name));
+        }
+        // § modClassTdListing442 (r11u442, R11U442_MODCLSTD_OFF; cases
+        // tools/probe/r11u442repro/cases/MC, the v11u414 case VC/vc13) — a
+        // MODULE-body typedef of a class (`typedef C c_t;`) had no branch
+        // (`typedef target: ClassType`, exit 4; upstream slang accepts).
+        // Golden lists the $unit branch's object: one class_typespec named
+        // after the typedef, its vpiClassDefn the class, spanning the class
+        // name as written (a scoped `p::C` whole, a specialization `C#(8)`
+        // at the name alone), parented and Instanced at the module, every
+        // use binding it.  Its END is moved by the module's own variable
+        // declarators typed by the typedef, the last one in source order
+        // winning (Surelog's writeNets/compileVariable populate the shared
+        // object): a declarator with an unpacked dimension ends it at the
+        // first dimension's `]` (`c_t arr[2];`, `c_t a2 [2][3];`, also when
+        // it has an initializer), one with only an initializer at the
+        // initializer's end (`c_t h = new;`); procedural and subroutine
+        // locals never move it (MC/mc07, mc13, mc18).
+        else if (ct.kind == SymbolKind::ClassType &&
+                 lawOn(442, "R11U442_MODCLSTD_OFF")) {
+            auto* cts442 = s.MakeClass_typespec();
+            if (auto* bcd442 = classDefnFor(ct))
+                cts442->Class_defn(bcd442);
+            else
+                pendingClassTsLink.push_back({cts442, &ct});
+            // the specialization parameters are named under the module typedef
+            // (golden r11u202 CT/c11 `work@top.m_misc.T`, the $unit form bare)
+            emitClassTsParams(cts442, ct.as<ClassType>(), prefix + "." + std::string(ta.name));
+            cts442->VpiParent(m);
+            if (typeSyn) {
+                auto r442 = typeSyn->sourceRange();
+                if (auto* nt442 = typeSyn->as_if<syntax::NamedTypeSyntax>()) {
+                    if (auto o442 = tdClassNameSpan442(*nt442))
+                        r442 = *o442;
+                    // the first typedef of the class lends its location and
+                    // becomes the vpiTypedefAlias target (golden MC/mc23:
+                    // zz's c_t aliases aa's d_t through a reference named
+                    // work@zz.c_t); resolved design-final in UhdmExporter.
+                    if (auto f442 = firstClassTdSpan442(body.getCompilation(),
+                                                        tdClassNameText442(*nt442), &ct)) {
+                        r442 = f442->first;
+                        if (f442->second != (const void*)ta.getSyntax())
+                            g442ClsTdAliasPending.emplace_back(
+                                cts442, f442->second,
+                                prefix + "." + std::string(ta.name));
+                    }
+                }
+                setLoc(cts442, r442);
+            }
+            const syntax::SyntaxNode* endAt442 = nullptr;
+            for (auto& vm442 : body.members()) {
+                if (vm442.kind != SymbolKind::Variable)
+                    continue;
+                auto* vdt442 = vm442.getDeclaredType();
+                if (!vdt442)
+                    continue;
+                const Type* vt442 = &vdt442->getType();
+                for (int g442 = 0; g442 < 16 && vt442->kind != SymbolKind::TypeAlias &&
+                                   vt442->isUnpackedArray();
+                     g442++)
+                    vt442 = vt442->getArrayElementType();
+                if (vt442 != (const Type*)&ta)
+                    continue;
+                auto* vs442 = vm442.getSyntax();
+                if (!vs442 || vs442->kind != syntax::SyntaxKind::Declarator)
+                    continue;
+                auto& dcl442 = vs442->as<syntax::DeclaratorSyntax>();
+                if (!dcl442.dimensions.empty())
+                    endAt442 = dcl442.dimensions[0];
+                else if (dcl442.initializer)
+                    endAt442 = dcl442.initializer->expr;
+            }
+            if (endAt442) {
+                auto e442 = endAt442->sourceRange().end();
+                cts442->VpiEndLineNo(sm->getLineNumber(e442));
+                cts442->VpiEndColumnNo(sm->getColumnNumber(e442));
+            }
+            if (!g442ClsTdBySyn.count((const void*)ta.getSyntax()))
+                g442ClsTdBySyn[(const void*)ta.getSyntax()] = cts442;
+            ts = cts442;
+            lawTrace(442, "modClassTdListing442", prefix + "." + std::string(ta.name));
         }
         else {
             noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
@@ -32712,7 +33099,23 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
     const bool assocReg223 = !leadingUnsized && aKind == 3 &&
                              lawOn(223, "R11U223_ASSOCREG_OFF");
     if (leadingUnsized || assocReg223) {
-        if (auto* reg = makeReturnVar(s, *leaf)) {
+        // § modDynArrClsTdElemClassVar442 (r11u442, R11U442_DYNCLSTDELEM_OFF;
+        // cases tools/probe/r11u442repro/cases/MC mc09, mc31) — the element
+        // of a module or interface variable's dynamic, queue or associative
+        // array whose element is a TYPEDEF of a class (`typedef C c_t; c_t
+        // q[$];`, the typedef in the module or at $unit) is golden's
+        // class_var (§ aliasClassRefVar10: a module variable stays class_var
+        // either way, makeReturnVar's ref_var is the subroutine-scope rule),
+        // and the typedef's listed class_typespec keeps its own parent where
+        // the shared line below re-parented it under the element.
+        bool clsTd442 = leaf->kind == SymbolKind::TypeAlias &&
+                        leaf->getCanonicalType().kind == SymbolKind::ClassType &&
+                        !typeParamOfAlias(leaf->as<TypeAliasType>()) &&
+                        lawOn(442, "R11U442_DYNCLSTDELEM_OFF");
+        if (clsTd442)
+            lawTrace(442, "modDynArrClsTdElemClassVar442", fullName);
+        if (auto* reg = clsTd442 ? (UHDM::variables*)s.MakeClass_var()
+                                 : makeReturnVar(s, *leaf)) {
             reg->VpiParent(av);
             reg->VpiFullName(fullName);
             setLoc(reg, nameSpan(sym.location, sym.name));
@@ -32729,7 +33132,9 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
                 rrt->VpiParent(reg);
                 rrt->Actual_typespec(elemTs);
                 reg->Typespec(rrt);
-                elemTs->VpiParent(reg);
+                if (!(clsTd442 && elemTs->UhdmType() == UHDM::uhdmclass_typespec &&
+                      typedefTs.count(leaf) && typedefTs[leaf] == elemTs))
+                    elemTs->VpiParent(reg);
             }
             auto* rvars = s.MakeVariablesVec();
             rvars->push_back(reg);

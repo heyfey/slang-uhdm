@@ -1,0 +1,29 @@
+r11u442repro_cases_AQ_aq01 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_AQ_aq02 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_AQ_aq03 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+r11u442repro_cases_AQ_aq04 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+r11u442repro_cases_AQ_aq05 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_AQ_aq06 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_AQ_aq07 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_DQ_dq01 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_DQ_dq02 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_DQ_dq03 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_DQ_dq04 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_DQ_dq05 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+r11u442repro_cases_DQ_dq06 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_AC_ac01 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_AC_ac02 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_AC_ac03 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_AC_ac04 | pristine STATUS_DIFF  | law IDENTICAL 
+r11u442repro_cases_AC_ac05 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_AC_ac06 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_PA_pa01 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_PA_pa02 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_PA_pa03 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_PA_pa04 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+r11u442repro_cases_PA_pa05 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+r11u442repro_cases_UQ_uq01 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_UQ_uq02 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_UQ_uq03 | pristine EQUIVALENT nohier | law IDENTICAL 
+r11u442repro_cases_UQ_uq04 | pristine IDENTICAL  | law IDENTICAL 
+r11u442repro_cases_UQ_uq05 | pristine IDENTICAL  | law IDENTICAL 

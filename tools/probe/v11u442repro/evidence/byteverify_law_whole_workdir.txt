@@ -1,0 +1,4 @@
+databases: patched=3424 pristine=3424
+PATH_SETS_IDENTICAL (3424 paths)
+SELFCHECK (every file vs one fixed file): 3422 / 3424 flagged
+SELFCHECK_FAILED

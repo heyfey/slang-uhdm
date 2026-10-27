@@ -1,0 +1,6 @@
+cases/MC/mc23 1 distinct
+cases/MC/mc25 1 distinct
+cases/AQ/aq02 1 distinct
+../r11u406repro/cases/AT/at18_mod_2d_assoc 1 distinct
+cases/AC/ac05 1 distinct
+cases/PA/pa03 1 distinct

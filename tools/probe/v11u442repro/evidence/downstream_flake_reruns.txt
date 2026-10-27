@@ -1,0 +1,11 @@
+VD_vd01 | pristine IDENTICAL  | law IDENTICAL 
+VD_vd07 | pristine IDENTICAL  | law IDENTICAL 
+VR_vr02 | pristine STATUS_DIFF  | law IDENTICAL 
+VD_vd01 | pristine IDENTICAL  | law IDENTICAL 
+VD_vd07 | pristine STATUS_DIFF  | law IDENTICAL 
+VR_vr02 | pristine STATUS_DIFF  | law IDENTICAL 
+VD_vd01 | pristine IDENTICAL  | law IDENTICAL 
+VD_vd07 | pristine IDENTICAL  | law IDENTICAL 
+VR_vr02 | pristine STATUS_DIFF  | law IDENTICAL 
+
+[exited with code 0]

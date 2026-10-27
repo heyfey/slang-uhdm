@@ -42,6 +42,11 @@ extern bool g406MultiDim;
 extern bool g410AliasClone;  // § dynTdAliasClone410 (TypeEmit.cpp)
 extern std::vector<std::tuple<UHDM::typespec*, UHDM::instance*, std::string>> g412NettypeFns;  // § modNettypeTypedef412 (TypeEmit.cpp)
 extern std::set<const UHDM::typespec*> g410ModVifTs;  // § modVirtIfaceTd410 (TypeEmit.cpp)
+// § modClassTdListing442 (TypeEmit.cpp)
+extern std::map<const void*, UHDM::class_typespec*> g442ClsTdBySyn;
+extern std::vector<std::tuple<UHDM::class_typespec*, const void*, std::string>>
+    g442ClsTdAliasPending;
+extern std::map<const UHDM::typespec*, const slang::ast::TypeAliasType*> g442ModDynTd;  // § modDynTdDefNetCopy442
 bool multiDimTdShape406(const slang::ast::TypeAliasType& ta);
 bool aliasElemDynTdShape406(const slang::ast::TypeAliasType& ta);
 bool boundedQTdShape410(const slang::ast::TypeAliasType& ta);  // § unitBoundedQTd410 (TypeEmit.cpp)
@@ -8967,6 +8972,31 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             if (evArr402)
                 lawTrace(402, "classEventArrElem402", pfn);
         }
+        // § classEventDynArrNamedEvent442 (r11u442, R11U442_CLSEVENTDYN_OFF;
+        // cases tools/probe/r11u442repro/cases/CE, the v11u402 case
+        // VE/ve02) — the dynamic, queue and associative twin of
+        // § classEventArrElem402: a property written with the `event` KEYWORD
+        // and any unpacked dimension (`event ed[];`, `event eq[$];`,
+        // `event ea[int];`, a fixed dimension outside a dynamic one
+        // `event m [2][];`) is one named_event at the name,
+        // the dimensions dropped (golden CE/ce01 to ce03; ours exited 4 on
+        // `class array property element`).  A typedef'd event element
+        // (`typedef event ev_t; ev_t q[$];`) is NOT a named_event in golden
+        // (an array_var, CE/ce04): only the keyword spelling.
+        if (!evArr402 && ct.isUnpackedArray()) {
+            const Type* e442 = &ct;
+            while (e442->getCanonicalType().isUnpackedArray())
+                e442 = e442->getCanonicalType().getArrayElementType();
+            bool kw442 = false;
+            if (e442 && e442->kind == SymbolKind::EventType)
+                if (auto dt442 = cp.getDeclaredType())
+                    if (auto ts442 = dt442->getTypeSyntax())
+                        kw442 = ts442->kind == syntax::SyntaxKind::EventType;
+            if (kw442 && lawOn(442, "R11U442_CLSEVENTDYN_OFF")) {
+                evArr402 = true;
+                lawTrace(442, "classEventDynArrNamedEvent442", pfn);
+            }
+        }
         if (ct.kind == SymbolKind::EventType || evArr402) {
             auto* ne = s.MakeNamed_event();
             ne->VpiName(cp.name);
@@ -11134,9 +11164,43 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
 // inherited from uvm_policy — while uvm_comparer's `state_info_t`, declared in
 // uvm_comparer itself, resolves and stays a struct_var).  slang resolves all
 // three, so the un-seeable ones are degraded here on purpose.
+// § classChandleTdArrElem442 (r11u442, R11U442_CLSCHANDLEARR_OFF; cases
+// tools/probe/r11u442repro/cases/CH, the v11u414 case VH/vh04 and the v11u422
+// case VC/vc04) — the element of a class ARRAY property whose element type is
+// a chandle or an event: written with the `chandle` keyword under a dynamic,
+// queue or associative dimension (`chandle q[$];`) it is golden's
+// chandle_var with no typespec, the fixed-size branch's object (ours exited 4
+// on `class array property element`, classElemVar having no chandle branch);
+// written through a TYPEDEF of chandle or event (`typedef chandle ch_t;
+// ch_t q[$];`, `ch_t c [2];`, `typedef event ev_t; ev_t q[$];`) it is a bare
+// logic_var with no typespec under every dimension kind (golden CH/ch04,
+// CE/ce04, VC/vc04: Surelog's makeVar_ fallback, the typedef name not
+// resolving to a variable kind), where the fixed branch wrote a chandle_var and
+// the others exited 4.  Null when the law does not apply.
+static UHDM::variables* classChandleTdArrElem442(UHDM::Serializer& s,
+                                                const Symbol& cp,
+                                                const Type& elemType) {
+    auto ek = elemType.getCanonicalType().kind;
+    if (ek != SymbolKind::CHandleType && ek != SymbolKind::EventType)
+        return nullptr;
+    if (!lawOn(442, "R11U442_CLSCHANDLEARR_OFF"))
+        return nullptr;
+    if (elemType.kind == SymbolKind::TypeAlias) {
+        lawTrace(442, "classChandleTdArrElem442", "td " + std::string(cp.name));
+        return s.MakeLogic_var();
+    }
+    if (elemType.kind == SymbolKind::CHandleType) {
+        lawTrace(442, "classChandleTdArrElem442", "kw " + std::string(cp.name));
+        return s.MakeChandle_var();
+    }
+    return nullptr;
+}
+
 UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
                                                  const Type& elemType,
                                                  const ClassType& owner) {
+    if (auto* v442 = classChandleTdArrElem442(s, cp, elemType))
+        return v442;
     const Type* named = &elemType;
     if (named->kind == SymbolKind::TypeAlias || named->kind == SymbolKind::EnumType) {
         auto sc = named->getParentScope();
@@ -11182,6 +11246,8 @@ UHDM::variables* UhdmExporter::classFixedElemVar6(const Symbol& cp,
     auto& ec = elemType.getCanonicalType();
     if (ec.kind == SymbolKind::VirtualInterfaceType)
         return s.MakeLogic_var();
+    if (auto* v442 = classChandleTdArrElem442(s, cp, elemType))
+        return v442;
     if (ec.kind == SymbolKind::CHandleType)
         return s.MakeChandle_var();
     if (ec.kind == SymbolKind::FloatingType) {
@@ -18105,6 +18171,168 @@ UHDM::design* UhdmExporter::exportDesign() {
                 // kinds.  Only a target listed by § unitArrTd245 (a $unit
                 // typedef of a non-alias fixed-size array).  Switch
                 // R11U426_UNITARRTDALIAS_OFF.
+                // § unitArrTdAliasChain442 (r11u442, R11U442_UNITARRTDCHAIN_OFF;
+                // cases tools/probe/r11u442repro/cases/AC, the r11u426 case
+                // AC/ac04 and the v11u410 case VY/vy02) — a $unit typedef
+                // naming a typedef that is ITSELF an alias clone listed by
+                // § dynTdAliasClone410 or § unitFixedArrTdAliasClone426
+                // (`typedef ua_t ub_t; typedef ub_t uc_t;`, fixed, dynamic,
+                // queue or associative) had no branch (`typedef target:
+                // FixedSizeUnpackedArrayType` / `AssociativeArrayType`, exit
+                // 4).  Golden lists one more clone of the ROOT typedef's
+                // array_typespec (its span, ranges and element, references
+                // named after the new typedef), named by it, its
+                // vpiTypedefAlias reaching the NAMED typedef's listing object
+                // directly (no unparented copy: golden's weakly-referenced
+                // list holds only the first link's copy).
+                else if ((ct.kind == SymbolKind::DynamicArrayType ||
+                          ct.kind == SymbolKind::QueueType ||
+                          ct.kind == SymbolKind::AssociativeArrayType ||
+                          ct.kind == SymbolKind::FixedSizeUnpackedArrayType) &&
+                         ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                         ta.targetType.getType().as<TypeAliasType>().targetType.getType().kind ==
+                             SymbolKind::TypeAlias &&
+                         typedefTs.count(&ta.targetType.getType()) &&
+                         typedefTs[&ta.targetType.getType()] &&
+                         typedefTs[&ta.targetType.getType()]->UhdmType() ==
+                             UHDM::uhdmarray_typespec &&
+                         typedefTs[&ta.targetType.getType()]->Typedef_alias() &&
+                         [&] {
+                             const Type* r442 = &ta.targetType.getType();
+                             for (int g = 0; g < 16 && r442->kind == SymbolKind::TypeAlias &&
+                                             r442->as<TypeAliasType>().targetType.getType().kind ==
+                                                 SymbolKind::TypeAlias;
+                                  g++)
+                                 r442 = &r442->as<TypeAliasType>().targetType.getType();
+                             return r442->kind == SymbolKind::TypeAlias &&
+                                    r442->as<TypeAliasType>().getParentScope() &&
+                                    r442->as<TypeAliasType>().getParentScope()->asSymbol().kind ==
+                                        SymbolKind::CompilationUnit &&
+                                    typedefTs.count(r442) && typedefTs[r442] &&
+                                    typedefTs[r442]->UhdmType() == UHDM::uhdmarray_typespec;
+                         }() &&
+                         lawOn(442, "R11U442_UNITARRTDCHAIN_OFF")) {
+                    const Type* r442 = &ta.targetType.getType();
+                    while (r442->as<TypeAliasType>().targetType.getType().kind ==
+                           SymbolKind::TypeAlias)
+                        r442 = &r442->as<TypeAliasType>().targetType.getType();
+                    auto& ta0 = r442->as<TypeAliasType>();
+                    auto* tgt442 = typedefTs[&ta.targetType.getType()];
+                    bool savedTf = tfContext, savedTd = typedefTsContext;
+                    bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+                    std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+                    const std::string q442(ta.name);
+                    tfContext = true;
+                    typedefTsContext = true;
+                    bypassTypedefShare = true;
+                    unfoldedTypedefDims = true;
+                    syntaxRefPrefix = q442;
+                    syntaxRefSep = "::";
+                    g249DynRangeReq = true;
+                    g406MultiDim = multiDimTdShape406(ta0) &&
+                                   lawOn(406, "R11U406_TDMULTIDIM_OFF");
+                    g410AliasClone = true;
+                    ts = buildUnpackedArrayTypedefTs(ta0, q442);
+                    g410AliasClone = false;
+                    g406MultiDim = false;
+                    g249DynRangeReq = false;
+                    syntaxRefSep = savedSep;
+                    syntaxRefPrefix = savedPfx;
+                    unfoldedTypedefDims = savedUf;
+                    bypassTypedefShare = savedBy;
+                    typedefTsContext = savedTd;
+                    tfContext = savedTf;
+                    if (!ts || ts->UhdmType() != UHDM::uhdmarray_typespec) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    auto* art442 = s.MakeRef_typespec();
+                    art442->VpiParent(ts);
+                    art442->VpiFullName(q442);
+                    art442->Actual_typespec(tgt442);
+                    ts->Typedef_alias(art442);
+                    lawTrace(442, "unitArrTdAliasChain442", q442);
+                }
+                // § unitPkgArrTdAliasClone442 (r11u442, R11U442_UNITPKGARRTD_OFF;
+                // cases tools/probe/r11u442repro/cases/PA, the v11u426 case
+                // VA/va09) — the package twin of § unitFixedArrTdAliasClone426:
+                // a $unit typedef naming a PACKAGE typedef of a fixed-size
+                // unpacked array (`typedef p::ua_t ub_t;`) had no branch
+                // (`typedef target: FixedSizeUnpackedArrayType`, exit 4).
+                // Golden lists a clone of the package listing (its span,
+                // ranges and element, references named after the new
+                // typedef), named by it, its vpiTypedefAlias reaching the
+                // package listing directly and its vpiInstance the PACKAGE
+                // (golden va09 `array_typespec (ub_t)` Instanced at p).
+                else if (ct.kind == SymbolKind::FixedSizeUnpackedArrayType &&
+                         ta.targetType.getType().kind == SymbolKind::TypeAlias &&
+                         ta.targetType.getType().as<TypeAliasType>().targetType.getType().kind ==
+                             SymbolKind::FixedSizeUnpackedArrayType &&
+                         ta.targetType.getType().as<TypeAliasType>().getParentScope() &&
+                         ta.targetType.getType().as<TypeAliasType>().getParentScope()
+                                 ->asSymbol().kind == SymbolKind::Package &&
+                         typedefTs.count(&ta.targetType.getType()) &&
+                         typedefTs[&ta.targetType.getType()] &&
+                         typedefTs[&ta.targetType.getType()]->UhdmType() ==
+                             UHDM::uhdmarray_typespec &&
+                         [&] {
+                             const Type* el442 =
+                                 &ta.targetType.getType().as<TypeAliasType>().targetType.getType();
+                             while (el442->kind == SymbolKind::FixedSizeUnpackedArrayType)
+                                 el442 = &el442->as<FixedSizeUnpackedArrayType>().elementType;
+                             return el442->kind != SymbolKind::TypeAlias;
+                         }() &&
+                         lawOn(442, "R11U442_UNITPKGARRTD_OFF")) {
+                    auto& ta0 = ta.targetType.getType().as<TypeAliasType>();
+                    auto* tgt442 = typedefTs[&ta0];
+                    bool savedTf = tfContext, savedTd = typedefTsContext;
+                    bool savedBy = bypassTypedefShare, savedUf = unfoldedTypedefDims;
+                    std::string savedPfx = syntaxRefPrefix, savedSep = syntaxRefSep;
+                    const std::string q442(ta.name);
+                    tfContext = true;
+                    typedefTsContext = true;
+                    bypassTypedefShare = true;
+                    unfoldedTypedefDims = true;
+                    syntaxRefPrefix = q442;
+                    syntaxRefSep = "::";
+                    g249DynRangeReq = true;
+                    g406MultiDim = multiDimTdShape406(ta0) &&
+                                   lawOn(406, "R11U406_TDMULTIDIM_OFF");
+                    g410AliasClone = true;
+                    ts = buildUnpackedArrayTypedefTs(ta0, q442);
+                    g410AliasClone = false;
+                    g406MultiDim = false;
+                    g249DynRangeReq = false;
+                    syntaxRefSep = savedSep;
+                    syntaxRefPrefix = savedPfx;
+                    unfoldedTypedefDims = savedUf;
+                    bypassTypedefShare = savedBy;
+                    typedefTsContext = savedTd;
+                    tfContext = savedTf;
+                    if (!ts || ts->UhdmType() != UHDM::uhdmarray_typespec) {
+                        noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
+                        continue;
+                    }
+                    ts->VpiParent(d);
+                    auto* art442 = s.MakeRef_typespec();
+                    art442->VpiParent(ts);
+                    art442->VpiFullName(q442);
+                    art442->Actual_typespec(tgt442);
+                    ts->Typedef_alias(art442);
+                    aliasTgt161 = tgt442;  // the clone keeps the package Instance
+                    // ...and so does its element typespec (golden va09: the
+                    // element logic_typespec Instanced at p, as the package
+                    // listing's own element is).
+                    if (auto* er442 = ((UHDM::array_typespec*)ts)->Elem_typespec())
+                        if (auto* ea442 = (UHDM::typespec*)er442->Actual_typespec();
+                            ea442 && !ea442->Instance())
+                            if (auto* te442 = ((UHDM::array_typespec*)tgt442)->Elem_typespec())
+                                if (auto* ta442 = te442->Actual_typespec();
+                                    ta442 && ta442->Instance())
+                                    ea442->Instance((UHDM::instance*)ta442->Instance());
+                    lawTrace(442, "unitPkgArrTdAliasClone442", q442);
+                }
                 else if (((ct.kind == SymbolKind::DynamicArrayType ||
                            ct.kind == SymbolKind::QueueType ||
                            ct.kind == SymbolKind::AssociativeArrayType) ||
@@ -18202,6 +18430,29 @@ UHDM::design* UhdmExporter::exportDesign() {
                     cts->VpiParent(d);
                     if (typeSyn) {
                         auto r = typeSyn->sourceRange();
+                        // § unitClassTdScopedSpan442 (r11u442,
+                        // R11U442_UNITCLSTDSCOPED_OFF; case
+                        // tools/probe/r11u442repro/cases/MC/mc22) — a $unit
+                        // typedef of a SCOPED class name (`typedef
+                        // pkg_a::Cls#(3) u_t;`) ends at the START of the
+                        // last identifier in golden (6:9-6:16), the module
+                        // typedef's span (§ modClassTdListing442), where
+                        // ours spanned the whole name and its arguments.
+                        if (auto* nt442 = typeSyn->as_if<syntax::NamedTypeSyntax>())
+                            if (auto* sn442 = nt442->name->as_if<syntax::ScopedNameSyntax>()) {
+                                parsing::Token t442;
+                                if (auto* cn442 = sn442->right->as_if<syntax::ClassNameSyntax>())
+                                    t442 = cn442->identifier;
+                                else if (auto* in442 =
+                                             sn442->right->as_if<syntax::IdentifierNameSyntax>())
+                                    t442 = in442->identifier;
+                                if (t442 && lawOn(442, "R11U442_UNITCLSTDSCOPED_OFF")) {
+                                    r = SourceRange(sn442->sourceRange().start(),
+                                                    t442.location());
+                                    lawTrace(442, "unitClassTdScopedSpan442",
+                                             std::string(ta.name));
+                                }
+                            }
                         if (auto* nt = typeSyn->as_if<syntax::NamedTypeSyntax>())
                             if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>()) {
                                 r = SourceRange(cn->identifier.range().start(), r.end());
@@ -18274,7 +18525,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                         !envSet("R11U202_CLSTDINITEND_OFF");
                     if (mod202 || only206) {
                         std::string bestKey202;
-                        const syntax::ExpressionSyntax* best202 = nullptr;
+                        const syntax::SyntaxNode* best202 = nullptr;
                         auto rank206 = [](DefinitionKind k) {
                             return k == DefinitionKind::Module      ? 2
                                    : k == DefinitionKind::Interface ? 1
@@ -18297,20 +18548,47 @@ UHDM::design* UhdmExporter::exportDesign() {
                             if (best202 && (rk206 < bestRank206 ||
                                             (rk206 == bestRank206 && key202 < bestKey202)))
                                 continue;
-                            const syntax::ExpressionSyntax* last202 = nullptr;
+                            const syntax::SyntaxNode* last202 = nullptr;
                             for (auto& mem202 : inst202->body.members()) {
                                 if (mem202.kind != SymbolKind::Variable)
                                     continue;
                                 auto* dt202 = mem202.getDeclaredType();
-                                if (!dt202 || &dt202->getType() != (const Type*)&ta)
+                                if (!dt202)
+                                    continue;
+                                // § unitClassTdEndAtDim442 (r11u442,
+                                // R11U442_UNITCLSTDDIMEND_OFF; cases
+                                // tools/probe/r11u442repro/cases/MC mc11,
+                                // mc31) — a declarator with an unpacked
+                                // dimension writes the end too, at the first
+                                // dimension's `]` (`c_t arr[2];` 4:9-6:13,
+                                // `c_t a[int];` 4:9-8:13), also when it has an
+                                // initializer; the module twin is
+                                // § modClassTdListing442's end rule.
+                                const Type* vt442 = &dt202->getType();
+                                const bool dim442 =
+                                    lawOn(442, "R11U442_UNITCLSTDDIMEND_OFF");
+                                for (int g442 = 0;
+                                     dim442 && g442 < 16 &&
+                                     vt442->kind != SymbolKind::TypeAlias &&
+                                     vt442->isUnpackedArray();
+                                     g442++)
+                                    vt442 = vt442->getArrayElementType();
+                                if (vt442 != (const Type*)&ta)
                                     continue;
                                 auto* ds202 = mem202.getSyntax();
                                 if (!ds202 ||
-                                    ds202->kind != syntax::SyntaxKind::Declarator ||
-                                    !ds202->as<syntax::DeclaratorSyntax>().initializer)
+                                    ds202->kind != syntax::SyntaxKind::Declarator)
                                     continue;
-                                last202 = ds202->as<syntax::DeclaratorSyntax>()
-                                              .initializer->expr;
+                                auto& dcl442 = ds202->as<syntax::DeclaratorSyntax>();
+                                if (dim442 && !dcl442.dimensions.empty()) {
+                                    last202 = dcl442.dimensions[0];
+                                    lawTrace(442, "unitClassTdEndAtDim442",
+                                             std::string(ta.name));
+                                    continue;
+                                }
+                                if (!dcl442.initializer)
+                                    continue;
+                                last202 = dcl442.initializer->expr;
                             }
                             if (last202) {
                                 best202 = last202;
@@ -18367,6 +18645,20 @@ UHDM::design* UhdmExporter::exportDesign() {
                     setLoc(ts, typeSyn->sourceRange());
                     ts->VpiParent(d);
                     lawTrace(422, "unitChandleTd422", std::string(ta.name));
+                }
+                // § unitEventTd442 (r11u442, R11U442_UNITEVENTTD_OFF; case
+                // tools/probe/r11u442repro/cases/CE/ce04) — the event twin
+                // of § unitChandleTd422: a $unit `typedef event ev_t;` had no
+                // branch (`typedef target: EventType`, exit 4).  Golden lists
+                // one event_typespec named like the typedef at the `event`
+                // keyword, parented and Instanced at the design.
+                else if (ct.kind == SymbolKind::EventType && typeSyn &&
+                         typeSyn->kind == syntax::SyntaxKind::EventType &&
+                         lawOn(442, "R11U442_UNITEVENTTD_OFF")) {
+                    ts = s.MakeEvent_typespec();
+                    setLoc(ts, typeSyn->sourceRange());
+                    ts->VpiParent(d);
+                    lawTrace(442, "unitEventTd442", std::string(ta.name));
                 }
                 else {
                     noteUnsupported("typedef target: " + std::string(toString(ct.kind)));
@@ -20390,11 +20682,218 @@ UHDM::design* UhdmExporter::exportDesign() {
                     break;
             }
         }
+        // § modClassTdListing442 — a module typedef of a class that is not
+        // the class's first typedef in Surelog's compile order carries a
+        // vpiTypedefAlias reference, named by its own full name, onto the
+        // first typedef's class_typespec (a module one listed by the law, or
+        // a $unit or package listing found by its declaration).
+        for (auto& [cts442, syn442, fn442] : g442ClsTdAliasPending) {
+            UHDM::typespec* tgt442 = nullptr;
+            if (auto it442 = g442ClsTdBySyn.find(syn442); it442 != g442ClsTdBySyn.end())
+                tgt442 = it442->second;
+            if (!tgt442)
+                for (auto& [sym442, ts442] : typedefTs)
+                    if (sym442 && ts442 && (const void*)sym442->getSyntax() == syn442 &&
+                        ts442->UhdmType() == UHDM::uhdmclass_typespec) {
+                        tgt442 = ts442;
+                        break;
+                    }
+            if (!tgt442)
+                for (auto& [k442, pts442] : pkgTopTypedefTs)
+                    if (k442 && pts442 &&
+                        (const void*)((const Symbol*)k442)->getSyntax() == syn442 &&
+                        pts442->UhdmType() == UHDM::uhdmclass_typespec) {
+                        tgt442 = pts442;
+                        break;
+                    }
+            if (!tgt442 || tgt442 == cts442)
+                continue;
+            auto* ar442 = s.MakeRef_typespec();
+            ar442->VpiParent(cts442);
+            ar442->VpiFullName(fn442);
+            ar442->Actual_typespec(tgt442);
+            cts442->Typedef_alias(ar442);
+            // a PACKAGE typedef first: the module's object takes the
+            // package as its vpiInstance too (golden MC/mc26 c_t @p).
+            if (tgt442->Instance() &&
+                ((const UHDM::any*)tgt442->Instance())->UhdmType() == UHDM::uhdmpackage)
+                cts442->Instance((UHDM::instance*)tgt442->Instance());
+            lawTrace(442, "modClassTdListing442", "alias " + fn442);
+        }
+        g442ClsTdAliasPending.clear();
         // § modVirtIfaceTd410 — a definition variable typed by a module-body
         // virtual-interface typedef binds its own copy of the listing (named
         // by the typedef, at its span, Instanced at the module, aliasing the
         // listing): golden's weakly-referenced `interface_typespec (vi_t)`,
         // one per variable (cases VF/vf01, vf02).
+        // § modDynTdDefNetCopy442 (r11u442, R11U442_MODDYNTDDEFNET_OFF; cases
+        // tools/probe/r11u442repro/cases/AQ, the r11u406 case AT/at18) — the
+        // dynamic-kind twin of § modVirtIfaceTd410's copy: a DEFINITION net
+        // typed by a module-body dynamic, queue, bounded-queue or
+        // associative typedef (`typedef int c_t [int][string]; c_t m;`)
+        // binds its own copy of the listing in golden: the listing rebuilt
+        // with every reference named after the BARE typedef (`c_t`, a bound
+        // `q_t.P`), unparented, Instanced at the definition, its
+        // vpiTypedefAlias (named `c_t`) onto the listing; the ELABORATED
+        // array_var of the same declaration binds another copy with neither
+        // the alias nor an Instance (golden r11u249 M/m01: both copies).
+        // Ours bound the listing itself at both (uhdm-cmp: a ref_typespec
+        // against null, 17 lines).
+        if (!g442ModDynTd.empty()) {
+            std::vector<UHDM::any*> objs442;
+            for (auto& kv : s.AllObjects())
+                if (kv.first && ((UHDM::any*)kv.first)->UhdmType() == UHDM::uhdmref_typespec)
+                    objs442.push_back((UHDM::any*)kv.first);
+            std::stable_sort(objs442.begin(), objs442.end(),
+                             [](const UHDM::any* a, const UHDM::any* b) {
+                                 return a->UhdmId() < b->UhdmId();
+                             });
+            for (auto* o : objs442) {
+                auto* rt = (UHDM::ref_typespec*)o;
+                auto* at = rt->Actual_typespec();
+                if (!at || !rt->VpiParent())
+                    continue;
+                auto it442 = g442ModDynTd.find(at);
+                if (it442 == g442ModDynTd.end())
+                    continue;
+                const bool net442 = rt->VpiParent()->UhdmType() == UHDM::uhdmlogic_net;
+                if (!net442 && rt->VpiParent()->UhdmType() != UHDM::uhdmarray_var)
+                    continue;
+                auto& ta442 = *it442->second;
+                bool savedUfE = unfoldedTypedefElemDims;
+                std::string savedPfxE = syntaxRefPrefix;
+                unfoldedTypedefElemDims = true;
+                syntaxRefPrefix.clear();
+                g249DynRangeReq = true;
+                g406MultiDim = multiDimTdShape406(ta442) &&
+                               lawOn(406, "R11U406_TDMULTIDIM_OFF");
+                auto* cp442 = buildUnpackedArrayTypedefTs(ta442, std::string(ta442.name));
+                g406MultiDim = false;
+                g249DynRangeReq = false;
+                syntaxRefPrefix = savedPfxE;
+                unfoldedTypedefElemDims = savedUfE;
+                if (!cp442)
+                    continue;
+                cp442->VpiName(at->VpiName());
+                if (net442) {
+                    cp442->Instance(at->Instance());
+                    auto* crt = s.MakeRef_typespec();
+                    crt->VpiParent(cp442);
+                    crt->VpiFullName(std::string(at->VpiName()));
+                    crt->Actual_typespec((UHDM::typespec*)at);
+                    cp442->Typedef_alias(crt);
+                }
+                // § paramBoundQTd442 in the elaborated copy: the bound naming
+                // a parameter is the instance's own param_assign value object
+                // (shared, golden AQ/aq02 UINT:3 size 32 at the parameter's
+                // initializer), not a reference.
+                if (!net442 && cp442->Ranges() && cp442->Ranges()->size() == 1)
+                    if (auto* rg442 = cp442->Ranges()->at(0);
+                        rg442 && rg442->Right_expr() &&
+                        rg442->Right_expr()->UhdmType() == UHDM::uhdmref_obj) {
+                        std::string pn442(rg442->Right_expr()->VpiName());
+                        const UHDM::any* own442 = rt->VpiParent()->VpiParent();
+                        if (own442 && own442->UhdmType() == UHDM::uhdmmodule_inst)
+                            if (auto* pas442 = ((const UHDM::module_inst*)own442)->Param_assigns())
+                                for (auto* pa442 : *pas442)
+                                    if (pa442->Lhs() && pa442->Lhs()->VpiName() == pn442 &&
+                                        pa442->Rhs() &&
+                                        pa442->Rhs()->UhdmType() == UHDM::uhdmconstant) {
+                                        rg442->Right_expr((UHDM::expr*)pa442->Rhs());
+                                        break;
+                                    }
+                    }
+                rt->Actual_typespec(cp442);
+                lawTrace(442, "modDynTdDefNetCopy442", "copy " + std::string(rt->VpiFullName()));
+            }
+            g442ModDynTd.clear();
+        }
+        // § unitArrTdAliasVarBindsListing442 (r11u442,
+        // R11U442_UNITALIASVAR_OFF; cases tools/probe/r11u442repro/cases/PA,
+        // AC, the r11u426 case AC/ac03 and the v11u426 case VA/va09) — an
+        // ELABORATED variable typed by a $unit typedef that is an alias
+        // clone of a fixed-size array typedef (§ unitFixedArrTdAliasClone426,
+        // § unitArrTdAliasChain442, § unitPkgArrTdAliasClone442: a listing
+        // carrying its own vpiTypedefAlias) binds that LISTING in golden
+        // (`ub_t v;`: array_var -> the aliased, Instanced, parented
+        // array_typespec ub_t), where ours bound a bare unaliased copy named
+        // like it (the § unitArrTd245 rule for a non-alias array typedef;
+        // uhdm-strictcmp STRICT_NOTEQUAL type on the walk's alias subtree).
+        if (lawOn(442, "R11U442_UNITALIASVAR_OFF")) {
+            std::map<std::string, UHDM::typespec*> unitAliasArr442;
+            for (auto& [sym442, ts442] : typedefTs)
+                if (sym442 && ts442 && sym442->kind == SymbolKind::TypeAlias &&
+                    ts442->UhdmType() == UHDM::uhdmarray_typespec &&
+                    ts442->Typedef_alias() &&
+                    sym442->as<TypeAliasType>().targetType.getType().getCanonicalType().kind ==
+                        SymbolKind::FixedSizeUnpackedArrayType)
+                    if (auto* sc442 = sym442->getParentScope();
+                        sc442 && sc442->asSymbol().kind == SymbolKind::CompilationUnit)
+                        unitAliasArr442[std::string(ts442->VpiName())] = ts442;
+            // § unitAliasVarShadowAbstain442v (v11u442, R11V442_ALIASVARSHADOW_OFF;
+            // cases tools/probe/v11u442repro/cases/VU vu01, vu02, vu06 to vu09)
+            // — the binding below matches the variable's bare copy by NAME
+            // only, so a variable typed by a SAME-NAMED typedef declared
+            // anywhere but $unit (a module-body `typedef byte ub_t [3];`, a
+            // wildcard-imported package `p::ub_t`, a generate-block, class or
+            // interface typedef) was rebound to the $unit listing where
+            // pristine and golden bind its own copy (vu01, vu02 STRICT_EQUAL
+            // -> NOT_EQUAL 17 lines).  A name declared by a typedef outside
+            // the compilation-unit level of any syntax tree is left alone.
+            if (!unitAliasArr442.empty() && fixOn(442, "R11V442_ALIASVARSHADOW_OFF")) {
+                std::set<std::string> shadow442v;
+                std::function<void(const syntax::SyntaxNode&)> walk442v =
+                    [&](const syntax::SyntaxNode& n) {
+                        if (n.kind == syntax::SyntaxKind::TypedefDeclaration &&
+                            !(n.parent &&
+                              n.parent->kind == syntax::SyntaxKind::CompilationUnit))
+                            shadow442v.insert(std::string(
+                                n.as<syntax::TypedefDeclarationSyntax>().name.valueText()));
+                        for (size_t i = 0, c = n.getChildCount(); i < c; i++)
+                            if (auto* ch = n.childNode(i))
+                                walk442v(*ch);
+                    };
+                for (auto tree : comp.getSyntaxTrees())
+                    walk442v(tree->root());
+                for (auto it = unitAliasArr442.begin(); it != unitAliasArr442.end();) {
+                    if (shadow442v.count(it->first)) {
+                        lawTrace(442, "unitAliasVarShadowAbstain442v", it->first);
+                        it = unitAliasArr442.erase(it);
+                    }
+                    else
+                        ++it;
+                }
+            }
+            if (!unitAliasArr442.empty()) {
+                std::vector<UHDM::any*> objs442b;
+                for (auto& kv : s.AllObjects())
+                    if (kv.first && ((UHDM::any*)kv.first)->UhdmType() == UHDM::uhdmarray_var)
+                        objs442b.push_back((UHDM::any*)kv.first);
+                std::stable_sort(objs442b.begin(), objs442b.end(),
+                                 [](const UHDM::any* a, const UHDM::any* b) {
+                                     return a->UhdmId() < b->UhdmId();
+                                 });
+                for (auto* o : objs442b) {
+                    auto* v442 = (UHDM::array_var*)o;
+                    auto* pk442 = v442->VpiParent();
+                    if (!pk442 || (pk442->UhdmType() != UHDM::uhdmmodule_inst &&
+                                   pk442->UhdmType() != UHDM::uhdminterface_inst &&
+                                   pk442->UhdmType() != UHDM::uhdmprogram))
+                        continue;
+                    auto* rt442 = v442->Typespec();
+                    auto* at442 = rt442 ? rt442->Actual_typespec() : nullptr;
+                    if (!at442 || at442->UhdmType() != UHDM::uhdmarray_typespec ||
+                        at442->Typedef_alias() || at442->VpiParent())
+                        continue;
+                    auto it442 = unitAliasArr442.find(std::string(at442->VpiName()));
+                    if (it442 == unitAliasArr442.end() || it442->second == at442)
+                        continue;
+                    rt442->Actual_typespec(it442->second);
+                    lawTrace(442, "unitArrTdAliasVarBindsListing442",
+                             std::string(v442->VpiFullName()));
+                }
+            }
+        }
         if (!g410ModVifTs.empty()) {
             std::vector<UHDM::any*> objs410;
             for (auto& kv : s.AllObjects())

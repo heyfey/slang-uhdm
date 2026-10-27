@@ -1,0 +1,36 @@
+v11u442repro_cases_VA_va01 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VA_va02 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VA_va03 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VA_va04 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VA_va05 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VA_va06 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VA_va07 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VD_vd01 | pristine IDENTICAL  | law STATUS_DIFF 
+v11u442repro_cases_VD_vd02 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VD_vd03 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VD_vd04 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VD_vd05 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VD_vd06 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VD_vd07 | pristine STATUS_DIFF  | law IDENTICAL 
+v11u442repro_cases_VD_vd08 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VE_ve04 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VQ_vq01 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VQ_vq02 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VQ_vq03 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VQ_vq04 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VQ_vq05 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VQ_vq06 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VR_vr01 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VR_vr02 | pristine STATUS_DIFF  | law IDENTICAL 
+v11u442repro_cases_VR_vr03 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VR_vr04 | pristine EQUIVALENT nohier | law IDENTICAL 
+v11u442repro_cases_VR_vr05 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu01 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VU_vu02 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VU_vu03 | pristine IDENTICAL  | law IDENTICAL 
+v11u442repro_cases_VU_vu04 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu05 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu06 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu07 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu08 | pristine EQUIVALENT nohier | law EQUIVALENT nohier
+v11u442repro_cases_VU_vu09 | pristine IDENTICAL  | law IDENTICAL 

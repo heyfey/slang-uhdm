@@ -1,0 +1,29 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc,generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker,generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.2,,JUDGE_EQUAL,differ:endline(1),JUDGE_EQUAL,ok,ok
+bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow,generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p733,generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave,generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p737,generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+easyUVM,generated/easyUVM/top.sv,uvm,elaboration,uvm,0,300,OK,0,0.0,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_ac_config_db,generated/uvm-examples/uvm_ac_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,10.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_ef_vif_config_db,generated/uvm-examples/uvm_ef_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,10.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_persistence,generated/uvm-examples/uvm_generation_seq_persistence.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,16.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_poly,generated/uvm-examples/uvm_generation_seq_poly.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,16.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+TNoC,generated/tnoc/tnoc.sv,cores,elaboration,TNoC,0,120,OK,0,0.0,,OK,0,31.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_generation_seq_randomization,generated/uvm-examples/uvm_generation_seq_randomization.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,16.5,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_id_register,generated/uvm-examples/uvm_id_register.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,16.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_messaging_example,generated/uvm-examples/uvm_messaging_example.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_arbitration,generated/uvm-examples/uvm_priority_arbitration.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_many_to_one,generated/uvm-examples/uvm_many_to_one.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,28.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,15.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_grab_lock,generated/uvm-examples/uvm_priority_grab_lock.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_bidir_get_put,generated/uvm-examples/uvm_use_models_bidir_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_bidir_item_done,generated/uvm-examples/uvm_use_models_bidir_item_done.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_unidirectional,generated/uvm-examples/uvm_use_models_unidirectional.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,6.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,10.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_env,testbenches/uvm_scoreboard_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,3.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_agent_env,testbenches/uvm_scoreboard_monitor_agent_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,3.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_vif_config_db,generated/uvm-examples/uvm_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,10.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_env,testbenches/uvm_scoreboard_monitor_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,3.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_init,generated/uvm-examples/uvm_test_init.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,49.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
