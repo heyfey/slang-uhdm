@@ -1,0 +1,33 @@
+r11u441 by-name prediction, written before the law sweep (law3, md5 caf5b613ae9f5162678f8e3e81fe14aa)
+
+Source scan (drivers/scan.py, fence-filtered: 27304 sources under the Surelog
+corpus, uhdm2rtlil corpus, tests/probe, sv-tests tests and cores, UVM), then a
+comment- and string-aware rescan for a comma, a line break and the next comma or
+closing parenthesis:
+  real cross-line empty call arguments: test_bsg_comm_link_checker.sv 119 (the
+  checker row), test_bsg_assembler.sv 494 and two test_bsg.sv files (no sv-tests
+  row and no corpus row lists them), Rsd Dumper.sv 461/467 (inside
+  `ifdef RSD_FUNCTIONAL_SIMULATION`); every other hit is a port list or a
+  comment.
+
+§ sysCallEmptyArgEndPrevTok441 / § emptySlotArgEndPrevTok441:
+  sv-tests: fires on generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv
+    (one firing, 120:28 end 120:28 -> 119:86); that row STRICT_NOTEQUAL differ:endline(1) -> EQUAL
+    (CONVERSION; runner on law2: EQUAL, agreement IDENTICAL).
+    Possible further firings only on rows Surelog or slang-uhdm do not both accept
+    (black-parrot SURELOG_CRASH, rsd SURELOG_CRASH, cva6 BOTH_REJECT): no verdict move.
+  probe: 0 firings (no tests/probe source holds the shape).
+  surelog / uhdm2rtlil corpora: 0 firings on any judge-equal row (a firing on a
+    strict-equal row is impossible by the decoded rule: pristine's zero-width end
+    would have read STRICT_NOTEQUAL); Rsd only if RSD_FUNCTIONAL_SIMULATION is set.
+  downstream: no verdict move (a $display placeholder's end reaches no RTLIL).
+
+§ uninstIfaceIncDecBinds441:
+  probe: 0 firings (the 23 tests/probe sources holding `interface` and ++/-- were
+    run on pristine and law3 with R11U441_TRACE: byte-identical, 0 trace lines;
+    positive control II/ii01 traced `uninstIfaceIncDecBinds441 s`).
+  surelog / uhdm2rtlil / downstream: 0 firings (a firing would bind a reference
+    that pristine leaves bare where pristine is judge-equal, which the decoded rule
+    excludes).
+  sv-tests: 0 verdict moves; candidate rows (sources holding interface and ++/--)
+    checked by a traced runner call before the sweep: see runner_candidates.txt.

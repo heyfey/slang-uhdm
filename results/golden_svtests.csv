@@ -943,7 +943,7 @@ generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_mas
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,DIFFERENT,decompile:,
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_input.sv,EQUAL,,equal
 generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_output.sv,EQUAL,,equal
-generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,STRICT_NOTEQUAL,differ:endline(1),differ:endline(1)
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged_fifo.sv,EQUAL,,equal
 generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_decode_comb.sv,EQUAL,,equal

@@ -1,0 +1,4 @@
+VJ/vj11	sl=0 up=0	p:rc=0 cmp=31 dist=4 md5=1ca5c7e2 [NOT_EQUAL stage1]	l:rc=0 cmp=31 dist=2 md5=e5a542aa [NOT_EQUAL stage1]	v:rc=0 cmp=0 dist=0 md5=da7215de [STRICT_EQUAL 31 objects]
+VJ/vj16	sl=0 up=0	p:rc=0 cmp=31 dist=2 md5=b48bc1a3 [NOT_EQUAL stage1]	l:rc=0 cmp=31 dist=2 md5=b48bc1a3 [NOT_EQUAL stage1]	v:rc=0 cmp=0 dist=0 md5=d1d77eea [STRICT_EQUAL 22 objects]
+VJ/vj17	sl=0 up=0	p:rc=0 cmp=31 dist=17 md5=e6576bf2 [NOT_EQUAL stage1]	l:rc=0 cmp=31 dist=17 md5=e6576bf2 [NOT_EQUAL stage1]	v:rc=0 cmp=414 dist=15 md5=3f40f044 [NOT_EQUAL stage1]
+VJ/vj22	sl=0 up=0	p:rc=0 cmp=31 dist=2 md5=1f2ab919 [NOT_EQUAL stage1]	l:rc=0 cmp=31 dist=2 md5=1f2ab919 [NOT_EQUAL stage1]	v:rc=0 cmp=0 dist=0 md5=2a4c7960 [STRICT_EQUAL 27 objects]

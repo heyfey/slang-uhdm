@@ -1,0 +1,8 @@
+written Mon Oct 26 22:37:56 EDT 2026 before the verified sweep's first stage finished reading
+law sweep (law md5 caf5b613...): trace = exactly one firing, sysCallEmptyArgEndPrevTok441 $display 120:28 -> 119:86 on
+  generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv (measured, 22:35)
+verified sweep (verified md5 c4efdfa2...): § unnamedLocalUnderNamedBinds441v fires on NO gate input:
+  it can fire only on a statement-position ++/-- operand declared in an unnamed block nested under a named block,
+  inside an uninstantiated program or interface; fence-filtered census of the 402 tools/probe dut.sv dirs holding
+  interface|program + ++/-- + a named begin: 0 firings, 0 byte movers law -> verified (positive control VJ/vj16 fires).
+  Predicted: every csv equal to the law sweep's, byteverify verified vs control 0 movers, trace the same one line.

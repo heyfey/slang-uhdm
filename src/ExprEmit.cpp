@@ -79,18 +79,81 @@ static bool incDecProgSym439v(const slang::ast::Symbol& sym,
         return false;
     const Scope* sc = sym.getParentScope();
     bool local = sym.kind == SymbolKind::FormalArgument;
+    bool viaNamed441v = false;
     for (int guard = 0; sc && guard < 64; ++guard) {
         auto& ss = sc->asSymbol();
         if (ss.kind == SymbolKind::StatementBlock) {
-            if (!ss.name.empty())
-                return false;
-            local = true;
+            if (!ss.name.empty()) {
+                // § unnamedLocalUnderNamedBinds441v
+                if (!local || !lawFixOn(441, "R11V441_NAMEDNEST_OFF"))
+                    return false;
+                viaNamed441v = true;
+            }
+            else
+                local = true;
         }
         else if (ss.kind == SymbolKind::Subroutine)
             local = true;
-        else if (ss.kind == SymbolKind::InstanceBody)
-            return local &&
-                   progDefs.count(&ss.as<InstanceBodySymbol>().getDefinition()) != 0;
+        else if (ss.kind == SymbolKind::InstanceBody) {
+            bool r = local &&
+                     progDefs.count(&ss.as<InstanceBodySymbol>().getDefinition()) != 0;
+            if (r && viaNamed441v)
+                lawTrace(441, "unnamedLocalUnderNamedBinds441v", std::string(sym.name));
+            return r;
+        }
+        else
+            return false;
+        sc = ss.getParentScope();
+    }
+    return false;
+}
+// § unnamedLocalUnderNamedBinds441v (v11u441, R11V441_NAMEDNEST_OFF) — in
+// both walks below (the program one of § uninstProgIncDecBinds439v and the
+// interface one of § uninstIfaceIncDecBinds441) a NAMED block stops the walk
+// only when the symbol is declared directly in it: a local of an UNNAMED block
+// nested anywhere under a named block still binds, golden on
+// tools/probe/v11u441repro VJ/vj11, vj16, vj17 and vj22 (`begin : nb begin
+// int inner; inner++; end end` bound to work@ifc.t.nb.inner), while a
+// named-block local stays bare, read from that block or from an unnamed block
+// inside it (vj14, vj15).  Pristine and the laws left these bare.
+// § uninstIfaceIncDecBinds441 (r11u441, R11U441_IFACEINCDEC_OFF) — the
+// interface twin of § uninstProgIncDecBinds439v: in an interface no module
+// instantiates (the bodies ModuleEmit emits under `uninstIfaceSubBody218`),
+// the operand of a STATEMENT-position ++ or -- binds a formal of the
+// interface's own task or function, a local of that subroutine, or a local of
+// an UNNAMED block in a process or subroutine body, Surelog's
+// paInc_or_dec_expression leg passing the enclosing scope as pexpr exactly as
+// it does in a program.  An interface member, a named-block local, an
+// expression-position ++ and an if body stay bare.  Pass 439's residue
+// v11u439 VI/vi07 and vi08; grid tools/probe/r11u441repro/cases/II.
+static bool incDecIfaceSym441(const slang::ast::Symbol& sym) {
+    using namespace slang::ast;
+    if (sym.kind != SymbolKind::FormalArgument && sym.kind != SymbolKind::Variable)
+        return false;
+    const Scope* sc = sym.getParentScope();
+    bool local = sym.kind == SymbolKind::FormalArgument;
+    bool viaNamed441v = false;
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::StatementBlock) {
+            if (!ss.name.empty()) {
+                // § unnamedLocalUnderNamedBinds441v
+                if (!local || !lawFixOn(441, "R11V441_NAMEDNEST_OFF"))
+                    return false;
+                viaNamed441v = true;
+            }
+            else
+                local = true;
+        }
+        else if (ss.kind == SymbolKind::Subroutine)
+            local = true;
+        else if (ss.kind == SymbolKind::InstanceBody) {
+            bool r = local && ss.as<InstanceBodySymbol>().getDefinition().definitionKind ==
+                                  DefinitionKind::Interface;
+            if (r && viaNamed441v)
+                lawTrace(441, "unnamedLocalUnderNamedBinds441v", std::string(sym.name));
+            return r;
+        }
         else
             return false;
         sc = ss.getParentScope();
@@ -7435,6 +7498,111 @@ static bool insideMemberIsLiteral30(const slang::ast::Expression& e30) {
 // placeholders, while `f3(1,,)` has THREE — measured on g24.sv:79/81/82/83 in
 // both views.  Surelog's argument-list parse simply yields no node for a
 // leading empty slot, so the whole list shifts left by one.
+// § sysCallEmptyArgEndPrevTok441 (r11u441, R11U441_EMPTYARGEND_OFF) and
+// § emptySlotArgEndPrevTok441 (r11u441, R11U441_EMPTYSLOTEND_OFF) — the END
+// of an empty argument's INT:0 placeholder.  Surelog locates the placeholder
+// with populateCoreMembers on the empty Argument node, whose ANTLR source
+// interval is [a, a-1]: it starts at the next token (the comma or the closing
+// parenthesis) and ends at the END of token a-1 of the FULL token stream,
+// hidden channels included (ParseUtils::getEndLineColumn: that token's start
+// line, its start column plus its length, so a run that spans a newline ends
+// past its own line's end).  Surelog's lexer keeps one White_space token per
+// run of [ \t\n\r], a Block_comment as one token and a One_line_comment
+// together with its newline as one token.  With nothing or a run of plain
+// spaces between the two commas the end is the start (the zero-width span of
+// § sysCallEmptyArgIsIntZero401 and § emptyArgSlotIntZero24); when the run
+// crosses a line, golden ends on the earlier line:
+// generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker
+// (test_bsg_comm_link_checker.sv 119/120 `core_1_period_p,\n   ,"..."`:
+// golden 120:28 ending 119:86, ours 120:28 ending 120:28).  The model reads
+// the next token's leading trivia (slang keeps a line comment and its newline
+// apart) and abstains on a token or slot from a macro, on any trivia but
+// whitespace, newlines and comments, and when the trivia's text is not the
+// buffer's text right before the token.  Grid tools/probe/r11u441repro EA, EU.
+// Returns the start of Surelog's token a-1 and its length in characters.
+static bool emptyArgPrevHiddenTok441(const slang::SourceManager* sm,
+                                     const syntax::ArgumentListSyntax* al,
+                                     SourceLocation slot, SourceLocation& at,
+                                     size_t& len) {
+    if (!sm || !al || slot == SourceLocation::NoLocation || sm->isMacroLoc(slot))
+        return false;
+    parsing::Token nt;
+    for (size_t k = 0; k < al->parameters.getChildCount(); ++k) {
+        auto ch = al->parameters.getChild(k);
+        if (ch.isToken() && ch.token().location() == slot) {
+            nt = ch.token();
+            break;
+        }
+    }
+    if (!nt && al->closeParen.location() == slot)
+        nt = al->closeParen;
+    if (!nt)
+        return false;
+    auto tv = nt.trivia();
+    if (tv.empty())
+        return false;
+    size_t total = 0;
+    for (auto& t : tv) {
+        switch (t.kind) {
+            case parsing::TriviaKind::Whitespace:
+            case parsing::TriviaKind::EndOfLine:
+            case parsing::TriviaKind::LineComment:
+            case parsing::TriviaKind::BlockComment:
+                break;
+            default:
+                return false;
+        }
+        total += t.getRawText().size();
+    }
+    if (slot.offset() < total)
+        return false;
+    std::string_view buf = sm->getSourceText(slot.buffer());
+    if (buf.size() < slot.offset())
+        return false;
+    std::string joined;
+    for (auto& t : tv)
+        joined += t.getRawText();
+    if (buf.substr(slot.offset() - total, total) != joined)
+        return false;
+    auto ws = [](const parsing::Trivia& t) {
+        return t.kind == parsing::TriviaKind::Whitespace ||
+               t.kind == parsing::TriviaKind::EndOfLine;
+    };
+    size_t n = tv.size(), first = n - 1;
+    if (tv[n - 1].kind == parsing::TriviaKind::BlockComment) {
+        first = n - 1;
+    }
+    else if (ws(tv[n - 1])) {
+        size_t j = n - 1;
+        while (j > 0 && ws(tv[j - 1]))
+            --j;
+        first = j;
+        // a line comment's own newline belongs to the comment token
+        if (j > 0 && tv[j - 1].kind == parsing::TriviaKind::LineComment &&
+            tv[j].kind == parsing::TriviaKind::EndOfLine) {
+            if (j + 1 <= n - 1)
+                first = j + 1;
+            else
+                first = j - 1; // the comment and its newline are the token
+        }
+    }
+    else
+        return false;
+    // a carriage return is not counted: Surelog's preprocessor output, which
+    // its parser reads, carries none (CRLF case EA/ea14)
+    size_t before = 0, tl = 0;
+    for (size_t k = 0; k < n; ++k) {
+        auto rt = tv[k].getRawText();
+        if (k < first)
+            before += rt.size();
+        else
+            tl += rt.size() - (size_t)std::count(rt.begin(), rt.end(), '\r');
+    }
+    at = SourceLocation(slot.buffer(), slot.offset() - total + before);
+    len = tl;
+    return tl > 0;
+}
+
 UHDM::constant* UhdmExporter::emptySlotArg24(
     const std::vector<const slang::syntax::ArgumentSyntax*>& slots, size_t i,
     bool& handled) {
@@ -7446,6 +7614,26 @@ UHDM::constant* UhdmExporter::emptySlotArg24(
         return nullptr; // the LEADING empty slot contributes NOTHING
     auto* c24 = namedSlotFiller4(s);
     setLoc(c24, slots[i]->sourceRange());
+    // § emptySlotArgEndPrevTok441 — the end at Surelog's token before the slot
+    SourceLocation at441;
+    size_t len441 = 0;
+    if (lawOn(441, "R11U441_EMPTYSLOTEND_OFF") &&
+        emptyArgPrevHiddenTok441(
+            sm, slots[i]->parent ? slots[i]->parent->as_if<syntax::ArgumentListSyntax>()
+                                 : nullptr,
+            slots[i]->sourceRange().start(), at441, len441)) {
+        uint32_t l441 = 0, c441 = 0;
+        locLineCol(at441, l441, c441);
+        c441 += (uint32_t)len441;
+        if (l441 && (l441 != c24->VpiEndLineNo() || c441 != c24->VpiEndColumnNo())) {
+            lawTrace(441, "emptySlotArgEndPrevTok441",
+                     std::to_string(c24->VpiLineNo()) + ":" +
+                         std::to_string(c24->VpiColumnNo()) + " -> " +
+                         std::to_string(l441) + ":" + std::to_string(c441));
+            c24->VpiEndLineNo(l441);
+            c24->VpiEndColumnNo(c441);
+        }
+    }
     return c24;
 }
 
@@ -35057,6 +35245,18 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      std::string(nv.symbol.name));
                         }
                     }
+                    // § uninstIfaceIncDecBinds441 — the same window in an
+                    // uninstantiated interface's subroutine and process bodies
+                    else if (incDecProgDepth439v > 0 && uninstIfaceSubBody218 &&
+                             incDecIfaceSym441(nv.symbol) &&
+                             lawOn(441, "R11U441_IFACEINCDEC_OFF")) {
+                        if (auto it441 = netMap.find(&nv.symbol);
+                            it441 != netMap.end() && it441->second) {
+                            ref->Actual_group(it441->second);
+                            lawTrace(441, "uninstIfaceIncDecBinds441",
+                                     std::string(nv.symbol.name));
+                        }
+                    }
                     // § genCaSysCallArgBinds22 (r10earl22) — a ref NESTED
                     // INSIDE a SYSTEM FUNCTION CALL's argument (i.e. the
                     // argument is an expression, not the ref itself) in an ELAB
@@ -49359,6 +49559,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     c401->VpiConstType(vpiIntConst);
                     setLoc(c401, SourceRange(argE->sourceRange.start(),
                                              argE->sourceRange.start()));
+                    // § sysCallEmptyArgEndPrevTok441 — the end at Surelog's
+                    // token before the slot (a run crossing a line ends on
+                    // the earlier line)
+                    SourceLocation at441;
+                    size_t len441 = 0;
+                    if (lawOn(441, "R11U441_EMPTYARGEND_OFF")) {
+                        auto* iv441 = callInvocation167(call);
+                        if (iv441 &&
+                            emptyArgPrevHiddenTok441(sm, iv441->arguments,
+                                                     argE->sourceRange.start(), at441,
+                                                     len441)) {
+                            uint32_t l441 = 0, c441 = 0;
+                            locLineCol(at441, l441, c441);
+                            c441 += (uint32_t)len441;
+                            if (l441 && (l441 != c401->VpiEndLineNo() ||
+                                         c441 != c401->VpiEndColumnNo())) {
+                                lawTrace(441, "sysCallEmptyArgEndPrevTok441",
+                                         name + " " + std::to_string(c401->VpiLineNo()) +
+                                             ":" + std::to_string(c401->VpiColumnNo()) +
+                                             " -> " + std::to_string(l441) + ":" +
+                                             std::to_string(c441));
+                                c401->VpiEndLineNo(l441);
+                                c401->VpiEndColumnNo(c441);
+                            }
+                        }
+                    }
                     args->push_back(c401);
                     continue;
                 }
