@@ -15756,4 +15756,20 @@ inline int patCastOperandSignedLeaf435(const Expression& od) {
     }
 }
 
+// ---- pass 449 (tests/LAWS.md; tools/probe/r11u449repro) ----
+// § cloneLvFormalTdTopListing449: the shared home object of a wildcard-import
+// clone's loop variable whose array is a formal of a package aggregate
+// typedef; StmtEmit records it, ParamEmit drainUnsizedBasedRhs106 rebinds its
+// typespec to the home package's TOP-view listing object of that typedef.
+struct CloneLvFormalTd449 {
+    UHDM::ref_typespec* rt = nullptr;
+    std::string home;
+    UHDM::ref_var* sh = nullptr;
+    std::string key;  // the home foreach's key (homeForeach258)
+};
+inline std::vector<CloneLvFormalTd449>& cloneLvFormalTd449() {
+    static std::vector<CloneLvFormalTd449> v;
+    return v;
+}
+
 } // namespace slang_uhdm

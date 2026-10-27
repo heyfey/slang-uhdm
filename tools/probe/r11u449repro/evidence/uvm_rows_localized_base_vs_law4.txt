@@ -1,0 +1,17 @@
+uvm_ac_config_db base:69 law4:37
+uvm_ef_vif_config_db base:69 law4:37
+uvm_generation_seq_persistence base:49 law4:1
+uvm_generation_seq_poly base:49 law4:1
+uvm_generation_seq_randomization base:49 law4:1
+uvm_id_register base:109 law4:61
+uvm_many_to_one base:1320 law4:1250
+uvm_messaging_example base:16 law4:0
+uvm_param_vif_config_db base:1617 law4:1579
+uvm_priority_arbitration base:16 law4:0
+uvm_priority_grab_lock base:16 law4:0
+uvm_test_init base:128 law4:0
+uvm_use_models_bidir_get_put base:28 law4:12
+uvm_use_models_bidir_item_done base:28 law4:12
+uvm_use_models_pipelined_get_put base:2035 law4:2007
+uvm_use_models_unidirectional base:16 law4:0
+uvm_vif_config_db base:69 law4:37

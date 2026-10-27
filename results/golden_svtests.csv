@@ -2080,11 +2080,11 @@ generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/h
 generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
 generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,
 generated/uvm-examples/uvm_many_to_one.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_messaging_example.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_messaging_example.sv,STRICT_NOTEQUAL,differ:file(5),differ:file(5)
 generated/uvm-examples/uvm_overriding.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm-examples/uvm_param_vif_config_db.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_priority_arbitration.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_priority_grab_lock.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_priority_arbitration.sv,STRICT_NOTEQUAL,differ:file(5),differ:file(5)
+generated/uvm-examples/uvm_priority_grab_lock.sv,STRICT_NOTEQUAL,differ:file(5),differ:file(5)
 generated/uvm-examples/uvm_register_mem_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_register_spi_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_slave_agent.sv,SLANG_ONLY,[  ERROR] : 2,

@@ -1,0 +1,55 @@
+pkgshallow seq_arb_priorities_pkg#DEF
+   L=array_typespec:@0:0
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#DEF uvm_init vs uvm_init
+   L=array_typespec:@0:0
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#DEF uvm_packer::get_packed_ints vs uvm_packer::get_packed_ints
+   L=int_typespec:@551:48
+   R=byte_typespec:@551:49
+pkgfunc seq_arb_priorities_pkg#DEF uvm_packer::get_packed_longints vs uvm_packer::get_packed_longints
+   L=long_int_typespec:@551:52
+   R=byte_typespec:@551:49
+pkgfunc seq_arb_priorities_pkg#DEF uvm_packer::set_packed_ints vs uvm_packer::set_packed_ints
+   L=int_typespec:@620:48
+   R=byte_typespec:@620:49
+pkgfunc seq_arb_priorities_pkg#DEF uvm_packer::set_packed_longints vs uvm_packer::set_packed_longints
+   L=long_int_typespec:@620:52
+   R=byte_typespec:@620:49
+pkgfunc seq_arb_priorities_pkg#DEF uvm_reg_map::perform_accesses vs uvm_reg_map::perform_accesses
+   L=bit_typespec:uvm_pkg::uvm_reg_addr_t@77:10 < module_inst:@279:1 < design:work@top@0:0
+   R=bit_typespec:uvm_reg_addr_t@77:10
+pkgfunc seq_arb_priorities_pkg#DEF uvm_reg_block::get_blocks vs uvm_reg_block::get_blocks
+   L=null
+   R=package:uvm_pkg@28:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#DEF uvm_root::new vs uvm_root::new
+   L=null
+   R=class_var:rh@366:22 < function:uvm_root::new@365:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+pkgshallow seq_arb_priorities_pkg#TOP
+   L=array_typespec:@0:0
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#TOP uvm_init vs uvm_init
+   L=array_typespec:@0:0
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#TOP uvm_packer::get_packed_ints vs uvm_packer::get_packed_ints
+   L=int_typespec:@551:48
+   R=byte_typespec:@551:49
+pkgfunc seq_arb_priorities_pkg#TOP uvm_packer::get_packed_longints vs uvm_packer::get_packed_longints
+   L=long_int_typespec:@551:52
+   R=byte_typespec:@551:49
+pkgfunc seq_arb_priorities_pkg#TOP uvm_packer::set_packed_ints vs uvm_packer::set_packed_ints
+   L=int_typespec:@620:48
+   R=byte_typespec:@620:49
+pkgfunc seq_arb_priorities_pkg#TOP uvm_packer::set_packed_longints vs uvm_packer::set_packed_longints
+   L=long_int_typespec:@620:52
+   R=byte_typespec:@620:49
+pkgfunc seq_arb_priorities_pkg#TOP uvm_reg_map::perform_accesses vs uvm_reg_map::perform_accesses
+   L=bit_typespec:uvm_pkg::uvm_reg_addr_t@77:10 < module_inst:@279:1 < design:work@top@0:0
+   R=bit_typespec:uvm_reg_addr_t@77:10
+pkgfunc seq_arb_priorities_pkg#TOP uvm_reg_block::get_blocks vs uvm_reg_block::get_blocks
+   L=null
+   R=package:uvm_pkg@28:1 < design:work@top@0:0
+pkgfunc seq_arb_priorities_pkg#TOP uvm_root::new vs uvm_root::new
+   L=null
+   R=class_var:rh@366:22 < function:uvm_root::new@365:1 < package:seq_arb_priorities_pkg@49:1 < design:work@top@0:0
+failures 16

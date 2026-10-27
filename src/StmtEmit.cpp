@@ -2045,8 +2045,29 @@ UHDM::any* UhdmExporter::emitCtorBody27(const Statement& slStmt,
         auto& vs144v = el[i].st->as<VariableDeclStatement>().symbol;
         auto* ds144v = vs144v.getSyntax();
         if ((i < from || i >= to) ||
-            (ds144v && ds144v->parent && eatenDecl144v.count(ds144v->parent)))
+            (ds144v && ds144v->parent && eatenDecl144v.count(ds144v->parent))) {
             ctorUnlistedBid144.insert((const void*)&vs144v);
+            // § cloneCtorEatenLocalNoBind449 (R11U449_CTOREATEN_OFF) — IN A
+            // WILDCARD-IMPORT CLONE THE EATEN CONSTRUCTOR LOCAL BINDS
+            // NOTHING.  The importer's copy of an out-of-body constructor is
+            // a clone_tree copy of the home body, re-resolved in the
+            // IMPORTER's scope, where the declaration the constructor
+            // compiler ate is listed nowhere; golden leaves every reference
+            // to it bare in both importer views.  UVM uvm_root::new
+            // `uvm_report_handler rh; super.new(...); rh = new("reporter");
+            // set_report_handler(rh);` (uvm_root.svh 365-371) in
+            // messaging_pkg's listing: golden unbound, ours the class_var rh
+            // at 366:22 (uvm_messaging_example, uvm_priority_arbitration and
+            // uvm_priority_grab_lock, their last 2 localized failures each).
+            // The declaration leaves this body's symbol map, so neither the
+            // reference emitter nor the clone-body name binder
+            // (§ pkgCloneHierBind9, which records the map after the body)
+            // reaches it.  Grid cases/CE.
+            if (pkgImportCloneEmit && lawOn(449, "R11U449_CTOREATEN_OFF"))
+                if (netMap.erase(&vs144v))
+                    lawTrace(449, "cloneCtorEatenLocalNoBind449",
+                             prefix + "::" + std::string(vs144v.name));
+        }
     }
     for (size_t i = from; i < to && i < el.size(); ++i) {
         switch (el[i].k) {
@@ -5990,6 +6011,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             std::string(name) + "@" +
                             std::to_string(lv0->VpiLineNo()) + ":" +
                             std::to_string(lv0->VpiColumnNo());
+                        // § macroCloneLoopVarPerSub449 (R11U449_LVKEYSUB_OFF)
+                        // — ONE SHARED OBJECT PER HOME SUBROUTINE, not per
+                        // source position.  The macro-written UVM methods
+                        // (`M__UVM_GET_PACKED(byte)`, `(int)`, `(longint)`,
+                        // uvm_packer.svh 551) put every expansion's
+                        // `foreach (stream[i])` at the one macro-body
+                        // position 558:20, so the position key handed
+                        // get_packed_ints and get_packed_longints the object
+                        // get_packed_bytes minted first (its byte_typespec at
+                        // 551:49).  Golden mints one per home method, each
+                        // over its own formal's element typespec (int at
+                        // 551:48, longint at 551:52; uvm_messaging_example,
+                        // 8 localized failures).  The key gains the loop
+                        // variable's full name with the importer's leading
+                        // package dropped, so every importer and both views
+                        // of one clone still reach one object.  Grid
+                        // cases/MC.
+                        if (lawOn(449, "R11U449_LVKEYSUB_OFF")) {
+                            std::string f449 = joinRef(prefix, lvn);
+                            if (auto q449 = f449.find("::");
+                                q449 != std::string::npos)
+                                f449 = f449.substr(q449 + 2);
+                            std::string k449 = k37 + "|" + f449;
+                            // the trace names every key the position alone
+                            // would have merged into another subroutine's
+                            static std::map<std::string, std::string> first449;
+                            auto [it449, new449] = first449.emplace(k37, f449);
+                            if (!new449 && it449->second != f449)
+                                lawTrace(449, "macroCloneLoopVarPerSub449",
+                                         "split " + k449 + " from " + it449->second);
+                            k37 = k449;
+                        }
                         auto& sh37 = cloneLoopVarShared37[k37];
                         if (!sh37) {
                             // § cloneLoopVarHomeObject183 (r11u183,
@@ -6015,6 +6068,11 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             // § cloneLoopVarAssocIdxTs258: the index
                             // typespec, bound late (LawState.h pass 258).
                             UHDM::typespec* deferIdx258 = nullptr;
+                            // § formalClsElemMemberDrill449 restores this
+                            // before the object is built; § 449's typedef
+                            // branch reads fromIo449.
+                            const Symbol* arrSaved449 = arrSym;
+                            bool fromIo449 = false;
                             if ((lawOn(183, 187, "R11U183_UVMCOPY_OFF") && !splitAOff(183)) &&
                                 (lawOn(183, 187, "R11U183_CLONELV_OFF") && !splitAOff(183))) {
                                 std::string home183;
@@ -6032,14 +6090,60 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     tr183SE("cloneLoopVarHomeObject183");
                                     fn183 = home183 + fn183.substr(q183);
                                 }
+                                // § formalClsElemMemberDrill449
+                                // (R11U449_FORMALCLSMEM_OFF) — A FORMAL WHOSE
+                                // ELEMENT IS A CLASS IS DRILLED BY THE ARRAY'S
+                                // OWN NAME.  The shared home object resolves
+                                // the iterated name through decodeHierPath,
+                                // which, on reaching the formal's class
+                                // element typespec, looks the same name up
+                                // inside that class: a property of that name
+                                // wins, and the object takes the property's
+                                // route (an associative index, a string, a
+                                // fresh array_typespec).  UVM
+                                // uvm_reg_block::get_blocks(ref uvm_reg_block
+                                // blks[$]) `foreach (this.blks[blk_])` binds
+                                // the class_typespec of the property `blks
+                                // [uvm_reg_block]`'s index at
+                                // uvm_reg_block.svh 42:30, not the formal's
+                                // element at 1274:45 (uvm_messaging_example, 2
+                                // localized failures).  Grid cases/TS: ts04
+                                // to ts06, ts09, ts10 drill (a property of the
+                                // element class, self or other, bare or
+                                // `this.`), ts01, ts07, ts08 keep the formal
+                                // (no property of that name in the element
+                                // class).
+                                if (arrSym &&
+                                    arrSym->kind == SymbolKind::FormalArgument &&
+                                    lawOn(449, "R11U449_FORMALCLSMEM_OFF")) {
+                                    const auto& ft449 = arrSym->as<FormalArgumentSymbol>()
+                                                            .getType()
+                                                            .getCanonicalType();
+                                    const Type* et449 =
+                                        ft449.isUnpackedArray()
+                                            ? ft449.getArrayElementType()
+                                            : nullptr;
+                                    if (et449 && et449->getCanonicalType().isClass())
+                                        if (auto* m449 = et449->getCanonicalType()
+                                                             .as<ClassType>()
+                                                             .find(arrSym->name);
+                                            m449 &&
+                                            m449->kind == SymbolKind::ClassProperty) {
+                                            lawTrace(449, "formalClsElemMemberDrill449",
+                                                     fn183);
+                                            arrSym = m449;
+                                        }
+                                }
                                 if (arrSym) {
                                     if (auto fit183 = netMap.find(arrSym);
                                         fit183 != netMap.end() && fit183->second &&
                                         fit183->second->UhdmType() ==
                                             UHDM::uhdmio_decl) {
                                         if (auto* irt183 =
-                                                ((UHDM::io_decl*)fit183->second)->Typespec())
+                                                ((UHDM::io_decl*)fit183->second)->Typespec()) {
                                             res183 = irt183->Actual_typespec();
+                                            fromIo449 = res183 != nullptr;
+                                        }
                                     }
                                     else if (auto a183 = arrayVarArrayTs.find(arrSym);
                                              a183 != arrayVarArrayTs.end())
@@ -6248,6 +6352,168 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                                                   std::string(arrSym->name) + " " +
                                                                       std::to_string(res183->UhdmType()));
                                                         }
+                                    // § pkgVarArrCloneLoopVarTs449
+                                    // (R11U449_PKGVARARR_OFF) — A PACKAGE
+                                    // VARIABLE IS RESOLVED THE WAY A CLASS
+                                    // PROPERTY IS.  The shared home object of
+                                    // a foreach over a package-level array
+                                    // takes getSimpleVarFromTypespec's answer
+                                    // (§ cloneLoopVarClassPropArrayTs238's
+                                    // decode): a queue, dynamic or fixed
+                                    // array a FRESH, EMPTY array_typespec (a
+                                    // typedef'd one binds the typedef's
+                                    // listing object, not reached: the branch
+                                    // abstains), an associative one its index
+                                    // typespec (the branch below), a string the
+                                    // variable's string_typespec.  UVM
+                                    // uvm_init's `foreach
+                                    // (uvm_deferred_init[idx])` over
+                                    // `uvm_object_wrapper uvm_deferred_init
+                                    // [$]` (uvm_globals.svh 373; golden
+                                    // array_typespec with no span, ours the
+                                    // unsupported placeholder;
+                                    // uvm_messaging_example, 4 localized
+                                    // failures).  A package a $unit import
+                                    // reaches resolves another way (the
+                                    // element, cases/PV pv09) and abstains.
+                                    // Grid cases/PV.
+                                    if (!res183 && arrSym &&
+                                        arrSym->kind == SymbolKind::Variable &&
+                                        lawOn(449, "R11U449_PKGVARARR_OFF"))
+                                        if (auto* pp449 = arrSym->getParentScope();
+                                            pp449 &&
+                                            pp449->asSymbol().kind ==
+                                                SymbolKind::Package &&
+                                            !pkgImportedByUnit21(pp449->asSymbol())) {
+                                            const UHDM::variables* lv449 = nullptr;
+                                            if (auto dm449 =
+                                                    pkgDefMap.find(&pp449->asSymbol());
+                                                dm449 != pkgDefMap.end() &&
+                                                dm449->second &&
+                                                dm449->second->Variables())
+                                                for (auto* v449 :
+                                                     *dm449->second->Variables())
+                                                    if (v449 &&
+                                                        v449->VpiName() == arrSym->name)
+                                                        lv449 = v449;
+                                            const UHDM::typespec* lt449 =
+                                                lv449 && lv449->Typespec()
+                                                    ? lv449->Typespec()->Actual_typespec()
+                                                    : nullptr;
+                                            const auto& vt449 =
+                                                arrSym->as<VariableSymbol>().getType();
+                                            auto ck449 = vt449.getCanonicalType().kind;
+                                            UHDM::typespec* r449 = nullptr;
+                                            // § pkgVarScopedNameInt449v
+                                            // (R11V449_PKGVARSCOPED_OFF) — A
+                                            // `p::a` SPELLING TAKES THE SCOPED
+                                            // BRANCH'S int_typespec.  Golden
+                                            // `foreach (p::a[i])` over a
+                                            // package queue binds a fresh
+                                            // int_typespec with no span (the
+                                            // § cloneLoopVarClassScopedInt252
+                                            // rule for a class-scoped name),
+                                            // where the law wrote the fresh
+                                            // array_typespec of the bare
+                                            // spelling (v11u449 VP/vp08,
+                                            // vp11, vp12).
+                                            std::string sn449v;
+                                            slang::SourceRange sr449v;
+                                            if (fixOn(449, "R11V449_PKGVARSCOPED_OFF") &&
+                                                foreachScopedArrayName33(arrBase, sn449v,
+                                                                         sr449v)) {
+                                                r449 = s.MakeInt_typespec();
+                                                lawTrace(449, "pkgVarScopedNameInt449v",
+                                                         sn449v);
+                                            }
+                                            else if (ck449 == SymbolKind::QueueType ||
+                                                ck449 == SymbolKind::DynamicArrayType ||
+                                                ck449 ==
+                                                    SymbolKind::FixedSizeUnpackedArrayType) {
+                                                // a typedef'd array binds the
+                                                // typedef's listing object in
+                                                // golden (cases/PV pv07), which
+                                                // this branch does not reach:
+                                                // abstain
+                                                if (vt449.kind != SymbolKind::TypeAlias)
+                                                    r449 = s.MakeArray_typespec();
+                                            }
+                                            else if (ck449 ==
+                                                         SymbolKind::AssociativeArrayType ||
+                                                     ck449 == SymbolKind::StringType)
+                                                r449 = (UHDM::typespec*)lt449;
+                                            if (r449) {
+                                                res183 = r449;
+                                                lawTrace(449, "pkgVarArrCloneLoopVarTs449",
+                                                         fn183 + " " +
+                                                             std::to_string(r449->UhdmType()));
+                                            }
+                                        }
+                                    // § drillUnresolvedFallback449v
+                                    // (R11V449_DRILLFALL_OFF) — A DRILLED
+                                    // PROPERTY THE BRANCHES ABOVE LEAVE
+                                    // UNRESOLVED TAKES ITS OWN LISTING
+                                    // TYPESPEC, ELSE THE FORMAL'S.  THE BREAK:
+                                    // § formalClsElemMemberDrill449 handed
+                                    // the property to branches that resolve it
+                                    // only through arrayVarArrayTs or the
+                                    // queue/string branches, so in a FREE
+                                    // function (v11u449 VT/vt08, `function
+                                    // automatic void walk(ref C blks[$])`
+                                    // over `int unsigned blks[C]`) the
+                                    // object fell to the unsupported
+                                    // placeholder: STRICT_EQUAL -> differ
+                                    // type, where golden binds the
+                                    // property's index class_typespec C at
+                                    // 4:23.  The class_defn's listing of
+                                    // the property gives that object (an
+                                    // associative array through the INDEX
+                                    // branch below; a scalar property its own
+                                    // typespec, vt02's int_typespec 4:5);
+                                    // with no listing the formal's route is
+                                    // restored (pristine's bytes).
+                                    if (!res183 && !deferStr248 &&
+                                        arrSym && arrSym != arrSaved449 &&
+                                        lawFixOn(449, "R11V449_DRILLFALL_OFF")) {
+                                        const UHDM::typespec* pv449v = nullptr;
+                                        if (auto* pc449v = arrSym->getParentScope();
+                                            pc449v &&
+                                            pc449v->asSymbol().kind ==
+                                                SymbolKind::ClassType)
+                                            if (auto* cd449v = classDefnFor(
+                                                    pc449v->asSymbol()
+                                                        .as<slang::ast::ClassType>());
+                                                cd449v && cd449v->Variables())
+                                                for (auto* v449v : *cd449v->Variables())
+                                                    if (v449v &&
+                                                        v449v->VpiName() == arrSym->name &&
+                                                        v449v->Typespec() &&
+                                                        v449v->Typespec()->Actual_typespec()) {
+                                                        pv449v = v449v->Typespec()
+                                                                     ->Actual_typespec();
+                                                        break;
+                                                    }
+                                        if (pv449v) {
+                                            res183 = (UHDM::typespec*)pv449v;
+                                            lawTrace(449, "drillUnresolvedFallback449v",
+                                                     "prop " + fn183);
+                                        }
+                                        else {
+                                            arrSym = arrSaved449;
+                                            if (auto fb449v = netMap.find(arrSym);
+                                                fb449v != netMap.end() && fb449v->second &&
+                                                fb449v->second->UhdmType() ==
+                                                    UHDM::uhdmio_decl)
+                                                if (auto* ib449v =
+                                                        ((UHDM::io_decl*)fb449v->second)
+                                                            ->Typespec()) {
+                                                    res183 = ib449v->Actual_typespec();
+                                                    fromIo449 = res183 != nullptr;
+                                                }
+                                            lawTrace(449, "drillUnresolvedFallback449v",
+                                                     "formal " + fn183);
+                                        }
+                                    }
                                     // An ASSOCIATIVE array's loop variable is
                                     // the declaration's INDEX typespec object
                                     // (getSimpleVarFromTypespec of its
@@ -6425,6 +6691,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     }
                                 }
                             }
+                            arrSym = arrSaved449;
                             sh37 = s.MakeRef_var();
                             sh37->VpiName(name);
                             sh37->VpiFullName(fn183);
@@ -6453,6 +6720,22 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             if (!uts37 && deferIdx258)
                                 deferredAssocIdxTs258().push_back(
                                     {lrt37, deferIdx258, sh37, key258});
+                            // § cloneLvFormalTdTopListing449
+                            // (R11U449_FORMALTDTOP_OFF) — record the shared
+                            // object a formal of a package aggregate typedef
+                            // resolved, for the design-final rebind in
+                            // ParamEmit drainUnsizedBasedRhs106 (the law is
+                            // stated there).
+                            if (fromIo449 && uts37 == res183 && uts37 &&
+                                (uts37->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                 uts37->UhdmType() == UHDM::uhdmunion_typespec ||
+                                 uts37->UhdmType() == UHDM::uhdmenum_typespec) &&
+                                uts37->VpiName().find("::") != std::string_view::npos &&
+                                lawOn(449, "R11U449_FORMALTDTOP_OFF"))
+                                if (auto q449 = fn183.find("::");
+                                    q449 != std::string::npos)
+                                    cloneLvFormalTd449().push_back(
+                                        {lrt37, fn183.substr(0, q449), sh37, key258});
                             sh37->Typespec(lrt37);
                         }
                         lv0->Actual_group(sh37);

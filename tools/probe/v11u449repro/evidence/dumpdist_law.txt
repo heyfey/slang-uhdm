@@ -1,0 +1,39 @@
+VC_vc01 dist 232 -> 162
+VC_vc02 dist 280 -> 214
+VC_vc03 dist 162 -> 124
+VC_vc04 same
+VC_vc05 same
+VC_vc06 dist 180 -> 148
+VF_vf01 same
+VF_vf02 dist 40 -> 36
+VF_vf03 dist 130 -> 122
+VF_vf04 dist 64 -> 60
+VI_vi01 dist 297 -> 284
+VI_vi02 dist 146 -> 146
+VI_vi03 dist 178 -> 178
+VI_vi04 dist 304 -> 214
+VI_vi05 dist 300 -> 392
+VI_vi06 dist 162 -> 124
+VM_vm01 dist 154 -> 164
+VM_vm02 dist 148 -> 160
+VM_vm03 dist 178 -> 180
+VM_vm04 dist 164 -> 170
+VM_vm05 same
+VP_vp01 dist 97 -> 98
+VP_vp02 dist 145 -> 141
+VP_vp03 dist 120 -> 116
+VP_vp04 dist 129 -> 129
+VP_vp05 dist 95 -> 96
+VP_vp06 dist 128 -> 129
+VP_vp07 same
+VP_vp08 dist 107 -> 106
+VP_vp09 same
+VP_vp10 dist 173 -> 174
+VT_vt01 dist 106 -> 106
+VT_vt02 dist 84 -> 88
+VT_vt03 dist 94 -> 95
+VT_vt04 dist 106 -> 106
+VT_vt05 dist 106 -> 106
+VT_vt06 dist 94 -> 95
+VT_vt07 same
+VT_vt08 dist 100 -> 102

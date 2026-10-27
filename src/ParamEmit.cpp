@@ -39745,6 +39745,52 @@ void UhdmExporter::drainUnsizedBasedRhs106() {
                   (d258.sh ? std::string(d258.sh->VpiFullName()) : std::string()));
     }
     deferredAssocIdxTs258().clear();
+    // § cloneLvFormalTdTopListing449 (R11U449_FORMALTDTOP_OFF) — THE SHARED
+    // LOOP-VARIABLE OBJECT OF A FORMAL TYPED BY A PACKAGE AGGREGATE TYPEDEF
+    // BINDS THE TYPEDEF'S SHARED LISTING CLONE.  A wildcard-import clone's
+    // `foreach (acc[i])` over `ref T acc[$]` (T a package struct, union or
+    // enum typedef) shares one home object whose typespec Surelog's
+    // lateTypedefBinding resolves by the typedef's name after the importers
+    // re-listed it, so it reaches the one object the home package's TOP view
+    // and every importer list (§ pkgImportAggCloneLastWriter32's clone), not
+    // the home DEF listing's typedef nor the clone formal's private copy.
+    // UVM uvm_reg_map::perform_accesses `foreach (accesses[i])` over `ref
+    // uvm_reg_bus_op accesses[$]`: golden struct_typespec
+    // uvm_pkg::uvm_reg_bus_op at 58:42 owned by messaging_pkg, whose members
+    // lead to the qualified uvm_pkg::uvm_reg_addr_t; ours the private copy at
+    // 244:9 (uvm_messaging_example, 2 localized failures).  Abstains when the
+    // TOP view lists no such object.  Grid cases/IT.
+    for (auto& d449 : cloneLvFormalTd449()) {
+        if (!d449.rt || !d449.rt->Actual_typespec())
+            continue;
+        const UHDM::typespec* cur449 = d449.rt->Actual_typespec();
+        UHDM::typespec* hit449 = nullptr;
+        for (auto& [k449, tp449] : pkgTopMap) {
+            (void)k449;
+            if (!tp449 || tp449->VpiName() != d449.home || !tp449->Typespecs())
+                continue;
+            for (auto* t449 : *tp449->Typespecs())
+                if (t449 && t449->UhdmType() == cur449->UhdmType() &&
+                    t449->VpiName() == cur449->VpiName())
+                    hit449 = t449;
+        }
+        if (hit449 && hit449 != cur449) {
+            d449.rt->Actual_typespec(hit449);
+            // the object is the HOME's, parented at the home foreach_stmt as
+            // golden's (`vpiParent: foreach_stmt (uvm_pkg::uvm_reg_map::
+            // perform_accesses)`), so § cloneAggLocalOwnCopy241 takes no
+            // private copy of the listing struct for it (§ 258's placement)
+            if (auto h449 = homeForeach258().find(d449.key);
+                h449 != homeForeach258().end() && d449.sh)
+                if (auto* hf449 = h449->second.second ? h449->second.second
+                                                      : h449->second.first)
+                    d449.sh->VpiParent(hf449);
+            lawTrace(449, "cloneLvFormalTdTopListing449",
+                     std::string(d449.rt->VpiFullName()) + " " +
+                         std::string(cur449->VpiName()));
+        }
+    }
+    cloneLvFormalTd449().clear();
     for (auto& r : unsizedRhs106) {
         auto* c = r.c;
         if (!c)
@@ -45420,6 +45466,24 @@ void UhdmExporter::bindPkgTfBodyClassMethodClones192() {
         // body it imports, and golden keeps a CLONE's calls on the class
         // method while binding this package's OWN bodies to this listing's
         // entries — whatever class the CALLEE belongs to.
+        // § freeCloneCmCallKeepsClassMethod449 (R11U449_FREECLONECM_OFF) —
+        // AN UNQUALIFIED FREE FUNCTION IS OWNED ONLY WHEN IT IS NOT ITSELF AN
+        // IMPORT CLONE.  The split above is the caller's home, and a wildcard
+        // importer's copy of the home package's FREE subroutine is a
+        // `clone_tree` copy exactly as its `C::m` copies are, so its
+        // `C::m()` calls keep the class_defn's method in golden.  UVM
+        // uvm_init's `top = uvm_root::get();` (uvm_globals.svh 381) in
+        // messaging_pkg's clone: golden binds `function get` of class_defn
+        // uvm_root in uvm_pkg, ours the importer's `uvm_root::get` entry
+        // (uvm_messaging_example, 2 localized failures behind § 449's
+        // uvm_init loop variable).  Grid cases/FC.
+        if (pkgImportCloneTfs16.count((const UHDM::task_func*)sub192) &&
+            std::string_view(sub192->VpiName()).find("::") == std::string_view::npos &&
+            lawOn(449, "R11U449_FREECLONECM_OFF")) {
+            lawTrace(449, "freeCloneCmCallKeepsClassMethod449",
+                     std::string(sub192->VpiName()) + " " + cn192);
+            continue;
+        }
         {
             const std::string sn192(sub192->VpiName());
             const size_t q192 = sn192.find("::");

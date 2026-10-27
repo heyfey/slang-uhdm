@@ -1,0 +1,34 @@
+cases/CE/ce01 moved own-switch-restores dist 148 -> 110
+cases/CE/ce02 moved own-switch-restores dist 101 -> 63
+cases/CE/ce03 moved own-switch-restores dist 145 -> 107
+cases/FC/fc01 moved own-switch-restores dist 60 -> 56
+cases/FC/fc02 moved own-switch-restores dist 41 -> 41
+cases/FC/fc03 same
+cases/IT/it01 moved own-switch-restores dist 417 -> 338
+cases/IT/it02 moved own-switch-restores dist 216 -> 216
+cases/IT/it03 moved own-switch-restores dist 84 -> 84
+cases/IT/it04 moved own-switch-restores dist 392 -> 392
+cases/MC/mc01 moved own-switch-restores dist 135 -> 147
+cases/MC/mc02 moved own-switch-restores dist 100 -> 106
+cases/MC/mc03 moved own-switch-restores dist 154 -> 152
+cases/MC/mc04 moved own-switch-restores dist 144 -> 150
+cases/PV/pv01 moved own-switch-restores dist 92 -> 93
+cases/PV/pv02 moved own-switch-restores dist 114 -> 115
+cases/PV/pv03 moved own-switch-restores dist 114 -> 115
+cases/PV/pv04 moved own-switch-restores dist 99 -> 100
+cases/PV/pv05 moved own-switch-restores dist 137 -> 137
+cases/PV/pv06 moved own-switch-restores dist 78 -> 78
+cases/PV/pv07 same
+cases/PV/pv08 moved own-switch-restores dist 125 -> 126
+cases/PV/pv09 same
+cases/PV/pv10 moved own-switch-restores dist 102 -> 103
+cases/TS/ts01 same
+cases/TS/ts02 same
+cases/TS/ts03 same
+cases/TS/ts04 moved own-switch-restores dist 116 -> 116
+cases/TS/ts05 moved own-switch-restores dist 120 -> 120
+cases/TS/ts06 moved own-switch-restores dist 118 -> 118
+cases/TS/ts07 same
+cases/TS/ts08 same
+cases/TS/ts09 moved own-switch-restores dist 104 -> 104
+cases/TS/ts10 moved own-switch-restores dist 108 -> 108

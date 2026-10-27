@@ -1,0 +1,6 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+uvm_messaging_example,generated/uvm-examples/uvm_messaging_example.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,8.9,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_grab_lock,generated/uvm-examples/uvm_priority_grab_lock.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,9.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_priority_arbitration,generated/uvm-examples/uvm_priority_arbitration.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,9.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_unidirectional,generated/uvm-examples/uvm_use_models_unidirectional.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,8.8,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_test_init,generated/uvm-examples/uvm_test_init.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,58.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
