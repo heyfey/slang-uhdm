@@ -535,11 +535,61 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
     if (auto syntax = block.getSyntax())
         setLoc(proc, syntax->sourceRange());
 
+    // § uninstProgBodyAsUninstIface439 (r11u439) — A FILE-SCOPE PROGRAM NO
+    // MODULE INSTANTIATES IS WRITTEN LIKE AN UNINSTANTIATED INTERFACE.
+    // Surelog never elaborates such a program (it is no design top: golden
+    // lists it in uhdmallPrograms only), and its one writer,
+    // UhdmWriter::writeProgram, calls neither lateBinding nor
+    // lateTypedefBinding (only writeElabProgram, the instantiated road, does),
+    // exactly the holder facts of UhdmWriter::writeInterface that
+    // § uninstIfaceBodyBindsInMethodWindow218, § uninstIfaceForeachHdrUnresolved220
+    // and § ifaceDefListsItsOwnProcesses226 encode for an interface no
+    // instance elaborates.  So in a process body of such a program every
+    // reference CompileHelper::bindVariable does not bind at compile time
+    // stays bare (golden `x = y` with no vpiActual on either side, a foreach
+    // loop variable's reads unbound with no implicit net minted), and a
+    // foreach keeps paFOREACH's placeholders: the iterated reference a
+    // ref_var over a fresh unsupported_typespec named after the array at its
+    // name, each loop variable a ref_var over an unsupported_typespec named
+    // for it (golden P1: `foreach (arr[i])` in `program prg` -> ref_var arr
+    // over unsupported_typespec arr 3:18-3:21, ref_var i over
+    // unsupported_typespec i 3:22-3:23, where ours wrote an array_typespec,
+    // an int_var and a logic_net work@prg.i bound by every read).  The body
+    // is emitted under the three flags the interface road raises; a program
+    // some module instantiates is elaborated (writeElabProgram) and is not
+    // touched.  Grid tools/probe/r11u439repro/cases/UP.  Switch
+    // R11U439_UNINSTPROG_OFF.
+    bool uip439 = false;
+    if (!uninstIfaceSubBody218 && m && m->UhdmType() == UHDM::uhdmprogram) {
+        const Scope* sc439 = block.getParentScope();
+        while (sc439 && sc439->asSymbol().kind != SymbolKind::InstanceBody)
+            sc439 = sc439->asSymbol().getParentScope();
+        if (sc439 &&
+            uninstProgDefs.count(
+                &sc439->asSymbol().as<InstanceBodySymbol>().getDefinition()) &&
+            lawOn(439, "R11U439_UNINSTPROG_OFF")) {
+            uip439 = true;
+            lawTrace(439, "uninstProgBodyAsUninstIface439",
+                     std::string(sc439->asSymbol().name) + " " +
+                         std::to_string(proc->VpiLineNo()));
+        }
+    }
+    bool savedSRA439 = suppressRefActual;
+    bool savedUIS439 = uninstIfaceSubBody218;
+    bool savedUIP439 = uninstIfaceProcBody226;
+    if (uip439) {
+        suppressRefActual = true;
+        uninstIfaceSubBody218 = true;
+        uninstIfaceProcBody226 = true;
+    }
     bool selOwner = beginSelTrack();
     if (auto* body = emitStmt(block.getBody(), proc, prefix, netMap))
         proc->Stmt(body);
     if (selOwner)
         endSelTrack();
+    suppressRefActual = savedSRA439;
+    uninstIfaceSubBody218 = savedUIS439;
+    uninstIfaceProcBody226 = savedUIP439;
     return proc;
 }
 
@@ -2457,6 +2507,46 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
     } ssGuard14{&stmtSyntax14, stmtSyntax14};
     if (stmt.syntax)
         stmtSyntax14 = stmt.syntax;
+    // § uninstProgSubBodyAsUninstIface439 (r11u439) — the subroutine half of
+    // § uninstProgBodyAsUninstIface439 (emitProcess): a task or function
+    // declared in a file-scope program no module instantiates has its body
+    // written under the two flags the interface road raises around an
+    // uninstantiated interface's subroutines (suppressRefActual and
+    // uninstIfaceSubBody218), since writeProgram runs neither late pass for
+    // them either (golden P5 `task fill(); foreach (arr[k]) arr[k] = k;`: the
+    // loop variable the ref_var placeholder, the iterated reference over
+    // unsupported_typespec arr, the reads of k bare).  Raised at the first
+    // statement of the body (currentSubSym set, the flag still down), for
+    // the body's whole statement tree; a subroutine of a class declared in
+    // the program is left alone.  Switch R11U439_UNINSTPROGSUB_OFF.
+    struct UipSub439 {
+        UhdmExporter* self = nullptr;
+        bool sra = false;
+        ~UipSub439() {
+            if (self) {
+                self->suppressRefActual = sra;
+                self->uninstIfaceSubBody218 = false;
+            }
+        }
+    } uipSub439;
+    if (currentSubSym && !uninstIfaceSubBody218 && !uninstProgDefs.empty()) {
+        const Scope* sc439 = currentSubSym->getParentScope();
+        while (sc439 && sc439->asSymbol().kind != SymbolKind::InstanceBody &&
+               sc439->asSymbol().kind != SymbolKind::ClassType &&
+               sc439->asSymbol().kind != SymbolKind::GenericClassDef)
+            sc439 = sc439->asSymbol().getParentScope();
+        if (sc439 && sc439->asSymbol().kind == SymbolKind::InstanceBody &&
+            uninstProgDefs.count(
+                &sc439->asSymbol().as<InstanceBodySymbol>().getDefinition()) &&
+            lawOn(439, "R11U439_UNINSTPROGSUB_OFF")) {
+            lawTrace(439, "uninstProgSubBodyAsUninstIface439",
+                     std::string(currentSubSym->name));
+            uipSub439.self = this;
+            uipSub439.sra = suppressRefActual;
+            suppressRefActual = true;
+            uninstIfaceSubBody218 = true;
+        }
+    }
     // § tfBodyTypedefForcesBegin304 (R11U304_TDBEGIN_OFF) — Surelog's
     // `compileFunction` / `compileTask` (CompileStmt.cpp) synthesise the body's
     // wrapper `begin` whenever `MoreFunction_statement_or_null` /
@@ -6804,7 +6894,82 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
             }
             size_t dimIdx = 0;
+            // § foreachLeadSkipPlaceholder439 (r11u439) — A LEADING EMPTY SLOT
+            // IS A NAMELESS LOOP VARIABLE AT THE COMMA AFTER IT.  Surelog's
+            // paFOREACH walk (CompileStmt.cpp) takes the Loop_variables
+            // node's FIRST child as the first loop variable whatever its type,
+            // so for `foreach (a[, j])` that child is the comma and it mints the
+            // ref_var placeholder over an unsupported_typespec named by
+            // SymName(comma), i.e. empty, located at the comma; its comma
+            // lookahead then reads the next comma as a separator, so a SECOND
+            // leading empty slot (`[, , k]`) leaves nothing at all, and only a
+            // third and later one get the vpiNullOp operation every other
+            // empty slot gets.  The placeholder is swapped or kept exactly as a
+            // named loop variable is (module: int_var over the element
+            // typespec; uninstantiated program or interface, class method:
+            // the ref_var placeholder), with no name and the scope's own full
+            // name (golden M2 `int_var (work@top)` 3:23-3:24, P18 `ref_var
+            // (work@prg)` 3:23-3:24 then `ref_var k`; ours wrote an unlocated
+            // vpiNullOp).  Abstains with folded leading index groups.  Grid
+            // tools/probe/r11u439repro/cases/LS.  Switch R11U439_LEADSKIP_OFF.
+            //
+            // § foreachTrailSkipDropped439 (r11u439) — THE LAST EMPTY SLOT OF
+            // A LOOP LIST THAT ENDS EMPTY IS NOT LISTED.  The same walk reads a
+            // comma with no following sibling as a separator and stops, so
+            // `foreach (a[i, ])` lists `i` alone and `[i, , ]` lists `i` and
+            // one vpiNullOp at the first comma (golden M4, M10; ours added a
+            // located vpiNullOp for the last slot).  Abstains when every slot
+            // is empty.  Switch R11U439_TRAILSKIP_OFF.
+            bool leadSkip439 = false;
+            size_t lead439 = 0;
+            const size_t nDims439 = fe.loopDims.size();
+            bool anyVar439 = false;
+            for (auto& ld439 : fe.loopDims)
+                if (ld439.loopVar)
+                    anyVar439 = true;
+            const bool dropLast439 =
+                nDims439 > 1 && anyVar439 && foldedIdx.empty() &&
+                !fe.loopDims[nDims439 - 1].loopVar &&
+                lawOn(439, "R11U439_TRAILSKIP_OFF");
             for (auto& ld : fe.loopDims) {
+                if (!ld.loopVar && dimIdx == nDims439 - 1 && dropLast439 &&
+                    !(leadSkip439 && dimIdx == 1)) {
+                    lawTrace(439, "foreachTrailSkipDropped439",
+                             prefix + " " + std::to_string(fs->VpiLineNo()));
+                    dimIdx++;
+                    continue;
+                }
+                if (!ld.loopVar && dimIdx == 1 && leadSkip439) {
+                    dimIdx++;
+                    continue;
+                }
+                if (!ld.loopVar && dimIdx == 0 && foldedIdx.empty() && ll &&
+                    ll->loopVariables.getChildCount() > 1 &&
+                    ll->loopVariables.getChild(1).isToken() &&
+                    lawOn(439, "R11U439_LEADSKIP_OFF")) {
+                    // A nested foreach with its own leading empty slot re-lists
+                    // the enclosing loop's placeholder object, as a named loop
+                    // variable re-lists (golden N1).
+                    const bool relist439 = openForeachVars.count("") != 0;
+                    size_t n439 = lvars->size();
+                    declLoopVar("", ll->loopVariables.getChild(1).range());
+                    if (lvars->size() == n439 + 1) {
+                        leadSkip439 = true;
+                        lead439 = n439;
+                        auto* lv439 = (*lvars)[n439];
+                        lawTrace(439, "foreachLeadSkipPlaceholder439",
+                                 prefix + " " + std::to_string(lv439->VpiLineNo()) +
+                                     ":" + std::to_string(lv439->VpiColumnNo()));
+                        if (auto* ex439 = dynamic_cast<UHDM::variables*>(lv439);
+                            ex439 && !relist439) {
+                            ex439->VpiFullName(prefix);
+                            if (auto* rt439 = ex439->Typespec())
+                                rt439->VpiFullName(prefix);
+                        }
+                        dimIdx++;
+                        continue;
+                    }
+                }
                 if (!ld.loopVar) {
                     // Surelog locates the placeholder at the comma PRECEDING
                     // the empty slot.
@@ -6832,6 +6997,23 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 }
                 dimIdx++;
             }
+            // § foreachLeadSkipPlaceholder439, the shared half: where the
+            // placeholder is resolved (late binding ran: a module, an
+            // elaborated listing), UhdmWriter::lateTypedefBinding's foreach branch
+            // looks the placeholder's empty name up among the loop variables,
+            // skips ref_var and ref_obj entries and finds the first vpiNullOp
+            // operation (its name is empty too), and writes that object over
+            // the placeholder's slot, so the list holds the operation twice
+            // (golden M11 `[, j, , m]`: operation 3:26, j, the same operation,
+            // m; M6 `[, , , l]`).  The ref_var placeholder (no late binding)
+            // stays.
+            if (leadSkip439 && lead439 < lvars->size() &&
+                (*lvars)[lead439]->UhdmType() != UHDM::uhdmref_var)
+                for (size_t k439 = lead439 + 1; k439 < lvars->size(); ++k439)
+                    if ((*lvars)[k439]->UhdmType() == UHDM::uhdmoperation) {
+                        (*lvars)[lead439] = (*lvars)[k439];
+                        break;
+                    }
             fs->VpiLoopVars(lvars);
 
             {

@@ -1,0 +1,138 @@
+# prediction runs on law5 (program laws) and law7 (all laws), traced with R11U439_TRACE
+## program-declaring sources (fence-filtered scan): 242 files
+## probe program cases (112) on law5: EQUAL 112 of 112; firing databases:
+r10svs10repro__c1_scopetop.uhdm
+uninstProgBodyAsUninstIface439 ptop 50
+r10uvm217repro__g217_d_importer.uhdm
+uninstProgBodyAsUninstIface439 gd_pg 28
+r10uvm62repro__c2_neighbours.uhdm
+uninstProgBodyAsUninstIface439 pg_bare 32
+uninstProgBodyAsUninstIface439 pg_lbl 28
+r10v121repro__v121_e2.uhdm
+uninstProgBodyAsUninstIface439 tundra_prog 71
+r10v141repro__v141_d_owners.uhdm
+uninstProgBodyAsUninstIface439 pg141d 67
+r10v199repro__v199_d_ifprog.uhdm
+uninstProgBodyAsUninstIface439 vdp 12
+r11u95repro__grid__a19_progtopgeninit.uhdm
+uninstProgBodyAsUninstIface439 prg 7
+uninstProgBodyAsUninstIface439 prg 7
+r11u95repro__grid__a21_progtopgentask.uhdm
+uninstProgSubBodyAsUninstIface439 f_body
+uninstProgSubBodyAsUninstIface439 f_gen
+r11v95repro__grid__x20_progtopgenclass.uhdm
+uninstProgSubBodyAsUninstIface439 t_gen
+uninstProgBodyAsUninstIface439 prg 8
+## surelog program rows on law5:
+name,mode,status,detail,blocked_by,strict
+InterfaceModPort,default,CMP_EQUAL,,,equal
+InterfaceModPort,testflags,CMP_EQUAL,,,equal
+OneNetInterf,default,CMP_EQUAL,,,equal
+OneNetInterf,testflags,CMP_EQUAL,,,equal
+OneNetModPort,default,CMP_EQUAL,,,equal
+OneNetModPort,testflags,CMP_EQUAL,,,equal
+OneNetModPortGeneric,default,CMP_EQUAL,,,equal
+OneNetModPortGeneric,testflags,CMP_EQUAL,,,equal
+OneNetRange,default,CMP_EQUAL,,,equal
+OneNetRange,testflags,CMP_EQUAL,,,equal
+SimpleConstraint,default,CMP_EQUAL,,,equal
+SimpleConstraint,testflags,CMP_EQUAL,,,equal
+SVSwitch,default,CMP_EQUAL,,,equal
+SVSwitch,testflags,CMP_EQUAL,,,equal
+## firing:
+OUT default/SimpleConstraint-300f9bec/slang.uhdm
+uninstProgBodyAsUninstIface439 constaint_mode_ex 50
+OUT testflags/SimpleConstraint-300f9bec/slang.uhdm
+uninstProgBodyAsUninstIface439 constaint_mode_ex 50
+## sv-tests program rows on law5 (pristine -> law5 agreement):
+path,agreement agreement
+generated/hdlconv_std2017/hdlconvertor_std2017_p371.sv,SURELOG_ONLY SURELOG_ONLY
+generated/hdlconv_std2017/hdlconvertor_std2017_p454.sv,SURELOG_ONLY IDENTICAL
+chapter-24/24.3--program.sv,IDENTICAL SURELOG_ONLY
+generated/hdlconv_std2017/hdlconvertor_std2017_p745.sv,IDENTICAL IDENTICAL
+generated/hdlconv_std2017/hdlconvertor_std2017_p759.sv,BOTH_REJECT BOTH_REJECT
+firings: 0
+## loop-variable/declaration name scan: 488 files
+## surelog candidate rows on law7:
+name,mode,status,strict
+AmiqEth,default,SLANG_REJECT,
+AmiqEth,testflags,SLANG_REJECT,
+Ariane2024,default,SLANG_REJECT,
+Ariane2024,testflags,NO_DATABASE,
+AVLMM,default,SLANG_REJECT,
+AVLMM,testflags,SLANG_REJECT,
+DollarRoot,default,SLANG_REJECT,
+DollarRoot,testflags,SLANG_REJECT,
+ForeachFunction,default,CMP_EQUAL,equal
+ForeachFunction,testflags,CMP_EQUAL,equal
+Google,default,SLANG_REJECT,
+Google,testflags,TIMEOUT,
+Ibex,default,SLANG_REJECT,
+Ibex,testflags,SLANG_REJECT,
+IbexGoogle,default,SLANG_REJECT,
+IbexGoogle,testflags,SLANG_REJECT,
+Opentitan,default,SLANG_REJECT,
+Opentitan,testflags,SLANG_REJECT,
+OVMSwitch,default,SLANG_REJECT,
+OVMSwitch,testflags,SLANG_REJECT,
+SplitFile,default,SLANG_REJECT,
+SplitFile,testflags,SLANG_REJECT,
+SVSwitch,default,CMP_EQUAL,equal
+SVSwitch,testflags,CMP_EQUAL,equal
+Tnoc,default,CMP_NOTEQUAL,
+Tnoc,testflags,CMP_NOTEQUAL,
+firings: 0
+## sv-tests candidate rows on law7 (agreement):
+path,agreement
+chapter-9/9.7--process_cls_await.sv,IDENTICAL
+chapter-9/9.7--process_cls_kill.sv,IDENTICAL
+chapter-9/9.7--process_cls_self.sv,IDENTICAL
+chapter-9/9.7--process_cls_suspend_resume.sv,IDENTICAL
+generated/ariane/cva6_cv64a6_imafdc_sv39.sv,BOTH_REJECT
+generated/ariane/cva6_cv32a6_imac_sv32.sv,BOTH_REJECT
+generated/ariane/cva6_cv64a6_imafdc_sv39_hpdcache.sv,BOTH_REJECT
+generated/ariane/cva6_cv64a6_imafdch_sv39.sv,BOTH_REJECT
+generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,IDENTICAL
+generated/uvm-examples/apb_protocol_monitor.sv,IDENTICAL
+generated/ariane/cva6_tb_cv64a6_imafdc_sv39.sv,BOTH_REJECT
+generated/uvm-examples/uvm_generation_seq_randomization.sv,DIFFERENT
+generated/uvm-examples/uvm_vif_config_db.sv,DIFFERENT
+firings: 0
+## uhdm2rtlil corpus both modes on law7:
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+--
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+firings: 0
+## all 4087 probe cases on law7:
+probe cases: EQUAL=4023 STRICT_NOTEQUAL=64 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4023 differ:fullname=29 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:type=3 differ:col=1 differ:endline=1
+csv identical to results/golden_probe.csv
+firing databases:
+r10svs10repro__c1_scopetop.uhdm
+uninstProgBodyAsUninstIface439 ptop 50
+r10uvm217repro__g217_d_importer.uhdm
+uninstProgBodyAsUninstIface439 gd_pg 28
+r10uvm62repro__c2_neighbours.uhdm
+uninstProgBodyAsUninstIface439 pg_bare 32
+uninstProgBodyAsUninstIface439 pg_lbl 28
+r10v121repro__v121_e2.uhdm
+uninstProgBodyAsUninstIface439 tundra_prog 71
+r10v141repro__v141_d_owners.uhdm
+uninstProgBodyAsUninstIface439 pg141d 67
+r10v199repro__v199_d_ifprog.uhdm
+uninstProgBodyAsUninstIface439 vdp 12
+r11u95repro__grid__a19_progtopgeninit.uhdm
+uninstProgBodyAsUninstIface439 prg 7
+uninstProgBodyAsUninstIface439 prg 7
+r11u95repro__grid__a21_progtopgentask.uhdm
+uninstProgSubBodyAsUninstIface439 f_body
+uninstProgSubBodyAsUninstIface439 f_gen
+r11v95repro__grid__x20_progtopgenclass.uhdm
+uninstProgSubBodyAsUninstIface439 t_gen
+uninstProgBodyAsUninstIface439 prg 8

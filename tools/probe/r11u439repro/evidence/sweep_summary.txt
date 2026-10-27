@@ -1,0 +1,77 @@
+law index current
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u439_LW/probe.csv
+probe cases: EQUAL=4023 STRICT_NOTEQUAL=64 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4023 differ:fullname=29 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:type=3 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u439_LW/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u439_LW/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+done
+sv-tests: BOTH_REJECT=303 DIFFERENT=32 EQUAL=1908 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0
+rc=0
+## csv vs the master's control /tmp/intr11u437
+probe identical
+surelog: 2 rows differ
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u439_
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/te
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u439_
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/te
+uhdm2rtlil identical
+downstream identical
+svtests identical
+## byteverify (SELFCHECK=1) law7 workdir vs the master's control
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+## probe: 4087 databases vs control by path-normalized dump: SAME=4087 DIFF=0; positive control r10buvm11 w5v_param11 vs r10buvm13 a7_dpi13: 785 lines
+## binary audit (fence-filtered): surelog 1523 of 1573 cmds records name /tmp/r11u439_bin/law7, the other 50 hold only a Surelog line; uhdm2rtlil 1740 of 1740; sv-tests 2346 of 2346
+## trace census (R11U439_TRACE over all five stages)
+surelog/default/SimpleConstraint-300f9bec/slang.uhdm
+uninstProgBodyAsUninstIface439 constaint_mode_ex 50
+surelog/testflags/SimpleConstraint-300f9bec/slang.uhdm
+uninstProgBodyAsUninstIface439 constaint_mode_ex 50
+probe/r10svs10repro__c1_scopetop.uhdm
+uninstProgBodyAsUninstIface439 ptop 50
+probe/r10uvm217repro__g217_d_importer.uhdm
+uninstProgBodyAsUninstIface439 gd_pg 28
+probe/r10uvm62repro__c2_neighbours.uhdm
+uninstProgBodyAsUninstIface439 pg_bare 32
+uninstProgBodyAsUninstIface439 pg_lbl 28
+probe/r10v121repro__v121_e2.uhdm
+uninstProgBodyAsUninstIface439 tundra_prog 71
+probe/r10v141repro__v141_d_owners.uhdm
+uninstProgBodyAsUninstIface439 pg141d 67
+probe/r10v199repro__v199_d_ifprog.uhdm
+uninstProgBodyAsUninstIface439 vdp 12
+probe/r11u95repro__grid__a19_progtopgeninit.uhdm
+uninstProgBodyAsUninstIface439 prg 7
+uninstProgBodyAsUninstIface439 prg 7
+probe/r11u95repro__grid__a21_progtopgentask.uhdm
+uninstProgSubBodyAsUninstIface439 f_body
+uninstProgSubBodyAsUninstIface439 f_gen
+probe/r11v95repro__grid__x20_progtopgenclass.uhdm
+uninstProgSubBodyAsUninstIface439 t_gen
+uninstProgBodyAsUninstIface439 prg 8

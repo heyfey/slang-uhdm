@@ -1,0 +1,17 @@
+Prediction before the verified sweep (2026-10-26 18:14:54):
+§ uninstProgIncDecBinds439v binds only inside the two program laws' emission; the law sweep's trace lists those laws on SimpleConstraint default/testflags and 9 probe databases, all dump-identical to the control, so no statement-position ++/-- over a formal or local sits in those bodies (a bare one would have moved the law's dump).
+Predicted: the fix fires nowhere in the five stages; verified csvs equal the law sweep's; byteverify verified vs law 0 movers.
+r10svs10repro/c1_scopetop incdec_lines=5
+r10uvm217repro/g217_d_importer incdec_lines=0
+NA
+r10uvm62repro/c2_neighbours incdec_lines=0
+NA
+r10v121repro/v121_e2 incdec_lines=0
+NA
+r10v141repro/v141_d_owners incdec_lines=3
+r10v199repro/v199_d_ifprog incdec_lines=0
+NA
+r11u95repro/grid/a19_progtopgeninit incdec_lines=1
+r11u95repro/grid/a21_progtopgentask incdec_lines=1
+r11v95repro/grid/x20_progtopgenclass incdec_lines=1
+Inspected: v141_d_owners' only ++ is a generate-loop step (gi++), not procedural; the other fired probe bodies and SimpleConstraint hold no statement-position ++/--.

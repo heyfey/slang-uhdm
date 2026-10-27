@@ -30,6 +30,73 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+// § loopVarReadBindsModuleDecl439 (r11u439) — the declaration a foreach loop
+// variable's read binds by name (see the law at the implicit-net mint in
+// emitExpr's NamedValue branch): walking out from the loop through statement
+// blocks and subroutines to the module body, the first scope that declares a
+// variable, net or formal argument under the loop variable's name (an unnamed
+// or named block local, a task or function formal or local, the module's own
+// variable or net); null when no scope declares the name, when the first
+// declaration found is of another kind, or when the chain passes a generate
+// block, a class or any other scope.
+static const slang::ast::Symbol* loopVarModuleDecl439(const slang::ast::Symbol& it) {
+    using namespace slang::ast;
+    const Scope* sc = it.getParentScope();
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind != SymbolKind::InstanceBody &&
+            ss.kind != SymbolKind::StatementBlock &&
+            ss.kind != SymbolKind::Subroutine)
+            return nullptr;
+        if (auto* d = sc->find(it.name); d && d != &it)
+            return (d->kind == SymbolKind::Variable || d->kind == SymbolKind::Net ||
+                    d->kind == SymbolKind::FormalArgument)
+                       ? d
+                       : nullptr;
+        if (ss.kind == SymbolKind::InstanceBody)
+            return nullptr;
+        if (ss.kind == SymbolKind::Subroutine &&
+            ss.getParentScope() &&
+            ss.getParentScope()->asSymbol().kind != SymbolKind::InstanceBody)
+            return nullptr;
+        sc = ss.getParentScope();
+    }
+    return nullptr;
+}
+// § uninstProgIncDecBinds439v (v11u439) — the depth of the operand of a
+// STATEMENT-position increment or decrement (the § incDecStmtOperandBinds21
+// token: outside a control body, through a begin, a named begin or a fork),
+// and the symbols that window binds in a program no module instantiates:
+// a formal of the program's own task or function, a local of that
+// subroutine, or a local of an UNNAMED block in a process or subroutine
+// body; a program member, a named-block local and anything outside such a
+// program answer false.
+static int incDecProgDepth439v = 0;
+static bool incDecProgSym439v(const slang::ast::Symbol& sym,
+                              const std::set<const slang::ast::Symbol*>& progDefs) {
+    using namespace slang::ast;
+    if (sym.kind != SymbolKind::FormalArgument && sym.kind != SymbolKind::Variable)
+        return false;
+    const Scope* sc = sym.getParentScope();
+    bool local = sym.kind == SymbolKind::FormalArgument;
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::StatementBlock) {
+            if (!ss.name.empty())
+                return false;
+            local = true;
+        }
+        else if (ss.kind == SymbolKind::Subroutine)
+            local = true;
+        else if (ss.kind == SymbolKind::InstanceBody)
+            return local &&
+                   progDefs.count(&ss.as<InstanceBodySymbol>().getDefinition()) != 0;
+        else
+            return false;
+        sc = ss.getParentScope();
+    }
+    return false;
+}
 // § pkgRetCallFoldSharesCalleeRet300 (r11u300) — the callee half of the law
 // (the law itself sits at its site in emitExpr's user-call branch).  Surelog's
 // EvalFunc runs ExprEval::evalFunc on the callee; with the arguments unvalued
@@ -34964,6 +35031,32 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             it218 != netMap.end() && it218->second)
                             ref->Actual_group(it218->second);
                     }
+                    // § uninstProgIncDecBinds439v (v11u439) — inside
+                    // § uninstProgBodyAsUninstIface439's and
+                    // § uninstProgSubBodyAsUninstIface439's emission, the
+                    // operand of a statement-position ++ or -- binds its
+                    // formals and locals: Surelog's paInc_or_dec_expression
+                    // branch hands the enclosing scope to compileExpression as
+                    // pexpr, so the eager bindVariable walk binds every such
+                    // reference in the operand at compile time, whole name,
+                    // index, compound index or call argument alike (golden
+                    // `garr[s]++`, `garr[s+1]--`, `cnt++`, `garr[g(s)]++` in a
+                    // program function and `garr[k]++` over an initial
+                    // block's local k all bound; `x = garr[s]++`, an if or
+                    // repeat body, a program member and a named-block local
+                    // bare).  Pristine bound these; the laws left them bare.
+                    // Grid tools/probe/v11u439repro/cases/VI.  Switch
+                    // R11V439_INCDEC_OFF.
+                    else if (incDecProgDepth439v > 0 &&
+                             incDecProgSym439v(nv.symbol, uninstProgDefs) &&
+                             fixOn(439, "R11V439_INCDEC_OFF")) {
+                        if (auto it439 = netMap.find(&nv.symbol);
+                            it439 != netMap.end() && it439->second) {
+                            ref->Actual_group(it439->second);
+                            lawTrace(439, "uninstProgIncDecBinds439v",
+                                     std::string(nv.symbol.name));
+                        }
+                    }
                     // § genCaSysCallArgBinds22 (r10earl22) — a ref NESTED
                     // INSIDE a SYSTEM FUNCTION CALL's argument (i.e. the
                     // argument is an expression, not the ref itself) in an ELAB
@@ -35803,6 +35896,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // a scope member -- see tfBodyPa9): refs bind an implicit
                     // module wire minted at the first reference.
                     auto& inet = implicitNetMap[&nv.symbol];
+                    // § loopVarReadBindsModuleDecl439 (r11u439) — A FOREACH
+                    // LOOP VARIABLE NAMED LIKE A MODULE DECLARATION BINDS THAT
+                    // DECLARATION.  UhdmWriter::lateBinding resolves the
+                    // unbound read by NAME, and its module branch searches the
+                    // module's own Nets() before its last resort mints the
+                    // implicit wire; the definition view lists a module
+                    // variable as a logic_net, so with `int i;` beside
+                    // `foreach (arr[i]) arr[i] = i;` golden binds both reads
+                    // to logic_net work@top.i at the declaration (2:5) where
+                    // ours minted work@top.i at the first read (r11u437
+                    // FC/fc11's face, which holds for any element type).
+                    // The walk is lateBinding's: a block local (golden M17's
+                    // `begin int i;` binds that int_var), a module task's
+                    // formal or local, then the module's variable or net (a
+                    // module task's read binds the module's net, M16);
+                    // abstaining through a generate block or a class and
+                    // where the declaration has no object in netMap.  Grid
+                    // tools/probe/r11u439repro/cases/LM.
+                    // Switch R11U439_LVMODDECL_OFF.
+                    UHDM::any* modDecl439 = nullptr;
+                    if (!inet && nv.symbol.kind == SymbolKind::Iterator &&
+                        lawOn(439, "R11U439_LVMODDECL_OFF"))
+                        if (auto* ms439 = loopVarModuleDecl439(nv.symbol))
+                            if (auto mit439 = netMap.find(ms439);
+                                mit439 != netMap.end() && mit439->second) {
+                                modDecl439 = mit439->second;
+                                lawTrace(439, "loopVarReadBindsModuleDecl439",
+                                         std::string(nv.symbol.name));
+                            }
+                    if (modDecl439) {
+                        ref->Actual_group(modDecl439);
+                    } else {
                     // § implicitNetOnePerName405 (r11u405,
                     // R11U405_IMPNETNAME_OFF) — Surelog keys these implicit
                     // wires by NAME in the module: a second foreach loop over
@@ -35839,6 +35964,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         nets->push_back(inet);
                     }
                     ref->Actual_group(inet);
+                    }
                 }
                 // ...but a PACKAGE-scope subroutine has no module to hang that
                 // implicit wire on, and there Surelog binds the foreach LOOP
@@ -36801,8 +36927,16 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     !envSet("R11V194_IDCALLARG_OFF"))
                     incDecSelArgDepth194() = callArgDepth;
             }
+            // § uninstProgIncDecBinds439v — the operand window.
+            const bool incDec439v =
+                tok21 && (opType == vpiPostIncOp || opType == vpiPreIncOp ||
+                          opType == vpiPostDecOp || opType == vpiPreDecOp);
+            if (incDec439v)
+                ++incDecProgDepth439v;
             if (auto* e = emitExpr(ue.operand(), op, prefix, netMap))
                 operands->push_back(e);
+            if (incDec439v)
+                --incDecProgDepth439v;
             if (idTopSaved184v != nullptr && lawFixOn(184, "R11V184_IDTOP_OFF")) {
                 trace184("V184 IDTOP restore");
                 incDecSelTop184() = idTopSaved184v;
