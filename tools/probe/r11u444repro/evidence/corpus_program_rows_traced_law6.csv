@@ -1,0 +1,25 @@
+name,mode,status,detail,blocked_by,strict
+ClassCons,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ClassCons/top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
+ClassCons,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ClassCons/top.sv:55:4: error: use of undeclared identifier 'D_PKG_UNDEF',,
+ClockingSntx,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ClockingSntx/dut.sv:2:24: error: use of undeclared identifier 'clock',,
+ClockingSntx,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ClockingSntx/dut.sv:2:24: error: use of undeclared identifier 'clock',,
+Google,default,SLANG_REJECT,error: no input files,,
+Google,testflags,TIMEOUT,surelog timeout,,
+InterfaceModPort,default,CMP_EQUAL,,,equal
+InterfaceModPort,testflags,CMP_EQUAL,,,equal
+OneNetInterf,default,CMP_EQUAL,,,equal
+OneNetInterf,testflags,CMP_EQUAL,,,equal
+OneNetModPort,default,CMP_EQUAL,,,equal
+OneNetModPort,testflags,CMP_EQUAL,,,equal
+OneNetModPortGeneric,default,CMP_EQUAL,,,equal
+OneNetModPortGeneric,testflags,CMP_EQUAL,,,equal
+OneNetRange,default,CMP_EQUAL,,,equal
+OneNetRange,testflags,CMP_EQUAL,,,equal
+SimpleClass,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
+SimpleClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SimpleClass/top.sv:10:9: error: use of undeclared identifier 'len',,
+SimpleConstraint,default,CMP_EQUAL,,,equal
+SimpleConstraint,testflags,CMP_EQUAL,,,equal
+SVSwitch,default,CMP_EQUAL,,,equal
+SVSwitch,testflags,CMP_EQUAL,,,equal
+Verilator,default,SLANG_REJECT,error: no input files,,
+Verilator,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Verilator/batch.txt:1:1: error: expected member,,

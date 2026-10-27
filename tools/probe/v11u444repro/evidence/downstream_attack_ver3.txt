@@ -1,0 +1,53 @@
+VP/vp01 {'name': 'VP_vp01', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp02 {'name': 'VP_vp02', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp03 SKIP-class
+VP/vp04 {'name': 'VP_vp04', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp05 SKIP-class
+VP/vp06 {'name': 'VP_vp06', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp07 {'name': 'VP_vp07', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp08 {'name': 'VP_vp08', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp09 {'name': 'VP_vp09', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp10 {'name': 'VP_vp10', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp11 {'name': 'VP_vp11', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp12 {'name': 'VP_vp12', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp13 {'name': 'VP_vp13', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp14 {'name': 'VP_vp14', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp15 {'name': 'VP_vp15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp16 {'name': 'VP_vp16', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp17 {'name': 'VP_vp17', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp18 {'name': 'VP_vp18', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp19 {'name': 'VP_vp19', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp20 {'name': 'VP_vp20', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp21 {'name': 'VP_vp21', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp22 {'name': 'VP_vp22', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+VP/vp23 {'name': 'VP_vp23', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp24 {'name': 'VP_vp24', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp25 {'name': 'VP_vp25', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp26 {'name': 'VP_vp26', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp28 {'name': 'VP_vp28', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp29 {'name': 'VP_vp29', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp30 {'name': 'VP_vp30', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp31 {'name': 'VP_vp31', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp32 {'name': 'VP_vp32', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+VP/vp33 {'name': 'VP_vp33', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+VP/vp34 {'name': 'VP_vp34', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp35 {'name': 'VP_vp35', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp36 {'name': 'VP_vp36', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp37 {'name': 'VP_vp37', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VP/vp38 {'name': 'VP_vp38', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp39 {'name': 'VP_vp39', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp40 {'name': 'VP_vp40', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp41 {'name': 'VP_vp41', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp42 {'name': 'VP_vp42', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp43 {'name': 'VP_vp43', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VP/vp44 {'name': 'VP_vp44', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+VD/vd01 {'name': 'VD_vd01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd02 {'name': 'VD_vd02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd03 {'name': 'VD_vd03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd04 {'name': 'VD_vd04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd05 {'name': 'VD_vd05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd06 {'name': 'VD_vd06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd07 {'name': 'VD_vd07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd08 {'name': 'VD_vd08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd09 {'name': 'VD_vd09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+VD/vd10 {'name': 'VD_vd10', 'verdict': 'IDENTICAL', 'surelog_status': 'TIMEOUT', 'slang_status': 'TIMEOUT', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both TIMEOUT'}

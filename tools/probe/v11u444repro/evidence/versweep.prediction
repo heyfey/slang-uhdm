@@ -1,0 +1,4 @@
+Tue Oct 27 05:09:27 EDT 2026 prediction before the verified sweep (ver3 md5 9a21d746e552ff9693e5bc4e9427075c):
+- every csv of the five stages equal to the law sweep's /tmp/v11u444sw (surelog differing only in the two LowMem log paths);
+- byteverify ver3 vs law 0 movers in surelog, uhdm2rtlil, downstream; probe databases dump-identical;
+- trace: defaultedStrPlaceholderRetry444 on control_slave only, plus nestProgAbstain444v lines only where a corpus source declares a program inside a module (bytes unchanged since no progLocalDeclNets444 face fired in the law sweep); no portNameLocalNoTs444v line (it sits behind the dup face, which never fired).

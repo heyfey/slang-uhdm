@@ -1,0 +1,2 @@
+OUT /tmp/r11u444sw1/svtests/work/generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave/slang.uhdm
+defaultedStrPlaceholderRetry444 bsg_source_sync_channel_control_slave default

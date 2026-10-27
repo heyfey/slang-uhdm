@@ -10748,7 +10748,51 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     //  initial begin real q; end` -> three vpiNet logic_nets work@p1.{j,k,q}
     // carrying the DECLARATION's typespec, while each begin keeps its own
     // integer_var/real_var; the same source in a MODULE hoists nothing).
+    //
+    // § progLocalDeclNets444 (R11U444_PRGSUBLOCAL_OFF, R11U444_PRGFORVAR_OFF,
+    // R11U444_PRGLOCALORDER_OFF, R11U444_PRGLOCALDUP_OFF, and faces (e)
+    // R11U444_PRGLOCALNT_OFF and (f) R11U444_PRGLOCALDIMEND_OFF below; cases
+    // tools/probe/r11u444repro/cases/PN; the sister passes 439's and 441's
+    // reported program-net face, r11u439 UP/up12, up15, v11u439 VP/vp01,
+    // vp06, vp07, vp20, VI/vi05, vi11, vi13, v11u441 VJ/vj17) — the rule is
+    // CompileProgram::collectObjects_'s DEFINITION walk: it descends the
+    // program's whole syntax tree (its one stop point is a class
+    // declaration) and hands every paData_declaration it meets to
+    // compileDataDeclaration(m_program, ...), so (a) the locals of the
+    // program's TASKS and FUNCTIONS, in their bodies and in every named or
+    // unnamed block under them, static ones too, are program nets as well
+    // (PRGSUBLOCAL); (b) a `for (int k = ...)` control variable is a
+    // paFor_variable_declaration, never reaching that call, and is not
+    // listed (PRGFORVAR; ours listed it from the process block); (c) the
+    // nets are filed in that walk's order, source order, between the
+    // program's own declarations (PRGLOCALORDER; ours appended them); (d)
+    // nothing dedupes by name: a local re-declaring a program variable's
+    // name is a second net of that name (PRGLOCALDUP).  The return variable
+    // of a function and the formals are no data declarations; a class's
+    // method locals stay out (the stop point).
     if (m->UhdmType() == UHDM::uhdmprogram) {
+        // § nestProgAbstain444v (R11V444_NESTPROG_OFF; cases
+        // tools/probe/v11u444repro/cases/VP vp22, vp32, vp33) — a program
+        // declared INSIDE a module is no program in golden: Surelog folds it
+        // into the enclosing module (no work@prg object, the task locals
+        // listed only as the module's subroutine variables), so the program
+        // nets this law adds land on an object golden does not have and the
+        // case moves away from golden (vp22 dump distance 159 -> 168 on the
+        // law); every face of § progLocalDeclNets444 abstains on a nested
+        // program, which keeps pristine's bytes there.
+        bool inMod444v = false;
+        if (auto* ps444v = inst.getDefinition().getParentScope())
+            inMod444v = ps444v->asSymbol().kind != SymbolKind::CompilationUnit &&
+                        ps444v->asSymbol().kind != SymbolKind::Root;
+        const bool nest444v = inMod444v && fixOn(444, "R11V444_NESTPROG_OFF");
+        if (nest444v)
+            lawTrace(444, "nestProgAbstain444v", std::string(inst.getDefinition().name));
+        const bool sub444 = !nest444v && lawOn(444, "R11U444_PRGSUBLOCAL_OFF");
+        const bool for444 = !nest444v && lawOn(444, "R11U444_PRGFORVAR_OFF");
+        const bool ord444 = !nest444v && lawOn(444, "R11U444_PRGLOCALORDER_OFF");
+        const bool dup444 = !nest444v && lawOn(444, "R11U444_PRGLOCALDUP_OFF");
+        size_t base444 = nets->size();
+        std::vector<std::pair<SourceLocation, UHDM::logic_net*>> hoisted444;
         std::set<std::string> haveN;
         for (auto* n0 : *nets)
             haveN.insert(std::string(n0->VpiName()));
@@ -10760,14 +10804,64 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 }
                 if (bm.kind != SymbolKind::Variable || bm.name.empty())
                     continue;
-                if (!haveN.insert(std::string(bm.name)).second)
+                if (sub444 &&
+                    bm.as<VariableSymbol>().flags.has(VariableFlags::CompilerGenerated))
                     continue;
+                if (for444)
+                    if (auto* fs444 = bm.getSyntax();
+                        fs444 && (fs444->kind == syntax::SyntaxKind::ForVariableDeclaration ||
+                                  (fs444->parent && fs444->parent->kind ==
+                                                        syntax::SyntaxKind::ForVariableDeclaration))) {
+                        lawTrace(444, "progLocalDeclNets444",
+                                 "forvar " + std::string(bm.name));
+                        continue;
+                    }
+                // § portNameLocalNoTs444v (R11V444_PORTLOCALTS_OFF; cases
+                // tools/probe/v11u444repro/cases/VP vp34, vp38, vp39, vp40) —
+                // a local named like one of the program's PORTS is still a
+                // second net of that name in golden (face (d)), but it carries
+                // NO typespec: Surelog files the local's data declaration
+                // against the port's Signal, so the net it lists has neither
+                // ref_typespec nor the local's keyword typespec object
+                // (`input logic clk` with a task local `int clk;`: golden's
+                // logic_net work@prg.clk at the local, no vpiTypespec; the
+                // law's int_typespec moved vp34 from dump distance 13 to 16).
+                bool portTs444v = false;
+                if (!haveN.insert(std::string(bm.name)).second) {
+                    if (!dup444)
+                        continue;
+                    lawTrace(444, "progLocalDeclNets444", "dup " + std::string(bm.name));
+                    if (fixOn(444, "R11V444_PORTLOCALTS_OFF"))
+                        for (auto* pb444v : body.getPortList())
+                            if (pb444v->name == bm.name) {
+                                portTs444v = true;
+                                lawTrace(444, "portNameLocalNoTs444v", std::string(bm.name));
+                                break;
+                            }
+                }
                 auto* hn = s.MakeLogic_net();
                 hn->VpiName(bm.name);
                 hn->VpiFullName(prefix + "." + std::string(bm.name));
                 hn->VpiParent(m);
                 setLoc(hn, nameSpan(bm.location, bm.name));
-                if (auto* hts = makeTypespec(bm)) {
+                // § progLocalDeclNets444 (e) (R11U444_PRGLOCALNT_OFF): the
+                // hoisted net takes the program net's own net type, the
+                // `logic` keyword's 36 and `reg`'s 48 (cases PN pn11, pn21,
+                // pn22; `var logic`, int and bit none), as the program's own
+                // declarations print it; a typedef name prints none
+                // (r11u155 IT/s11's `t j = 0`).
+                const syntax::DataTypeSyntax* tsx444 = nullptr;
+                if (auto* dtx444 = bm.getDeclaredType())
+                    tsx444 = dtx444->getTypeSyntax();
+                if (!nest444v && lawOn(444, "R11U444_PRGLOCALNT_OFF") && tsx444 &&
+                    tsx444->kind != syntax::SyntaxKind::NamedType)
+                    if (int32_t nt444 = netTypeFor(bm, true)) {
+                        hn->VpiNetType(nt444);
+                        lawTrace(444, "progLocalDeclNets444",
+                                 "nettype " + std::string(bm.name) + " " +
+                                     std::to_string(nt444));
+                    }
+                if (auto* hts = portTs444v ? nullptr : makeTypespec(bm)) {
                     // The NET view DOES name an instance-local class
                     // (unlike the block var's own ts — see makeTypespec).
                     if (hts->UhdmType() == UHDM::uhdmclass_typespec &&
@@ -10807,6 +10901,34 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                     hts->VpiEndLineNo(l155);
                                     hts->VpiEndColumnNo(c155);
                                 }
+                    // § progLocalDeclNets444 (f) (R11U444_PRGLOCALDIMEND_OFF):
+                    // a local declared with unpacked dimensions (`int b[3];`,
+                    // `int c[2][3];`, `logic [3:0] d [4];`, `int e[];`) reads a
+                    // typespec ending at its FIRST unpacked dimension, the
+                    // declaration's own keyword typespec (cases PN pn23,
+                    // v11u417 VC/vc24, v11u439 VI/vi11); a typedef name binds a
+                    // clone and is left alone, as § initTsEndProgramLocal155;
+                    // the dimension wins over that law's initializer end
+                    // (r11u155 IT/s16 `logic [3:0] j [2] = '{0, 1};` ends at
+                    // `[2]` in golden).
+                    if (!nest444v && lawOn(444, "R11U444_PRGLOCALDIMEND_OFF"))
+                        if (auto* ds444 = bm.getSyntax();
+                            ds444 && ds444->kind == syntax::SyntaxKind::Declarator &&
+                            !ds444->as<syntax::DeclaratorSyntax>().dimensions.empty())
+                            if (auto* dt444 = bm.getDeclaredType())
+                                if (auto* ts444 = dt444->getTypeSyntax();
+                                    ts444 && ts444->kind != syntax::SyntaxKind::NamedType) {
+                                    SourceLocation e444 = ds444->as<syntax::DeclaratorSyntax>()
+                                                              .dimensions[0]
+                                                              ->sourceRange()
+                                                              .end();
+                                    uint32_t l444 = 0, c444 = 0;
+                                    locLineCol(e444, l444, c444);
+                                    hts->VpiEndLineNo(l444);
+                                    hts->VpiEndColumnNo(c444);
+                                    lawTrace(444, "progLocalDeclNets444",
+                                             "dimend " + std::string(bm.name));
+                                }
                     auto* hrt = s.MakeRef_typespec();
                     hrt->VpiParent(hn);
                     hrt->VpiFullName(prefix + "." + std::string(bm.name));
@@ -10814,11 +10936,63 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     hn->Typespec(hrt);
                 }
                 nets->push_back(hn);
+                hoisted444.emplace_back(bm.location, hn);
             }
         };
-        for (auto& member : body.members())
+        for (auto& member : body.members()) {
             if (member.kind == SymbolKind::StatementBlock)
                 hoistBlk(member.as<StatementBlockSymbol>());
+            else if (member.kind == SymbolKind::Subroutine && sub444) {
+                size_t n444 = hoisted444.size();
+                hoistBlk(member.as<SubroutineSymbol>());
+                for (size_t i444 = n444; i444 < hoisted444.size(); ++i444)
+                    lawTrace(444, "progLocalDeclNets444",
+                             "sub " + std::string(member.name) + " " +
+                                 std::string(hoisted444[i444].second->VpiName()));
+            }
+        }
+        // (c) the hoisted nets move into source order among the program's
+        // own declarations: each goes before the first earlier-listed net
+        // (of the leading location-ordered run) that is declared after it.
+        if (ord444 && !hoisted444.empty() && base444 > 0) {
+            std::vector<const UHDM::any*> head444(nets->begin(), nets->begin() + base444);
+            auto key444 = [](const UHDM::any* a) {
+                return std::make_pair(a->VpiLineNo(), a->VpiColumnNo());
+            };
+            size_t run444 = 1;
+            while (run444 < head444.size() &&
+                   !(key444(head444[run444]) < key444(head444[run444 - 1])) &&
+                   head444[run444]->VpiFile() == head444[0]->VpiFile())
+                run444++;
+            std::stable_sort(hoisted444.begin(), hoisted444.end(),
+                             [](const auto& a, const auto& b) { return a.first < b.first; });
+            std::vector<UHDM::net*> out444;
+            size_t h444 = 0;
+            for (size_t i444 = 0; i444 < base444; ++i444) {
+                if (i444 < run444)
+                    while (h444 < hoisted444.size() &&
+                           hoisted444[h444].second->VpiFile() == head444[i444]->VpiFile() &&
+                           key444(hoisted444[h444].second) < key444(head444[i444])) {
+                        lawTrace(444, "progLocalDeclNets444",
+                                 "order " + std::string(hoisted444[h444].second->VpiName()));
+                        out444.push_back(hoisted444[h444++].second);
+                    }
+                out444.push_back((*nets)[i444]);
+            }
+            for (; h444 < hoisted444.size(); ++h444)
+                out444.push_back(hoisted444[h444].second);
+            for (size_t i444 = base444; i444 < nets->size(); ++i444) {
+                bool isH444 = false;
+                for (auto& hp : hoisted444)
+                    if (hp.second == (*nets)[i444])
+                        isH444 = true;
+                if (!isH444)
+                    out444.push_back((*nets)[i444]);
+            }
+            if (out444.size() == nets->size())
+                for (size_t i444 = 0; i444 < out444.size(); ++i444)
+                    (*nets)[i444] = out444[i444];
+        }
     }
     // § castNamedPatternConcat70 — the wires a `T'{m: v}` cast pattern's
     // member keys leaked.  Parameter initialisers are emitted BEFORE this

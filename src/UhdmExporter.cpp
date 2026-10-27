@@ -15243,9 +15243,42 @@ UHDM::design* UhdmExporter::exportDesign() {
                 for (auto& up : udef.parameters)
                     if (!up.hasDefault() && !up.isTypeParam && up.hasSyntax && up.valueDecl)
                         und440.push_back(&up);
+                // § defaultedStrPlaceholderRetry444 (R11U444_DEFSTRPH_OFF;
+                // cases tools/probe/r11u444repro/cases/CS; sv-tests basejump
+                // bsg_source_sync_channel_control_slave) — a DEFAULTED header
+                // parameter whose default is a string literal (basejump's
+                // `lg_token_width_p = "inv"`, the placeholder written by hand)
+                // is the other value slang refuses in a placeholder body: the
+                // string read as a select bound reverses
+                // `out_ctr_r[counter_min_bits_lp-1:lg_token_width_p]`, an
+                // InvalidStatement, so the definition stayed unlisted where
+                // Surelog, which never evaluates the body, lists it.  When
+                // every retry above leaves the body unbound, the retries run
+                // once more with each such parameter overridden by the
+                // placeholder 8 as well; the parameter's listing is written
+                // from its declaration default either way (STRING:<text>).
+                auto strDef444 = [](const DefinitionSymbol::ParameterDecl& up) {
+                    if (!up.hasDefault() || up.isTypeParam || up.isLocalParam ||
+                        !up.hasSyntax || !up.valueDecl || !up.valueDecl->initializer)
+                        return false;
+                    const syntax::ExpressionSyntax* ie = up.valueDecl->initializer->expr;
+                    return ie && ie->kind == syntax::SyntaxKind::StringLiteralExpression &&
+                           up.valueDecl->dimensions.empty();
+                };
+                bool with444 = false;
                 auto build440 = [&](int strIdx) -> const InstanceSymbol* {
                     static std::deque<HierarchyOverrideNode> ovrStore440;
                     auto& node440 = ovrStore440.emplace_back();
+                    if (with444)
+                        for (auto& up444 : udef.parameters)
+                            if (strDef444(up444)) {
+                                HierarchyOverrideNode::ParamOverride po444;
+                                po444.expr = phExpr440(0);
+                                if (!po444.expr)
+                                    return nullptr;
+                                node440.paramOverrides.emplace(up444.valueDecl,
+                                                               std::move(po444));
+                            }
                     for (size_t i440 = 0; i440 < und440.size(); ++i440) {
                         auto* up440 = und440[i440];
                         int k440 = !up440->valueDecl->dimensions.empty() ? 2
@@ -15280,6 +15313,32 @@ UHDM::design* UhdmExporter::exportDesign() {
                                                : std::string(und440[s440]->name)));
                         break;
                     }
+                }
+                bool any444 = false;
+                for (auto& up444 : udef.parameters)
+                    if (strDef444(up444))
+                        any444 = true;
+                if (bad404 && any444 && lawOn(444, "R11U444_DEFSTRPH_OFF")) {
+                    with444 = true;
+                    std::vector<int> tries444{-1};
+                    for (int s440 : tries440)
+                        if (s440 >= 0)
+                            tries444.push_back(s440);
+                    for (int s444 : tries444) {
+                        auto* c444 = build440(s444);
+                        if (c444 && !isBad404(*c444)) {
+                            uinstP = c444;
+                            bad404 = false;
+                            lawTrace(444, "defaultedStrPlaceholderRetry444",
+                                     std::string(udef.name) + " " +
+                                         (s444 < 0 ? std::string("default")
+                                                   : std::string(und440[s444]->name)));
+                            break;
+                        }
+                    }
+                    if (bad404)
+                        lawTrace(444, "defaultedStrPlaceholderRetry444",
+                                 "abstain " + std::string(udef.name));
                 }
                 if (bad404)
                     lawTrace(440, "undefaultedPlaceholderRetry440",

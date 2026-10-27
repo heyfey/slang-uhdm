@@ -1,0 +1,35 @@
+CS/cs01 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=708 NOT_EQUAL stage1 md5=9d2c341e | law rc=0 cmp=0 STRICT_EQUAL 59 objects md5=230530dd | OFF same | own same
+CS/cs02 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 41 objects md5=58bcb80e | law rc=0 cmp=0 STRICT_EQUAL 41 objects md5=58bcb80e | OFF same | own same
+CS/cs03 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 46 objects md5=8f6d9df3 | law rc=0 cmp=0 STRICT_EQUAL 46 objects md5=8f6d9df3 | OFF same | own same
+CS/cs04 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 43 objects md5=018b1541 | law rc=0 cmp=0 STRICT_EQUAL 43 objects md5=018b1541 | OFF same | own same
+CS/cs05 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 45 objects md5=1d6fe875 | law rc=0 cmp=0 STRICT_EQUAL 45 objects md5=1d6fe875 | OFF same | own same
+CS/cs06 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=1346 NOT_EQUAL stage1 md5=f15a778e | law rc=0 cmp=1400 NOT_EQUAL stage1 md5=cbe4b8fe | OFF same | own same
+CS/cs07 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 51 objects md5=7b8d454e | law rc=0 cmp=0 STRICT_EQUAL 51 objects md5=7b8d454e | OFF same | own same
+CS/cs08 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=760 NOT_EQUAL stage1 md5=956262be | law rc=0 cmp=0 STRICT_EQUAL 72 objects md5=60f48efc | OFF same | own same
+CS/cs09 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=666 NOT_EQUAL stage1 md5=f0f7e994 | law rc=0 cmp=666 NOT_EQUAL stage1 md5=f0f7e994 | OFF same | own same
+CS/cs10 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=0 STRICT_EQUAL 49 objects md5=89a76626 | law rc=0 cmp=0 STRICT_EQUAL 49 objects md5=89a76626 | OFF same | own same
+CS/cs11 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=626 NOT_EQUAL stage1 md5=83cc3e98 | law rc=0 cmp=0 STRICT_EQUAL 63 objects md5=4f42f045 | OFF same | own same
+CS/cs12 | defaultedStrPlaceholderRetry444 | pristine rc=0 cmp=594 NOT_EQUAL stage1 md5=0b164c0a | law rc=0 cmp=0 STRICT_EQUAL 55 objects md5=ff44dafe | OFF same | own same
+PN/pn01 | progLocalDeclNets444 | pristine rc=0 cmp=666 NOT_EQUAL stage1 md5=adbcc527 | law rc=0 cmp=0 STRICT_EQUAL 33 objects md5=3fcdc8c9 | OFF same | own same
+PN/pn02 | progLocalDeclNets444 | pristine rc=0 cmp=654 NOT_EQUAL stage1 md5=55c365e5 | law rc=0 cmp=0 STRICT_EQUAL 34 objects md5=53705b37 | OFF same | own same
+PN/pn03 | progLocalDeclNets444 | pristine rc=0 cmp=0 STRICT_EQUAL 21 objects md5=cd7cbe9f | law rc=0 cmp=0 STRICT_EQUAL 21 objects md5=cd7cbe9f | OFF same | own same
+PN/pn04 | progLocalDeclNets444 | pristine rc=0 cmp=528 NOT_EQUAL stage1 md5=75dd086d | law rc=0 cmp=0 STRICT_EQUAL 29 objects md5=00a56841 | OFF same | own same
+PN/pn05 | progLocalDeclNets444 | pristine rc=0 cmp=60 NOT_EQUAL stage1 md5=4da29c02 | law rc=0 cmp=60 NOT_EQUAL stage1 md5=aa154c1b | OFF same | own same
+PN/pn06 | progLocalDeclNets444 | pristine rc=0 cmp=482 NOT_EQUAL stage1 md5=1299d983 | law rc=0 cmp=0 STRICT_EQUAL 22 objects md5=fe421c3f | OFF same | own same
+PN/pn07 | progLocalDeclNets444 | pristine rc=0 cmp=642 NOT_EQUAL stage1 md5=0b5f92ed | law rc=0 cmp=0 STRICT_EQUAL 32 objects md5=d303dece | OFF same | own same
+PN/pn08 | progLocalDeclNets444 | pristine rc=0 cmp=752 NOT_EQUAL stage1 md5=0937adac | law rc=0 cmp=0 STRICT_EQUAL 39 objects md5=be5a0805 | OFF same | own same
+PN/pn09 | progLocalDeclNets444 | pristine rc=0 cmp=500 NOT_EQUAL stage1 md5=6e80f2f0 | law rc=0 cmp=0 STRICT_EQUAL 27 objects md5=b51bb0f3 | OFF same | own same
+PN/pn10 | progLocalDeclNets444 | pristine rc=0 cmp=338 NOT_EQUAL stage1 md5=46c44531 | law rc=0 cmp=0 STRICT_EQUAL 18 objects md5=a072baf5 | OFF same | own same
+PN/pn11 | progLocalDeclNets444 | pristine rc=0 cmp=586 NOT_EQUAL stage1 md5=11da8c07 | law rc=0 cmp=0 STRICT_EQUAL 39 objects md5=74a2bba9 | OFF same | own same
+PN/pn12 | progLocalDeclNets444 | pristine rc=0 cmp=0 STRICT_EQUAL 29 objects md5=eb65aaf6 | law rc=0 cmp=0 STRICT_EQUAL 29 objects md5=eb65aaf6 | OFF same | own same
+PN/pn13 | progLocalDeclNets444 | pristine rc=0 cmp=0 STRICT_EQUAL 32 objects md5=668f5d75 | law rc=0 cmp=0 STRICT_EQUAL 32 objects md5=668f5d75 | OFF same | own same
+PN/pn14 | progLocalDeclNets444 | pristine rc=0 cmp=0 STRICT_EQUAL 15 objects md5=f10a09b1 | law rc=0 cmp=0 STRICT_EQUAL 15 objects md5=f10a09b1 | OFF same | own same
+PN/pn15 | progLocalDeclNets444 | pristine rc=0 cmp=56 NOT_EQUAL stage1 md5=57282374 | law rc=0 cmp=0 STRICT_EQUAL 19 objects md5=267c487b | OFF same | own same
+PN/pn16 | progLocalDeclNets444 | pristine rc=0 cmp=390 NOT_EQUAL stage1 md5=cf703f31 | law rc=0 cmp=0 STRICT_EQUAL 21 objects md5=a19ec499 | OFF same | own same
+PN/pn17 | progLocalDeclNets444 | pristine rc=0 cmp=270 NOT_EQUAL stage1 md5=ba01f685 | law rc=0 cmp=0 STRICT_EQUAL 16 objects md5=283a2ce7 | OFF same | own same
+PN/pn18 | progLocalDeclNets444 | pristine rc=0 cmp=490 NOT_EQUAL stage1 md5=f9575fa1 | law rc=0 cmp=490 NOT_EQUAL stage1 md5=f9575fa1 | OFF same | own same
+PN/pn19 | progLocalDeclNets444 | pristine rc=0 cmp=806 NOT_EQUAL stage1 md5=dd10bae5 | law rc=0 cmp=0 STRICT_EQUAL 36 objects md5=451293fc | OFF same | own same
+PN/pn20 | progLocalDeclNets444 | pristine rc=0 cmp=0 STRICT_EQUAL 25 objects md5=55ae1007 | law rc=0 cmp=0 STRICT_EQUAL 25 objects md5=55ae1007 | OFF same | own same
+PN/pn21 | progLocalDeclNets444 | pristine rc=0 cmp=58 NOT_EQUAL stage1 md5=53d6e9a2 | law rc=0 cmp=0 STRICT_EQUAL 55 objects md5=49a6dc20 | OFF same | own same
+PN/pn22 | progLocalDeclNets444 | pristine rc=0 cmp=510 NOT_EQUAL stage1 md5=be85b77a | law rc=0 cmp=510 NOT_EQUAL stage1 md5=3feb16d1 | OFF same | own same
+PN/pn23 | progLocalDeclNets444 | pristine rc=0 cmp=1172 NOT_EQUAL stage1 md5=a45c0dbc | law rc=0 cmp=0 STRICT_EQUAL 100 objects md5=581d33e5 | OFF same | own same

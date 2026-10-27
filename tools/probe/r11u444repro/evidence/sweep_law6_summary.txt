@@ -1,0 +1,24 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u444sw1/probe.csv
+probe cases: EQUAL=4023 STRICT_NOTEQUAL=64 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4023 differ:fullname=29 differ:line=8 differ:depth=7 differ:endcol=5 differ:file=5 differ:name=5 differ:type=3 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+[probe] EQUAL=4023 STRICT_NOTEQUAL=64
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u444sw1/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u444sw1/uhdm2rtlil.csv
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== svtests: no sv-tests checkout at /tmp/wt_r11u444/../sv-tests (SVTESTS_ROOT), stage skipped
+done
+CONVERSION generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=26 EQUAL=1914 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+rc=0
