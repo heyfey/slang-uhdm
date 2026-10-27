@@ -15350,6 +15350,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // (§ caNestedModFileScopeKeyAtEntry103): the subtree then enters under
     // the rekeyed keys instead of the bare ones.  Every other caller passes
     // false and runs the original body.
+    // § implicitNetFirstRefLoc448: per definition admitted by
+    // § invalidReadDefAdmit448, the undeclared names its body reads and the
+    // body's implicit-net names (slang's and those reads').
+    std::map<std::string, std::pair<std::set<std::string>, std::set<std::string>>>
+        admitReads448;
     auto addDefOnlyModule = [&](const DefinitionSymbol& udef,
                                 bool rekeyed103 = false) {
         if (udef.definitionKind != DefinitionKind::Module)
@@ -15481,19 +15486,226 @@ UHDM::design* UhdmExporter::exportDesign() {
                                                           VisitFlags::Expressions |
                                                           VisitFlags::Bad> {
                 bool bad = false;
+                // § invalidReadDefAdmit448 (r11u448, R11U448_INVREADADMIT_OFF;
+                // cases tools/probe/r11u448repro/cases/AD; sv-tests basejump
+                // bsg_scheduler_dataflow and bsg_nonsynth_mem_1rw_sync_assoc)
+                // — Surelog lists every parsed module definition, so golden
+                // writes both never-instantiated definitions as module_inst
+                // (`module_inst: work@bsg_scheduler_dataflow`, its
+                // `$display(..., bypass_lo)` bound to an implicit logic_net
+                // minted at 191:112; the associative row's nonblocking
+                // `mem[addr_i] <= data_i` under `@(posedge clk_i)`) where
+                // this visitor counted every InvalidStatement as unbound and
+                // the definition stayed unlisted.  With the law an
+                // InvalidStatement that wraps a statement slang built
+                // (StmtEmit's § invalidChild14 re-emits it) is judged by that
+                // statement, and a child-less read of an UNDECLARED simple
+                // name is admitted where pass 447's writers write it
+                // (§ undeclaredReadImplicitNet447): a module body's
+                // procedural block or continuous assignment, reached through
+                // operators, parentheses, concatenations, conditions, a
+                // system call's arguments or an assignment's right side, the
+                // name declared nowhere in the body, no generate block,
+                // subroutine, select, member access, user call, event or
+                // delay control on the way.  Every other shape stays
+                // unbound, so a definition whose body the writers cannot
+                // write stays unlisted as before (no exit 4).
+                const InstanceBodySymbol* body448 = nullptr;
+                bool on448 = false;
+                std::string why448;
+                // The name as the writers see it: a module-level variable or
+                // declared net of the body binds by § undeclaredReadLaterDecl447,
+                // a nested scope's own variable is not in the read's scope
+                // chain, and a type or enum constant of that name anywhere
+                // (or any other body member) makes the writers abstain.
+                static bool nestedBad448(const Scope& sc, std::string_view nm, int dep) {
+                    if (dep > 64)
+                        return true;
+                    for (auto& mem : sc.members()) {
+                        if (mem.name == nm &&
+                            (mem.kind == SymbolKind::TypeAlias ||
+                             mem.kind == SymbolKind::ForwardingTypedef ||
+                             mem.kind == SymbolKind::ClassType ||
+                             mem.kind == SymbolKind::GenericClassDef ||
+                             mem.kind == SymbolKind::TransparentMember ||
+                             mem.kind == SymbolKind::EnumValue))
+                            return true;
+                        if (mem.kind == SymbolKind::InstanceArray ||
+                            mem.kind == SymbolKind::Instance)
+                            continue;
+                        if (auto* ss = mem.as_if<Scope>(); ss && nestedBad448(*ss, nm, dep + 1))
+                            return true;
+                    }
+                    return false;
+                }
+                static bool declIn448(const Scope& body, std::string_view nm) {
+                    if (auto* f = body.find(nm)) {
+                        if (f->kind == SymbolKind::Variable)
+                            return false;
+                        if (f->kind == SymbolKind::Net && !f->as<NetSymbol>().isImplicit)
+                            return false;
+                        return true;
+                    }
+                    for (auto& mem : body.members())
+                        if (mem.name == nm && mem.kind != SymbolKind::Variable &&
+                            mem.kind != SymbolKind::Net)
+                            return true;
+                    return nestedBad448(body, nm, 0);
+                }
+                std::string rej448, first448;
+                bool readOk448(const InvalidExpression& ie) {
+                    if (!on448 || !body448 || !ie.syntax ||
+                        ie.syntax->kind != syntax::SyntaxKind::IdentifierName) {
+                        rej448 = ie.syntax ? std::string(toString(ie.syntax->kind)) : "nosyntax";
+                        return false;
+                    }
+                    auto& in448 = ie.syntax->as<syntax::IdentifierNameSyntax>();
+                    std::string_view nm = in448.identifier.valueText();
+                    if (nm.empty() || in448.identifier.isMissing())
+                        return false;
+                    if (body448->getDefinition().definitionKind != DefinitionKind::Module)
+                        return false;
+                    if (declIn448(*body448, nm)) {
+                        rej448 = "declared:" + std::string(nm);
+                        return false;
+                    }
+                    using SK = syntax::SyntaxKind;
+                    const syntax::SyntaxNode* ch = ie.syntax;
+                    const syntax::SyntaxNode* up = ch->parent;
+                    bool inItem = false;
+                    for (int d = 0; up && d < 256; ++d, ch = up, up = up->parent) {
+                        SK k = up->kind;
+                        rej448 = "ctx:" + std::string(toString(k));
+                        if (!inItem) {
+                            if (k == SK::ParenthesizedExpression || k == SK::ConcatenationExpression ||
+                                k == SK::ArgumentList || k == SK::OrderedArgument ||
+                                k == SK::SimpleSequenceExpr || k == SK::SimplePropertyExpr ||
+                                k == SK::ExpressionStatement || k == SK::SequentialBlockStatement ||
+                                k == SK::ConditionalPredicate || k == SK::ConditionalPattern ||
+                                k == SK::ConditionalStatement || k == SK::ReturnStatement ||
+                                k == SK::CaseStatement || k == SK::StandardCaseItem ||
+                                k == SK::ForLoopStatement || k == SK::WaitStatement ||
+                                k == SK::ImmediateAssertStatement ||
+                                syntax::PrefixUnaryExpressionSyntax::isKind(k))
+                                continue;
+                            if (k == SK::ConditionalExpression)
+                                continue;
+                            if (k == SK::TimingControlStatement) {
+                                if (ch == up->as<syntax::TimingControlStatementSyntax>().statement)
+                                    continue;
+                                return false;
+                            }
+                            if (k == SK::InvocationExpression) {
+                                auto& iv = up->as<syntax::InvocationExpressionSyntax>();
+                                if (ch == iv.arguments)
+                                    continue;
+                                return false;
+                            }
+                            if (syntax::BinaryExpressionSyntax::isKind(k))
+                                continue;
+                            if (syntax::ProceduralBlockSyntax::isKind(k) ||
+                                k == SK::ContinuousAssign || k == SK::FunctionDeclaration ||
+                                k == SK::TaskDeclaration) {
+                                inItem = true;
+                                continue;
+                            }
+                            return false;
+                        }
+                        if (k == SK::GenerateRegion)
+                            continue;
+                        if (k == SK::ModuleDeclaration)
+                            return up == body448->getDefinition().getSyntax();
+                        return false;
+                    }
+                    return false;
+                }
+                int inStmt448 = 0;
+                bool inStmtSeen448 = false;
+                std::set<std::string> names448;
                 void handle(const InvalidExpression& ie) {
-                    if (!ie.child)
+                    if (!ie.child) {
+                        if (inStmt448 && readOk448(ie)) {
+                            std::string nm448(ie.syntax->as<syntax::IdentifierNameSyntax>()
+                                                  .identifier.valueText());
+                            why448 += " read:" + nm448;
+                            if (!body448->find(nm448))
+                                names448.insert(nm448);
+                            return;
+                        }
+                        if (!bad && inStmt448)
+                            first448 = rej448;
                         bad = true;
+                    }
+                    else if (inStmt448)
+                        ie.child->visit(*this);
                     else
                         visitDefault(ie);
                 }
-                void handle(const InvalidStatement&) { bad = true; }
+                // Inside an admitted statement every other invalid node is
+                // unbound, as an InvalidStatement was before.
+                void handle(const InvalidTimingControl&) {
+                    if (inStmt448) {
+                        if (!bad)
+                            first448 = "InvalidTimingControl";
+                        bad = true;
+                    }
+                }
+                void handle(const InvalidAssertionExpr&) {
+                    if (inStmt448) {
+                        if (!bad)
+                            first448 = "InvalidAssertionExpr";
+                        bad = true;
+                    }
+                }
+                void handle(const InvalidConstraint&) {
+                    if (inStmt448) {
+                        if (!bad)
+                            first448 = "InvalidConstraint";
+                        bad = true;
+                    }
+                }
+                void handle(const InvalidStatement& is) {
+                    if (on448 && is.child) {
+                        why448 += " stmt";
+                        inStmtSeen448 = true;
+                        ++inStmt448;
+                        is.child->visit(*this);
+                        --inStmt448;
+                        return;
+                    }
+                    if (!bad && inStmt448)
+                        first448 = "InvalidStatement";
+                    bad = true;
+                }
                 void handle(const InstanceSymbol&) {}
                 void handle(const UninstantiatedDefSymbol&) {}
             };
-            auto isBad404 = [](const InstanceSymbol& i404) {
+            // The relaxed judgement runs only after every placeholder retry
+            // below has left the body unbound (the retries keep their own
+            // strict judgement, so a body a retry binds keeps that retry's
+            // listing: control_slave, ascii_writer and dff_en_segmented).
+            bool on448 = false;
+            auto isBad404 = [&](const InstanceSymbol& i404) {
                 Bad404 b404;
+                b404.body448 = &i404.body;
+                b404.on448 = on448;
                 i404.body.visit(b404);
+                if (!b404.bad && !b404.why448.empty()) {
+                    lawTrace(448, "invalidReadDefAdmit448",
+                             std::string(udef.name) + b404.why448);
+                    if (!b404.names448.empty()) {
+                        auto& ar448 = admitReads448[std::string(udef.name)];
+                        ar448.first = b404.names448;
+                        ar448.second = b404.names448;
+                        for (auto& mem448 : i404.body.members())
+                            if (mem448.kind == SymbolKind::Net &&
+                                mem448.as<NetSymbol>().isImplicit)
+                                ar448.second.insert(std::string(mem448.name));
+                    }
+                }
+                else if (b404.bad && b404.inStmtSeen448)
+                    lawTrace(448, "invalidReadDefAdmit448",
+                             "abstain " + std::string(udef.name) + " " + b404.first448);
                 return b404.bad;
             };
             bool bad404 = isBad404(*uinstP);
@@ -15616,6 +15828,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (bad404)
                     lawTrace(440, "undefaultedPlaceholderRetry440",
                              "abstain " + std::string(udef.name));
+            }
+            if (bad404 && lawOn(448, "R11U448_INVREADADMIT_OFF")) {
+                on448 = true;
+                bad404 = isBad404(*uinstP);
+                on448 = false;
             }
             if (bad404) {
                 lawTrace(404, "undefaultedDefInvalidInst404",
@@ -25895,6 +26112,114 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // r11u287's design-final steps, after every drain above.
     auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+        // § implicitNetFirstRefLoc448 (r11u448, R11U448_FIRSTREFLOC_OFF;
+        // cases tools/probe/r11u448repro/cases/OR; the v11u447 residue
+        // VP/vp09) — in a never-elaborated definition admitted by
+        // § invalidReadDefAdmit448 the implicit wire Surelog's lateBinding
+        // mints for an undeclared name sits at the name's FIRST reference in
+        // source order among the module's processes and continuous
+        // assignments (golden `logic_net (work@m.u_x) 3:28` for
+        // `initial ... q = u_x + 1;` on line 3 and `assign w = u_x;` on
+        // line 4), and is listed among the implicit wires in that order; a
+        // subroutine body's reference does not count (OR/or06: golden at the
+        // continuous assignment).  ModuleEmit writes the continuous
+        // assignments before the processes, so § undeclaredReadImplicitNet447
+        // minted the wire at the continuous assignment; the wire moves to the
+        // earliest reference bound to it and in front of the first implicit
+        // wire that starts after it.
+        if (d287 && d287->AllModules() && !admitReads448.empty() &&
+            lawOn(448, "R11U448_FIRSTREFLOC_OFF")) {
+            for (auto* m448 : *d287->AllModules()) {
+                std::string dn448(m448->VpiDefName());
+                if (dn448.rfind("work@", 0) == 0)
+                    dn448 = dn448.substr(5);
+                auto ar448 = admitReads448.find(dn448);
+                if (ar448 == admitReads448.end() || !m448->Nets() ||
+                    m448->UhdmType() != UHDM::uhdmmodule_inst)
+                    continue;
+                auto* mi448 = (UHDM::module_inst*)m448;
+                for (auto& nm448 : ar448->second.first) {
+                    auto* nets448 = mi448->Nets();
+                    UHDM::net* n448 = nullptr;
+                    for (auto* o448 : *nets448)
+                        if (o448->VpiName() == nm448 &&
+                            o448->UhdmType() == UHDM::uhdmlogic_net)
+                            n448 = o448;
+                    if (!n448)
+                        continue;
+                    struct Refs448 final : public UHDM::UhdmListener {
+                        const UHDM::any* root = nullptr;
+                        const UHDM::any* net = nullptr;
+                        const UHDM::ref_obj* best = nullptr;
+                        bool inside(const UHDM::any* o) const {
+                            for (int k = 0; o && k < 256; ++k, o = o->VpiParent())
+                                if (o == root)
+                                    return true;
+                            return false;
+                        }
+                        void enterAny(const UHDM::any* const o) override {
+                            if (o != root && !inside(o))
+                                visited.insert(o);
+                        }
+                        void enterRef_obj(const UHDM::ref_obj* const r) override {
+                            if (!inside(r) || r->Actual_group() != net || !r->VpiLineNo())
+                                return;
+                            if (!best || r->VpiLineNo() < best->VpiLineNo() ||
+                                (r->VpiLineNo() == best->VpiLineNo() &&
+                                 r->VpiColumnNo() < best->VpiColumnNo()))
+                                best = r;
+                        }
+                    };
+                    const UHDM::ref_obj* best448 = nullptr;
+                    auto scan448 = [&](const UHDM::any* root) {
+                        Refs448 rf;
+                        rf.root = root;
+                        rf.net = n448;
+                        rf.listenAny(root);
+                        if (rf.best &&
+                            (!best448 || rf.best->VpiLineNo() < best448->VpiLineNo() ||
+                             (rf.best->VpiLineNo() == best448->VpiLineNo() &&
+                              rf.best->VpiColumnNo() < best448->VpiColumnNo())))
+                            best448 = rf.best;
+                    };
+                    if (mi448->Process())
+                        for (auto* pr448 : *mi448->Process())
+                            scan448(pr448);
+                    if (mi448->Cont_assigns())
+                        for (auto* ca448 : *mi448->Cont_assigns())
+                            scan448(ca448);
+                    if (!best448 ||
+                        !(best448->VpiLineNo() < n448->VpiLineNo() ||
+                          (best448->VpiLineNo() == n448->VpiLineNo() &&
+                           best448->VpiColumnNo() < n448->VpiColumnNo())))
+                        continue;
+                    lawTrace(448, "implicitNetFirstRefLoc448",
+                             dn448 + "." + nm448 + " " + std::to_string(n448->VpiLineNo()) +
+                                 ":" + std::to_string(n448->VpiColumnNo()) + " -> " +
+                                 std::to_string(best448->VpiLineNo()) + ":" +
+                                 std::to_string(best448->VpiColumnNo()));
+                    n448->VpiLineNo(best448->VpiLineNo());
+                    n448->VpiColumnNo(best448->VpiColumnNo());
+                    n448->VpiEndLineNo(best448->VpiEndLineNo());
+                    n448->VpiEndColumnNo(best448->VpiEndColumnNo());
+                    auto it448 = std::find(nets448->begin(), nets448->end(), n448);
+                    nets448->erase(it448);
+                    size_t at448 = nets448->size();
+                    for (size_t i448 = 0; i448 < nets448->size(); ++i448) {
+                        auto* o448 = (*nets448)[i448];
+                        if (!ar448->second.second.count(std::string(o448->VpiName())))
+                            continue;
+                        if (o448->VpiLineNo() > n448->VpiLineNo() ||
+                            (o448->VpiLineNo() == n448->VpiLineNo() &&
+                             o448->VpiColumnNo() > n448->VpiColumnNo())) {
+                            at448 = i448;
+                            break;
+                        }
+                    }
+                    nets448->insert(nets448->begin() + at448, n448);
+                }
+            }
+        }
         // § nestedModGateUpwardNet436 (ModuleEmit.cpp) — the definition-view
         // gate terminals of nested modules bind the first instance's net,
         // once every instance is elaborated.

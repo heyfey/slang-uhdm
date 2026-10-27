@@ -1,0 +1,15 @@
+Prediction written before the law sweep (law7, md5 997cfcce9c8595a4f6be1bedd419fbd7), from the traced
+census of law6 (drivers/census448.py; R11U448_TRACE) against the master's control sweep /tmp/intr11u446:
+  probe       4087 cases, 0 trace lines (no never-instantiated definition with an InvalidStatement) -> 0 movers, 0/0/0
+  surelog     1523 control records, 0 trace lines, law output md5 = control md5 on every record with a database -> byteverify 0
+  uhdm2rtlil  1740 control records, 0 trace lines -> byteverify 0
+  downstream  same sources as uhdm2rtlil, 0 firings -> 803/66/2/0, 0 movers
+  svtests     law6 fired on 11 rows; law7 runs the relaxed judgement only after the retries of passes 440/444,
+              so the 4 retry rows (control_slave, comm_link_checker, dff_en_segmented, ascii_writer) do not fire
+              (runner on law7: 6 basejump rows read EQUAL / equal, trace on the two target rows only):
+     CONVERSION generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv DIFFERENT -> EQUAL
+     CONVERSION generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv   DIFFERENT -> EQUAL
+     inert firing: generated/black-parrot/bp_multicore_1, _1_cce_ucode, _4, _4_cce_ucode_cfg admit bp_uce, but the run
+              exits 3 on pass 403's size guard on both binaries (bp_multicore_1 measured: same rc 3, same message);
+              status SURELOG_CRASH unchanged
+  Expected sv-tests counts: EQUAL 1916, DIFFERENT 24, the rest unchanged; regressions 0, conversions 2, changes 0.

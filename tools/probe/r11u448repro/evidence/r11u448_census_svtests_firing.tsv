@@ -1,0 +1,10 @@
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave	0	-	06df084d	1	1	invalidReadDefAdmit448 bsg_source_sync_channel_control_slave stmt stmt stmt stmt
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker	0	-	e2315aed	2	0	invalidReadDefAdmit448 abstain test_bsg_comm_link_checker InvalidTimingControl;invalidReadDefAdmit448 abstain test_bsg_comm_link_checker InvalidTimingControl
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc	0	-	29ff460f	1	1	invalidReadDefAdmit448 bsg_nonsynth_mem_1rw_sync_assoc stmt stmt stmt stmt stmt
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented	0	-	feeb5c6f	1	1	invalidReadDefAdmit448 bsg_dff_en_segmented stmt stmt
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow	0	-	04801565	1	1	invalidReadDefAdmit448 bsg_scheduler_dataflow stmt stmt stmt read:bypass_lo
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer	0	-	b919c5e7	1	1	invalidReadDefAdmit448 bsg_nonsynth_ascii_writer stmt stmt stmt stmt
+generated/black-parrot/bp_multicore_1	3	-	NONE	1	1	invalidReadDefAdmit448 bp_uce stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt
+generated/black-parrot/bp_multicore_1_cce_ucode	3	-	NONE	1	1	invalidReadDefAdmit448 bp_uce stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt
+generated/black-parrot/bp_multicore_4	3	-	NONE	1	1	invalidReadDefAdmit448 bp_uce stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt
+generated/black-parrot/bp_multicore_4_cce_ucode_cfg	3	-	NONE	1	1	invalidReadDefAdmit448 bp_uce stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt stmt

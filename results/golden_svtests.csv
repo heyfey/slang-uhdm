@@ -1077,7 +1077,7 @@ generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_synth.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_multiport_latch.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_dma.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_mask_write_byte_dma.sv,EQUAL,,equal
-generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.sv,EQUAL,,equal
 generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_dma.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_abs.sv,EQUAL,,equal
@@ -1184,7 +1184,7 @@ generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_left.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_right.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_round_robin_arb.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_scan.sv,EQUAL,,equal
-generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,DIFFERENT,decompile:,
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_resource.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_scoreboard_dealloc_alloc.sv,EQUAL,,equal
 generated/basejump/bsg_misc_BaseJumpSTL_bsg_strobe.sv,EQUAL,,equal

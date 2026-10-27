@@ -1,0 +1,3 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc,generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok
+bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow,generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,cores,elaboration,basejump,0,120,OK,0,0.0,,OK,0,0.1,,EQUAL,equal,IDENTICAL,ok,ok

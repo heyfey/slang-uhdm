@@ -1,0 +1,4 @@
+probe 4087 records, 0 with a trace line
+surelog 1523 records, 0 with a trace line
+uhdm2rtlil 1740 records, 0 with a trace line
+svtests 2346 records, 10 with a trace line
