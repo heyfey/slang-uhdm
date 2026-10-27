@@ -1,0 +1,4 @@
+R11U447_OFF pristine-identical 37 differ 0 
+R11U447_UNDECLNET_OFF pristine-identical 34 differ 3  UN/un30 UN/un31 UN/un32
+R11U447_LATEDECL_OFF pristine-identical 31 differ 6  UN/un12 UN/un26 UN/un29 UN/un30 UN/un31 UN/un32
+R11U447_IFACEBARE_OFF pristine-identical 33 differ 4  UN/un12 UN/un26 UN/un28 UN/un29

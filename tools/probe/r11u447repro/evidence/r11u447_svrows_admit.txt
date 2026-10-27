@@ -1,0 +1,6 @@
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow law5 rc=0 NOT_EQUAL stage1
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc law5 rc=0 NOT_EQUAL stage1
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow xadmit rc=4 NOT_EQUAL stage1
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc xadmit rc=0 STRICT_EQUAL 5195 objects
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow xlaw7 rc=0 STRICT_EQUAL 5589 objects
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc xlaw7 rc=0 STRICT_EQUAL 5195 objects

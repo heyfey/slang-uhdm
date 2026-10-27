@@ -59481,6 +59481,313 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
             }
+            // § undeclaredReadImplicitNet447 (r11u447,
+            // R11U447_UNDECLNET_OFF; cases tools/probe/r11u447repro/cases/UN;
+            // sv-tests generated/basejump bsg_scheduler_dataflow, whose
+            // `$display(..., bypass_lo)` at bsg_scheduler_dataflow.sv 191:112
+            // reads a name declared nowhere) — in a module body slang never
+            // elaborates (a definition reached only from basejump's
+            // `if (0)` abstract wrapper, listed by Surelog as a
+            // never-instantiated module_inst) a read of an UNDECLARED simple
+            // name is an InvalidExpression with no child and the bare
+            // IdentifierName syntax.  Surelog binds nothing at compile time
+            // and its netlist elaboration (lateBinding, the same road as
+            // § implicitNetOnePerName405 and § implicitNetMintNoFile131)
+            // mints the implicit module wire at the FIRST reference's span,
+            // vpiNetType 1 and no file, binding every reference by name:
+            // golden `logic_net (work@bsg_scheduler_dataflow.bypass_lo)
+            // 191:112-191:121` and the $display argument `ref_obj
+            // (work@bsg_scheduler_dataflow.bypass_lo)` bound to it.  We
+            // dropped the argument and exited 4 on `expression kind:
+            // Invalid`.  Only in a module (an interface takes
+            // § undeclaredReadIfaceBare447 below; not a let or property body)
+            // and only when no symbol of the name is declared between the
+            // current scope and the module body, so a name that binds to the
+            // wrong kind of symbol keeps its old road.
+            // The continuous assignment `assign w = undecl_x;` reaches here
+            // with no implicitNetModule set (ModuleEmit's cont_assign loop):
+            // golden mints the same wire there (`logic_net (work@m.undecl_x)
+            // 4:14-4:22`, the cont_assign's rhs bound to it), where we exited
+            // 4 with no rhs; the module is the cont_assign's parent.
+            // An operand (`assign w = undecl_a & undecl_b;`) walks up through
+            // the expressions already parented to reach the cont_assign.
+            UHDM::instance* mod447 = implicitNetModule;
+            std::string pre447 = implicitNetPrefix;
+            if (!mod447 && parent) {
+                const UHDM::BaseClass* up447 = parent;
+                for (int d447 = 0; up447 && d447 < 64 &&
+                                   up447->UhdmType() != UHDM::uhdmcont_assign &&
+                                   dynamic_cast<const UHDM::expr*>(up447);
+                     ++d447)
+                    up447 = up447->VpiParent();
+                if (up447 && up447->UhdmType() == UHDM::uhdmcont_assign &&
+                    up447->VpiParent() &&
+                    (up447->VpiParent()->UhdmType() == UHDM::uhdmmodule_inst ||
+                     up447->VpiParent()->UhdmType() == UHDM::uhdminterface_inst)) {
+                    mod447 = (UHDM::instance*)up447->VpiParent();
+                    pre447 = prefix;
+                }
+            }
+            // The three laws below read slang's scope chain from currentScope,
+            // which is stale in the elaborated instance walk (RESUME's
+            // emitter facts): they fire only when currentScope sits in the
+            // body of the very definition being written.
+            auto scopeOk447 = [&](const UHDM::instance* m447) {
+                const Scope* b447 = currentScope;
+                while (b447 && b447->asSymbol().kind != SymbolKind::InstanceBody)
+                    b447 = b447->asSymbol().getParentScope();
+                if (!b447 || !m447)
+                    return false;
+                auto& ib447 = b447->asSymbol().as<InstanceBodySymbol>();
+                return m447->VpiDefName() ==
+                       "work@" + std::string(ib447.getDefinition().name);
+            };
+            // ...and never for a name some nested scope of that body declares
+            // as a TYPE: the emitter does not push a subroutine's or block's
+            // scope into currentScope, so a cast to a typedef declared in a
+            // function (`typedef logic [1:0] n_t; ... n_t'(a)`, whose cast
+            // target reaches here Invalid; v11u304 VT/vt14_td_disp,
+            // vt27_const_fn_param, where golden writes unsupported_typespec
+            // n_t and no wire) would read as undeclared from the module body.
+            // A VALUE of that name in a nested scope does not stop the mint:
+            // golden mints `logic_net (work@m.q)` for a module-level read of
+            // `q` declared only in a named block or a function (cases/UN/un35,
+            // un36).  Every nested scope of the body is searched by name.
+            std::function<bool(const Scope&, std::string_view, int)> anyTypeDecl447 =
+                [&](const Scope& sc, std::string_view nm, int dep) -> bool {
+                if (dep > 64)
+                    return true;
+                for (auto& mem : sc.members()) {
+                    if (mem.name == nm &&
+                        (mem.isType() || mem.kind == SymbolKind::TypeParameter ||
+                         mem.kind == SymbolKind::ForwardingTypedef ||
+                         mem.kind == SymbolKind::GenericClassDef))
+                        return true;
+                    if (auto* ss = mem.as_if<Scope>(); ss && mem.kind != SymbolKind::Instance)
+                        if (anyTypeDecl447(*ss, nm, dep + 1))
+                            return true;
+                }
+                return false;
+            };
+            auto typeDeclAnywhere447 = [&](std::string_view nm) {
+                const Scope* b447 = currentScope;
+                while (b447 && b447->asSymbol().kind != SymbolKind::InstanceBody)
+                    b447 = b447->asSymbol().getParentScope();
+                return !b447 || anyTypeDecl447(*b447, nm, 0);
+            };
+            // § undeclaredReadIfaceBare447 (R11U447_IFACEBARE_OFF; cases
+            // cases/UN/un30, un31) — in an INTERFACE body golden writes the
+            // read as a bare ref_obj (`work@ifc.undecl_x`, no vpiActual) and
+            // mints no wire; we exited 4 with the argument dropped.
+            if (!iv2.child && !letDeclScope && !propDeclScope && mod447 &&
+                mod447->UhdmType() == UHDM::uhdminterface_inst && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IdentifierName && currentScope &&
+                scopeOk447(mod447) && lawOn(447, "R11U447_IFACEBARE_OFF")) {
+                auto& ib447 = expr.syntax->as<syntax::IdentifierNameSyntax>();
+                std::string_view nmb447 = ib447.identifier.valueText();
+                bool decl447 = nmb447.empty() || ib447.identifier.isMissing();
+                for (auto* sc447 = currentScope; sc447 && !decl447;
+                     sc447 = sc447->asSymbol().getParentScope()) {
+                    if (sc447->find(nmb447))
+                        decl447 = true;
+                    if (sc447->asSymbol().kind == SymbolKind::InstanceBody)
+                        break;
+                }
+                if (decl447 || typeDeclAnywhere447(nmb447))
+                    lawTrace(447, "undeclaredReadIfaceBare447", "abstain " + std::string(nmb447));
+                else {
+                    lawTrace(447, "undeclaredReadIfaceBare447", std::string(nmb447));
+                    auto* rb447 = s.MakeRef_obj();
+                    rb447->VpiName(nmb447);
+                    rb447->VpiFullName(joinRef(prefix, std::string(nmb447)));
+                    rb447->VpiParent(parent);
+                    setLoc(rb447, expr.syntax->sourceRange());
+                    return rb447;
+                }
+            }
+            if (!iv2.child && !letDeclScope && !propDeclScope && mod447 &&
+                mod447->UhdmType() == UHDM::uhdmmodule_inst && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IdentifierName &&
+                scopeOk447(mod447) && lawOn(447, "R11U447_UNDECLNET_OFF")) {
+                auto& in447 = expr.syntax->as<syntax::IdentifierNameSyntax>();
+                std::string_view nm447 = in447.identifier.valueText();
+                bool declared447 = nm447.empty() || in447.identifier.isMissing();
+                const Symbol* found447 = nullptr;
+                for (auto* sc447 = currentScope; sc447 && !declared447;
+                     sc447 = sc447->asSymbol().getParentScope()) {
+                    if (auto* f447 = sc447->find(nm447)) {
+                        declared447 = true;
+                        found447 = f447;
+                    }
+                    if (sc447->asSymbol().kind == SymbolKind::InstanceBody)
+                        break;
+                }
+                if (!currentScope)
+                    declared447 = true;
+                // § undeclaredReadLaterDecl447 (R11U447_LATEDECL_OFF; cases
+                // cases/UN/un14, un27) — a module-level net or variable
+                // declared AFTER the read (`$display(late_x); wire late_x;`)
+                // leaves the read Invalid in slang (used before its
+                // declaration); Surelog binds by name at elaboration: golden
+                // `ref_obj (work@m.late_x)` bound to the declared
+                // `logic_net (work@m.late_x) 4:8-4:14`.  A slang implicit
+                // net (a later port connection `.a(imp_a)`) is not this
+                // shape: golden moves that wire to the read, cases/UN/un15.
+                if (found447 && found447->getParentScope() &&
+                    found447->getParentScope()->asSymbol().kind == SymbolKind::InstanceBody &&
+                    (found447->kind == SymbolKind::Variable ||
+                     (found447->kind == SymbolKind::Net &&
+                      !found447->as<NetSymbol>().isImplicit)) &&
+                    lawOn(447, "R11U447_LATEDECL_OFF")) {
+                    auto it447 = netMap.find(found447);
+                    if (it447 != netMap.end() && it447->second) {
+                        lawTrace(447, "undeclaredReadLaterDecl447", std::string(nm447));
+                        auto* r447 = s.MakeRef_obj();
+                        r447->VpiName(nm447);
+                        r447->VpiFullName(joinRef(prefix, std::string(nm447)));
+                        r447->VpiParent(parent);
+                        setLoc(r447, expr.syntax->sourceRange());
+                        r447->Actual_group(it447->second);
+                        return r447;
+                    }
+                }
+                // § nestedProcEnumValAbstain447v (v11u447,
+                // R11V447_ENUMVAL_OFF; cases tools/probe/v11u447repro/cases/VN)
+                // — a name that a named block or a subroutine of the module
+                // body declares as a constant of an ANONYMOUS enum
+                // (`initial begin : b enum {UX, UY} e; ... end`, `function
+                // ... enum {FA, FB} q; ...`) binds that constant in golden:
+                // `ref_obj (work@m.UY)` with vpiActual `enum_const (UY)`
+                // INT:1, and no wire, where the law minted `logic_net
+                // work@m.UY` (VN/vn01 uhdm-cmp 56 -> 514, dump distance 30 ->
+                // 31; vn07, vn16, VA/va06 one or two lines further).  Golden
+                // still mints the wire for a TYPEDEF'd enum's constant in a
+                // function (vn13), a class's enum (vn14), and any enum in or
+                // under a generate block (vn10, vn15, vn17), so the walk
+                // enters only statement blocks and subroutines and skips a
+                // constant whose enum a typedef of that scope names.
+                std::function<bool(const Scope&, std::string_view, int)> procEnum447 =
+                    [&](const Scope& sc, std::string_view nm, int dep) -> bool {
+                    if (dep > 64)
+                        return true;
+                    for (auto& mem : sc.members()) {
+                        if (dep > 0 && mem.name == nm &&
+                            mem.kind == SymbolKind::TransparentMember) {
+                            auto& wr = mem.as<TransparentMemberSymbol>().wrapped;
+                            if (wr.kind == SymbolKind::EnumValue && wr.getParentScope()) {
+                                const Symbol* et = &wr.getParentScope()->asSymbol();
+                                bool td = false;
+                                for (auto& m2 : sc.members())
+                                    if (m2.kind == SymbolKind::TypeAlias &&
+                                        &m2.as<TypeAliasType>()
+                                                .targetType.getType()
+                                                .getCanonicalType() == et)
+                                        td = true;
+                                if (!td)
+                                    return true;
+                            }
+                        }
+                        if (mem.kind == SymbolKind::Subroutine ||
+                            mem.kind == SymbolKind::StatementBlock)
+                            if (auto* ss = mem.as_if<Scope>(); ss && procEnum447(*ss, nm, dep + 1))
+                                return true;
+                    }
+                    return false;
+                };
+                auto procEnumAnywhere447 = [&](std::string_view nm) {
+                    const Scope* b447 = currentScope;
+                    while (b447 && b447->asSymbol().kind != SymbolKind::InstanceBody)
+                        b447 = b447->asSymbol().getParentScope();
+                    return !b447 || procEnum447(*b447, nm, 0);
+                };
+                // § noneNetTypeBareRef447v (v11u447, R11V447_NONENET_OFF; case
+                // VA/va05) — under `default_nettype none Surelog reports
+                // `Illegal implicit net` and writes the read as a bare ref_obj
+                // with no vpiActual and no wire; the law minted the wire.
+                const Scope* nb447 = currentScope;
+                while (nb447 && nb447->asSymbol().kind != SymbolKind::InstanceBody)
+                    nb447 = nb447->asSymbol().getParentScope();
+                bool noneNet447 =
+                    nb447 && nb447->asSymbol()
+                                 .as<InstanceBodySymbol>()
+                                 .getDefinition()
+                                 .defaultNetType.isError();
+                if (declared447 || typeDeclAnywhere447(nm447)) {
+                    lawTrace(447, "undeclaredReadImplicitNet447",
+                             "abstain " + std::string(nm447));
+                }
+                else if (procEnumAnywhere447(nm447) && fixOn(447, "R11V447_ENUMVAL_OFF")) {
+                    lawTrace(447, "nestedProcEnumValAbstain447v", std::string(nm447));
+                }
+                else if (noneNet447 && fixOn(447, "R11V447_NONENET_OFF")) {
+                    lawTrace(447, "noneNetTypeBareRef447v", std::string(nm447));
+                    auto* rn447 = s.MakeRef_obj();
+                    rn447->VpiName(nm447);
+                    rn447->VpiFullName(joinRef(prefix, std::string(nm447)));
+                    rn447->VpiParent(parent);
+                    setLoc(rn447, expr.syntax->sourceRange());
+                    return rn447;
+                }
+                else {
+                    lawTrace(447, "undeclaredReadImplicitNet447", std::string(nm447));
+                    auto* r447 = s.MakeRef_obj();
+                    r447->VpiName(nm447);
+                    r447->VpiFullName(joinRef(prefix, std::string(nm447)));
+                    r447->VpiParent(parent);
+                    SourceRange nr447 = expr.syntax->sourceRange();
+                    setLoc(r447, nr447);
+                    size_t before447 =
+                        mod447->Nets() ? mod447->Nets()->size() : 0;
+                    if (auto* n447 = mintImplicitNet403(
+                            s, mod447, pre447, nm447, nr447,
+                            [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); })) {
+                        r447->Actual_group(n447);
+                        // Surelog lists the declared nets first and then
+                        // every implicit wire in SOURCE ORDER of its first
+                        // reference, whatever minted it (a port connection
+                        // `.a(imp_a)`, a continuous-assignment target, this
+                        // read): golden `clk, imp_a 3:12, undecl_x 4:40,
+                        // imp_b 5:12`.  slang's own implicit nets were
+                        // listed with the declared ones before the process
+                        // was emitted, so the fresh wire moves in front of
+                        // the first implicit net that starts after it.
+                        auto* nets447 = mod447->Nets();
+                        if (nets447 && nets447->size() == before447 + 1 &&
+                            nets447->back() == n447) {
+                            std::set<std::string_view> imp447;
+                            const Scope* body447 = currentScope;
+                            while (body447 &&
+                                   body447->asSymbol().kind != SymbolKind::InstanceBody)
+                                body447 = body447->asSymbol().getParentScope();
+                            if (body447)
+                                for (auto& mem447 : body447->members())
+                                    if (mem447.kind == SymbolKind::Net &&
+                                        mem447.as<NetSymbol>().isImplicit)
+                                        imp447.insert(mem447.name);
+                            for (auto* m447 : implicitNetMints131())
+                                if (auto* a447 = dynamic_cast<UHDM::any*>(m447);
+                                    a447 && a447 != n447 && a447->VpiParent() == mod447)
+                                    imp447.insert(a447->VpiName());
+                            int ln447 = n447->VpiLineNo(), cl447 = n447->VpiColumnNo();
+                            for (size_t i447 = 0; i447 + 1 < nets447->size(); ++i447) {
+                                auto* o447 = (*nets447)[i447];
+                                if (!imp447.count(o447->VpiName()))
+                                    continue;
+                                int ol447 = o447->VpiLineNo(), oc447 = o447->VpiColumnNo();
+                                if (ol447 > ln447 || (ol447 == ln447 && oc447 > cl447)) {
+                                    nets447->pop_back();
+                                    nets447->insert(nets447->begin() + i447, n447);
+                                    lawTrace(447, "undeclaredReadImplicitNet447",
+                                             "order " + std::string(nm447) + " before " +
+                                                 std::string(o447->VpiName()));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    return r447;
+                }
+            }
             // Property-decl FORMAL refs bind Invalid (untyped formals): a
             // property-scoped ref bound to an implicit module wire minted at
             // the first use.

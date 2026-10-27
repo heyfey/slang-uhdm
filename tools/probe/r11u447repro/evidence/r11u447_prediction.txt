@@ -1,0 +1,12 @@
+r11u447 prediction, written before the law sweep (law5, md5 d2ac6e0b6b23d72fcd84fd0e37bc048f)
+- trace census, law5 with R11U447_TRACE:
+  * 44714 fence-filtered tools/probe + tests/probe .sv files: 16 firing files, none under tests/probe;
+    9 abstentions byte- and exit-identical to pristine (r11u121 t42_bodylp_mod_direct, r11u294 MT/mt09_body,
+    r11u299 ME/e02_lp_three_inst, e05_two_inst_same, r11v167 ts/t05, v11u278 VT/vt06, v11u299 VE/ve06_genfor_inst,
+    v11u304 VT/vt14_td_disp, vt27_const_fn_param); the 7 movers are this pass's own cases UN/un12, un26, un28 to un32 (exit 4 -> 0)
+  * surelog corpus: 1573 fence-filtered control cmds.txt records, 0 firings, 0 md5 movers against the control's slang.uhdm
+  * uhdm2rtlil corpus: 1740 records, 0 firings, 0 md5 movers
+  * sv-tests: all 2346 control rows, 0 firings
+- predicted sweep: probe 4023 + 64 with 0/0/0; surelog 480 + 0 / 474 + 0 with 0/0/0; uhdm2rtlil 803/1/67 both modes 0/0/0;
+  downstream 803/66/2/0; sv-tests 0 regressions, 0 conversions, 0 changes; trace directory empty in all five stages;
+  byteverify 0 movers in every stage (the Scoreboard/default coin aside)

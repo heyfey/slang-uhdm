@@ -1,0 +1,15 @@
+The measurement-only admission used for the xadm / xlaw columns (never part of the patch; built into
+scratch binaries /tmp/r11u447_bin/xadmit (pristine + hunk, md5 d8b2995628acbddfe71d13e6ba35018c) and
+/tmp/r11u447_bin/xlaw7 (law5 + hunk), the hunk active only with XPERIMENT447_ADMIT=1):
+UhdmExporter.cpp, the abstain-unbound return after § undefaultedPlaceholderRetry440 / § defaultedStrPlaceholderRetry444:
+
+-            if (bad404) {
++            if (bad404 && !getenv("XPERIMENT447_ADMIT")) {
+                 lawTrace(404, "undefaultedDefInvalidInst404",
+                          "abstain-unbound " + std::string(udef.name));
+                 return;
+             }
+
+(xadmit also printed, under the same variable, each node the Bad404 visitor flags: on
+bsg_scheduler_dataflow 5 InvalidStatements `@(negedge clk_i) begin $display(..., bypass_lo); end` with a child
+(a TimedStatement); on bsg_nonsynth_mem_1rw_sync_assoc 3 InvalidStatements `@ (posedge clk_i) begin ... end` with a child.)
