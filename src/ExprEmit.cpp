@@ -63,6 +63,99 @@ static const slang::ast::Symbol* loopVarModuleDecl439(const slang::ast::Symbol& 
     }
     return nullptr;
 }
+// § loopVarParamReadUnbound445 (r11u445) — the first declaration the walk
+// out from a foreach loop variable finds under its name (statement blocks
+// and subroutines, then the instance body), whatever its kind; null when the
+// walk leaves those scopes first.
+static const slang::ast::Symbol* loopVarFirstDecl445(const slang::ast::Symbol& it) {
+    using namespace slang::ast;
+    const Scope* sc = it.getParentScope();
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind != SymbolKind::InstanceBody &&
+            ss.kind != SymbolKind::StatementBlock &&
+            ss.kind != SymbolKind::Subroutine)
+            return nullptr;
+        if (auto* d = sc->find(it.name); d && d != &it) {
+            // § nestedLoopVarSkipsOuter445v: an enclosing same-name loop
+            // variable is passed over (golden VM/vm15 leaves the inner
+            // read bare under a module parameter).
+            if (d->kind != SymbolKind::Iterator ||
+                !lawFixOn(445, "R11V445_NESTSKIP_OFF"))
+                return d;
+            lawTrace(445, "nestedLoopVarSkipsOuter445v", "param " + std::string(it.name));
+        }
+        if (ss.kind == SymbolKind::InstanceBody)
+            return nullptr;
+        sc = ss.getParentScope();
+    }
+    return nullptr;
+}
+// § nestedLoopVarSkipsOuter445v (v11u445, R11V445_NESTSKIP_OFF) — the
+// declaration loopVarModuleDecl439's walk would bind if it passed over the
+// enclosing foreach loop variables of the same name, which Surelog's
+// lateBinding foreach branch skips because each is the ref_var over that
+// same declaration; null unless at least one such loop variable was passed
+// and a variable, net or formal is found beyond it.
+static const slang::ast::Symbol* loopVarDeclPastOuter445v(const slang::ast::Symbol& it) {
+    using namespace slang::ast;
+    const Scope* sc = it.getParentScope();
+    bool skipped = false;
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind != SymbolKind::InstanceBody &&
+            ss.kind != SymbolKind::StatementBlock &&
+            ss.kind != SymbolKind::Subroutine)
+            return nullptr;
+        if (auto* d = sc->find(it.name); d && d != &it) {
+            if (d->kind == SymbolKind::Iterator)
+                skipped = true;
+            else
+                return (skipped && (d->kind == SymbolKind::Variable ||
+                                    d->kind == SymbolKind::Net ||
+                                    d->kind == SymbolKind::FormalArgument))
+                           ? d
+                           : nullptr;
+        }
+        if (ss.kind == SymbolKind::InstanceBody)
+            return nullptr;
+        if (ss.kind == SymbolKind::Subroutine &&
+            ss.getParentScope() &&
+            ss.getParentScope()->asSymbol().kind != SymbolKind::InstanceBody)
+            return nullptr;
+        sc = ss.getParentScope();
+    }
+    return nullptr;
+}
+// loopVarModuleDecl439's declaration, else (§ nestedLoopVarSkipsOuter445v)
+// the one found past the enclosing same-name loop variables.
+static const slang::ast::Symbol* loopVarReadDecl445v(const slang::ast::Symbol& it) {
+    if (auto* d = loopVarModuleDecl439(it))
+        return d;
+    if (lawFixOn(445, "R11V445_NESTSKIP_OFF"))
+        if (auto* d = loopVarDeclPastOuter445v(it)) {
+            lawTrace(445, "nestedLoopVarSkipsOuter445v", "read " + std::string(it.name));
+            return d;
+        }
+    return nullptr;
+}
+// § pkgSubLoopVarReadBindsDecl445 (r11u445) — true when the walk out from a
+// foreach loop variable through statement blocks reaches a subroutine
+// declared directly in a package.
+static bool loopVarInPkgSub445(const slang::ast::Symbol& it) {
+    using namespace slang::ast;
+    const Scope* sc = it.getParentScope();
+    for (int guard = 0; sc && guard < 64; ++guard) {
+        auto& ss = sc->asSymbol();
+        if (ss.kind == SymbolKind::Subroutine)
+            return ss.getParentScope() &&
+                   ss.getParentScope()->asSymbol().kind == SymbolKind::Package;
+        if (ss.kind != SymbolKind::StatementBlock)
+            return false;
+        sc = ss.getParentScope();
+    }
+    return false;
+}
 // § uninstProgIncDecBinds439v (v11u439) — the depth of the operand of a
 // STATEMENT-position increment or decrement (the § incDecStmtOperandBinds21
 // token: outside a control body, through a begin, a named begin or a fork),
@@ -36099,12 +36192,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 else if (elabProgProc443() &&
                          nv.symbol.kind == SymbolKind::Iterator &&
                          foreachLoopVarObjs9.count(&nv.symbol) &&
-                         !loopVarNameShadows443(nv.symbol.getParentScope(),
-                                                nv.symbol.name, &nv.symbol) &&
+                         (!loopVarNameShadows443(nv.symbol.getParentScope(),
+                                                 nv.symbol.name, &nv.symbol) ||
+                          // § progIfaceParamNoShadow445
+                          (loopVarShadowIsBodyParam445(nv.symbol.getParentScope(),
+                                                       nv.symbol.name, &nv.symbol) &&
+                           lawOn(445, "R11U445_PARAMNOSHADOW_OFF"))) &&
                          lawOn(443, "R11U443_PROGLVBIND_OFF")) {
                     ref->Actual_group(foreachLoopVarObjs9[&nv.symbol]);
                     lawTrace(443, "elabProgLoopVarReadBinds443",
                              std::string(nv.symbol.name));
+                }
+                // § ifaceLoopVarReadBindsDecl445 (r11u445,
+                // R11U445_IFACELVDECL_OFF) — in a process of an interface
+                // some module instantiates, a read of a loop variable named
+                // like a block local, a formal or an interface variable binds
+                // that declaration: the loop variable stays the ref_var over
+                // the declaration's typespec, which lateBinding's foreach
+                // branch skips, and the name is then found on its walk (golden
+                // SI/si01 `begin int i; foreach (sig[i]) s = s + i;`: the read
+                // binds int_var work@ifc.i at the local 5:19; SI/si02 the
+                // member work@top.u.i).  Nothing is minted where the walk
+                // finds no variable, net or formal.
+                else if (nv.symbol.kind == SymbolKind::Iterator &&
+                         elabIfaceProc443() && !implicitNetModule &&
+                         !foreachLoopVarObjs9.count(&nv.symbol) &&
+                         lawOn(445, "R11U445_IFACELVDECL_OFF")) {
+                    if (auto* d445 = loopVarReadDecl445v(nv.symbol))
+                        if (auto m445 = netMap.find(d445);
+                            m445 != netMap.end() && m445->second) {
+                            ref->Actual_group(m445->second);
+                            lawTrace(445, "ifaceLoopVarReadBindsDecl445",
+                                     std::string(nv.symbol.name));
+                        }
                 }
                 else if (implicitNetModule &&
                          (nv.symbol.kind == SymbolKind::Iterator ||
@@ -36141,15 +36261,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     UHDM::any* modDecl439 = nullptr;
                     if (!inet && nv.symbol.kind == SymbolKind::Iterator &&
                         lawOn(439, "R11U439_LVMODDECL_OFF"))
-                        if (auto* ms439 = loopVarModuleDecl439(nv.symbol))
+                        if (auto* ms439 = loopVarReadDecl445v(nv.symbol))
                             if (auto mit439 = netMap.find(ms439);
                                 mit439 != netMap.end() && mit439->second) {
                                 modDecl439 = mit439->second;
                                 lawTrace(439, "loopVarReadBindsModuleDecl439",
                                          std::string(nv.symbol.name));
                             }
+                    // § loopVarParamReadUnbound445 (r11u445,
+                    // R11U445_PARAMREAD_OFF) — a loop variable named like a
+                    // parameter of the module: lateTypedefBinding found the
+                    // parameter, so the loop variable is the ref_var
+                    // lateBinding skips, and the name resolves to no
+                    // variable or net, so golden leaves the read bare and
+                    // mints no implicit wire (SM/sm03 `parameter int i = 2;`
+                    // beside `foreach (arr[i]) arr[i] = i;`).
+                    bool parUnb445 = false;
+                    if (!inet && !modDecl439 && nv.symbol.kind == SymbolKind::Iterator)
+                        if (auto* fd445 = loopVarFirstDecl445(nv.symbol);
+                            fd445 && fd445->kind == SymbolKind::Parameter &&
+                            fd445->getParentScope() &&
+                            fd445->getParentScope()->asSymbol().kind ==
+                                SymbolKind::InstanceBody &&
+                            fd445->getParentScope()->asSymbol().as<InstanceBodySymbol>()
+                                    .getDefinition().definitionKind == DefinitionKind::Module &&
+                            lawOn(445, "R11U445_PARAMREAD_OFF")) {
+                            parUnb445 = true;
+                            lawTrace(445, "loopVarParamReadUnbound445",
+                                     std::string(nv.symbol.name));
+                        }
                     if (modDecl439) {
                         ref->Actual_group(modDecl439);
+                    } else if (parUnb445) {
                     } else {
                     // § implicitNetOnePerName405 (r11u405,
                     // R11U405_IMPNETNAME_OFF) — Surelog keys these implicit
@@ -36204,6 +36347,26 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (auto lvi9 = foreachLoopVarObjs9.find(&nv.symbol);
                         lvi9 != foreachLoopVarObjs9.end())
                         ref->Actual_group(lvi9->second);
+                    // § pkgSubLoopVarReadBindsDecl445 (r11u445,
+                    // R11U445_PKGLVDECL_OFF) — in a package function or
+                    // task, a read of a loop variable named like a formal,
+                    // a subroutine local or a block local binds that
+                    // declaration in both package listings: the loop
+                    // variable is the ref_var lateBinding's foreach branch
+                    // skips, and its walk then finds the declaration (golden
+                    // SK/sk01 `int i;` beside `foreach (arr[i]) s = s + i;`
+                    // in `function automatic int f()` of `package pk`: the
+                    // read binds int_var pk::f::i in both views).
+                    else if (!implicitNetModule && !elabIfaceProc443() &&
+                             !elabProgProc443() && loopVarInPkgSub445(nv.symbol) &&
+                             lawOn(445, "R11U445_PKGLVDECL_OFF"))
+                        if (auto* d445 = loopVarReadDecl445v(nv.symbol))
+                            if (auto m445 = netMap.find(d445);
+                                m445 != netMap.end() && m445->second) {
+                                ref->Actual_group(m445->second);
+                                lawTrace(445, "pkgSubLoopVarReadBindsDecl445",
+                                         std::string(nv.symbol.name));
+                            }
                 }
             }
             // ...and a PACKAGE-level variable of the package being emitted is

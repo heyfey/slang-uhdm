@@ -1,0 +1,10 @@
+Prediction recorded 2026-10-27T05:08:08-04:00 before the law5 sweep (law5 md5 685e64471b6aff5cb6e1fd77a1f0c883):
+- probe: 0 byte movers, 0 conversions, 0 firings (traced census over the 49 tests/probe foreach files and the
+  tests/probe files holding 'with'; no firing on any tests/probe case).
+- surelog: 0 byte movers, 0 firings (traced byte census of law5 over all 1573 fence-filtered control cmds.txt
+  rows of /tmp/intr11u443, md5 equal to the control's slang.uhdm on every row; Scoreboard default is the known coin).
+- uhdm2rtlil: 0 byte movers, 0 firings (1740 control rows, md5 equal on every row).
+- downstream: no verdict change (0 firings on the uhdm2rtlil sources).
+- svtests: 0 conversions, 0 changes, 0 firings (traced runs over 621 accepted candidate rows holding foreach or with
+  and the UVM row chapter-16/16.10--property-local-var-uvm.sv; uvm_pkg fires nothing).
+- sweep trace directory: only abstention lines at most; no firing line.

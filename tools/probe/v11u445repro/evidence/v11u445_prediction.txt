@@ -1,0 +1,12 @@
+Written Tue Oct 27 06:25:10 EDT 2026 before either sweep.
+LAW sweep (/tmp/v11u445_bin/law, md5 685e64471b6aff5cb6e1fd77a1f0c883 = the implementer's law5):
+  probe 4023 + 64, 0/0/0; surelog 480 + 0 / 474 + 0, 0/0/0; uhdm2rtlil 803/1/67 both modes, 0/0/0;
+  downstream 803/66/2/0; svtests EQUAL 1913 STRICT_NOTEQUAL 0 DIFFERENT 27 SURELOG_ONLY 75 BOTH_REJECT 303
+  SLANG_ONLY 19 SURELOG_CRASH 8 TIMEOUT 1, 0/0/0; byteverify vs /tmp/intr11u443 0 movers in every stage;
+  no lawTrace(445) line in the trace dir (the implementer's traced census: 0 firings on every corpus record).
+VERIFIED sweep (/tmp/v11u445_bin/ver1, md5 c0cd9a67b61af441995a3e52b30217ba):
+  every count as above; byteverify vs the law sweep and vs the control 0 movers; § nestedLoopVarSkipsOuter445v
+  changes bytes only where an inner foreach loop variable shares its name with an enclosing one AND a
+  declaration of that name lies beyond (census over 4456 probe files law -> ver1: 0 byte movers, 0 exit-code
+  changes; 2 files log only the pass-over line: r10uvm181repro/g181_b_dims.sv, v11u443repro VA/va16).
+  Trace lines in the sweep dir, if any, are pass-over lines with no byte change.

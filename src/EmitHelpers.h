@@ -84,6 +84,61 @@ inline bool loopVarNameShadows443(const Scope* from, std::string_view name,
     }
     return false;
 }
+// § foreachLoopVarShadowDeclTs445 (r11u445): the declaration a foreach
+// loop variable's name finds in a begin, fork or subroutine scope enclosing
+// the loop (Surelog's lateTypedefBinding parent walk over begin, named_begin,
+// fork, named_fork, task and function), skipping the loop's own implicit
+// block and any enclosing foreach's loop variable; null when none does or
+// the walk reaches the instance body first.
+inline const Symbol* loopVarShadowBlockSym445(const Scope* from, std::string_view name,
+                                              const Symbol* self) {
+    for (int guard = 0; from && guard < 64; ++guard) {
+        auto& ss = from->asSymbol();
+        if (ss.kind != SymbolKind::StatementBlock && ss.kind != SymbolKind::Subroutine)
+            return nullptr;
+        if (auto* d = from->find(name); d && d != self) {
+            if (d->kind == SymbolKind::Iterator) {
+                // § nestedLoopVarSkipsOuter445v (v11u445,
+                // R11V445_NESTSKIP_OFF): an enclosing foreach's loop
+                // variable of the same name is itself the ref_var over the
+                // declaration further out (the same walk found it), which
+                // lateTypedefBinding's foreach branch skips, so the walk
+                // goes on to that declaration (golden VB/vb02 `begin int i;
+                // foreach (a[i]) foreach (b[i])`: the inner loop variable a
+                // ref_var at 4:48 over the local's int_typespec 4:15).
+                if (lawFixOn(445, "R11V445_NESTSKIP_OFF")) {
+                    lawTrace(445, "nestedLoopVarSkipsOuter445v",
+                             "decl " + std::string(name));
+                    from = ss.getParentScope();
+                    continue;
+                }
+                return nullptr;
+            }
+            return d;
+        }
+        from = ss.getParentScope();
+    }
+    return nullptr;
+}
+// § progIfaceParamNoShadow445 (r11u445): true when the first declaration
+// loopVarNameShadows443's walk finds under the loop variable's name is a
+// parameter of the instance body itself (a program's or interface's own
+// parameter, which Surelog's lateTypedefBinding walk never reaches).
+inline bool loopVarShadowIsBodyParam445(const Scope* from, std::string_view name,
+                                        const Symbol* self) {
+    for (int guard = 0; from && guard < 64; ++guard) {
+        auto& ss = from->asSymbol();
+        if (auto* d = from->find(name); d && d != self)
+            return ss.kind == SymbolKind::InstanceBody && d->kind == SymbolKind::Parameter;
+        if (ss.kind == SymbolKind::InstanceBody)
+            return false;
+        if (ss.kind != SymbolKind::StatementBlock &&
+            ss.kind != SymbolKind::Subroutine)
+            return false;
+        from = ss.getParentScope();
+    }
+    return false;
+}
 // A variable declared directly in a program body (not in a block or a
 // subroutine of it).
 inline bool progMemberSym443(const Symbol& sym) {

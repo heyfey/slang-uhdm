@@ -1,0 +1,75 @@
+SC/sc01	byte-identical
+SG/sg01	switches moving bytes: SHADOWBLK=pristine
+SG/sg02	switches moving bytes: SHADOWBLK=pristine
+SG/sg03	switches moving bytes: SHADOWBLK=pristine
+SI/si01	switches moving bytes: SHADOWBLK IFACELVDECL
+SI/si02	switches moving bytes: IFACELVDECL=pristine
+SI/si03	switches moving bytes: SHADOWBLK IFACELVDECL
+SI/si04	switches moving bytes: PARAMNOSHADOW=pristine
+SI/si05	byte-identical
+SI/si06	switches moving bytes: SHADOWBLK=pristine IFACELVDECL
+SI/si07	switches moving bytes: IFACELVDECL=pristine
+SI/si08	switches moving bytes: IFACELVDECL=pristine
+SI/si09	switches moving bytes: PARAMNOSHADOW=pristine
+SK/sk01	switches moving bytes: PKGLVDECL=pristine
+SK/sk02	switches moving bytes: SHADOWBLK PKGLVDECL
+SK/sk03	switches moving bytes: PKGLVDECL=pristine
+SK/sk04	switches moving bytes: SHADOWBLK PKGLVDECL
+SK/sk05	byte-identical
+SK/sk06	byte-identical
+SK/sk07	switches moving bytes: SHADOWBLK PKGLVDECL
+SK/sk08	byte-identical
+SM/sm01	switches moving bytes: SHADOWBLK=pristine
+SM/sm02	switches moving bytes: SHADOWBLK=pristine
+SM/sm03	switches moving bytes: MODPARAM PARAMREAD
+SM/sm04	switches moving bytes: MODPARAM PARAMREAD
+SM/sm05	byte-identical
+SM/sm06	byte-identical
+SM/sm07	byte-identical
+SM/sm08	byte-identical
+SM/sm09	byte-identical
+SM/sm10	byte-identical
+SM/sm11	byte-identical
+SM/sm12	switches moving bytes: SHADOWBLK=pristine
+SM/sm13	switches moving bytes: SHADOWBLK=pristine
+SM/sm14	switches moving bytes: SHADOWBLK=pristine
+SM/sm15	switches moving bytes: SHADOWBLK=pristine
+SM/sm16	byte-identical
+SM/sm17	byte-identical
+SM/sm18	switches moving bytes: SHADOWBLK=pristine
+SM/sm19	byte-identical
+SM/sm20	byte-identical
+SM/sm21	switches moving bytes: SHADOWBLK=pristine
+SM/sm22	switches moving bytes: SHADOWBLK=pristine
+SM/sm23	switches moving bytes: SHADOWBLK=pristine
+SM/sm24	switches moving bytes: SHADOWBLK=pristine
+SM/sm25	switches moving bytes: SHADOWBLK=pristine
+SM/sm26	switches moving bytes: SHADOWBLK=pristine
+SM/sm27	switches moving bytes: MODPARAM PARAMREAD
+SM/sm28	byte-identical
+SM/sm29	switches moving bytes: MODPARAM PARAMREAD
+SM/sm30	switches moving bytes: MODPARAM=pristine
+SM/sm31	switches moving bytes: MODPARAM PARAMREAD
+SM/sm32	switches moving bytes: MODPARAM PARAMREAD
+SM/sm33	switches moving bytes: SHADOWBLK=pristine
+SM/sm34	switches moving bytes: SHADOWBLK=pristine
+SM/sm35	switches moving bytes: SHADOWBLK=pristine
+SM/sm36	byte-identical
+SM/sm37	switches moving bytes: SHADOWBLK
+SM/sm38	switches moving bytes: MODPARAM PARAMREAD
+SM/sm39	switches moving bytes: MODPARAM PARAMREAD
+SP/sp01	switches moving bytes: SHADOWBLK=pristine
+SP/sp02	switches moving bytes: SHADOWBLK=pristine
+SP/sp03	byte-identical
+SP/sp04	switches moving bytes: PARAMNOSHADOW=pristine
+SP/sp05	byte-identical
+SP/sp06	byte-identical
+SP/sp07	switches moving bytes: SHADOWBLK=pristine
+SP/sp08	switches moving bytes: PARAMNOSHADOW=pristine
+SP/sp09	switches moving bytes: PARAMNOSHADOW=pristine
+SU/su01	byte-identical
+SU/su02	byte-identical
+SW/sw01	switches moving bytes: PARAMREAD=pristine
+SW/sw02	switches moving bytes: PKGLVDECL=pristine
+SW/sw03	switches moving bytes: IFACELVDECL=pristine
+SW/sw04	switches moving bytes: SHADOWBLK=pristine

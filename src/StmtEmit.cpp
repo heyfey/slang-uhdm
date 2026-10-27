@@ -5766,9 +5766,27 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             // resolves it to (a block local, a formal, a member).
             auto lvShadow443 = [&](const std::string& n443) {
                 for (auto& ld443 : fe.loopDims)
-                    if (ld443.loopVar && ld443.loopVar->name == n443)
-                        return loopVarNameShadows443(
-                            ld443.loopVar->getParentScope(), n443, ld443.loopVar);
+                    if (ld443.loopVar && ld443.loopVar->name == n443) {
+                        if (!loopVarNameShadows443(ld443.loopVar->getParentScope(),
+                                                   n443, ld443.loopVar))
+                            return false;
+                        // § progIfaceParamNoShadow445 (r11u445,
+                        // R11U445_PARAMNOSHADOW_OFF) — a program's or an
+                        // interface's own parameter does not shadow the loop
+                        // variable: lateTypedefBinding's parent walk has no
+                        // program or interface branch, so the placeholder is
+                        // swapped as if nothing were declared (golden SP/sp04
+                        // `parameter int i = 1;` beside `foreach (arr[i])`:
+                        // array_var i, the read bound to it; SI/si04 the
+                        // logic_var bound).
+                        if (loopVarShadowIsBodyParam445(ld443.loopVar->getParentScope(),
+                                                        n443, ld443.loopVar) &&
+                            lawOn(445, "R11U445_PARAMNOSHADOW_OFF")) {
+                            lawTrace(445, "progIfaceParamNoShadow445", n443);
+                            return false;
+                        }
+                        return true;
+                    }
                 return false;
             };
             auto declLoopVar = [&](std::string_view name,
@@ -5815,6 +5833,109 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 lvars->push_back(rv9);
                                 return nullptr;
                             }
+                // § foreachLoopVarShadowDeclTs445 (r11u445,
+                // R11U445_SHADOWBLK_OFF) — the branch above looks the name up
+                // from the scope OUTSIDE every statement block, so a loop
+                // variable named like a begin, fork or task-body local never
+                // reached it; Surelog's lateTypedefBinding walks the foreach's
+                // parents (begin, named_begin, fork, named_fork, task,
+                // function) and, finding the local, keeps the ref_var over
+                // that declaration's own typespec (golden SM/sm01 `begin int
+                // i; foreach (arr[i])`: ref_var i over the int_typespec 4:15).
+                if (!classMethodNoBind && !pkgDefViewBody9 && !uninstIfaceSubBody218 &&
+                    lawOn(445, "R11U445_SHADOWBLK_OFF")) {
+                    const Symbol* sh445 = nullptr;
+                    for (auto& ld445 : fe.loopDims)
+                        if (ld445.loopVar && ld445.loopVar->name == lvn) {
+                            sh445 = loopVarShadowBlockSym445(
+                                ld445.loopVar->getParentScope(), lvn, ld445.loopVar);
+                            break;
+                        }
+                    if (sh445)
+                        if (auto sit445 = netMap.find(sh445); sit445 != netMap.end())
+                            if (auto* srcRt445 = lvActualTs9(sit445->second)) {
+                                auto* rv445 = s.MakeRef_var();
+                                rv445->VpiName(name);
+                                rv445->VpiFullName(joinRef(prefix, lvn));
+                                rv445->VpiParent(fs);
+                                setLoc(rv445, span);
+                                auto* srt445 = s.MakeRef_typespec();
+                                srt445->VpiFullName(joinRef(prefix, lvn));
+                                srt445->VpiParent(rv445);
+                                if (srcRt445->Actual_typespec())
+                                    srt445->Actual_typespec(srcRt445->Actual_typespec());
+                                else
+                                    pendingLoopVarTs9.push_back({srt445, srcRt445});
+                                rv445->Typespec(srt445);
+                                lvars->push_back(rv445);
+                                lawTrace(445, "foreachLoopVarShadowDeclTs445",
+                                         "block " + lvn);
+                                return nullptr;
+                            }
+                }
+                if (lvScope9 && !classMethodNoBind && !pkgDefViewBody9 &&
+                    !uninstIfaceSubBody218 && lawTraceOn(445))
+                    if (auto* sht445 = Lookup::unqualified(*lvScope9, lvn))
+                        if (auto stt445 = netMap.find(sht445);
+                            stt445 != netMap.end() && !lvActualTs9(stt445->second))
+                            lawTrace(445, "foreachLoopVarShadowDeclTs445",
+                                     "abstain-nots " + lvn + " " +
+                                         std::to_string((int)sht445->kind) + " " +
+                                         std::to_string(stt445->second
+                                                            ? (int)stt445->second->UhdmType()
+                                                            : -1));
+                // § foreachLoopVarModParamTs445 (r11u445,
+                // R11U445_MODPARAM_OFF) — a loop variable named like a
+                // parameter of the module is found by lateTypedefBinding's
+                // module_inst branch (Parameters() after Variables()), so
+                // the ref_var takes the parameter's own typespec (golden
+                // SM/sm03 `parameter int i = 2;` beside `foreach (arr[i])`:
+                // ref_var i over the int_typespec 3:11-3:14; a parameter
+                // with no typespec leaves the ref_var without one).  The
+                // parameters have no netMap entry, so the module's own
+                // listing is read by name.
+                if (lvScope9 && !classMethodNoBind && !pkgDefViewBody9 &&
+                    !uninstIfaceSubBody218 && implicitNetModule &&
+                    implicitNetModule->UhdmType() == UHDM::uhdmmodule_inst &&
+                    lawOn(445, "R11U445_MODPARAM_OFF"))
+                    if (auto* shp445 = Lookup::unqualified(*lvScope9, lvn);
+                        shp445 && (shp445->kind == SymbolKind::Parameter ||
+                                   shp445->kind == SymbolKind::TypeAlias) &&
+                        shp445->getParentScope() &&
+                        shp445->getParentScope()->asSymbol().kind ==
+                            SymbolKind::InstanceBody &&
+                        shp445->getParentScope()->asSymbol().as<InstanceBodySymbol>()
+                                .getDefinition().definitionKind == DefinitionKind::Module)
+                        if (auto* pv445 = implicitNetModule->Parameters())
+                            for (auto* po445 : *pv445)
+                                if (((shp445->kind == SymbolKind::Parameter &&
+                                      po445->UhdmType() == UHDM::uhdmparameter) ||
+                                     (shp445->kind == SymbolKind::TypeAlias &&
+                                      po445->UhdmType() == UHDM::uhdmtype_parameter)) &&
+                                    po445->VpiName() == lvn) {
+                                    auto* rvp445 = s.MakeRef_var();
+                                    rvp445->VpiName(name);
+                                    rvp445->VpiFullName(joinRef(prefix, lvn));
+                                    rvp445->VpiParent(fs);
+                                    setLoc(rvp445, span);
+                                    UHDM::ref_typespec* prt445 =
+                                        po445->UhdmType() == UHDM::uhdmparameter
+                                            ? ((UHDM::parameter*)po445)->Typespec()
+                                            : ((UHDM::type_parameter*)po445)->Typespec();
+                                    if (prt445) {
+                                        auto* srtp445 = s.MakeRef_typespec();
+                                        srtp445->VpiFullName(joinRef(prefix, lvn));
+                                        srtp445->VpiParent(rvp445);
+                                        if (prt445->Actual_typespec())
+                                            srtp445->Actual_typespec(prt445->Actual_typespec());
+                                        else
+                                            pendingLoopVarTs9.push_back({srtp445, prt445});
+                                        rvp445->Typespec(srtp445);
+                                    }
+                                    lvars->push_back(rvp445);
+                                    lawTrace(445, "foreachLoopVarModParamTs445", lvn);
+                                    return nullptr;
+                                }
                 // A NESTED foreach re-lists the enclosing loop's variable
                 // OBJECT rather than declaring a second one.
                 if (auto oit = openForeachVars.find(lvn); oit != openForeachVars.end()) {
