@@ -1,0 +1,154 @@
+v11u446repro_cases_VC_vc01 law rc=0 cmp=0 STRICT_EQUAL 105 objects recdist=0 md5=3a6a03fd
+v11u446repro_cases_VC_vc01 off rc=0 cmp=0 STRICT_EQUAL 105 objects recdist=0 md5=206de943
+v11u446repro_cases_VC_vc01 pris rc=0 cmp=0 STRICT_EQUAL 105 objects recdist=0 md5=206de943
+v11u446repro_cases_VC_vc02 law rc=0 cmp=640 NOT_EQUAL stage1 recdist=44 md5=d17c89af
+v11u446repro_cases_VC_vc02 off rc=0 cmp=640 NOT_EQUAL stage1 recdist=44 md5=27b9fd60
+v11u446repro_cases_VC_vc02 pris rc=0 cmp=640 NOT_EQUAL stage1 recdist=44 md5=27b9fd60
+v11u446repro_cases_VC_vc03 law rc=0 cmp=0 STRICT_EQUAL 167 objects recdist=0 md5=5fca76d1
+v11u446repro_cases_VC_vc03 off rc=0 cmp=0 STRICT_EQUAL 167 objects recdist=0 md5=78b625f6
+v11u446repro_cases_VC_vc03 pris rc=0 cmp=0 STRICT_EQUAL 167 objects recdist=0 md5=78b625f6
+v11u446repro_cases_VC_vc04 law rc=0 cmp=0 STRICT_EQUAL 361 objects recdist=0 md5=7372e5f3
+v11u446repro_cases_VC_vc04 off rc=0 cmp=0 STRICT_EQUAL 361 objects recdist=0 md5=4412ef78
+v11u446repro_cases_VC_vc04 pris rc=0 cmp=0 STRICT_EQUAL 361 objects recdist=0 md5=4412ef78
+v11u446repro_cases_VC_vc05 law rc=0 cmp=0 STRICT_EQUAL 198 objects recdist=0 md5=cd1d41bf
+v11u446repro_cases_VC_vc05 off rc=0 cmp=0 STRICT_EQUAL 198 objects recdist=0 md5=fa95d535
+v11u446repro_cases_VC_vc05 pris rc=0 cmp=0 STRICT_EQUAL 198 objects recdist=0 md5=fa95d535
+v11u446repro_cases_VC_vc06 law rc=0 cmp=0 STRICT_EQUAL 109 objects recdist=0 md5=fd93f803
+v11u446repro_cases_VC_vc06 off rc=0 cmp=0 STRICT_EQUAL 109 objects recdist=0 md5=684453de
+v11u446repro_cases_VC_vc06 pris rc=0 cmp=0 STRICT_EQUAL 109 objects recdist=0 md5=684453de
+v11u446repro_cases_VC_vc07 law rc=0 cmp=90 NOT_EQUAL stage1 recdist=44 md5=b360c498
+v11u446repro_cases_VC_vc07 off rc=0 cmp=90 NOT_EQUAL stage1 recdist=44 md5=d296c5b7
+v11u446repro_cases_VC_vc07 pris rc=0 cmp=90 NOT_EQUAL stage1 recdist=44 md5=d296c5b7
+v11u446repro_cases_VC_vc08 law rc=0 cmp=0 STRICT_EQUAL 138 objects recdist=0 md5=6d4f89c7
+v11u446repro_cases_VC_vc08 off rc=0 cmp=0 STRICT_EQUAL 138 objects recdist=0 md5=bfd476bb
+v11u446repro_cases_VC_vc08 pris rc=0 cmp=0 STRICT_EQUAL 138 objects recdist=0 md5=bfd476bb
+v11u446repro_cases_VC_vc09 law rc=0 cmp=0 STRICT_EQUAL 98 objects recdist=0 md5=5d574320
+v11u446repro_cases_VC_vc09 off rc=0 cmp=0 STRICT_EQUAL 98 objects recdist=0 md5=a05920ba
+v11u446repro_cases_VC_vc09 pris rc=0 cmp=0 STRICT_EQUAL 98 objects recdist=0 md5=a05920ba
+v11u446repro_cases_VC_vc10 law rc=0 cmp=90 NOT_EQUAL stage1 recdist=86 md5=f1ea82ef
+v11u446repro_cases_VC_vc10 off rc=0 cmp=90 NOT_EQUAL stage1 recdist=86 md5=f1ea82ef
+v11u446repro_cases_VC_vc10 pris rc=0 cmp=90 NOT_EQUAL stage1 recdist=86 md5=f1ea82ef
+v11u446repro_cases_VC_vc11 law rc=0 cmp=0 STRICT_EQUAL 143 objects recdist=0 md5=2cf32c8b
+v11u446repro_cases_VC_vc11 off rc=0 cmp=0 STRICT_EQUAL 143 objects recdist=0 md5=ea8658f0
+v11u446repro_cases_VC_vc11 pris=4 law=0 ncalls=4
+v11u446repro_cases_VC_vc11 pris rc=0 cmp=0 STRICT_EQUAL 143 objects recdist=0 md5=ea8658f0
+v11u446repro_cases_VC_vc12 law rc=0 cmp=0 STRICT_EQUAL 127 objects recdist=0 md5=e0617647
+v11u446repro_cases_VC_vc12 off rc=0 cmp=0 STRICT_EQUAL 127 objects recdist=0 md5=bbb128d7
+v11u446repro_cases_VC_vc12 pris=2 law=0 ncalls=3
+v11u446repro_cases_VC_vc12 pris rc=0 cmp=0 STRICT_EQUAL 127 objects recdist=0 md5=bbb128d7
+v11u446repro_cases_VC_vc13 law rc=0 cmp=0 STRICT_EQUAL 229 objects recdist=0 md5=b4d716e8
+v11u446repro_cases_VC_vc13 off rc=0 cmp=0 STRICT_EQUAL 229 objects recdist=0 md5=10862ecf
+v11u446repro_cases_VC_vc13 pris=2 law=0 ncalls=1
+v11u446repro_cases_VC_vc13 pris rc=0 cmp=0 STRICT_EQUAL 229 objects recdist=0 md5=10862ecf
+v11u446repro_cases_VC_vc14 law rc=0 cmp=0 STRICT_NOTEQUAL depth recdist=11 md5=431ec8a4
+v11u446repro_cases_VC_vc14 off rc=0 cmp=0 STRICT_NOTEQUAL depth recdist=11 md5=124e3fd6
+v11u446repro_cases_VC_vc14 pris=6 law=6 ncalls=7
+v11u446repro_cases_VC_vc14 pris rc=0 cmp=0 STRICT_NOTEQUAL depth recdist=11 md5=124e3fd6
+v11u446repro_cases_VE_ve01 law rc=0 cmp=0 STRICT_EQUAL 317 objects recdist=0 md5=fd8b1687
+v11u446repro_cases_VE_ve01 off rc=0 cmp=112 NOT_EQUAL stage1 recdist=8 md5=79d0a02a
+v11u446repro_cases_VE_ve01 pris rc=0 cmp=112 NOT_EQUAL stage1 recdist=8 md5=79d0a02a
+v11u446repro_cases_VE_ve02 law rc=0 cmp=78 NOT_EQUAL stage1 recdist=290 md5=35ec68da
+v11u446repro_cases_VE_ve02 off rc=0 cmp=78 NOT_EQUAL stage1 recdist=290 md5=35ec68da
+v11u446repro_cases_VE_ve02 pris rc=0 cmp=78 NOT_EQUAL stage1 recdist=290 md5=35ec68da
+v11u446repro_cases_VE_ve03 law rc=0 cmp=36 NOT_EQUAL stage1 recdist=0 md5=903471a8
+v11u446repro_cases_VE_ve03 off rc=0 cmp=36 NOT_EQUAL stage1 recdist=0 md5=903471a8
+v11u446repro_cases_VE_ve03 pris rc=0 cmp=36 NOT_EQUAL stage1 recdist=0 md5=903471a8
+v11u446repro_cases_VE_ve04 law rc=0 cmp=314 NOT_EQUAL stage1 recdist=40 md5=d31a0411
+v11u446repro_cases_VE_ve04 off rc=0 cmp=314 NOT_EQUAL stage1 recdist=40 md5=1d50a15e
+v11u446repro_cases_VE_ve04 pris rc=0 cmp=314 NOT_EQUAL stage1 recdist=40 md5=1d50a15e
+v11u446repro_cases_VE_ve05 law rc=0 cmp=0 STRICT_EQUAL 580 objects recdist=0 md5=f6ba7bd9
+v11u446repro_cases_VE_ve05 off rc=0 cmp=112 NOT_EQUAL stage1 recdist=16 md5=c6aed7d3
+v11u446repro_cases_VE_ve05 pris rc=0 cmp=112 NOT_EQUAL stage1 recdist=16 md5=c6aed7d3
+v11u446repro_cases_VE_ve06 law rc=0 cmp=0 STRICT_NOTEQUAL name recdist=22 md5=f72321aa
+v11u446repro_cases_VE_ve06 off rc=0 cmp=116 NOT_EQUAL stage1 recdist=30 md5=2d7056f8
+v11u446repro_cases_VE_ve06 pris rc=0 cmp=116 NOT_EQUAL stage1 recdist=30 md5=2d7056f8
+v11u446repro_cases_VG_vg01 law rc=0 cmp=0 STRICT_EQUAL 238 objects recdist=0 md5=a9d6db90
+v11u446repro_cases_VG_vg01 off rc=0 cmp=158 NOT_EQUAL stage1 recdist=12 md5=d69dad50
+v11u446repro_cases_VG_vg01 pris rc=0 cmp=158 NOT_EQUAL stage1 recdist=12 md5=d69dad50
+v11u446repro_cases_VG_vg02 law rc=0 cmp=17 NOT_EQUAL stage1 recdist=21 md5=3ec7b91c
+v11u446repro_cases_VG_vg02 off rc=0 cmp=248 NOT_EQUAL stage1 recdist=103 md5=b659662c
+v11u446repro_cases_VG_vg02 pris rc=0 cmp=248 NOT_EQUAL stage1 recdist=103 md5=b659662c
+v11u446repro_cases_VG_vg03 law rc=0 cmp=0 STRICT_EQUAL 255 objects recdist=0 md5=378c0d81
+v11u446repro_cases_VG_vg03 off rc=0 cmp=0 STRICT_EQUAL 255 objects recdist=0 md5=378c0d81
+v11u446repro_cases_VG_vg03 pris rc=0 cmp=0 STRICT_EQUAL 255 objects recdist=0 md5=378c0d81
+v11u446repro_cases_VG_vg04 law rc=0 cmp=0 STRICT_EQUAL 123 objects recdist=0 md5=e2eb0396
+v11u446repro_cases_VG_vg04 off rc=0 cmp=0 STRICT_EQUAL 123 objects recdist=0 md5=e2eb0396
+v11u446repro_cases_VG_vg04 pris rc=0 cmp=0 STRICT_EQUAL 123 objects recdist=0 md5=e2eb0396
+v11u446repro_cases_VG_vg05 law rc=0 cmp=60 NOT_EQUAL stage1 recdist=35 md5=d2f4d0e9
+v11u446repro_cases_VG_vg05 off rc=0 cmp=236 NOT_EQUAL stage1 recdist=125 md5=5a099fc6
+v11u446repro_cases_VG_vg05 pris=3 law=3 ncalls=13
+v11u446repro_cases_VG_vg05 pris rc=0 cmp=236 NOT_EQUAL stage1 recdist=125 md5=5a099fc6
+v11u446repro_cases_VG_vg06 law rc=0 cmp=0 STRICT_EQUAL 191 objects recdist=0 md5=1fa3010e
+v11u446repro_cases_VG_vg06 off rc=0 cmp=158 NOT_EQUAL stage1 recdist=8 md5=ae1003e1
+v11u446repro_cases_VG_vg06 pris=0 law=0 ncalls=8
+v11u446repro_cases_VG_vg06 pris rc=0 cmp=158 NOT_EQUAL stage1 recdist=8 md5=ae1003e1
+v11u446repro_cases_VQ_vq01 law rc=0 cmp=50 NOT_EQUAL stage1 recdist=45 md5=83f6ff7b
+v11u446repro_cases_VQ_vq01 off rc=0 cmp=50 NOT_EQUAL stage1 recdist=85 md5=5c8fe29f
+v11u446repro_cases_VQ_vq01 pris rc=0 cmp=50 NOT_EQUAL stage1 recdist=85 md5=5c8fe29f
+v11u446repro_cases_VQ_vq02 law rc=0 cmp=17 NOT_EQUAL stage1 recdist=70 md5=4b0be942
+v11u446repro_cases_VQ_vq02 off rc=0 cmp=17 NOT_EQUAL stage1 recdist=350 md5=afa9856b
+v11u446repro_cases_VQ_vq02 pris rc=0 cmp=17 NOT_EQUAL stage1 recdist=350 md5=afa9856b
+v11u446repro_cases_VQ_vq03 law rc=0 cmp=62 NOT_EQUAL stage1 recdist=100 md5=1c5079fb
+v11u446repro_cases_VQ_vq03 off rc=0 cmp=62 NOT_EQUAL stage1 recdist=100 md5=1c5079fb
+v11u446repro_cases_VQ_vq03 pris rc=0 cmp=62 NOT_EQUAL stage1 recdist=100 md5=1c5079fb
+v11u446repro_cases_VQ_vq04 law rc=0 cmp=0 STRICT_EQUAL 274 objects recdist=0 md5=7d9d5cd1
+v11u446repro_cases_VQ_vq04 off rc=0 cmp=62 NOT_EQUAL stage1 recdist=100 md5=734c2ba1
+v11u446repro_cases_VQ_vq04 pris rc=0 cmp=62 NOT_EQUAL stage1 recdist=100 md5=734c2ba1
+v11u446repro_cases_VQ_vq05 law rc=0 cmp=36 NOT_EQUAL stage1 recdist=204 md5=789fe033
+v11u446repro_cases_VQ_vq05 off rc=0 cmp=36 NOT_EQUAL stage1 recdist=304 md5=b9047b0a
+v11u446repro_cases_VQ_vq05 pris rc=0 cmp=36 NOT_EQUAL stage1 recdist=304 md5=b9047b0a
+v11u446repro_cases_VQ_vq06 law rc=0 cmp=17 NOT_EQUAL stage1 recdist=139 md5=1346ec6d
+v11u446repro_cases_VQ_vq06 off rc=0 cmp=17 NOT_EQUAL stage1 recdist=239 md5=2d259e20
+v11u446repro_cases_VQ_vq06 pris rc=0 cmp=17 NOT_EQUAL stage1 recdist=239 md5=2d259e20
+v11u446repro_cases_VQ_vq07 law rc=0 cmp=0 STRICT_EQUAL 610 objects recdist=0 md5=3ea8b949
+v11u446repro_cases_VQ_vq07 off rc=0 cmp=96 NOT_EQUAL stage1 recdist=160 md5=1cd84c7f
+v11u446repro_cases_VQ_vq07 pris=0 law=0 ncalls=9
+v11u446repro_cases_VQ_vq07 pris rc=0 cmp=96 NOT_EQUAL stage1 recdist=160 md5=1cd84c7f
+v11u446repro_cases_VS_vs01 law rc=0 cmp=0 STRICT_EQUAL 68 objects recdist=0 md5=0dcb97da
+v11u446repro_cases_VS_vs01 off rc=0 cmp=0 STRICT_EQUAL 68 objects recdist=0 md5=0dcb97da
+v11u446repro_cases_VS_vs01 pris rc=0 cmp=0 STRICT_EQUAL 68 objects recdist=0 md5=0dcb97da
+v11u446repro_cases_VS_vs02 law rc=0 cmp=0 STRICT_EQUAL 236 objects recdist=0 md5=75c526a3
+v11u446repro_cases_VS_vs02 off rc=0 cmp=215 NOT_EQUAL stage1 recdist=70 md5=61628b63
+v11u446repro_cases_VS_vs02 pris rc=0 cmp=215 NOT_EQUAL stage1 recdist=70 md5=61628b63
+v11u446repro_cases_VS_vs03 law rc=0 cmp=0 STRICT_EQUAL 96 objects recdist=0 md5=eb354fd7
+v11u446repro_cases_VS_vs03 off rc=0 cmp=99 NOT_EQUAL stage1 recdist=16 md5=8ac51ebc
+v11u446repro_cases_VS_vs03 pris rc=0 cmp=99 NOT_EQUAL stage1 recdist=16 md5=8ac51ebc
+v11u446repro_cases_VS_vs04 law rc=0 cmp=0 STRICT_EQUAL 402 objects recdist=8 md5=0933b15f
+v11u446repro_cases_VS_vs04 off rc=0 cmp=291 NOT_EQUAL stage1 recdist=58 md5=6a725094
+v11u446repro_cases_VS_vs04 pris rc=0 cmp=291 NOT_EQUAL stage1 recdist=58 md5=6a725094
+v11u446repro_cases_VS_vs05 law rc=0 cmp=36 NOT_EQUAL stage1 recdist=16 md5=63331a29
+v11u446repro_cases_VS_vs05 off rc=0 cmp=36 NOT_EQUAL stage1 recdist=16 md5=20125ea0
+v11u446repro_cases_VS_vs05 pris rc=0 cmp=36 NOT_EQUAL stage1 recdist=16 md5=20125ea0
+v11u446repro_cases_VS_vs06 law rc=0 cmp=0 STRICT_NOTEQUAL endcol recdist=16 md5=493a51b8
+v11u446repro_cases_VS_vs06 off rc=0 cmp=99 NOT_EQUAL stage1 recdist=30 md5=c5c76b34
+v11u446repro_cases_VS_vs06 pris rc=0 cmp=99 NOT_EQUAL stage1 recdist=30 md5=c5c76b34
+v11u446repro_cases_VS_vs07 law rc=0 cmp=24 NOT_EQUAL stage1 recdist=6 md5=3896a41e
+v11u446repro_cases_VS_vs07 off rc=0 cmp=24 NOT_EQUAL stage1 recdist=6 md5=3896a41e
+v11u446repro_cases_VS_vs07 pris rc=0 cmp=24 NOT_EQUAL stage1 recdist=6 md5=3896a41e
+v11u446repro_cases_VS_vs08 law rc=0 cmp=0 STRICT_EQUAL 80 objects recdist=0 md5=a36421fd
+v11u446repro_cases_VS_vs08 off rc=0 cmp=0 STRICT_EQUAL 80 objects recdist=0 md5=a36421fd
+v11u446repro_cases_VS_vs08 pris=0 law=0 ncalls=0
+v11u446repro_cases_VS_vs08 pris rc=0 cmp=0 STRICT_EQUAL 80 objects recdist=0 md5=a36421fd
+v11u446repro_cases_VS_vs09 law rc=0 cmp=0 STRICT_EQUAL 168 objects recdist=26 md5=80c92ebb
+v11u446repro_cases_VS_vs09 off rc=0 cmp=0 STRICT_EQUAL 168 objects recdist=26 md5=80c92ebb
+v11u446repro_cases_VS_vs09 pris=0 law=0 ncalls=0
+v11u446repro_cases_VS_vs09 pris rc=0 cmp=0 STRICT_EQUAL 168 objects recdist=26 md5=80c92ebb
+v11u446repro_cases_VT_vt01 law rc=0 cmp=78 NOT_EQUAL stage1 recdist=14 md5=c77063bf
+v11u446repro_cases_VT_vt01 off rc=0 cmp=78 NOT_EQUAL stage1 recdist=14 md5=c77063bf
+v11u446repro_cases_VT_vt01 pris rc=0 cmp=78 NOT_EQUAL stage1 recdist=14 md5=c77063bf
+v11u446repro_cases_VT_vt02 law rc=0 cmp=0 STRICT_EQUAL 65 objects recdist=0 md5=2d74ef5f
+v11u446repro_cases_VT_vt02 off rc=0 cmp=204 NOT_EQUAL stage1 recdist=4 md5=0050a6bb
+v11u446repro_cases_VT_vt02 pris rc=0 cmp=204 NOT_EQUAL stage1 recdist=4 md5=0050a6bb
+v11u446repro_cases_VT_vt03 law rc=0 cmp=0 STRICT_EQUAL 57 objects recdist=0 md5=ce35ec28
+v11u446repro_cases_VT_vt03 off rc=0 cmp=0 STRICT_EQUAL 57 objects recdist=0 md5=ce35ec28
+v11u446repro_cases_VT_vt03 pris rc=0 cmp=0 STRICT_EQUAL 57 objects recdist=0 md5=ce35ec28
+v11u446repro_cases_VT_vt04 law rc=0 cmp=0 STRICT_EQUAL 35 objects recdist=0 md5=635abacd
+v11u446repro_cases_VT_vt04 off rc=0 cmp=144 NOT_EQUAL stage1 recdist=2 md5=869d28d9
+v11u446repro_cases_VT_vt04 pris rc=0 cmp=144 NOT_EQUAL stage1 recdist=2 md5=869d28d9
+v11u446repro_cases_VT_vt05 law rc=0 cmp=17 NOT_EQUAL stage1 recdist=33 md5=862bc86f
+v11u446repro_cases_VT_vt05 off rc=0 cmp=174 NOT_EQUAL stage1 recdist=35 md5=5f20a563
+v11u446repro_cases_VT_vt05 pris rc=0 cmp=174 NOT_EQUAL stage1 recdist=35 md5=5f20a563
+v11u446repro_cases_VT_vt06 law rc=0 cmp=0 STRICT_EQUAL 52 objects recdist=0 md5=ac1504f4
+v11u446repro_cases_VT_vt06 off rc=0 cmp=0 STRICT_EQUAL 52 objects recdist=0 md5=ac1504f4
+v11u446repro_cases_VT_vt06 pris=0 law=0 ncalls=0
+v11u446repro_cases_VT_vt06 pris rc=0 cmp=0 STRICT_EQUAL 52 objects recdist=0 md5=ac1504f4

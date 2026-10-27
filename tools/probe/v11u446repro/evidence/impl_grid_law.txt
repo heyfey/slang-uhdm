@@ -1,0 +1,27 @@
+r11u446repro_cases_CB_cb01 law rc=0 cmp=0 STRICT_NOTEQUAL depth recdist=12 md5=e7aa5e74
+r11u446repro_cases_CB_cb02 law rc=0 cmp=0 STRICT_EQUAL 125 objects recdist=0 md5=ba83e6f0
+r11u446repro_cases_CB_cb03 law rc=0 cmp=0 STRICT_EQUAL 99 objects recdist=0 md5=fc227fb8
+r11u446repro_cases_CB_cb04 law rc=0 cmp=528 NOT_EQUAL stage1 recdist=36 md5=31ffab13
+r11u446repro_cases_CG_cg01 law rc=0 cmp=90 NOT_EQUAL stage1 recdist=28 md5=deebd586
+r11u446repro_cases_CG_cg02 law rc=0 cmp=90 NOT_EQUAL stage1 recdist=44 md5=c10c8360
+r11u446repro_cases_CG_cg03 law rc=0 cmp=90 NOT_EQUAL stage1 recdist=72 md5=7b22f53f
+r11u446repro_cases_CT_ct01 law rc=0 cmp=0 STRICT_EQUAL 45 objects recdist=0 md5=9255a1cf
+r11u446repro_cases_CT_ct02 law rc=0 cmp=85 NOT_EQUAL stage1 recdist=47 md5=df4549e9
+r11u446repro_cases_CT_ct03 law rc=0 cmp=0 STRICT_EQUAL 31 objects recdist=0 md5=9ec80e43
+r11u446repro_cases_CT_ct04 law rc=0 cmp=0 STRICT_EQUAL 61 objects recdist=0 md5=376157ef
+r11u446repro_cases_CT_ct05 law rc=0 cmp=0 STRICT_EQUAL 54 objects recdist=0 md5=e9608677
+r11u446repro_cases_CT_ct06 law rc=0 cmp=0 STRICT_EQUAL 36 objects recdist=0 md5=6b70069b
+r11u446repro_cases_EB_eb01 law rc=0 cmp=0 STRICT_EQUAL 306 objects recdist=0 md5=6aebc61b
+r11u446repro_cases_EB_eb02 law rc=0 cmp=0 STRICT_EQUAL 198 objects recdist=0 md5=30b472d2
+r11u446repro_cases_EB_eb03 law rc=0 cmp=0 STRICT_NOTEQUAL name recdist=14 md5=395afbf3
+r11u446repro_cases_EB_eb04 law rc=0 cmp=0 STRICT_EQUAL 299 objects recdist=0 md5=0a5004a4
+r11u446repro_cases_IG_ig01 law rc=0 cmp=0 STRICT_EQUAL 176 objects recdist=0 md5=d2926153
+r11u446repro_cases_IG_ig02 law rc=0 cmp=0 STRICT_EQUAL 43 objects recdist=0 md5=9b01208d
+r11u446repro_cases_IG_ig03 law rc=0 cmp=0 STRICT_EQUAL 135 objects recdist=0 md5=3b0ba586
+r11u446repro_cases_QU_qu01 law rc=0 cmp=17 NOT_EQUAL stage1 recdist=2 md5=8074ed36
+r11u446repro_cases_QU_qu02 law rc=0 cmp=0 STRICT_EQUAL 360 objects recdist=0 md5=8526d69d
+r11u446repro_cases_QU_qu03 law rc=0 cmp=0 STRICT_EQUAL 229 objects recdist=0 md5=cfaf3f6a
+r11u446repro_cases_SM_sm01 law rc=0 cmp=0 STRICT_EQUAL 81 objects recdist=0 md5=a8f17e3f
+r11u446repro_cases_SM_sm02 law rc=0 cmp=0 STRICT_EQUAL 56 objects recdist=0 md5=cd428e61
+r11u446repro_cases_SM_sm03 law rc=0 cmp=858 NOT_EQUAL stage1 recdist=16 md5=e45973db
+r11u446repro_cases_SM_sm04 law rc=0 cmp=0 STRICT_EQUAL 202 objects recdist=0 md5=2a1f877c

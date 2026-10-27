@@ -1825,6 +1825,46 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
             uts155->Instance(importCopyTsInst ? importCopyTsInst : tsInst);
         elemTs = uts155;
     }
+    // § clsTdQueueLocalCloneUnsupported446 — § classScopedTdImportCopyLocal-
+    // Unsupported198's ARRAY spelling, its own stated residue (grid198 branch D
+    // `dArr198`): inside an imported out-of-body CLASS METHOD clone, a queue or
+    // dynamic-array local whose ELEMENT is a typedef declared in a class,
+    // written bare, takes the placeholder on its element, named as written,
+    // spanned at the written type name and instanced at the home package
+    // (re-pointed at its elaborated view through importCopyTsFixups), the
+    // same object on the array_typespec's element and the element variable.
+    // Golden uvm_messaging_example: uvm_default_factory::
+    // m_resolve_type_name_by_inst's `m_inst_typename_alias_t
+    // type_alias_inst[$];` in messaging_pkg's two listings,
+    // unsupported_typespec m_inst_typename_alias_t 2036:3 @uvm_pkg where ours
+    // bound the class's struct_typespec (598:11); the scalar local of
+    // set_inst_alias (1388) is § 198's and already equal.  Grid
+    // tools/probe/r11u446repro/cases/QU.  Switch R11U446_CLSTDQLOCAL_OFF.
+    else if (importCopyTsInst && pkgClassTfClone && qelem0 &&
+             qelem0->kind == SymbolKind::TypeAlias &&
+             lawOn(446, "R11U446_CLSTDQLOCAL_OFF")) {
+        const Scope* ps446 = qelem0->as<TypeAliasType>().getParentScope();
+        const syntax::DataTypeSyntax* tsyn446 = dt0->getTypeSyntax();
+        if (ps446 &&
+            (ps446->asSymbol().kind == SymbolKind::ClassType ||
+             ps446->asSymbol().kind == SymbolKind::GenericClassDef) &&
+            tsyn446 && tsyn446->kind == syntax::SyntaxKind::NamedType)
+            if (const syntax::NameSyntax* n446 =
+                    tsyn446->as<syntax::NamedTypeSyntax>().name;
+                n446 && n446->kind == syntax::SyntaxKind::IdentifierName) {
+                auto* uts446 = s.MakeUnsupported_typespec();
+                uts446->VpiName(std::string(
+                    n446->as<syntax::IdentifierNameSyntax>().identifier.valueText()));
+                setLoc(uts446, tsyn446->sourceRange());
+                uts446->Instance(importCopyTsInst);
+                if (importCopyTsCollect)
+                    importCopyTsCollect->push_back(uts446);
+                elemTs = uts446;
+                lawTrace(446, "clsTdQueueLocalCloneUnsupported446",
+                         std::string(vs.name) + " " +
+                             std::string(uts446->VpiName()));
+            }
+    }
     auto* av = s.MakeArray_var();
     av->VpiName(vs.name);
     av->VpiFullName(afull);

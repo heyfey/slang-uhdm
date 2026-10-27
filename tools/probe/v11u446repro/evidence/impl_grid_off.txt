@@ -1,0 +1,27 @@
+r11u446repro_cases_CB_cb01 off rc=0 cmp=0 STRICT_NOTEQUAL depth recdist=12 md5=f9ba6ddd
+r11u446repro_cases_CB_cb02 off rc=0 cmp=0 STRICT_EQUAL 125 objects recdist=0 md5=7a7bdbcb
+r11u446repro_cases_CB_cb03 off rc=0 cmp=0 STRICT_EQUAL 99 objects recdist=0 md5=b06600e9
+r11u446repro_cases_CB_cb04 off rc=0 cmp=528 NOT_EQUAL stage1 recdist=36 md5=d7eb1670
+r11u446repro_cases_CG_cg01 off rc=0 cmp=90 NOT_EQUAL stage1 recdist=28 md5=deebd586
+r11u446repro_cases_CG_cg02 off rc=0 cmp=90 NOT_EQUAL stage1 recdist=44 md5=de684e7c
+r11u446repro_cases_CG_cg03 off rc=0 cmp=90 NOT_EQUAL stage1 recdist=72 md5=2ba2ac1f
+r11u446repro_cases_CT_ct01 off rc=0 cmp=204 NOT_EQUAL stage1 recdist=4 md5=200fe16d
+r11u446repro_cases_CT_ct02 off rc=0 cmp=85 NOT_EQUAL stage1 recdist=47 md5=df4549e9
+r11u446repro_cases_CT_ct03 off rc=0 cmp=0 STRICT_EQUAL 31 objects recdist=0 md5=9ec80e43
+r11u446repro_cases_CT_ct04 off rc=0 cmp=204 NOT_EQUAL stage1 recdist=4 md5=c27bfefb
+r11u446repro_cases_CT_ct05 off rc=0 cmp=268 NOT_EQUAL stage1 recdist=4 md5=6d54c8d9
+r11u446repro_cases_CT_ct06 off rc=0 cmp=144 NOT_EQUAL stage1 recdist=2 md5=060ad24f
+r11u446repro_cases_EB_eb01 off rc=0 cmp=112 NOT_EQUAL stage1 recdist=4 md5=9d306fbc
+r11u446repro_cases_EB_eb02 off rc=0 cmp=0 STRICT_EQUAL 198 objects recdist=0 md5=30b472d2
+r11u446repro_cases_EB_eb03 off rc=0 cmp=112 NOT_EQUAL stage1 recdist=22 md5=27a75324
+r11u446repro_cases_EB_eb04 off rc=0 cmp=112 NOT_EQUAL stage1 recdist=8 md5=4c1d31a5
+r11u446repro_cases_IG_ig01 off rc=0 cmp=158 NOT_EQUAL stage1 recdist=8 md5=6ff1fc5d
+r11u446repro_cases_IG_ig02 off rc=0 cmp=40 NOT_EQUAL stage1 recdist=8 md5=d8e98b58
+r11u446repro_cases_IG_ig03 off rc=0 cmp=158 NOT_EQUAL stage1 recdist=12 md5=e1b36777
+r11u446repro_cases_QU_qu01 off rc=0 cmp=96 NOT_EQUAL stage1 recdist=162 md5=fab18303
+r11u446repro_cases_QU_qu02 off rc=0 cmp=96 NOT_EQUAL stage1 recdist=160 md5=ad96c9bb
+r11u446repro_cases_QU_qu03 off rc=0 cmp=0 STRICT_EQUAL 229 objects recdist=0 md5=cfaf3f6a
+r11u446repro_cases_SM_sm01 off rc=0 cmp=99 NOT_EQUAL stage1 recdist=14 md5=a41b7d46
+r11u446repro_cases_SM_sm02 off rc=0 cmp=0 STRICT_EQUAL 56 objects recdist=0 md5=cd428e61
+r11u446repro_cases_SM_sm03 off rc=0 cmp=289 NOT_EQUAL stage1 recdist=82 md5=9728a50e
+r11u446repro_cases_SM_sm04 off rc=0 cmp=0 STRICT_EQUAL 202 objects recdist=0 md5=2a1f877c

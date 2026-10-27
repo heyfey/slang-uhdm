@@ -1,0 +1,21 @@
+generated/easyUVM/top 5       1 designshallow       1 func       3 module 
+generated/uvm-examples/uvm_ac_config_db 3141      34 func       5 module    3098 pkgfunc       4 pkgshallow 
+generated/uvm-examples/uvm_ef_vif_config_db 3141       1 designshallow      34 func       4 module    3098 pkgfunc       4 pkgshallow 
+generated/uvm-examples/uvm_generation_seq_persistence 4665      13 func       2 module    4644 pkgfunc       6 pkgshallow 
+generated/uvm-examples/uvm_generation_seq_poly 4665      13 func       2 module    4644 pkgfunc       6 pkgshallow 
+generated/uvm-examples/uvm_generation_seq_randomization 4665      13 func       2 module    4644 pkgfunc       6 pkgshallow 
+generated/uvm-examples/uvm_id_register 4707       1 designshallow      50 func       4 module    4645 pkgfunc       7 pkgshallow 
+generated/uvm-examples/uvm_many_to_one 7771       1 designshallow       7 func       2 module    7750 pkgfunc      11 pkgshallow 
+generated/uvm-examples/uvm_messaging_example 1554       4 func    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_param_vif_config_db 5557       1 designshallow     884 func       4 module    4662 pkgfunc       6 pkgshallow 
+generated/uvm-examples/uvm_priority_arbitration 1553       3 func    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_priority_grab_lock 1556       6 func    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_test_init 12406       4 func       2 module   12384 pkgfunc      16 pkgshallow 
+generated/uvm-examples/uvm_use_models_bidir_get_put 1572       1 designshallow      16 func       5 module    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_use_models_bidir_item_done 1572       1 designshallow      16 func       5 module    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_use_models_pipelined_get_put 4626       1 designshallow    1514 func       5 module    3100 pkgfunc       6 pkgshallow 
+generated/uvm-examples/uvm_use_models_unidirectional 1557       1 designshallow       4 func       2 module    1548 pkgfunc       2 pkgshallow 
+generated/uvm-examples/uvm_vif_config_db 3138      34 func       2 module    3098 pkgfunc       4 pkgshallow 
+testbenches/uvm_scoreboard_env 5       1 designshallow       1 func       3 module 
+testbenches/uvm_scoreboard_monitor_agent_env 5       1 designshallow       1 func       3 module 
+testbenches/uvm_scoreboard_monitor_env 5       1 designshallow       1 func       3 module 

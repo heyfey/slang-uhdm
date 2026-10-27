@@ -4145,6 +4145,234 @@ static void shareInstTypeParams120(
         walk120(t);
 }
 
+// § aggCopyClassMemberHomeInst446 — THE CLASS-HANDLE MEMBER OF A PACKAGE
+// STRUCT'S COPY CARRIES THE HOME PACKAGE.  `typedef struct {uvm_object_wrapper
+// m_type; string m_type_name;} m_uvm_factory_type_pair_t;` in uvm_pkg: every
+// struct object Surelog writes for that typedef — the DEF listing, the
+// importer's listing copy, every per-declaration copy under an io_decl or a
+// struct_var — has a class_typespec member compiled by compileTypespec in a
+// package context, whose tail stamps `result->Instance(component->
+// getUhdmInstance())` (CompileType.cpp): the home package's DEF view in the
+// DEF compile, its TOP view in the elaborated one.  Ours built that member
+// with no vpiInstance on every copy outside the home package's own listings,
+// and a null against a package is the one vpiInstance difference uhdm-cmp
+// always reports (SafeCompare's null branch runs before the visited test): the
+// first head of 12 uvm-examples rows once § clsLocalTdTopHomeInst446 is
+// written (uvm_default_factory's m_matches_type_pair, set_inst_alias,
+// m_resolve_type_name_by_inst ... and every listing of the struct).
+//
+// THE RULE, measured on the golden grid tools/probe/r11u446repro/cases/SM
+// (sm01 an importer package re-listing the struct, sm02 a module listing
+// with no importer, sm03 per-use copies under an importer, sm04 the same
+// without one) and on the uvm_messaging_example golden (14 per-use copies,
+// all TOP): a NAMED struct or union typespec `P::N` whose home P is a
+// package; an UNLISTED copy's null class member takes P's TOP view; a
+// LISTED copy's takes the copy's own vpiInstance when that is a view of P
+// (sm02: TOP), else P's DEF view (sm01: the importer's listing copy, whose
+// members are the DEF compile's).  Only a NULL class member moves; a member
+// that already carries an instance keeps it.  Switch R11U446_AGGCLSMEM_OFF.
+static void aggCopyClassMemberHomeInst446(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !lawOn(446, "R11U446_AGGCLSMEM_OFF"))
+        return;
+    std::set<const UHDM::typespec*> listed;
+    std::map<std::string, UHDM::package*, std::less<>> topP, defP;
+    auto claim = [&](const UHDM::VectorOftypespec* v) {
+        if (v)
+            for (auto* t : *v)
+                if (t)
+                    listed.insert(t);
+    };
+    for (int k = 0; k < 2; k++) {
+        if (auto* l = k ? d->TopPackages() : d->AllPackages())
+            for (auto* p : *l)
+                if (p) {
+                    claim(p->Typespecs());
+                    (k ? topP : defP).emplace(std::string(p->VpiName()), p);
+                }
+        if (auto* m = k ? d->TopModules() : d->AllModules())
+            for (auto* x : *m)
+                if (x)
+                    claim(x->Typespecs());
+    }
+    claim(d->Typespecs());
+    std::vector<UHDM::typespec*> aggs;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (o && (o->UhdmType() == UHDM::uhdmstruct_typespec ||
+                  o->UhdmType() == UHDM::uhdmunion_typespec))
+            aggs.push_back((UHDM::typespec*)o);
+    }
+    std::sort(aggs.begin(), aggs.end(),
+              [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    for (auto* st : aggs) {
+        std::string_view nm = st->VpiName();
+        auto pp = nm.find("::");
+        if (pp == std::string_view::npos)
+            continue;
+        std::string_view pn = nm.substr(0, pp);
+        auto ti = topP.find(pn);
+        auto di = defP.find(pn);
+        if (ti == topP.end() || di == defP.end())
+            continue;
+        UHDM::instance* view = ti->second;
+        if (listed.count(st))
+            view = (st->Instance() == ti->second || st->Instance() == di->second)
+                       ? st->Instance()
+                       : di->second;
+        const UHDM::VectorOftypespec_member* ms =
+            st->UhdmType() == UHDM::uhdmstruct_typespec
+                ? ((UHDM::struct_typespec*)st)->Members()
+                : ((UHDM::union_typespec*)st)->Members();
+        if (!ms)
+            continue;
+        for (auto* m : *ms) {
+            auto* rt = m ? m->Typespec() : nullptr;
+            auto* t = rt ? (UHDM::typespec*)rt->Actual_typespec() : nullptr;
+            if (!t || t->Instance() || t->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            t->Instance(view);
+            lawTrace(446, "aggCopyClassMemberHomeInst446",
+                     std::string(nm) + "." + std::string(m->VpiName()) + " -> " +
+                         std::string(view->VpiName()) +
+                         (view == ti->second ? "#TOP" : "#DEF") +
+                         (listed.count(st) ? " listed" : " copy"));
+        }
+    }
+}
+
+// § enumBaseAliasCopyBare446 — THE BASE CHAIN OF AN UNLISTED ENUM COPY ENDS
+// AT A BARE COPY, NOT AT A LISTING.  `typedef enum uvm_field_flag_t {...}
+// uvm_radix_enum;` in uvm_pkg: once another package imports uvm_pkg, the enum
+// object a formal or a local reaches (uvm_radix_to_string's `radix`, the
+// printer's set_radix_string ...) is not a listing entry but a per-use copy,
+// and its base is a copy of the typedef whose vpiTypedefAlias is ANOTHER
+// compile-time copy of `uvm_field_flag_t`, BARE-named (writeDataTypes
+// qualifies a name only on the listing objects it writes), where ours aliased
+// the listing object itself, `uvm_pkg::uvm_field_flag_t` (the module's import
+// listing copy).  The name is compared by uhdm-cmp: pass 442's heads #2 to #4,
+// the first difference of the uvm-examples rows once § clsLocalTdTopHomeInst446
+// and § aggCopyClassMemberHomeInst446 are written.
+//
+// THE RULE (grid tools/probe/r11u446repro/cases/EB: eb01 an importer package,
+// eb02 none, eb03 a free function and an importer package, eb04 an
+// out-of-body method): an UNLISTED enum_typespec named `P::N`, P a package,
+// whose base typespec's alias reaches a bit or logic typespec named `P::X`
+// (the listing object or a named copy of it, aliasing nothing), takes its own
+// base copy, bare-named like the original base, whose
+// alias is a fresh copy of that listing object named `X` (ranges shared,
+// P's TOP view as vpiInstance, no alias of its own).  A listed enum keeps
+// its chain (BuildUVMPkg's listings, eb02).  Switch R11U446_ENUMBASEBARE_OFF.
+static UHDM::typespec* bareVecCopy446(UHDM::Serializer& s, const UHDM::typespec* a,
+                                      std::string_view nm, UHDM::instance* inst) {
+    UHDM::typespec* c = nullptr;
+    if (a->UhdmType() == UHDM::uhdmbit_typespec) {
+        auto* b = s.MakeBit_typespec();
+        b->Ranges(((const UHDM::bit_typespec*)a)->Ranges());
+        b->VpiSigned(((const UHDM::bit_typespec*)a)->VpiSigned());
+        b->VpiVector(((const UHDM::bit_typespec*)a)->VpiVector());
+        c = b;
+    }
+    else if (a->UhdmType() == UHDM::uhdmlogic_typespec) {
+        auto* l = s.MakeLogic_typespec();
+        l->Ranges(((const UHDM::logic_typespec*)a)->Ranges());
+        l->VpiSigned(((const UHDM::logic_typespec*)a)->VpiSigned());
+        l->VpiVector(((const UHDM::logic_typespec*)a)->VpiVector());
+        c = l;
+    }
+    else
+        return nullptr;
+    c->VpiName(std::string(nm));
+    c->VpiFile(std::string(a->VpiFile()));
+    c->VpiLineNo(a->VpiLineNo());
+    c->VpiColumnNo(a->VpiColumnNo());
+    c->VpiEndLineNo(a->VpiEndLineNo());
+    c->VpiEndColumnNo(a->VpiEndColumnNo());
+    c->Instance(inst);
+    return c;
+}
+static void enumBaseAliasCopyBare446(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !lawOn(446, "R11U446_ENUMBASEBARE_OFF"))
+        return;
+    std::set<const UHDM::typespec*> listed;
+    std::map<std::string, UHDM::package*, std::less<>> topP;
+    auto claim = [&](const UHDM::VectorOftypespec* v) {
+        if (v)
+            for (auto* t : *v)
+                if (t)
+                    listed.insert(t);
+    };
+    for (int k = 0; k < 2; k++) {
+        if (auto* l = k ? d->TopPackages() : d->AllPackages())
+            for (auto* p : *l)
+                if (p) {
+                    claim(p->Typespecs());
+                    if (k)
+                        topP.emplace(std::string(p->VpiName()), p);
+                }
+        if (auto* m = k ? d->TopModules() : d->AllModules())
+            for (auto* x : *m)
+                if (x)
+                    claim(x->Typespecs());
+    }
+    claim(d->Typespecs());
+    std::vector<UHDM::enum_typespec*> ens;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (o && o->UhdmType() == UHDM::uhdmenum_typespec)
+            ens.push_back((UHDM::enum_typespec*)o);
+    }
+    std::sort(ens.begin(), ens.end(),
+              [](const UHDM::typespec* a, const UHDM::typespec* b) {
+                  return a->UhdmId() < b->UhdmId();
+              });
+    for (auto* e : ens) {
+        if (listed.count(e))
+            continue;
+        std::string_view en = e->VpiName();
+        auto pe = en.find("::");
+        if (pe == std::string_view::npos)
+            continue;
+        auto ti = topP.find(en.substr(0, pe));
+        if (ti == topP.end())
+            continue;
+        auto* br = e->Base_typespec();
+        auto* base = br ? (UHDM::typespec*)br->Actual_typespec() : nullptr;
+        if (!base || listed.count(base))
+            continue;
+        auto* ar = base->Typedef_alias();
+        auto* a = ar ? ar->Actual_typespec() : nullptr;
+        if (!a || a->Typedef_alias())
+            continue;
+        std::string_view an = a->VpiName();
+        auto pa = an.rfind("::");
+        if (pa == std::string_view::npos || an.substr(0, an.find("::")) != en.substr(0, pe))
+            continue;
+        auto* c = bareVecCopy446(s, a, an.substr(pa + 2), ti->second);
+        auto* b2 = c ? bareVecCopy446(s, base, base->VpiName(), ti->second) : nullptr;
+        if (!b2)
+            continue;
+        auto* nbr = s.MakeRef_typespec();
+        nbr->VpiParent(e);
+        nbr->VpiName(std::string(br->VpiName()));
+        nbr->VpiFullName(std::string(br->VpiFullName()));
+        nbr->Actual_typespec(b2);
+        b2->VpiParent(nbr);
+        auto* nar = s.MakeRef_typespec();
+        nar->VpiParent(b2);
+        nar->VpiName(std::string(ar->VpiName()));
+        nar->VpiFullName(std::string(ar->VpiFullName()));
+        nar->Actual_typespec(c);
+        c->VpiParent(nar);
+        b2->Typedef_alias(nar);
+        e->Base_typespec(nbr);
+        lawTrace(446, "enumBaseAliasCopyBare446",
+                 std::string(en) + " base=" + std::string(base->VpiName()) +
+                     " alias=" + std::string(an));
+    }
+}
+
 // § pkgArrTdElemClone209 (r11u209, map N1174: HierPathTypespec testflags) —
 // A PACKAGE TYPEDEF OF A PACKED ARRAY OF A NAMED STRUCT OR UNION OWNS A DEEP
 // CLONE OF ITS ELEMENT.  `typedef a [5:0] b;` in a package: Surelog's
@@ -12330,10 +12558,55 @@ void UhdmExporter::emitPackageClasses(const PackageSymbol& pkg, UHDM::package* u
         return;
     std::stable_sort(pcls.begin(), pcls.end(),
                      [](auto& a, auto& b) { return a.first < b.first; });
+    // § clsBodyCallBindsHomeTopTf446 — a call written in a CLASS of a package
+    // that wildcard-imports another binds the HOME package's ELABORATED
+    // subroutine, not the importer's clone.  emitPackage hands every call
+    // written in the importing package the clone (the subMap takeover after
+    // the import loop; probe r10evfn 2: p2::g's body calls p2's copy of f),
+    // and that is golden's answer for the package's own free subroutines;
+    // but the class bodies Surelog compiles in its class pass, after every
+    // package, where the subroutine reached by name through the import is the
+    // home package's own object, its TOP view (golden uvm_messaging_example:
+    // agent_green::run_phase's `uvm_info expansion binds uvm_report_enabled,
+    // uvm_report_info, uvm_report_warning and uvm_report_error in uvm_pkg TOP
+    // where ours bound messaging_pkg's clones; SeqDriver's adpcm_pkg reads
+    // the same, uvm_pkg TOP, there invisible to uhdm-cmp because the clone's
+    // body compares equal to the home's).  So for the class pass only, the
+    // taken-over entries point at the home's elaborated twin (pkgElabSubTf),
+    // its formals' typespecs standing for the clone's, and the takeover is
+    // put back afterwards.  Grid tools/probe/r11u446repro/cases/CB.  Switch
+    // R11U446_CLSCALLHOME_OFF.
+    std::vector<std::pair<const Symbol*, SubInfo>> saved446;
+    if (lawOn(446, "R11U446_CLSCALLHOME_OFF")) {
+        for (auto& [k446, cl446] : pkgWildcardCloneTf) {
+            if (k446.first != (const Symbol*)&pkg || !cl446)
+                continue;
+            auto sit446 = subMap.find(k446.second);
+            if (sit446 == subMap.end() || sit446->second.tf != cl446)
+                continue;
+            auto eit446 = pkgElabSubTf.find(k446.second);
+            if (eit446 == pkgElabSubTf.end() || !eit446->second)
+                continue;
+            saved446.push_back(*sit446);
+            SubInfo si446 = sit446->second;
+            si446.tf = eit446->second;
+            if (auto* ios446 = eit446->second->Io_decls())
+                for (size_t i = 0; i < si446.argTs.size() && i < ios446->size(); i++)
+                    if (auto* rt446 = (*ios446)[i]->Typespec())
+                        if (auto* at446 = rt446->Actual_typespec())
+                            si446.argTs[i].first = (UHDM::typespec*)at446;
+            sit446->second = si446;
+        }
+        if (!saved446.empty())
+            lawTrace(446, "clsBodyCallBindsHomeTopTf446",
+                     prefix + " entries=" + std::to_string(saved446.size()));
+    }
     auto* cds = s.MakeClass_defnVec();
     for (auto& [nm, c] : pcls)
         cds->push_back(emitClassDefn(*c, nm, prefix + nm, up));
     up->Class_defns(cds);
+    for (auto& [hs446, si446] : saved446)
+        subMap[hs446] = si446;
 }
 
 // The deferred `extends` pass. Surelog binds base classes by walking the
@@ -26992,6 +27265,229 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (auto* tm = d420->TopModules())
                 for (auto* mi : *tm)
                     walk432(mi);
+        }
+        // § aggCopyClassMemberHomeInst446 — design-final, here so every exit of
+        // exportDesign reaches it (law and decode at the function).
+        aggCopyClassMemberHomeInst446(s, d);
+        // § enumBaseAliasCopyBare446 — design-final (law and decode at the function).
+        enumBaseAliasCopyBare446(s, d);
+        // § importGroupKeepsHomeOrder446 — an IMPORT GROUP lists the home
+        // package's DEF-view listing VERBATIM.  A package that wildcard-imports
+        // another materializes a clone of every subroutine of the home's listing
+        // at the import statement's slot, the group keeping the home listing's
+        // own order (§ collectPkgTfListing, probe r10evfn 2); the group's inner
+        // order is pkgTfSeq9, the entry's index in collectPkgTfListing's walk,
+        // which sorts by the raw declaration location and so puts every
+        // out-of-body definition written by a MACRO after the file's own text,
+        // while the home's own DEF listing places it at the macro's EXPANSION
+        // (§ pkgTfMacroDefAtExpansion403).  Golden uvm_messaging_example:
+        // messaging_pkg's 979 entries in both views are uvm_pkg's DEF listing
+        // name for name, uvm_packer::get_packed_bytes/ints/longints and
+        // set_packed_bytes/ints/longints (`M__UVM_GET_PACKED(byte)` ...,
+        // uvm_packer.svh 551 and 620) at positions 227 to 233; ours put the six
+        // after uvm_reg_block::convert2string, at 947, misaligning the 714
+        // entries between them.  Design-final, every scope listing (package
+        // views, module views) is scanned for runs of clones carrying one import
+        // statement's key, and a run whose names are each found once in the
+        // home's DEF listing is re-ordered by that listing; any other run is left
+        // as it is.  Grid tools/probe/r11u446repro/cases/IG.  Switch
+        // R11U446_IMPGRPORDER_OFF.
+        {
+            // the import statement's slot -> the package it imports
+            std::map<std::pair<uint32_t, uint64_t>, const PackageSymbol*> impHome446;
+            for (auto* pk446 : comp.getPackages()) {
+                if (!pk446)
+                    continue;
+                for (auto& m446 : pk446->members()) {
+                    if (m446.kind != SymbolKind::WildcardImport)
+                        continue;
+                    auto* q446 = m446.as<WildcardImportSymbol>().getPackage();
+                    if (!q446)
+                        continue;
+                    SourceLocation at446 = m446.location;
+                    if (auto* isyn446 = m446.getSyntax())
+                        at446 = isyn446->sourceRange().start();
+                    impHome446[{at446.buffer().getId(), (uint64_t)at446.offset()}] =
+                        q446;
+                }
+            }
+            auto reorder446 = [&](UHDM::VectorOftask_func* v, const std::string& who) {
+                if (!v)
+                    return;
+                size_t i = 0;
+                while (i < v->size()) {
+                    auto k0 = pkgTfOrder9.find((*v)[i]);
+                    if (k0 == pkgTfOrder9.end() || k0->second.first != 0 ||
+                        !k0->second.second.valid()) {
+                        i++;
+                        continue;
+                    }
+                    auto loc0 = k0->second.second;
+                    std::pair<uint32_t, uint64_t> key0{loc0.buffer().getId(),
+                                                       (uint64_t)loc0.offset()};
+                    auto hit = impHome446.find(key0);
+                    size_t j = i + 1;
+                    while (j < v->size()) {
+                        auto kj = pkgTfOrder9.find((*v)[j]);
+                        if (kj == pkgTfOrder9.end() || kj->second.first != 0 ||
+                            !kj->second.second.valid() ||
+                            kj->second.second.buffer().getId() != key0.first ||
+                            (uint64_t)kj->second.second.offset() != key0.second)
+                            break;
+                        j++;
+                    }
+                    if (hit != impHome446.end() && j - i > 1) {
+                        auto dit = pkgDefMap.find((const void*)hit->second);
+                        UHDM::package* hd = dit != pkgDefMap.end() ? dit->second : nullptr;
+                        std::map<std::string_view, size_t> idx;
+                        bool ok = hd && hd->Task_funcs();
+                        if (ok) {
+                            for (size_t h = 0; h < hd->Task_funcs()->size(); h++) {
+                                auto* ht = (*hd->Task_funcs())[h];
+                                if (!ht || !idx.emplace(ht->VpiName(), h).second) {
+                                    ok = false;
+                                    break;
+                                }
+                            }
+                        }
+                        std::vector<std::pair<size_t, UHDM::task_func*>> run;
+                        for (size_t r = i; ok && r < j; r++) {
+                            auto f = idx.find((*v)[r]->VpiName());
+                            if (f == idx.end()) {
+                                ok = false;
+                                break;
+                            }
+                            run.push_back({f->second, (*v)[r]});
+                        }
+                        if (ok) {
+                            std::stable_sort(run.begin(), run.end(),
+                                             [](const auto& a, const auto& b) {
+                                                 return a.first < b.first;
+                                             });
+                            bool moved = false;
+                            for (size_t r = i; r < j; r++)
+                                if ((*v)[r] != run[r - i].second) {
+                                    (*v)[r] = run[r - i].second;
+                                    moved = true;
+                                }
+                            if (moved)
+                                lawTrace(446, "importGroupKeepsHomeOrder446",
+                                         who + " group=" + std::string(hit->second->name) +
+                                             " size=" + std::to_string(j - i));
+                        }
+                    }
+                    i = j;
+                }
+            };
+            for (int k446 = 0; lawOn(446, "R11U446_IMPGRPORDER_OFF") && k446 < 2; k446++) {
+                if (auto* l446 = k446 ? d->TopPackages() : d->AllPackages())
+                    for (auto* p446 : *l446)
+                        if (p446)
+                            reorder446(p446->Task_funcs(),
+                                       std::string(p446->VpiName()) +
+                                           (k446 ? "#TOP" : "#DEF"));
+                if (auto* m446 = k446 ? d->TopModules() : d->AllModules())
+                    for (auto* x446 : *m446)
+                        if (x446)
+                            reorder446(x446->Task_funcs(),
+                                       std::string(x446->VpiName()) +
+                                           (k446 ? "#TOPM" : "#DEFM"));
+            }
+            // § cloneBodyCallBindsHomeTopTf446 — the twin of
+            // § clsBodyCallBindsHomeTopTf446 for the BODIES OF THE IMPORT
+            // GROUP itself: a call written in a subroutine the group
+            // materializes (a clone of the home's free subroutine or of one
+            // of its out-of-body class methods) binds the HOME package's
+            // ELABORATED subroutine, in both views of the importer, where ours
+            // bound the importer's clone of the callee (golden
+            // uvm_messaging_example: 176 calls of uvm_report_enabled in
+            // messaging_pkg's group bodies, every one bound to uvm_pkg TOP;
+            // ours bound messaging_pkg's TOP clone in 832, and the comparison
+            // then walked the clone's body against the home's).  The
+            // importer's OWN subroutines and its own out-of-body class
+            // methods keep the clone (probe r10evfn 2; grid cases/CB cb04,
+            // golden q DEF).  Grid tools/probe/r11u446repro/cases/CG.  Switch
+            // R11U446_CLONECALLHOME_OFF.
+            if (lawOn(446, "R11U446_CLONECALLHOME_OFF")) {
+                // group member -> its home package's name
+                std::map<const UHDM::any*, std::string> grp446;
+                for (int k446 = 0; k446 < 2; k446++)
+                    if (auto* l446 = k446 ? d->TopPackages() : d->AllPackages())
+                        for (auto* p446 : *l446) {
+                            if (!p446 || !p446->Task_funcs())
+                                continue;
+                            for (auto* t446 : *p446->Task_funcs()) {
+                                auto k0 = pkgTfOrder9.find(t446);
+                                if (k0 == pkgTfOrder9.end() || k0->second.first != 0 ||
+                                    !k0->second.second.valid())
+                                    continue;
+                                auto h0 = impHome446.find(
+                                    {k0->second.second.buffer().getId(),
+                                     (uint64_t)k0->second.second.offset()});
+                                if (h0 != impHome446.end() && t446->VpiParent() == p446)
+                                    grp446[t446] = std::string(h0->second->name);
+                            }
+                        }
+                std::map<std::string, UHDM::package*, std::less<>> topP446;
+                if (auto* l446 = d->TopPackages())
+                    for (auto* p446 : *l446)
+                        if (p446)
+                            topP446.emplace(std::string(p446->VpiName()), p446);
+                auto homeTf446 = [&](const std::string& hp, std::string_view nm,
+                                     bool isTask) -> UHDM::task_func* {
+                    auto it = topP446.find(hp);
+                    if (it == topP446.end() || !it->second->Task_funcs())
+                        return nullptr;
+                    for (auto* t : *it->second->Task_funcs())
+                        if (t && t->VpiName() == nm && t->VpiParent() == it->second &&
+                            (t->UhdmType() == UHDM::uhdmtask) == isTask)
+                            return t;
+                    return nullptr;
+                };
+                std::vector<UHDM::any*> calls446;
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (o && (o->UhdmType() == UHDM::uhdmfunc_call ||
+                              o->UhdmType() == UHDM::uhdmtask_call))
+                        calls446.push_back(o);
+                }
+                std::sort(calls446.begin(), calls446.end(),
+                          [](const UHDM::any* a, const UHDM::any* b) {
+                              return a->UhdmId() < b->UhdmId();
+                          });
+                int n446 = 0;
+                for (auto* c446 : calls446) {
+                    const bool isTask = c446->UhdmType() == UHDM::uhdmtask_call;
+                    const UHDM::any* tgt = isTask
+                                               ? (const UHDM::any*)((UHDM::task_call*)c446)->Task()
+                                               : (const UHDM::any*)((UHDM::func_call*)c446)->Function();
+                    if (!tgt)
+                        continue;
+                    auto gt = grp446.find(tgt);
+                    if (gt == grp446.end())
+                        continue;
+                    // the enclosing subroutine listed directly under a package
+                    const UHDM::any* body = c446->VpiParent();
+                    while (body && !(body->VpiParent() &&
+                                     body->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                                     (body->UhdmType() == UHDM::uhdmfunction ||
+                                      body->UhdmType() == UHDM::uhdmtask)))
+                        body = body->VpiParent();
+                    if (!body || !grp446.count(body))
+                        continue;
+                    auto* h446 = homeTf446(gt->second, tgt->VpiName(), isTask);
+                    if (!h446 || h446 == tgt)
+                        continue;
+                    if (isTask)
+                        ((UHDM::task_call*)c446)->Task((UHDM::task*)h446);
+                    else
+                        ((UHDM::func_call*)c446)->Function((UHDM::function*)h446);
+                    n446++;
+                }
+                if (n446)
+                    lawTrace(446, "cloneBodyCallBindsHomeTopTf446",
+                             "calls=" + std::to_string(n446));
+            }
         }
         return d420;
     };

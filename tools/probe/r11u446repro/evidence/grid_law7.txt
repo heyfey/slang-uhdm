@@ -1,0 +1,27 @@
+cases/CB/cb01 | pristine rc=0 cmp=0 STRICT_NOTEQUAL depth md5=585552c3 recdist=12 instdist=12 | law rc=0 cmp=0 STRICT_NOTEQUAL depth md5=06297dd8 recdist=12 instdist=12
+cases/CB/cb02 | pristine rc=0 cmp=0 STRICT_EQUAL 125 objects md5=d44b4677 recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 125 objects md5=32e68c7a recdist=0 instdist=0
+cases/CB/cb03 | pristine rc=0 cmp=0 STRICT_EQUAL 99 objects md5=051a085f recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 99 objects md5=fd5b7122 recdist=0 instdist=0
+cases/CB/cb04 | pristine rc=0 cmp=528 NOT_EQUAL stage1 md5=ad831721 recdist=36 instdist=36 | law rc=0 cmp=528 NOT_EQUAL stage1 md5=b6260db4 recdist=36 instdist=36
+cases/CG/cg01 | pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=4df12e3c recdist=28 instdist=20 | law rc=0 cmp=90 NOT_EQUAL stage1 md5=4df12e3c recdist=28 instdist=20
+cases/CG/cg02 | pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=08b00f9b recdist=44 instdist=34 | law rc=0 cmp=90 NOT_EQUAL stage1 md5=8e1a2210 recdist=44 instdist=34
+cases/CG/cg03 | pristine rc=0 cmp=90 NOT_EQUAL stage1 md5=6897aec5 recdist=72 instdist=54 | law rc=0 cmp=90 NOT_EQUAL stage1 md5=0287af0e recdist=72 instdist=54
+cases/CT/ct01 | pristine rc=0 cmp=204 NOT_EQUAL stage1 md5=ee6c1e10 recdist=4 instdist=4 | law rc=0 cmp=0 STRICT_EQUAL 45 objects md5=2f23eb40 recdist=0 instdist=0
+cases/CT/ct02 | pristine rc=0 cmp=85 NOT_EQUAL stage1 md5=3561abdb recdist=47 instdist=47 | law rc=0 cmp=85 NOT_EQUAL stage1 md5=3561abdb recdist=47 instdist=47
+cases/CT/ct03 | pristine rc=0 cmp=0 STRICT_EQUAL 31 objects md5=6d78b605 recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 31 objects md5=6d78b605 recdist=0 instdist=0
+cases/CT/ct04 | pristine rc=0 cmp=204 NOT_EQUAL stage1 md5=b45a53dd recdist=4 instdist=4 | law rc=0 cmp=0 STRICT_EQUAL 61 objects md5=2ddd5e10 recdist=0 instdist=0
+cases/CT/ct05 | pristine rc=0 cmp=268 NOT_EQUAL stage1 md5=8f71d33d recdist=4 instdist=4 | law rc=0 cmp=0 STRICT_EQUAL 54 objects md5=5c4ff9c6 recdist=0 instdist=0
+cases/CT/ct06 | pristine rc=0 cmp=144 NOT_EQUAL stage1 md5=6f2e2df3 recdist=2 instdist=2 | law rc=0 cmp=0 STRICT_EQUAL 36 objects md5=f3638877 recdist=0 instdist=0
+cases/EB/eb01 | pristine rc=0 cmp=112 NOT_EQUAL stage1 md5=4eeda499 recdist=4 instdist=4 | law rc=0 cmp=0 STRICT_EQUAL 306 objects md5=b4c75eb7 recdist=0 instdist=0
+cases/EB/eb02 | pristine rc=0 cmp=0 STRICT_EQUAL 198 objects md5=ab174046 recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 198 objects md5=ab174046 recdist=0 instdist=0
+cases/EB/eb03 | pristine rc=0 cmp=112 NOT_EQUAL stage1 md5=d09949e9 recdist=22 instdist=20 | law rc=0 cmp=0 STRICT_NOTEQUAL name md5=c640f466 recdist=14 instdist=12
+cases/EB/eb04 | pristine rc=0 cmp=112 NOT_EQUAL stage1 md5=83431810 recdist=8 instdist=8 | law rc=0 cmp=0 STRICT_EQUAL 299 objects md5=17e64317 recdist=0 instdist=0
+cases/IG/ig01 | pristine rc=0 cmp=158 NOT_EQUAL stage1 md5=44ca5fab recdist=8 instdist=8 | law rc=0 cmp=0 STRICT_EQUAL 176 objects md5=f7e07cf0 recdist=0 instdist=0
+cases/IG/ig02 | pristine rc=0 cmp=40 NOT_EQUAL stage1 md5=d75bc0f7 recdist=8 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 43 objects md5=04876648 recdist=0 instdist=0
+cases/IG/ig03 | pristine rc=0 cmp=158 NOT_EQUAL stage1 md5=3f386ff1 recdist=12 instdist=12 | law rc=0 cmp=0 STRICT_EQUAL 135 objects md5=3cfac5aa recdist=0 instdist=0
+cases/QU/qu01 | pristine rc=0 cmp=96 NOT_EQUAL stage1 md5=541765fa recdist=162 instdist=162 | law rc=0 cmp=17 NOT_EQUAL stage1 md5=742b0e54 recdist=2 instdist=2
+cases/QU/qu02 | pristine rc=0 cmp=96 NOT_EQUAL stage1 md5=0a0f5278 recdist=160 instdist=160 | law rc=0 cmp=0 STRICT_EQUAL 360 objects md5=4d2f53e5 recdist=0 instdist=0
+cases/QU/qu03 | pristine rc=0 cmp=0 STRICT_EQUAL 229 objects md5=897fbb1f recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 229 objects md5=897fbb1f recdist=0 instdist=0
+cases/SM/sm01 | pristine rc=0 cmp=99 NOT_EQUAL stage1 md5=b4f79a0d recdist=14 instdist=14 | law rc=0 cmp=0 STRICT_EQUAL 81 objects md5=b2c2147a recdist=0 instdist=0
+cases/SM/sm02 | pristine rc=0 cmp=0 STRICT_EQUAL 56 objects md5=31076764 recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 56 objects md5=31076764 recdist=0 instdist=0
+cases/SM/sm03 | pristine rc=0 cmp=289 NOT_EQUAL stage1 md5=4e33fc6f recdist=82 instdist=82 | law rc=0 cmp=858 NOT_EQUAL stage1 md5=1874e7a1 recdist=16 instdist=16
+cases/SM/sm04 | pristine rc=0 cmp=0 STRICT_EQUAL 202 objects md5=0b8a581d recdist=0 instdist=0 | law rc=0 cmp=0 STRICT_EQUAL 202 objects md5=0b8a581d recdist=0 instdist=0

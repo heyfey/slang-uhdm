@@ -14588,6 +14588,7 @@ void UhdmExporter::fileUnitPublishesPackageClasses206() {
 // vpiTypedef, merged name-sorted into the entries it already carries and
 // de-duplicated by typespec identity.  The import_typespec markers stay at the
 // tail (writeImportedSymbols runs after writeDataTypes).
+static void clsLocalTdTopHomeInst446(UHDM::design* d);
 void UhdmExporter::importPublishesPackageClasses24() {
     auto* d24 = d;
     if (!d24)
@@ -14715,6 +14716,7 @@ void UhdmExporter::importPublishesPackageClasses24() {
     run24(d24->AllPackages());
     run24(d24->TopPackages());
     classKeyTsScopeOwner35(preListed35);
+    clsLocalTdTopHomeInst446(d);
 }
 
 // § modulePublishesPackageClasses45 — the MODULE arm of § 24.
@@ -15119,6 +15121,111 @@ void UhdmExporter::classKeyTsScopeOwner35(
     if (d->AllClasses())
         for (auto* c35 : *d->AllClasses())
             fixCls35(c35);
+}
+
+// § clsLocalTdTopHomeInst446 — the CLASS-LOCAL typedef object of a package
+// SPECIALIZATION typedef carries the TOP view of the DECLARING package.
+//
+// `typedef uvm_pool#(string, uvm_action) uvm_id_actions_array;` in uvm_pkg
+// makes slang specialise uvm_pool once more, and that specialisation's own
+// `typedef uvm_pool#(KEY,T) this_type;` is an UNLISTED class_typespec
+// parented by its class_defn whose vpiTypedefAlias is the package typedef.
+// Surelog compiles that object in the ELABORATED compile of the declaring
+// package (CompileType.cpp, the tail of compileTypespec:
+// `result->Instance(component->getUhdmInstance())` with the package's TOP
+// object as the component's instance), so golden's vpiInstance is the TOP
+// view of the package that declares the specialization typedef, whoever
+// imports it.  § classKeyTsScopeOwner35 stamps these objects with the DEF
+// view of the LAST importing package instead (ours `messaging_pkg` where
+// golden reads uvm_pkg TOP: the first uhdm-cmp head of 12 uvm-examples rows,
+// decoded by pass 426 as its face A).
+//
+// THE PREDICATE, the rule pass 426 checked on golden (0 objects change on the
+// uvm_messaging_example golden, 0 on SeqDriver's): an unlisted class_typespec
+// parented by its class_defn whose alias target is named `P::N`, with that
+// target listed by the TOP view of package P and NOT by P's DEF view, takes
+// P's TOP view.  Grid tools/probe/r11u446repro/cases/CT.  Switch
+// R11U446_CLSTDTOPHOME_OFF.
+static void clsLocalTdTopHomeInst446(UHDM::design* d) {
+    if (!d || !lawOn(446, "R11U446_CLSTDTOPHOME_OFF"))
+        return;
+    std::set<const UHDM::typespec*> listed446;
+    std::map<std::string, UHDM::package*, std::less<>> top446;
+    std::map<const UHDM::package*, std::set<const UHDM::typespec*>> topL446;
+    std::map<std::string, std::set<const UHDM::typespec*>, std::less<>> defL446;
+    auto claim446 = [&](const UHDM::VectorOftypespec* v) {
+        if (v)
+            for (auto* t : *v)
+                if (t)
+                    listed446.insert(t);
+    };
+    for (int k = 0; k < 2; k++) {
+        if (auto* l = k ? d->TopPackages() : d->AllPackages())
+            for (auto* p : *l) {
+                if (!p)
+                    continue;
+                claim446(p->Typespecs());
+                std::string pn(p->VpiName());
+                if (k) {
+                    top446.emplace(pn, p);
+                    if (p->Typespecs())
+                        topL446[p].insert(p->Typespecs()->begin(),
+                                          p->Typespecs()->end());
+                }
+                else if (p->Typespecs())
+                    defL446[pn].insert(p->Typespecs()->begin(),
+                                       p->Typespecs()->end());
+            }
+        if (auto* m = k ? d->TopModules() : d->AllModules())
+            for (auto* x : *m)
+                if (x)
+                    claim446(x->Typespecs());
+    }
+    claim446(d->Typespecs());
+    std::set<const UHDM::typespec*> seen446;
+    auto fixCls446 = [&](UHDM::class_defn* c) {
+        if (!c || !c->Typespecs())
+            return;
+        for (auto* t : *c->Typespecs()) {
+            if (!t || !seen446.insert(t).second)
+                continue;
+            if (t->UhdmType() != UHDM::uhdmclass_typespec ||
+                t->VpiParent() != c || listed446.count(t))
+                continue;
+            auto* ra = t->Typedef_alias();
+            auto* a = ra ? ra->Actual_typespec() : nullptr;
+            if (!a)
+                continue;
+            std::string_view an = a->VpiName();
+            auto pp = an.find("::");
+            if (pp == std::string_view::npos)
+                continue;
+            std::string_view pn = an.substr(0, pp);
+            auto ti = top446.find(pn);
+            if (ti == top446.end() || !topL446[ti->second].count(a))
+                continue;
+            if (auto di = defL446.find(pn);
+                di != defL446.end() && di->second.count(a))
+                continue;
+            if (t->Instance() == ti->second)
+                continue;
+            lawTrace(446, "clsLocalTdTopHomeInst446",
+                     std::string(c->VpiName()) + "::" + std::string(t->VpiName()) +
+                         " alias=" + std::string(an) + " from=" +
+                         (t->Instance() ? std::string(t->Instance()->VpiName())
+                                        : std::string("null")));
+            t->Instance(ti->second);
+        }
+    };
+    for (int k = 0; k < 2; k++)
+        if (auto* l = k ? d->TopPackages() : d->AllPackages())
+            for (auto* p : *l)
+                if (p && p->Class_defns())
+                    for (auto* c : *p->Class_defns())
+                        fixCls446(c);
+    if (d->AllClasses())
+        for (auto* c : *d->AllClasses())
+            fixCls446(c);
 }
 
 // § importedClassVarIsOwnCopyNoInstance5 — a package VARIABLE listed into an

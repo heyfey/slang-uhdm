@@ -1,0 +1,23 @@
+# golden (cache key from each row's cmds.txt) vs the master's control (pristine) vs this verifier's law sweep
+# rec = canon-walk records with each typespec's vpiInstance (sc2, FORCE2); bind = call-binding multiset (drivers/bind.cpp)
+default/MiniAmiq   strict=STRICT_EQUAL 435559 objects rec pris=2772 law=2726 [away 0 closer 36] bind calls=22533 pris=4222 law=54 [away 0 closer 3020]
+testflags/MiniAmiq strict=STRICT_EQUAL 435559 objects rec pris=2772 law=2726 [away 0 closer 36] bind calls=22533 pris=4222 law=54 [away 0 closer 3020]
+default/SeqDriver  strict=STRICT_EQUAL 475526 objects rec pris=2200 law=2154 [away 0 closer 36] bind calls=21619 pris=4044 law=54 [away 0 closer 2886]
+testflags/SeqDriver strict=STRICT_EQUAL 475538 objects rec pris=2200 law=2154 [away 0 closer 36] bind calls=21619 pris=4044 law=54 [away 0 closer 2886]
+# probe cases the trace names (golden from the probe cache; path-normalized uhdm-dump distance control -> law)
+r10uvm127repro/g127_c_import            dump 4  rec away 0 | bind away 0 closer 4
+r10uvm172repro/g172_b_name              dump 4  rec away 0 | bind away 0 closer 4
+r10uvm172repro/g172_d_scope             dump 2  rec away 0 | bind away 0 closer 2
+r10uvm204repro/g204_b_ctx               dump 0
+r10uvm227repro/grid227/a9_class_holder  dump 2  rec away 0 | bind wrong -> wrong (golden p2 TOP, pristine p3 TOP, law p1 TOP)
+r10uvm23repro/t34e_t                    dump 0
+r10v169repro/v169_g_control             dump 4  rec away 0 | bind away 0 closer 4
+r10v195repro/v195_b_reads               dump 0
+r10v195repro/v195_d_tfitem              dump 0
+# sv-tests localizer (implementer's clsloc, ALL), kept pairs from svtests_matrix --keep-golden on both binaries
+uvm_messaging_example     pristine 1607 law 18
+uvm_priority_arbitration  pristine 1601 law 18
+# determinism: three concurrent law runs each
+default/MiniAmiq   sweep df5a6ad94d92 draws df5a6ad94d92 x3
+testflags/SeqDriver sweep 56af45bff7ca draws 56af45bff7ca x3
+uvm_messaging_example runner 93af31602811 draws 93af31602811 x3 (the database embeds the work path; the sweep's copy differs by 7 bytes, its path being 7 characters longer)
