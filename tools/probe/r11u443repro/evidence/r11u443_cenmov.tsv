@@ -1,0 +1,8 @@
+inet/n03_foreach	slrc=0	p:rc=0 cmp=56 dist=45 md5=79eea421 [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=42 md5=f784f14f [STRICT_EQUAL 99 objects]
+inet/n07_sub_foreach	slrc=0	p:rc=0 cmp=56 dist=45 md5=81d6cfb8 [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=42 md5=09218a69 [STRICT_EQUAL 150 objects]
+F/f03	slrc=0	p:rc=0 cmp=16 dist=6 md5=2dd4d4cc [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=5 md5=447ee4d4 [STRICT_NOTEQUAL endcol]
+UP/up19	slrc=0	p:rc=0 cmp=56 dist=19 md5=725bc152 [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=0 md5=d2fb1d84 [STRICT_EQUAL 60 objects]
+VA/va21_foreach_fork	slrc=0	p:rc=0 cmp=56 dist=71 md5=8177eca1 [NOT_EQUAL stage1]	l:rc=0 cmp=156 dist=68 md5=01dec784 [NOT_EQUAL stage1]
+VP/vp08	slrc=0	p:rc=0 cmp=523 dist=251 md5=f82250ea [NOT_EQUAL stage1]	l:rc=0 cmp=509 dist=246 md5=9ee534d2 [NOT_EQUAL stage1]
+VP/vp09	slrc=0	p:rc=0 cmp=56 dist=19 md5=5a744abe [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=0 md5=d80e6094 [STRICT_EQUAL 76 objects]
+VS/vs09	slrc=0	p:rc=0 cmp=52 dist=27 md5=16d4d9ee [NOT_EQUAL stage1]	l:rc=0 cmp=0 dist=0 md5=543478c0 [STRICT_EQUAL 77 objects]

@@ -1,0 +1,87 @@
+name,mode,status,detail,blocked_by,strict
+AmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a tim,,
+AmiqEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a tim,,
+AmiqSimpleTestSuite,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/uvm-1.2/src/uvm_pkg.sv:28:9: error: design element does not have a tim,,
+AmiqSimpleTestSuite,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/AmiqSimpleTestSuite/apb_top.sv:35:11: error: unknown package 'amiq_s,,
+ApbSlave,default,CMP_EQUAL,,,equal
+ApbSlave,testflags,CMP_EQUAL,,,equal
+Ariane2024,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Ariane2024/sc_collected_files/cva6_896bbc9de65d3fccda60b666ce12c66c1,,
+Ariane2024,testflags,NO_DATABASE,test suppresses UHDM output,-nouhdm,
+AVLMM,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/AVLMM/tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
+AVLMM,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/AVLMM/tb.sv:11:4: error: unknown module 'avlm_avls_2x2',,
+BuildOVMPkg,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_op,,
+BuildOVMPkg,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_op,,
+BuildUVMPkg,default,CMP_EQUAL,,,equal
+BuildUVMPkg,testflags,CMP_EQUAL,,,equal
+ClassVar,default,CMP_EQUAL,,,equal
+ClassVar,testflags,CMP_EQUAL,,,equal
+DollarRoot,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/DollarRoot/dut.sv:7:11: error: unknown package 'verbosity_pkg',,
+DollarRoot,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/DollarRoot/dut.sv:7:11: error: unknown package 'verbosity_pkg',,
+Driver,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Driver/testbench.sv:23:3: error: too many arguments for 'new'; expec,,
+Driver,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Driver/testbench.sv:23:3: error: too many arguments for 'new'; expec,,
+Earlgrey_Verilator_01_05_21,default,DEFERRED,late-phase: golden uncacheable on this machine,,
+Earlgrey_Verilator_01_05_21,testflags,DEFERRED,late-phase: golden uncacheable on this machine,,
+ForeachArray,default,CMP_EQUAL,,,equal
+ForeachArray,testflags,CMP_EQUAL,,,equal
+ForeachClass,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachClass/dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_r,,
+ForeachClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachClass/dut.sv:11:22: error: 'm_mems_by_offset' is a local member of 'uvm_r,,
+ForeachClassParent,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachClassParent/dut.sv:4:13: error: identifier 'uvm_phase' used before its de,,
+ForeachClassParent,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachClassParent/dut.sv:4:13: error: identifier 'uvm_phase' used before its de,,
+ForeachForeach,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachForeach/dut.sv:8:17: error: out-of-block definition of 'get_adjacent_pred,,
+ForeachForeach,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForeachForeach/dut.sv:8:17: error: out-of-block definition of 'get_adjacent_pred,,
+ForeachFunction,default,CMP_EQUAL,,,equal
+ForeachFunction,testflags,CMP_EQUAL,,,equal
+ForeachSquare,default,CMP_EQUAL,,,equal
+ForeachSquare,testflags,CMP_EQUAL,,,equal
+ForLoopBind,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForLoopBind/dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 ,,
+ForLoopBind,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/ForLoopBind/dut.sv:26:30: error: too many arguments for 'new'; expected 0 but 1 ,,
+Google,default,SLANG_REJECT,error: no input files,,
+Google,testflags,TIMEOUT,surelog timeout,,
+Ibex,default,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
+Ibex,testflags,SLANG_REJECT,error: '/vendor/lowrisc_ip/prim/rtl/prim_assert.sv': No such file or directory,,
+IbexGoogle,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/IbexGoogle/test/riscv_instr_cov_test.sv:234:29: error: cannot mix st,,
+IbexGoogle,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/IbexGoogle/test/riscv_instr_cov_test.sv:234:29: error: cannot mix st,,
+LocalScopeHierPath,default,CMP_EQUAL,,,equal
+LocalScopeHierPath,testflags,CMP_EQUAL,,,equal
+LoopVar,default,CMP_EQUAL,,,equal
+LoopVar,testflags,CMP_EQUAL,,,equal
+MiniAmiq,default,CMP_EQUAL,,,equal
+MiniAmiq,testflags,CMP_EQUAL,,,equal
+Monitor,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared i,,
+Monitor,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/svaunit/sv/svaunit_vpi_interface.sv:104:10: error: use of undeclared i,,
+NetType,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/NetType/dut.sv:6:26: error: resolution function for nettype 'net_bit' should hav,,
+NetType,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/NetType/dut.sv:6:26: error: resolution function for nettype 'net_bit' should hav,,
+Opentitan,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unkn,,
+Opentitan,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Opentitan/hw/top_earlgrey/rtl/clkgen_xil7series.sv:22:3: error: unkn,,
+OVMSwitch,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/OVMSwitch/top.sv:70:21: error: value of type 'interface output_inter,,
+OVMSwitch,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/OVMSwitch/top.sv:70:21: error: value of type 'interface output_inter,,
+Scoreboard,default,CMP_EQUAL,,,equal
+Scoreboard,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Scoreboard/testbench.sv:12:3: error: use of undeclared identifier 'm,,
+SeqDriver,default,CMP_EQUAL,,,equal
+SeqDriver,testflags,CMP_EQUAL,,,equal
+SimpleClass1,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SimpleClass1/top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-d,,
+SimpleClass1,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SimpleClass1/top.v:13:9: error: duplicate definition of 'uvm_pkg' [-Wduplicate-d,,
+SimpleOVM,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_op,,
+SimpleOVM,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/ovm-2.1.2/src/base/ovm_object.sv:125:5: error: identifier 'ovm_auto_op,,
+SimpleUVM,default,CMP_EQUAL,,,equal
+SimpleUVM,testflags,CMP_EQUAL,,,equal
+SplitFile,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SplitFile/top.v:18:8: error: design element does not have a time scale defined b,,
+SplitFile,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/SplitFile/top.v:18:8: error: design element does not have a time scale defined b,,
+SVSwitch,default,CMP_EQUAL,,,equal
+SVSwitch,testflags,CMP_EQUAL,,,equal
+SynthForeach,default,CMP_EQUAL,,,equal
+SynthForeach,testflags,CMP_EQUAL,,,equal
+Tnoc,default,CMP_NOTEQUAL,decompile:,,
+Tnoc,testflags,CMP_NOTEQUAL,decompile:,,
+UnitAmiqEth,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UnitAmiqEth/amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared id,,
+UnitAmiqEth,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UnitAmiqEth/amiq_eth_pkg.sv.ck0:2205:30: error: use of undeclared id,,
+UnitClass,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/UnitClass/top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
+UnitClass,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/UnitClass/top.v:8:26: error: redefinition of 'F001' [-Wredefinition],,
+UnitForeach,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/UnitForeach/top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
+UnitForeach,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/tests/UnitForeach/top.v:56:18: error: no member named 'bad1' in 'uvm_reg_map',,
+UVMNestedSeq,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UVMNestedSeq/testbench2.sv:26:9: error: duplicate definition of 'my_,,
+UVMNestedSeq,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UVMNestedSeq/testbench2.sv:26:9: error: duplicate definition of 'my_,,
+UVMSwitch,default,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UVMSwitch/top.sv:70:21: error: value of type 'interface output_inter,,
+UVMSwitch,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/UVMSwitch/top.sv:70:21: error: value of type 'interface output_inter,,
+Verilator,default,SLANG_REJECT,error: no input files,,
+Verilator,testflags,SLANG_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/tests/Verilator/batch.txt:1:1: error: expected member,,

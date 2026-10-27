@@ -36083,6 +36083,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             selWholeWrittenVars.insert(&nv.symbol);
                     }
                 }
+                // § elabProgLoopVarReadBinds443 (r11u443) — a read of a
+                // foreach loop variable in a process of a program some module
+                // instantiates binds the loop variable object and mints no
+                // implicit net: writeElabProgram's lateBinding finds the
+                // swapped object in the enclosing foreach_stmt's
+                // vpiLoopVars (UhdmWriter.cpp, the foreach branch skipping only
+                // ref_var and ref_obj), and the program is not netlist-
+                // elaborated, so nothing mints the module's implicit wire
+                // first (golden up19 `arr[i] = i` in `program prg`: both
+                // reads bind array_var work@top.p.i; ours bound a logic_net
+                // work@top.p.i listed in the program's nets).  Grid
+                // tools/probe/r11u443repro/cases/PF.  Switch
+                // R11U443_PROGLVBIND_OFF.
+                else if (elabProgProc443() &&
+                         nv.symbol.kind == SymbolKind::Iterator &&
+                         foreachLoopVarObjs9.count(&nv.symbol) &&
+                         !loopVarNameShadows443(nv.symbol.getParentScope(),
+                                                nv.symbol.name, &nv.symbol) &&
+                         lawOn(443, "R11U443_PROGLVBIND_OFF")) {
+                    ref->Actual_group(foreachLoopVarObjs9[&nv.symbol]);
+                    lawTrace(443, "elabProgLoopVarReadBinds443",
+                             std::string(nv.symbol.name));
+                }
                 else if (implicitNetModule &&
                          (nv.symbol.kind == SymbolKind::Iterator ||
                           (nv.symbol.kind == SymbolKind::Parameter &&

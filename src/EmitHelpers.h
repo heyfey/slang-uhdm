@@ -51,6 +51,49 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// § elabProgMemberArrLoopVar443 / § elabProgLoopVarReadBinds443 (r11u443):
+// true while StmtEmit's emitProcess writes the body of a process of a program
+// some module instantiates (Surelog's writeElabProgram road, which runs
+// lateTypedefBinding and lateBinding on the elaborated program).
+inline bool& elabProgProc443() {
+    static bool v = false;
+    return v;
+}
+// § elabIfaceLoopVarReadBinds443 (r11u443): true while emitProcess writes
+// the body of a process of an interface some module instantiates.
+inline bool& elabIfaceProc443() {
+    static bool v = false;
+    return v;
+}
+// True when a scope between `from` and the enclosing instance body (both
+// included) declares a symbol named `name` other than `self`: a foreach loop
+// variable named like a block local, a formal or a member, which Surelog
+// resolves to that declaration (r11u443's laws abstain there).
+inline bool loopVarNameShadows443(const Scope* from, std::string_view name,
+                                  const Symbol* self) {
+    for (int guard = 0; from && guard < 64; ++guard) {
+        auto& ss = from->asSymbol();
+        if (auto* d = from->find(name); d && d != self)
+            return true;
+        if (ss.kind == SymbolKind::InstanceBody)
+            return false;
+        if (ss.kind != SymbolKind::StatementBlock &&
+            ss.kind != SymbolKind::Subroutine)
+            return false;
+        from = ss.getParentScope();
+    }
+    return false;
+}
+// A variable declared directly in a program body (not in a block or a
+// subroutine of it).
+inline bool progMemberSym443(const Symbol& sym) {
+    const Scope* sc = sym.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::InstanceBody)
+        return false;
+    return sc->asSymbol().as<InstanceBodySymbol>().getDefinition().definitionKind ==
+           DefinitionKind::Program;
+}
+
 // ---------------------------------------------------------------------------
 // r11u38's two instrument switches, shared by both of the pass's laws
 // (§ dimMemberSelBinFold38 in TypeEmit.cpp, § paNameCopiesSrcConst38 in

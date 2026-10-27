@@ -1,0 +1,7 @@
+// § progStructNetElemKeeps443v
+typedef struct packed { logic [1:0] f; } i_t; typedef struct { i_t in; } s_t;
+module top; prg p(); endmodule
+program prg;
+s_t a[3]; int s;
+initial foreach (a[i]) s = s + i;
+endprogram

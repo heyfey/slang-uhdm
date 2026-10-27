@@ -582,11 +582,31 @@ UHDM::process_stmt* UhdmExporter::emitProcess(const ProceduralBlockSymbol& block
         uninstIfaceSubBody218 = true;
         uninstIfaceProcBody226 = true;
     }
+    // § elabProgMemberArrLoopVar443 (r11u443) — the process body of a program
+    // some module instantiates: UhdmWriter::writeElabProgram runs
+    // lateTypedefBinding and then lateBinding on the ELABORATED program, so a
+    // foreach loop variable there is swapped by swapForSpecifiedVar from the
+    // typespec decodeHierPath reads off the program's own variable listing,
+    // and its reads are bound by lateBinding's foreach branch (no implicit net,
+    // unlike a module, whose nets are minted by the netlist elaboration).
+    // The flag is raised for the body only; the laws read it in the foreach
+    // branch (StmtEmit) and the iterator read (ExprEmit).
+    const bool savedEPP443 = elabProgProc443();
+    elabProgProc443() = !uip439 && !uninstIfaceSubBody218 && m &&
+                        m->UhdmType() == UHDM::uhdmprogram;
+    // § elabIfaceLoopVarReadBinds443 — the same for a process of an
+    // interface some module instantiates (its foreach loop variables keep
+    // the module's element typing; only the read binding widens).
+    const bool savedEIP443 = elabIfaceProc443();
+    elabIfaceProc443() = !uninstIfaceSubBody218 && !uninstIfaceProcBody226 &&
+                         m && m->UhdmType() == UHDM::uhdminterface_inst;
     bool selOwner = beginSelTrack();
     if (auto* body = emitStmt(block.getBody(), proc, prefix, netMap))
         proc->Stmt(body);
     if (selOwner)
         endSelTrack();
+    elabProgProc443() = savedEPP443;
+    elabIfaceProc443() = savedEIP443;
     suppressRefActual = savedSRA439;
     uninstIfaceSubBody218 = savedUIS439;
     uninstIfaceProcBody226 = savedUIP439;
@@ -5566,6 +5586,38 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                 }
                                 break;
                             }
+                    // § foreachPackedRefDeclTs443: the declaration's own
+                    // typespec reference for a non-array iterated name.
+                    auto foreachPackedDeclRt443 =
+                        [&](const Symbol* sy443,
+                            const auto& nm443) -> UHDM::ref_typespec* {
+                        if (!sy443 || !lawOn(443, "R11U443_FEPACKEDTS_OFF"))
+                            return nullptr;
+                        if (arrayVarArrayTs.count(sy443))
+                            return nullptr;
+                        auto* dt443 = sy443->getDeclaredType();
+                        if (!dt443)
+                            return nullptr;
+                        auto& ct443 = dt443->getType().getCanonicalType();
+                        if (!ct443.isIntegral() && !ct443.isString())
+                            return nullptr;
+                        auto it443 = nm443.find(sy443);
+                        if (it443 == nm443.end() || !it443->second)
+                            return nullptr;
+                        UHDM::ref_typespec* rt443 = nullptr;
+                        if (auto* v443 = any_cast<UHDM::variables*>(it443->second))
+                            rt443 = v443->Typespec();
+                        else if (it443->second->UhdmType() == UHDM::uhdmio_decl)
+                            rt443 = ((UHDM::io_decl*)it443->second)->Typespec();
+                        else if (auto* n443 = any_cast<UHDM::net*>(it443->second))
+                            rt443 = n443->Typespec();
+                        if (!rt443)
+                            return nullptr;
+                        if (auto* a443 = rt443->Actual_typespec();
+                            a443 && a443->UhdmType() == UHDM::uhdmarray_typespec)
+                            return nullptr;
+                        return rt443;
+                    };
                     UHDM::typespec* flat238 = nullptr;
                     if (!ioRt9 && tfLocalArr20 && !pkgWins238 &&
                         lawOn(238, "R11U238_FLATLOCALREFTS_OFF"))
@@ -5636,6 +5688,33 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         else
                             pendingLoopVarTs9.push_back({art, cgrt437});
                     }
+                    else if (auto* pk443 = foreachPackedDeclRt443(arrSym, netMap)) {
+                        // § foreachPackedRefDeclTs443 (r11u443) — THE
+                        // ITERATED REFERENCE OF A FOREACH OVER A PACKED OR
+                        // STRING VARIABLE, NET OR PORT BINDS THAT
+                        // DECLARATION'S OWN TYPESPEC.  paFOREACH compiles the
+                        // array name with compileVariable against the
+                        // enclosing component, which hands back the signal's
+                        // typespec whatever its kind; only an unpacked array
+                        // has an array_typespec to give (golden `foreach
+                        // (v[i])` over `logic [7:0] v`: ref_var v over the
+                        // declaration's logic_typespec 3:1-3:12; `bit [7:0]`
+                        // its bit_typespec, `string` its string_typespec, a
+                        // typedef'd vector the typedef's logic_typespec, an
+                        // input port's logic_typespec; ours minted a fresh
+                        // unlocated array_typespec in the deferred drain,
+                        // which knows array variables and array ports only).
+                        // Abstains when the declaration has no object or no
+                        // typespec reference.  Grid
+                        // tools/probe/r11u443repro/cases/PV.  Switch
+                        // R11U443_FEPACKEDTS_OFF.
+                        lawTrace(443, "foreachPackedRefDeclTs443",
+                                 std::string(arrSym->name));
+                        if (pk443->Actual_typespec())
+                            art->Actual_typespec(pk443->Actual_typespec());
+                        else
+                            pendingLoopVarTs9.push_back({art, pk443});
+                    }
                     else
                         pendingForeachArrayTs.push_back(
                             {art, arrSym, implicitNetModule});
@@ -5682,6 +5761,15 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 if (auto* n0 = any_cast<UHDM::net*>(o))
                     return n0->Typespec();
                 return nullptr;
+            };
+            // r11u443: a loop variable named like a declaration Surelog
+            // resolves it to (a block local, a formal, a member).
+            auto lvShadow443 = [&](const std::string& n443) {
+                for (auto& ld443 : fe.loopDims)
+                    if (ld443.loopVar && ld443.loopVar->name == n443)
+                        return loopVarNameShadows443(
+                            ld443.loopVar->getParentScope(), n443, ld443.loopVar);
+                return false;
             };
             auto declLoopVar = [&](std::string_view name,
                                    SourceRange span) -> UHDM::variables* {
@@ -6644,6 +6732,147 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         }
                     }
                 }
+                // § elabProgMemberArrLoopVar443 (r11u443) — IN A PROCESS OF A
+                // PROGRAM SOME MODULE INSTANTIATES, A FOREACH OVER A PROGRAM
+                // MEMBER THAT IS A FIXED, DYNAMIC OR QUEUE ARRAY HAS AN
+                // ARRAY_VAR LOOP VARIABLE.  UhdmWriter::writeElabProgram runs
+                // lateTypedefBinding on the elaborated program, whose
+                // swapForSpecifiedVar hands the iterated name to
+                // decodeHierPath; the walk up from the foreach reaches the
+                // elaborated program and its Variables() listing, whose
+                // array_var carries the whole array_typespec (no
+                // Index_typespec), and getSimpleVarFromTypespec's
+                // uhdmarray_typespec branch (CompileType.cpp) makes an array_var
+                // over a FRESH, unlocated array_typespec.  A module's member
+                // is drilled to its element instead (the netlist elaboration
+                // types it), which is the int_var / byte_var this branch
+                // replaces (golden `foreach (arr[i])` over `int arr[4]` in
+                // `program prg` instantiated by `top`: array_var
+                // work@top.p.i over array_typespec, ours int_var over the
+                // int_typespec).  An associative member recurses into its
+                // index typespec (the § foreachAssocIndexVar19 branch below,
+                // widened by this law), a packed or string member already
+                // gives getSimpleVarFromTypespec's kind.  Abstains on a
+                // process-local array, a subroutine body and a dotted or
+                // scoped written name.  Grid
+                // tools/probe/r11u443repro/cases/PF.  Switch
+                // R11U443_PROGFEVAR_OFF.
+                bool progAssoc443 = false;
+                if (!lv && arrSym && !foreachUnres9 && !scopedArr33 &&
+                    dotBase137.empty() && elabProgProc443() &&
+                    progMemberSym443(*arrSym) &&
+                    !lvShadow443(lvn) &&
+                    lawOn(443, "R11U443_PROGFEVAR_OFF"))
+                    if (auto* dt443 = arrSym->getDeclaredType()) {
+                        auto k443 = dt443->getType().getCanonicalType().kind;
+                        // § progStructNetElemKeeps443v (v11u443) — A
+                        // MEMBER SURELOG LISTS AS AN ARRAY_NET KEEPS THE
+                        // ELEMENT LOOP VARIABLE.  Surelog lists a program
+                        // member written as a struct type with unpacked
+                        // declarator dimensions as an array_net when every
+                        // leaf field of the struct (nested structs
+                        // included) is a logic or reg scalar or a packed
+                        // vector of one, and the swap then hands
+                        // getSimpleVarFromTypespec the element's
+                        // struct_typespec: golden `s_t a[3];` with `typedef
+                        // struct packed { logic [3:0] f; } s_t;` lists
+                        // array_net work@top.p.a and the loop variable
+                        // struct_var over s_t, where the law wrote
+                        // array_var (pristine was right); the same for any
+                        // member this exporter already lists as an
+                        // array_net (`wire [3:0] a [3];`, `reg [3:0] a
+                        // [3];`: golden logic_var over the element).  A
+                        // field of any other kind (int, bit, byte,
+                        // integer, string, an enum, an unpacked array, a
+                        // packed array of a struct), a union, a typedef of
+                        // the whole array
+                        // or a packed array of the struct gives array_var
+                        // in golden and keeps the law.  Grid
+                        // tools/probe/v11u443repro/cases/VS.  Switch
+                        // R11V443_STRUCTNET_OFF.
+                        auto logicLeaf443v = [](auto& self,
+                                                const Type& t0) -> bool {
+                            const Type& t = t0.getCanonicalType();
+                            if (t.kind == SymbolKind::PackedStructType ||
+                                t.kind == SymbolKind::UnpackedStructType) {
+                                const Scope& sc =
+                                    t.kind == SymbolKind::PackedStructType
+                                        ? (const Scope&)t.as<PackedStructType>()
+                                        : (const Scope&)t.as<UnpackedStructType>();
+                                bool any = false;
+                                for (auto& f : sc.membersOfType<FieldSymbol>()) {
+                                    any = true;
+                                    auto& ft = f.getType().getCanonicalType();
+                                    if (ft.kind == SymbolKind::PackedStructType ||
+                                        ft.kind == SymbolKind::UnpackedStructType) {
+                                        if (!self(self, ft))
+                                            return false;
+                                        continue;
+                                    }
+                                    const Type* lt = &ft;
+                                    while (lt->kind == SymbolKind::PackedArrayType)
+                                        lt = &lt->getArrayElementType()
+                                                  ->getCanonicalType();
+                                    if (lt->kind != SymbolKind::ScalarType ||
+                                        lt->as<ScalarType>().scalarKind ==
+                                            ScalarType::Bit)
+                                        return false;
+                                }
+                                return any;
+                            }
+                            return false;
+                        };
+                        {
+                            const Type* et443 = &dt443->getType();
+                            bool peeled443 = false;
+                            while (!et443->isAlias() &&
+                                   (et443->kind == SymbolKind::FixedSizeUnpackedArrayType ||
+                                    et443->kind == SymbolKind::DynamicArrayType ||
+                                    et443->kind == SymbolKind::QueueType ||
+                                    et443->kind == SymbolKind::AssociativeArrayType)) {
+                                et443 = et443->getArrayElementType();
+                                peeled443 = true;
+                                if (!et443)
+                                    break;
+                            }
+                            auto nm443v = netMap.find(arrSym);
+                            const bool listedNet443v =
+                                nm443v != netMap.end() && nm443v->second &&
+                                nm443v->second->UhdmType() == UHDM::uhdmarray_net;
+                            if (((peeled443 && et443 &&
+                                  logicLeaf443v(logicLeaf443v, *et443)) ||
+                                 listedNet443v) &&
+                                fixOn(443, "R11V443_STRUCTNET_OFF")) {
+                                k443 = SymbolKind::Unknown;
+                                lawTrace(443, "progStructNetElemKeeps443v",
+                                         prefix + " " + std::string(arrSym->name));
+                            }
+                        }
+                        if (k443 == SymbolKind::QueueType ||
+                            k443 == SymbolKind::DynamicArrayType ||
+                            k443 == SymbolKind::FixedSizeUnpackedArrayType) {
+                            // The declaration's own array_typespec when it
+                            // has one (a typedef'd array shares its named
+                            // alias: golden pf17 `a_t ta;` lists array_var i
+                            // over array_typespec (a_t) 4:9-4:20), else a
+                            // fresh one.
+                            lts = nullptr;
+                            if (auto av443 = arrayVarArrayTs.find(arrSym);
+                                av443 != arrayVarArrayTs.end() && av443->second &&
+                                av443->second->UhdmType() ==
+                                    UHDM::uhdmarray_typespec &&
+                                !((UHDM::array_typespec*)av443->second)
+                                     ->Index_typespec())
+                                lts = av443->second;
+                            if (!lts)
+                                lts = s.MakeArray_typespec();
+                            lv = s.MakeArray_var();
+                            lawTrace(443, "elabProgMemberArrLoopVar443",
+                                     prefix + " " + std::string(arrSym->name));
+                        }
+                        else if (k443 == SymbolKind::AssociativeArrayType)
+                            progAssoc443 = true;
+                    }
                 if (!lv)
                     lts = (arrSym && !foreachUnres9) ? makeTypespec(*arrSym)
                                                      : nullptr;
@@ -6691,7 +6920,8 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // Index_typespec to recurse into.  The class-property arm keeps
                 // its own gate (§ classPropUnitImport21).
                 bool assocIdx19 =
-                    !lv && arrSym != nullptr && (foreachUnres9 || tfLocalArr20);
+                    !lv && arrSym != nullptr &&
+                    (foreachUnres9 || tfLocalArr20 || progAssoc443);
                 if (assocIdx19 && foreachUnres9)
                     assocIdx19 = classPropRes21;
                 // § foreachAssocLoopVarIdxTs183 (r11u183, R11U183_TSSPAN_OFF)
@@ -6708,7 +6938,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 bool idxTs183 = false;
                 if (assocIdx19 &&
                     ((tfLocalArr20 && !foreachUnres9) ||
-                     (foreachUnres9 && classPropRes21)) &&
+                     (foreachUnres9 && classPropRes21) || progAssoc443) &&
                     (lawOn(183, 187, "R11U183_TSSPAN_OFF") && !splitAOff(183)) &&
                     (lawOn(183, 187, "R11U183_FEIDX_OFF") && !splitAOff(183)))
                     if (auto a183 = arrayVarArrayTs.find(arrSym);
@@ -6858,11 +7088,40 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                 // the implicit net.  The kinds pass 9/19-22 already registered
                 // keep binding wherever they did, so no cell this pass does not
                 // name can move.
-                if (!curSubPkgHome17 &&
-                    !(lv->UhdmType() == UHDM::uhdmint_var ||
-                      lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19 ||
-                      res22))
-                    return nullptr;
+                // § elabProgLoopVarReadBinds443 (r11u443) — in a process of
+                // an instantiated program every resolved kind binds, for the
+                // package home's reason above: writeElabProgram runs
+                // lateTypedefBinding before lateBinding, so the loop variable
+                // is the swapped object whatever its kind (golden
+                // `foreach (v[i]) v[i] = 1'b0;` over `logic [7:0] v` in
+                // `program prg`: the index binds logic_var work@top.p.i).
+                // § elabIfaceLoopVarReadBinds443 (r11u443) — and so does a
+                // process of an instantiated interface: golden `foreach
+                // (sig[i]) s = s + sig[i];` over `logic [3:0] sig` in
+                // `interface ifc` instantiated by `top` binds the index read
+                // to logic_var work@ifc.i, while an int_var loop variable
+                // already bound (grid tools/probe/r11u443repro/cases/IF).
+                // Switch R11U443_IFACELVBIND_OFF.
+                const bool bindKind443 =
+                    lv->UhdmType() == UHDM::uhdmint_var ||
+                    lv->UhdmType() == UHDM::uhdmarray_var || assocIdx19 || res22;
+                const bool shadow443 =
+                    (elabProgProc443() || elabIfaceProc443()) &&
+                    lvShadow443(lvn);
+                if (!curSubPkgHome17 && !bindKind443) {
+                    if (shadow443)
+                        return nullptr;
+                    if (elabProgProc443() &&
+                        lawOn(443, "R11U443_PROGLVBIND_OFF"))
+                        lawTrace(443, "elabProgLoopVarReadBinds443",
+                                 "register " + lvn);
+                    else if (elabIfaceProc443() &&
+                             lawOn(443, "R11U443_IFACELVBIND_OFF"))
+                        lawTrace(443, "elabIfaceLoopVarReadBinds443",
+                                 "register " + lvn);
+                    else
+                        return nullptr;
+                }
                 return lv;
             };
             // § foreachLoopVarObjs9 — a body reference to a foreach LOOP

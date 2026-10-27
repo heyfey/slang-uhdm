@@ -1,0 +1,3 @@
+// § elabIfaceLoopVarReadBinds443
+interface ifc; logic [3:0] sig; int s; initial begin int i; foreach (sig[i]) s = s + i; end endinterface
+module top; ifc u(); endmodule
