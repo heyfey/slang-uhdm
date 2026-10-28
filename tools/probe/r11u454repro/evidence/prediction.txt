@@ -1,0 +1,15 @@
+r11u454 mover prediction, written before the law sweep (law6 binary, md5 recorded in the README)
+sv-tests: generated/uvm-examples/uvm_use_models_bidir_get_put.sv and uvm_use_models_bidir_item_done.sv DIFFERENT -> EQUAL
+  (runner on law6: cmp EQUAL, strict equal, agreement IDENTICAL on both); every other row unchanged.
+  Text-scan candidates (fence-filtered, 12074 files): generic run `interface a, interface b` in 11 sv-tests files
+  (rows BOTH_REJECT, SLANG_ONLY, TIMEOUT or the two bidir rows plus pipelined_get_put whose head is elsewhere) and
+  hdlconvertor p702 (not an sv-tests row); based-literal unpacked bounds in 5 files (the two bidir rows,
+  uvm_wait_for_signal SLANG_ONLY, and rp32 rv32/rv64_csr_pkg whose bracketed literals are enum name ranges, not
+  unpacked dimensions: law not reached).
+  pkgLateTsTransitiveImport454 and ifcTaskFixupWalksAllStmts454 fire on uvm_use_models_bidir_*, pipelined_get_put,
+  id_register, param_vif_config_db (runner trace on law6); pipelined_get_put, id_register, param_vif_config_db and
+  many_to_one stay DIFFERENT with their heads unchanged.
+corpora: probe 0 movers, surelog 0, uhdm2rtlil 0, downstream 0 predicted (no generic-run or based-bound candidate;
+  the interface-walk and transitive laws need an instantiated interface subroutine with if/case/forever/do/return
+  over interface signals, or a package foreach captured through a two-level import; any trace firing in the corpus
+  stages is attributed below after the sweep).

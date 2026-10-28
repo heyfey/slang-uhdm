@@ -32637,6 +32637,47 @@ UHDM::VectorOfrange* UhdmExporter::buildUnpackedRanges(
                     if (e9)
                         return (UHDM::expr*)e9;
                 }
+                // § unpackedDimBasedLitKept454 (r11u454) — AN UNPACKED
+                // DIMENSION BOUND WRITTEN AS A BASED LITERAL KEEPS THE
+                // LITERAL.  Surelog compiles the range with compileExpression
+                // and a based literal is already a constant, so reduceExpr
+                // leaves it as compileConst built it: the radix kind (HEX 5,
+                // DEC 1, BIN 3, OCT 4), the written size (-1 unsized), the
+                // digits without separators and the literal's own span
+                // (sv-tests uvm_use_models_bidir_get_put bus_seq's `logic
+                // [31:0] mem[32'h0100_0000:32'h0100_001C]`: golden HEX:01000000
+                // size 32 at 164:17-164:30, ours the fold INT:16777216 size 64
+                // at the size token 164:17-164:19; the rows' next uhdm-cmp head
+                // after § pkgLateTsTransitiveImport454).  Measured in a class,
+                // a class method, a package, an interface (both views) and a
+                // module.  The literal goes through the shared expression
+                // writer.  Grid tools/probe/r11u454repro/cases/BL.  Switch
+                // R11U454_DIMBASEDLIT_OFF.
+                if (!arrParentIdBound && es &&
+                    es->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                    lawOn(454, "R11U454_DIMBASEDLIT_OFF")) {
+                    if (auto* e454 = emitSyntaxExpr(*es, r)) {
+                        lawTrace(454, "unpackedDimBasedLitKept454",
+                                 std::string(sym.name) + " " + rawText(es->sourceRange()));
+                        // a SIGNED based literal carries compileConst's
+                        // signed int_typespec (CompileExpression.cpp: `if
+                        // (isSigned)`, no location)
+                        std::string raw454 = rawText(es->sourceRange());
+                        auto q454 = raw454.find('\'');
+                        if (e454->UhdmType() == UHDM::uhdmconstant &&
+                            q454 != std::string::npos && q454 + 1 < raw454.size() &&
+                            (raw454[q454 + 1] == 's' || raw454[q454 + 1] == 'S') &&
+                            !((UHDM::constant*)e454)->Typespec()) {
+                            auto* its454 = s.MakeInt_typespec();
+                            its454->VpiSigned(true);
+                            auto* rt454 = s.MakeRef_typespec();
+                            rt454->VpiParent(e454);
+                            rt454->Actual_typespec(its454);
+                            ((UHDM::constant*)e454)->Typespec(rt454);
+                        }
+                        return (UHDM::expr*)e454;
+                    }
+                }
                 if (!arrParentIdBound && es &&
                     es->kind != syntax::SyntaxKind::IntegerLiteralExpression) {
                     if (tfContext) {

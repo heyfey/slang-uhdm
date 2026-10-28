@@ -1,0 +1,20 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/Tnoc-87c94014/slang.uhdm  patched=fdca11dbdf5d pristine=21652dd0f95d
+MOVER ./testflags/Tnoc-87c94014/slang.uhdm  patched=024b52e8edbb pristine=1ab6f4f0341d
+MOVERS: 2 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== probe
+databases: patched=0 pristine=0
+NO_DATABASES

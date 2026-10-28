@@ -26718,6 +26718,139 @@ UHDM::design* UhdmExporter::exportDesign() {
                         w(*syn, true);
                     }
                 }
+                // § pkgLateTsTransitiveImport454 (r11u454) — A PACKAGE'S LATE
+                // LIST REACHES THE IMPORTERS OF THE PACKAGES THAT IMPORT IT.
+                // importPackage (CompileHelper.cpp) copies the imported
+                // package's whole late-typedef list into the importer, and a
+                // package that itself imports (CompilePackage.cpp: the file's
+                // import items, then the body's) already holds the lists of
+                // the packages it imports: so a definition importing
+                // bidirect_bus_pkg, which imports uvm_pkg, carries uvm_pkg's
+                // foreach names too.  sv-tests uvm_use_models_bidir_get_put
+                // and _item_done: interface bidirect_bus_driver_bfm(output
+                // logic [31:0] addr, ...) importing bidirect_bus_pkg captures
+                // uvm_mem::get_addresses's and uvm_reg_map::
+                // get_physical_addresses_to_map's `foreach (addr[...])` (golden
+                // the interface net's logic_typespec at top_hdl.sv 100:11, ours
+                // the formal's uvm_reg_addr_t; the rows' uhdm-cmp head).  The
+                // closure follows package import items only, nested class
+                // declarations excluded.  Grid tools/probe/r11u454repro/cases/
+                // LT.  Switch R11U454_LATETRANS_OFF.
+                std::set<std::pair<std::string, std::string>> viaTrans454;
+                if (lawOn(454, "R11U454_LATETRANS_OFF")) {
+                    std::map<std::string, std::set<std::string>> pkgImp454;
+                    // § pkgLateTsBodyImportsOnly454v (v11u454,
+                    // R11V454_PKGBODYONLY_OFF) — only an import declaration
+                    // written directly in the package body carries the
+                    // imported package's late list: a file-level import in
+                    // the package's file (the v11u454 case VL/vl14, three
+                    // files, pristine STRICT_EQUAL and the law STRICT_NOTEQUAL
+                    // on type) and an import inside a package subroutine
+                    // (VL/vl01, Surelog's UH0701 unsupported statement) leave
+                    // golden's foreach on the array's own typespec.
+                    const bool bodyOnly454v = fixOn(454, "R11V454_PKGBODYONLY_OFF");
+                    // § pkgLateTsEarlierPkgOnly454v (v11u454,
+                    // R11V454_PKGORDER_OFF) — Surelog compiles the packages
+                    // in source order (CompileDesign.cpp "Compile packages in
+                    // strict order", AnalyzeFile's addOrderedPackage), so a
+                    // package importing one declared LATER copies an empty
+                    // list (the v11u454 case VL/vl12, mid before u: pristine
+                    // STRICT_EQUAL, the law STRICT_NOTEQUAL on type).  The
+                    // order is the syntax trees' member order.
+                    std::map<std::string, size_t> pkgOrd454;
+                    if (fixOn(454, "R11V454_PKGORDER_OFF")) {
+                        size_t n454 = 0;
+                        for (auto& tr454 : comp.getSyntaxTrees())
+                            if (tr454 &&
+                                tr454->root().kind == syntax::SyntaxKind::CompilationUnit)
+                                for (auto* m454 :
+                                     tr454->root().as<syntax::CompilationUnitSyntax>().members)
+                                    if (m454 &&
+                                        m454->kind == syntax::SyntaxKind::PackageDeclaration)
+                                        pkgOrd454.emplace(
+                                            std::string(m454->as<syntax::ModuleDeclarationSyntax>()
+                                                            .header->name.valueText()),
+                                            n454++);
+                    }
+                    for (auto* psym : comp.getPackages()) {
+                        if (!psym)
+                            continue;
+                        auto& imps = pkgImp454[std::string(psym->name)];
+                        if (auto fit = fileImp420.find(rootFilePath(psym->location));
+                            fit != fileImp420.end())
+                            imps.insert(fit->second.begin(), fit->second.end());
+                        if (auto* syn = psym->getSyntax()) {
+                            std::function<void(const syntax::SyntaxNode&, bool)> w =
+                                [&](const syntax::SyntaxNode& n, bool top) {
+                                    auto k = n.kind;
+                                    if (!top &&
+                                        (k == syntax::SyntaxKind::ModuleDeclaration ||
+                                         k == syntax::SyntaxKind::InterfaceDeclaration ||
+                                         k == syntax::SyntaxKind::ProgramDeclaration ||
+                                         k == syntax::SyntaxKind::PackageDeclaration ||
+                                         k == syntax::SyntaxKind::ClassDeclaration))
+                                        return;
+                                    if (k == syntax::SyntaxKind::PackageImportItem) {
+                                        imps.insert(std::string(
+                                            n.as<syntax::PackageImportItemSyntax>()
+                                                .package.valueText()));
+                                        return;
+                                    }
+                                    for (size_t i = 0; i < n.getChildCount(); i++)
+                                        if (auto* c = n.childNode(i))
+                                            w(*c, false);
+                                };
+                            w(*syn, true);
+                        }
+                        imps.erase(std::string(psym->name));
+                        if (bodyOnly454v) {
+                            std::set<std::string> body454;
+                            if (auto* syn = psym->getSyntax();
+                                syn && syn->kind == syntax::SyntaxKind::PackageDeclaration)
+                                for (auto* m : syn->as<syntax::ModuleDeclarationSyntax>().members)
+                                    if (m && m->kind == syntax::SyntaxKind::PackageImportDeclaration)
+                                        for (auto* it :
+                                             m->as<syntax::PackageImportDeclarationSyntax>().items)
+                                            if (it)
+                                                body454.insert(std::string(it->package.valueText()));
+                            body454.erase(std::string(psym->name));
+                            for (auto& q : imps)
+                                if (!body454.count(q))
+                                    lawTrace(454, "pkgLateTsBodyImportsOnly454v",
+                                             "drop " + std::string(psym->name) + " -> " + q);
+                            imps = std::move(body454);
+                        }
+                    }
+                    for (auto& [dn454, imps454] : defImp420) {
+                        std::vector<std::string> work454(imps454.begin(), imps454.end());
+                        std::set<std::string> added454;
+                        while (!work454.empty()) {
+                            std::string pk = work454.back();
+                            work454.pop_back();
+                            auto pit = pkgImp454.find(pk);
+                            if (pit == pkgImp454.end())
+                                continue;
+                            for (auto& q : pit->second) {
+                                if (!pkgOrd454.empty()) {
+                                    auto oq = pkgOrd454.find(q), op = pkgOrd454.find(pk);
+                                    if (oq == pkgOrd454.end() || op == pkgOrd454.end() ||
+                                        oq->second >= op->second) {
+                                        if (!imps454.count(q))
+                                            lawTrace(454, "pkgLateTsEarlierPkgOnly454v",
+                                                     "skip " + pk + " -> " + q + " for " + dn454);
+                                        continue;
+                                    }
+                                }
+                                if (imps454.insert(q).second) {
+                                    added454.insert(q);
+                                    work454.push_back(q);
+                                }
+                            }
+                        }
+                        for (auto& q : added454)
+                            viaTrans454.insert({dn454, q});
+                    }
+                }
                 // breadth first over the elaborated instances, children in
                 // instantiation (source) order, generate scopes transparent
                 std::map<std::string, const UHDM::typespec*> cap420;
@@ -26811,6 +26944,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                         if (!found)
                             continue;
                         seen420.insert(key);
+                        if (viaTrans454.count({dn, pk}))
+                            lawTrace(454, "pkgLateTsTransitiveImport454",
+                                     std::string(ts ? "capture " : "abstain-no-typespec ") +
+                                         key + " " + std::string(in->VpiFullName()));
                         if (ts)
                             cap420[key] = ts;
                         else
@@ -26864,6 +27001,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                             auto dit = defImp420.find(dn);
                             if (dit == defImp420.end() || !dit->second.count(pk))
                                 continue;
+                            if (viaTrans454.count({dn, pk}))
+                                lawTrace(454, "pkgLateTsTransitiveImport454",
+                                         "lvmodule " + key + " " + dn);
                             if (md->Nets())
                                 for (auto* n : *md->Nets())
                                     if (n->VpiName() == nm) {

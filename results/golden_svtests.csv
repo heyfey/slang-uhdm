@@ -2092,8 +2092,8 @@ generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,SLANG_ONLY,[  ERROR] : 
 generated/uvm-examples/uvm_tb_build_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_tb_build_ss_tb.sv,TIMEOUT,[ERR:EL0514] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_ss_tb/agents/modem_agent/modem_coverage_monitor.svh:43:4: Undefined var,
 generated/uvm-examples/uvm_test_init.sv,EQUAL,,equal
-generated/uvm-examples/uvm_use_models_bidir_get_put.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_use_models_bidir_item_done.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_use_models_bidir_get_put.sv,EQUAL,,equal
+generated/uvm-examples/uvm_use_models_bidir_item_done.sv,EQUAL,,equal
 generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_use_models_pipelined_item_done.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_item_done/pipelined_item_done/top.sv:66:3: error: use of undeclared iden,
 generated/uvm-examples/uvm_use_models_unidirectional.sv,EQUAL,,equal

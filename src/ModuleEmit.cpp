@@ -1795,6 +1795,58 @@ static bool genericInheritsIfaceType185v(
     }
     return false;
 }
+// § genericIfcPortRunSharedTs454 (r11u454) — A GENERIC INTERFACE PORT THAT
+// FOLLOWS ANOTHER GENERIC INTERFACE PORT SHARES THE FIRST ONE'S TYPE.
+// Surelog compiles an ANSI port list carrying the previous port's data type
+// onto a port that writes none of its own (the rule § genericAfterTypedIface
+// PortTyped185v reads for a typed predecessor): `interface bus, interface
+// gpio` gives gpio the unsupported_typespec bus built for the first port --
+// named `bus`, spanned at bus's name -- in the definition's port, the
+// elaborated port and the elaborated net alike (sv-tests uvm_use_models_
+// bidir_get_put and _item_done: bidirect_bus_slave(interface bus, interface
+// gpio), golden's gpio port and net referencing unsupported_typespec bus at
+// top_hdl.sv 152:37, ours a typespec gpio at 152:52; the rows' last uhdm-cmp
+// head).  The run's head is the first generic port of an unbroken run of
+// ANSI generic ports; a run that does not open the port list abstains (after
+// a typed interface port the 185 rule applies, after a non-interface port
+// golden gives the port that port's own data type, not written).  Grid
+// tools/probe/r11u454repro/cases/GI.  Switch R11U454_GENRUNTS_OFF.
+static const slang::ast::InterfacePortSymbol* genericRunHead454(
+    const slang::ast::InterfacePortSymbol& ip) {
+    using namespace slang::ast;
+    if (!lawOn(454, "R11U454_GENRUNTS_OFF"))
+        return nullptr;
+    auto ansi = [](const Symbol* sym) {
+        auto* sy = sym->getSyntax();
+        return sy && sy->parent &&
+               sy->parent->kind == slang::syntax::SyntaxKind::ImplicitAnsiPort;
+    };
+    if (!ip.isGeneric || !ansi(&ip))
+        return nullptr;
+    auto* sc = ip.getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::InstanceBody)
+        return nullptr;
+    auto ports = sc->asSymbol().as<InstanceBodySymbol>().getPortList();
+    size_t at = ports.size();
+    for (size_t i = 0; i < ports.size(); i++)
+        if (ports[i] == &ip) {
+            at = i;
+            break;
+        }
+    if (at == 0 || at >= ports.size())
+        return nullptr;
+    size_t h = at;
+    while (h > 0) {
+        auto* q = ports[h - 1];
+        if (q->kind != SymbolKind::InterfacePort || !ansi(q) ||
+            !q->as<InterfacePortSymbol>().isGeneric)
+            break;
+        h--;
+    }
+    if (h == at || h != 0)
+        return nullptr;
+    return &ports[0]->as<InterfacePortSymbol>();
+}
 namespace {
 struct CastClone176 {
     std::vector<UHDM::cont_assign*>* cas;
@@ -20865,6 +20917,12 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
         // vpiTypedef copy does not) — Surelog.
         utsg->VpiParent(ng);
         setLocNamed(utsg, ipg);
+        // § genericIfcPortRunSharedTs454 — the run head's type
+        if (auto* hd454 = genericRunHead454(ipg)) {
+            utsg->VpiName(hd454->name);
+            setLocNamed(utsg, *hd454);
+            lawTrace(454, "genericIfcPortRunSharedTs454", "elabnet " + gfull);
+        }
         rtg->Actual_typespec(utsg);
         ng->Typespec(rtg);
         topNets[portBase] = ng;
@@ -24198,6 +24256,13 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     auto* utsg = s.MakeUnsupported_typespec();
                     utsg->VpiName(ip.name);
                     setLocNamed(utsg, ip);
+                    // § genericIfcPortRunSharedTs454 — the run head's type
+                    if (auto* hd454 = genericRunHead454(ip)) {
+                        utsg->VpiName(hd454->name);
+                        setLocNamed(utsg, *hd454);
+                        lawTrace(454, "genericIfcPortRunSharedTs454",
+                                 "elabport " + prefix + "." + std::string(ip.name));
+                    }
                     rt->Actual_typespec(utsg);
                 }
                 else if (ip.modport.empty() ||
@@ -27700,6 +27765,15 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                     s.MakeUnsupported_typespec();
                                                 utg9->VpiName(bip9->name);
                                                 setLocNamed(utg9, *bip9);
+                                                // § genericIfcPortRunSharedTs454
+                                                if (auto* hd454 =
+                                                        genericRunHead454(*bip9)) {
+                                                    utg9->VpiName(hd454->name);
+                                                    setLocNamed(utg9, *hd454);
+                                                    lawTrace(454,
+                                                             "genericIfcPortRunSharedTs454",
+                                                             "hierpath " + prefix);
+                                                }
                                                 rtg9->Actual_typespec(utg9);
                                                 hp->Typespec(rtg9);
                                             }
@@ -44187,6 +44261,13 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 auto* utsg = s.MakeUnsupported_typespec();
                 utsg->VpiName(ip.name);
                 setLocNamed(utsg, ip);
+                // § genericIfcPortRunSharedTs454 — the run head's type
+                if (auto* hd454 = genericRunHead454(ip)) {
+                    utsg->VpiName(hd454->name);
+                    setLocNamed(utsg, *hd454);
+                    lawTrace(454, "genericIfcPortRunSharedTs454",
+                             "defport " + prefix + "." + std::string(ip.name));
+                }
                 rtg->Actual_typespec(utsg);
                 p->Typespec(rtg);
                 ports->push_back(p);
@@ -57294,6 +57375,15 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                             return;
                         }
                         if (t9 == UHDM::uhdmif_else) {
+                            // § ifcTaskFixupWalksAllStmts454 — the condition too
+                            if (lawOn(454, "R11U454_IFCWALKALL_OFF") &&
+                                ((const UHDM::if_else*)n9)->VpiCondition()) {
+                                lawTrace(454, "ifcTaskFixupWalksAllStmts454",
+                                         prefix + " if_else-cond " +
+                                             std::to_string(n9->VpiLineNo()) + ":" +
+                                             std::to_string(n9->VpiColumnNo()));
+                                walk9(((const UHDM::if_else*)n9)->VpiCondition());
+                            }
                             walk9(((const UHDM::if_else*)n9)->VpiStmt());
                             walk9(((const UHDM::if_else*)n9)->VpiElseStmt());
                             return;
@@ -57336,6 +57426,65 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                             if (t9 == UHDM::uhdmfor_stmt) {
                                 walk9(((const UHDM::for_stmt*)n9)->VpiCondition());
                                 walk9(((const UHDM::for_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                        }
+                        // § ifcTaskFixupWalksAllStmts454 (r11u454) — THE
+                        // INSTANTIATED INTERFACE'S SUBROUTINE BINDING REACHES
+                        // EVERY STATEMENT.  Surelog binds the shared
+                        // definition-view task body against the elaborated
+                        // interface during elaboration, whatever statement
+                        // holds the reference: an `if` without `else`, the
+                        // condition of an `if`/`else`, a `case` selector and
+                        // its items, a `forever` and a `do ... while` body,
+                        // and a `return` value.  The walk
+                        // stopped there (sv-tests uvm_use_models_bidir_get_put
+                        // and _item_done: bidirect_bus_driver_bfm::drive's
+                        // `if (req.read_not_write == 0) begin write_data <=
+                        // req.write_data; end`, golden bound to work@top_hdl.
+                        // bidirect_bus_drv.write_data, ours unbound; the
+                        // rows' next uhdm-cmp head).  Grid tools/probe/
+                        // r11u454repro/cases/IF.  Switch R11U454_IFCWALKALL_OFF.
+                        if (lawOn(454, "R11U454_IFCWALKALL_OFF")) {
+                            auto tr454 = [&]() {
+                                lawTrace(454, "ifcTaskFixupWalksAllStmts454",
+                                         prefix + " " + std::string(UHDM::UhdmName(t9)) + " " +
+                                             std::to_string(n9->VpiLineNo()) + ":" +
+                                             std::to_string(n9->VpiColumnNo()));
+                            };
+                            if (t9 == UHDM::uhdmif_stmt) {
+                                tr454();
+                                walk9(((const UHDM::if_stmt*)n9)->VpiCondition());
+                                walk9(((const UHDM::if_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmcase_stmt) {
+                                tr454();
+                                auto* cs454 = (const UHDM::case_stmt*)n9;
+                                walk9(cs454->VpiCondition());
+                                if (auto* its454 = cs454->Case_items())
+                                    for (auto* ci454 : *its454) {
+                                        if (auto* ex454 = ci454->VpiExprs())
+                                            for (auto* x454 : *ex454)
+                                                walk9(x454);
+                                        walk9(ci454->Stmt());
+                                    }
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmforever_stmt) {
+                                tr454();
+                                walk9(((const UHDM::forever_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmreturn_stmt) {
+                                tr454();
+                                walk9(((const UHDM::return_stmt*)n9)->VpiCondition());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmdo_while) {
+                                tr454();
+                                walk9(((const UHDM::do_while*)n9)->VpiCondition());
+                                walk9(((const UHDM::do_while*)n9)->VpiStmt());
                                 return;
                             }
                         }
