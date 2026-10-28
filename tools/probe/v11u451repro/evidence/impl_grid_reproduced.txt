@@ -1,0 +1,30 @@
+DI_di01 rc=0 cmp=685 dd=396 NOT_EQUAL stage1 md5=40f94d4f || rc=0 cmp=0 dd=376 STRICT_EQUAL 251 objects md5=a5184d8c || OFF==pris:y rcoff=rc=0
+DI_di02 rc=0 cmp=383 dd=396 NOT_EQUAL stage1 md5=19279080 || rc=0 cmp=35 dd=350 NOT_EQUAL stage1 md5=180a5e40 || OFF==pris:y rcoff=rc=0
+DI_di03 rc=0 cmp=823 dd=678 NOT_EQUAL stage1 md5=6aea8b3c || rc=0 cmp=0 dd=630 STRICT_EQUAL 353 objects md5=c1208624 || OFF==pris:y rcoff=rc=0
+DI_di04 rc=0 cmp=904 dd=458 NOT_EQUAL stage1 md5=6a79c8da || rc=0 cmp=930 dd=436 NOT_EQUAL stage1 md5=f313c166 || OFF==pris:y rcoff=rc=0
+DI_di05 rc=0 cmp=850 dd=719 NOT_EQUAL stage1 md5=330aa45e || rc=0 cmp=151 dd=681 NOT_EQUAL stage1 md5=881a666f || OFF==pris:y rcoff=rc=0
+DI_di06 rc=0 cmp=351 dd=657 NOT_EQUAL stage1 md5=00e713ad || rc=0 cmp=0 dd=464 STRICT_EQUAL 274 objects md5=ba6b5507 || OFF==pris:y rcoff=rc=0
+DI_di07 rc=0 cmp=802 dd=859 NOT_EQUAL stage1 md5=6c30560c || rc=0 cmp=0 dd=643 STRICT_EQUAL 380 objects md5=b7dba606 || OFF==pris:y rcoff=rc=0
+DI_di08 rc=0 cmp=203 dd=507 NOT_EQUAL stage1 md5=05c84b0b || rc=0 cmp=0 dd=381 STRICT_EQUAL 258 objects md5=9fc3d283 || OFF==pris:y rcoff=rc=0
+DN_dn01 rc=0 cmp=126 dd=2874 NOT_EQUAL stage1 md5=d04821bc || rc=0 cmp=126 dd=2674 NOT_EQUAL stage1 md5=a662861c || OFF==pris:y rcoff=rc=0
+DN_dn02 rc=0 cmp=446 dd=637 NOT_EQUAL stage1 md5=1a93828b || rc=0 cmp=472 dd=536 NOT_EQUAL stage1 md5=02491086 || OFF==pris:y rcoff=rc=0
+DN_dn03 rc=0 cmp=319 dd=248 NOT_EQUAL stage1 md5=2cb372b9 || rc=0 cmp=0 dd=216 STRICT_EQUAL 131 objects md5=d90a0703 || OFF==pris:y rcoff=rc=0
+NM_nm01 rc=4 cmp=68 dd=36 NOT_EQUAL stage1 md5=54b8a2ac || rc=0 cmp=0 dd=30 STRICT_EQUAL 23 objects md5=f03545ce || OFF==pris:y rcoff=rc=4
+NM_nm02 rc=4 cmp=15 dd=38 NOT_EQUAL stage1 md5=597fa7df || rc=0 cmp=0 dd=32 STRICT_EQUAL 25 objects md5=ebb8afa2 || OFF==pris:y rcoff=rc=4
+NM_nm03 rc=4 cmp=72 dd=40 NOT_EQUAL stage1 md5=a9113d11 || rc=0 cmp=0 dd=32 STRICT_EQUAL 26 objects md5=64dc6f17 || OFF==pris:y rcoff=rc=4
+NM_nm05 rc=0 cmp=0 dd=30 STRICT_EQUAL 20 objects md5=9c6b6ef8 || rc=0 cmp=0 dd=30 STRICT_EQUAL 20 objects md5=9c6b6ef8 || OFF==pris:y rcoff=rc=0
+NM_nm06 rc=4 cmp=92 dd=38 NOT_EQUAL stage1 md5=4e7ee04a || rc=0 cmp=0 dd=32 STRICT_EQUAL 27 objects md5=630bb482 || OFF==pris:y rcoff=rc=4
+NM_nm08 rc=4 cmp=68 dd=40 NOT_EQUAL stage1 md5=03578123 || rc=0 cmp=0 dd=34 STRICT_EQUAL 31 objects md5=b9a77017 || OFF==pris:y rcoff=rc=4
+NM_nm09 rc=4 cmp=68 dd=40 NOT_EQUAL stage1 md5=6b5932d4 || rc=0 cmp=0 dd=34 STRICT_EQUAL 28 objects md5=898df913 || OFF==pris:y rcoff=rc=4
+NM_nm10 rc=4 cmp=68 dd=34 NOT_EQUAL stage1 md5=f93d1596 || rc=0 cmp=0 dd=28 STRICT_EQUAL 22 objects md5=eadd8b63 || OFF==pris:y rcoff=rc=4
+NM_nm11 rc=4 cmp=37 dd=50 NOT_EQUAL stage1 md5=c95ee01f || rc=0 cmp=0 dd=32 STRICT_EQUAL 37 objects md5=5423bc5d || OFF==pris:y rcoff=rc=4
+NM_nm12 rc=4 cmp=68 dd=46 NOT_EQUAL stage1 md5=9495792a || rc=0 cmp=0 dd=34 STRICT_EQUAL 28 objects md5=96378d98 || OFF==pris:y rcoff=rc=4
+TV_tv01 rc=0 cmp=336 dd=42 NOT_EQUAL stage1 md5=ff1266d3 || rc=0 cmp=0 dd=30 STRICT_EQUAL 23 objects md5=072db60f || OFF==pris:y rcoff=rc=0
+TV_tv02 rc=0 cmp=372 dd=44 NOT_EQUAL stage1 md5=c4d11744 || rc=0 cmp=0 dd=32 STRICT_EQUAL 25 objects md5=3b0080d6 || OFF==pris:y rcoff=rc=0
+TV_tv03 rc=0 cmp=434 dd=51 NOT_EQUAL stage1 md5=498c208f || rc=0 cmp=0 dd=32 STRICT_EQUAL 27 objects md5=19fcf573 || OFF==pris:y rcoff=rc=0
+TV_tv04 rc=0 cmp=508 dd=46 NOT_EQUAL stage1 md5=5d4a6d1d || rc=0 cmp=0 dd=34 STRICT_EQUAL 37 objects md5=ff361e9e || OFF==pris:y rcoff=rc=0
+TV_tv05 rc=0 cmp=444 dd=126 NOT_EQUAL stage1 md5=5e171783 || rc=0 cmp=444 dd=126 NOT_EQUAL stage1 md5=5e171783 || OFF==pris:y rcoff=rc=0
+TV_tv07 rc=0 cmp=396 dd=44 NOT_EQUAL stage1 md5=835142b9 || rc=0 cmp=0 dd=32 STRICT_EQUAL 25 objects md5=54e3594e || OFF==pris:y rcoff=rc=0
+TV_tv08 rc=0 cmp=380 dd=42 NOT_EQUAL stage1 md5=62d9be05 || rc=0 cmp=0 dd=30 STRICT_EQUAL 25 objects md5=258590d4 || OFF==pris:y rcoff=rc=0
+TV_tv09 rc=0 cmp=34 dd=46 NOT_EQUAL stage1 md5=d7628f5f || rc=0 cmp=0 dd=34 STRICT_EQUAL 25 objects md5=d02a5633 || OFF==pris:y rcoff=rc=0
+TV_tv10 rc=0 cmp=416 dd=42 NOT_EQUAL stage1 md5=8fe33993 || rc=0 cmp=0 dd=30 STRICT_EQUAL 27 objects md5=fc52b03a || OFF==pris:y rcoff=rc=0

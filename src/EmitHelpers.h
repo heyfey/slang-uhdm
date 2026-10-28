@@ -3811,6 +3811,9 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
             };
         return walk217v(from);
     };
+    // § diamondImportListsPerPath451: packages a visited set would have
+    // stopped under the current item (trace only).
+    std::set<const PackageSymbol*> ever451;
     std::function<void(const PackageSymbol&, std::set<const PackageSymbol*>&,
                        bool, std::vector<const slang::ast::Symbol*>&)>
         listing217 = [&](const PackageSymbol& p,
@@ -3865,19 +3868,38 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                 // § 217v (2): an edge on a cycle hoists nothing.
                 if (reachesBack217v(*q217, p))
                     continue;
+                if (root217 && lawTraceOn(451)) {
+                    ever451.clear();
+                    ever451.insert(q217);
+                }
                 if (root217) {
                     std::set<const PackageSymbol*> item217v{&p};
                     if (item217v.insert(q217).second)
                         listing217(*q217, item217v, false, one203);
                 }
-                else if (seen217.insert(q217).second)
+                else if (seen217.insert(q217).second) {
                     listing217(*q217, seen217, false, one203);
+                    // § diamondImportListsPerPath451 (ParamEmit, the
+                    // package's own listing) — the module's copy of P is P's
+                    // listing, so the set is a PATH guard here too: a package
+                    // reached again along another path under one import item
+                    // is listed again (golden's top_tb in
+                    // uvm_generation_seq_poly lists uvm_pkg's entries eight
+                    // times, the visited set gave seven).
+                    if (lawOn(451, "R11U451_DIAMONDVARS_OFF")) {
+                        seen217.erase(q217);
+                        if (lawTraceOn(451) && !ever451.insert(q217).second)
+                            lawTrace(451, "diamondImportListsPerPath451",
+                                     "fire module-copy " + std::string(q217->name));
+                    }
+                }
             }
             flush203(slang::SourceLocation(), true);
         };
     for (auto& [pkg, copies] : collectMaterializedPkgs(body)) {
         std::vector<const slang::ast::Symbol*> one203;
         std::set<const PackageSymbol*> seen217{pkg};
+
         listing217(*pkg, seen217, /*root217=*/true, one203);
         for (int i = 0; i < copies; i++)
             outAll.insert(outAll.end(), one203.begin(), one203.end());

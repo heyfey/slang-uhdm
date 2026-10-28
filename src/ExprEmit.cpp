@@ -41424,6 +41424,125 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         }
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
+            // § taskNameReadImplicitNet451 (R11U451_TASKVAL_OFF; cases
+            // tools/probe/r11u451repro/cases/TV, the v11u448 case VA/va23) —
+            // a TASK name read as a value with no parentheses (`task
+            // automatic t(); endtask initial $display("%b", t);`) in a module
+            // slang never elaborates: Surelog's value lookup does not see
+            // subroutines, so its netlist elaboration mints the implicit wire
+            // at the read exactly as for an undeclared name (§
+            // undeclaredReadImplicitNet447): golden `logic_net (work@m.t)
+            // 4:26-4:27`, vpiNetType 1, listed among the implicit wires in
+            // source order, with the read `ref_obj (work@m.t)` bound to it,
+            // where we wrote a task_call bound to the task.  Only where §
+            // 447's writer runs: a module body being written whose definition
+            // is the current scope's (an elaborated module never reaches
+            // here: slang rejects a task used as a value).
+            // Not a call STATEMENT (`t;`, cases/TV/tv08), which golden keeps
+            // a task_call bound to the task.
+            if (!call.isSystemCall() && !callStmtContext && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IdentifierName &&
+                call.arguments().empty() && implicitNetModule &&
+                implicitNetModule->UhdmType() == UHDM::uhdmmodule_inst &&
+                !letDeclScope && !propDeclScope && currentScope)
+                if (auto* sr451 = std::get_if<const SubroutineSymbol*>(&call.subroutine);
+                    sr451 && *sr451 && (*sr451)->subroutineKind == SubroutineKind::Task) {
+                    const Scope* b451 = currentScope;
+                    while (b451 && b451->asSymbol().kind != SymbolKind::InstanceBody)
+                        b451 = b451->asSymbol().getParentScope();
+                    bool ok451 =
+                        b451 &&
+                        implicitNetModule->VpiDefName() ==
+                            "work@" + std::string(b451->asSymbol()
+                                                      .as<InstanceBodySymbol>()
+                                                      .getDefinition()
+                                                      .name);
+                    if (ok451 && lawOn(451, "R11U451_TASKVAL_OFF")) {
+                        std::string nm451((*sr451)->name);
+                        lawTrace(451, "taskNameReadImplicitNet451", "fire " + nm451);
+                        auto* r451 = s.MakeRef_obj();
+                        r451->VpiName(nm451);
+                        r451->VpiFullName(joinRef(prefix, nm451));
+                        r451->VpiParent(parent);
+                        SourceRange nr451 = expr.syntax->sourceRange();
+                        setLoc(r451, nr451);
+                        // § taskValBareRefGenNone451v (v11u451; cases
+                        // tools/probe/v11u451repro/cases/VT) — Surelog mints
+                        // no wire and leaves the read a bare ref_obj (no
+                        // vpiActual) in two places the law minted one: a read
+                        // inside a generate block (`if (1) begin : g initial
+                        // $display("%b", t); end`, golden `ref_obj
+                        // (work@m.g.t)` with no wire, VT/vt09, vt11, vt12;
+                        // switch R11V451_TASKVALGEN_OFF) and a module under
+                        // `default_nettype none (Surelog's `Illegal implicit
+                        // net`, the rule of § noneNetTypeBareRef447v; VT/vt07;
+                        // switch R11V451_TASKVALNONE_OFF).
+                        bool gen451v = false;
+                        for (const Scope* g451v = currentScope; g451v && g451v != b451;
+                             g451v = g451v->asSymbol().getParentScope())
+                            if (g451v->asSymbol().kind == SymbolKind::GenerateBlock)
+                                gen451v = true;
+                        // The definition view writes a generate block's
+                        // processes with the module body as the current
+                        // scope, so the syntax is asked too.
+                        for (const syntax::SyntaxNode* sy451v = expr.syntax->parent; sy451v && !gen451v;
+                             sy451v = sy451v->parent) {
+                            if (sy451v->kind == syntax::SyntaxKind::ModuleDeclaration)
+                                break;
+                            if (sy451v->kind == syntax::SyntaxKind::GenerateBlock ||
+                                sy451v->kind == syntax::SyntaxKind::IfGenerate ||
+                                sy451v->kind == syntax::SyntaxKind::LoopGenerate ||
+                                sy451v->kind == syntax::SyntaxKind::CaseGenerate ||
+                                sy451v->kind == syntax::SyntaxKind::GenerateRegion)
+                                gen451v = true;
+                        }
+                        bool none451v = b451->asSymbol()
+                                            .as<InstanceBodySymbol>()
+                                            .getDefinition()
+                                            .defaultNetType.isError();
+                        if ((gen451v && fixOn(451, "R11V451_TASKVALGEN_OFF")) ||
+                            (none451v && fixOn(451, "R11V451_TASKVALNONE_OFF"))) {
+                            lawTrace(451, "taskValBareRefGenNone451v",
+                                     (gen451v ? "gen " : "none ") + nm451);
+                            return r451;
+                        }
+                        auto* mod451 = implicitNetModule;
+                        size_t before451 = mod451->Nets() ? mod451->Nets()->size() : 0;
+                        if (auto* n451 = mintImplicitNet403(
+                                s, mod451, implicitNetPrefix, nm451, nr451,
+                                [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); })) {
+                            r451->Actual_group(n451);
+                            // The wire's slot among the implicit wires, as §
+                            // 447 places it.
+                            auto* nets451 = mod451->Nets();
+                            if (nets451 && nets451->size() == before451 + 1 &&
+                                nets451->back() == n451) {
+                                std::set<std::string_view> imp451;
+                                for (auto& mem451 : b451->members())
+                                    if (mem451.kind == SymbolKind::Net &&
+                                        mem451.as<NetSymbol>().isImplicit)
+                                        imp451.insert(mem451.name);
+                                for (auto* m451 : implicitNetMints131())
+                                    if (auto* a451 = dynamic_cast<UHDM::any*>(m451);
+                                        a451 && a451 != n451 && a451->VpiParent() == mod451)
+                                        imp451.insert(a451->VpiName());
+                                int ln451 = n451->VpiLineNo(), cl451 = n451->VpiColumnNo();
+                                for (size_t i451 = 0; i451 + 1 < nets451->size(); ++i451) {
+                                    auto* o451 = (*nets451)[i451];
+                                    if (!imp451.count(o451->VpiName()))
+                                        continue;
+                                    int ol451 = o451->VpiLineNo(), oc451 = o451->VpiColumnNo();
+                                    if (ol451 > ln451 || (ol451 == ln451 && oc451 > cl451)) {
+                                        nets451->pop_back();
+                                        nets451->insert(nets451->begin() + i451, n451);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                        return r451;
+                    }
+                }
             // § stdRandomizeIsScopeRef403 (r11u403, R11U403_STDRAND_OFF) —
             // `std::randomize(...)` is not a call in Surelog's database: the
             // scope-qualified name compiles to ONE ref_obj.  Without a `with`
@@ -59603,6 +59722,83 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     rb447->VpiParent(parent);
                     setLoc(rb447, expr.syntax->sourceRange());
                     return rb447;
+                }
+            }
+            // § nestedModUndeclReadBare451 (R11U451_NESTREAD_OFF; cases
+            // tools/probe/r11u451repro/cases/NM, the r11u448 case AD/ad07) —
+            // a module DEFINED INSIDE a never-elaborated module (`module m
+            // ...; module nest; initial $display("%b", undecl_x); endmodule`)
+            // is listed by Surelog as `work@m::nest`, and its read of an
+            // undeclared name stays a bare ref_obj (`work@m.work@m::
+            // nest.undecl_x`, no vpiActual) with no implicit wire minted in
+            // either module.  scopeOk447 compares the listing's def name
+            // with `work@nest` and abstained, so the run exited 4 on
+            // `expression kind: Invalid` where upstream slang and Surelog
+            // accept the source.  Same declared-name and nested-type
+            // abstentions as the interface writer above.
+            auto scopeNest451 = [&](const UHDM::instance* m451) {
+                const Scope* b451 = currentScope;
+                while (b451 && b451->asSymbol().kind != SymbolKind::InstanceBody)
+                    b451 = b451->asSymbol().getParentScope();
+                if (!b451 || !m451)
+                    return false;
+                auto& def451 = b451->asSymbol().as<InstanceBodySymbol>().getDefinition();
+                auto* ps451 = def451.getParentScope();
+                if (!ps451 || ps451->asSymbol().kind != SymbolKind::InstanceBody)
+                    return false;
+                auto& outer451 = ps451->asSymbol().as<InstanceBodySymbol>().getDefinition();
+                return m451->VpiDefName() == "work@" + std::string(outer451.name) +
+                                                 "::" + std::string(def451.name);
+            };
+            if (!iv2.child && !letDeclScope && !propDeclScope && mod447 &&
+                mod447->UhdmType() == UHDM::uhdmmodule_inst && expr.syntax &&
+                expr.syntax->kind == syntax::SyntaxKind::IdentifierName && currentScope &&
+                !scopeOk447(mod447) && scopeNest451(mod447) &&
+                lawOn(451, "R11U451_NESTREAD_OFF")) {
+                auto& in451 = expr.syntax->as<syntax::IdentifierNameSyntax>();
+                std::string_view nm451 = in451.identifier.valueText();
+                bool decl451 = nm451.empty() || in451.identifier.isMissing();
+                const Symbol* found451 = nullptr;
+                for (auto* sc451 = currentScope; sc451 && !decl451;
+                     sc451 = sc451->asSymbol().getParentScope()) {
+                    if (auto* f451 = sc451->find(nm451)) {
+                        decl451 = true;
+                        found451 = f451;
+                    }
+                    if (sc451->asSymbol().kind == SymbolKind::InstanceBody)
+                        break;
+                }
+                // A net or variable the nested body declares AFTER the read
+                // binds by name, the rule of § undeclaredReadLaterDecl447:
+                // golden `ref_obj (work@m.work@m::nest.late_z)` bound to the
+                // nested listing's `logic_net` 3:53 (cases/NM/nm03).
+                if (found451 && found451->getParentScope() &&
+                    found451->getParentScope()->asSymbol().kind == SymbolKind::InstanceBody &&
+                    (found451->kind == SymbolKind::Variable ||
+                     (found451->kind == SymbolKind::Net &&
+                      !found451->as<NetSymbol>().isImplicit))) {
+                    auto it451 = netMap.find(found451);
+                    if (it451 != netMap.end() && it451->second) {
+                        lawTrace(451, "nestedModUndeclReadBare451", "late " + std::string(nm451));
+                        auto* rl451 = s.MakeRef_obj();
+                        rl451->VpiName(nm451);
+                        rl451->VpiFullName(joinRef(prefix, std::string(nm451)));
+                        rl451->VpiParent(parent);
+                        setLoc(rl451, expr.syntax->sourceRange());
+                        rl451->Actual_group(it451->second);
+                        return rl451;
+                    }
+                }
+                if (decl451 || typeDeclAnywhere447(nm451))
+                    lawTrace(451, "nestedModUndeclReadBare451", "abstain " + std::string(nm451));
+                else {
+                    lawTrace(451, "nestedModUndeclReadBare451", "fire " + std::string(nm451));
+                    auto* rb451 = s.MakeRef_obj();
+                    rb451->VpiName(nm451);
+                    rb451->VpiFullName(joinRef(prefix, std::string(nm451)));
+                    rb451->VpiParent(parent);
+                    setLoc(rb451, expr.syntax->sourceRange());
+                    return rb451;
                 }
             }
             if (!iv2.child && !letDeclScope && !propDeclScope && mod447 &&

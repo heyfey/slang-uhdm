@@ -9692,9 +9692,16 @@ struct ImpOcc9 {
 // package parameter materializes it as a module-local parameter (Surelog sets
 // vpiImported = the package name). A QUALIFIED reference (pkg::P) with no
 // import does NOT materialize it (ParameterColonReference, PkgParamAsFunctionArg).
+// § diamondImportParamAssignsPerPath451: `assignOnly451`, when given, receives
+// the indices into `occOut` of the repeat occurrences (a param_assign with no
+// Parameters entry).  It is a side list, not an ImpOcc9 field, so the
+// occurrence records keep their layout and nothing is allocated where the law
+// does not fire (struct_param_func_config's unreferenced typespec parents
+// follow the allocation pattern).
 static void collectImportedParams(
     const Scope& body, std::vector<ImpOcc9>& occOut,
-    const std::function<bool(SourceLocation, SourceLocation)>& locLess) {
+    const std::function<bool(SourceLocation, SourceLocation)>& locLess,
+    std::vector<size_t>* assignOnly451 = nullptr) {
     std::set<const Symbol*> wildcardPkgs; // packages wildcard-imported
     std::set<const Symbol*> explicitSyms; // explicitly imported symbols
     // Surelog materializes imports ONE IMPORT ITEM AT A TIME, in source order
@@ -9734,13 +9741,20 @@ static void collectImportedParams(
     // and its param loops only filter by object_name — they never ask whether
     // anything uses the name.  Witnessed on a module whose `import pu::AU;` is
     // never referenced: the golden still lists AU in both module vectors.
+    // § diamondImportParamAssignsPerPath451: set when the de-duplicating walk
+    // below meets a package it already visited under the current item; the
+    // full walk runs only then.
+    bool repeat451 = false;
     std::function<void(const Symbol*, std::set<const Symbol*>&,
                        std::vector<const ParameterSymbol*>&)>
         collectPkgParams = [&](const Symbol* pkgSym,
                                std::set<const Symbol*>& vis,
                                std::vector<const ParameterSymbol*>& acc) {
-            if (!pkgSym || !vis.insert(pkgSym).second)
+            if (!pkgSym || !vis.insert(pkgSym).second) {
+                if (pkgSym)
+                    repeat451 = true;
                 return;
+            }
             auto& psc = pkgSym->as<PackageSymbol>();
             for (auto& pm : psc.members()) {
                 if (pm.kind == SymbolKind::Parameter)
@@ -9836,13 +9850,69 @@ static void collectImportedParams(
                 wildcardPkgs.insert(p);
                 std::set<const Symbol*> vis; // PER-ITEM: a diamond re-export
                 std::vector<const ParameterSymbol*> acc; // lists once per item
+                repeat451 = false;
                 collectPkgParams(p, vis, acc);
+                // § diamondImportParamAssignsPerPath451
+                // (R11U451_DIAMONDPA_OFF) — THE PARAM_ASSIGN VECTOR IS NOT
+                // DE-DUPLICATED, THE PARAMETERS VECTOR IS.
+                // `CompileHelper::importPackage` fills the importer's
+                // Parameters from the imported package's getParameterMap()
+                // (a map: one entry per NAME) but its Param_assigns from
+                // getParamAssignVec() (a vector holding every copy that
+                // package itself materialized), so a package reached twice
+                // under one import item contributes its parameters once and
+                // its param_assigns once per PATH: golden's test_lib_pkg in
+                // uvm_generation_seq_poly lists 123 parameters and 164
+                // param_assigns (uvm_pkg's 41 under the uvm_pkg item, 41
+                // under bus_agent_pkg, 82 under bus_seq_lib_pkg), and its
+                // top_tb 164 and 328.  The repeats ride as assign-only
+                // occurrences at their own slot of the full walk; the walk
+                // abstains when its first occurrences do not reproduce the
+                // de-duplicated list (a cycle).  Grid
+                // tools/probe/r11u451repro/cases/DI.
+                std::vector<const ParameterSymbol*> full451;
+                bool use451 = repeat451 && lawOn(451, "R11U451_DIAMONDPA_OFF");
+                if (use451) {
+                    std::set<const Symbol*> path451;
+                    std::function<void(const Symbol*)> walk451 =
+                        [&](const Symbol* ps451) {
+                            if (!ps451 || !path451.insert(ps451).second)
+                                return;
+                            for (auto& pm : ps451->as<PackageSymbol>().members()) {
+                                if (pm.kind == SymbolKind::Parameter)
+                                    full451.push_back(&pm.as<ParameterSymbol>());
+                                else if (pm.kind == SymbolKind::WildcardImport)
+                                    walk451(pm.as<WildcardImportSymbol>()
+                                                .getPackage());
+                            }
+                            path451.erase(ps451);
+                        };
+                    walk451(p);
+                    std::vector<const ParameterSymbol*> first451;
+                    std::set<const ParameterSymbol*> fs451;
+                    for (auto* pp : full451)
+                        if (fs451.insert(pp).second)
+                            first451.push_back(pp);
+                    if (first451 != acc) {
+                        use451 = false;
+                        lawTrace(451, "diamondImportParamAssignsPerPath451",
+                                 std::string("abstain ") + std::string(p->name));
+                    }
+                    else if (full451.size() != acc.size())
+                        lawTrace(451, "diamondImportParamAssignsPerPath451",
+                                 std::string("fire ") + std::string(p->name) +
+                                     " " + std::to_string(acc.size()) + "->" +
+                                     std::to_string(full451.size()));
+                }
                 size_t sub = 0;
-                for (auto* pp : acc) {
+                std::set<const ParameterSymbol*> once451;
+                for (auto* pp : use451 ? full451 : acc) {
                     ImpOcc9 o{pp, item9, sub++, {}};
                     if (pp->getParentScope() &&
                         &pp->getParentScope()->asSymbol() != p)
                         o.src = std::string(p->name);
+                    if (use451 && assignOnly451 && !once451.insert(pp).second)
+                        assignOnly451->push_back(occ.size());
                     occ.push_back(o);
                 }
                 item9++;
@@ -10022,6 +10092,9 @@ static void collectImportedParams(
     size_t tail9 = 0;
     for (auto* fp : found)
         occ.push_back({fp, item9, tail9++, {}});
+    if (assignOnly451 && !assignOnly451->empty() && !occOut.empty())
+        for (auto& ix451 : *assignOnly451)
+            ix451 += occOut.size();
     occOut.insert(occOut.end(), occ.begin(), occ.end());
 }
 
@@ -10848,11 +10921,17 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // body-declared param).
     std::vector<ImpOcc9> impOcc9;
     std::vector<const ImpOcc9*> paramImp9(paramSyms.size(), nullptr);
+    // § diamondImportParamAssignsPerPath451: the assign-only occurrences.
+    std::vector<size_t> aoIdx451;
+    std::set<const ImpOcc9*> aoOcc451;
     if (!funcScope) {
         collectImportedParams(body, impOcc9,
                               [this](SourceLocation a, SourceLocation b) {
                                   return srcOrderLess(a, b);
-                              });
+                              },
+                              &aoIdx451);
+        for (size_t ix451 : aoIdx451)
+            aoOcc451.insert(&impOcc9[ix451]);
         for (auto& o9 : impOcc9) {
             paramSyms.push_back(o9.sym);
             paramImp9.push_back(&o9);
@@ -11002,6 +11081,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // is keyed by object identity, never by name (a re-exported param appears
     // under two items with the same name).
     std::vector<std::pair<UHDM::any*, size_t>> matObj9;
+    // § diamondImportParamAssignsPerPath451: the Parameters entries of the
+    // assign-only occurrences, dropped from `params` after the loop.
+    std::set<UHDM::any*> assignOnly451;
     // § elabStructMemberFold — struct params whose Rhs THIS view reduced to
     // the flat op75 (per-member constant list).  A LATER param in the same
     // listing that reads one of their MEMBERS folds to that member's constant
@@ -12508,6 +12590,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         params->push_back(up);
+        if (occ9 && !aoOcc451.empty() && aoOcc451.count(occ9))
+            assignOnly451.insert((UHDM::any*)up);
         if (occ9)
             matObj9.push_back({(UHDM::any*)up, occ9->item});
         if (!isImported)
@@ -29825,6 +29909,18 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // by name: a re-exported param is materialized once per import item, so
     // two entries share a name and only their items tell them apart
     // (BlackBePipeInt — § impOcc).
+    if (!assignOnly451.empty()) {
+        params->erase(std::remove_if(params->begin(), params->end(),
+                                     [&](UHDM::any* a451) {
+                                         return assignOnly451.count(a451) != 0;
+                                     }),
+                      params->end());
+        matObj9.erase(std::remove_if(matObj9.begin(), matObj9.end(),
+                                     [&](auto& e451) {
+                                         return assignOnly451.count(e451.first) != 0;
+                                     }),
+                      matObj9.end());
+    }
     if (!matObj9.empty()) {
         std::map<const UHDM::any*, size_t> matItem9;
         for (auto& [o9, it9] : matObj9)
@@ -44169,7 +44265,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 ts->VpiEndColumnNo(sm->getColumnNumber(de280));
             }
         };
-        auto emitOne9 = [&](const ValueSymbol& vs, bool own9) {
+        auto emitOne9 = [&](const ValueSymbol& vs, bool own9,
+                            bool left451 = false) {
             const DeclaredType* dt = vs.getDeclaredType();
             if (!dt)
                 return;
@@ -44215,7 +44312,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // where the pre-79 road happened to build the same class):
             // a predicted mover that does not move costs nothing, an
             // unpredicted one convicts the law.
-            if (pkgCellDbg79()) {
+            // § pkgDupSignalLeftoverNet451 — a repeated NET occurrence is
+            // already listed per occurrence; only a variable leaves a
+            // leftover net.
+            if (left451 && isNet79)
+                return;
+            if (pkgCellDbg79() && !left451) {
                 const bool preNet79 =
                     anonPacked || !(!ct.isIntegral() || ct.isEnum() ||
                                     dt->getType().kind != SymbolKind::TypeAlias);
@@ -44256,7 +44358,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // binary.  It over-predicts by design: an entry whose two readings
             // agree is SAME even though LAW C may still have moved its slot,
             // which the ORDER row below covers.
-            if (pkgCloneDbg84()) {
+            if (pkgCloneDbg84() && !left451) {
                 auto vkView84 = pkgListKind79(vs, topView);
                 auto vkElab84 = pkgListKind79(vs, true);
                 int32_t ntView84 = pkgNetTypeForView79(vs, topView);
@@ -44271,7 +44373,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         (int)ntView84, (int)ntElab84,
                         moved84 ? "MOVED" : "SAME");
             }
-            if (!isNet79) {
+            if (!isNet79 && !left451) {
                 emitPackageVar(vs, up, prefix, pvars);
                 return;
             }
@@ -44280,6 +44382,37 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             n->VpiFullName(prefix + std::string(vs.name));
             n->VpiParent(up);
             setLoc(n, nameSpan(vs.location, vs.name));
+            if (left451) {
+                // § pkgDupSignalLeftoverNet451 — UhdmWriter::writeNets
+                // stamps getVpiNetType(signal type): the written keyword
+                // logic gives vpiLogicNet (36), reg vpiReg (48), every
+                // other variable type none.
+                // § leftNetVarKwNoType451v (v11u451, R11V451_LEFTVARKW_OFF;
+                // cases tools/probe/v11u451repro/cases/VL vl01, vl09) — a
+                // declaration written with the `var` keyword (`var logic [1:0]
+                // vv;`) gives no net type in golden: the signal's type node
+                // is the `var` keyword, not `logic`.
+                bool varKw451v = false;
+                if (auto* dsy451v = vs.getSyntax();
+                    dsy451v && dsy451v->parent &&
+                    dsy451v->parent->kind == syntax::SyntaxKind::DataDeclaration)
+                    for (auto mt451v :
+                         dsy451v->parent->as<syntax::DataDeclarationSyntax>().modifiers)
+                        if (mt451v.kind == parsing::TokenKind::VarKeyword)
+                            varKw451v = true;
+                if (varKw451v && fixOn(451, "R11V451_LEFTVARKW_OFF"))
+                    lawTrace(451, "leftNetVarKwNoType451v", prefix + std::string(vs.name));
+                else if (auto* tsy451 = dt->getTypeSyntax()) {
+                    if (tsy451->kind == syntax::SyntaxKind::LogicType)
+                        n->VpiNetType(vpiLogicNet);
+                    else if (tsy451->kind == syntax::SyntaxKind::RegType)
+                        n->VpiNetType(vpiReg);
+                }
+                lawTrace(451, "pkgDupSignalLeftoverNet451",
+                         "fire " + prefix + std::string(vs.name));
+            }
+            else
+            {
             // § caPkgListingNetTypeIsPerView79 (LAW C) — the def view carries
             // the NET KEYWORD and the elaborated one the written base keyword
             // through exactly ONE typedef hop.  With the switch off the
@@ -44291,6 +44424,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             }
             else if (int32_t nt79 = pkgNetTypeForView79(vs, readTop84))
                 n->VpiNetType(nt79);
+            }
             // The net's typespec ref is named after the NET (my_package1::v)
             // and resolves to this view's shared package typedef object.
             UHDM::typespec* nts = nullptr;
@@ -44353,6 +44487,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             // eight net keywords; `z3_pkgtdnet`'s anonymous struct).
             else if (!pkgNetOff79()) {
                 if (auto* ets79 = makeTypespec(vs)) {
+                    // § pkgDupSignalLeftoverNet451 — compileTypespec names a
+                    // class typespec after the class (golden `clp`'s
+                    // class_typespec uvm_cmdline_processor at 715:5).
+                    if (left451 && ets79->VpiName().empty() &&
+                        ets79->UhdmType() == UHDM::uhdmclass_typespec) {
+                        const Type* et451 = &dt->getType();
+                        while (et451->isUnpackedArray())
+                            et451 = et451->getArrayElementType();
+                        auto& ec451 = et451->getCanonicalType();
+                        if (ec451.isClass())
+                            ets79->VpiName(std::string(ec451.name));
+                    }
                     // § pkgNetTsDimEnd274 (r11u274) — THE PACKAGE'S OWN NET
                     // LISTING TAKES WRITENETS' END-ONLY STRETCH TOO.  Surelog
                     // lists a package net through the same
@@ -44372,7 +44518,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     // tools/probe/r11u274repro/cases/PN.  Switch
                     // R11U274_PKGNETDIMEND_OFF.
                     if (ets79->VpiLineNo() != 0 && ets79->VpiName().empty() &&
-                        vs.kind == SymbolKind::Net &&
+                        (vs.kind == SymbolKind::Net || left451) &&
                         lawOn(274, "R11U274_PKGNETDIMEND_OFF")) {
                         SourceLocation de274 = SourceLocation::NoLocation;
                         auto dck274 = dt->getType().getCanonicalType().kind;
@@ -44470,6 +44616,34 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             ets79->VpiEndColumnNo(sm->getColumnNumber(de274));
                         }
                     }
+                    // § leftNetInitEnd451v (v11u451, R11V451_LEFTINITEND_OFF;
+                    // cases tools/probe/v11u451repro/cases/VL vl09, vl10) —
+                    // a leftover net of a variable written with an
+                    // initializer and no unpacked dimension takes the
+                    // writeNets stretch to the END OF THE INITIALIZER (the
+                    // node Surelog passes as the dimensions is the
+                    // assignment's expression): `int vi = 5;` golden
+                    // 2:12-2:22, `logic [3:0] li = 4'h3;` 2:24-2:45, `int x1,
+                    // x2 = 3;` only x2's 2:12-2:26.  An unpacked dimension
+                    // keeps § pkgNetTsDimEnd274's end; only the anonymous
+                    // typespec minted here moves; a macro end abstains.
+                    if (left451 && ets79->VpiLineNo() != 0 && ets79->VpiName().empty()) {
+                        auto* ds451v = vs.getSyntax();
+                        if (ds451v && ds451v->kind == syntax::SyntaxKind::Declarator) {
+                            auto& dd451v = ds451v->as<syntax::DeclaratorSyntax>();
+                            if (dd451v.dimensions.empty() && dd451v.initializer &&
+                                fixOn(451, "R11V451_LEFTINITEND_OFF")) {
+                                SourceLocation ie451v =
+                                    dd451v.initializer->expr->sourceRange().end();
+                                if (!sm->isMacroLoc(ie451v)) {
+                                    lawTrace(451, "leftNetInitEnd451v",
+                                             prefix + std::string(vs.name));
+                                    ets79->VpiEndLineNo(sm->getLineNumber(ie451v));
+                                    ets79->VpiEndColumnNo(sm->getColumnNumber(ie451v));
+                                }
+                            }
+                        }
+                    }
                     // § pkgNetNamedTsDimEnd280 (r11u280) — A NAMED ELEMENT
                     // TYPE TAKES THE SAME STRETCH, ON THE SHARED OBJECT.
                     // UhdmWriter::writeNets asks compileTypespec for the
@@ -44516,11 +44690,60 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 pkgVarObjsAll9[&vs] = n;
             }
         };
+        // § pkgDupSignalLeftoverNet451 (R11U451_LEFTNET_OFF) — A REPEATED
+        // VARIABLE OCCURRENCE IS ALSO LISTED AS A NET.  The package's signal
+        // vector holds one entry per import path (§ diamondImportListsPerPath451),
+        // the SAME Signal object each time.  NetlistElaboration::
+        // elaboratePackages elaborates every entry (one vpiVariables entry
+        // each) and then erases the entries that are not nets from the
+        // vector, ONE erase per distinct Signal (a set, and the erase loop
+        // breaks at the first match), so every repeat of a variable stays in
+        // the vector and UhdmWriter::writePackage lists it through writeNets
+        // as a logic_net, in vector order among the real nets: golden's
+        // bus_seq_lib_pkg (uvm_pkg reached twice) lists uvm_pkg's 26
+        // variables a second time as nets, test_lib_pkg 78.  The net is
+        // writeNets' shape: the element typespec over the type syntax, its
+        // end at the first unpacked dimension, the net type of the written
+        // keyword.  Grid tools/probe/r11u451repro/cases/DN.
+        std::set<const Symbol*> sig451;
+        // The packages a visited set would have stopped (trace only).
+        std::set<const PackageSymbol*> everVars451;
+        const bool leftOn451 = lawOn(451, "R11U451_LEFTNET_OFF");
+        auto left451 = [&](const Symbol& sy451) {
+            if (leftOn451 && !sig451.insert(&sy451).second)
+                emitOne9(sy451.as<ValueSymbol>(), false, true);
+        };
         std::function<void(const PackageSymbol&, std::set<const PackageSymbol*>&)>
             impVars9 = [&](const PackageSymbol& q9,
                            std::set<const PackageSymbol*>& seen9) {
                 if (!seen9.insert(&q9).second)
                     return;
+                // § diamondImportListsPerPath451 (R11U451_DIAMONDVARS_OFF) —
+                // A DIAMOND INSIDE ONE IMPORT ITEM IS NOT DE-DUPLICATED.
+                // `CompileHelper::importPackage` appends the imported
+                // package's whole signal vector, which already holds every
+                // clone that package itself materialized, so a package
+                // reached twice under one import item (test_lib_pkg imports
+                // bus_seq_lib_pkg, which imports uvm_pkg and bus_agent_pkg,
+                // which imports uvm_pkg again) is listed once per PATH:
+                // golden's test_lib_pkg lists uvm_pkg's 26 entries four
+                // times where the visited set gave three.  The set is a
+                // PATH guard now (erased on the way out), which still stops
+                // a cycle and only lets a package repeat when it is reached
+                // again along a different path.  Grid
+                // tools/probe/r11u451repro/cases/DI.
+                struct PathGuard451 {
+                    std::set<const PackageSymbol*>* s;
+                    const PackageSymbol* p;
+                    ~PathGuard451() {
+                        if (s)
+                            s->erase(p);
+                    }
+                } pg451{lawOn(451, "R11U451_DIAMONDVARS_OFF") ? &seen9 : nullptr,
+                        &q9};
+                if (pg451.s && lawTraceOn(451) && !everVars451.insert(&q9).second)
+                    lawTrace(451, "diamondImportListsPerPath451",
+                             "fire " + prefix + " " + std::string(q9.name));
                 // The clone reproduces the home package's WHOLE listing, so
                 // it carries the home's hoisted out-of-body constructor
                 // locals too, at their own source slots (uvm_pkg lists 26
@@ -44539,7 +44762,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         // § hoistedLocalKeepsItsLifetime209 — the transitive
                         // clone carries the home listing's value too, and that
                         // value is `emitPackageVar`'s (grid arm F).
-                        emitPackageVar(*qh9[qi9++], up, prefix, pvars);
+                        emitPackageVar(*qh9[qi9], up, prefix, pvars);
+                        left451(*qh9[qi9++]);
                     }
                 };
                 // § caPkgCloneListingComesFirst84 (LAW C) — the home package's
@@ -44577,6 +44801,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             (!pkgNetOff79() && qm9.kind == SymbolKind::Net)) {
                             qflush9(qm9.location, false);
                             emitOne9(qm9.as<ValueSymbol>(), false);
+                            left451(qm9);
                         }
                         else if (qm9.kind == SymbolKind::WildcardImport) {
                             if (auto* r9 =
@@ -44595,8 +44820,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             auto& qei84 = qm9.as<ExplicitImportSymbol>();
                             if (auto* ev84 = pkgExplicitImportEntry84(
                                     comp.getPackage(qei84.packageName),
-                                    qei84.importName))
+                                    qei84.importName)) {
                                 emitOne9(*ev84, false);
+                                left451(*ev84);
+                            }
                         }
                     }
                 }
@@ -44684,6 +44911,7 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         flushHoist9(impAt8, false);
                     }
                     std::set<const PackageSymbol*> seen9{&pkg};
+                    everVars451.clear();
                     impVars9(*q9, seen9);
                     continue;
                 }
@@ -44717,8 +44945,10 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 std::string(ei84.importName).c_str(),
                                 (int)topView, std::string(pkg.name).c_str(),
                                 ev84 ? "MINT" : "NONE");
-                    if (ev84)
+                    if (ev84) {
                         emitOne9(*ev84, false);
+                        left451(*ev84);
+                    }
                     continue;
                 }
                 // § caPkgListingIsTheSignalVector79 (LAW A) — a package NET is

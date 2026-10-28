@@ -1,0 +1,1 @@
+Tue Oct 27 22:12:10 EDT 2026 PREDICTION: verified-sweep movers vs law sweep = subset of the leftover-firing rows above; 0 in probe/surelog/uhdm2rtlil/downstream; no sv-tests status change
