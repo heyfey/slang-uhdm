@@ -1,0 +1,31 @@
+VC/vc09 | rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=87e01691 | rc=0 cmp=0 STRICT_EQUAL 45 objects md5=e10748da | MOVED off=pris d=14->6 | vsTrailRangeColonJoin453:1 
+VC/vc10 | rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=98e85079 | rc=0 cmp=0 STRICT_EQUAL 98 objects md5=29c15826 | MOVED off=pris d=18->6 | vsTrailRangeColonJoin453:2 
+VC/vc11 | rc=0 cmp=50 NOT_EQUAL stage1 md5=efb894c9 | rc=0 cmp=50 NOT_EQUAL stage1 md5=baff473a | MOVED off=pris d=64->52 | vsTrailRangeColonJoin453:2 
+VC/vc12 | rc=0 cmp=140 NOT_EQUAL stage1 md5=9455df2a | rc=0 cmp=140 NOT_EQUAL stage1 md5=9bba04d7 | MOVED off=pris d=62->50 | vsTrailRangeColonJoin453:2 
+VB/vb09 | rc=0 cmp=376 NOT_EQUAL stage1 md5=045456b3 | rc=0 cmp=376 NOT_EQUAL stage1 md5=b6516713 | MOVED off=pris d=50->50 | hpVsParenBoundPretty453:1 vsTrailRangeParenStart453:1 
+VB/vb10 | rc=0 cmp=352 NOT_EQUAL stage1 md5=85eff640 | rc=0 cmp=0 STRICT_EQUAL 120 objects md5=ab8ee682 | MOVED off=pris d=40->8 | hpVsParenBoundPretty453:1 vsTrailRangeParenStart453:1 
+VB/vb11 | rc=0 cmp=456 NOT_EQUAL stage1 md5=b703e8c3 | rc=0 cmp=0 STRICT_EQUAL 128 objects md5=352030e2 | MOVED off=pris d=46->14 | hpVsParenBoundPretty453:1 vsTrailRangeParenStart453:1 
+VB/vb12 | rc=0 cmp=264 NOT_EQUAL stage1 md5=c4c068a8 | rc=0 cmp=0 STRICT_EQUAL 112 objects md5=b20dccc5 | MOVED off=pris d=28->2 | hpVsParenBoundPretty453:1 vsTrailRangeParenStart453:1 
+VB/vb13 | rc=0 cmp=208 NOT_EQUAL stage1 md5=d87b8150 | rc=0 cmp=208 NOT_EQUAL stage1 md5=c1c06d81 | MOVED off=pris d=22->22 | vsTrailRangeParenStart453:1 
+VB/vb14 | rc=0 cmp=408 NOT_EQUAL stage1 md5=d5cc2f53 | rc=0 cmp=0 STRICT_EQUAL 110 objects md5=88543b71 | MOVED off=pris d=38->14 | hpVsParenBoundPretty453:1 
+VR/vr09 | rc=0 cmp=0 STRICT_NOTEQUAL col md5=de5d873e | rc=0 cmp=0 STRICT_EQUAL 70 objects md5=cd6204bf | MOVED off=pris d=6->2 | vsTrailRangeParenStart453:1 
+VR/vr10 | rc=0 cmp=0 STRICT_NOTEQUAL col md5=be91a89a | rc=0 cmp=0 STRICT_EQUAL 76 objects md5=9a871135 | MOVED off=pris d=8->2 | vsTrailRangeParenStart453:2 
+VR/vr11 | rc=0 cmp=0 STRICT_NOTEQUAL col md5=241cb56c | rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4a994fda | MOVED off=pris d=8->6 | vsTrailRangeParenStart453:2 
+VR/vr12 | rc=0 cmp=0 STRICT_NOTEQUAL col md5=f11d9c1e | rc=0 cmp=0 STRICT_EQUAL 64 objects md5=a9230f6b | MOVED off=pris d=6->2 | vsTrailRangeParenStart453:1 
+VH/vh08 | rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=22b9b0ae | rc=0 cmp=0 STRICT_EQUAL 51 objects md5=15a868e3 | MOVED off=pris d=4->2 | hpPartSelParenRightEnd453:1 
+VH/vh09 | rc=0 cmp=0 STRICT_EQUAL 71 objects md5=50fddd73 | rc=0 cmp=0 STRICT_EQUAL 71 objects md5=50fddd73 | same off=pris d=6->6 | 
+VH/vh10 | rc=0 cmp=0 STRICT_NOTEQUAL endcol md5=9ac24b80 | rc=0 cmp=0 STRICT_EQUAL 81 objects md5=7a17ef37 | MOVED off=pris d=4->2 | hpPartSelParenRightEnd453:1 
+VX/vx08 | rc=0 cmp=229 NOT_EQUAL stage1 md5=e5ba0d90 | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=5c791360 | MOVED off=pris d=516->126 | pkgExplicitImpParamReExport453:8 
+VX/vx09 | rc=0 cmp=402 NOT_EQUAL stage1 md5=78cb6be7 | rc=0 cmp=91 NOT_EQUAL stage1 md5=d8440ba2 | MOVED off=pris d=148->36 | pkgExplicitImpParamReExport453:2 
+VX/vx10 | rc=0 cmp=82 NOT_EQUAL stage1 md5=ae8b3786 | rc=0 cmp=82 NOT_EQUAL stage1 md5=ae8b3786 | same off=pris d=8->8 | 
+VX/vx11 | rc=0 cmp=346 NOT_EQUAL stage1 md5=7e4e1e99 | rc=0 cmp=346 NOT_EQUAL stage1 md5=2e34466a | MOVED off=pris d=354->242 | pkgExplicitImpParamReExport453:2 
+VX/vx12 | rc=0 cmp=310 NOT_EQUAL stage1 md5=b1e8222f | rc=0 cmp=0 STRICT_EQUAL 97 objects md5=c531593c | MOVED off=pris d=128->70 | pkgExplicitImpParamReExport453:2 
+VX/vx13 | rc=0 cmp=147 NOT_EQUAL stage1 md5=26ba4494 | rc=0 cmp=0 STRICT_EQUAL 95 objects md5=2abe36ae | MOVED off=pris d=199->48 | pkgExplicitImpParamReExport453:3 
+VO/vo06 | rc=0 cmp=50 NOT_EQUAL stage1 md5=28eb1c70 | rc=0 cmp=50 NOT_EQUAL stage1 md5=535cbc2a | MOVED off=pris d=187->83 | pkgImpParamsAheadOfOwn453:2 
+VO/vo07 | rc=0 cmp=64 NOT_EQUAL stage1 md5=23dfaf8d | rc=0 cmp=64 NOT_EQUAL stage1 md5=bde0a357 | MOVED off=pris d=468->234 | pkgImpParamsAheadOfOwn453:6 
+VV/vv07 | rc=0 cmp=148 NOT_EQUAL stage1 md5=39d897e3 | rc=0 cmp=0 STRICT_EQUAL 72 objects md5=1ac5b385 | MOVED off=pris d=113->40 | pkgExplicitImpVarReExport453:4 
+VV/vv08 | rc=0 cmp=382 NOT_EQUAL stage1 md5=2a5ecd65 | rc=0 cmp=382 NOT_EQUAL stage1 md5=f0861c3e | MOVED off=pris d=242->149 | pkgExplicitImpVarReExport453:4 
+VV/vv09 | rc=0 cmp=174 NOT_EQUAL stage1 md5=7f96f19d | rc=0 cmp=0 STRICT_EQUAL 57 objects md5=93e62ae0 | MOVED off=pris d=49->22 | pkgExplicitImpVarReExport453:2 
+VM/vm06 | rc=0 cmp=0 STRICT_EQUAL 78 objects md5=3edf3309 | rc=0 cmp=0 STRICT_EQUAL 78 objects md5=3edf3309 | same off=pris d=46->46 | modCopyImportsFirst453:2 
+VM/vm07 | rc=0 cmp=56 NOT_EQUAL stage1 md5=2cd6d0d6 | rc=0 cmp=0 STRICT_EQUAL 61 objects md5=bf92db5b | MOVED off=pris d=86->28 | modCopyImportsFirst453:2 
+VM/vm08 | rc=0 cmp=56 NOT_EQUAL stage1 md5=f4a87356 | rc=0 cmp=0 STRICT_EQUAL 101 objects md5=ddb6f3b8 | MOVED off=pris d=162->36 | modCopyImportsFirst453:4 

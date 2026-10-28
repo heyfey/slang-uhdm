@@ -1,0 +1,19 @@
+TS/ts01 | rc=0 cmp=0 STRICT_EQUAL 128 objects | rc=0 cmp=0 STRICT_EQUAL 128 objects | same
+TS/ts02 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=64 NOT_EQUAL stage1 | same
+HS/hs01 | rc=0 cmp=0 STRICT_EQUAL 169 objects | rc=0 cmp=0 STRICT_EQUAL 169 objects | same
+HS/hs02 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_NOTEQUAL type | same
+IQ/iq01 | rc=0 cmp=0 STRICT_EQUAL 34 objects | rc=0 cmp=0 STRICT_EQUAL 34 objects | same
+IQ/iq02 | rc=0 cmp=0 STRICT_EQUAL 32 objects | rc=0 cmp=0 STRICT_EQUAL 32 objects | same
+IQ/iq03 | rc=0 cmp=0 STRICT_EQUAL 28 objects | rc=0 cmp=0 STRICT_EQUAL 28 objects | same
+IR/ir01 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir02 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir03 | rc=0 cmp=0 STRICT_EQUAL 47 objects | rc=0 cmp=0 STRICT_EQUAL 47 objects | same
+IR/ir04 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir05 | rc=0 cmp=32 NOT_EQUAL stage1 | rc=0 cmp=32 NOT_EQUAL stage1 | same
+IR/ir06 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir07 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir08 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir09 | rc=0 cmp=123 NOT_EQUAL stage1 | rc=0 cmp=123 NOT_EQUAL stage1 | same
+IR/ir10 | rc=0 cmp=35 NOT_EQUAL stage1 | rc=0 cmp=35 NOT_EQUAL stage1 | same
+IR/ir11 | rc=0 cmp=0 STRICT_EQUAL 35 objects | rc=0 cmp=0 STRICT_EQUAL 35 objects | same
+IR/ir12 | rc=0 cmp=0 STRICT_EQUAL 38 objects | rc=0 cmp=0 STRICT_EQUAL 38 objects | same

@@ -1,0 +1,85 @@
+VB/vb01 | rc=0 cmp=208 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 94 | to STRICT_EQUAL
+VB/vb02 | rc=0 cmp=308 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 102 | to STRICT_EQUAL
+VB/vb03 | rc=0 cmp=296 NOT_EQUAL stage1 | rc=0 cmp=296 NOT_EQUAL stage1 | moved, same verdict
+VB/vb04 | rc=0 cmp=328 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 104 | to STRICT_EQUAL
+VB/vb05 | rc=0 cmp=304 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 116 | to STRICT_EQUAL
+VB/vb06 | rc=0 cmp=272 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 109 | to STRICT_EQUAL
+VB/vb07 | rc=0 cmp=110 NOT_EQUAL stage1 | rc=0 cmp=110 NOT_EQUAL stage1 | byte-identical
+VB/vb08 | rc=0 cmp=186 NOT_EQUAL stage1 | rc=0 cmp=186 NOT_EQUAL stage1 | moved, same verdict
+VB/vb09 | rc=0 cmp=376 NOT_EQUAL stage1 | rc=0 cmp=376 NOT_EQUAL stage1 | moved, same verdict
+VB/vb10 | rc=0 cmp=352 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 120 | to STRICT_EQUAL
+VB/vb11 | rc=0 cmp=456 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 128 | to STRICT_EQUAL
+VB/vb12 | rc=0 cmp=264 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 112 | to STRICT_EQUAL
+VB/vb13 | rc=0 cmp=208 NOT_EQUAL stage1 | rc=0 cmp=208 NOT_EQUAL stage1 | moved, same verdict
+VB/vb14 | rc=0 cmp=408 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 110 | to STRICT_EQUAL
+VC/vc01 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 29 | to STRICT_EQUAL
+VC/vc02 | rc=0 cmp=0 STRICT_EQUAL 30 | rc=0 cmp=0 STRICT_EQUAL 30 | byte-identical
+VC/vc03 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 37 | to STRICT_EQUAL
+VC/vc04 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 195 | to STRICT_EQUAL
+VC/vc05 | rc=0 cmp=0 STRICT_EQUAL 67 | rc=0 cmp=0 STRICT_EQUAL 67 | byte-identical
+VC/vc06 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 95 | to STRICT_EQUAL
+VC/vc07 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 109 | to STRICT_EQUAL
+VC/vc08 | rc=0 cmp=0 STRICT_EQUAL 70 | rc=0 cmp=0 STRICT_EQUAL 70 | byte-identical
+VC/vc09 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 45 | to STRICT_EQUAL
+VC/vc10 | rc=0 cmp=0 STRICT_NOTEQUAL fullname | rc=0 cmp=0 STRICT_EQUAL 98 | to STRICT_EQUAL
+VC/vc11 | rc=0 cmp=50 NOT_EQUAL stage1 | rc=0 cmp=50 NOT_EQUAL stage1 | moved, same verdict
+VC/vc12 | rc=0 cmp=140 NOT_EQUAL stage1 | rc=0 cmp=140 NOT_EQUAL stage1 | moved, same verdict
+VH/vh01 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 67 | to STRICT_EQUAL
+VH/vh02 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 67 | to STRICT_EQUAL
+VH/vh03 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 57 | to STRICT_EQUAL
+VH/vh04 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 67 | to STRICT_EQUAL
+VH/vh05 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 80 | to STRICT_EQUAL
+VH/vh06 | rc=0 cmp=0 STRICT_EQUAL 125 | rc=0 cmp=0 STRICT_EQUAL 125 | byte-identical
+VH/vh07 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 89 | to STRICT_EQUAL
+VH/vh08 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 51 | to STRICT_EQUAL
+VH/vh09 | rc=0 cmp=0 STRICT_EQUAL 71 | rc=0 cmp=0 STRICT_EQUAL 71 | byte-identical
+VH/vh10 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 81 | to STRICT_EQUAL
+VM/vm01 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 57 | to STRICT_EQUAL
+VM/vm02 | rc=0 cmp=58 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 57 | to STRICT_EQUAL
+VM/vm03 | rc=0 cmp=218 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 81 | to STRICT_EQUAL
+VM/vm04 | rc=0 cmp=218 NOT_EQUAL stage1 | rc=0 cmp=218 NOT_EQUAL stage1 | byte-identical
+VM/vm05 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 75 | to STRICT_EQUAL
+VM/vm06 | rc=0 cmp=0 STRICT_EQUAL 78 | rc=0 cmp=0 STRICT_EQUAL 78 | byte-identical
+VM/vm07 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 61 | to STRICT_EQUAL
+VM/vm08 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 101 | to STRICT_EQUAL
+VO/vo01 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 128 | to STRICT_EQUAL
+VO/vo02 | rc=0 cmp=342 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 97 | to STRICT_EQUAL
+VO/vo03 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 271 | to STRICT_EQUAL
+VO/vo04 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 123 | to STRICT_EQUAL
+VO/vo05 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 118 | to STRICT_EQUAL
+VO/vo06 | rc=0 cmp=50 NOT_EQUAL stage1 | rc=0 cmp=50 NOT_EQUAL stage1 | moved, same verdict
+VO/vo07 | rc=0 cmp=64 NOT_EQUAL stage1 | rc=0 cmp=64 NOT_EQUAL stage1 | moved, same verdict
+VR/vr01 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 64 | to STRICT_EQUAL
+VR/vr02 | rc=0 cmp=0 STRICT_EQUAL 64 | rc=0 cmp=0 STRICT_EQUAL 64 | byte-identical
+VR/vr03 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 46 | to STRICT_EQUAL
+VR/vr04 | rc=0 cmp=0 STRICT_NOTEQUAL endcol | rc=0 cmp=0 STRICT_EQUAL 53 | to STRICT_EQUAL
+VR/vr05 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 53 | to STRICT_EQUAL
+VR/vr06 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 107 | to STRICT_EQUAL
+VR/vr07 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 74 | to STRICT_EQUAL
+VR/vr08 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 53 | to STRICT_EQUAL
+VR/vr09 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 70 | to STRICT_EQUAL
+VR/vr10 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 76 | to STRICT_EQUAL
+VR/vr11 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_NOTEQUAL fullname | moved, same verdict
+VR/vr12 | rc=0 cmp=0 STRICT_NOTEQUAL col | rc=0 cmp=0 STRICT_EQUAL 64 | to STRICT_EQUAL
+VV/vv01 | rc=0 cmp=114 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 45 | to STRICT_EQUAL
+VV/vv02 | rc=0 cmp=47 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 51 | to STRICT_EQUAL
+VV/vv03 | rc=0 cmp=192 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 151 | to STRICT_EQUAL
+VV/vv04 | rc=0 cmp=200 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 93 | to STRICT_EQUAL
+VV/vv05 | rc=0 cmp=114 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 49 | to STRICT_EQUAL
+VV/vv06 | rc=0 cmp=111 NOT_EQUAL stage1 | rc=0 cmp=111 NOT_EQUAL stage1 | moved, same verdict
+VV/vv07 | rc=0 cmp=148 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 72 | to STRICT_EQUAL
+VV/vv08 | rc=0 cmp=382 NOT_EQUAL stage1 | rc=0 cmp=382 NOT_EQUAL stage1 | moved, same verdict
+VV/vv09 | rc=0 cmp=174 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 57 | to STRICT_EQUAL
+VX/vx01 | rc=0 cmp=147 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 92 | to STRICT_EQUAL
+VX/vx02 | rc=0 cmp=119 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 179 | to STRICT_EQUAL
+VX/vx03 | rc=0 cmp=728 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 179 | to STRICT_EQUAL
+VX/vx04 | rc=0 cmp=149 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 91 | to STRICT_EQUAL
+VX/vx05 | rc=0 cmp=660 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 229 | to STRICT_EQUAL
+VX/vx06 | rc=0 cmp=50 NOT_EQUAL stage1 | rc=0 cmp=50 NOT_EQUAL stage1 | moved, same verdict
+VX/vx07 | rc=0 cmp=191 NOT_EQUAL stage1 | rc=0 cmp=191 NOT_EQUAL stage1 | moved, same verdict
+VX/vx08 | rc=0 cmp=229 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 153 | to STRICT_EQUAL
+VX/vx09 | rc=0 cmp=402 NOT_EQUAL stage1 | rc=0 cmp=91 NOT_EQUAL stage1 | moved, same verdict
+VX/vx10 | rc=0 cmp=82 NOT_EQUAL stage1 | rc=0 cmp=82 NOT_EQUAL stage1 | byte-identical
+VX/vx11 | rc=0 cmp=346 NOT_EQUAL stage1 | rc=0 cmp=346 NOT_EQUAL stage1 | moved, same verdict
+VX/vx12 | rc=0 cmp=310 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 97 | to STRICT_EQUAL
+VX/vx13 | rc=0 cmp=147 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 95 | to STRICT_EQUAL

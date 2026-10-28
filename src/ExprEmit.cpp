@@ -772,6 +772,101 @@ static const char* hpVsJoin220(const std::string& prefix) {
     }
     return ".";
 }
+// § vsTrailRangeColonJoin453 (r11u453) — A PLAIN VAR_SELECT'S TRAILING
+// PART SELECT OR INDEXED PART SELECT JOINS ITS DOUBLED NAME WITH `::` IN A
+// PACKAGE OR CLASS SCOPE.  The trailing range of `m[1][2+:2]` is compiled by
+// compilePartSelectRange with the base's name and named by UHDM's
+// ComputeFullName, which uses ONE separator for the whole chain, `::` as soon
+// as a package or a class is on it: golden `p::f::m::m` (the select) and
+// `p::f::m::m::i0` (a reference under an operation of its base), where ours
+// joined the doubled name with `.` after the column-joined var_select
+// (`p::f::m.m`).  The dotted-path twin is § hpVarSelColumnJoin220.  A module
+// scope keeps `.` (joinRef's own rule); a qualified parameter base
+// (§ pkgQualParamVarSelFull118) is left alone.  Grid
+// tools/probe/r11u453repro/cases/VS.  Switch R11U453_VSCOLJOIN_OFF.
+static std::string vsTrailRangeName453(const std::string& baseFull,
+                                       const std::string& name, bool qual118) {
+    static const bool on = lawOn(453, "R11U453_VSCOLJOIN_OFF");
+    std::string dot = baseFull + "." + name;
+    if (!on || qual118)
+        return dot;
+    std::string j = joinRef(baseFull, name);
+    if (j != dot)
+        lawTrace(453, "vsTrailRangeColonJoin453", j);
+    return j;
+}
+// § vsTrailRangeParenStart453 (r11u453) — A VAR_SELECT'S TRAILING PART
+// SELECT OR INDEXED PART SELECT SPANS ITS WRITTEN RANGE, PARENTHESES
+// INCLUDED.  Surelog locates the select at the range's syntax (the
+// part_select_range node), so `q[k][(k)+:2]` reads 6:24 at the `(` where
+// ours took the bound expression's own start inside the parentheses (6:25);
+// slang drops the parentheses from the bound's source range, the range
+// select's syntax keeps them.  A select with no parenthesized bound keeps
+// the same bytes.  Grid tools/probe/r11u453repro/cases/VP.  Switch
+// R11U453_VSPARENSTART_OFF.
+static const syntax::SelectorSyntax* rangeSelSyn453(const RangeSelectExpression& rs) {
+    if (!rs.syntax)
+        return nullptr;
+    // The select's syntax is an ElementSelectExpression (`(e)[a:b]`), or for
+    // a name with selects an IdentifierSelectName whose LAST selector is this
+    // range, possibly the right side of a ScopedName (`s.data[a:b]`).
+    const syntax::SyntaxNode* n453 = rs.syntax;
+    // A parenthesized select (a cast operand `64'(s.data[7:(0)])`) carries
+    // the parentheses' syntax.
+    while (n453 && (n453->kind == syntax::SyntaxKind::ScopedName ||
+                    n453->kind == syntax::SyntaxKind::ParenthesizedExpression))
+        n453 = n453->kind == syntax::SyntaxKind::ScopedName
+                   ? (const syntax::SyntaxNode*)n453->as<syntax::ScopedNameSyntax>().right.get()
+                   : (const syntax::SyntaxNode*)n453->as<syntax::ParenthesizedExpressionSyntax>()
+                         .expression.get();
+    const syntax::ElementSelectSyntax* esel453 = nullptr;
+    if (!n453)
+        return nullptr;
+    if (n453->kind == syntax::SyntaxKind::ElementSelectExpression)
+        esel453 = n453->as<syntax::ElementSelectExpressionSyntax>().select.get();
+    else if (n453->kind == syntax::SyntaxKind::IdentifierSelectName) {
+        auto& sl453 = n453->as<syntax::IdentifierSelectNameSyntax>().selectors;
+        if (!sl453.empty())
+            esel453 = sl453[sl453.size() - 1];
+    }
+    if (!esel453 || !esel453->selector ||
+        !syntax::RangeSelectSyntax::isKind(esel453->selector->kind))
+        return nullptr;
+    return esel453->selector;
+}
+static SourceRange vsTrailSelRange453(const RangeSelectExpression& rs) {
+    static const bool on = lawOn(453, "R11U453_VSPARENSTART_OFF");
+    SourceRange r(rs.left().sourceRange.start(), rs.right().sourceRange.end());
+    if (!on)
+        return r;
+    auto* sel453 = rangeSelSyn453(rs);
+    if (!sel453)
+        return r;
+    SourceRange sr = sel453->sourceRange();
+    if (sr.start() == r.start() && sr.end() == r.end())
+        return r;
+    lawTrace(453, "vsTrailRangeParenStart453");
+    return sr;
+}
+// § hpPartSelParenRightEnd453 (r11u453) — A DOTTED PATH'S TRAILING PART
+// SELECT ENDS AT ITS WRITTEN RIGHT BOUND, PARENTHESES INCLUDED: golden
+// `s.data[N-1:(0)]` part_select 5:20-5:32 at the `)`, ours 5:31 inside it
+// (the v11u417 cases VH/vh17, vh22, vh29).  The indexed twin is
+// § memberIpsParenEnd264.  Switch R11U453_HPPSPARENEND_OFF.
+static SourceLocation hpPsRightEnd453(const RangeSelectExpression& rs) {
+    static const bool on = lawOn(453, "R11U453_HPPSPARENEND_OFF");
+    SourceLocation e = rs.right().sourceRange.end();
+    if (!on)
+        return e;
+    auto* sel453 = rangeSelSyn453(rs);
+    if (!sel453)
+        return e;
+    SourceLocation se = sel453->as<syntax::RangeSelectSyntax>().right->sourceRange().end();
+    if (se == e)
+        return e;
+    lawTrace(453, "hpPartSelParenRightEnd453");
+    return se;
+}
 // § hpVarSelIpsDirectRefSkipsSelect220 (r11u220) — A REFERENCE THAT IS
 // ITSELF THE BASE OR THE WIDTH OF THAT VAR_SELECT'S TRAILING INDEXED PART
 // SELECT SKIPS THE SELECT'S NAME.  The trailing `[ix+:2]` of
@@ -15071,6 +15166,55 @@ static const char* ppUnTok92(slang::ast::UnaryOperator op) {
     return nullptr;
 }
 
+// § hpVsParenBoundPretty453 (r11u453) — A DOTTED PATH'S TRAILING VAR_SELECT
+// WHOSE RANGE BOUNDS ARE WRITTEN IN PARENTHESES OR WITH `**` IS NAMED FROM
+// THE BOUND OBJECTS, the var_select twin of § hierSelParenBoundPretty417:
+// Surelog's decompileHelper renders an operation through
+// ExprEval::prettyPrint, which never writes a parenthesis and spaces every
+// binary operator, so golden names `tq[1].pg[1][(3):(2)]` as
+// `tq[1].pg[1][3:2]` (the hier_path, and through it the var_select's full
+// name `work@top.tq[1].pg[1][3:2].pg`) where ours kept the raw text; the
+// hier_path name is read by uhdm-cmp.  Only the trailing range is
+// re-rendered, and only when both bounds render.  Grid
+// tools/probe/r11u453repro/cases/HP.  Switch R11U453_HPVSPARENBND_OFF.
+static void hpVsParenBoundPretty453(
+    const RangeSelectExpression& rs, std::string& selText,
+    const std::function<std::string(SourceRange)>& raw453,
+    const std::function<bool(const Expression&, std::string&)>& pp453) {
+    static const bool on = lawOn(453, "R11U453_HPVSPARENBND_OFF");
+    if (!on || selText.empty() || selText.back() != ']')
+        return;
+    std::string raw = raw453(SourceRange(rs.left().sourceRange.start(),
+                                         rs.right().sourceRange.end()));
+    if (raw.find_first_of("()") == std::string::npos &&
+        raw.find("**") == std::string::npos)
+        return;
+    // The trailing range's own brackets: scan back from the last `]`.
+    int depth = 0;
+    size_t open = std::string::npos;
+    for (size_t k = selText.size(); k-- > 0;) {
+        if (selText[k] == ']')
+            depth++;
+        else if (selText[k] == '[' && --depth == 0) {
+            open = k;
+            break;
+        }
+    }
+    if (open == std::string::npos)
+        return;
+    std::string l, r;
+    if (!pp453(rs.left(), l) || !pp453(rs.right(), r) ||
+        l.empty() || r.empty())
+        return;
+    const char* mid = rs.getSelectionKind() == RangeSelectionKind::IndexedUp     ? "+:"
+                      : rs.getSelectionKind() == RangeSelectionKind::IndexedDown ? "-:"
+                                                                                  : ":";
+    std::string n = selText.substr(0, open + 1) + l + mid + r + "]";
+    if (n == selText)
+        return;
+    lawTrace(453, "hpVsParenBoundPretty453", selText + " -> " + n);
+    selText = n;
+}
 bool UhdmExporter::ppIdxText92(const Expression& e0,
                                const std::vector<PkgFoldSub>* pf, int depth,
                                std::string& out) {
@@ -51586,8 +51730,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     forceConstParent = savedFCP;
                     // Final selector: a part_select (or indexed_part_select).
-                    SourceRange selRange(rs.left().sourceRange.start(),
-                                         rs.right().sourceRange.end());
+                    SourceRange selRange =
+                        vsTrailSelRange453(rs);  // § vsTrailRangeParenStart453
                     if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
                         auto* ps = s.MakePart_select();
                         ps->VpiName(bnm41);
@@ -51596,7 +51740,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // fullname DOUBLES it; bound refs inside the ranges
                         // scope through THAT (UHDM ComputeFullName only skips
                         // a bit_select/indexed_part_select/hier_path parent).
-                        std::string psFull = baseFull + "." + bnm41;
+                        std::string psFull =
+                            vsTrailRangeName453(baseFull, bnm41, vsq118);  // § vsTrailRangeColonJoin453
                         ps->VpiFullName(vsq118 ? qb41 : psFull);
                         // § pkgQualPsRtFull118v — the bound ref_typespec
                         // keeps the pre-law scoped spelling (EmitHelpers.h).
@@ -51628,7 +51773,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         auto* ips = s.MakeIndexed_part_select();
                         ips->VpiName(bnm41);
                         ips->VpiDefName(bnm41);
-                        ips->VpiFullName(baseFull + "." + bnm41);
+                        ips->VpiFullName(vsTrailRangeName453(
+                            baseFull, bnm41, vsq118));  // § vsTrailRangeColonJoin453
                         ips->VpiParent(vs);
                         setLoc(ips, selRange);
                         ips->VpiIndexedPartSelectType(
@@ -51833,6 +51979,11 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (refCollector && (!inProcessEmit || callArgDepth > 0 || inLhs))
                         refCollector->insert(&bnv.symbol);
                     std::string selText = spaceIdxOps(selName(rawText(expr.sourceRange)));
+                    hpVsParenBoundPretty453(  // § hpVsParenBoundPretty453
+                        rs, selText, [&](SourceRange r453) { return rawText(r453); },
+                        [&](const Expression& e453, std::string& o453) {
+                            return ppIdxText92(e453, nullptr, 0, o453);
+                        });
                     auto* hp = s.MakeHier_path();
                     hp->VpiName(selText);
                     hp->VpiFullName(selText);
@@ -52043,8 +52194,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 idxs->push_back((UHDM::expr*)ix);
                         }
                         forceConstParent = savedFCP;
-                        SourceRange selRange(rs.left().sourceRange.start(),
-                                             rs.right().sourceRange.end());
+                        SourceRange selRange =
+                            vsTrailSelRange453(rs);  // § vsTrailRangeParenStart453
                         std::string dblFull = vsFull + vsSep220 + memName;
                         bool savedSup = suppressConstParent;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {
@@ -52498,7 +52649,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 (void)ps->VpiFullName();
                             else
                                 ps->VpiFullName(dotted);
-                            setLoc(ps, elemLoc);
+                            // § hpPartSelParenRightEnd453
+                            setLoc(ps, SourceRange(elemLoc.start(), hpPsRightEnd453(rs)));
                             ps->VpiConstantSelect(true);  // § everyPartSelIsConstSel78
                             bool sup = suppressConstParent;
                             suppressConstParent = true;
@@ -53606,7 +53758,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         SourceRange selLoc(exprStart + lastOff,
                                            rs.getSelectionKind() ==
                                                    RangeSelectionKind::Simple
-                                               ? rs.right().sourceRange.end()
+                                               ? hpPsRightEnd453(rs)  // § hpPartSelParenRightEnd453
                                                : ipsRightEnd264(rs.right()));
                         bool sup = suppressConstParent;
                         if (rs.getSelectionKind() == RangeSelectionKind::Simple) {

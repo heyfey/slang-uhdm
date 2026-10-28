@@ -3837,12 +3837,75 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                         one203.push_back(h203);
                 }
             };
+            // § modCopyImportsFirst453 (r11u453, R11U453_MODCOPYIMPFIRST_OFF)
+            // — the module's copy of P keeps P's own order, and P's signal
+            // vector holds every import clone ahead of every own entry
+            // (§ caPkgCloneListingComesFirst84, LAW C: CompilePackage runs
+            // the import items under its FUNCTION pass before the DEFINITION
+            // pass compiles a declaration).  This walk followed P's source
+            // order, so an own variable or net written before an import item
+            // came out ahead of the clones (r11u84 t6_slots `n1`, `n2`, golden
+            // m_net2 ahead of own_net_a in the importing module).  Two passes,
+            // imports then own entries, when an own entry precedes an import
+            // item and P hoists no out-of-body constructor local (the flush
+            // below is keyed on source order).
+            bool two453 = false;
+            if (hoist203.empty()) {
+                bool own453 = false;
+                for (auto& pm : p.members()) {
+                    if (pm.kind == SymbolKind::Variable ||
+                        (withNets77 && pm.kind == SymbolKind::Net))
+                        own453 = true;
+                    else if (own453 && (pm.kind == SymbolKind::WildcardImport ||
+                                        pm.kind == SymbolKind::ExplicitImport)) {
+                        static const bool on453 =
+                            lawOn(453, "R11U453_MODCOPYIMPFIRST_OFF");
+                        if (on453) {
+                            two453 = true;
+                            lawTrace(453, "modCopyImportsFirst453", std::string(p.name));
+                        }
+                        break;
+                    }
+                }
+            }
+            for (int ph453 = two453 ? 0 : 2; ph453 < (two453 ? 2 : 3); ph453++)
             for (auto& pm : p.members()) {
                 if (pm.kind == SymbolKind::Variable ||
                     (withNets77 && pm.kind == SymbolKind::Net)) {
+                    if (ph453 == 0)
+                        continue;
                     flush203(pm.location, false);
                     if (modelledWide(pm, withUnpacked77))
                         one203.push_back(&pm);
+                    continue;
+                }
+                if (ph453 == 1)
+                    continue;
+                // § pkgExplicitImpVarReExport453 (r11u453,
+                // R11U453_XVARREEXP_OFF) — a package's EXPLICIT import of a
+                // variable or net puts that one entry in its signal vector
+                // (§ caPkgExplicitImportClonesItsOneEntry84 lists it in the
+                // package's own listing), and a module's copy of the package
+                // is the package's listing: golden `package b; import a::va;`
+                // under `package c; import a::*; import b::*;` gives a module
+                // importing c two copies of va (net and variable), where this
+                // walk skipped the explicit item and listed one (uhdm-cmp
+                // NOT_EQUAL).  Grid tools/probe/r11u453repro/cases/XV.
+                if (pm.kind == SymbolKind::ExplicitImport) {
+                    static const bool on453 =
+                        lawOn(453, "R11U453_XVARREEXP_OFF");
+                    if (on453)
+                        if (auto* imp453 =
+                                pm.as<ExplicitImportSymbol>().importedSymbol();
+                            imp453 &&
+                            (imp453->kind == SymbolKind::Variable ||
+                             (withNets77 && imp453->kind == SymbolKind::Net)) &&
+                            modelledWide(*imp453, withUnpacked77)) {
+                            lawTrace(453, "pkgExplicitImpVarReExport453",
+                                     std::string(p.name) + "::" +
+                                         std::string(imp453->name));
+                            one203.push_back(imp453);
+                        }
                     continue;
                 }
                 if (pm.kind != SymbolKind::WildcardImport)

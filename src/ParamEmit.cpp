@@ -9664,6 +9664,59 @@ static bool hasStaticLocalInit(const SubroutineSymbol& sub) {
     return found;
 }
 
+// § pkgExplicitImpParamReExport453 (r11u453) — A PACKAGE'S EXPLICIT IMPORT
+// OF A PARAMETER IS PART OF WHAT IT RE-EXPORTS TO A WILDCARD IMPORTER.
+// `CompileHelper::importPackage` with an object name still runs its
+// parameter loops (filtered to that name), so `import a::PA;` inside package
+// b inserts PA into b's getParameterMap() and appends its param_assign to b's
+// getParamAssignVec(); a later `import b::*` copies both into the importer
+// like b's own.  Golden c in `package b; import a::PA; ... package c; import
+// a::*; import b::*;` lists Parameters PA, PA2, PA and Param_assigns PA, PA2,
+// PA, where ours walked only b's wildcard imports and its own declarations
+// and dropped the third (uhdm-cmp NOT_EQUAL; the r11u451 case DI/di04, the
+// v11u451 case VA/va06).  Grid tools/probe/r11u453repro/cases/XP.  Switch
+// R11U453_XPARAMREEXP_OFF.
+static const ParameterSymbol* pkgExplicitImpParam453(const Symbol& pm) {
+    if (pm.kind != SymbolKind::ExplicitImport)
+        return nullptr;
+    static const bool on = lawOn(453, "R11U453_XPARAMREEXP_OFF");
+    auto* imp = pm.as<ExplicitImportSymbol>().importedSymbol();
+    if (!imp || imp->kind != SymbolKind::Parameter)
+        return nullptr;
+    if (!on)
+        return nullptr;
+    lawTrace(453, "pkgExplicitImpParamReExport453", std::string(imp->name));
+    return &imp->as<ParameterSymbol>();
+}
+
+// § pkgImpParamsAheadOfOwn453 (r11u453) — A PACKAGE RE-EXPORTS ITS IMPORTED
+// PARAMETERS AHEAD OF ITS OWN, WHEREVER THE IMPORT IS WRITTEN.  Surelog
+// materializes a package's import items before it compiles the package's
+// parameter declarations, so b's getParamAssignVec() holds the imported
+// copies first: `package b; parameter int PB = 2; import a::*;` lists PA, PB
+// in b itself (ours already does) and a wildcard importer of b copies them in
+// that order, where our importer walk followed b's member order (PB, PA;
+// uhdm-cmp NOT_EQUAL at the importer's first param_assign).  Applies only
+// when an import item follows a parameter declaration (otherwise the two
+// orders agree).  Grid tools/probe/r11u453repro/cases/XP.  Switch
+// R11U453_IMPPARAMFIRST_OFF.
+static bool pkgImpParamsAheadOfOwn453(const PackageSymbol& psc) {
+    bool sawParam = false;
+    for (auto& pm : psc.members()) {
+        if (pm.kind == SymbolKind::Parameter)
+            sawParam = true;
+        else if (sawParam && (pm.kind == SymbolKind::WildcardImport ||
+                              pm.kind == SymbolKind::ExplicitImport)) {
+            static const bool on = lawOn(453, "R11U453_IMPPARAMFIRST_OFF");
+            if (!on)
+                return false;
+            lawTrace(453, "pkgImpParamsAheadOfOwn453", std::string(psc.name));
+            return true;
+        }
+    }
+    return false;
+}
+
 // § impOcc — ONE MATERIALIZED OCCURRENCE of an imported package parameter.
 //
 // Surelog's importPackage runs ONCE PER IMPORT ITEM and appends the imported
@@ -9756,13 +9809,23 @@ static void collectImportedParams(
                 return;
             }
             auto& psc = pkgSym->as<PackageSymbol>();
-            for (auto& pm : psc.members()) {
-                if (pm.kind == SymbolKind::Parameter)
-                    acc.push_back(&pm.as<ParameterSymbol>());
-                else if (pm.kind == SymbolKind::WildcardImport)
-                    collectPkgParams(pm.as<WildcardImportSymbol>().getPackage(),
-                                     vis, acc);
-            }
+            // § pkgImpParamsAheadOfOwn453 — two phases when the law holds:
+            // the import items first, then the package's own declarations.
+            const bool two453 = pkgImpParamsAheadOfOwn453(psc);
+            for (int ph453 = two453 ? 0 : 2; ph453 < (two453 ? 2 : 3); ph453++)
+                for (auto& pm : psc.members()) {
+                    if (pm.kind == SymbolKind::Parameter) {
+                        if (ph453 != 0)
+                            acc.push_back(&pm.as<ParameterSymbol>());
+                    }
+                    else if (ph453 == 1)
+                        continue;
+                    else if (pm.kind == SymbolKind::WildcardImport)
+                        collectPkgParams(pm.as<WildcardImportSymbol>().getPackage(),
+                                         vis, acc);
+                    else if (auto* xp453 = pkgExplicitImpParam453(pm))
+                        acc.push_back(xp453);  // § pkgExplicitImpParamReExport453
+                }
         };
     std::vector<ImpOcc9> occ;
     size_t item9 = 0;
@@ -9878,13 +9941,23 @@ static void collectImportedParams(
                         [&](const Symbol* ps451) {
                             if (!ps451 || !path451.insert(ps451).second)
                                 return;
-                            for (auto& pm : ps451->as<PackageSymbol>().members()) {
-                                if (pm.kind == SymbolKind::Parameter)
-                                    full451.push_back(&pm.as<ParameterSymbol>());
-                                else if (pm.kind == SymbolKind::WildcardImport)
-                                    walk451(pm.as<WildcardImportSymbol>()
-                                                .getPackage());
-                            }
+                            auto& pk453 = ps451->as<PackageSymbol>();
+                            const bool two453 = pkgImpParamsAheadOfOwn453(pk453);
+                            for (int ph453 = two453 ? 0 : 2; ph453 < (two453 ? 2 : 3);
+                                 ph453++)
+                                for (auto& pm : pk453.members()) {
+                                    if (pm.kind == SymbolKind::Parameter) {
+                                        if (ph453 != 0)
+                                            full451.push_back(&pm.as<ParameterSymbol>());
+                                    }
+                                    else if (ph453 == 1)
+                                        continue;
+                                    else if (pm.kind == SymbolKind::WildcardImport)
+                                        walk451(pm.as<WildcardImportSymbol>()
+                                                    .getPackage());
+                                    else if (auto* xp453 = pkgExplicitImpParam453(pm))
+                                        full451.push_back(xp453);  // § pkgExplicitImpParamReExport453
+                                }
                             path451.erase(ps451);
                         };
                     walk451(p);
@@ -9911,7 +9984,12 @@ static void collectImportedParams(
                     if (pp->getParentScope() &&
                         &pp->getParentScope()->asSymbol() != p)
                         o.src = std::string(p->name);
-                    if (use451 && assignOnly451 && !once451.insert(pp).second)
+                    // § pkgExplicitImpParamReExport453: a parameter met twice
+                    // under one item without the 451 walk (a re-exported
+                    // explicit import beside the home's own wildcard) is the
+                    // same map entry, so its repeat is assign-only too.
+                    if (assignOnly451 && !once451.insert(pp).second &&
+                        (use451 || lawOn(453, "R11U453_XPARAMREEXP_OFF")))
                         assignOnly451->push_back(occ.size());
                     occ.push_back(o);
                 }
