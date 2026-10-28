@@ -1,0 +1,10 @@
+oc01 | links golden-only=2 ours-only=2 | links golden-only=1 ours-only=1
+oc02 | links golden-only=2 ours-only=2 | links golden-only=1 ours-only=1
+oc03 | links golden-only=0 ours-only=0 | links golden-only=0 ours-only=0
+oc04 | links golden-only=2 ours-only=2 | links golden-only=1 ours-only=1
+oc05 | links golden-only=1 ours-only=1 | links golden-only=1 ours-only=1
+oc06 | links golden-only=3 ours-only=4 | links golden-only=2 ours-only=3
+oc07 | links golden-only=4 ours-only=4 | links golden-only=3 ours-only=3
+oc08 | links golden-only=0 ours-only=0 | links golden-only=0 ours-only=0
+oc09 | links golden-only=4 ours-only=4 | links golden-only=2 ours-only=2
+oc10 | links golden-only=2 ours-only=2 | links golden-only=1 ours-only=1

@@ -16,6 +16,25 @@
 #include "LawSwitch.h"
 #include "LawState.h"
 namespace slang_uhdm {
+
+// § oobInheritedCallBindsOwnPkgClone455 (r11u455) — the top-view wildcard-
+// import TASK clone of each (importing package, home task).  A side map, not
+// an exporter member: it is written once per clone and read only by the
+// out-of-body call link in ExprEmit.
+static std::map<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>,
+                UHDM::task*>&
+topTaskClone455Map() {
+    static std::map<std::pair<const slang::ast::Symbol*, const slang::ast::Symbol*>,
+                    UHDM::task*>
+        m;
+    return m;
+}
+UHDM::task* topTaskClone455Find(const slang::ast::Symbol* pkg,
+                                const slang::ast::Symbol* home) {
+    auto& m = topTaskClone455Map();
+    auto it = m.find({pkg, home});
+    return it == m.end() ? nullptr : it->second;
+}
 // § pkgQualOvrPatInitSpan268 — is this instance body's instance declared
 // inside a generate block (any depth)?
 static bool instInGenBlock268(const slang::ast::Scope& sc0) {
@@ -42386,6 +42405,11 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                     pkgTfSeq9[cp8] = myIdx9;
                     if (topView && cp8->UhdmType() == UHDM::uhdmfunction)
                         importCopyFunc[{&pkg, hs9}] = (UHDM::function*)cp8;
+                    // § oobInheritedCallBindsOwnPkgClone455 — the task
+                    // twin of importCopyFunc, kept in a side map (bookkeeping
+                    // only; ExprEmit reads it through topTaskClone455Find).
+                    if (topView && cp8->UhdmType() == UHDM::uhdmtask)
+                        topTaskClone455Map()[{&pkg, hs9}] = (UHDM::task*)cp8;
                     pkgWildcardHomeSi9.push_back({hs9, homeSi9, hadHome9});
                     pkgWildcardCloneSi9.push_back({hs9, cloneSi9});
                 }

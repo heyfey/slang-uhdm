@@ -2097,7 +2097,7 @@ generated/uvm-examples/uvm_use_models_bidir_item_done.sv,EQUAL,,equal
 generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_use_models_pipelined_item_done.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_item_done/pipelined_item_done/top.sv:66:3: error: use of undeclared iden,
 generated/uvm-examples/uvm_use_models_unidirectional.sv,EQUAL,,equal
-generated/uvm-examples/uvm_vif_config_db.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_vif_config_db.sv,EQUAL,,equal
 generated/uvm-examples/uvm_virt_seq_find_all.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_virt_seq_find_all/top.sv:175:5: error: use of undeclared identifier 'uvm_top',
 generated/uvm-examples/uvm_wait_for_signal.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm_classes_0/uvm_agent_class_0.sv,EQUAL,,equal

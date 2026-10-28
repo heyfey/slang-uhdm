@@ -1,0 +1,15 @@
+Prediction for the verified binary (ver, md5 27f6c181d45a5583719df850eaaf6bc6), written before its sweep.
+Basis: the law sweep's trace (/tmp/v11u455_trace, 7 trace files, 128 firings, all in the sv-tests stage;
+nothing in probe, surelog, uhdm2rtlil or downstream), split by the import-group-copy context that
+§ oobCloneViewKeepsPristine455v abstains in (trace lines ending in " clone"):
+  uvm_vif_config_db clone=4 nonclone=10; uvm_ef_vif_config_db 4/12; uvm_ac_config_db 4/12;
+  uvm_id_register 12/6; uvm_param_vif_config_db 8/12; uvm_slave_agent 8/8;
+  uvm_slave_agent_multi_seq_item 16/12.
+Predicted against the law sweep: byte movers exactly those 7 sv-tests rows, no status moving
+(uvm_vif_config_db stays EQUAL since its link gains come from the 10 non-clone firings, the other four
+stay DIFFERENT, the two SLANG_ONLY rows stay SLANG_ONLY); probe, surelog, uhdm2rtlil and downstream
+byte-identical to the law sweep (0 movers, no firing there).
+Predicted against the control: sv-tests regressions=0 conversions=1 (uvm_vif_config_db DIFFERENT -> EQUAL)
+changes=0; corpora 0/0/0 and byteverify 0 of 962, 0 of 1608, 0 of 805.
+Link census prediction on the 5 kept DIFFERENT/EQUAL rows: lost=0 on every row (param_vif_config_db's
+2 lost links in tb_params_pkg's copy of sfr_agent::build_phase restored).

@@ -1,0 +1,15 @@
+Prediction for § oobInheritedCallBindsOwnPkgClone455, written before the law sweep (binary law2).
+Candidate scan (drivers/scan.py: an out-of-body class-method definition and a package in the
+row's non-UVM-library sources, fence-filtered before any file is opened):
+  probe 148 cases, surelog 14 rows, uhdm2rtlil 0 rows, sv-tests 231 rows.
+Trace census on the candidates with law2 (R11U455_TRACE):
+  probe: 148 of 148 byte-identical to the master's control, 0 firings
+         (positive control: cases/OC/oc01 reads fire=1 MOVED under the same script).
+  surelog: the 14 rows are SLANG_REJECT in both modes at the base (no database), 0 firings.
+  uhdm2rtlil / downstream: no candidate.
+  sv-tests: 7 rows fire: uvm_vif_config_db, uvm_ef_vif_config_db, uvm_ac_config_db,
+         uvm_id_register, uvm_param_vif_config_db, uvm_slave_agent, uvm_slave_agent_multi_seq_item
+         (all generated/uvm-examples); status moves: uvm_vif_config_db DIFFERENT -> EQUAL only.
+Predicted sweep: probe 0/0/0, surelog 0/0/0, uhdm2rtlil 0/0/0, downstream verdict diff 0,
+  byteverify 0 of 962, 0 of 1608, 0 of 805; sv-tests regressions 0, conversions 1
+  (generated/uvm-examples/uvm_vif_config_db.sv), changes 0.

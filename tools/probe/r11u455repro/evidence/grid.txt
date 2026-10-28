@@ -1,0 +1,10 @@
+cases/OC/oc01 | rc=0 cmp=0 STRICT_EQUAL 181 objects md5=11675697 | rc=0 cmp=0 STRICT_EQUAL 181 objects md5=e13eea4a | MOVED
+cases/OC/oc02 | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=62e769ae | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=a4a69473 | MOVED
+cases/OC/oc03 | rc=0 cmp=0 STRICT_EQUAL 116 objects md5=4b401994 | rc=0 cmp=0 STRICT_EQUAL 116 objects md5=4b401994 | same
+cases/OC/oc04 | rc=0 cmp=556 NOT_EQUAL stage1 md5=c990e730 | rc=0 cmp=0 STRICT_EQUAL 97 objects md5=faf39d7e | MOVED
+cases/OC/oc05 | rc=0 cmp=212 NOT_EQUAL stage1 md5=081356bb | rc=0 cmp=212 NOT_EQUAL stage1 md5=081356bb | same
+cases/OC/oc06 | rc=0 cmp=0 STRICT_NOTEQUAL type md5=289b4f81 | rc=0 cmp=0 STRICT_NOTEQUAL type md5=c41015f1 | MOVED
+cases/OC/oc07 | rc=0 cmp=0 STRICT_EQUAL 220 objects md5=c727cc29 | rc=0 cmp=0 STRICT_EQUAL 220 objects md5=735f98c0 | MOVED
+cases/OC/oc08 | rc=0 cmp=0 STRICT_EQUAL 123 objects md5=9b09e187 | rc=0 cmp=0 STRICT_EQUAL 123 objects md5=9b09e187 | same
+cases/OC/oc09 | rc=0 cmp=0 STRICT_EQUAL 241 objects md5=b02670e6 | rc=0 cmp=0 STRICT_EQUAL 241 objects md5=a06e7c98 | MOVED
+cases/OC/oc10 | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=1e4d7ef6 | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=8dc31a49 | MOVED

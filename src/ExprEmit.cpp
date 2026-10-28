@@ -24732,6 +24732,30 @@ static const Symbol* pkgFreeSubForName72(const Symbol* callerSub,
     return nullptr;
 }
 
+// § oobInheritedCallBindsOwnPkgClone455 (r11u455) — the PACKAGE an
+// OUT-OF-BODY class-method definition is compiled in: walk out of the caller's
+// class (and of every enclosing class) and answer the scope only when it is a
+// package.  Surelog compiles an out-of-body body in that package's scope
+// (LAW C), so an unqualified call that misses the class resolves through
+// `CompileHelper::getTaskFunc`'s package scan, which finds the name in the
+// package's OWN listing first, where a wildcard import has already put its
+// clone of the imported subroutine (§ collectPkgTfListing).
+static const Symbol* oobOwnPkg455(const Symbol* callerSub) {
+    if (!callerSub)
+        return nullptr;
+    const Scope* sc = callerSub->getParentScope();
+    while (sc && sc->asSymbol().kind == SymbolKind::ClassType)
+        sc = sc->asSymbol().getParentScope();
+    if (!sc || sc->asSymbol().kind != SymbolKind::Package)
+        return nullptr;
+    return &sc->asSymbol();
+}
+
+// The task half of § oobInheritedCallBindsOwnPkgClone455: the top-view
+// wildcard-import TASK clone of each (importing package, home task), recorded
+// in ParamEmit next to importCopyFunc (which holds functions only).
+UHDM::task* topTaskClone455Find(const Symbol* pkg, const Symbol* home);
+
 // § importedFreeCallTakesFirstListingImport227 (r10uvm227) — A BARE CALL TO A
 // PACKAGE FREE FUNCTION BINDS THE COPY HELD BY THE FIRST WILDCARD-IMPORTED
 // PACKAGE, IN WRITTEN IMPORT ORDER, WHOSE LISTING CARRIES THE NAME.
@@ -45050,6 +45074,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // computed ABOVE, before the subMap lookup, so the
                 // § classCallNoLink12 arm can read the same one.  SITE 1 of 2.)
                 bool inheritedNoBind9 = inheritedCall72;
+                // § oobInheritedCallBindsOwnPkgClone455 — the free
+                // subroutine LAW C's fall-back below binds, kept for the
+                // link-only redirect at the vpiFunction / vpiTask site.
+                const Symbol* fbHome455 = nullptr;
                 // LAW C's fall-back arm: a class lookup that fails does not
                 // stop there — Surelog keeps walking OUT to the enclosing
                 // package/module and binds a free subroutine of the same
@@ -45079,6 +45107,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          .subroutineKind ==
                                      SubroutineKind::Function;
                             inheritedNoBind9 = false;
+                            fbHome455 = fb9;
                         }
                 }
                 // § defGenCallNoBind — a call inside a DEF-view generate-block
@@ -45520,11 +45549,108 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (auto p12 = classProtoFn12.find(&sub);
                             p12 != classProtoFn12.end() && p12->second)
                             f4 = p12->second;
+                    // § oobInheritedCallBindsOwnPkgClone455 (r11u455) — an
+                    // UNQUALIFIED call in an OUT-OF-BODY class-method
+                    // definition whose class sits in package P binds P's own
+                    // top-view clone of the free subroutine when that
+                    // subroutine is homed in another package P imports with
+                    // a wildcard, whether slang resolved the name to the free
+                    // subroutine itself or to an inherited method LAW C falls
+                    // back from.  Golden sv-tests uvm_vif_config_db:
+                    // `sfr_agent::build_phase`'s `uvm_report_enabled` (the
+                    // `uvm_error macro) binds sfr_agent_pkg's clone, where we
+                    // bound uvm_pkg's object; the in-class twin keeps the home
+                    // object (cases/OC/oc03), a module's class and a $unit
+                    // class have no package listing (oc08, oc05).  The link
+                    // only: `siTf` and the argument stamping stay.  Switch
+                    // R11U455_OOBPKGCLONE_OFF.
+                    if (!boundClone && !listClone227 && curSubOob9 &&
+                        curSubClassScope9 && currentSubSym && !qualCall9 &&
+                        !inheritedNoBind9 && !defGenProcessEmit) {
+                        const Symbol* home455 = fbHome455;
+                        if (!home455)
+                            if (auto* hs455 = sub.getParentScope();
+                                hs455 && hs455->asSymbol().kind ==
+                                             SymbolKind::Package)
+                                home455 = &sub;
+                        const Symbol* own455 = oobOwnPkg455(currentSubSym);
+                        if (home455 && own455 &&
+                            &home455->getParentScope()->asSymbol() != own455)
+                            if (auto c455 = importCopyFunc.find({own455, home455});
+                                c455 != importCopyFunc.end() && c455->second &&
+                                c455->second != f4) {
+                                static const bool on455 =
+                                    lawOn(455, "R11U455_OOBPKGCLONE_OFF");
+                                lawTrace(455, on455 ? "OOBPKGCLONE" : "OOBPKGCLONE_OFF",
+                                         std::string(own455->name) + "::" +
+                                             std::string(home455->name) +
+                                             " in " + std::string(currentSubSym->name) +
+                                             " view=" + (curPkgEmitSym ? std::string(curPkgEmitSym->name) : std::string("-")) +
+                                             (pkgImportCloneEmit ? " clone" : ""));
+                                // § oobCloneViewKeepsPristine455v
+                                // (R11V455_CLONEVIEW_OFF) — not in an
+                                // importer's IMPORT-GROUP copy of the
+                                // method (pkgImportCloneEmit): there the
+                                // emission's own link plus
+                                // § cloneBodyCallBindsHomeTopTf446's relink
+                                // already land on the class-home package's
+                                // clone when the importer reaches the callee
+                                // only through that package, and the law's
+                                // clone is re-pointed by that relink to the
+                                // callee's home instead (v11u455 VG/vg01:
+                                // golden and pristine link q's clone in s's
+                                // copy of q::C::g, the law p's function).
+                                static const bool cv455 =
+                                    fixOn(455, "R11V455_CLONEVIEW_OFF");
+                                if (on455 && pkgImportCloneEmit && cv455)
+                                    lawTrace(455, "OOBPKGCLONE_CLONEVIEW_ABSTAIN",
+                                             std::string(own455->name) + "::" +
+                                                 std::string(home455->name));
+                                else if (on455)
+                                    f4 = c455->second;
+                            }
+                    }
                     ((UHDM::func_call*)fc)->Function(f4);
                     linked4 = f4 != nullptr;
                 }
                 else {
-                    ((UHDM::task_call*)fc)->Task((UHDM::task*)siTf);
+                    // § oobInheritedCallBindsOwnPkgClone455 — the TASK half
+                    // (cases/OC/oc04: golden binds q's clone of p::t).
+                    UHDM::task* t455 = (UHDM::task*)siTf;
+                    if (curSubOob9 && curSubClassScope9 && currentSubSym &&
+                        !qualCall9 && !inheritedNoBind9 && !defGenProcessEmit) {
+                        const Symbol* home455 = fbHome455;
+                        if (!home455)
+                            if (auto* hs455 = sub.getParentScope();
+                                hs455 && hs455->asSymbol().kind ==
+                                             SymbolKind::Package)
+                                home455 = &sub;
+                        const Symbol* own455 = oobOwnPkg455(currentSubSym);
+                        if (home455 && own455 &&
+                            &home455->getParentScope()->asSymbol() != own455)
+                            if (auto* c455 = topTaskClone455Find(own455, home455);
+                                c455 && c455 != t455) {
+                                static const bool onT455 =
+                                    lawOn(455, "R11U455_OOBPKGCLONE_OFF");
+                                lawTrace(455, onT455 ? "OOBPKGCLONE_TASK" : "OOBPKGCLONE_TASK_OFF",
+                                         std::string(own455->name) + "::" +
+                                             std::string(home455->name) +
+                                             " in " + std::string(currentSubSym->name) +
+                                             " view=" + (curPkgEmitSym ? std::string(curPkgEmitSym->name) : std::string("-")) +
+                                             (pkgImportCloneEmit ? " clone" : ""));
+                                // § oobCloneViewKeepsPristine455v — the
+                                // task half (R11V455_CLONEVIEW_OFF).
+                                static const bool cvT455 =
+                                    fixOn(455, "R11V455_CLONEVIEW_OFF");
+                                if (onT455 && pkgImportCloneEmit && cvT455)
+                                    lawTrace(455, "OOBPKGCLONE_TASK_CLONEVIEW_ABSTAIN",
+                                             std::string(own455->name) + "::" +
+                                                 std::string(home455->name));
+                                else if (onT455)
+                                    t455 = c455;
+                            }
+                    }
+                    ((UHDM::task_call*)fc)->Task(t455);
                     linked4 = siTf != nullptr;
                 }
                 auto* args = s.MakeAnyVec();
