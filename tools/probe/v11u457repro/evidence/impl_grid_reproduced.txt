@@ -1,0 +1,64 @@
+IC/ic01 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 181 objects  | MOVED
+IC/ic02 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 155 objects  | MOVED
+IC/ic03 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 244 objects  | MOVED
+IC/ic04 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=90 NOT_EQUAL stage1  | same
+IC/ic05 | rc=0 cmp=86 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 270 objects  | MOVED
+IC/ic06 | rc=0 cmp=464 NOT_EQUAL stage1  | rc=0 cmp=464 NOT_EQUAL stage1  | same
+IC/ic07 | rc=0 cmp=60 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 135 objects  | MOVED
+IC/ic08 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 172 objects  | MOVED
+IC/ic09 | rc=0 cmp=0 STRICT_EQUAL 95 objects  | rc=0 cmp=0 STRICT_EQUAL 95 objects  | same
+KC/kc01 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc02 | rc=0 cmp=86 NOT_EQUAL stage1  | rc=0 cmp=86 NOT_EQUAL stage1  | same
+KC/kc03 | rc=0 cmp=60 NOT_EQUAL stage1  | rc=0 cmp=60 NOT_EQUAL stage1  | same
+KC/kc04 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 85 objects  | MOVED
+KC/kc05 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc06 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc07 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc08 | rc=0 cmp=0 STRICT_EQUAL 110 objects  | rc=0 cmp=0 STRICT_EQUAL 110 objects  | same
+KC/kc09 | rc=0 cmp=70 NOT_EQUAL stage1  | rc=0 cmp=70 NOT_EQUAL stage1  | same
+KC/kc10 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc11 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc12 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 110 objects  | MOVED
+KC/kc13 | rc=0 cmp=0 STRICT_EQUAL 124 objects  | rc=0 cmp=0 STRICT_EQUAL 124 objects  | same
+KC/kc14 | rc=0 cmp=86 NOT_EQUAL stage1  | rc=0 cmp=86 NOT_EQUAL stage1  | same
+KC/kc15 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc16 | rc=0 cmp=0 STRICT_EQUAL 110 objects  | rc=0 cmp=0 STRICT_EQUAL 110 objects  | same
+KC/kc17 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc18 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 106 objects  | MOVED
+KC/kc19 | rc=0 cmp=0 STRICT_EQUAL 110 objects  | rc=0 cmp=0 STRICT_EQUAL 110 objects  | same
+KC/kc20 | rc=0 cmp=56 NOT_EQUAL stage1  | rc=0 cmp=56 NOT_EQUAL stage1  | same
+KC/kc21 | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_EQUAL 98 objects  | MOVED
+KC/kc22 | rc=0 cmp=60 NOT_EQUAL stage1  | rc=0 cmp=60 NOT_EQUAL stage1  | same
+KC/kc23 | rc=0 cmp=60 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 119 objects  | MOVED
+KC/kc24 | rc=0 cmp=64 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 161 objects  | MOVED
+OR/or01 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 101 objects  | MOVED
+OR/or02 | rc=0 cmp=0 STRICT_EQUAL 70 objects  | rc=0 cmp=0 STRICT_EQUAL 70 objects  | same
+OR/or03 | rc=0 cmp=0 STRICT_EQUAL 38 objects  | rc=0 cmp=0 STRICT_EQUAL 38 objects  | same
+OR/or04 | rc=0 cmp=0 STRICT_EQUAL 59 objects  | rc=0 cmp=0 STRICT_EQUAL 59 objects  | same
+OR/or05 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=90 NOT_EQUAL stage1  | same
+OR/or06 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 171 objects  | MOVED
+OR/or07 | rc=0 cmp=0 STRICT_EQUAL 205 objects  | rc=0 cmp=0 STRICT_EQUAL 205 objects  | same
+OR/or08 | rc=0 cmp=120 NOT_EQUAL stage1  | rc=0 cmp=120 NOT_EQUAL stage1  | same
+OR/or09 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=90 NOT_EQUAL stage1  | same
+OR/or10 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 171 objects  | MOVED
+OR/or11 | rc=0 cmp=0 STRICT_EQUAL 181 objects  | rc=0 cmp=0 STRICT_EQUAL 181 objects  | same
+OR/or12 | rc=0 cmp=0 STRICT_NOTEQUAL type  | rc=0 cmp=0 STRICT_EQUAL 167 objects  | MOVED
+OR/or13 | rc=0 cmp=0 STRICT_NOTEQUAL type  | rc=0 cmp=0 STRICT_EQUAL 158 objects  | MOVED
+OR/or14 | rc=0 cmp=0 STRICT_EQUAL 113 objects  | rc=0 cmp=0 STRICT_EQUAL 113 objects  | same
+OR/or15 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 126 objects  | MOVED
+OR/or16 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 101 objects  | MOVED
+OR/or17 | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | same
+OR/or18 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=44 NOT_EQUAL stage1  | MOVED
+OR/or19 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 103 objects  | MOVED
+OR/or20 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 114 objects  | MOVED
+PA/pa01 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 107 objects  | MOVED
+PA/pa02 | rc=0 cmp=108 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 148 objects  | MOVED
+PA/pa03 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 111 objects  | MOVED
+PA/pa04 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | same
+PA/pa05 | rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=32 NOT_EQUAL stage1  | same
+PA/pa06 | rc=0 cmp=64 NOT_EQUAL stage1  | rc=0 cmp=64 NOT_EQUAL stage1  | same
+PA/pa07 | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | same
+PA/pa08 | rc=0 cmp=72 NOT_EQUAL stage1  | rc=0 cmp=72 NOT_EQUAL stage1  | same
+PA/pa09 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 140 objects  | MOVED
+PA/pa10 | rc=0 cmp=130 NOT_EQUAL stage1  | rc=0 cmp=130 NOT_EQUAL stage1  | same
+PA/pa11 | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 146 objects  | MOVED

@@ -1,0 +1,8 @@
+path,surelog,slang,cmp,strict,agreement
+chapter-26/26.2--package-decl.sv,OK,OK,EQUAL,equal,IDENTICAL
+chapter-26/26.3--package-ref.sv,OK,OK,EQUAL,equal,IDENTICAL
+generated/hdlconv_std2017/hdlconvertor_std2017_p779.sv,OK,REJECT,,,SURELOG_ONLY
+generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,OK,OK,EQUAL,equal,IDENTICAL
+generated/fusesoc/ibex-sim.sv,OK,REJECT,,,SURELOG_ONLY
+generic/class/class_test_49.sv,OK,OK,EQUAL,equal,IDENTICAL
+generated/uvm-examples/uvm_messaging_example.sv,OK,OK,EQUAL,equal,IDENTICAL

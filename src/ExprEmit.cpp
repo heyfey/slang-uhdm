@@ -292,6 +292,62 @@ static int retShareKind300(const slang::ast::SubroutineSymbol& sub, std::string&
         return 0;
     }
     const Expression& e = stripImplicitConv(*st->as<ReturnStatement>().expr);
+    // § pkgRetCallSharesConstRet457 (r11u457) — kind 4: E is an integer
+    // literal and the function returns a predefined integer type.
+    // reduceExpr hands a constant back as itself and evalFunc's return
+    // value is that object (its logic-typed branch alone clones and truncates
+    // it, ExprEval.cpp:6362-6375), so the call is replaced by the callee's
+    // own constant: golden r11u457 OR/or11 `return rep(a);` with
+    // `function int rep(int v); return 3;` shares rep's 3:12 constant, where
+    // we kept the func_call; a re-parented one carries no reference.
+    // R11U457_CONSTRETSHARE_OFF.
+    if (e.kind == ExpressionKind::IntegerLiteral) {
+        static const bool on457 = lawOn(457, "R11U457_CONSTRETSHARE_OFF");
+        if (!on457) {
+            why = "ret-lit-off";
+            return 0;
+        }
+        // a 4-state packed return (logic / reg, written or implicit) is
+        // evalFunc's cloning branch; a predefined integer type or a 2-state
+        // packed one is handed back as is (OR grid KC kc03 against kc05,
+        // kc06, kc11, kc12)
+        auto& rt457 = sub.getReturnType().getCanonicalType();
+        bool share457 = rt457.kind == SymbolKind::PredefinedIntegerType;
+        if (!share457 && rt457.isIntegral() && !rt457.isFourState() &&
+            (rt457.kind == SymbolKind::ScalarType ||
+             rt457.kind == SymbolKind::PackedArrayType))
+            share457 = true;
+        // a hex, binary or octal literal keeps the call (`'h3` kc08, `4'h3`
+        // kc16, `4'b1x` kc19); a decimal one, based or not, sized or not,
+        // shares (`3` kc01, `8'd3` kc07, `'d3` kc15, `3'sd3` kc18)
+        if (share457 && e.syntax &&
+            e.syntax->kind == slang::syntax::SyntaxKind::IntegerVectorExpression) {
+            auto b457 = e.syntax->as<slang::syntax::IntegerVectorExpressionSyntax>()
+                            .base.valueText();
+            if (b457.find_first_of("dD") == std::string_view::npos)
+                share457 = false;
+        }
+        if (share457)
+            return 4;
+        why = "ret-lit-type";
+        return 0;
+    }
+    // § pkgRetCallPassArgShare457 (r11u457) — kind 3: E is one of the
+    // callee's own formals.  evalFunc binds the formal to the reduced actual
+    // and hands that object back (ExprEval.cpp:6337-6355), so the call is
+    // replaced by the ACTUAL itself, still parented at the discarded call and
+    // carrying the formal's typespec: golden r11u457 OR/or13 `return rep(a);`
+    // with `function int rep(int v); return v;` returns the ref_obj `a`.
+    // R11U457_PASSRETSHARE_OFF.
+    if (e.kind == ExpressionKind::NamedValue) {
+        static const bool on457p = lawOn(457, "R11U457_PASSRETSHARE_OFF");
+        auto& sym457 = e.as<NamedValueExpression>().symbol;
+        if (on457p && sym457.kind == SymbolKind::FormalArgument &&
+            sym457.getParentScope() == static_cast<const Scope*>(&sub))
+            return 3;
+        why = on457p ? "ret-ref" : "ret-ref-off";
+        return 0;
+    }
     if (e.kind == ExpressionKind::Call) {
         auto& c = e.as<CallExpression>();
         if (c.isSystemCall() && c.arguments().empty()) {
@@ -332,6 +388,48 @@ static int retShareKind300(const slang::ast::SubroutineSymbol& sub, std::string&
         return 0;
     }
     return 1;
+}
+// § pkgRetCallPassArgShare457 — the call whose returned-formal actual
+// replaces it, and that formal's position (set at the § 300 site, read where
+// the bound call is finished).
+static const slang::ast::CallExpression*& passCall457() {
+    static const slang::ast::CallExpression* c = nullptr;
+    return c;
+}
+static size_t& passIdx457() {
+    static size_t i = 0;
+    return i;
+}
+// § importCloneRetCallCopiesShare457 (r11u457) — the callee's one return
+// expression, read off the body the way retShareKind300 classifies it.
+static const slang::ast::Expression* retShareExpr457(
+    const slang::ast::SubroutineSymbol& sub) {
+    using namespace slang::ast;
+    const Statement* st = &sub.getBody();
+    for (int guard = 0; st && guard < 8; guard++) {
+        if (st->kind == StatementKind::List) {
+            auto& l = st->as<StatementList>().list;
+            if (l.size() != 1)
+                return nullptr;
+            st = l[0];
+        }
+        else if (st->kind == StatementKind::Block)
+            st = &st->as<BlockStatement>().body;
+        else
+            break;
+    }
+    if (!st || st->kind != StatementKind::Return || !st->as<ReturnStatement>().expr)
+        return nullptr;
+    return &stripImplicitConv(*st->as<ReturnStatement>().expr);
+}
+// § pkgRetCallSharesConstRet457 — for StmtEmit's constant-call branch: the
+// callee's one return expression when it is an integer literal of a body
+// retShareKind300 reads as kind 4, else null.
+const slang::ast::Expression* constRetShare457(const slang::ast::SubroutineSymbol& sub) {
+    std::string why;
+    if (retShareKind300(sub, why) != 4)
+        return nullptr;
+    return retShareExpr457(sub);
 }
 // § pkgRetCallFoldSharesCalleeRet300: is the call written package-qualified
 // (`q::f(x)`)?  Such a call resolves to the callee's home listing.
@@ -41864,11 +41962,81 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // re-parented result must hold no reference (golden's late
                 // binding then looks the name up from the caller: not
                 // modelled).
-                if (pkgRetTopExpr8 && pkgTopEmit && pkgScopeInst &&
-                    currentSubSym && !inClassBodyEmit && !pkgImportCloneEmit &&
+                // § oobClsRetCallSharesCalleeRet457 (r11u457) — THE SAME
+                // EVALFUNC SHARE IN THE CLASS_DEFN'S OWN COPY OF AN
+                // OUT-OF-BODY METHOD BODY.  `function T C::m(...)` written at
+                // package level is a package-level paFunction_declaration
+                // (CompilePackage.cpp:213-218), so the elaborated package
+                // compile hands its Reduce::Yes to the body exactly as it does
+                // for a free package function (§ pkgRetOobClassAndImportCloneTs127
+                // branch (a)), and a direct `return` that calls a package function
+                // whose body is one `return a + 1` is replaced by that
+                // function's own expression object.  Golden on
+                // tools/probe/r11u457repro/cases/OR: the class copy of `C::f`
+                // returns rep's operation where we kept the func_call (pass
+                // 446's CB/cb04 and CG, pass 455's VW/vw01).  The caller is
+                // read as the PACKAGE the out-of-body definition is written in
+                // (its declaration order is `outOfBlockIndex`, its lookups run
+                // from there).  A class property read as an actual abstains:
+                // golden then also hoists the unresolved name as an implicit
+                // net in every importing module (OR/or10), not modelled.  An in-body
+                // method (Reduce::No), a module or $unit class and an import
+                // clone of the method are not this law.
+                // R11U457_OOBCLSRETSHARE_OFF.
+                passCall457() = nullptr;  // § pkgRetCallPassArgShare457
+                const bool home300 =
+                    pkgTopEmit && !inClassBodyEmit && !pkgImportCloneEmit;
+                static const bool on457 =
+                    lawOn(457, "R11U457_OOBCLSRETSHARE_OFF");
+                const bool cls457 =
+                    !home300 && on457 && inClassBodyEmit &&
+                    classBodyHomePkg75 && !pkgImportCloneEmit && currentSubSym &&
+                    currentSubSym->outOfBlockIndex != SymbolIndex(0);
+                // § importCloneRetCallCopiesShare457 (r11u457) — AND IN BOTH
+                // VIEWS OF A WILDCARD-IMPORT CLONE, A COPY OF THE SHARE.
+                // `CompileHelper::importPackage` clone_trees the ELABORATED
+                // home's task_funcs (CompileHelper.cpp:319-325), whose bodies
+                // already hold the shared expression, so the importer's copy of
+                // a package function or of an out-of-body method holds a
+                // clone_tree of the callee's return expression, parented at the
+                // copy's return statement, each reference re-bound by name in
+                // the copy (its own formal or local of that name, else unbound)
+                // and named under the copy (golden q::wrap::v on r11u446
+                // CG/cg01, q::C::f::v unbound on cg02).  Only the add form
+                // retShareKind300 reads as 1 is copied; the rest abstain.
+                // R11U457_CLONERETCOPY_OFF.
+                static const bool onc457 =
+                    lawOn(457, "R11U457_CLONERETCOPY_OFF");
+                const Symbol* clonePkg457 = nullptr;
+                if (!home300 && !cls457 && onc457 && pkgImportCloneEmit &&
+                    currentSubSym && currentTf) {
+                    if (auto* ps457 = currentSubSym->getParentScope();
+                        ps457 && ps457->asSymbol().kind == SymbolKind::Package)
+                        clonePkg457 = &ps457->asSymbol();
+                    else if (currentSubSym->outOfBlockIndex != SymbolIndex(0))
+                        clonePkg457 = oobOwnPkg455(currentSubSym);
+                }
+                const bool clone457 = clonePkg457 != nullptr;
+                if (pkgRetTopExpr8 && (home300 || cls457 || clone457) &&
+                    pkgScopeInst && currentSubSym &&
                     !call.thisClass() && parent &&
                     lawOn(300, "R11U300_RETSHARE_OFF")) {
-                    auto* cps300 = currentSubSym->getParentScope();
+                    const Scope* cps300 =
+                        cls457 ? &classBodyHomePkg75->as<PackageSymbol>()
+                                      .as<Scope>()
+                        : clone457 ? &clonePkg457->as<PackageSymbol>().as<Scope>()
+                                   : currentSubSym->getParentScope();
+                    const bool oob457 =
+                        currentSubSym->outOfBlockIndex != SymbolIndex(0);
+                    // the caller's declaration point in that scope
+                    const SymbolIndex cidx457 =
+                        oob457 && (cls457 || clone457)
+                            ? currentSubSym->outOfBlockIndex
+                            : currentSubSym->getIndex();
+                    const LookupLocation cloc457 =
+                        oob457 && (cls457 || clone457)
+                            ? LookupLocation(cps300, uint32_t(cidx457))
+                            : LookupLocation::before(*currentSubSym);
                     auto* sps300 = sub.getParentScope();
                     const bool pkgCall300 =
                         cps300 && sps300 &&
@@ -41884,8 +42052,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         const bool samePkg300 =
                             &cps300->asSymbol() == &sps300->asSymbol();
                         bool ok300 = true;
-                        if (samePkg300 &&
-                            !(currentSubSym->getIndex() > sub.getIndex())) {
+                        if (samePkg300 && !(cidx457 > sub.getIndex())) {
                             ok300 = false;
                             why300 = "callee-later";
                         }
@@ -41932,6 +42099,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     continue;
                                 }
                                 const Expression& x300 = stripImplicitConv(*a300);
+                                // § pkgRetCallSharesConstRet457: a literal
+                                // actual does not move a returned literal
+                                if (x300.kind == ExpressionKind::IntegerLiteral &&
+                                    retShareExpr457(sub) &&
+                                    retShareExpr457(sub)->kind ==
+                                        ExpressionKind::IntegerLiteral &&
+                                    lawOn(457, "R11U457_CONSTRETSHARE_OFF"))
+                                    continue;
                                 if (x300.kind != ExpressionKind::NamedValue) {
                                     ok300 = false;
                                     why300 = "arg-kind";
@@ -41992,7 +42167,8 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         std::string vwhy300;
                         // (kind 2, a no-argument $urandom/$random, reads no
                         // actual: a valued one still shares, ve06.)
-                        if (kind300 == 1 && fixOn(300, "R11V300_ACTFOLD_OFF")) {
+                        if ((kind300 == 1 || kind300 == 3) &&
+                            fixOn(300, "R11V300_ACTFOLD_OFF")) {
                             // the call's own invocation, read through the
                             // parentheses slang hangs on it (`return (f(x));`,
                             // r11u300repro RS/s19) and off a shell (§ 167)
@@ -42035,7 +42211,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // enum constant is valued the same way (ve01); the
                                 // callee package's parameters do not shadow (va18)
                                 if (auto* hit = cps300->lookupName(
-                                        nm, LookupLocation::before(*currentSubSym));
+                                        nm, cloc457);
                                     hit && (hit->kind == SymbolKind::Parameter ||
                                             hit->kind == SymbolKind::EnumValue))
                                     return true;
@@ -42123,13 +42299,134 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 kind300 = 0;
                                 why300 = "context";
                             }
-                            else if (reparent300 && kind300 == 1) {
+                            else if (reparent300 && (kind300 == 1 || kind300 == 3)) {
                                 kind300 = 0;
                                 why300 = "reparent-refs";
                             }
+                            // § pkgRetCallSharesConstRet457: a shared constant
+                            // under an operator is reduced WITH it (golden one
+                            // constant, KC kc02, kc09, kc14): direct child only
+                            else if (kind300 == 4 &&
+                                     parent->UhdmType() != UHDM::uhdmreturn_stmt) {
+                                kind300 = 0;
+                                why300 = "const-under-op";
+                            }
                         }
                         UHDM::any* sh300 = nullptr;
-                        if (kind300) {
+                        bool copied457 = false;
+                        if (kind300 == 3) {
+                            // § pkgRetCallPassArgShare457: the call is built as
+                            // usual and its actual for the returned formal is
+                            // handed back instead (see the bound-call return).
+                            // Every formal must be written positionally.
+                            size_t pidx457 = 0, n457 = 0;
+                            bool okp457 = !vfold300;
+                            const Expression* e457 = retShareExpr457(sub);
+                            const Symbol* pf457 =
+                                e457 ? &e457->as<NamedValueExpression>().symbol
+                                     : nullptr;
+                            auto fa457 = sub.getArguments();
+                            for (size_t i = 0; i < fa457.size(); i++)
+                                if (fa457[i] == pf457)
+                                    pidx457 = i, n457++;
+                            const syntax::SyntaxNode* sn457 = expr.syntax;
+                            while (sn457 && sn457->kind ==
+                                                syntax::SyntaxKind::ParenthesizedExpression)
+                                sn457 = sn457->as<syntax::ParenthesizedExpressionSyntax>()
+                                            .expression;
+                            auto* iv457 = sn457 ? sn457->as_if<
+                                              syntax::InvocationExpressionSyntax>()
+                                                : nullptr;
+                            size_t w457 = 0;
+                            if (iv457 && iv457->arguments)
+                                for (auto* ap : iv457->arguments->parameters) {
+                                    if (!ap || ap->kind != syntax::SyntaxKind::OrderedArgument)
+                                        okp457 = false;
+                                    w457++;
+                                }
+                            if (!iv457 || n457 != 1 || w457 != fa457.size() ||
+                                call.arguments().size() != fa457.size())
+                                okp457 = false;
+                            if (okp457) {
+                                passCall457() = &call;
+                                passIdx457() = pidx457;
+                                lawTrace(457, "PASSRETSHARE", at300);
+                            }
+                            else {
+                                lawTrace(457, "PASSRETSHARE_ABSTAIN",
+                                         at300 + " " + (vfold300 ? "v-" + vwhy300
+                                                                 : std::string("args")));
+                            }
+                            kind300 = 0;
+                            why300 = "pass-arg";
+                        }
+                        if (kind300 && clone457) {
+                            // § importCloneRetCallCopiesShare457: the copy.
+                            const Expression* e457 =
+                                (kind300 == 1 || kind300 == 4) ? retShareExpr457(sub)
+                                                               : nullptr;
+                            if (e457 && kind300 == 4 &&
+                                e457->kind == ExpressionKind::IntegerLiteral) {
+                                // § pkgRetCallSharesConstRet457's copy
+                                if (auto* c457 = emitExpr(*e457, parent, prefix, netMap)) {
+                                    sh300 = c457;
+                                    copied457 = true;
+                                }
+                            }
+                            else if (!e457 || e457->kind != ExpressionKind::BinaryOp) {
+                                why300 = "clone-kind";
+                                kind300 = 0;
+                            }
+                            else if (!vfold300) {
+                                auto& be457 = e457->as<BinaryExpression>();
+                                auto* op457 = s.MakeOperation();
+                                op457->VpiOpType(vpiAddOp);
+                                op457->VpiParent(parent);
+                                setLoc(op457, e457->sourceRange);
+                                auto* ops457 = s.MakeAnyVec();
+                                for (const Expression* o457 :
+                                     {&be457.left(), &be457.right()}) {
+                                    const Expression& x457 = stripImplicitConv(*o457);
+                                    if (x457.kind == ExpressionKind::NamedValue) {
+                                        std::string_view nm457 =
+                                            x457.as<NamedValueExpression>().symbol.name;
+                                        auto* r457 = s.MakeRef_obj();
+                                        r457->VpiName(nm457);
+                                        r457->VpiFullName(joinRef(prefix, nm457));
+                                        r457->VpiParent(op457);
+                                        setLoc(r457, x457.sourceRange);
+                                        // re-bound by name in the copy
+                                        UHDM::any* act457 = nullptr;
+                                        if (auto* ios457 = currentTf->Io_decls())
+                                            for (auto* io : *ios457)
+                                                if (io->VpiName() == nm457) {
+                                                    act457 = io;
+                                                    break;
+                                                }
+                                        if (!act457)
+                                            if (auto* vs457 = currentTf->Variables())
+                                                for (auto* v : *vs457)
+                                                    if (v->VpiName() == nm457) {
+                                                        act457 = v;
+                                                        break;
+                                                    }
+                                        if (act457)
+                                            r457->Actual_group(act457);
+                                        ops457->push_back(r457);
+                                    }
+                                    else if (auto* c457 = emitExpr(x457, op457, prefix,
+                                                                   netMap))
+                                        ops457->push_back(c457);
+                                }
+                                op457->Operands(ops457);
+                                sh300 = op457;
+                                copied457 = true;
+                            }
+                        }
+                        if (kind300 && !copied457 && clone457) {
+                            // a copy refused by the refinement: keep the call
+                        }
+                        else if (kind300 && !copied457) {
                             if (!samePkg300 && qualCallSyntax300(expr.syntax)) {
                                 auto hit = retCondHome300().find((const void*)&sub);
                                 if (hit != retCondHome300().end())
@@ -42146,12 +42443,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else if ((kind300 == 1 &&
                                       sh300->UhdmType() != UHDM::uhdmoperation) ||
                                      (kind300 == 2 &&
-                                      sh300->UhdmType() != UHDM::uhdmsys_func_call)) {
+                                      sh300->UhdmType() != UHDM::uhdmsys_func_call) ||
+                                     (kind300 == 4 &&
+                                      sh300->UhdmType() != UHDM::uhdmconstant)) {
                                 why300 = "registered-kind";
                                 sh300 = nullptr;
                             }
                         }
-                        if (sh300 && vfold300) {
+                        if (sh300 && vfold300 && !copied457) {
                             // § retShareActualFoldAbstain300v: the law would share
                             // here; the refinement keeps pristine's call.
                             lawTrace(300, "ACTFOLD300V", at300 + " " + vwhy300);
@@ -42162,10 +42461,22 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             if (reparent300)
                                 sh300->VpiParent(parent);
                             lawTrace(300, "RETSHARE", at300 + (reparent300 ? " reparent" : ""));
+                            if (cls457)
+                                lawTrace(457, "OOBCLSRETSHARE",
+                                         at300 + (reparent300 ? " reparent" : ""));
+                            if (copied457)
+                                lawTrace(457, "CLONERETCOPY", at300);
+                            if (kind300 == 4)
+                                lawTrace(457, "CONSTRETSHARE", at300);
                             callStmtContext = callStmtCtx0;
                             return sh300;
                         }
                         lawTrace(300, "RETSHARE_ABSTAIN", at300 + " " + why300);
+                        if (cls457)
+                            lawTrace(457, "OOBCLSRETSHARE_ABSTAIN", at300 + " " + why300);
+                        if (clone457)
+                            lawTrace(457, "CLONERETCOPY_ABSTAIN",
+                                     at300 + " " + (vfold300 ? "v-" + vwhy300 : why300));
                     }
                 }
                 // § rootCallEatsTheChain150 — a call whose RECEIVER IS ITSELF A
@@ -45133,6 +45444,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 const bool realIsFunc18 = isFunc;
                 if (inheritedNoBind9 || defGenProcessEmit)
                     isFunc = true;
+                // § pkgRetCallPassArgShare457 — consumed here, once
+                const bool pass457 = passCall457() == &call;
+                passCall457() = nullptr;
                 UHDM::tf_call* fc = isFunc ? (UHDM::tf_call*)s.MakeFunc_call()
                                            : (UHDM::tf_call*)s.MakeTask_call();
                 // Reachability bookkeeping for the in-body operation-arg
@@ -47233,6 +47547,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 qualCallArg20 = savedQCA20;
                 if (!args->empty())
                     fc->Tf_call_args(args);
+                // § pkgRetCallPassArgShare457 — the actual replaces the call
+                if (pass457 && passIdx457() < args->size() &&
+                    (*args)[passIdx457()])
+                    return (*args)[passIdx457()];
                 return fc;
             }
             bool stmtCtx = callStmtContext;

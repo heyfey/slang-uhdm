@@ -1,0 +1,6 @@
+CB/cb04 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 126 objects  | MOVED
+CG/cg01 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 179 objects  | MOVED
+CG/cg02 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 155 objects  | MOVED
+CG/cg03 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 221 objects  | MOVED
+VC/vc07 | rc=0 cmp=90 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 155 objects  | MOVED
+OC/oc06 | rc=0 cmp=0 STRICT_NOTEQUAL type  | rc=0 cmp=0 STRICT_NOTEQUAL type  | same

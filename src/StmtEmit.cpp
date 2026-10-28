@@ -70,6 +70,8 @@ static void tr183SE(const char* law) {
 // (`pkgImportCloneEmit`) those two lists take copies made the way Surelog makes
 // them (UHDM's clone_tree).  Grid tools/probe/r11u175uvm/cases/f2.  Switch
 // R11U175_MULT_OFF.
+// § pkgRetCallSharesConstRet457 (ExprEmit.cpp)
+const slang::ast::Expression* constRetShare457(const slang::ast::SubroutineSymbol& sub);
 static UHDM::any* cloneLocal175(UHDM::Serializer& s, const UHDM::any* o,
                                 UHDM::any* parent) {
     // Made design-final (drainImportCloneLocalCopies175), after every
@@ -9229,8 +9231,51 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // golden holds the bound `ref_obj`
                     // (§ pkgRetParamSubstIsRhsClone120's window half).
                     if (pkgTopEmit && cf.lit && (!fp120 || direct120)) {
+                        // § pkgRetCallSharesConstRet457 — a call this branch
+                        // folds to its callee's one returned literal
+                        // (`return rep();`, `return rep(2);`) is the callee's
+                        // OWN constant object in golden (evalFunc hands
+                        // reduceExpr's constant back as is), where we minted a
+                        // second one at the literal: r11u457 KC kc04, kc10.
+                        if (!fp120 && cf.directSub && pkgScopeInst &&
+                            stripImplicitConv(*rs.expr).kind ==
+                                ExpressionKind::Call &&
+                            constRetShare457(*cf.directSub) == cf.lit &&
+                            lawOn(300, "R11U300_RETSHARE_OFF"))
+                            if (auto hit457 = retCondReg300().find(
+                                    {(const void*)pkgScopeInst,
+                                     (const void*)cf.directSub});
+                                hit457 != retCondReg300().end() && hit457->second &&
+                                hit457->second->UhdmType() == UHDM::uhdmconstant) {
+                                lawTrace(457, "CONSTRETSHARE",
+                                         std::string(currentSubSym ? currentSubSym->name
+                                                                   : std::string_view()) +
+                                             "->" + std::string(cf.directSub->name) +
+                                             " fold");
+                                r->VpiCondition((UHDM::expr*)hit457->second);
+                                return r;
+                            }
                         if (auto* e = emitExpr(*cf.lit, r, prefix, netMap)) {
                             r->VpiCondition((UHDM::expr*)e);
+                            // § pkgRetCallSharesConstRet457 — this branch returns
+                            // before § pkgRetCallFoldSharesCalleeRet300's
+                            // registry below, so a written integer literal is
+                            // recorded here, under the same gate.  Writes
+                            // nothing to the database.
+                            if (!fp120 && pkgScopeInst && currentSubSym &&
+                                !inClassBodyEmit &&
+                                stripImplicitConv(*rs.expr).kind ==
+                                    ExpressionKind::IntegerLiteral &&
+                                lawOn(457, "R11U457_CONSTRETSHARE_OFF") &&
+                                lawOn(300, "R11U300_RETSHARE_OFF"))
+                                if (auto* ps457 = currentSubSym->getParentScope();
+                                    ps457 &&
+                                    ps457->asSymbol().kind == SymbolKind::Package) {
+                                    retCondReg300()[{(const void*)pkgScopeInst,
+                                                     (const void*)currentSubSym}] = e;
+                                    if (!pkgImportCloneEmit)
+                                        retCondHome300()[(const void*)currentSubSym] = e;
+                                }
                             return r;
                         }
                     }

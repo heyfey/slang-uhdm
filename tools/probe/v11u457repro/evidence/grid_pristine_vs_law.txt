@@ -1,0 +1,56 @@
+cases/VC/vc01 | rc=0 cmp=86 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 193 objects | MOVED
+cases/VC/vc02 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 181 objects | MOVED
+cases/VC/vc03 | rc=0 cmp=120 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 314 objects | MOVED
+cases/VC/vc04 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 244 objects | MOVED
+cases/VC/vc05 | rc=0 cmp=0 STRICT_EQUAL 106 objects | rc=0 cmp=0 STRICT_EQUAL 106 objects | same
+cases/VC/vc06 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_NOTEQUAL depth | MOVED
+cases/VC/vc07 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 155 objects | MOVED
+cases/VK/vk01 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 98 objects | MOVED
+cases/VK/vk02 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 98 objects | MOVED
+cases/VK/vk03 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 85 objects | MOVED
+cases/VK/vk04 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 110 objects | MOVED
+cases/VK/vk05 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 84 objects | MOVED
+cases/VK/vk06 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_NOTEQUAL depth | same
+cases/VK/vk07 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 138 objects | MOVED
+cases/VK/vk08 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 89 objects | MOVED
+cases/VK/vk09 | rc=0 cmp=0 STRICT_EQUAL 41 objects | rc=0 cmp=0 STRICT_EQUAL 41 objects | same
+cases/VK/vk10 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 98 objects | MOVED
+cases/VK/vk11 | rc=0 cmp=0 STRICT_EQUAL 132 objects | rc=0 cmp=0 STRICT_EQUAL 132 objects | same
+cases/VK/vk12 | rc=0 cmp=60 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 169 objects | MOVED
+cases/VK/vk13 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 134 objects | MOVED
+cases/VK/vk14 | rc=0 cmp=0 STRICT_NOTEQUAL depth | rc=0 cmp=0 STRICT_EQUAL 98 objects | MOVED
+cases/VO/vo01 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 126 objects | MOVED
+cases/VO/vo02 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 101 objects | MOVED
+cases/VO/vo03 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 108 objects | MOVED
+cases/VO/vo04 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 114 objects | MOVED
+cases/VO/vo05 | rc=0 cmp=0 STRICT_EQUAL 135 objects | rc=0 cmp=0 STRICT_EQUAL 135 objects | same
+cases/VO/vo06 | rc=0 cmp=28 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 80 objects | MOVED
+cases/VO/vo07 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 105 objects | MOVED
+cases/VO/vo08 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 129 objects | MOVED
+cases/VO/vo09 | rc=0 cmp=0 STRICT_EQUAL 38 objects | rc=0 cmp=0 STRICT_EQUAL 38 objects | same
+cases/VO/vo10 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 162 objects | MOVED
+cases/VO/vo11 | rc=0 cmp=60 NOT_EQUAL stage1 | rc=0 cmp=60 NOT_EQUAL stage1 | same
+cases/VO/vo12 | rc=0 cmp=0 STRICT_EQUAL 59 objects | rc=0 cmp=0 STRICT_EQUAL 59 objects | same
+cases/VP/vp01 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=78 NOT_EQUAL stage1 | same
+cases/VP/vp02 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=78 NOT_EQUAL stage1 | same
+cases/VP/vp03 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=78 NOT_EQUAL stage1 | same
+cases/VP/vp04 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 107 objects | MOVED
+cases/VP/vp05 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=78 NOT_EQUAL stage1 | same
+cases/VP/vp06 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 135 objects | MOVED
+cases/VP/vp07 | rc=0 cmp=0 STRICT_EQUAL 62 objects | rc=0 cmp=0 STRICT_EQUAL 62 objects | same
+cases/VP/vp08 | rc=0 cmp=0 STRICT_EQUAL 41 objects | rc=0 cmp=0 STRICT_EQUAL 41 objects | same
+cases/VP/vp09 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 107 objects | MOVED
+cases/VP/vp10 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 111 objects | MOVED
+cases/VP/vp11 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 261 objects | MOVED
+cases/VP/vp12 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=78 NOT_EQUAL stage1 | MOVED
+cases/VP/vp13 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 173 objects | MOVED
+cases/VP/vp14 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 183 objects | MOVED
+cases/VC/vc08 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 244 objects | MOVED
+cases/VC/vc09 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 158 objects | MOVED
+cases/VC/vc10 | rc=0 cmp=60 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 186 objects | MOVED
+cases/VP/vp15 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=66 NOT_EQUAL stage1 | MOVED
+cases/VP/vp16 | rc=0 cmp=92 NOT_EQUAL stage1 | rc=0 cmp=92 NOT_EQUAL stage1 | MOVED
+cases/VD/vd01 | rc=0 cmp=17 NOT_EQUAL stage1 | rc=0 cmp=17 NOT_EQUAL stage1 | MOVED
+cases/VD/vd02 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 126 objects | MOVED
+cases/VD/vd03 | rc=0 cmp=78 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 203 objects | MOVED
+cases/VD/vd04 | rc=0 cmp=90 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 220 objects | MOVED

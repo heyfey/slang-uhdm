@@ -1,0 +1,7 @@
+      8 CLONERETCOPY_ABSTAIN adjust_name->uvm_leaf_scope body-stmts
+      2 CLONERETCOPY_ABSTAIN amber_relay->amber_fn body-stmts
+      2 CLONERETCOPY_ABSTAIN gully_use->ledge_use arg-kind
+     10 CLONERETCOPY_ABSTAIN LSQ_ToBlockWordEnable->LSQ_SelectBits arg-not-local
+      8 CLONERETCOPY_ABSTAIN uvm_vector_to_string->uvm_bitstream_to_string body-stmts
+      7 OOBCLSRETSHARE_ABSTAIN adjust_name->uvm_leaf_scope body-stmts
+      1 OOBCLSRETSHARE_ABSTAIN m_oob->f1 ret-call
