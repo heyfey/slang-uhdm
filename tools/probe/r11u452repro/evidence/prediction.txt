@@ -1,0 +1,13 @@
+Prediction written before the law12 sweep (from the traced candidate census on law12):
+surelog: byte movers SeqDriver default + testflags, SimpleUVM default + testflags
+  (§ thisNetFlatStreamPlace452: the `this` wire moves to golden's place in the
+  forwarded block; status CMP_EQUAL, strict equal unchanged); every other database
+  byte-identical to /tmp/intr11u450.
+uhdm2rtlil: 0 movers (census 156 databases, 0 firings).
+probe: 0 movers (census 1155 candidate cases byte-identical; 4 g219 cases fire
+  § thisNetFlatStreamPlace452 with the same place).
+downstream: 0 verdict changes (no uhdm2rtlil database moves).
+sv-tests: conversions DIFFERENT -> EQUAL on generated/uvm-examples/uvm_test_init.sv,
+  uvm_generation_seq_poly.sv, uvm_generation_seq_persistence.sv,
+  uvm_generation_seq_randomization.sv (runner on law6 and rows on law12);
+  no other status change; the three sfr_scoreboard rows stay DIFFERENT.

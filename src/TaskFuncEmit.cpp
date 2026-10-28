@@ -7665,6 +7665,47 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // The element typespec (int_typespec for int/...), shared
                     // by the reg AND the array_typespec's Elem_typespec.
                     UHDM::typespec* elemTs = nullptr;
+                    UHDM::class_typespec* cls452 = nullptr;
+                    auto clsArrElemTs452 = [&](const Symbol& v452,
+                                               const Type& lf452)
+                        -> UHDM::class_typespec* {
+                        if (lf452.kind != SymbolKind::ClassType)
+                            return nullptr;
+                        auto* ts452 = v452.getDeclaredType()->getTypeSyntax();
+                        if (!ts452 || ts452->kind != syntax::SyntaxKind::NamedType)
+                            return nullptr;
+                        auto& nm452 = ts452->as<syntax::NamedTypeSyntax>().name;
+                        if (!nm452 || nm452->kind != syntax::SyntaxKind::IdentifierName)
+                            return nullptr;
+                        if (!lawOn(452, "R11U452_TFCLSARRELEM_OFF"))
+                            return nullptr;
+                        auto* c452 = s.MakeClass_typespec();
+                        if (auto ci452 = classDefnMap.find(&lf452); ci452 != classDefnMap.end())
+                            c452->Class_defn(ci452->second);
+                        else
+                            pendingClassTsLink.push_back({c452, &lf452});
+                        setLoc(c452, ts452->sourceRange());
+                        // § tfClsArrElemNamedOutsidePkgCls452v (v11u452,
+                        // R11V452_TFCLSARRNAME_OFF; cases
+                        // tools/probe/v11u452repro/cases/VC) — in a
+                        // subroutine that is neither a class method nor a
+                        // package subroutine (a module, interface, program,
+                        // generate-block or $unit task or function) the
+                        // element class_typespec carries the written name
+                        // (golden VC/vc01, vc08, vc12 to vc17 `class_typespec
+                        // (C)`); in a package free subroutine or a class
+                        // method it stays unnamed (vc02, CA/ca01, vc10).
+                        if (body.asSymbol().kind != SymbolKind::ClassType &&
+                            body.asSymbol().kind != SymbolKind::Package &&
+                            fixOn(452, "R11V452_TFCLSARRNAME_OFF")) {
+                            c452->VpiName(nm452->as<syntax::IdentifierNameSyntax>()
+                                              .identifier.valueText());
+                            lawTrace(452, "tfClsArrElemNamedOutsidePkgCls452v",
+                                     std::string(v452.name));
+                        }
+                        lawTrace(452, "tfLocalClassArrElemClassTs452", std::string(v452.name));
+                        return c452;
+                    };
                     // § declArrayElemTsIsWrittenKeyword126 — Surelog's
                     // `compileBuiltinTypespec` dispatch, asked of the WRITTEN
                     // base-type KEYWORD instead of the element's integral
@@ -7691,6 +7732,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (auto tsyn3 = fmv.getDeclaredType()->getTypeSyntax())
                             setLoc(its, tsyn3->getFirstToken().range());
                         elemTs = its;
+                    }
+                    // § tfLocalClassArrElemClassTs452 (r11u452,
+                    // R11U452_TFCLSARRELEM_OFF; cases
+                    // tools/probe/r11u452repro/cases/CA) — a fixed-size array
+                    // local of a CLASS type in a subroutine body (`task body;
+                    // bus_seq_base seq_array[4];`, uvm_generation_seq's
+                    // rand_order_seq::body) gets, as the element typespec of
+                    // both the reg and the array_typespec, an UNNAMED
+                    // class_typespec over the written type name carrying
+                    // vpiClassDefn and no vpiInstance (golden CA/ca01 to
+                    // ca04, ca06), where the vector branch below wrote a
+                    // logic_typespec.  A class written through a typedef or
+                    // with parameters abstains.
+                    else if ((cls452 = clsArrElemTs452(fmv, *leaf))) {
+                        elemTs = cls452;
                     }
                     else {
                         // A packed-vector leaf (reg [3:0]) gets a LOCATED
@@ -7805,7 +7861,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // package, so their element typespecs carry it as
                     // vpiInstance — same rule (and same tsInst) the flat-local
                     // arm below already applies (AllPackageSignal).
-                    if (elemTs && tsInst && !elemTs->Instance())
+                    if (elemTs && tsInst && !elemTs->Instance() && !cls452)
                         elemTs->Instance(importCopyTsInst ? importCopyTsInst
                                                           : tsInst);
                     // § classScopedTdDeclTsUnsupported11, SITE 4c of 5 —

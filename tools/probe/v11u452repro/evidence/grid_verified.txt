@@ -1,0 +1,114 @@
+AX/ax01 | rc=0 cmp=0 STRICT_EQUAL 96 objects md5=2b2863b7 | ver=law | VoffEQlaw | UoffEQpris
+CA/ca01 | rc=0 cmp=0 STRICT_EQUAL 41 objects md5=ef1b5620 | ver=law | VoffEQlaw | UoffEQpris
+CA/ca02 | rc=0 cmp=0 STRICT_EQUAL 39 objects md5=1faa7ae1 | ver=law | VoffEQlaw | UoffEQpris
+CA/ca03 | rc=0 cmp=0 STRICT_EQUAL 29 objects md5=a451065b | ver=law | VoffEQlaw | UoffEQpris
+CA/ca04 | rc=0 cmp=0 STRICT_EQUAL 54 objects md5=9fb168fc | ver=law | VoffEQlaw | UoffEQpris
+CA/ca05 | rc=0 cmp=0 STRICT_EQUAL 81 objects md5=453beb43 | ver=law | VoffEQlaw | UoffEQpris
+CA/ca06 | rc=0 cmp=0 STRICT_EQUAL 77 objects md5=87110eb9 | ver=law | VoffEQlaw | UoffEQpris
+CA/ca07 | rc=0 cmp=0 STRICT_EQUAL 29 objects md5=1397bba2 | ver=law | VoffEQlaw | UoffEQpris
+CK/ck01 | rc=0 cmp=17 NOT_EQUAL stage1 md5=e950739a | ver=law | VoffEQlaw | UoffEQpris
+CP/cp01 | rc=0 cmp=0 STRICT_EQUAL 427 objects md5=0dc5020d | ver=law | VoffEQlaw | UoffEQpris
+CP/cp02 | rc=0 cmp=0 STRICT_EQUAL 151 objects md5=d92eab45 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv01 | rc=0 cmp=0 STRICT_EQUAL 75 objects md5=5060ad1f | ver=law | VoffEQlaw | UoffEQpris
+CV/cv02 | rc=0 cmp=184 NOT_EQUAL stage1 md5=5908dcf4 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv03 | rc=0 cmp=0 STRICT_EQUAL 114 objects md5=4be984d8 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv04 | rc=0 cmp=0 STRICT_EQUAL 100 objects md5=21bd321a | ver=law | VoffEQlaw | UoffEQpris
+CV/cv05 | rc=0 cmp=242 NOT_EQUAL stage1 md5=657fe2a1 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv06 | rc=0 cmp=0 STRICT_EQUAL 152 objects md5=5b220259 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv07 | rc=0 cmp=0 STRICT_EQUAL 45 objects md5=0265e94b | ver=law | VoffEQlaw | UoffEQpris
+CV/cv08 | rc=0 cmp=91 NOT_EQUAL stage1 md5=389cf840 | ver=law | VoffEQlaw | UoffEQpris
+CV/cv09 | rc=0 cmp=242 NOT_EQUAL stage1 md5=3ef9567b | ver=law | VoffEQlaw | UoffEQpris
+HT/ht01 | rc=0 cmp=0 STRICT_EQUAL 56 objects md5=8c543f18 | ver=law | VoffEQlaw | UoffEQpris
+OB/ob01 | rc=0 cmp=0 STRICT_EQUAL 135 objects md5=a3c3befb | ver=law | VoffEQlaw | UoffEQpris
+OB/ob02 | rc=0 cmp=0 STRICT_EQUAL 85 objects md5=0c49a1db | ver=law | VoffEQlaw | UoffEQpris
+OB/ob03 | rc=0 cmp=0 STRICT_EQUAL 92 objects md5=41c63602 | ver=law | VoffEQlaw | UoffEQpris
+OB/ob04 | rc=0 cmp=0 STRICT_EQUAL 161 objects md5=61281ec3 | ver=law | VoffEQlaw | UoffEQpris
+TM/tm01 | rc=0 cmp=0 STRICT_EQUAL 106 objects md5=faca7cd5 | ver=law | VoffEQlaw | UoffEQpris
+TM/tm02 | rc=0 cmp=0 STRICT_EQUAL 150 objects md5=eeb5e31c | ver=law | VoffEQlaw | UoffEQpris
+TP/tp01 | rc=0 cmp=0 STRICT_EQUAL 104 objects md5=27770746 | ver=law | VoffEQlaw | UoffEQpris
+WO/wo01 | rc=0 cmp=0 STRICT_EQUAL 135 objects md5=48a1725e | ver=law | VoffEQlaw | UoffEQpris
+WO/wo02 | rc=0 cmp=0 STRICT_EQUAL 212 objects md5=28fbbabe | ver=law | VoffEQlaw | UoffEQpris
+WO/wo03 | rc=0 cmp=0 STRICT_EQUAL 123 objects md5=460fa3b4 | ver=law | VoffEQlaw | UoffEQpris
+WO/wo04 | rc=0 cmp=0 STRICT_EQUAL 104 objects md5=59e51172 | ver=law | VoffEQlaw | UoffEQpris
+VC/vc01 | rc=0 cmp=0 STRICT_EQUAL 45 objects md5=4fc221a4 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc02 | rc=0 cmp=0 STRICT_EQUAL 89 objects md5=9520e89a | ver=law | VoffEQlaw | UoffEQpris
+VC/vc03 | rc=0 cmp=16 NOT_EQUAL stage1 md5=463ccde5 | ver=law | VoffEQlaw | UoffEQpris
+VC/vc04 | rc=0 cmp=152 NOT_EQUAL stage1 md5=ed934fdf | ver=law | VoffEQlaw | UoffEQpris
+VC/vc05 | rc=0 cmp=240 NOT_EQUAL stage1 md5=a35f8bcc | ver=law | VoffEQlaw | UoffEQpris
+VC/vc06 | rc=0 cmp=152 NOT_EQUAL stage1 md5=bbdea6ba | ver=law | VoffEQlaw | UoffEQpris
+VC/vc07 | rc=0 cmp=152 NOT_EQUAL stage1 md5=ce7b312a | ver=law | VoffEQlaw | UoffEQpris
+VC/vc08 | rc=0 cmp=0 STRICT_EQUAL 95 objects md5=67dbe8b4 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc09 | rc=0 cmp=244 NOT_EQUAL stage1 md5=2241521e | ver=law | VoffEQlaw | UoffEQpris
+VC/vc10 | rc=0 cmp=152 NOT_EQUAL stage1 md5=95afbef1 | ver=law | VoffEQlaw | UoffEQpris
+VC/vc11 | rc=0 cmp=292 NOT_EQUAL stage1 md5=70633ac6 | ver=law | VoffEQlaw | UoffEQpris
+VC/vc12 | rc=0 cmp=156 NOT_EQUAL stage1 md5=a873db97 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc13 | rc=0 cmp=148 NOT_EQUAL stage1 md5=9db7dc53 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc14 | rc=0 cmp=156 NOT_EQUAL stage1 md5=9bd00d31 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc15 | rc=0 cmp=240 NOT_EQUAL stage1 md5=c5f94d03 | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc16 | rc=0 cmp=156 NOT_EQUAL stage1 md5=ed2b10df | VERMOVED | VoffEQlaw | UoffEQpris
+VC/vc17 | rc=0 cmp=152 NOT_EQUAL stage1 md5=a6b0a414 | VERMOVED | VoffEQlaw | UoffEQpris
+VE/ve01 | rc=0 cmp=242 NOT_EQUAL stage1 md5=de3dcd63 | ver=law | VoffEQlaw | UoffEQpris
+VE/ve02 | rc=0 cmp=244 NOT_EQUAL stage1 md5=c59d0cf8 | ver=law | VoffEQlaw | UoffEQpris
+VE/ve03 | rc=0 cmp=156 NOT_EQUAL stage1 md5=27547a66 | ver=law | VoffEQlaw | UoffEQpris
+VE/ve04 | rc=0 cmp=0 STRICT_EQUAL 117 objects md5=9fc2e557 | ver=law | VoffEQlaw | UoffEQpris
+VE/ve05 | rc=0 cmp=0 STRICT_EQUAL 110 objects md5=da1a689f | ver=law | VoffEQlaw | UoffEQpris
+VF/vf01 | rc=0 cmp=0 STRICT_EQUAL 93 objects md5=f3d22ab9 | ver=law | VoffEQlaw | UoffEQpris
+VF/vf02 | rc=0 cmp=0 STRICT_EQUAL 82 objects md5=4919d6e3 | ver=law | VoffEQlaw | UoffEQpris
+VH/vh01 | rc=0 cmp=0 STRICT_EQUAL 66 objects md5=ca983272 | ver=law | VoffEQlaw | UoffEQpris
+VH/vh02 | rc=0 cmp=17 NOT_EQUAL stage1 md5=c2b6d7ec | ver=law | VoffEQlaw | UoffEQpris
+VH/vh03 | rc=0 cmp=0 STRICT_EQUAL 82 objects md5=c537737f | ver=law | VoffEQlaw | UoffEQpris
+VH/vh04 | rc=0 cmp=17 NOT_EQUAL stage1 md5=b184f56e | ver=law | VoffEQlaw | UoffEQpris
+VH/vh05 | rc=0 cmp=0 STRICT_EQUAL 56 objects md5=02569c48 | ver=law | VoffEQlaw | UoffEQpris
+VH/vh06 | rc=0 cmp=0 STRICT_EQUAL 70 objects md5=002d4034 | ver=law | VoffEQlaw | UoffEQpris
+VH/vh07 | rc=0 cmp=0 STRICT_EQUAL 62 objects md5=8c9a83eb | ver=law | VoffEQlaw | UoffEQpris
+VH/vh08 | rc=0 cmp=0 STRICT_EQUAL 79 objects md5=d1fa0bea | ver=law | VoffEQlaw | UoffEQpris
+VK/vk01 | rc=0 cmp=118 NOT_EQUAL stage1 md5=98a8fcd2 | ver=law | VoffEQlaw | UoffEQpris
+VK/vk02 | rc=0 cmp=118 NOT_EQUAL stage1 md5=a6ecac86 | ver=law | VoffEQlaw | UoffEQpris
+VO/vo01 | rc=0 cmp=0 STRICT_EQUAL 92 objects md5=ecef878c | ver=law | VoffEQlaw | UoffEQpris
+VO/vo02 | rc=0 cmp=268 NOT_EQUAL stage1 md5=c0d2833c | ver=law | VoffEQlaw | UoffEQpris
+VO/vo03 | rc=0 cmp=0 STRICT_EQUAL 62 objects md5=b0639d48 | ver=law | VoffEQlaw | UoffEQpris
+VO/vo04 | rc=0 cmp=0 STRICT_EQUAL 75 objects md5=44309a5b | ver=law | VoffEQlaw | UoffEQpris
+VO/vo05 | rc=0 cmp=0 STRICT_EQUAL 102 objects md5=1db418bd | ver=law | VoffEQlaw | UoffEQpris
+VO/vo06 | rc=0 cmp=0 STRICT_EQUAL 121 objects md5=3b6e6433 | ver=law | VoffEQlaw | UoffEQpris
+VO/vo07 | rc=0 cmp=0 STRICT_EQUAL 76 objects md5=1b225d26 | ver=law | VoffEQlaw | UoffEQpris
+VO/vo08 | rc=0 cmp=35 NOT_EQUAL stage1 md5=9fe72daa | ver=law | VoffEQlaw | UoffEQpris
+VO/vo09 | rc=0 cmp=0 STRICT_EQUAL 83 objects md5=d2340b7f | ver=law | VoffEQlaw | UoffEQpris
+VO/vo10 | rc=0 cmp=0 STRICT_EQUAL 88 objects md5=aa6a621c | ver=law | VoffEQlaw | UoffEQpris
+VP/vp01 | rc=0 cmp=416 NOT_EQUAL stage1 md5=e2cd6187 | ver=law | VoffEQlaw | UoffEQpris
+VP/vp02 | rc=0 cmp=0 STRICT_EQUAL 495 objects md5=6bbfedcd | ver=law | VoffEQlaw | UoffEQpris
+VP/vp03 | rc=0 cmp=0 STRICT_EQUAL 212 objects md5=47bc3b7f | ver=law | VoffEQlaw | UoffEQpris
+VT/vt01 | rc=0 cmp=0 STRICT_EQUAL 106 objects md5=3ef6ea1f | ver=law | VoffEQlaw | UoffEQpris
+VT/vt02 | rc=0 cmp=0 STRICT_EQUAL 96 objects md5=5ccd1611 | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt03 | rc=0 cmp=0 STRICT_EQUAL 103 objects md5=1feaf561 | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt04 | rc=0 cmp=0 STRICT_EQUAL 89 objects md5=5a47d19d | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt05 | rc=0 cmp=0 STRICT_EQUAL 153 objects md5=5987ec5f | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt06 | rc=0 cmp=17 NOT_EQUAL stage1 md5=d24aa008 | ver=law | VoffEQlaw | UoffEQpris
+VT/vt07 | rc=0 cmp=0 STRICT_EQUAL 37 objects md5=52c272d0 | ver=law | VoffEQlaw | UoffEQpris
+VT/vt08 | rc=0 cmp=0 STRICT_EQUAL 158 objects md5=1cd56f07 | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt09 | rc=0 cmp=0 STRICT_EQUAL 86 objects md5=1d54c3f4 | VERMOVED | VoffEQlaw | UoffEQpris
+VT/vt10 | rc=0 cmp=0 STRICT_EQUAL 118 objects md5=a94a498f | ver=law | VoffEQlaw | UoffEQpris
+VW/vw01 | rc=0 cmp=0 STRICT_EQUAL 104 objects md5=623cf7c6 | ver=law | VoffEQlaw | UoffEQpris
+VW/vw02 | rc=0 cmp=0 STRICT_EQUAL 77 objects md5=3c0bf19b | ver=law | VoffEQlaw | UoffEQpris
+VW/vw03 | rc=0 cmp=52 NOT_EQUAL stage1 md5=8415e131 | ver=law | VoffEQlaw | UoffEQpris
+VW/vw04 | rc=0 cmp=0 STRICT_EQUAL 103 objects md5=fff5d872 | ver=law | VoffEQlaw | UoffEQpris
+VW/vw05 | rc=0 cmp=0 STRICT_EQUAL 88 objects md5=2da601b9 | ver=law | VoffEQlaw | UoffEQpris
+VW/vw06 | rc=0 cmp=34 NOT_EQUAL stage1 md5=240e71a6 | ver=law | VoffEQlaw | UoffEQpris
+VW/vw07 | rc=0 cmp=0 STRICT_EQUAL 40 objects md5=dd9447f3 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx01 | rc=0 cmp=0 STRICT_EQUAL 27 objects md5=bb709ffd | ver=law | VoffEQlaw | UoffEQpris
+VX/vx02 | rc=0 cmp=0 STRICT_EQUAL 29 objects md5=860da022 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx03 | rc=0 cmp=0 STRICT_EQUAL 27 objects md5=cbe32341 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx04 | rc=0 cmp=0 STRICT_EQUAL 30 objects md5=a3071054 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx05 | rc=0 cmp=0 STRICT_EQUAL 27 objects md5=ca647ba1 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx06 | rc=0 cmp=47 NOT_EQUAL stage1 md5=561805cc | ver=law | VoffEQlaw | UoffEQpris
+VX/vx07 | rc=0 cmp=81 NOT_EQUAL stage1 md5=77dfd3b5 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx08 | rc=0 cmp=51 NOT_EQUAL stage1 md5=f64cf426 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx09 | rc=0 cmp=47 NOT_EQUAL stage1 md5=f3c3aa33 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx10 | rc=0 cmp=0 STRICT_EQUAL 35 objects md5=20eb65d4 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx11 | rc=0 cmp=56 NOT_EQUAL stage1 md5=c57b4239 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx12 | rc=0 cmp=47 NOT_EQUAL stage1 md5=9271c377 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx13 | rc=0 cmp=47 NOT_EQUAL stage1 md5=d00dea61 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx14 | rc=0 cmp=0 STRICT_EQUAL 58 objects md5=4f9ad689 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx15 | rc=0 cmp=147 NOT_EQUAL stage1 md5=b6542d44 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx16 | rc=0 cmp=0 STRICT_EQUAL 17 objects md5=0893c452 | ver=law | VoffEQlaw | UoffEQpris
+VX/vx17 | rc=0 cmp=0 STRICT_EQUAL 37 objects md5=87586cdd | ver=law | VoffEQlaw | UoffEQpris
+VX/vx18 | rc=0 cmp=0 STRICT_EQUAL 24 objects md5=55aa3308 | ver=law | VoffEQlaw | UoffEQpris

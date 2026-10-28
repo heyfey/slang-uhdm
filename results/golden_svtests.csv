@@ -2072,9 +2072,9 @@ generated/uvm-examples/uvm_ac_config_db.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_alu_config_analysis.sv,BOTH_REJECT,error: '/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_alu_config_analysis/a': No such file or directory,
 generated/uvm-examples/uvm_c_stimulus_bl_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_ef_vif_config_db.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_generation_seq_persistence.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_generation_seq_poly.sv,DIFFERENT,decompile:,
-generated/uvm-examples/uvm_generation_seq_randomization.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_generation_seq_persistence.sv,EQUAL,,equal
+generated/uvm-examples/uvm_generation_seq_poly.sv,EQUAL,,equal
+generated/uvm-examples/uvm_generation_seq_randomization.sv,EQUAL,,equal
 generated/uvm-examples/uvm_id_register.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,
 generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
@@ -2091,7 +2091,7 @@ generated/uvm-examples/uvm_slave_agent.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm-examples/uvm_tb_build_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
 generated/uvm-examples/uvm_tb_build_ss_tb.sv,TIMEOUT,[ERR:EL0514] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_ss_tb/agents/modem_agent/modem_coverage_monitor.svh:43:4: Undefined var,
-generated/uvm-examples/uvm_test_init.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_test_init.sv,EQUAL,,equal
 generated/uvm-examples/uvm_use_models_bidir_get_put.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_use_models_bidir_item_done.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,DIFFERENT,decompile:,

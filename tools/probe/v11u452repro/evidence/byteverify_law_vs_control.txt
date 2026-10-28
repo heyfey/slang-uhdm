@@ -1,0 +1,19 @@
+### surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=89255aa86b3a pristine=cb044a2c33df
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm  patched=1b272df498a9 pristine=8bb97e66858f
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=4e6f3f81e983 pristine=0c627ab6bffd
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm  patched=a33585478fe3 pristine=049f4af52e42
+MOVERS: 4 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+### uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+### downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

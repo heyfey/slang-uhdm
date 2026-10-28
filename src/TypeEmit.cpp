@@ -16570,6 +16570,51 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
             break;
         }
     }
+    // § thisNetPerListingModule452 (r11u452, R11U452_THISPERMOD_OFF; cases
+    // tools/probe/r11u452repro/cases/TM) — the forwarded late binding runs
+    // per MODULE (§ hoistNetsFirstModule418's model): each definition, in the
+    // design's module order, binds the unresolved `this` of the routines ITS
+    // listing holds and that an earlier definition left unbound, minting its
+    // own wire; one wire for the whole design holds only while every hit is
+    // listed by the first definition (golden uvm_vif_config_db: hdl_top's
+    // `this@968:29` for the uvm_pkg bodies it lists and hvl_top's
+    // `this@56:18` for sfr_monitor::build_phase, which only hvl_top lists
+    // through sfr_test_pkg; ours minted the first alone and bound both).
+    // A hit no definition lists stays with the first definition's wire.
+    auto mint38 = [&](UHDM::module_inst* home38, std::vector<UHDM::ref_obj*> hits38,
+                      bool stream452 = false) {
+        // § thisNetPerListingModule452's anchor rank: in a per-module wire
+        // the anchor's package rank is the late-binding STREAM order of the
+        // routine's HOME package (each import item's packages depth first,
+        // a package after the packages it imports, first occurrence kept),
+        // since a clone listed by the importing package carries that
+        // package as its own while Surelog's stream has the imported
+        // package's entries first (golden hvl_top `this@56:18` in
+        // sfr_agent_pkg's sfr_monitor::build_phase ahead of sfr_test_pkg's
+        // own sfr_test.svh:72; the listing-package rank tied the two and
+        // the tie fell to the include-expanded key, which compares two
+        // command-line files by buffer id, the parallel parse's draw).
+        std::map<std::string, size_t> streamRank452;
+        if (stream452 && home38->Typespecs()) {
+            size_t seq452 = 0;
+            std::function<void(const PackageSymbol*)> visit452 = [&](const PackageSymbol* p) {
+                if (!p || streamRank452.count(std::string(p->name)))
+                    return;
+                streamRank452.emplace(std::string(p->name), 0);
+                for (auto& m452 : p->members()) {
+                    const PackageSymbol* q452 = nullptr;
+                    if (m452.kind == SymbolKind::WildcardImport)
+                        q452 = m452.as<WildcardImportSymbol>().getPackage();
+                    else if (m452.kind == SymbolKind::ExplicitImport)
+                        q452 = m452.as<ExplicitImportSymbol>().package();
+                    visit452(q452);
+                }
+                streamRank452[std::string(p->name)] = ++seq452;
+            };
+            for (auto* t : *home38->Typespecs())
+                if (t && t->UhdmType() == UHDM::uhdmimport_typespec)
+                    visit452(comp.getPackage(std::string(t->VpiName())));
+        }
     // `Serializer::AllObjects` is keyed by POINTER, so its order is allocation-
     // dependent: the net's own span has to be picked by a total order on the
     // SOURCE, not by "the first hit", or the dump is nondeterministic run to
@@ -16664,7 +16709,7 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
             for (const UHDM::BaseClass* q = r->VpiParent(); q && !tf; q = q->VpiParent())
                 if (q->UhdmType() == UHDM::uhdmfunction || q->UhdmType() == UHDM::uhdmtask)
                     tf = (const UHDM::task_func*)q;
-            if (homeOnly243v && tf && !homeTfs243v.count(tf)) {
+            if (homeOnly243v && !stream452 && tf && !homeTfs243v.count(tf)) {
                 lawTrace(243, "thisNetHomeListedOnly243v",
                       std::string(tf->VpiFullName()) + " " + std::to_string(r->VpiLineNo()));
                 continue;
@@ -16684,6 +16729,15 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
             if (pk)
                 if (auto rit = rank243.find(std::string(pk->VpiName())); rit != rank243.end())
                     rk243 = rit->second;
+            if (stream452 && syn) {
+                const Scope* hs452 = sit->second->getParentScope();
+                while (hs452 && hs452->asSymbol().kind != SymbolKind::Package)
+                    hs452 = hs452->asSymbol().getParentScope();
+                if (hs452)
+                    if (auto r452 = streamRank452.find(std::string(hs452->asSymbol().name));
+                        r452 != streamRank452.end())
+                        rk243 = r452->second;
+            }
             if (!syn || !pk) {
                 lawTrace(243, "thisNetSurelogAnchor243_why",
                       std::string(!tf ? "notf" : !pk ? "nopkg" : "nosym") + " " +
@@ -16800,7 +16854,70 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
                                        (uint32_t)x->VpiLineNo(),
                                        (uint16_t)x->VpiColumnNo());
             };
+            // § thisNetFlatStreamPlace452 (r11u452, R11U452_THISFLATPLACE_OFF;
+            // cases tools/probe/r11u452repro/cases/WO) — the block is
+            // § hoistPoolSourceOrder240's stream, ordered by the FLATTENED
+            // (include-expanded) source position, not by file NAME: the wire
+            // takes its place in that order, before the first wire of the
+            // block whose own location comes later in the flattened text
+            // (golden uvm_generation_seq's top_tb `m_leaf_name@924, this@968,
+            // m_type_overrides@1063`, where the file-name key put it ahead
+            // of `p@220` from uvm_globals.svh).  A location that maps to no
+            // single buffer leaves that wire out of the comparison; an
+            // anchor that maps to none, or a constructor-body anchor
+            // (constructors close the stream), keeps the old key.
+            bool flat452 = false;
+            if (lawOn(452, "R11U452_THISFLATPLACE_OFF") && sm) {
+                std::map<std::string, std::vector<slang::BufferID>> buf452;
+                for (auto b452 : sm->getAllBuffers())
+                    if (b452.valid() && !sm->isMacroLoc(SourceLocation(b452, 0)))
+                        buf452[sm->getFullPath(b452).string()].push_back(b452);
+                auto flat = [&](const UHDM::BaseClass* x)
+                    -> std::optional<std::vector<std::pair<uint32_t, uint64_t>>> {
+                    if (!x || x->VpiLineNo() == 0)
+                        return std::nullopt;
+                    auto it = buf452.find(std::string(x->VpiFile()));
+                    if (it == buf452.end() || it->second.size() != 1)
+                        return std::nullopt;
+                    auto txt = sm->getSourceText(it->second[0]);
+                    uint32_t ln = 1;
+                    size_t off = 0;
+                    while (ln < x->VpiLineNo() && off < txt.size()) {
+                        if (txt[off] == '\n')
+                            ln++;
+                        off++;
+                    }
+                    if (ln != x->VpiLineNo())
+                        return std::nullopt;
+                    off += x->VpiColumnNo() ? x->VpiColumnNo() - 1 : 0;
+                    if (off > txt.size())
+                        return std::nullopt;
+                    return includeExpandedKey(*sm, SourceLocation(it->second[0], off));
+                };
+                bool ctor452 = false;
+                for (const UHDM::BaseClass* b = loc38; b; b = b->VpiParent())
+                    if (b->UhdmType() == UHDM::uhdmfunction) {
+                        ctor452 = b->VpiName() == "new" ||
+                                  (b->VpiName().size() > 5 &&
+                                   b->VpiName().substr(b->VpiName().size() - 5) == "::new");
+                        break;
+                    }
+                auto ak452 = flat(loc38);
+                if (ak452 && !ctor452) {
+                    flat452 = true;
+                    for (size_t i219 = b219; i219 < e219; i219++) {
+                        auto nk452 = flat((*nets38)[i219]);
+                        if (nk452 && includeExpandedLess(*ak452, *nk452)) {
+                            at38 = i219;
+                            break;
+                        }
+                    }
+                    lawTrace(452, "thisNetFlatStreamPlace452",
+                             std::to_string(at38 - b219) + " of " + std::to_string(e219 - b219));
+                }
+            }
             const auto akey219 = key219(anchor38);
+            if (!flat452)
             for (size_t i219 = b219; i219 < e219; i219++)
                 if (akey219 < key219((*nets38)[i219])) {
                     at38 = i219;
@@ -16811,6 +16928,132 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
     nets38->insert(nets38->begin() + (long)at38, inet38);
     for (auto* r : hits38)
         r->Actual_group(inet38);
+    };
+    std::vector<std::pair<UHDM::module_inst*, std::vector<UHDM::ref_obj*>>> groups452;
+    if (lawOn(452, "R11U452_THISPERMOD_OFF") && lawOn(418, "R11U418_THISFIRSTMOD_OFF") &&
+        d->AllModules()) {
+        std::map<const UHDM::ref_obj*, const UHDM::task_func*> tfOf452;
+        for (auto* r : hits38)
+            for (const UHDM::BaseClass* q = r->VpiParent(); q; q = q->VpiParent())
+                if (q->UhdmType() == UHDM::uhdmfunction || q->UhdmType() == UHDM::uhdmtask) {
+                    tfOf452[r] = (const UHDM::task_func*)q;
+                    break;
+                }
+        std::set<const UHDM::ref_obj*> done452;
+        for (auto* m : *d->AllModules()) {
+            if (!m)
+                continue;
+            std::set<const UHDM::task_func*> lists452;
+            if (m->Task_funcs())
+                for (auto* f : *m->Task_funcs())
+                    lists452.insert(f);
+            if (m->Class_defns())
+                for (auto* c : *m->Class_defns())
+                    if (c && c->Task_funcs())
+                        for (auto* f : *c->Task_funcs())
+                            lists452.insert(f);
+            std::vector<UHDM::ref_obj*> g452;
+            for (auto* r : hits38)
+                if (!done452.count(r) && lists452.count(tfOf452[r])) {
+                    g452.push_back(r);
+                    done452.insert(r);
+                }
+            if (!g452.empty())
+                groups452.push_back({m, std::move(g452)});
+        }
+        if (groups452.size() > 1 && groups452.front().first == home38) {
+            for (auto* r : hits38)
+                if (!done452.count(r))
+                    groups452.front().second.push_back(r);
+            // A later definition's late binding reaches the ORIGINAL
+            // references of the bodies its imports forward (the class-
+            // parented out-of-body definition the home package compiled),
+            // not the clones its own listing holds, which stay unbound
+            // (golden: sfr_agent_pkg's sfr_monitor::build_phase `this@56:18`
+            // bound to work@hvl_top.this, sfr_test_pkg's two clones of it
+            // unbound).  A clone hit is replaced by the unbound `this`
+            // references at the same location inside a class-parented
+            // routine; with none it stays.
+            std::map<std::tuple<std::string, uint32_t, uint32_t>, std::vector<UHDM::ref_obj*>>
+                orig452;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* r = (UHDM::ref_obj*)o;
+                if (r->VpiName() != "this" || r->Actual_group())
+                    continue;
+                const UHDM::BaseClass* q = r->VpiParent();
+                while (q && q->UhdmType() != UHDM::uhdmfunction && q->UhdmType() != UHDM::uhdmtask)
+                    q = q->VpiParent();
+                if (!q || !q->VpiParent() || q->VpiParent()->UhdmType() != UHDM::uhdmclass_defn)
+                    continue;
+                orig452[{std::string(r->VpiFile()), r->VpiLineNo(), r->VpiColumnNo()}].push_back(r);
+            }
+            for (auto& v : orig452)
+                std::sort(v.second.begin(), v.second.end(),
+                          [](const UHDM::ref_obj* a, const UHDM::ref_obj* b) {
+                              return a->UhdmId() < b->UhdmId();
+                          });
+            // § thisOrigClaimedSkip452v (v11u452, R11V452_THISORIGCLAIMED_OFF;
+            // cases tools/probe/v11u452repro/cases/VT) — an original
+            // reference an EARLIER definition's group already holds keeps
+            // that definition's wire: a later definition reaches only the
+            // originals still unbound when its late binding runs (golden
+            // VT/vt04 `m1` importing u and `m2` importing a, a importing u:
+            // u::C::show's `this` bound to work@m1.this, a's clone of it
+            // unbound, m2.this anchored at a::D::put's 18:20; the law
+            // rebound u::C::show's `this` to m2's wire and anchored that
+            // wire at 8:20).  A group left empty mints no wire.
+            const bool claimFix452 = fixOn(452, "R11V452_THISORIGCLAIMED_OFF");
+            std::set<const UHDM::ref_obj*> claimed452;
+            if (claimFix452)
+                for (auto* r : groups452.front().second)
+                    claimed452.insert(r);
+            for (size_t g452 = 1; g452 < groups452.size(); g452++) {
+                std::vector<UHDM::ref_obj*> out452;
+                std::set<const UHDM::ref_obj*> seen452;
+                for (auto* r : groups452[g452].second) {
+                    const UHDM::BaseClass* q = r->VpiParent();
+                    while (q && q->UhdmType() != UHDM::uhdmfunction && q->UhdmType() != UHDM::uhdmtask)
+                        q = q->VpiParent();
+                    bool clone452 = q && q->VpiParent() &&
+                                    q->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                                    q->VpiName().find("::") != std::string_view::npos;
+                    auto oi = orig452.find({std::string(r->VpiFile()), r->VpiLineNo(), r->VpiColumnNo()});
+                    if (clone452 && oi != orig452.end()) {
+                        for (auto* o : oi->second) {
+                            if (claimFix452 && claimed452.count(o)) {
+                                lawTrace(452, "thisOrigClaimedSkip452v",
+                                         std::string(groups452[g452].first->VpiDefName()) +
+                                             " " + std::string(o->VpiFile()) + ":" +
+                                             std::to_string(o->VpiLineNo()));
+                                continue;
+                            }
+                            if (seen452.insert(o).second)
+                                out452.push_back(o);
+                        }
+                        continue;
+                    }
+                    if (seen452.insert(r).second)
+                        out452.push_back(r);
+                }
+                groups452[g452].second = std::move(out452);
+                if (claimFix452)
+                    for (auto* r : groups452[g452].second)
+                        claimed452.insert(r);
+            }
+            for (auto& [m452, g452] : groups452) {
+                if (g452.empty())
+                    continue;
+                lawTrace(452, "thisNetPerListingModule452",
+                         std::string(m452->VpiDefName()) + " " + std::to_string(g452.size()));
+                mint38(m452, g452, true);
+            }
+            return;
+        }
+    }
+    mint38(home38, hits38);
 }
 
 // An ANONYMOUS class_typespec NEVER carries vpiInstance.  Surelog's
@@ -33013,6 +33256,84 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
         dsyn && dsyn->kind == syntax::SyntaxKind::Declarator)
         for (auto d : dsyn->as<syntax::DeclaratorSyntax>().dimensions)
             dimSyns.push_back(d);
+    // § elabAssocVecIdxRange452's builder (the law is at its one use below):
+    // `[logic[31:0]]` / `[bit signed [7:0]]` with plain decimal bounds only;
+    // any other shape returns null and the caller keeps its fallback.
+    auto vecIdxTs452 = [&](const syntax::VariableDimensionSyntax* d452) -> UHDM::typespec* {
+        auto* rd = d452 && d452->specifier
+                       ? d452->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                       : nullptr;
+        auto* sel = rd && rd->selector ? rd->selector->as_if<syntax::BitSelectSyntax>()
+                                       : nullptr;
+        auto* it = sel ? sel->expr->as_if<syntax::IntegerTypeSyntax>() : nullptr;
+        if (!it)
+            return nullptr;
+        auto k = it->kind;
+        if (k != syntax::SyntaxKind::BitType && k != syntax::SyntaxKind::LogicType &&
+            k != syntax::SyntaxKind::RegType)
+            return nullptr;
+        auto plain = [](const syntax::ExpressionSyntax* e) {
+            if (!e || e->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                return false;
+            auto v = e->as<syntax::LiteralExpressionSyntax>().literal.rawText();
+            return !v.empty() &&
+                   std::all_of(v.begin(), v.end(), [](char c) { return c >= '0' && c <= '9'; });
+        };
+        std::vector<std::tuple<const syntax::VariableDimensionSyntax*,
+                               const syntax::ExpressionSyntax*,
+                               const syntax::ExpressionSyntax*>> ds;
+        for (auto* vd : it->dimensions) {
+            auto* rs = vd->specifier
+                           ? vd->specifier->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                           : nullptr;
+            auto* rg = rs && rs->selector ? rs->selector->as_if<syntax::RangeSelectSyntax>()
+                                          : nullptr;
+            if (!rg || rs->selector->kind != syntax::SyntaxKind::SimpleRangeSelect ||
+                !plain(rg->left) || !plain(rg->right))
+                return nullptr;
+            ds.emplace_back(vd, rg->left, rg->right);
+        }
+        if (ds.empty() || !lawOn(452, "R11U452_ELABASSOCIDX_OFF"))
+            return nullptr;
+        auto* rv = s.MakeRangeVec();
+        UHDM::typespec* n = nullptr;
+        const bool sg = it->signing.kind == parsing::TokenKind::SignedKeyword;
+        if (k == syntax::SyntaxKind::BitType) {
+            auto* b = s.MakeBit_typespec();
+            b->Ranges(rv);
+            if (sg)
+                b->VpiSigned(true);
+            n = b;
+        }
+        else {
+            auto* l = s.MakeLogic_typespec();
+            l->Ranges(rv);
+            if (sg)
+                l->VpiSigned(true);
+            n = l;
+        }
+        for (auto& [vd, le, re] : ds) {
+            auto* r = s.MakeRange();
+            r->VpiParent(n);
+            setLoc(r, vd->sourceRange());
+            auto mk = [&](const syntax::ExpressionSyntax* e) {
+                auto* c = s.MakeConstant();
+                std::string v(e->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+                c->VpiDecompile(v);
+                c->VpiSize(64);
+                c->VpiValue("UINT:" + v);
+                c->VpiConstType(vpiUIntConst);
+                c->VpiParent(r);
+                setLoc(c, e->sourceRange());
+                return c;
+            };
+            r->Left_expr(mk(le));
+            r->Right_expr(mk(re));
+            rv->push_back(r);
+        }
+        lawTrace(452, "elabAssocVecIdxRange452", std::string(sym.name));
+        return n;
+    };
 
     // § boundedQueueVarStatic406 (r11u406, R11U406_BOUNDEDQ_OFF; cases
     // tools/probe/r11u406repro/cases/BQ; sv-tests chapter-7/queues/bounded.sv,
@@ -33330,8 +33651,23 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
             // must still read `same` after it.
             its = assocIndexSignedAtom63(ick, predefIntTypespec(ick, sym));
         }
-        else if (ick.isIntegral())
+        else if (ick.isIntegral()) {
             its = s.MakeLogic_typespec();
+            // § elabAssocVecIdxRange452 (r11u452, R11U452_ELABASSOCIDX_OFF;
+            // cases tools/probe/r11u452repro/cases/AX) — the module-scope
+            // twin of § clsAssocVecIdxTs450: an associative index written as
+            // a vector keyword with plain decimal bounds (`int
+            // memory[logic[31:0]];`, uvm_generation_seq's slave in top_tb)
+            // is a logic (bit for `bit`) typespec carrying its written ranges
+            // and signing, each range spanning its bracket and each bound
+            // a UINT constant at its literal (golden AX/ax01's elaborated
+            // module, the uvm_generation_seq rows' `module TOP work@top_tb`
+            // failure); ours wrote a bare logic_typespec with no range.
+            if (!dimSyns.empty() && dims[0].indexType &&
+                dims[0].indexType->kind != SymbolKind::TypeAlias)
+                if (auto* n452 = vecIdxTs452(dimSyns[0]))
+                    its = n452;
+        }
         // § assocClassIdxNet412 (r11u412, R11U412_ASSOCCLASSIDX_OFF; cases
         // tools/probe/r11u412repro/cases/AC; sv-tests
         // chapter-7/arrays/associative/class.sv) — a CLASS index (`int arr

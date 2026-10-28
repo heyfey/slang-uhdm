@@ -1,0 +1,9 @@
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm
+MOVER ./default/SimpleUVM-267de3ff/slang.uhdm
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm
+MOVER ./testflags/SimpleUVM-267de3ff/slang.uhdm
+databases=110 movers=4
+FIRES /tmp/r11u452_cc/surelog/default/SeqDriver-65178d3a/slang.uhdm  1 thisNetFlatStreamPlace452;
+FIRES /tmp/r11u452_cc/surelog/default/SimpleUVM-267de3ff/slang.uhdm  1 thisNetFlatStreamPlace452;
+FIRES /tmp/r11u452_cc/surelog/testflags/SimpleUVM-267de3ff/slang.uhdm  1 thisNetFlatStreamPlace452;
+FIRES /tmp/r11u452_cc/surelog/testflags/SeqDriver-65178d3a/slang.uhdm  1 thisNetFlatStreamPlace452;

@@ -1,0 +1,27 @@
+// § clsOwnProtoAndOobDefBoth452
+package u;
+  int g;
+endpackage
+package q;
+  import u::*;
+  class D;
+    int x;
+    extern function void run();
+  endclass
+  function void D::run();
+    x = 1;
+  endfunction
+endpackage
+package r;
+  import q::*;
+  class S;
+    int y;
+    extern function void write(int t);
+  endclass
+  function void S::write(int t);
+    y = t;
+  endfunction
+endpackage
+module top;
+  import r::*;
+endmodule

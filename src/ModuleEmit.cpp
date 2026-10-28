@@ -11076,10 +11076,47 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // MINTED at the first reference when the module declares none. They land
     // after every declaration and before the module's own unbindable names
     // (a $dumpvars scope argument), which are minted during process emission.
-    const size_t hoistBegin219 = nets->size();
+    size_t hoistBegin219 = nets->size();
     bindHoistedClassPropRefs(body, m, prefix, nets);
     if (!nets->empty() && !m->Nets())
         m->Nets(nets);
+    size_t hoistEnd452 = nets->size();
+    // § ifaceConnNetAfterForwarded452 (r11u452, R11U452_IFCCONNAFTER_OFF;
+    // cases tools/probe/r11u452repro/cases/WO) — the connection-site wire of
+    // a whole interface instance passed to a child's interface port (`bif
+    // BUS(); slave DUT(.bus(BUS));`) is one of the module's OWN late-binding
+    // mints (UhdmWriter::lateBinding's stream, § 219's model): it follows
+    // the FORWARDED block of the imported packages' unresolved names, not
+    // the declared nets ahead of it (golden WO/wo01 to wo04 `[w, m_a, this,
+    // m_b, m_d, BUS]`, ours `[w, BUS, m_a, ...]`; uvm_generation_seq's top_tb
+    // ends at BUS 30:29).  Moved only when the forwarded block is not empty;
+    // the wires keep their own order and the block bookmark moves with them.
+    if (hoistEnd452 > hoistBegin219 && lawOn(452, "R11U452_IFCCONNAFTER_OFF")) {
+        std::set<const UHDM::net*> conn452;
+        for (auto& kv452 : ifaceConnNet)
+            if (kv452.second && kv452.second->VpiParent() == m)
+                conn452.insert(kv452.second);
+        std::vector<UHDM::net*> keep452, moved452;
+        for (size_t i452 = 0; i452 < hoistBegin219; i452++) {
+            auto* n452 = (*nets)[i452];
+            (conn452.count(n452) ? moved452 : keep452).push_back(n452);
+        }
+        if (!moved452.empty()) {
+            std::vector<UHDM::net*> out452(keep452);
+            for (size_t i452 = hoistBegin219; i452 < hoistEnd452; i452++)
+                out452.push_back((*nets)[i452]);
+            for (auto* n452 : moved452)
+                out452.push_back(n452);
+            for (size_t i452 = hoistEnd452; i452 < nets->size(); i452++)
+                out452.push_back((*nets)[i452]);
+            nets->assign(out452.begin(), out452.end());
+            hoistBegin219 -= moved452.size();
+            hoistEnd452 -= moved452.size();
+            for (auto* n452 : moved452)
+                lawTrace(452, "ifaceConnNetAfterForwarded452",
+                         prefix + "." + std::string(n452->VpiName()));
+        }
+    }
     // § hoistedThisRidesTheForwardedBlock219 — RECORD the half-open span of
     // the FORWARDED block, [begin, end), for § thisImplicitNetBoth38 to insert
     // into.  It is recorded HERE, at the call site, and unconditionally:
@@ -11089,7 +11126,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // names", which are the very next things pushed (mintUnitEnumNets, then
     // the process emitter's `$dumpvars` scope mint).  Nothing is minted and
     // nothing is re-ordered here; this is a bookmark.
-    hoistedBlock219[m] = {hoistBegin219, nets->size()};
+    hoistedBlock219[m] = {hoistBegin219, hoistEnd452};
     // ...and the `$unit` enum constants declared in ANOTHER file, which
     // Surelog cannot resolve either (mintUnitEnumNets).
     mintUnitEnumNets(body, m, prefix, info.nets, /*defView=*/true);
@@ -14171,6 +14208,65 @@ void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
 // [C::f@7, h@8] — source order, NOT "all class methods first") and on
 // SimpleUVM, whose module listing is uvm_pkg's 894-entry def listing with 58
 // package-parented entries interleaved at their source slots.
+// § pkgGroupOwnOobDef452 (r11u452, R11U452_GRPOOBDEF_OFF; cases
+// tools/probe/r11u452repro/cases/OB) — the clone-bearing group below (a
+// package that itself imports: its ELABORATED listing verbatim) also holds
+// the package's OWN classes' out-of-body definitions, at the place the
+// package's DEFINITION listing has their `C::m` clones, as the group of a
+// package that imports nothing already does: the header's "each `C::m`
+// clone replaced by the class_defn-parented definition" (golden OB/ob04's
+// class `r::S` [pf, qa, D::run's definition, qb], ours [pf, qa, qb]; OB/ob02's
+// module `top` [r::D::run, S::write's definition], ours [r::D::run]; the
+// sfr_scoreboard rows' sfr_driver::run_phase and its four siblings).  The
+// DEF listing is walked and every other entry is matched by name, in order,
+// against the elaborated listing; any mismatch keeps the group unchanged.
+static std::vector<UHDM::task_func*> withOwnOob452(
+    const PackageSymbol& pk452, std::vector<UHDM::task_func*> grp452,
+    const std::map<const Symbol*, std::vector<UHDM::task_func*>>& classOobTfs,
+    const std::map<const void*, UHDM::package*>& pkgDefMap) {
+    if (!lawOn(452, "R11U452_GRPOOBDEF_OFF"))
+        return grp452;
+    std::map<std::string, UHDM::task_func*> oob452;
+    for (auto& m452 : pk452.members()) {
+        if (m452.kind != SymbolKind::ClassType)
+            continue;
+        auto oit = classOobTfs.find(&m452.as<ClassType>());
+        if (oit == classOobTfs.end())
+            continue;
+        for (auto* t : oit->second)
+            if (t && t->VpiParent())
+                oob452.emplace(std::string(t->VpiParent()->VpiName()) + "::" +
+                                   std::string(t->VpiName()),
+                               t);
+    }
+    if (oob452.empty())
+        return grp452;
+    for (auto& kv : oob452)
+        if (std::find(grp452.begin(), grp452.end(), kv.second) != grp452.end())
+            return grp452;
+    auto dit = pkgDefMap.find((const void*)&pk452);
+    if (dit == pkgDefMap.end() || !dit->second || !dit->second->Task_funcs())
+        return grp452;
+    std::vector<UHDM::task_func*> out;
+    size_t j = 0;
+    for (auto* e : *dit->second->Task_funcs()) {
+        if (!e)
+            return grp452;
+        if (auto oi = oob452.find(std::string(e->VpiName())); oi != oob452.end()) {
+            out.push_back(oi->second);
+            continue;
+        }
+        if (j >= grp452.size() || grp452[j]->VpiName() != e->VpiName())
+            return grp452;
+        out.push_back(grp452[j++]);
+    }
+    if (j != grp452.size())
+        return grp452;
+    lawTrace(452, "pkgGroupOwnOobDef452",
+             std::string(pk452.name) + " +" + std::to_string(out.size() - grp452.size()));
+    return out;
+}
+
 std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
     const PackageSymbol& pkg) {
     std::vector<UHDM::task_func*> grp;
@@ -14193,7 +14289,7 @@ std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
                 pit8->second->Task_funcs()) {
                 for (auto* t8 : *pit8->second->Task_funcs())
                     grp.push_back(t8);
-                return grp;
+                return withOwnOob452(pkg, std::move(grp), classOobTfs, pkgDefMap);
             }
         }
     }
@@ -14437,6 +14533,21 @@ void UhdmExporter::buildClassRep25() {
         scan25(c25->Typespecs());
     }
 }
+
+// § clsImpRepTsClassKey452 (r11u452, R11U452_CLSREPKEY_OFF; cases
+// tools/probe/r11u452repro/cases/CK) — the key each entry of a package's
+// finished listing sits under, when § importPublishesPackageClasses24
+// placed it under a key that is not the tail of its own name (a CLASS key:
+// `agent_a_pkg::cb_type` under uvm_event_callback, `agent_a_pkg::type_id`
+// under uvm_component_registry).  A class whose container imports that
+// package inherits the entry under the SAME key (golden's
+// top_vseq_pkg::top_vseq_base listing is top_vseq_pkg's own key order plus
+// the class's own `type_id`); § classInheritsContainerImports23 re-keyed it
+// by the tail of its name (`cb_type`), which moved it ahead and made the
+// class's own `type_id` lose its key to the imported one (uvm_test_init's
+// next uhdm-cmp head once § clsImpEnumTdShare452 was in).  A lookup table
+// only, never iterated.
+static std::map<std::pair<const void*, const UHDM::typespec*>, std::string> g452PkgListKey;
 
 std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
     UHDM::package* pv) {
@@ -14701,6 +14812,13 @@ void UhdmExporter::importPublishesPackageClasses24() {
                 // wins, which is why uvm_pkg's own class listings read
                 // `adpcm_pkg::this_type` in SeqDriver.  Only the entries this
                 // pass introduces can still be bare.
+                {
+                    std::string_view n452 = t24->VpiName();
+                    if (auto q452 = n452.rfind("::"); q452 != std::string_view::npos)
+                        n452 = n452.substr(q452 + 2);
+                    if (n452 != k24)
+                        g452PkgListKey[{(const void*)p, t24}] = k24;
+                }
                 if (fresh24.count(t24) && t24->VpiName().find("::") ==
                                               std::string_view::npos &&
                     !t24->VpiName().empty())
@@ -15581,8 +15699,20 @@ static void importCopyElem8(UHDM::variables* cp, UHDM::variables* src,
 // typedef is matched in the container's listing by kind, name and span; a
 // container that is not a package, or a listing without the typedef, keeps
 // the copy.
+// § clsImpEnumTdShare452 (r11u452, R11U452_CLSIMPENUM_OFF; cases
+// tools/probe/r11u452repro/cases/CV) — the ENUM twin of the rule above: a
+// class's inherited copy of an imported package variable typed by a named
+// enum typedef (uvm_pkg's `uvm_core_state m_uvm_core_state`) binds the
+// container package's own listing of that typedef too, the one shared
+// object Surelog's writePackage re-instances for every package listing it
+// (its vpiInstance the last such package, test_top_pkg on uvm_test_init),
+// where clone_tree handed our copy a private enum_typespec with no
+// vpiInstance (uvm_test_init's uhdm-cmp head, class_defn
+// top_vseq_pkg::top_vseq_base; golden CV/cv01 to cv03).
 static void clsImpTdShare285(UHDM::variables* cp, UHDM::class_defn* cd) {
-    if (!cp || !cd || !lawOn(285, "R11U285_CLSIMPTDSHARE_OFF"))
+    const bool on285 = lawOn(285, "R11U285_CLSIMPTDSHARE_OFF");
+    const bool on452 = lawOn(452, "R11U452_CLSIMPENUM_OFF");
+    if (!cp || !cd || (!on285 && !on452))
         return;
     const UHDM::any* cont = cd->VpiParent();
     while (cont && cont->UhdmType() == UHDM::uhdmclass_defn)
@@ -15599,7 +15729,10 @@ static void clsImpTdShare285(UHDM::variables* cp, UHDM::class_defn* cd) {
         if (!at || at->VpiParent() != rt || at->VpiName().empty())
             return;
         auto k = at->UhdmType();
-        if (k != UHDM::uhdmstruct_typespec && k != UHDM::uhdmunion_typespec)
+        const bool en452 = k == UHDM::uhdmenum_typespec;
+        if (en452 ? !on452
+                  : (!on285 || (k != UHDM::uhdmstruct_typespec &&
+                                k != UHDM::uhdmunion_typespec)))
             return;
         for (auto* t : *lst) {
             if (!t || t == at || t->UhdmType() != k || t->VpiName() != at->VpiName() ||
@@ -15608,6 +15741,12 @@ static void clsImpTdShare285(UHDM::variables* cp, UHDM::class_defn* cd) {
                 t->VpiEndColumnNo() != at->VpiEndColumnNo() || t->VpiFile() != at->VpiFile())
                 continue;
             rt->Actual_typespec(t);
+            if (en452) {
+                lawTrace(452, "clsImpEnumTdShare452", std::string(cd->VpiFullName()) + " " +
+                                                         std::string(cp->VpiName()) + " " +
+                                                         std::string(t->VpiName()));
+                return;
+            }
             lawTrace(285, "CLSIMPTDSHARE", std::string(cd->VpiFullName()) + " " +
                                        std::string(cp->VpiName()) + " " +
                                        std::string(t->VpiName()));
@@ -16076,11 +16215,37 @@ void UhdmExporter::classInheritsContainerImports23() {
                 return std::string(p->VpiName()) + "::" + n;
             return n;
         };
+        // § clsOwnProtoAndOobDefBoth452 (r11u452, R11U452_CLSOWNOOBDEF_OFF;
+        // cases tools/probe/r11u452repro/cases/OB) — the class's OWN
+        // listing keeps both the `extern` prototype and its out-of-body
+        // definition (golden OB/ob02 `r::S`: write@15 and write@17, as a
+        // class whose container imports nothing already lists them); the
+        // name check that lets an imported free subroutine suppress a
+        // same-named own method compares an own entry against the IMPORTED
+        // names only, not against the class's other own entries (ours
+        // dropped the definition; the sfr_scoreboard rows' write@59 and
+        // report_phase@73).
+        const bool own452 = lawOn(452, "R11U452_CLSOWNOOBDEF_OFF");
+        std::set<std::string> impSeen452;
         auto addTf23 = [&](UHDM::task_func* t, bool imported) {
             if (!t)
                 return;
+            if (own452 && !imported) {
+                if (impSeen452.count(std::string(t->VpiName())))
+                    return;
+                if (!tfSeen23.insert(std::string(t->VpiName())).second) {
+                    if (std::find(tfs23->begin(), tfs23->end(), t) != tfs23->end())
+                        return;
+                    lawTrace(452, "clsOwnProtoAndOobDefBoth452",
+                             std::string(cd->VpiFullName()) + " " + std::string(t->VpiName()));
+                }
+                tfs23->push_back(t);
+                return;
+            }
             if (!tfSeen23.insert(imported ? tfKey23(t) : std::string(t->VpiName())).second)
                 return;
+            if (imported)
+                impSeen452.insert(tfKey23(t));
             tfs23->push_back(t);
         };
         std::map<std::string, UHDM::typespec*> tsm23;
@@ -16125,6 +16290,15 @@ void UhdmExporter::classInheritsContainerImports23() {
                     std::string k23 = tsKey(t23->VpiName());
                     if (only23 && k23 != on23)
                         continue;
+                    // § clsImpRepTsClassKey452 — see g452PkgListKey.
+                    if (!only23 && lawOn(452, "R11U452_CLSREPKEY_OFF"))
+                        if (auto r452 = g452PkgListKey.find({(const void*)pv23, t23});
+                            r452 != g452PkgListKey.end()) {
+                            lawTrace(452, "clsImpRepTsClassKey452",
+                                     std::string(cd->VpiFullName()) + " " + k23 + " -> " +
+                                         r452->second);
+                            k23 = r452->second;
+                        }
                     tsm23.emplace(k23, t23);
                 }
             if (auto* v23 = pv23->Variables())
@@ -16140,9 +16314,29 @@ void UhdmExporter::classInheritsContainerImports23() {
             // uvm_pkg's declaration order, and both are 45 either way).
             if (auto* v23 = pv23->Parameters()) {
                 std::vector<UHDM::any*> sorted23;
+                // § clsImpParamOncePerName452 (r11u452,
+                // R11U452_CLSIMPPARONCE_OFF; cases
+                // tools/probe/r11u452repro/cases/CP) — that map is keyed by
+                // NAME, so an imported package whose own listing repeats a
+                // parameter once per import path (pass 451's
+                // § diamondImportParamAssignsPerPath451 listing: env_1_pkg
+                // reaching uvm_pkg through itself, agent_a_pkg and
+                // agent_c_pkg) contributes each name ONCE to the class
+                // (golden env_top_pkg::env_top: 3 imports x 41 = 123
+                // parameters, ours 287; its 287 param_assigns stay per
+                // path).  The first occurrence is kept.
+                std::set<std::string> once452;
+                const bool on452 = lawOn(452, "R11U452_CLSIMPPARONCE_OFF");
                 for (auto* x23 : *v23)
-                    if (x23 && (!only23 || x23->VpiName() == on23))
+                    if (x23 && (!only23 || x23->VpiName() == on23)) {
+                        if (on452 && !once452.insert(std::string(x23->VpiName())).second) {
+                            lawTrace(452, "clsImpParamOncePerName452",
+                                     std::string(cd->VpiFullName()) + " " +
+                                         std::string(x23->VpiName()));
+                            continue;
+                        }
                         sorted23.push_back(x23);
+                    }
                 std::stable_sort(sorted23.begin(), sorted23.end(),
                                  [](const UHDM::any* a23, const UHDM::any* b23) {
                                      return a23->VpiName() < b23->VpiName();
@@ -17549,6 +17743,39 @@ void UhdmExporter::bindHoistedClassPropRefs(const InstanceBodySymbol& body,
     }
     if (pkgs9.empty())
         return;
+    // § hoistPoolTransitiveImports452 (r11u452, R11U452_HOISTTRANS_OFF; cases
+    // tools/probe/r11u452repro/cases/HT) — `CompileHelper::importPackage`
+    // splices the imported package's WHOLE late-binding list into the
+    // importer's (Surelog CompileHelper.cpp, "Incomplete bindings"), and a
+    // package's own list already holds the lists of the packages IT
+    // imports, so a module's forwarded block also carries the unresolved
+    // names of the packages reached through its imports' imports (golden
+    // OB/ob02 `work@top.x` from q's D::run with top importing r and r
+    // importing q; the uvm_vif_config_db rows' hvl_top `this@56`, `cfg@62`,
+    // `monitor`, `driver`, `sequencer` from sfr_agent_pkg's out-of-body
+    // bodies, hvl_top importing sfr_test_pkg).  Every package import item,
+    // wildcard or explicit, is followed; the pool keeps its order.
+    if (lawOn(452, "R11U452_HOISTTRANS_OFF")) {
+        std::vector<const Symbol*> work452(pkgs9.begin(), pkgs9.end());
+        while (!work452.empty()) {
+            auto* cur452 = work452.back();
+            work452.pop_back();
+            if (!cur452 || cur452->kind != SymbolKind::Package)
+                continue;
+            for (auto& m452 : cur452->as<PackageSymbol>().members()) {
+                const PackageSymbol* q452 = nullptr;
+                if (m452.kind == SymbolKind::WildcardImport)
+                    q452 = m452.as<WildcardImportSymbol>().getPackage();
+                else if (m452.kind == SymbolKind::ExplicitImport)
+                    q452 = m452.as<ExplicitImportSymbol>().package();
+                if (q452 && pkgs9.insert(q452).second) {
+                    work452.push_back(q452);
+                    lawTrace(452, "hoistPoolTransitiveImports452",
+                             prefix + " " + std::string(q452->name));
+                }
+            }
+        }
+    }
     // § hoistNetsFirstModule418 (r11u418) — THE FORWARDED LATE BINDING RUNS
     // ONCE: the first definition that materializes the package mints the
     // wires and binds the shared references, and a later definition finds
