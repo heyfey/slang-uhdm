@@ -1,0 +1,9 @@
+[2346/2346] BOTH_REJECT=303 DIFFERENT=20 IDENTICAL=1920 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1
+done
+CONVERSION generated/uvm-examples/uvm_messaging_example.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION generated/uvm-examples/uvm_priority_arbitration.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION generated/uvm-examples/uvm_priority_grab_lock.sv: STRICT_NOTEQUAL -> EQUAL
+CONVERSION generated/uvm-examples/uvm_use_models_unidirectional.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=20 EQUAL=1920 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=4 changes=0
+rc=0

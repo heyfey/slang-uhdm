@@ -1,0 +1,12 @@
+## pristine
+name,slang_rc,slang_s,slang_msg
+uvm_priority_arbitration,0,8.5,
+uvm_messaging_example,0,8.7,
+uvm_priority_grab_lock,0,8.7,
+uvm_use_models_unidirectional,0,6.5,
+## law
+name,slang_rc,slang_s,slang_msg
+uvm_priority_grab_lock,0,8.0,
+uvm_priority_arbitration,0,8.2,
+uvm_messaging_example,0,8.2,
+uvm_use_models_unidirectional,0,6.5,

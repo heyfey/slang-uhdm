@@ -16080,6 +16080,20 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
             case UHDM::uhdmbit_select:
                 act = ((UHDM::bit_select*)o)->Actual_group();
                 break;
+            // § cloneLhsIdxPartSelBind450 (R11U450_IDXPSBIND_OFF): the clone
+            // left-side indexed part-select that law binds to the body's own
+            // local moves to the home's variable with the other kinds.
+            case UHDM::uhdmindexed_part_select:
+                if (!lawOn(450, "R11U450_IDXPSBIND_OFF"))
+                    continue;
+                act = ((UHDM::indexed_part_select*)o)->Actual_group();
+                break;
+            // § cloneVarSelBind450 (R11U450_VARSELBIND_OFF): likewise.
+            case UHDM::uhdmvar_select:
+                if (!lawOn(450, "R11U450_VARSELBIND_OFF"))
+                    continue;
+                act = ((UHDM::var_select*)o)->Actual_group();
+                break;
             default:
                 continue;
         }
@@ -16097,6 +16111,20 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
                 break;
             case UHDM::uhdmbit_select:
                 ((UHDM::bit_select*)o)->Actual_group(it->second);
+                break;
+            case UHDM::uhdmvar_select:
+                ((UHDM::var_select*)o)->Actual_group(it->second);
+                lawTrace(450, "cloneVarSelBind450_home",
+                         std::string(o->VpiName()) + "@" +
+                             std::to_string(o->VpiLineNo()) + ":" +
+                             std::to_string(o->VpiColumnNo()));
+                break;
+            case UHDM::uhdmindexed_part_select:
+                ((UHDM::indexed_part_select*)o)->Actual_group(it->second);
+                lawTrace(450, "cloneLhsIdxPartSelBind450_home",
+                         std::string(o->VpiName()) + "@" +
+                             std::to_string(o->VpiLineNo()) + ":" +
+                             std::to_string(o->VpiColumnNo()));
                 break;
             default:
                 break;

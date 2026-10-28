@@ -11768,6 +11768,104 @@ void UhdmExporter::emitAssocDims(const Symbol& cp,
     // evidence.  Residue R2.
     if (idx[0] && !assocIdxIsTypeParam51(*idx[0])) {
         if (auto* its = assocIndexTs(*idx[0], cp)) {
+            // § clsAssocVecIdxTs450 (R11U450_CLSASSOCVECIDX_OFF) — a class
+            // property's associative index written as a keyword packed
+            // vector (`bit[7:0] mem[bit[7:0]];`, sv-tests uvm_vif_config_db,
+            // uvm_ef_vif_config_db and uvm_ac_config_db's sfr_scoreboard)
+            // is in golden a bit_typespec (`bit`) or logic_typespec (`logic`,
+            // `reg`) carrying the written packed ranges (UINT constants at
+            // their tokens, each range at its brackets) and vpiSigned for a
+            // `signed` keyword; assocIndexTs's integral fallback minted a bare
+            // logic_typespec with no range.  Taken for an index of no
+            // typedef whose every bound is a plain decimal literal; any
+            // other shape keeps the fallback.  cases/AX.
+            if (lawOn(450, "R11U450_CLSASSOCVECIDX_OFF") && its->UhdmType() == UHDM::uhdmlogic_typespec &&
+                idx[0]->kind != SymbolKind::TypeAlias && its->VpiName().empty())
+                if (auto* d450 = dimAt(0))
+                    if (auto* rd450 = d450->specifier
+                                          ? d450->specifier
+                                                ->as_if<syntax::RangeDimensionSpecifierSyntax>()
+                                          : nullptr)
+                        if (auto* sel450 = rd450->selector
+                                               ? rd450->selector->as_if<syntax::BitSelectSyntax>()
+                                               : nullptr)
+                            if (auto* it450 = sel450->expr->as_if<syntax::IntegerTypeSyntax>()) {
+                                bool ok450 = true;
+                                std::vector<std::tuple<const syntax::VariableDimensionSyntax*,
+                                                       const syntax::ExpressionSyntax*,
+                                                       const syntax::ExpressionSyntax*>>
+                                    dims450;
+                                auto plain450 = [](const syntax::ExpressionSyntax* e) {
+                                    if (!e || e->kind != syntax::SyntaxKind::IntegerLiteralExpression)
+                                        return false;
+                                    auto t = e->as<syntax::LiteralExpressionSyntax>().literal;
+                                    auto v = t.rawText();
+                                    return !v.empty() &&
+                                           std::all_of(v.begin(), v.end(),
+                                                       [](char c) { return c >= '0' && c <= '9'; });
+                                };
+                                for (auto* vd450 : it450->dimensions) {
+                                    auto* rs450 = vd450->specifier
+                                                      ? vd450->specifier->as_if<
+                                                            syntax::RangeDimensionSpecifierSyntax>()
+                                                      : nullptr;
+                                    auto* rg450 = rs450 && rs450->selector
+                                                      ? rs450->selector->as_if<syntax::RangeSelectSyntax>()
+                                                      : nullptr;
+                                    if (!rg450 || rs450->selector->kind != syntax::SyntaxKind::SimpleRangeSelect ||
+                                        !plain450(rg450->left) || !plain450(rg450->right)) {
+                                        ok450 = false;
+                                        break;
+                                    }
+                                    dims450.emplace_back(vd450, rg450->left, rg450->right);
+                                }
+                                auto k450 = it450->kind;
+                                if (ok450 && (k450 == syntax::SyntaxKind::BitType ||
+                                              k450 == syntax::SyntaxKind::LogicType ||
+                                              k450 == syntax::SyntaxKind::RegType)) {
+                                    UHDM::typespec* n450 = nullptr;
+                                    UHDM::VectorOfrange* rv450 =
+                                        dims450.empty() ? nullptr : s.MakeRangeVec();
+                                    if (k450 == syntax::SyntaxKind::BitType) {
+                                        auto* b = s.MakeBit_typespec();
+                                        if (rv450)
+                                            b->Ranges(rv450);
+                                        if (it450->signing.kind == parsing::TokenKind::SignedKeyword)
+                                            b->VpiSigned(true);
+                                        n450 = b;
+                                    }
+                                    else {
+                                        auto* l = s.MakeLogic_typespec();
+                                        if (rv450)
+                                            l->Ranges(rv450);
+                                        if (it450->signing.kind == parsing::TokenKind::SignedKeyword)
+                                            l->VpiSigned(true);
+                                        n450 = l;
+                                    }
+                                    for (auto& [vd, le, re] : dims450) {
+                                        auto* r = s.MakeRange();
+                                        r->VpiParent(n450);
+                                        setLoc(r, vd->sourceRange());
+                                        auto mk = [&](const syntax::ExpressionSyntax* e) {
+                                            auto* c = s.MakeConstant();
+                                            std::string v(e->as<syntax::LiteralExpressionSyntax>()
+                                                              .literal.rawText());
+                                            c->VpiDecompile(v);
+                                            c->VpiSize(64);
+                                            c->VpiValue("UINT:" + v);
+                                            c->VpiConstType(vpiUIntConst);
+                                            c->VpiParent(r);
+                                            setLoc(c, e->sourceRange());
+                                            return c;
+                                        };
+                                        r->Left_expr(mk(le));
+                                        r->Right_expr(mk(re));
+                                        rv450->push_back(r);
+                                    }
+                                    its = n450;
+                                    lawTrace(450, "clsAssocVecIdxTs450", std::string(cp.name));
+                                }
+                            }
             // § sharedAliasNoStamp41 — the pass-40 hazard is INHERITED from
             // here: a TYPEDEF-NAME index (`uvm_reg_addr_t`, t58a's `[b8]`)
             // resolves to the ONE shared typespec object every user of that
@@ -22439,8 +22537,16 @@ UHDM::design* UhdmExporter::exportDesign() {
         // prefixes; § pkgCloneLocalRefBind37 widens the SWEEP, and a widened
         // sweep necessarily reaches a foreach's own `ref_var` (its array
         // reference and its loop variable) and an array `bit_select`'s base.
+        // § cloneLhsIdxPartSelBind450 and § cloneVarSelBind450 admit an
+        // indexed_part_select and a var_select to the three lambdas below
+        // only while their own sweep runs (ips450).
+        bool ips450 = false;
         auto actOf37 = [](const UHDM::any* e37) -> const UHDM::any* {
             switch (e37->UhdmType()) {
+                case UHDM::uhdmindexed_part_select:
+                    return ((const UHDM::indexed_part_select*)e37)->Actual_group();
+                case UHDM::uhdmvar_select:
+                    return ((const UHDM::var_select*)e37)->Actual_group();
                 case UHDM::uhdmref_obj:
                     return ((const UHDM::ref_obj*)e37)->Actual_group();
                 case UHDM::uhdmref_var:
@@ -22453,6 +22559,12 @@ UHDM::design* UhdmExporter::exportDesign() {
         };
         auto setAct37 = [](UHDM::any* e37, UHDM::any* a37) {
             switch (e37->UhdmType()) {
+                case UHDM::uhdmindexed_part_select:
+                    ((UHDM::indexed_part_select*)e37)->Actual_group(a37);
+                    break;
+                case UHDM::uhdmvar_select:
+                    ((UHDM::var_select*)e37)->Actual_group(a37);
+                    break;
                 case UHDM::uhdmref_obj:
                     ((UHDM::ref_obj*)e37)->Actual_group(a37);
                     break;
@@ -22466,10 +22578,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                     break;
             }
         };
-        auto bindable37 = [](const UHDM::any* e37) {
+        auto bindable37 = [&ips450](const UHDM::any* e37) {
             auto t37 = e37->UhdmType();
             return t37 == UHDM::uhdmref_obj || t37 == UHDM::uhdmref_var ||
-                   t37 == UHDM::uhdmbit_select;
+                   t37 == UHDM::uhdmbit_select ||
+                   (ips450 && (t37 == UHDM::uhdmindexed_part_select ||
+                               t37 == UHDM::uhdmvar_select));
         };
         auto bind9 = [&](UHDM::any* e9, const UHDM::BaseClass* anchor9) {
             if (!e9 || !bindable37(e9))
@@ -22809,6 +22923,81 @@ UHDM::design* UhdmExporter::exportDesign() {
             auto* o37 = (UHDM::any*)kv37.first;
             if (o37 && bindable37(o37))
                 bind9(o37, o37);
+        }
+        // § cloneLhsIdxPartSelBind450 (R11U450_IDXPSBIND_OFF) — an indexed
+        // part-select written as an ASSIGNMENT LEFT SIDE in a clone body
+        // binds the body's own local by name, as a ref_obj there does
+        // (UHDM's ElaboratorListener leaveIndexed_part_select is
+        // leaveRef_obj), and § cloneStmtHomeVarRef17 then moves it to the
+        // home's variable (golden 1800.2 uvm_reg_map::do_bus_access
+        // `data[i0*8+:8]=p[...]` in messaging_pkg's copy binding
+        // uvm_pkg::uvm_reg_map::do_bus_access::data).  Golden leaves bare a
+        // select whose base is a constant (`data[7-:4]`), a select read on a
+        // right side or in a condition, and a select over a formal (an
+        // io_decl): all measured on cases/IX.
+        if (lawOn(450, "R11U450_IDXPSBIND_OFF") || lawOn(450, "R11U450_VARSELBIND_OFF")) {
+            for (auto& kv450 : s.AllObjects()) {
+                auto* o450 = (UHDM::any*)kv450.first;
+                if (o450 && o450->UhdmType() == UHDM::uhdmvar_select &&
+                    lawOn(450, "R11U450_VARSELBIND_OFF")) {
+                    // § cloneVarSelBind450 (R11U450_VARSELBIND_OFF) — a
+                    // var_select in a clone body binds by name wherever it
+                    // is written (left or right side, constant indices or
+                    // not: cases/IX ix16 to ix19), the leaveVar_select branch of
+                    // the same listener.
+                    auto* vs450 = (UHDM::var_select*)o450;
+                    if (vs450->Actual_group() || vs450->VpiName().empty())
+                        continue;
+                    auto* tfv450 = ownerTf9(o450);
+                    if (!tfv450 || !pkgCloneBodyLocals9.count(tfv450))
+                        continue;
+                    ips450 = true;
+                    bind9(o450, o450);
+                    ips450 = false;
+                    if (vs450->Actual_group())
+                        lawTrace(450, "cloneVarSelBind450",
+                                 std::string(tfv450->VpiFullName()) + " " +
+                                     std::string(vs450->VpiName()) + "@" +
+                                     std::to_string(vs450->VpiLineNo()) + ":" +
+                                     std::to_string(vs450->VpiColumnNo()) + " " +
+                                     std::string(vs450->Actual_group()->VpiName()));
+                    continue;
+                }
+                if (!o450 || o450->UhdmType() != UHDM::uhdmindexed_part_select ||
+                    !lawOn(450, "R11U450_IDXPSBIND_OFF"))
+                    continue;
+                auto* ip450 = (UHDM::indexed_part_select*)o450;
+                if (ip450->Actual_group() || ip450->VpiName().empty())
+                    continue;
+                auto* pa450 = ip450->VpiParent();
+                if (!pa450 || pa450->UhdmType() != UHDM::uhdmassignment ||
+                    ((const UHDM::assignment*)pa450)->Lhs() != (const UHDM::expr*)ip450)
+                    continue;
+                auto* be450 = ip450->Base_expr();
+                if (!be450 || be450->UhdmType() == UHDM::uhdmconstant)
+                    continue;
+                auto* tf450 = ownerTf9(o450);
+                if (!tf450 || !pkgCloneBodyLocals9.count(tf450))
+                    continue;
+                // bind9's own lookup, with the select admitted as a kind for
+                // this one call only
+                ips450 = true;
+                bind9(o450, o450);
+                ips450 = false;
+                auto* a450 = ip450->Actual_group();
+                if (!a450)
+                    continue;
+                if (a450->UhdmType() == UHDM::uhdmio_decl ||
+                    !dynamic_cast<const UHDM::variables*>(a450)) {
+                    ip450->Actual_group(nullptr);
+                    continue;
+                }
+                lawTrace(450, "cloneLhsIdxPartSelBind450",
+                         std::string(tf450->VpiFullName()) + " " +
+                             std::string(ip450->VpiName()) + "@" +
+                             std::to_string(ip450->VpiLineNo()) + ":" +
+                             std::to_string(ip450->VpiColumnNo()));
+            }
         }
     }
     // § cloneNewArrayHierBaseBindsOwnDecl191 — the hop map is consulted only
@@ -24423,6 +24612,33 @@ UHDM::design* UhdmExporter::exportDesign() {
                         t->VpiLineNo() == x->VpiLineNo() &&
                         t->VpiColumnNo() == x->VpiColumnNo())
                         l = t;
+                // § fwListedQualNameMatch450 (R11U450_FWLISTEDQUAL_OFF) — when
+                // an importing package specializes the winner's class, the
+                // class_defn's listed typedef and the twin both carry the
+                // importer-qualified name (`messaging_pkg::this_type`, 1800.2
+                // uvm_abstract_component_registry's this_type at
+                // uvm_registry.svh 292:11 in uvm_messaging_example and the two
+                // priority rows), so the bare-name match above finds nothing
+                // and the eight TLM socket classes' `connect(this_type
+                // provider)` kept the unlisted twin where golden points at the
+                // listed object (the strict walk then lists the twin's
+                // subtree there and golden's not).  The class_defn lists that
+                // object while the importer's package listing re-parents it,
+                // so its parent is not the class_defn here; the listed object
+                // of the twin's own name at the twin's span is taken.
+                if (!l && lawOn(450, "R11U450_FWLISTEDQUAL_OFF") &&
+                    x->VpiName() != w.name) {
+                    for (auto* t : *cd->Typespecs())
+                        if (t && t != x &&
+                            t->UhdmType() == x->UhdmType() && t->VpiName() == x->VpiName() &&
+                            t->VpiLineNo() == x->VpiLineNo() &&
+                            t->VpiColumnNo() == x->VpiColumnNo())
+                            l = t;
+                    if (l)
+                        lawTrace(450, "fwListedQualNameMatch450",
+                                 std::string(cd->VpiName()) + " " +
+                                     std::string(x->VpiName()));
+                }
                 if (!l)
                     continue;
                 rep255[x] = l;
@@ -25208,11 +25424,44 @@ UHDM::design* UhdmExporter::exportDesign() {
                 cp265->VpiParent((UHDM::ref_typespec*)r);
                 cp265->Typedef_alias((UHDM::ref_typespec*)a->Typedef_alias());
                 cp265->Instance((UHDM::instance*)a->Instance());
-                cp265->VpiFile(a->VpiFile());
-                cp265->VpiLineNo(a->VpiLineNo());
-                cp265->VpiColumnNo(a->VpiColumnNo());
-                cp265->VpiEndLineNo(a->VpiEndLineNo());
-                cp265->VpiEndColumnNo(a->VpiEndColumnNo());
+                // § cloneOwnCopyAtHomeListing450 (R11U450_OWNCOPYSPAN_OFF) —
+                // the private copy sits at the HOME package's listing object
+                // of the typedef, as every other clone-owned copy does
+                // (§ cloneAggTsAtHomeListing241), not at the shared object's
+                // own span.  The two differ when the shared object is the
+                // typedef's declaration (1800.2 uvm_reg_bus_op: shared
+                // uvm_reg_item.svh 244:9, golden's copy at the listing's
+                // uvm_reg_map.svh 1793:40 on the messaging_pkg copies of
+                // perform_accesses and do_bus_access); uvm-1.2's listing sits
+                // at the declaration, so MiniAmiq and SeqDriver read the same
+                // span either way.  Abstains when the listing is ambiguous or
+                // of another kind or package.
+                const UHDM::typespec* at450 = a;
+                if (lawOn(450, "R11U450_OWNCOPYSPAN_OFF")) {
+                    auto ih450 = home241.find(std::string(a->VpiName()));
+                    auto* h450 = ih450 != home241.end() ? ih450->second : nullptr;
+                    if (h450 && h450 != a && h450->UhdmType() == a->UhdmType() &&
+                        homePkg241[h450] == hp &&
+                        (h450->VpiFile() != a->VpiFile() ||
+                         h450->VpiLineNo() != a->VpiLineNo() ||
+                         h450->VpiColumnNo() != a->VpiColumnNo() ||
+                         h450->VpiEndLineNo() != a->VpiEndLineNo() ||
+                         h450->VpiEndColumnNo() != a->VpiEndColumnNo())) {
+                        at450 = h450;
+                        lawTrace(450, "cloneOwnCopyAtHomeListing450",
+                                 std::string(tf->VpiFullName()) + " " +
+                                     std::string(a->VpiName()) + " " + pf + " " +
+                                     std::to_string(a->VpiLineNo()) + ":" +
+                                     std::to_string(a->VpiColumnNo()) + " -> " +
+                                     std::to_string(h450->VpiLineNo()) + ":" +
+                                     std::to_string(h450->VpiColumnNo()));
+                    }
+                }
+                cp265->VpiFile(at450->VpiFile());
+                cp265->VpiLineNo(at450->VpiLineNo());
+                cp265->VpiColumnNo(at450->VpiColumnNo());
+                cp265->VpiEndLineNo(at450->VpiEndLineNo());
+                cp265->VpiEndColumnNo(at450->VpiEndColumnNo());
                 auto& mm265 = memb241[r];
                 for (auto* m0 : *om) {
                     auto* m1 = s.MakeTypespec_member();
@@ -25514,6 +25763,48 @@ UHDM::design* UhdmExporter::exportDesign() {
                             homePkg241[ih->second] != hp241)
                             continue;
                         tryOwnCopy265(er265, ea265, hp241, tf241, art265->VpiParent());
+                        // § cloneArrElemAggAtHomeListing450
+                        // (R11U450_ARRELEMHOME_OFF) — the array leg's element
+                        // struct or union that § cloneSharedAggOwnCopy265
+                        // leaves shared (no member typed by a home enum) is
+                        // in golden the clone's own object at the home
+                        // listing's span, as the walk above gives every other
+                        // aggregate the copy holds through an object it does
+                        // not own (cases/OC oc01: `op_s acc[$]` in the r copy
+                        // of m::bus, golden 12:20, the out-of-body definition's
+                        // formal type token, ours the shared object's 9:26,
+                        // the prototype's).  Taken only when the shared
+                        // object's span differs from the listing's and the
+                        // array variable is the copy's own.
+                        if (lawOn(450, "R11U450_ARRELEMHOME_OFF") &&
+                            er265->Actual_typespec() == ea265 &&
+                            (ea265->UhdmType() == UHDM::uhdmstruct_typespec ||
+                             ea265->UhdmType() == UHDM::uhdmunion_typespec)) {
+                            auto* h450 = ih->second;
+                            const UHDM::any* pv450 = art265->VpiParent();
+                            std::string pf450 =
+                                pv450 && dynamic_cast<const UHDM::variables*>(pv450)
+                                    ? std::string(((const UHDM::variables*)pv450)->VpiFullName())
+                                    : std::string();
+                            std::string tff450(tf241->VpiFullName());
+                            const UHDM::VectorOftypespec_member* om450 =
+                                ea265->UhdmType() == UHDM::uhdmstruct_typespec
+                                    ? ((const UHDM::struct_typespec*)ea265)->Members()
+                                    : ((const UHDM::union_typespec*)ea265)->Members();
+                            if (om450 && h450 != ea265 &&
+                                (h450->VpiFile() != ea265->VpiFile() ||
+                                 h450->VpiLineNo() != ea265->VpiLineNo() ||
+                                 h450->VpiColumnNo() != ea265->VpiColumnNo() ||
+                                 h450->VpiEndLineNo() != ea265->VpiEndLineNo() ||
+                                 h450->VpiEndColumnNo() != ea265->VpiEndColumnNo()) &&
+                                pf450.size() > tff450.size() &&
+                                pf450.compare(0, tff450.size(), tff450) == 0) {
+                                ownCopy265(er265, ea265, om450, hp241, tf241, pf450);
+                                lawTrace(450, "cloneArrElemAggAtHomeListing450",
+                                         tff450 + " " + std::string(ea265->VpiName()) + " " +
+                                             pf450);
+                            }
+                        }
                     }
                 // § cloneAggMemberOwn241 — a member path `v.m` in the copy whose
                 // root variable or formal holds a copied struct or union binds
@@ -27717,6 +28008,79 @@ UHDM::design* UhdmExporter::exportDesign() {
                             reorder446(x446->Task_funcs(),
                                        std::string(x446->VpiName()) +
                                            (k446 ? "#TOPM" : "#DEFM"));
+            }
+            // § importGroupOrderIfaces450 (R11U450_IFCGRPORDER_OFF) — the same
+            // reorder for INTERFACE listings: the definitions in
+            // AllInterfaces and every elaborated interface instance (whose
+            // home view copied the definition's vector when it was emitted,
+            // so the definition's reorder does not reach it).  sv-tests
+            // uvm_use_models_unidirectional: `interface adpcm_driver_bfm`
+            // body-imports adpcm_pkg, whose group lists uvm_pkg's six
+            // macro-written uvm_packer get/set_packed_* methods at positions
+            // 227 to 232 in golden's definition and top_hdl.adpcm_drv, ours at
+            // 946 to 951.  Grid cases/IG.
+            auto reorder450 = [&](UHDM::VectorOftask_func* v, const std::string& who) {
+                if (!v)
+                    return;
+                std::vector<UHDM::task_func*> before450(v->begin(), v->end());
+                reorder446(v, who);
+                if (!std::equal(before450.begin(), before450.end(), v->begin()))
+                    lawTrace(450, "importGroupOrderIfaces450", who);
+            };
+            if (lawOn(446, "R11U446_IMPGRPORDER_OFF") &&
+                lawOn(450, "R11U450_IFCGRPORDER_OFF")) {
+                if (auto* ai450 = d->AllInterfaces())
+                    for (auto* x450 : *ai450)
+                        if (x450)
+                            reorder450(x450->Task_funcs(),
+                                       std::string(x450->VpiName()) + "#DEFI");
+                std::set<const UHDM::any*> seen450;
+                std::function<void(const UHDM::any*)> walk450 = [&](const UHDM::any* o) {
+                    if (!o || !seen450.insert(o).second)
+                        return;
+                    if (o->UhdmType() == UHDM::uhdminterface_inst) {
+                        auto* ii = (UHDM::interface_inst*)o;
+                        reorder450(ii->Task_funcs(), std::string(ii->VpiFullName()) + "#TOPI");
+                        if (auto* v = ii->Interfaces())
+                            for (auto* c : *v)
+                                walk450(c);
+                        if (auto* v = ii->Gen_scope_arrays())
+                            for (auto* c : *v)
+                                walk450(c);
+                    }
+                    else if (o->UhdmType() == UHDM::uhdmmodule_inst) {
+                        auto* mi = (const UHDM::module_inst*)o;
+                        if (auto* v = mi->Interfaces())
+                            for (auto* c : *v)
+                                walk450(c);
+                        if (auto* v = mi->Modules())
+                            for (auto* c : *v)
+                                walk450(c);
+                        if (auto* v = mi->Gen_scope_arrays())
+                            for (auto* c : *v)
+                                walk450(c);
+                    }
+                    else if (o->UhdmType() == UHDM::uhdmgen_scope_array) {
+                        if (auto* v = ((const UHDM::gen_scope_array*)o)->Gen_scopes())
+                            for (auto* c : *v)
+                                walk450(c);
+                    }
+                    else if (o->UhdmType() == UHDM::uhdmgen_scope) {
+                        auto* g = (const UHDM::gen_scope*)o;
+                        if (auto* v = g->Interfaces())
+                            for (auto* c : *v)
+                                walk450(c);
+                        if (auto* v = g->Modules())
+                            for (auto* c : *v)
+                                walk450(c);
+                        if (auto* v = g->Gen_scope_arrays())
+                            for (auto* c : *v)
+                                walk450(c);
+                    }
+                };
+                if (auto* tm450 = d->TopModules())
+                    for (auto* x450 : *tm450)
+                        walk450(x450);
             }
             // § cloneBodyCallBindsHomeTopTf446 — the twin of
             // § clsBodyCallBindsHomeTopTf446 for the BODIES OF THE IMPORT

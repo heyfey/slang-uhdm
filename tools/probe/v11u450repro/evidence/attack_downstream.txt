@@ -1,0 +1,34 @@
+VP/vp01 pristine IDENTICAL - | law IDENTICAL -
+VP/vp02 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp03 pristine EQUIVALENT nohier | law EQUIVALENT nohier
+VP/vp04 pristine STATUS_DIFF - | law STATUS_DIFF -
+VP/vp05 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp06 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp07 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp08 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp09 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp10 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp11 pristine EQUIVALENT nohier | law IDENTICAL -
+VP/vp12 pristine EQUIVALENT nohier il synth | law IDENTICAL -
+VP/vp13 pristine IDENTICAL - | law IDENTICAL -
+VP/vp14 pristine STATUS_DIFF - | law STATUS_DIFF -
+VP/vp15 pristine EQUIVALENT nohier il synth | law IDENTICAL -
+VW/vw01 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw02 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw03 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw04 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw05 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw06 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw07 pristine EQUIVALENT nohier | law EQUIVALENT nohier
+VW/vw08 pristine IDENTICAL - | law IDENTICAL -
+VW/vw09 pristine EQUIVALENT nohier | law IDENTICAL -
+VW/vw10 pristine EQUIVALENT nohier | law IDENTICAL -
+VT/vt01 pristine IDENTICAL - | law IDENTICAL -
+VT/vt02 pristine IDENTICAL - | law IDENTICAL -
+VT/vt03 pristine IDENTICAL - | law IDENTICAL -
+VT/vt04 pristine IDENTICAL - | law IDENTICAL -
+VT/vt05 pristine IDENTICAL - | law IDENTICAL -
+VT/vt06 pristine IDENTICAL - | law IDENTICAL -
+VT/vt07 pristine IDENTICAL - | law IDENTICAL -
+VT/vt08 pristine IDENTICAL - | law IDENTICAL -
+VT/vt09 pristine IDENTICAL - | law IDENTICAL -

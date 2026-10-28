@@ -16662,13 +16662,95 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             }
         }
     }
+    // § ifcBodyImpTransitiveTds450 (R11U450_IFCBODYTRANS_OFF) — an
+    // INTERFACE whose body wildcard-imports packages that declare no typedef
+    // of their own but import other packages lists, in golden, the TRANSITIVE
+    // typedefs exactly as a module does: importPackage copies the imported
+    // package's whole DataTypeMap (its own imports' typedefs included) into
+    // the interface, and writeInterface's writeDataTypes walks it as
+    // writeModule's does (sv-tests generated/uvm-examples/
+    // uvm_use_models_unidirectional: `interface adpcm_driver_bfm` with
+    // `import adpcm_pkg::*;`, adpcm_pkg importing uvm_pkg; golden lists 127
+    // typedefs before the import_typespec in the definition and in the
+    // elaborated top_hdl.adpcm_drv, the same 127 module top_tb lists for its
+    // adpcm_pkg import; ours listed none).  The interface branch above walks only
+    // the imported package's own typedefs and wrote nothing here, so such an
+    // interface takes the module branch below on its body imports.  Taken only
+    // when every import of the body is a wildcard, no imported package
+    // declares a typedef itself, at least one reaches typedefs through its
+    // own wildcard imports, and the interface's file has no `$unit` import
+    // (cases/IT).
+    bool ifcBody450 = false;
+    if (m->UhdmType() == UHDM::uhdminterface_inst && !ifcFile418 &&
+        lawOn(450, "R11U450_IFCBODYTRANS_OFF")) {
+        bool any450 = false, ok450 = true, trans450 = false;
+        for (auto& mem450 : body.members()) {
+            if (mem450.kind == SymbolKind::ExplicitImport) {
+                ok450 = false;
+                break;
+            }
+            if (mem450.kind != SymbolKind::WildcardImport)
+                continue;
+            any450 = true;
+            auto* pkg450 = comp.getPackage(mem450.as<WildcardImportSymbol>().packageName);
+            if (!pkg450) {
+                ok450 = false;
+                break;
+            }
+            for (auto& pm450 : pkg450->members()) {
+                if (pm450.kind == SymbolKind::TypeAlias)
+                    ok450 = false;
+                else if (pm450.kind == SymbolKind::WildcardImport)
+                    if (auto* np450 = pm450.as<WildcardImportSymbol>().getPackage())
+                        for (auto& qm450 : np450->members())
+                            if (qm450.kind == SymbolKind::TypeAlias)
+                                trans450 = true;
+            }
+        }
+        std::string mf450 = rootFilePath(body.getDefinition().location);
+        if (ok450 && any450 && trans450 && !mf450.empty())
+            for (auto* unit450 : comp.getCompilationUnits())
+                for (auto& mem450 : unit450->members())
+                    if ((mem450.kind == SymbolKind::WildcardImport ||
+                         mem450.kind == SymbolKind::ExplicitImport) &&
+                        rootFilePath(mem450.location) == mf450)
+                        ok450 = false;
+        ifcBody450 = ok450 && any450 && trans450;
+        if (ifcBody450) {
+            lawTrace(450, "ifcBodyImpTransitiveTds450", std::string(m->VpiDefName()));
+            // ...and the copied DataTypeMap carries the class keys the
+            // imported package itself received from its own imports
+            // (golden's `adpcm_pkg::this_type` entries of uvm_pkg's
+            // registries), so § modulePublishesPackageClasses45's source
+            // list for this view takes those packages after the direct ones.
+            for (auto& [mv45, p45] : modImportPkgs45) {
+                if (mv45 != m)
+                    continue;
+                std::vector<std::string> add450;
+                for (auto& pn450 : p45)
+                    if (auto* pk450 = comp.getPackage(pn450))
+                        for (auto& pm450 : pk450->members())
+                            if (pm450.kind == SymbolKind::WildcardImport) {
+                                std::string q450(
+                                    pm450.as<WildcardImportSymbol>().packageName);
+                                if (std::find(p45.begin(), p45.end(), q450) == p45.end() &&
+                                    std::find(add450.begin(), add450.end(), q450) ==
+                                        add450.end())
+                                    add450.push_back(q450);
+                            }
+                for (auto& q450 : add450)
+                    p45.push_back(q450);
+                break;
+            }
+        }
+    }
     // Typespecs that must land BEHIND the import_typespecs (see enumCtsTd9).
     std::vector<UHDM::typespec*> enumCtsPushed9;
     // A module explicitly importing a package typedef (import pkg::T) lists
     // the SHARED top-view package typespec in its Typespecs (before the
     // import_typespec) and re-parents it to the module; fullnames keep their
     // pkg:: scoping (unlike the interface re-scope above).
-    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418) {
+    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418 || ifcBody450) {
         // Collect imported typedef symbols: explicit imports name one; a
         // WILDCARD import lists every package typedef (name-sorted, matching
         // the package's own list order).
@@ -56989,6 +57071,47 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                             walk9(((const UHDM::if_else*)n9)->VpiElseStmt());
                             return;
                         }
+                        // § ifcTaskFixupWalksStmts450 (R11U450_IFCFIXWALK_OFF)
+                        // — the walk also enters timing controls and loops:
+                        // golden binds `@(posedge clk)` in an instantiated
+                        // interface's task to the elaborated net
+                        // (work@top_hdl.adpcm_drv.clk in sv-tests
+                        // uvm_use_models_unidirectional's adpcm_driver_bfm::
+                        // drive, under `repeat` and `for` bodies too) as it
+                        // binds the task's assignments, and the walk stopped
+                        // at the event control (cases/IV iv01, iv07).
+                        if (lawOn(450, "R11U450_IFCFIXWALK_OFF")) {
+                            if (t9 == UHDM::uhdmevent_control ||
+                                t9 == UHDM::uhdmdelay_control || t9 == UHDM::uhdmrepeat ||
+                                t9 == UHDM::uhdmwhile_stmt || t9 == UHDM::uhdmfor_stmt)
+                                lawTrace(450, "ifcTaskFixupWalksStmts450",
+                                         prefix + " " + std::to_string(n9->VpiLineNo()) +
+                                             ":" + std::to_string(n9->VpiColumnNo()));
+                            if (t9 == UHDM::uhdmevent_control) {
+                                walk9(((const UHDM::event_control*)n9)->VpiCondition());
+                                walk9(((const UHDM::event_control*)n9)->Stmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmdelay_control) {
+                                walk9(((const UHDM::delay_control*)n9)->Stmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmrepeat) {
+                                walk9(((const UHDM::repeat*)n9)->VpiCondition());
+                                walk9(((const UHDM::repeat*)n9)->VpiStmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmwhile_stmt) {
+                                walk9(((const UHDM::while_stmt*)n9)->VpiCondition());
+                                walk9(((const UHDM::while_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmfor_stmt) {
+                                walk9(((const UHDM::for_stmt*)n9)->VpiCondition());
+                                walk9(((const UHDM::for_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                        }
                     };
                 for (auto* tf9 : *iface->Task_funcs())
                     walk9(tf9->Stmt());
@@ -60973,7 +61096,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 }
             }
         }
-        auto* v = makeVar(*it.sym, /*portBacked=*/false);
+        // § ifcAnsiLogicPortNet450 (R11U450_IFCPORTNET_OFF) — an ANSI
+        // interface header port declared `output logic` (a variable to
+        // slang when the body drives it procedurally) is a logic_net in
+        // golden's elaborated HOME view, as the definition view and a
+        // module's elaborated port already are (makeVar's port-backed rule:
+        // Surelog's port Signal is a net whatever the body does).  The
+        // interface road asked makeVar as if no port backed the symbol, so
+        // the port became a logic_var under vpiVariables and the net list
+        // lost it (sv-tests uvm_use_models_unidirectional's
+        // top_hdl.adpcm_drv `frame` and `data`; cases/IV iv01).  A port
+        // view keeps the old question.
+        bool pb450 = false;
+        if (it.port && !portView && it.sym->kind == SymbolKind::Variable &&
+            lawOn(450, "R11U450_IFCPORTNET_OFF")) {
+            pb450 = true;
+        }
+        auto* v = makeVar(*it.sym, /*portBacked=*/pb450);
+        if (pb450 && !v)
+            lawTrace(450, "ifcAnsiLogicPortNet450", fullName);
         if (!v) {
             // A LOGIC/wire interface net (input logic clk/rst) that makeVar
             // does not model becomes a logic_net under the interface instance

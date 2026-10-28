@@ -1,0 +1,65 @@
+VA/va01 pris=3c048856 law=ab1f232d OFF=pristine CLSASSOCVECIDX:restores
+VA/va02 pris=1e9aff52 law=138bf19f OFF=pristine CLSASSOCVECIDX:restores
+VA/va03 pris=20438641 law=4f0f1e27 OFF=pristine CLSASSOCVECIDX:restores
+VA/va04 pris=4e41e079 law=c564b905 OFF=pristine CLSASSOCVECIDX:restores
+VA/va05 pris=08105234 law=96fe427c OFF=pristine CLSASSOCVECIDX:restores
+VA/va06 pris=fcbe1fad law=c4ea4fe9 OFF=pristine CLSASSOCVECIDX:restores
+VA/va07 pris=f64da762 law=c5d35adb OFF=pristine CLSASSOCVECIDX:restores
+VA/va08 pris=19ba8a3b law=ae240e18 OFF=pristine CLSASSOCVECIDX:restores
+VA/va09 pris=8ca3e620 law=b3a8dffe OFF=pristine CLSASSOCVECIDX:restores
+VF/vf01 pris=e4418424 law=772be616 OFF=pristine FWLISTEDQUAL:restores
+VF/vf02 pris=441b2ebc law=441b2ebc OFF=pristine (no move)
+VG/vg01 pris=31b85050 law=8aaff439 OFF=pristine IFCGRPORDER:restores
+VG/vg02 pris=a09d84cb law=b1c0f9b1 OFF=pristine IFCGRPORDER:restores
+VG/vg03 pris=ba394084 law=83378825 OFF=pristine IFCGRPORDER:restores
+VG/vg04 pris=91c3fd70 law=91c3fd70 OFF=pristine (no move)
+VG/vg05 pris=347feb28 law=48f5e8e5 OFF=pristine IFCGRPORDER:restores
+VO/vo01 pris=130d5ade law=585c4b92 OFF=pristine OWNCOPYSPAN:restores ARRELEMHOME:inert
+VO/vo02 pris=ceeab70b law=ceeab70b OFF=pristine (no move)
+VO/vo03 pris=0262bc3e law=0262bc3e OFF=pristine (no move)
+VO/vo04 pris=fd534835 law=56ec2877 OFF=pristine OWNCOPYSPAN:partial ARRELEMHOME:restores
+VO/vo05 pris=3c7db23b law=beb4158a OFF=pristine OWNCOPYSPAN:restores ARRELEMHOME:inert
+VP/vp01 pris=64448303 law=64448303 OFF=pristine (no move)
+VP/vp02 pris=6a7312e0 law=da8f3dab OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp03 pris=348dd95b law=348dd95b OFF=pristine (no move)
+VP/vp04 pris=6c017222 law=a36b74a0 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp05 pris=4953d3e4 law=0a2d629f OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp06 pris=dee2b38a law=41cc939e OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp07 pris=d07ed4de law=40c8c806 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp08 pris=7b8d8738 law=3b43e2ac OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp09 pris=d9ac573a law=63c1f429 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp10 pris=ec064552 law=2f4831c4 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp11 pris=e5a04a9f law=ea19f978 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp12 pris=9fe00710 law=91cbba12 OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp13 pris=5ff30816 law=5ff30816 OFF=pristine (no move)
+VP/vp14 pris=53973a19 law=e3e8e4ed OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VP/vp15 pris=4489e8de law=fb6d056a OFF=pristine IFCPORTNET:restores IFCFIXWALK:inert
+VT/vt01 pris=130f3492 law=72d06a81 OFF=pristine IFCBODYTRANS:restores
+VT/vt02 pris=14e2c332 law=c170a823 OFF=pristine IFCBODYTRANS:restores
+VT/vt03 pris=786efd7d law=786efd7d OFF=pristine (no move)
+VT/vt04 pris=c7074290 law=04d05fc9 OFF=pristine IFCBODYTRANS:restores
+VT/vt05 pris=09313972 law=2553b464 OFF=pristine IFCBODYTRANS:restores
+VT/vt06 pris=6e9b32ab law=7c847837 OFF=pristine IFCBODYTRANS:restores
+VT/vt07 pris=d9b356b2 law=a6177b65 OFF=pristine IFCBODYTRANS:restores
+VT/vt08 pris=868220fe law=655b31b0 OFF=pristine IFCBODYTRANS:restores
+VT/vt09 pris=2ccb0c18 law=390e5263 OFF=pristine IFCBODYTRANS:restores
+VW/vw01 pris=8babc0fb law=2bd93af3 OFF=pristine IFCFIXWALK:inert IFCPORTNET:restores
+VW/vw02 pris=9e32b495 law=da26ce3a OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VW/vw03 pris=923dc479 law=eda088e7 OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VW/vw04 pris=299fee4b law=f3930f21 OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VW/vw05 pris=06786469 law=2483fb1b OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VW/vw06 pris=7001690d law=e012ff82 OFF=pristine IFCFIXWALK:inert IFCPORTNET:restores
+VW/vw07 pris=50b99b94 law=7d69e01b OFF=pristine IFCFIXWALK:inert IFCPORTNET:restores
+VW/vw08 pris=45d2ca9e law=185005a8 OFF=pristine IFCFIXWALK:restores IFCPORTNET:inert
+VW/vw09 pris=edc55890 law=93e5ff9b OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VW/vw10 pris=ee9892fd law=1b2d1fbd OFF=pristine IFCFIXWALK:partial IFCPORTNET:partial
+VX/vx01 pris=067f847e law=067f847e OFF=pristine (no move)
+VX/vx02 pris=eec17658 law=c0ed1a67 OFF=pristine IDXPSBIND:partial VARSELBIND:partial
+VX/vx03 pris=ec9c546f law=178c1444 OFF=pristine IDXPSBIND:restores VARSELBIND:inert
+VX/vx04 pris=6b016a63 law=5ca03791 OFF=pristine IDXPSBIND:inert VARSELBIND:restores
+VX/vx05 pris=cfa6c385 law=29306e58 OFF=pristine IDXPSBIND:restores VARSELBIND:inert
+VX/vx06 pris=968fb4a8 law=968fb4a8 OFF=pristine (no move)
+VX/vx07 pris=02bbdcc6 law=a89a7922 OFF=pristine IDXPSBIND:partial VARSELBIND:partial
+VX/vx08 pris=c45427f4 law=c91dad99 OFF=pristine IDXPSBIND:inert VARSELBIND:restores
+VX/vx09 pris=7140e06a law=c1c88cce OFF=pristine IDXPSBIND:inert VARSELBIND:restores
+VX/vx10 pris=cac6c0cc law=cac6c0cc OFF=pristine (no move)

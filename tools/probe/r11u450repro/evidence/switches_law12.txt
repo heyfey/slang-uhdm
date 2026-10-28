@@ -1,0 +1,51 @@
+cases/AX/ax01 pristine=fd61636a law=fad2a757 OFF=pristine restores: CLSASSOCVECIDX
+cases/AX/ax02 pristine=fbdd8825 law=fbdd8825 OFF=pristine
+cases/AX/ax03 pristine=d630b2ce law=dc070876 OFF=pristine restores: CLSASSOCVECIDX
+cases/AX/ax04 pristine=6f62d4a8 law=b3ac6b6d OFF=pristine restores: CLSASSOCVECIDX
+cases/AX/ax05 pristine=d97f3c44 law=67dbb351 OFF=pristine restores: CLSASSOCVECIDX
+cases/AX/ax06 pristine=d645e280 law=d645e280 OFF=pristine
+cases/FL/fl01 pristine=773dcb04 law=2df8092e OFF=pristine restores: FWLISTEDQUAL
+cases/IG/ig01 pristine=352a7c27 law=d10e2cbb OFF=pristine restores: IFCGRPORDER
+cases/IG/ig02 pristine=779eec93 law=779eec93 OFF=pristine
+cases/IT/it01 pristine=5d8a09e8 law=72c0d62e OFF=pristine restores: IFCBODYTRANS
+cases/IT/it02 pristine=0b3c57b9 law=0b3c57b9 OFF=pristine
+cases/IT/it03 pristine=fc6ff33e law=dd8a42b1 OFF=pristine restores: IFCBODYTRANS
+cases/IT/it04 pristine=6e9e5ee9 law=189e0280 OFF=pristine restores: IFCBODYTRANS
+cases/IT/it05 pristine=b33fb8d5 law=b33fb8d5 OFF=pristine
+cases/IV/iv01 pristine=99165562 law=42ffd0ad OFF=pristine restores: (IFCPORTNET:partial) (IFCFIXWALK:partial)
+cases/IV/iv02 pristine=8ff6c34f law=ad768a2c OFF=pristine restores: IFCPORTNET
+cases/IV/iv03 pristine=dad42d91 law=dad42d91 OFF=pristine
+cases/IV/iv04 pristine=d8a003f7 law=cb673320 OFF=pristine restores: (IFCPORTNET:partial) (IFCFIXWALK:partial)
+cases/IV/iv05 pristine=0f3137b2 law=5b579539 OFF=pristine restores: IFCPORTNET
+cases/IV/iv06 pristine=9e9b9014 law=9e9b9014 OFF=pristine
+cases/IV/iv07 pristine=2de3fba4 law=72585e07 OFF=pristine restores: (IFCPORTNET:partial) (IFCFIXWALK:partial)
+cases/IV/iv08 pristine=cc95c0ec law=9f89f617 OFF=pristine restores: (IFCPORTNET:partial) (IFCFIXWALK:partial)
+cases/IV/iv09 pristine=bc6d6ec0 law=063eb8fd OFF=pristine restores: IFCPORTNET
+cases/IX/ix01 pristine=5d4b4c4f law=75d2aec7 OFF=pristine restores: IDXPSBIND
+cases/IX/ix02 pristine=a3b7d010 law=5741639c OFF=pristine restores: IDXPSBIND
+cases/IX/ix03 pristine=c07faf6b law=0b5c7953 OFF=pristine restores: IDXPSBIND
+cases/IX/ix04 pristine=b099681b law=eebf87c0 OFF=pristine restores: IDXPSBIND
+cases/IX/ix05 pristine=44044e3c law=87d35813 OFF=pristine restores: IDXPSBIND
+cases/IX/ix06 pristine=2a00fcfa law=1e8105d1 OFF=pristine restores: IDXPSBIND
+cases/IX/ix07 pristine=0476e031 law=a52e481c OFF=pristine restores: IDXPSBIND
+cases/IX/ix08 pristine=413c7aa7 law=413c7aa7 OFF=pristine
+cases/IX/ix09 pristine=1861b5bb law=1861b5bb OFF=pristine
+cases/IX/ix10 pristine=cbc51421 law=cbc51421 OFF=pristine
+cases/IX/ix11 pristine=b954111b law=58d7d669 OFF=pristine restores: IDXPSBIND
+cases/IX/ix12 pristine=d49181b8 law=b10a0a8d OFF=pristine restores: IDXPSBIND
+cases/IX/ix13 pristine=fd2335d0 law=527ddf7f OFF=pristine restores: (IDXPSBIND:partial) (VARSELBIND:partial)
+cases/IX/ix14 pristine=ae6ddd0e law=ae6ddd0e OFF=pristine
+cases/IX/ix15 pristine=85b87198 law=85b87198 OFF=pristine
+cases/IX/ix16 pristine=00ba7ed7 law=86de93b0 OFF=pristine restores: VARSELBIND
+cases/IX/ix17 pristine=1e3522cf law=0f9b5211 OFF=pristine restores: VARSELBIND
+cases/IX/ix18 pristine=65bf00fa law=7bd5ca0e OFF=pristine restores: VARSELBIND
+cases/IX/ix19 pristine=c71ce50c law=09eb4d94 OFF=pristine restores: VARSELBIND
+cases/IX/ix20 pristine=de66c72a law=68a8a3db OFF=pristine restores: VARSELBIND
+cases/IX/ix21 pristine=f05f10a0 law=49078d1c OFF=pristine restores: VARSELBIND
+cases/IX/ix22 pristine=2515d1c5 law=3c82f1fe OFF=pristine restores: VARSELBIND
+cases/IX/ix23 pristine=7560d2c3 law=cc842a9f OFF=pristine restores: VARSELBIND
+cases/OC/oc01 pristine=b4633fa1 law=02f57422 OFF=pristine restores: (OWNCOPYSPAN:partial) ARRELEMHOME
+cases/OC/oc02 pristine=53f23d62 law=53f23d62 OFF=pristine
+cases/OC/oc03 pristine=da22e0c3 law=da22e0c3 OFF=pristine
+cases/OC/oc04 pristine=f0b29aa3 law=1d60f928 OFF=pristine restores: (OWNCOPYSPAN:partial) ARRELEMHOME
+cases/OC/oc05 pristine=84910d42 law=1b84d226 OFF=pristine restores: OWNCOPYSPAN

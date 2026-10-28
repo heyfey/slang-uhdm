@@ -1,0 +1,51 @@
+AX/ax01 | rc=0 cmp=52 dist=52 NOT_EQUAL stage1 md5=688a3867 | rc=0 cmp=0 dist=62 STRICT_EQUAL 24 objects md5=aab9819f | MOVED
+AX/ax02 | rc=0 cmp=52 dist=34 NOT_EQUAL stage1 md5=40a0c3a1 | rc=0 cmp=52 dist=34 NOT_EQUAL stage1 md5=40a0c3a1 | same
+AX/ax03 | rc=0 cmp=52 dist=131 NOT_EQUAL stage1 md5=de611008 | rc=0 cmp=0 dist=114 STRICT_EQUAL 43 objects md5=0c9af5fe | MOVED
+AX/ax04 | rc=0 cmp=52 dist=114 NOT_EQUAL stage1 md5=ace1d8e4 | rc=0 cmp=152 dist=134 NOT_EQUAL stage1 md5=062fa46c | MOVED
+AX/ax05 | rc=0 cmp=92 dist=123 NOT_EQUAL stage1 md5=d0ccb906 | rc=0 cmp=0 dist=36 STRICT_EQUAL 48 objects md5=5104ba9d | MOVED
+AX/ax06 | rc=0 cmp=52 dist=70 NOT_EQUAL stage1 md5=b65d0e6c | rc=0 cmp=52 dist=70 NOT_EQUAL stage1 md5=b65d0e6c | same
+FL/fl01 | rc=0 cmp=72 dist=94 NOT_EQUAL stage1 md5=c589a2b7 | rc=0 cmp=72 dist=88 NOT_EQUAL stage1 md5=4d8600d5 | MOVED
+IG/ig01 | rc=0 cmp=0 dist=144 STRICT_NOTEQUAL name md5=15cc95c6 | rc=0 cmp=0 dist=136 STRICT_EQUAL 228 objects md5=aaa419ed | MOVED
+IG/ig02 | rc=0 cmp=0 dist=136 STRICT_EQUAL 228 objects md5=b1ef055d | rc=0 cmp=0 dist=136 STRICT_EQUAL 228 objects md5=b1ef055d | same
+IT/it01 | rc=0 cmp=356 dist=122 NOT_EQUAL stage1 md5=61769551 | rc=0 cmp=0 dist=102 STRICT_EQUAL 156 objects md5=f8ad9390 | MOVED
+IT/it02 | rc=0 cmp=336 dist=108 NOT_EQUAL stage1 md5=337df993 | rc=0 cmp=336 dist=108 NOT_EQUAL stage1 md5=337df993 | same
+IT/it03 | rc=0 cmp=356 dist=88 NOT_EQUAL stage1 md5=9c6abfa6 | rc=0 cmp=0 dist=74 STRICT_EQUAL 96 objects md5=6eef5cc1 | MOVED
+IT/it04 | rc=0 cmp=263 dist=110 NOT_EQUAL stage1 md5=daf36aed | rc=0 cmp=263 dist=90 NOT_EQUAL stage1 md5=124d6f41 | MOVED
+IT/it05 | rc=0 cmp=0 dist=102 STRICT_EQUAL 162 objects md5=d4d94b88 | rc=0 cmp=0 dist=102 STRICT_EQUAL 162 objects md5=d4d94b88 | same
+IV/iv01 | rc=0 cmp=31 dist=128 NOT_EQUAL stage1 md5=3f391070 | rc=0 cmp=0 dist=62 STRICT_EQUAL 166 objects md5=cb879c7a | MOVED
+IV/iv02 | rc=0 cmp=60 dist=144 NOT_EQUAL stage1 md5=2fa9c9cf | rc=0 cmp=0 dist=84 STRICT_EQUAL 150 objects md5=b9b2f81e | MOVED
+IV/iv03 | rc=0 cmp=0 dist=58 STRICT_EQUAL 102 objects md5=1f5c82ef | rc=0 cmp=0 dist=58 STRICT_EQUAL 102 objects md5=1f5c82ef | same
+IV/iv04 | rc=0 cmp=31 dist=128 NOT_EQUAL stage1 md5=86a732cf | rc=0 cmp=0 dist=62 STRICT_EQUAL 172 objects md5=a3eae4b2 | MOVED
+IV/iv05 | rc=0 cmp=60 dist=78 NOT_EQUAL stage1 md5=7cdd6d3d | rc=0 cmp=0 dist=46 STRICT_EQUAL 87 objects md5=4eb50d55 | MOVED
+IV/iv06 | rc=0 cmp=0 dist=62 STRICT_EQUAL 125 objects md5=4c08ecf6 | rc=0 cmp=0 dist=62 STRICT_EQUAL 125 objects md5=4c08ecf6 | same
+IV/iv07 | rc=0 cmp=31 dist=88 NOT_EQUAL stage1 md5=074c0788 | rc=0 cmp=0 dist=52 STRICT_EQUAL 108 objects md5=e7ae92e2 | MOVED
+IV/iv08 | rc=0 cmp=31 dist=142 NOT_EQUAL stage1 md5=2c21353d | rc=0 cmp=0 dist=64 STRICT_EQUAL 265 objects md5=75af7abc | MOVED
+IV/iv09 | rc=0 cmp=60 dist=236 NOT_EQUAL stage1 md5=a8c75371 | rc=0 cmp=0 dist=204 STRICT_EQUAL 188 objects md5=bbc4479f | MOVED
+IX/ix01 | rc=0 cmp=0 dist=138 STRICT_NOTEQUAL type md5=8d1e9ac8 | rc=0 cmp=0 dist=134 STRICT_EQUAL 231 objects md5=530d3647 | MOVED
+IX/ix02 | rc=0 cmp=0 dist=118 STRICT_NOTEQUAL type md5=871dee62 | rc=0 cmp=0 dist=114 STRICT_EQUAL 165 objects md5=bca5c85f | MOVED
+IX/ix03 | rc=0 cmp=0 dist=114 STRICT_NOTEQUAL type md5=0fdabcee | rc=0 cmp=0 dist=110 STRICT_EQUAL 303 objects md5=8fdf7ac7 | MOVED
+IX/ix04 | rc=0 cmp=0 dist=160 STRICT_NOTEQUAL type md5=98713bdf | rc=0 cmp=0 dist=156 STRICT_EQUAL 287 objects md5=af9fdf54 | MOVED
+IX/ix05 | rc=0 cmp=0 dist=118 STRICT_NOTEQUAL type md5=9c5958a0 | rc=0 cmp=0 dist=114 STRICT_EQUAL 177 objects md5=374b2c13 | MOVED
+IX/ix06 | rc=0 cmp=0 dist=186 STRICT_NOTEQUAL type md5=fc1f2631 | rc=0 cmp=0 dist=178 STRICT_EQUAL 258 objects md5=53be2136 | MOVED
+IX/ix07 | rc=0 cmp=0 dist=124 STRICT_NOTEQUAL type md5=c90b1db1 | rc=0 cmp=0 dist=120 STRICT_EQUAL 204 objects md5=89e88656 | MOVED
+IX/ix08 | rc=0 cmp=0 dist=102 STRICT_EQUAL 165 objects md5=be83cc2c | rc=0 cmp=0 dist=102 STRICT_EQUAL 165 objects md5=be83cc2c | same
+IX/ix09 | rc=0 cmp=0 dist=164 STRICT_EQUAL 366 objects md5=4a92aeb5 | rc=0 cmp=0 dist=164 STRICT_EQUAL 366 objects md5=4a92aeb5 | same
+IX/ix10 | rc=0 cmp=0 dist=26 STRICT_EQUAL 81 objects md5=4eb4911e | rc=0 cmp=0 dist=26 STRICT_EQUAL 81 objects md5=4eb4911e | same
+IX/ix11 | rc=0 cmp=0 dist=118 STRICT_NOTEQUAL type md5=adf2d398 | rc=0 cmp=0 dist=114 STRICT_EQUAL 177 objects md5=6a0fde00 | MOVED
+IX/ix12 | rc=0 cmp=0 dist=186 STRICT_NOTEQUAL type md5=94b6e601 | rc=0 cmp=0 dist=178 STRICT_EQUAL 255 objects md5=ae8d0617 | MOVED
+IX/ix13 | rc=0 cmp=0 dist=158 STRICT_NOTEQUAL fullname md5=9aaee9af | rc=0 cmp=0 dist=150 STRICT_NOTEQUAL fullname md5=a12f1d8f | MOVED
+IX/ix14 | rc=0 cmp=0 dist=26 STRICT_EQUAL 41 objects md5=7112c8b3 | rc=0 cmp=0 dist=26 STRICT_EQUAL 41 objects md5=7112c8b3 | same
+IX/ix15 | rc=0 cmp=0 dist=150 STRICT_EQUAL 309 objects md5=e358dda4 | rc=0 cmp=0 dist=150 STRICT_EQUAL 309 objects md5=e358dda4 | same
+IX/ix16 | rc=0 cmp=0 dist=154 STRICT_NOTEQUAL type md5=7e490e88 | rc=0 cmp=0 dist=150 STRICT_EQUAL 324 objects md5=6cb4506a | MOVED
+IX/ix17 | rc=0 cmp=0 dist=186 STRICT_NOTEQUAL fullname md5=fab9af0c | rc=0 cmp=0 dist=182 STRICT_NOTEQUAL fullname md5=376e93ba | MOVED
+IX/ix18 | rc=0 cmp=0 dist=182 STRICT_NOTEQUAL fullname md5=37ddda1b | rc=0 cmp=0 dist=178 STRICT_NOTEQUAL fullname md5=7d7c28ed | MOVED
+IX/ix19 | rc=0 cmp=0 dist=182 STRICT_NOTEQUAL fullname md5=fefccd35 | rc=0 cmp=0 dist=178 STRICT_NOTEQUAL fullname md5=162681a9 | MOVED
+IX/ix20 | rc=0 cmp=0 dist=86 STRICT_EQUAL 135 objects md5=c156b2ea | rc=0 cmp=0 dist=82 STRICT_EQUAL 135 objects md5=4566aadd | MOVED
+IX/ix21 | rc=0 cmp=0 dist=90 STRICT_EQUAL 144 objects md5=44a3bb83 | rc=0 cmp=0 dist=86 STRICT_EQUAL 144 objects md5=eb6b03df | MOVED
+IX/ix22 | rc=0 cmp=538 dist=238 NOT_EQUAL stage1 md5=cf447432 | rc=0 cmp=538 dist=230 NOT_EQUAL stage1 md5=79271da1 | MOVED
+IX/ix23 | rc=0 cmp=0 dist=228 STRICT_NOTEQUAL type md5=9600255a | rc=0 cmp=0 dist=220 STRICT_EQUAL 378 objects md5=ba568b4a | MOVED
+OC/oc01 | rc=0 cmp=0 dist=956 STRICT_NOTEQUAL line md5=fc1b9592 | rc=0 cmp=0 dist=988 STRICT_EQUAL 1128 objects md5=50b16b3f | MOVED
+OC/oc02 | rc=0 cmp=184 dist=1568 NOT_EQUAL stage1 md5=0f571db8 | rc=0 cmp=184 dist=1568 NOT_EQUAL stage1 md5=0f571db8 | same
+OC/oc03 | rc=0 cmp=928 dist=614 NOT_EQUAL stage1 md5=f41b08e1 | rc=0 cmp=928 dist=614 NOT_EQUAL stage1 md5=f41b08e1 | same
+OC/oc04 | rc=0 cmp=184 dist=1284 NOT_EQUAL stage1 md5=99b5afc6 | rc=0 cmp=184 dist=1236 NOT_EQUAL stage1 md5=39d9dac9 | MOVED
+OC/oc05 | rc=0 cmp=0 dist=1012 STRICT_NOTEQUAL line md5=72f4a04e | rc=0 cmp=0 dist=998 STRICT_EQUAL 1170 objects md5=11dda9c0 | MOVED
