@@ -1,0 +1,48 @@
+VR/vr01 rc=0 cmp=0 STRICT_EQUAL 218 objects md5=1f21ce6a
+VR/vr02 rc=0 cmp=0 STRICT_EQUAL 172 objects md5=90a89f51
+VR/vr03 rc=0 cmp=0 STRICT_EQUAL 179 objects md5=ec0438aa
+VR/vr04 rc=0 cmp=134 NOT_EQUAL stage1 md5=70028494
+VR/vr05 rc=0 cmp=0 STRICT_EQUAL 241 objects md5=1507411d
+VR/vr06 rc=0 cmp=0 STRICT_EQUAL 273 objects md5=1f6467a9
+VR/vr07 rc=0 cmp=0 STRICT_EQUAL 181 objects md5=915946cf
+VR/vr08 rc=0 cmp=141 NOT_EQUAL stage1 md5=05081dd6
+VR/vr09 rc=0 cmp=0 STRICT_EQUAL 156 objects md5=021acdbb
+VR/vr10 rc=0 cmp=230 NOT_EQUAL stage1 md5=c9c16ebd
+VS/vs01 rc=0 cmp=33 NOT_EQUAL stage1 md5=5924974a
+VS/vs02 rc=0 cmp=29 NOT_EQUAL stage1 md5=d5a4e079
+VS/vs03 rc=0 cmp=29 NOT_EQUAL stage1 md5=90da4d82
+VS/vs04 rc=0 cmp=33 NOT_EQUAL stage1 md5=4a2ef511
+VS/vs05 rc=0 cmp=31 NOT_EQUAL stage1 md5=a84b5201
+VS/vs06 rc=0 cmp=33 NOT_EQUAL stage1 md5=27d2ca28
+VT/vt01 rc=0 cmp=17 NOT_EQUAL stage1 md5=155e1130
+VT/vt02 rc=0 cmp=17 NOT_EQUAL stage1 md5=3aea4867
+VT/vt03 rc=0 cmp=17 NOT_EQUAL stage1 md5=bf80298b
+VT/vt04 rc=0 cmp=17 NOT_EQUAL stage1 md5=83f48904
+VT/vt05 rc=0 cmp=0 STRICT_EQUAL 177 objects md5=c7816fd9
+VT/vt06 rc=0 cmp=17 NOT_EQUAL stage1 md5=b8d8138f
+VT/vt07 rc=0 cmp=17 NOT_EQUAL stage1 md5=0a1612f9
+VT/vt08 rc=0 cmp=17 NOT_EQUAL stage1 md5=9003e7ae
+VT/vt09 rc=0 cmp=17 NOT_EQUAL stage1 md5=18844020
+VT/vt10 rc=0 cmp=17 NOT_EQUAL stage1 md5=58fdd219
+VT/vt11 rc=0 cmp=101 NOT_EQUAL stage1 md5=fa31f907
+VT/vt12 rc=0 cmp=102 NOT_EQUAL stage1 md5=727aacdd
+VT/vt13 rc=0 cmp=17 NOT_EQUAL stage1 md5=2f798b98
+VT/vt14 rc=0 cmp=17 NOT_EQUAL stage1 md5=3d8a68ea
+VT/vt15 rc=0 cmp=17 NOT_EQUAL stage1 md5=c32abf6b
+VT/vt16 rc=0 cmp=17 NOT_EQUAL stage1 md5=7f8b2649
+VW/vw01 rc=0 cmp=31 NOT_EQUAL stage1 md5=336a7f38
+VW/vw02 rc=0 cmp=61 NOT_EQUAL stage1 md5=25933a4f
+VW/vw03 rc=0 cmp=31 NOT_EQUAL stage1 md5=89c4b40e
+VW/vw04 rc=0 cmp=31 NOT_EQUAL stage1 md5=a6d6d8dc
+VW/vw05 rc=0 cmp=29 NOT_EQUAL stage1 md5=e4d290a8
+VW/vw06 rc=0 cmp=31 NOT_EQUAL stage1 md5=b8b9adfa
+VW/vw07 rc=0 cmp=31 NOT_EQUAL stage1 md5=4ffa95df
+VW/vw08 rc=0 cmp=33 NOT_EQUAL stage1 md5=17a09677
+VW/vw09 rc=0 cmp=56 NOT_EQUAL stage1 md5=6352091d
+VW/vw10 rc=0 cmp=33 NOT_EQUAL stage1 md5=b1258886
+VW/vw11 rc=0 cmp=31 NOT_EQUAL stage1 md5=5a50a6c1
+VW/vw12 rc=0 cmp=31 NOT_EQUAL stage1 md5=6fb70b31
+VW/vw13 rc=0 cmp=31 NOT_EQUAL stage1 md5=cab85528
+VW/vw14 rc=0 cmp=31 NOT_EQUAL stage1 md5=5d5a209a
+VW/vw15 rc=0 cmp=29 NOT_EQUAL stage1 md5=3a1ea52f
+VW/vw16 rc=0 cmp=31 NOT_EQUAL stage1 md5=fbcc3fe8

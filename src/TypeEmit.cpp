@@ -16962,6 +16962,9 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
                 groups452.push_back({m, std::move(g452)});
         }
         if (groups452.size() > 1 && groups452.front().first == home38) {
+            // § thisFirstGroupOrigToo456 — the first group's own listed
+            // hits, before the unlisted remainder joins it.
+            const size_t listed456 = groups452.front().second.size();
             for (auto* r : hits38)
                 if (!done452.count(r))
                     groups452.front().second.push_back(r);
@@ -17010,6 +17013,64 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
             if (claimFix452)
                 for (auto* r : groups452.front().second)
                     claimed452.insert(r);
+            // § thisFirstGroupOrigToo456 (r11u456, R11U456_THISFIRSTORIG_OFF;
+            // cases tools/probe/r11u456repro/cases/TF) — THE FIRST
+            // DEFINITION'S LATE BINDING ALSO REACHES THE ORIGINALS.  The
+            // clone-to-original rule above is the late binding's, not the
+            // later definitions': when the first definition that lists
+            // anything lists an import-group clone (an out-of-body method of
+            // a package its import forwards), golden binds the class-parented
+            // original at the same location to that definition's wire and
+            // leaves the clone unbound, so a later definition importing the
+            // home package finds the original bound and mints no wire
+            // (sv-tests uvm_ac_config_db: hdl_top lists no hit, hvl_top's
+            // `this@968:29` binds sfr_agent_pkg's sfr_monitor::build_phase
+            // `this@56:18` and sfr_test_pkg's clone stays unbound; ours bound
+            // the clone to hvl_top's wire and the original to a second wire
+            // work@sfr_master_bfm.this minted at 56:18 that golden does not
+            // have; pass 455's report).  Only the first group's listed hits
+            // are replaced, never the unlisted remainder.
+            std::set<const UHDM::ref_obj*> first456;
+            if (lawOn(456, "R11U456_THISFIRSTORIG_OFF")) {
+                std::vector<UHDM::ref_obj*> out456;
+                std::set<const UHDM::ref_obj*> seen456;
+                auto& g0 = groups452.front().second;
+                for (size_t i456 = 0; i456 < g0.size(); i456++) {
+                    auto* r = g0[i456];
+                    if (i456 < listed456) {
+                        const UHDM::BaseClass* q = r->VpiParent();
+                        while (q && q->UhdmType() != UHDM::uhdmfunction &&
+                               q->UhdmType() != UHDM::uhdmtask)
+                            q = q->VpiParent();
+                        bool clone456 = q && q->VpiParent() &&
+                                        q->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                                        q->VpiName().find("::") != std::string_view::npos;
+                        auto oi = orig452.find(
+                            {std::string(r->VpiFile()), r->VpiLineNo(), r->VpiColumnNo()});
+                        if (clone456 && oi != orig452.end()) {
+                            lawTrace(456, "thisFirstGroupOrigToo456",
+                                     std::string(groups452.front().first->VpiDefName()) + " " +
+                                         std::string(r->VpiFile()) + ":" +
+                                         std::to_string(r->VpiLineNo()) + ":" +
+                                         std::to_string(r->VpiColumnNo()));
+                            for (auto* o : oi->second)
+                                if (seen456.insert(o).second)
+                                    out456.push_back(o);
+                            continue;
+                        }
+                    }
+                    if (seen456.insert(r).second)
+                        out456.push_back(r);
+                }
+                g0 = std::move(out456);
+                for (auto* r : g0)
+                    first456.insert(r);
+                if (claimFix452) {
+                    claimed452.clear();
+                    for (auto* r : g0)
+                        claimed452.insert(r);
+                }
+            }
             for (size_t g452 = 1; g452 < groups452.size(); g452++) {
                 std::vector<UHDM::ref_obj*> out452;
                 std::set<const UHDM::ref_obj*> seen452;
@@ -17035,6 +17096,16 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
                         }
                         continue;
                     }
+                    // § thisFirstGroupOrigToo456 — an original the first
+                    // definition's group now holds is not listed again by a
+                    // later definition that lists it directly.
+                    if (first456.count(r)) {
+                        lawTrace(456, "thisFirstGroupOrigToo456",
+                                 "skip " + std::string(groups452[g452].first->VpiDefName()) +
+                                     " " + std::string(r->VpiFile()) + ":" +
+                                     std::to_string(r->VpiLineNo()));
+                        continue;
+                    }
                     if (seen452.insert(r).second)
                         out452.push_back(r);
                 }
@@ -17051,6 +17122,69 @@ void UhdmExporter::thisImplicitNetBoth38(UHDM::design* d) {
                 mint38(m452, g452, true);
             }
             return;
+        }
+        // § thisFirstGroupOrigToo456 — the same when the first definition is
+        // the only one listing a hit (cases TF/tf04): its listed clones give
+        // way to the class-parented originals at their locations.
+        if (groups452.size() == 1 && groups452.front().first == home38 &&
+            lawOn(456, "R11U456_THISFIRSTORIG_OFF")) {
+            std::map<std::tuple<std::string, uint32_t, uint32_t>, std::vector<UHDM::ref_obj*>>
+                orig456;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* r = (UHDM::ref_obj*)o;
+                if (r->VpiName() != "this" || r->Actual_group())
+                    continue;
+                const UHDM::BaseClass* q = r->VpiParent();
+                while (q && q->UhdmType() != UHDM::uhdmfunction && q->UhdmType() != UHDM::uhdmtask)
+                    q = q->VpiParent();
+                if (!q || !q->VpiParent() || q->VpiParent()->UhdmType() != UHDM::uhdmclass_defn)
+                    continue;
+                orig456[{std::string(r->VpiFile()), r->VpiLineNo(), r->VpiColumnNo()}].push_back(r);
+            }
+            for (auto& v : orig456)
+                std::sort(v.second.begin(), v.second.end(),
+                          [](const UHDM::ref_obj* a, const UHDM::ref_obj* b) {
+                              return a->UhdmId() < b->UhdmId();
+                          });
+            std::set<const UHDM::ref_obj*> listed456(groups452.front().second.begin(),
+                                                     groups452.front().second.end());
+            std::vector<UHDM::ref_obj*> out456;
+            std::set<const UHDM::ref_obj*> seen456;
+            bool any456 = false;
+            for (auto* r : hits38) {
+                if (listed456.count(r)) {
+                    const UHDM::BaseClass* q = r->VpiParent();
+                    while (q && q->UhdmType() != UHDM::uhdmfunction &&
+                           q->UhdmType() != UHDM::uhdmtask)
+                        q = q->VpiParent();
+                    bool clone456 = q && q->VpiParent() &&
+                                    q->VpiParent()->UhdmType() == UHDM::uhdmpackage &&
+                                    q->VpiName().find("::") != std::string_view::npos;
+                    auto oi = orig456.find(
+                        {std::string(r->VpiFile()), r->VpiLineNo(), r->VpiColumnNo()});
+                    if (clone456 && oi != orig456.end()) {
+                        any456 = true;
+                        lawTrace(456, "thisFirstGroupOrigToo456",
+                                 "single " + std::string(home38->VpiDefName()) + " " +
+                                     std::string(r->VpiFile()) + ":" +
+                                     std::to_string(r->VpiLineNo()) + ":" +
+                                     std::to_string(r->VpiColumnNo()));
+                        for (auto* o : oi->second)
+                            if (seen456.insert(o).second)
+                                out456.push_back(o);
+                        continue;
+                    }
+                }
+                if (seen456.insert(r).second)
+                    out456.push_back(r);
+            }
+            if (any456 && !out456.empty()) {
+                mint38(home38, out456, true);
+                return;
+            }
         }
     }
     mint38(home38, hits38);

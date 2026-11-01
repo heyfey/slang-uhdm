@@ -1,0 +1,13 @@
+Prediction written before the verified sweep (binary ver, md5 b5015636cfeccbd024daf7338d5ac38a).
+
+§ loopVarShadowedByTfDecl456v sits inside § ifcTaskFixupWalksWait456's
+loop-variable branch and can fire only where that branch fires (trace token
+"loopvar").  The law sweep's trace (/tmp/v11u456_trL, 19 trace files: probe
+5 cases, surelog Tnoc d/t, 12 sv-tests rows) holds 0 loopvar lines, and so
+did the implementer's sweep trace.  Prediction: the verified sweep's five
+csvs equal the law sweep's; byteverify ver vs law 0 of 962, 0 of 1608,
+0 of 805; the verified trace equals the law trace line for line, with no
+loopVarShadowedByTfDecl456v line.
+Positive control: the fix moves VW/vw01, vw05 and VS/vs01 to vs05 (7 dirs)
+on case runs, and R11V456_LVSHADOW_OFF gives the law binary's bytes on all
+68 case dirs (evidence/switches.txt).

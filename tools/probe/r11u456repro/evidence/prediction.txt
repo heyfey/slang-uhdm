@@ -1,0 +1,39 @@
+Prediction written before the full sweep (binary law8, md5 c24fb0c78f778827e09489cd96815ff7).
+
+Candidate scan (fence-filtered before any file was opened; drivers/scan_*.py):
+  surelog 119 rows (interface with subroutines and statements, or `this` with a
+  scoped subroutine, or uvm), probe 511 cases, uhdm2rtlil 13 rows.
+Trace census on law8 (R11U456_TRACE) over those candidates:
+  surelog: only Tnoc default and testflags fire (§ ifcTaskFixupWalksWait456,
+    17 firings each: tbcm_selector and tnoc_flit_if func_call arguments and
+    bit_select indexes); status and strict columns identical to the master's
+    control on all 238 row-modes.
+  probe: 5 cases fire § ifcTaskFixupWalksWait456 (r10uvm69repro/v1_gaps,
+    r10v221repro/arms/v1_inst, r10vrgg16repro/cells/v5,
+    r10vrgg6repro/cells/v_iface_chain, v11u112repro/grid/brk/t/b2c_iface_fn);
+    each database identical to the control by path-normalized dump (positive
+    control WT/wt01 pristine vs law reads MOVED); status column identical on
+    all 511.
+  uhdm2rtlil: no firing.
+  § thisFirstGroupOrigToo456 and § ifcTransTdWriterRank456 fire on no corpus
+  row and no probe case.
+Predicted byteverify movers: surelog Tnoc default and Tnoc testflags (both
+CMP_NOTEQUAL at the base, staying CMP_NOTEQUAL); uhdm2rtlil 0; downstream 0.
+Predicted sv-tests: no status change at the base (the three sfr rows head at
+the cs clone of pass 455, not in this base); targeted runner on the 30
+both-accepting uvm-examples/testbenches rows with law7 read every status
+unchanged.
+
+Outcome (law8 full sweep /tmp/r11u456sw, written after it): byteverify against
+the master's control /tmp/intr11u454 reads surelog 0 of 962, uhdm2rtlil 0 of
+1608, downstream 0 of 805. Tnoc fires in both modes but its databases are
+byte-identical to the control (md5 fdca11db... default, 024b52e8... testflags):
+the walk reaches func_call arguments and select indexes whose references are
+already bound or are not interface variables. So the prediction named the only
+possible movers, and none of them moved. The sweep's trace names exactly the
+census's corpus and probe firings, plus these sv-tests rows: tnoc,
+uvm_ac_config_db, uvm_ef_vif_config_db, uvm_id_register,
+uvm_param_vif_config_db, uvm_slave_agent, uvm_slave_agent_multi_seq_item,
+uvm_use_models_bidir_get_put, _bidir_item_done, _pipelined_get_put,
+_unidirectional and uvm_wait_for_signal. None of them changes status:
+svtests.csv is identical to the control's.

@@ -16997,6 +16997,32 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // import_typespec) and re-parents it to the module; fullnames keep their
     // pkg:: scoping (unlike the interface re-scope above).
     if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418 || ifcBody450) {
+        // § ifcTransTdWriterRank456 (r11u456, R11U456_IFCTDRANK_OFF; cases
+        // tools/probe/r11u456repro/cases/IR) — AN INTERFACE TAKEN THROUGH
+        // THIS MODULE BRANCH BY § ifcBodyImpTransitiveTds450 IS STILL AN
+        // INTERFACE WRITER.  § enumImportParentLastWriter180's drain ranks a
+        // write 0 for an interface and 1 for a module, since UhdmWriter::write
+        // runs writeInterface over every definition before writeModule, so a
+        // module importing the package always re-parents the shared enum
+        // object last; the three record sites below wrote rank 1 for the
+        // interface too, and an interface whose name sorts after every
+        // importing module won the drain (sv-tests uvm_ef_vif_config_db,
+        // behind pass 455's cs clone and § ifcTaskFixupWalksWait456: 1048
+        // ref_typespecs read work@sfr_monitor_bfm.uvm_pkg::UVM_SEQ_ARB_TYPE
+        // where golden writes work@hvl_top.uvm_pkg::UVM_SEQ_ARB_TYPE, the
+        // shared uvm_pkg enum copies parented at the interface instead of
+        // module hvl_top).  The file-scope import route of § 418 keeps its
+        // rank.
+        auto rk456 = [&](const UHDM::typespec* t456) {
+            if (ifcBody450 && m->UhdmType() == UHDM::uhdminterface_inst &&
+                lawOn(456, "R11U456_IFCTDRANK_OFF")) {
+                lawTrace(456, "ifcTransTdWriterRank456",
+                         std::string(m->VpiDefName()) + " " +
+                             (t456 ? std::string(t456->VpiName()) : std::string()));
+                return 0;
+            }
+            return 1;
+        };
         // Collect imported typedef symbols: explicit imports name one; a
         // WILDCARD import lists every package typedef (name-sorted, matching
         // the package's own list order).
@@ -17197,7 +17223,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 ts->UhdmType() == UHDM::uhdmenum_typespec &&
                 lawOn(180, "R11U180_ENUMIMPHDR_OFF") &&
                 !explicitImportNotNaming190v(mem, imported->name))
-                enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
+                enumImpWrite180(ts, m, rk456(ts), std::string(m->VpiDefName()),
                                 std::string(), false);
             // The header-import share-without-touch rule is EXPLICIT-only;
             // wildcard header imports re-scope like body imports (Surelog).
@@ -17207,7 +17233,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 // re-parents without re-scoping: a parent-only write.
                 if (!wildcard && ts->UhdmType() == UHDM::uhdmenum_typespec &&
                     !explicitImportNotNaming190v(mem, imported->name))
-                    enumImpWrite180(ts, m, 1, std::string(m->VpiDefName()),
+                    enumImpWrite180(ts, m, rk456(ts), std::string(m->VpiDefName()),
                                     std::string(), false);
                 if (wildcard) {
                     // Scope by the typedef's HOME package (== the imported
@@ -17297,7 +17323,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         // (a transitive per-module clone is nobody's shared
                         // object and is not recorded).
                         if (ts == tsSel)
-                            enumImpWrite180(ts, m, 1,
+                            enumImpWrite180(ts, m, rk456(ts),
                                             std::string(m->VpiDefName()),
                                             scopedName, true);
                     }
@@ -57332,6 +57358,9 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             uninstIfaceSubBody218 = savedUIS218;
             if (!uninst9 && iface->Task_funcs()) {
                 // Collect UNBOUND signal refs for the elab-var fixup.
+                // § ifcTaskFixupWalksWait456 — the loop variables of the
+                // enclosing foreach statements, innermost last.
+                std::vector<std::pair<std::string_view, UHDM::any*>> lv456;
                 std::function<void(const UHDM::any*)> walk9 =
                     [&](const UHDM::any* n9) {
                         if (!n9)
@@ -57343,9 +57372,99 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                                 if (auto* sy9 = body.find(
                                         std::string_view(r9->VpiName())))
                                     if (sy9->kind == SymbolKind::Variable ||
-                                        sy9->kind == SymbolKind::Net)
+                                        sy9->kind == SymbolKind::Net) {
                                         ifaceFnRefFixups[&def].push_back(
                                             {sy9, r9});
+                                        return;
+                                    }
+                            }
+                            // § ifcTaskFixupWalksWait456 — a name the
+                            // interface does not declare binds the innermost
+                            // enclosing foreach loop variable of that name;
+                            // an interface variable of the same name wins,
+                            // as in golden (cases WT/wt05).
+                            if (!r9->Actual_group() && !lv456.empty()) {
+                                for (auto it456 = lv456.rbegin(); it456 != lv456.rend();
+                                     ++it456)
+                                    if (it456->first == r9->VpiName()) {
+                                        // § loopVarShadowedByTfDecl456v
+                                        // (v11u456, R11V456_LVSHADOW_OFF;
+                                        // cases tools/probe/v11u456repro/
+                                        // cases/VW vw01, vw05, vs01 to vs06)
+                                        // — a subroutine local or formal of
+                                        // the loop variable's name, declared
+                                        // in a scope enclosing the reference,
+                                        // wins over the loop variable, as an
+                                        // interface variable does: golden
+                                        // binds `i` in foreach (arr[i]) to the
+                                        // task's own `int i` (int_var) or to
+                                        // the formal `input int i` (io_decl)
+                                        // where the law bound the loop
+                                        // variable and pristine left it
+                                        // unbound.  The innermost enclosing
+                                        // scope first, the subroutine's
+                                        // formals and variables last.
+                                        if (fixOn(456, "R11V456_LVSHADOW_OFF")) {
+                                            const UHDM::any* dec456v = nullptr;
+                                            for (const UHDM::BaseClass* q456v =
+                                                     r9->VpiParent();
+                                                 q456v && !dec456v;
+                                                 q456v = q456v->VpiParent()) {
+                                                auto qt456v = q456v->UhdmType();
+                                                bool tf456v =
+                                                    qt456v == UHDM::uhdmfunction ||
+                                                    qt456v == UHDM::uhdmtask;
+                                                if (tf456v)
+                                                    if (auto* io456v =
+                                                            ((const UHDM::task_func*)
+                                                                 q456v)
+                                                                ->Io_decls())
+                                                        for (auto* d456v : *io456v)
+                                                            if (d456v->VpiName() ==
+                                                                r9->VpiName()) {
+                                                                dec456v = d456v;
+                                                                break;
+                                                            }
+                                                if (!dec456v &&
+                                                    (tf456v ||
+                                                     qt456v == UHDM::uhdmbegin ||
+                                                     qt456v == UHDM::uhdmnamed_begin))
+                                                    if (auto* vs456v =
+                                                            ((const UHDM::scope*)q456v)
+                                                                ->Variables())
+                                                        for (auto* v456v : *vs456v)
+                                                            if (v456v->VpiName() ==
+                                                                r9->VpiName()) {
+                                                                dec456v = v456v;
+                                                                break;
+                                                            }
+                                                if (tf456v)
+                                                    break;
+                                            }
+                                            if (dec456v) {
+                                                lawTrace(456, "loopVarShadowedByTfDecl456v",
+                                                         prefix + " " +
+                                                             std::string(r9->VpiName()) +
+                                                             " " +
+                                                             std::to_string(r9->VpiLineNo()) +
+                                                             ":" +
+                                                             std::to_string(
+                                                                 r9->VpiColumnNo()) +
+                                                             " -> " +
+                                                             std::string(UHDM::UhdmName(
+                                                                 dec456v->UhdmType())));
+                                                r9->Actual_group((UHDM::any*)dec456v);
+                                                return;
+                                            }
+                                        }
+                                        lawTrace(456, "ifcTaskFixupWalksWait456",
+                                                 prefix + " loopvar " +
+                                                     std::string(r9->VpiName()) + " " +
+                                                     std::to_string(r9->VpiLineNo()) + ":" +
+                                                     std::to_string(r9->VpiColumnNo()));
+                                        r9->Actual_group(it456->second);
+                                        return;
+                                    }
                             }
                             return;
                         }
@@ -57485,6 +57604,85 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                                 tr454();
                                 walk9(((const UHDM::do_while*)n9)->VpiCondition());
                                 walk9(((const UHDM::do_while*)n9)->VpiStmt());
+                                return;
+                            }
+                        }
+                        // § ifcTaskFixupWalksWait456 (r11u456) — THE BINDING
+                        // WALK ALSO ENTERS wait, fork, immediate assertions,
+                        // foreach bodies and the arguments of task and
+                        // function calls.  Surelog binds the shared
+                        // definition-view subroutine body of an instantiated
+                        // interface during elaboration, whatever statement
+                        // holds the reference, so `wait (reset == 0)` in
+                        // sv-tests uvm_ef_vif_config_db's sfr_master_bfm::
+                        // execute binds `reset` to work@hdl_top.SFR_MASTER.reset
+                        // in golden where ours left it unbound (the row's head
+                        // behind pass 455's cs clone; pass 455's report).
+                        // Golden binds a `$display("%d", a)` argument, a
+                        // fork branch, an immediate assertion's expression and
+                        // a foreach body the same way (cases WT/wt04).  The
+                        // foreach loop variable itself is not an interface
+                        // symbol and is left alone, as before.  Grid
+                        // tools/probe/r11u456repro/cases/WT.  Switch
+                        // R11U456_IFCWAIT_OFF.
+                        if (lawOn(456, "R11U456_IFCWAIT_OFF")) {
+                            auto tr456 = [&]() {
+                                lawTrace(456, "ifcTaskFixupWalksWait456",
+                                         prefix + " " + std::string(UHDM::UhdmName(t9)) + " " +
+                                             std::to_string(n9->VpiLineNo()) + ":" +
+                                             std::to_string(n9->VpiColumnNo()));
+                            };
+                            if (t9 == UHDM::uhdmwait_stmt) {
+                                tr456();
+                                walk9(((const UHDM::wait_stmt*)n9)->VpiCondition());
+                                walk9(((const UHDM::wait_stmt*)n9)->VpiStmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmfork_stmt) {
+                                tr456();
+                                if (auto* st456 = ((const UHDM::fork_stmt*)n9)->Stmts())
+                                    for (auto* s456 : *st456)
+                                        walk9(s456);
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmbit_select) {
+                                tr456();
+                                walk9(((const UHDM::bit_select*)n9)->VpiIndex());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmvar_select) {
+                                tr456();
+                                if (auto* ex456 = ((const UHDM::var_select*)n9)->Exprs())
+                                    for (auto* x456 : *ex456)
+                                        walk9(x456);
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmimmediate_assert) {
+                                tr456();
+                                auto* ia456 = (const UHDM::immediate_assert*)n9;
+                                walk9(ia456->Expr());
+                                walk9(ia456->Stmt());
+                                walk9(ia456->Else_stmt());
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmforeach_stmt) {
+                                tr456();
+                                auto* fe456 = (const UHDM::foreach_stmt*)n9;
+                                size_t mark456 = lv456.size();
+                                if (auto* lvs456 = fe456->VpiLoopVars())
+                                    for (auto* v456 : *lvs456)
+                                        if (v456 && !v456->VpiName().empty())
+                                            lv456.emplace_back(v456->VpiName(), v456);
+                                walk9(fe456->VpiStmt());
+                                lv456.resize(mark456);
+                                return;
+                            }
+                            if (t9 == UHDM::uhdmsys_func_call || t9 == UHDM::uhdmsys_task_call ||
+                                t9 == UHDM::uhdmfunc_call || t9 == UHDM::uhdmtask_call) {
+                                tr456();
+                                if (auto* ar456 = ((const UHDM::tf_call*)n9)->Tf_call_args())
+                                    for (auto* a456 : *ar456)
+                                        walk9(a456);
                                 return;
                             }
                         }
