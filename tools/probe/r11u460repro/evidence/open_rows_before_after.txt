@@ -1,0 +1,6 @@
+uhdm-cmp lines and clsloc localized failures, pristine (main HEAD build, md5 2bc868e0) -> law11/law12
+uvm_id_register cmp 85 -> 0 (STRICT_NOTEQUAL differ:name(5)); loc 32 -> (n/a, judge-equal)
+uvm_many_to_one cmp 104 -> 168 (same head object, now printed with its REQ listing); loc 1250 -> 1250
+uvm_param_vif_config_db cmp 230 -> 230; loc 1576 -> 1574
+uvm_ac_config_db cmp 64 -> 64; loc 2 -> 0
+uvm_use_models_pipelined_get_put cmp 56 -> 56; loc 2007 -> 2007

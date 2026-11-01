@@ -9212,6 +9212,98 @@ const slang::syntax::SyntaxNode* UhdmExporter::scopedCallName29(
 // k_wide = 8'hff` sizes 32 but `int k_bin = 4'b1010` sizes 4); and a SIMPLE
 // assignment pattern's element constants size at the ELEMENT width where
 // emitExpr gives them 64 (t39c a_dyn — no UVM property reaches it).
+// § clsArrPatBasedLitElemW460 (r11u460, R11U460_PATBASEDW_OFF; cases
+// tools/probe/r11u460repro/cases/UZ; sv-tests generated/uvm-examples/
+// uvm_id_register.sv, regmodel_pkg.sv 45:3 `int id_register_value[] =
+// '{'ha0, 'ha1, ...}`) — the based-literal half of
+// § assocPropPatternInitRidesElem31's clause (3).  Surelog sizes each direct
+// operand of a class array property's pattern or concatenation initializer
+// through CompileHelper::adjustSize at the element typespec, whose first step
+// is `if (c->VpiConstType() != vpiDecConst) size = Bits(ts)`: a HEX or OCT
+// literal takes the element width whether it was written sized or not (golden
+// 'ha0, 8'h1, 64'h9 and 4'hf at 32 in an int array, 32'hff and 'o3 at 8 in a
+// byte array), an UNSIZED binary literal too ('b11 at 8), while a DEC literal
+// keeps its own ('d5 at -1, 16'd3 at 16) and a SIZED binary literal keeps the
+// width of its own typespec (4'b1 at 4).  A literal whose value does not
+// evaluate ('hx) is left alone by the value branches and measured unchanged (-1),
+// and an unsized binary worth 1 ('b1) is re-encoded as a mask by adjustSize:
+// not modelled, abstains.  Only the size moves; value and decompile stay.
+bool basedLitTakesElemW460(const UHDM::any* o) {
+    if (!o || o->UhdmType() != UHDM::uhdmconstant)
+        return false;
+    const auto* c = (const UHDM::constant*)o;
+    std::string_view d = c->VpiDecompile();
+    if (d.find('\'') == std::string_view::npos)
+        return false;
+    std::string_view v = c->VpiValue();
+    auto col = v.find(':');
+    if (col == std::string_view::npos)
+        return false;
+    std::string_view digits = v.substr(col + 1);
+    if (digits.empty())
+        return false;
+    for (char ch : digits)
+        if (ch == 'x' || ch == 'X' || ch == 'z' || ch == 'Z' || ch == '?')
+            return false;
+    switch (c->VpiConstType()) {
+        case vpiHexConst:
+        case vpiOctConst:
+            return true;
+        case vpiBinaryConst:
+            if (c->VpiSize() != -1)
+                return false;
+            return digits.find_first_not_of('0') != std::string_view::npos &&
+                   !(digits.find_first_not_of('0') == digits.size() - 1 &&
+                     digits.back() == '1');
+        default:
+            return false;
+    }
+}
+
+// § elemBitsByExprEvalSize460v (v11u460, R11V460_ELEMBITS_OFF; cases
+// tools/probe/v11u460repro/cases/VZ vz15 to vz20) — the width
+// § clsArrPatBasedLitElemW460 / § modArrPatBasedLitElemW460 write is
+// adjustSize's Bits(element typespec), UHDM's ExprEval::size, not slang's bit
+// width: real and shortreal size 32 there (golden 'h1 at 32 in a real array
+// where the law wrote 64), a time or realtime element is a time_typespec
+// ExprEval::size has no branch for, so the size is invalid and the literal keeps
+// its own (golden -1 = pristine, the law wrote 64: the break on time and
+// realtime arrays, module and class, fixed and dynamic), and a packed array of
+// more than one dimension is measured at a width the law does not model
+// (golden 4 for logic [1:0][3:0], the law wrote 8): abstain.  Returns the
+// width to write, 0 to abstain; with the fix off, slang's width as before.
+int32_t basedLitElemW460v(const slang::ast::Type* t, int32_t w) {
+    if (!t || w <= 0 || !fixOn(460, "R11V460_ELEMBITS_OFF"))
+        return w;
+    const auto& c = t->getCanonicalType();
+    if (c.isFloating())
+        return c.as<FloatingType>().floatKind == FloatingType::RealTime ? 0 : 32;
+    if (c.kind == SymbolKind::PredefinedIntegerType &&
+        c.as<PredefinedIntegerType>().integerKind == PredefinedIntegerType::Time)
+        return 0;
+    if (c.kind == SymbolKind::PackedArrayType &&
+        c.as<PackedArrayType>().elementType.getCanonicalType().kind == SymbolKind::PackedArrayType)
+        return 0;
+    return w;
+}
+
+// One operand of the law: true when `o` takes a new size, written to `out`.
+bool basedLitElemFire460(const UHDM::any* o, const slang::ast::Type* t, int32_t w,
+                         int32_t& out, const std::string& who) {
+    if (!basedLitTakesElemW460(o))
+        return false;
+    const int32_t eff = basedLitElemW460v(t, w);
+    if (eff != w)
+        lawTrace(460, "elemBitsByExprEvalSize460v",
+                 who + " " + std::string(((const UHDM::expr*)o)->VpiDecompile()) + " " +
+                     std::to_string(w) + " -> " + std::to_string(eff));
+    if (eff <= 0 || ((const UHDM::expr*)o)->VpiSize() == eff ||
+        !lawOn(460, "R11U460_PATBASEDW_OFF"))
+        return false;
+    out = eff;
+    return true;
+}
+
 void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
     auto& cp = pi.cp->as<ClassPropertySymbol>();
     auto* pinit = cp.getInitializer();
@@ -9314,9 +9406,18 @@ void UhdmExporter::emitClassPropInit29(const PendingPropInit29& pi) {
                 if (pi.elem) {
                     if (pi.elemW > 0)
                         if (auto* os31 = ((UHDM::operation*)e27)->Operands())
-                            for (auto* o31 : *os31)
+                            for (auto* o31 : *os31) {
                                 if (bareDecimalDefault64_31(o31))
                                     ((UHDM::expr*)o31)->VpiSize(pi.elemW);
+                                else if (int32_t w460v = 0; basedLitElemFire460(
+                                             o31, cp.getType().getCanonicalType().getArrayElementType(),
+                                             pi.elemW, w460v, std::string(cp.name))) {
+                                    ((UHDM::expr*)o31)->VpiSize(w460v);
+                                    lawTrace(460, "clsArrPatBasedLitElemW460",
+                                             std::string(cp.name) + " " +
+                                                 std::string(((UHDM::expr*)o31)->VpiDecompile()));
+                                }
+                            }
                     pi.elem->Expr((UHDM::expr*)e27);
                 }
                 pi.var->Expr((UHDM::expr*)e27);
@@ -10633,6 +10734,23 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                     bool savedSCP6 = suppressConstParent;
                     suppressConstParent = true;
                     if (auto* e6 = emitExpr(ic6, reg, pfn, none6)) {
+                        // § clsArrPatBasedLitElemW460, the fixed-array carrier
+                        // (golden `int f[2] = '{'ha0, 'ha1}` at 32, UZ/uz04).
+                        if (e6->UhdmType() == UHDM::uhdmoperation &&
+                            ic6.kind == ExpressionKind::SimpleAssignmentPattern)
+                            if (auto* os460 = ((UHDM::operation*)e6)->Operands()) {
+                                int32_t w460 = (int32_t)et->getBitWidth();
+                                for (auto* o460 : *os460)
+                                    if (int32_t w460v = 0; w460 > 0 &&
+                                        basedLitElemFire460(o460, et, w460, w460v,
+                                                            std::string(cp.name))) {
+                                        ((UHDM::expr*)o460)->VpiSize(w460v);
+                                        lawTrace(460, "clsArrPatBasedLitElemW460",
+                                                 std::string(cp.name) + " " +
+                                                     std::string(((UHDM::expr*)o460)
+                                                                     ->VpiDecompile()));
+                                    }
+                            }
                         av->Expr((UHDM::expr*)e6);
                         reg->Expr((UHDM::expr*)e6);
                     }
@@ -28641,6 +28759,56 @@ UHDM::design* UhdmExporter::exportDesign() {
                         body = body->VpiParent();
                     if (!body || !grp446.count(body))
                         continue;
+                    // § oobCopyCallBindsBodyHomeClone460 (r11u460,
+                    // R11U460_OOBCOPYCALL_OFF; cases tools/probe/r11u460repro/
+                    // cases/OB; sv-tests generated/uvm-examples/
+                    // uvm_id_register.sv) — the body is an importer's copy of
+                    // an OUT-OF-BODY CLASS METHOD whose class lives in a
+                    // package other than the callee's home: the copy binds
+                    // what the method binds in its own package, that
+                    // package's ELABORATED wildcard-import clone of the callee
+                    // (§ oobInheritedCallBindsOwnPkgClone455's target; golden
+                    // uvm_tb_pkg's copies of apb_seq_item::do_copy, do_compare
+                    // and apb_agent_config::get_config bind
+                    // apb_agent_pkg TOP's uvm_report_enabled, whose class_var
+                    // cs ours never reached: it re-pointed them to uvm_pkg
+                    // TOP).  Pass 455's verifier case v11u455 VG/vg01 (golden
+                    // links q's clone in s's copy) and its residue OC/oc07
+                    // are the same face.  A body whose home is the callee's
+                    // keeps § 446's target, which is then the same package.
+                    // § oobScopedCallKeepsHome460v (v11u460, R11V460_OOBSCOPED_OFF;
+                    // cases tools/probe/v11u460repro/cases/VO vo11, vo17) — a
+                    // PACKAGE-SCOPED call `p::t(v)` / `p::f(v)` in the method
+                    // binds the named package's own subroutine at home (golden
+                    // q's definition and the importer copies alike link p TOP),
+                    // never the class-home package's wildcard-import clone: the
+                    // law abstains and § 446's target stands (pristine's link;
+                    // the law re-pointed both s copies to q TOP).
+                    const bool scoped460v =
+                        c446->VpiName().find("::") != std::string_view::npos &&
+                        fixOn(460, "R11V460_OOBSCOPED_OFF");
+                    if (scoped460v && lawOn(460, "R11U460_OOBCOPYCALL_OFF") &&
+                        grp446[body] != gt->second &&
+                        body->VpiName().find("::") != std::string_view::npos)
+                        lawTrace(460, "oobScopedCallKeepsHome460v",
+                                 std::string(body->VpiName()) + " " +
+                                     std::string(c446->VpiName()));
+                    if (const std::string& hb460 = grp446[body];
+                        !scoped460v && hb460 != gt->second &&
+                        body->VpiName().find("::") != std::string_view::npos &&
+                        lawOn(460, "R11U460_OOBCOPYCALL_OFF"))
+                        if (auto* h460 = homeTf446(hb460, tgt->VpiName(), isTask)) {
+                            if (h460 != tgt) {
+                                if (isTask)
+                                    ((UHDM::task_call*)c446)->Task((UHDM::task*)h460);
+                                else
+                                    ((UHDM::func_call*)c446)->Function((UHDM::function*)h460);
+                                lawTrace(460, "oobCopyCallBindsBodyHomeClone460",
+                                         std::string(body->VpiName()) + " " +
+                                             std::string(tgt->VpiName()) + " -> " + hb460);
+                            }
+                            continue;
+                        }
                     auto* h446 = homeTf446(gt->second, tgt->VpiName(), isTask);
                     if (!h446 || h446 == tgt)
                         continue;
@@ -28675,6 +28843,184 @@ UHDM::design* UhdmExporter::exportDesign() {
                      std::string(tf458->VpiName()) + " " + std::string(v458->VpiName()));
         }
         g_cloneTwin458.clear();
+        // § pkgTdForeignSpecParams460 (r11u460, R11U460_PKGTDSPEC_OFF; cases
+        // tools/probe/r11u460repro/cases/SQ; sv-tests generated/uvm-examples/
+        // uvm_id_register.sv) — a PACKAGE typedef of a specialization of a
+        // generic class declared OUTSIDE that package (`package a; import
+        // u::*; typedef S #(a_item) a_seqr;`, apb_agent_pkg's `typedef
+        // uvm_sequencer #(apb_seq_item) apb_sequencer;`) carries the written
+        // specialization: Surelog's compileTypespec probes
+        // getClassDefinition(typeName), (<component>::typeName) and
+        // (<parent>::typeName) first, and only when all three miss does
+        // compileDatastructureTypespec's ClassDefinition branch push one
+        // type_parameter + param_assign per ORDERED argument (the r10sd1
+        // grid's b4/b15/b16, disclosed there as a different emission site and
+        // left).  For a package typedef the component probe `<pkg>::S` hits
+        // only when S is the package's own class, which is BuildUVMPkg's
+        // whole listing (uvm_pkg's typedefs of uvm_pkg's own classes carry
+        // no listing, ParamEmit's pkgClassTd9 note).  The listing is
+        // emitClassPropSpecParams163's transcription of that branch.  The
+        // class_typespec is ParamEmit's one object per generic class: the
+        // typedefs that ParamEmit's base/alias passes made clones of it (in
+        // the same package, in an importer, the uvm_pkg::uvm_default_
+        // sequencer_type copies of the sv-tests rows) are Surelog's copies of
+        // the written object and repeat the listing (golden P=1 PA=1 on every
+        // alias of a_seqr, SQ/sq02; the param_assign's sides are copies too,
+        // as UHDM's param_assign::DeepClone makes them), so each alias takes
+        // a deep copy, a chain of aliases in order.  Design-final: the
+        // aliases are complete only after every package view and importer.
+        if (lawOn(460, "R11U460_PKGTDSPEC_OFF")) {
+            std::vector<std::pair<const TypeAliasType*, UHDM::class_typespec*>> c460;
+            for (auto& [k460, t460] : pkgTopTypedefTs)
+                if (t460 && t460->UhdmType() == UHDM::uhdmclass_typespec)
+                    c460.push_back({(const TypeAliasType*)k460, (UHDM::class_typespec*)t460});
+            std::sort(c460.begin(), c460.end(), [](const auto& a, const auto& b) {
+                return a.second->UhdmId() < b.second->UhdmId();
+            });
+            std::set<const UHDM::class_typespec*> got460;
+            std::map<const UHDM::class_typespec*, UHDM::package*> home460;
+            for (auto& [ta460, ts460] : c460) {
+                if (ts460->Parameters() || ts460->Typedef_alias())
+                    continue;
+                const Scope* ps460 = ta460->getParentScope();
+                if (!ps460 || ps460->asSymbol().kind != SymbolKind::Package)
+                    continue;
+                auto& ct460 = ta460->targetType.getType().getCanonicalType();
+                if (ct460.kind != SymbolKind::ClassType)
+                    continue;
+                auto& cls460 = ct460.as<ClassType>();
+                if (!cls460.genericClass)
+                    continue;
+                const Scope* gs460 = cls460.genericClass->getParentScope();
+                if (gs460 == ps460)
+                    continue;  // the component probe <pkg>::S hits
+                emitClassPropSpecParams163(ts460, cls460, ta460->targetType.getTypeSyntax(),
+                                           ps460);
+                if (ts460->Parameters()) {
+                    got460.insert(ts460);
+                    if (auto tp460 = pkgTopMap.find((const void*)&ps460->asSymbol());
+                        tp460 != pkgTopMap.end())
+                        home460[ts460] = tp460->second;
+                    lawTrace(460, "pkgTdForeignSpecParams460",
+                             std::string(ps460->asSymbol().name) + "::" +
+                                 std::string(ta460->name));
+                }
+            }
+            if (!got460.empty()) {
+                std::vector<UHDM::class_typespec*> al460;
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (o && o->UhdmType() == UHDM::uhdmclass_typespec)
+                        al460.push_back((UHDM::class_typespec*)o);
+                }
+                std::sort(al460.begin(), al460.end(), [](const auto* a, const auto* b) {
+                    return a->UhdmId() < b->UhdmId();
+                });
+                // § specGroupAliasFlatRoot460 (R11U460_SPECALIASROOT_OFF) —
+                // in a group whose base is a typedef this law listed, every
+                // member aliases the BASE itself: golden's
+                // uvm_pkg::uvm_virtual_sequencer copy, B_sequencer, C_sequencer
+                // and uvm_default_sequencer_type all point at
+                // apb_agent_pkg::apb_sequencer (b_pkg::A_sequencer), where
+                // ParamEmit's importer-group pass chained the importer's
+                // name-later clone to its name-first one (virtual ->
+                // default -> apb_sequencer; strict walk diverged at
+                // uvm_virtual_sequencer's REQ on uvm_id_register).  Surelog
+                // clones the one written object, so there is no chain.
+                if (lawOn(460, "R11U460_SPECALIASROOT_OFF"))
+                    for (auto* c : al460) {
+                        auto* ar = c->Typedef_alias();
+                        auto* b = ar ? (UHDM::class_typespec*)ar->Actual_typespec() : nullptr;
+                        if (!b || b->UhdmType() != UHDM::uhdmclass_typespec || got460.count(b))
+                            continue;
+                        UHDM::class_typespec* r = b;
+                        for (int d = 0; d < 8 && r && !got460.count(r); d++) {
+                            auto* rr = r->Typedef_alias();
+                            r = rr ? (UHDM::class_typespec*)rr->Actual_typespec() : nullptr;
+                            if (r && r->UhdmType() != UHDM::uhdmclass_typespec)
+                                r = nullptr;
+                        }
+                        if (!r || !got460.count(r) || !home460.count(r))
+                            continue;
+                        ar->Actual_typespec(r);
+                        lawTrace(460, "specGroupAliasFlatRoot460",
+                                 std::string(c->VpiName()) + " -> " + std::string(r->VpiName()));
+                    }
+                bool more460 = true;
+                while (more460) {
+                    more460 = false;
+                    for (auto* c : al460) {
+                        if (c->Parameters() || !c->Typedef_alias())
+                            continue;
+                        auto* b = (UHDM::class_typespec*)c->Typedef_alias()->Actual_typespec();
+                        if (!b || b->UhdmType() != UHDM::uhdmclass_typespec ||
+                            !got460.count(b) || !b->Parameters())
+                            continue;
+                        UHDM::ElaboratorContext ctx460(&s, false, /*muteErrors=*/true);
+                        // a copied formal is named by its new parent chain
+                        // (golden work@top.u::dflt_t.REQ on the param_assign's
+                        // copied Lhs, the class's own u::S::REQ in the base)
+                        auto unname460 = [](UHDM::any* x) {
+                            if (!x || x->UhdmType() != UHDM::uhdmtype_parameter)
+                                return;
+                            auto* tp = (UHDM::type_parameter*)x;
+                            tp->VpiFullName("");
+                            if (tp->Typespec())
+                                tp->Typespec()->VpiFullName("");
+                        };
+                        auto* pv = s.MakeAnyVec();
+                        for (auto* p : *b->Parameters())
+                            if (auto* cp = (UHDM::any*)UHDM::clone_tree(p, &ctx460)) {
+                                cp->VpiParent(c);
+                                unname460(cp);
+                                pv->push_back(cp);
+                            }
+                        auto* av = s.MakeParam_assignVec();
+                        if (b->Param_assigns())
+                            for (auto* pa : *b->Param_assigns())
+                                if (auto* cp = (UHDM::param_assign*)UHDM::clone_tree(pa, &ctx460)) {
+                                    cp->VpiParent(c);
+                                    unname460((UHDM::any*)cp->Rhs());
+                                    unname460((UHDM::any*)cp->Lhs());
+                                    av->push_back(cp);
+                                }
+                        c->Parameters(pv);
+                        c->Param_assigns(av);
+                        got460.insert(c);
+                        // § clsNestedSpecCloneHomeInst460 (R11U460_NESTCLONEINST_OFF)
+                        // — a CLASS-nested typedef that joined this group
+                        // (§ classNestedClassTdJoinsPkgGroup50: uvm_sequencer's
+                        // `typedef uvm_sequencer #(REQ, RSP) this_type;`) is
+                        // Surelog's copy of the written object taken while the
+                        // declaring package's TOP view compiled it, so it keeps
+                        // that package as its vpiInstance (golden this_type
+                        // 30:9 under class uvm_sequencer, instance
+                        // apb_agent_pkg's top view) where the join copied the
+                        // base's instance after the importers had re-stamped it
+                        // (uvm_tb_pkg).  Only the group of a typedef this law
+                        // listed; the uvm_pkg-anchored groups keep the join's.
+                        // A listing copy a class holds (`b_pkg::B_sequencer`
+                        // under class test, its name package-qualified) is
+                        // not a class-nested typedef and keeps its own.
+                        if (auto h460 = home460.find(b); h460 != home460.end() &&
+                            c->VpiParent() &&
+                            c->VpiParent()->UhdmType() == UHDM::uhdmclass_defn &&
+                            c->VpiName().find("::") == std::string_view::npos &&
+                            c->Instance() != h460->second &&
+                            lawOn(460, "R11U460_NESTCLONEINST_OFF")) {
+                            c->Instance(h460->second);
+                            lawTrace(460, "clsNestedSpecCloneHomeInst460",
+                                     std::string(c->VpiParent()->VpiName()) + "::" +
+                                         std::string(c->VpiName()));
+                        }
+                        more460 = true;
+                        lawTrace(460, "pkgTdForeignSpecParams460",
+                                 "alias " + std::string(c->VpiName()) + " -> " +
+                                     std::string(b->VpiName()));
+                    }
+                }
+            }
+        }
         // § subrAggCopyNamesByChain458 / § memberAliasFollowsMemberName458
         // (r11u458) — design-final (law and decode at the function).
         aggCopyNames458(s);

@@ -1,0 +1,38 @@
+databases: patched=3408 pristine=3408
+PATH_SETS_IDENTICAL (3408 paths)
+MOVER ./svtests/work/chapter-16/16.15--property-disable-iff-fail/slang.uhdm  patched=ea56131e7936 pristine=e6223ac73f29
+MOVER ./svtests/work/chapter-16/16.15--property-disable-iff/slang.uhdm  patched=67bec5a9bd9a pristine=d08411f4c1c9
+MOVER ./svtests/work/chapter-18/18.17.3--case-production-statements_0/slang.uhdm  patched=5ae43c169c67 pristine=558808511115
+MOVER ./svtests/work/chapter-18/18.5.11--static-constraint-blocks_1/slang.uhdm  patched=5f5148cb1d6e pristine=4373aa6effae
+MOVER ./svtests/work/chapter-20/20.14--coverage/slang.uhdm  patched=82c05cc19755 pristine=2c71e27d0ce2
+MOVER ./svtests/work/chapter-6/6.23--type_op_compare/slang.uhdm  patched=7fd1df9eeeb1 pristine=61ad6abc8201
+MOVER ./svtests/work/chapter-8/8.26.5--cast_between_interface_classes/slang.uhdm  patched=c62c4e29bce4 pristine=bf9be34062f1
+MOVER ./svtests/work/chapter-8/8.26.5--implemented_class_handle/slang.uhdm  patched=59fbb94feb62 pristine=26f54573cd02
+MOVER ./svtests/work/generated/easyUVM/top/slang.uhdm  patched=3e2dcb550390 pristine=6c6a002bb8e8
+MOVER ./svtests/work/generated/hdlconv_std2012/hdlconvertor_std2012_p58/slang.uhdm  patched=d870e85d5ec5 pristine=c87e52be1251
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p482/slang.uhdm  patched=8fd32cdb0138 pristine=965ab5ada807
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p506/slang.uhdm  patched=31880e66dce5 pristine=e5cf264ea626
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p612/slang.uhdm  patched=9c58b6cfa8fa pristine=ff02dc7861d9
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p633/slang.uhdm  patched=fe4da64c8781 pristine=9fc3450852c5
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p733/slang.uhdm  patched=739507c2ce8e pristine=26f2e074cdbb
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p737/slang.uhdm  patched=087dc022e76a pristine=425347937e5a
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p771/slang.uhdm  patched=f348a66e363e pristine=5dbd28f823bd
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p94/slang.uhdm  patched=4293d59d9621 pristine=db89b14506d7
+MOVER ./svtests/work/generated/rggen/rggen/slang.uhdm  patched=0f3828cc778d pristine=f5caeded3dcc
+MOVER ./svtests/work/generated/rsd/rsd/slang.uhdm  patched=1f5ff6613cf6 pristine=a31fde518788
+MOVER ./svtests/work/generated/tnoc/tnoc/slang.uhdm  patched=897b38c75cc4 pristine=e9b56539f8fc
+MOVER ./svtests/work/generated/uvm-examples/uvm_ac_config_db/slang.uhdm  patched=e30c6bc9ae24 pristine=5bf093985b13
+MOVER ./svtests/work/generated/uvm-examples/uvm_id_register/slang.uhdm  patched=0ee15f89172c pristine=38bd42185e63
+MOVER ./svtests/work/generated/uvm-examples/uvm_many_to_one/slang.uhdm  patched=efa31cd1844e pristine=5f00b74d562f
+MOVER ./svtests/work/generated/uvm-examples/uvm_overriding/slang.uhdm  patched=12d0c2cc84c4 pristine=b5b1431ed2ce
+MOVER ./svtests/work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm  patched=7594082ed280 pristine=af05a0cc2d77
+MOVER ./svtests/work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm  patched=16a24fea7b54 pristine=8ddc5b306110
+MOVER ./svtests/work/generated/uvm-examples/uvm_slave_agent/slang.uhdm  patched=017c56478a74 pristine=75f41117b66d
+MOVER ./svtests/work/generated/uvm-examples/uvm_use_models_pipelined_get_put/slang.uhdm  patched=23bb3616abc9 pristine=e38a15c72174
+MOVER ./svtests/work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm  patched=69a35a96aea4 pristine=582f0c03754c
+MOVER ./svtests/work/testbenches/uvm_scoreboard_env/slang.uhdm  patched=6f36ecef102e pristine=b9faaf2c8bf3
+MOVER ./svtests/work/testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm  patched=a6e3bebae733 pristine=7c67e512ea6e
+MOVER ./svtests/work/testbenches/uvm_scoreboard_monitor_env/slang.uhdm  patched=c47074272736 pristine=9a2aa5aadef6
+MOVERS: 33 / 3408
+SELFCHECK (every file vs one fixed file): 3406 / 3408 flagged
+SELFCHECK_FAILED

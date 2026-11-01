@@ -1,0 +1,10 @@
+VZ/vz05 law=54a2912c ver=ffd8e692 ELEMBITS_off=54a2912c(=law) OOBSCOPED_off=ffd8e692
+VZ/vz15 law=6ed82c87 ver=858166d6 ELEMBITS_off=6ed82c87(=law) OOBSCOPED_off=858166d6
+VZ/vz16 law=732a9bb7 ver=fe0227c8 ELEMBITS_off=732a9bb7(=law) OOBSCOPED_off=fe0227c8
+VZ/vz17 law=db9e0560 ver=8f30a12d ELEMBITS_off=db9e0560(=law) OOBSCOPED_off=8f30a12d
+VZ/vz18 law=eb4573fe ver=3ed746e1 ELEMBITS_off=eb4573fe(=law) OOBSCOPED_off=3ed746e1
+VZ/vz19 law=aa7de0f6 ver=e264b7a7 ELEMBITS_off=aa7de0f6(=law) OOBSCOPED_off=e264b7a7
+VZ/vz20 law=e6464519 ver=9f52e576 ELEMBITS_off=e6464519(=law) OOBSCOPED_off=9f52e576
+VO/vo01 law=698a8a4a ver=ac88e272 ELEMBITS_off=ac88e272 OOBSCOPED_off=698a8a4a(=law)
+VO/vo11 law=043c5413 ver=b5957067 ELEMBITS_off=b5957067 OOBSCOPED_off=043c5413(=law)
+VO/vo17 law=05d7782f ver=fef8c84a ELEMBITS_off=fef8c84a OOBSCOPED_off=05d7782f(=law)

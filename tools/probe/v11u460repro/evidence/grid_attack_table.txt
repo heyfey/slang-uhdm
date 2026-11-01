@@ -1,0 +1,70 @@
+rc=0 cmp=464 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VI/vi01 pris=25 law=4 ver=4
+rc=0 cmp=298 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VI/vi02 pris=16 law=4 ver=4
+rc=0 cmp=786 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 309 objects  | rc=0 cmp=0 STRICT_EQUAL 309 objects  | VI/vi03 pris=12 law=0 ver=0
+rc=0 cmp=370 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 315 objects  | rc=0 cmp=0 STRICT_EQUAL 315 objects  | VI/vi04 pris=16 law=0 ver=0
+rc=0 cmp=364 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | VI/vi05 pris=12 law=0 ver=0
+rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VI/vi06 pris=10 law=10 ver=10
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 204 objects  | rc=0 cmp=0 STRICT_EQUAL 204 objects  | VN/vn01 pris=0 law=0 ver=0
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 236 objects  | rc=0 cmp=0 STRICT_EQUAL 236 objects  | VN/vn02 pris=0 law=0 ver=0
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 247 objects  | rc=0 cmp=0 STRICT_EQUAL 247 objects  | VN/vn03 pris=0 law=0 ver=0
+rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VN/vn04 pris=1 law=1 ver=1
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 203 objects  | rc=0 cmp=0 STRICT_EQUAL 203 objects  | VN/vn05 pris=0 law=0 ver=0
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 197 objects  | rc=0 cmp=0 STRICT_EQUAL 197 objects  | VN/vn06 pris=0 law=0 ver=0
+rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VN/vn07 pris=22 law=22 ver=22
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_NOTEQUAL line  |  | VN/vn08 pris=6 law=6 ver=6
+rc=0 cmp=32 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 226 objects  |  | VN/vn09 pris=0 law=0 ver=0
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo01 pris=35 law=35 ver=35
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo02 pris=35 law=35 ver=35
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo03 pris=74 law=74 ver=74
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo04 pris=49 law=49 ver=49
+rc=0 cmp=1116 NOT_EQUAL stage1  | rc=0 cmp=1116 NOT_EQUAL stage1  | rc=0 cmp=1116 NOT_EQUAL stage1  | VO/vo05 pris=91 law=91 ver=91
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo06 pris=19 law=19 ver=19
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo07 pris=35 law=35 ver=35
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo08 pris=57 law=57 ver=57
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo09 pris=49 law=49 ver=49
+rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | rc=0 cmp=78 NOT_EQUAL stage1  | VO/vo10 pris=33 law=33 ver=33
+rc=0 cmp=0 STRICT_EQUAL 305 objects  | rc=0 cmp=0 STRICT_EQUAL 305 objects  | rc=0 cmp=0 STRICT_EQUAL 305 objects  | VO/vo11 pris=0 law=0 ver=0
+rc=0 cmp=756 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_NOTEQUAL type  | rc=0 cmp=0 STRICT_NOTEQUAL type  | VO/vo12 pris=40 law=40 ver=40
+rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_NOTEQUAL depth  | VO/vo13 pris=11 law=11 ver=11
+rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_NOTEQUAL depth  | rc=0 cmp=0 STRICT_NOTEQUAL depth  | VO/vo14 pris=11 law=11 ver=11
+rc=0 cmp=604 NOT_EQUAL stage1  | rc=0 cmp=604 NOT_EQUAL stage1  | rc=0 cmp=604 NOT_EQUAL stage1  | VO/vo15 pris=42 law=42 ver=42
+rc=0 cmp=1400 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 493 objects  | rc=0 cmp=0 STRICT_EQUAL 493 objects  | VO/vo16 pris=0 law=0 ver=0
+rc=0 cmp=0 STRICT_EQUAL 310 objects  | rc=0 cmp=0 STRICT_EQUAL 310 objects  | rc=0 cmp=0 STRICT_EQUAL 310 objects  | VO/vo17 pris=0 law=0 ver=0
+rc=0 cmp=732 NOT_EQUAL stage1  | rc=0 cmp=732 NOT_EQUAL stage1  | rc=0 cmp=732 NOT_EQUAL stage1  | VO/vo18 pris=23 law=23 ver=23
+rc=0 cmp=0 STRICT_EQUAL 310 objects  | rc=0 cmp=0 STRICT_EQUAL 310 objects  | rc=0 cmp=0 STRICT_EQUAL 310 objects  | VO/vo19 pris=0 law=0 ver=0
+rc=0 cmp=58 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | VS/vs01 pris=1 law=1 ver=1
+rc=0 cmp=0 STRICT_EQUAL 139 objects  | rc=0 cmp=0 STRICT_EQUAL 139 objects  | rc=0 cmp=0 STRICT_EQUAL 139 objects  | VS/vs02 pris=0 law=0 ver=0
+rc=0 cmp=0 STRICT_NOTEQUAL endcol  | rc=0 cmp=0 STRICT_NOTEQUAL endcol  | rc=0 cmp=0 STRICT_NOTEQUAL endcol  | VS/vs03 pris=10 law=10 ver=10
+rc=0 cmp=104 NOT_EQUAL stage1  | rc=0 cmp=168 NOT_EQUAL stage1  | rc=0 cmp=168 NOT_EQUAL stage1  | VS/vs04 pris=45 law=25 ver=25
+rc=0 cmp=58 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | rc=0 cmp=58 NOT_EQUAL stage1  | VS/vs05 pris=1 law=1 ver=1
+rc=0 cmp=254 NOT_EQUAL stage1  | rc=0 cmp=254 NOT_EQUAL stage1  | rc=0 cmp=254 NOT_EQUAL stage1  | VS/vs06 pris=16 law=16 ver=16
+rc=0 cmp=121 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VS/vs07 pris=114 law=50 ver=50
+rc=0 cmp=180 NOT_EQUAL stage1  | rc=0 cmp=244 NOT_EQUAL stage1  | rc=0 cmp=244 NOT_EQUAL stage1  | VS/vs08 pris=74 law=58 ver=58
+rc=0 cmp=490 NOT_EQUAL stage1  | rc=0 cmp=490 NOT_EQUAL stage1  | rc=0 cmp=490 NOT_EQUAL stage1  | VS/vs09 pris=37 law=37 ver=37
+rc=0 cmp=85 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 167 objects  | rc=0 cmp=0 STRICT_EQUAL 167 objects  | VS/vs10 pris=28 law=0 ver=0
+rc=0 cmp=85 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VS/vs11 pris=81 law=43 ver=43
+rc=0 cmp=218 NOT_EQUAL stage1  | rc=0 cmp=218 NOT_EQUAL stage1  | rc=0 cmp=218 NOT_EQUAL stage1  | VS/vs12 pris=64 law=26 ver=26
+rc=0 cmp=121 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 260 objects  | rc=0 cmp=0 STRICT_EQUAL 260 objects  | VS/vs13 pris=78 law=0 ver=0
+rc=0 cmp=85 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VS/vs14 pris=44 law=24 ver=24
+rc=0 cmp=121 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 295 objects  |  | VS/vs15 pris=119 law=0 ver=0
+rc=0 cmp=85 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  |  | VS/vs16 pris=206 law=178 ver=178
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 134 objects  | rc=0 cmp=0 STRICT_EQUAL 134 objects  | VZ/vz01 pris=6 law=0 ver=0
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 134 objects  | rc=0 cmp=0 STRICT_EQUAL 134 objects  | VZ/vz02 pris=8 law=0 ver=0
+rc=0 cmp=14 NOT_EQUAL stage1  | rc=0 cmp=14 NOT_EQUAL stage1  | rc=0 cmp=14 NOT_EQUAL stage1  | VZ/vz03 pris=18 law=6 ver=6
+rc=0 cmp=52 NOT_EQUAL stage1  | rc=0 cmp=14 NOT_EQUAL stage1  | rc=0 cmp=14 NOT_EQUAL stage1  | VZ/vz04 pris=4 law=0 ver=0
+rc=4 cmp=111 NOT_EQUAL stage1  | rc=4 cmp=111 NOT_EQUAL stage1  | rc=4 cmp=111 NOT_EQUAL stage1  | VZ/vz05 pris=13 law=13 ver=9
+rc=0 cmp=36 NOT_EQUAL stage1  | rc=0 cmp=36 NOT_EQUAL stage1  | rc=0 cmp=36 NOT_EQUAL stage1  | VZ/vz06 pris=4 law=4 ver=4
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 128 objects  | rc=0 cmp=0 STRICT_EQUAL 128 objects  | VZ/vz07 pris=8 law=0 ver=0
+rc=0 cmp=37 NOT_EQUAL stage1  | rc=0 cmp=37 NOT_EQUAL stage1  | rc=0 cmp=37 NOT_EQUAL stage1  | VZ/vz08 pris=13 law=9 ver=9
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 152 objects  | rc=0 cmp=0 STRICT_EQUAL 152 objects  | VZ/vz09 pris=16 law=0 ver=0
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 117 objects  | rc=0 cmp=0 STRICT_EQUAL 117 objects  | VZ/vz10 pris=4 law=0 ver=0
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | VZ/vz11 pris=4 law=2 ver=2
+rc=0 cmp=0 STRICT_EQUAL 159 objects  | rc=0 cmp=0 STRICT_EQUAL 159 objects  | rc=0 cmp=0 STRICT_EQUAL 159 objects  | VZ/vz12 pris=0 law=0 ver=0
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 133 objects  | rc=0 cmp=0 STRICT_EQUAL 133 objects  | VZ/vz13 pris=6 law=0 ver=0
+rc=0 cmp=19 NOT_EQUAL stage1  | rc=0 cmp=19 NOT_EQUAL stage1  | rc=0 cmp=19 NOT_EQUAL stage1  | VZ/vz14 pris=2 law=2 ver=2
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VZ/vz15 pris=16 law=16 ver=4
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=0 STRICT_EQUAL 136 objects  | VZ/vz16 pris=8 law=4 ver=0
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=17 NOT_EQUAL stage1  | VZ/vz17 pris=16 law=20 ver=4
+rc=0 cmp=94 NOT_EQUAL stage1  | rc=0 cmp=94 NOT_EQUAL stage1  | rc=0 cmp=94 NOT_EQUAL stage1  | VZ/vz18 pris=60 law=56 ver=48
+rc=0 cmp=120 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=120 NOT_EQUAL stage1  | VZ/vz19 pris=6 law=14 ver=2
+rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | rc=0 cmp=28 NOT_EQUAL stage1  | VZ/vz20 pris=22 law=10 ver=10

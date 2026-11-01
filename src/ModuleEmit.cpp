@@ -11148,6 +11148,36 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         for (auto& kv452 : ifaceConnNet)
             if (kv452.second && kv452.second->VpiParent() == m)
                 conn452.insert(kv452.second);
+        // § implicitNetAfterForwarded460 (r11u460, R11U460_IMPNETAFTER_OFF;
+        // cases tools/probe/r11u460repro/cases/IC; sv-tests
+        // generated/uvm-examples/uvm_id_register.sv, hdl_top's
+        // `.PWRITE(PWRITE)` with no PWRITE declared) — an IMPLICIT wire of
+        // the definition (a port connection's `.b(y)`, a continuous
+        // assignment's `assign z = c;`) is one of UhdmWriter::lateBinding's
+        // mints like § 452's interface connection-site wire: it follows the
+        // forwarded block too, implicit wires in their own order (golden
+        // hdl_top lists PWRITE 38:21 last, after m_auto_predict and
+        // m_check_on_read, where ours listed it right after the declared
+        // PSLVERR; IC/ic02 golden `c m_a m_b ww z`).  Ports are never moved.
+        if (lawOn(460, "R11U460_IMPNETAFTER_OFF"))
+            for (size_t i460 = 0; i460 < hoistBegin219; i460++) {
+                auto* n460 = (*nets)[i460];
+                if (!n460 || conn452.count(n460))
+                    continue;
+                auto* sym460 = body.find(n460->VpiName());
+                if (!sym460 || sym460->kind != SymbolKind::Net ||
+                    !sym460->as<NetSymbol>().isImplicit)
+                    continue;
+                bool port460 = false;
+                for (auto* pp460 : body.getPortList())
+                    if (pp460->name == sym460->name)
+                        port460 = true;
+                if (port460)
+                    continue;
+                conn452.insert(n460);
+                lawTrace(460, "implicitNetAfterForwarded460",
+                         prefix + "." + std::string(n460->VpiName()));
+            }
         std::vector<UHDM::net*> keep452, moved452;
         for (size_t i452 = 0; i452 < hoistBegin219; i452++) {
             auto* n452 = (*nets)[i452];
@@ -16762,7 +16792,63 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // Typespecs before the import_typespec, SHARING the top-view package
     // object: it re-parents it to the interface and re-scopes its base ref
     // fullname to work@<iface>.<pkg>::<name> (Surelog last-writer semantics).
-    if (m->UhdmType() == UHDM::uhdminterface_inst) {
+    // § ifcOwnTdTransitiveTds460 (r11u460, R11U460_IFCOWNTRANS_OFF; cases
+    // tools/probe/r11u460repro/cases/IF; sv-tests generated/uvm-examples/
+    // uvm_id_register.sv, `interface apb_monitor_bfm` whose body imports only
+    // apb_agent_pkg) — § ifcBodyImpTransitiveTds450's abstention on an
+    // imported package that declares a typedef of its OWN (its residue
+    // r11u450 IT/it02): importPackage copies the package's whole DataTypeMap,
+    // its own typedefs and those of its own imports alike, into the
+    // interface's one map, and writeInterface's writeDataTypes walks it in
+    // NAME order like writeModule's (golden apb_monitor_bfm lists 129
+    // typedefs, apb_agent_pkg::apb_sequencer at index 2 between uvm_pkg's
+    // UVM_SEQ_ARB_TYPE and m_uvm_config_obj_misc, then the import_typespec;
+    // ours listed apb_sequencer and the import_typespec only).  Such an
+    // interface takes the module branch below (one name-sorted walk over own
+    // and transitive typedefs) INSTEAD of the per-package interface branch,
+    // under § 450's other gates: wildcard imports only, at least one imported
+    // package reaching typedefs through its own wildcard imports, no `$unit`
+    // import in the interface's file.
+    bool ifcOwn460 = false;
+    if (m->UhdmType() == UHDM::uhdminterface_inst && !ifcFile418 &&
+        lawOn(450, "R11U450_IFCBODYTRANS_OFF") && lawOn(460, "R11U460_IFCOWNTRANS_OFF")) {
+        bool any460 = false, ok460 = true, trans460 = false, own460 = false;
+        for (auto& mem460 : body.members()) {
+            if (mem460.kind == SymbolKind::ExplicitImport) {
+                ok460 = false;
+                break;
+            }
+            if (mem460.kind != SymbolKind::WildcardImport)
+                continue;
+            any460 = true;
+            auto* pkg460 = comp.getPackage(mem460.as<WildcardImportSymbol>().packageName);
+            if (!pkg460) {
+                ok460 = false;
+                break;
+            }
+            for (auto& pm460 : pkg460->members()) {
+                if (pm460.kind == SymbolKind::TypeAlias)
+                    own460 = true;
+                else if (pm460.kind == SymbolKind::WildcardImport)
+                    if (auto* np460 = pm460.as<WildcardImportSymbol>().getPackage())
+                        for (auto& qm460 : np460->members())
+                            if (qm460.kind == SymbolKind::TypeAlias)
+                                trans460 = true;
+            }
+        }
+        std::string mf460 = rootFilePath(body.getDefinition().location);
+        if (ok460 && any460 && trans460 && own460 && !mf460.empty())
+            for (auto* unit460 : comp.getCompilationUnits())
+                for (auto& mem460 : unit460->members())
+                    if ((mem460.kind == SymbolKind::WildcardImport ||
+                         mem460.kind == SymbolKind::ExplicitImport) &&
+                        rootFilePath(mem460.location) == mf460)
+                        ok460 = false;
+        ifcOwn460 = ok460 && any460 && trans460 && own460;
+        if (ifcOwn460)
+            lawTrace(460, "ifcOwnTdTransitiveTds460", std::string(m->VpiDefName()));
+    }
+    if (m->UhdmType() == UHDM::uhdminterface_inst && !ifcOwn460) {
         // § ifaceTwoPkgTdNameOrder186 (r11u186) — an interface WILDCARD-
         // importing SEVERAL packages lists their typedefs in ONE name order:
         // importPackage copies every package's typedefs into the interface's
@@ -16961,7 +17047,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                          mem450.kind == SymbolKind::ExplicitImport) &&
                         rootFilePath(mem450.location) == mf450)
                         ok450 = false;
-        ifcBody450 = ok450 && any450 && trans450;
+        ifcBody450 = (ok450 && any450 && trans450) || ifcOwn460;
         if (ifcBody450) {
             lawTrace(450, "ifcBodyImpTransitiveTds450", std::string(m->VpiDefName()));
             // ...and the copied DataTypeMap carries the class keys the
@@ -17752,7 +17838,18 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // goldens (r10apb2 repro 1, r10uvm3 repro 3) and on ApbSlave (23 hoisted
     // + 7 own) and SimpleUVM (894 = 58 package-parented interleaved with 836
     // class-parented).
-    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418) {
+    // § ifcOwnTdTransitiveTfOrder460 (R11U460_IFCTFORDER_OFF) — the interface
+    // § ifcOwnTdTransitiveTds460 routes through the module branch lists its
+    // imported packages' subroutine groups as a module does, whole groups in
+    // the materialized order (golden apb_driver_bfm: uvm_pkg's free functions,
+    // uvm_pkg's out-of-body methods, then apb_agent_pkg's group at 1279 to
+    // 1308; ours placed apb_agent_pkg's group between uvm_pkg's free
+    // functions and its out-of-body methods, the strict walk diverging at
+    // get_uvm_seeding against do_copy).
+    const bool ifcTf460 = ifcOwn460 && lawOn(460, "R11U460_IFCTFORDER_OFF");
+    if (ifcTf460)
+        lawTrace(460, "ifcOwnTdTransitiveTfOrder460", std::string(m->VpiDefName()));
+    if (m->UhdmType() == UHDM::uhdmmodule_inst || ifcFile418 || ifcTf460) {
         std::vector<UHDM::task_func*> hoist9;
         std::set<const Symbol*> haveSub9;
         for (auto& [pkg9, cnt9] : collectMaterializedPkgs(body)) {

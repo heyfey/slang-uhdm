@@ -1,0 +1,16 @@
+# drivers/ds.sh on sampled attack cases (downstream_uhdm2rtlil.one, private GOLDEN_CACHE)
+case      pristine     law          verified
+VN/vn01   IDENTICAL    IDENTICAL    -
+VN/vn02   IDENTICAL    IDENTICAL    -
+VN/vn05   IDENTICAL    IDENTICAL    -
+VN/vn08   IDENTICAL    -            IDENTICAL
+VN/vn09   EQUIVALENT   -            IDENTICAL
+VZ/vz01   IDENTICAL    IDENTICAL    -
+VZ/vz02   IDENTICAL    IDENTICAL    -
+VZ/vz13   IDENTICAL    IDENTICAL    -
+VZ/vz15   DIVERGENT    DIVERGENT    DIVERGENT   (constant value mismatch on all three: a real array, residue)
+VZ/vz17   IDENTICAL    -            IDENTICAL
+VZ/vz18   STATUS_DIFF  STATUS_DIFF  STATUS_DIFF (time arrays, on all three)
+VI/vi04   IDENTICAL    IDENTICAL    -
+VO/vo11   IDENTICAL    IDENTICAL    -
+VS/vs10   IDENTICAL    IDENTICAL    -

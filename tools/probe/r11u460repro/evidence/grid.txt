@@ -1,0 +1,25 @@
+IC/ic01 | pristine rc=0 cmp=32 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 217 objects
+IC/ic02 | pristine rc=0 cmp=32 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 223 objects
+IC/ic03 | pristine rc=0 cmp=32 NOT_EQUAL stage1 | law rc=0 cmp=2230 NOT_EQUAL stage1
+IC/ic04 | pristine rc=0 cmp=0 STRICT_EQUAL 142 objects | law rc=0 cmp=0 STRICT_EQUAL 142 objects
+IC/ic05 | pristine rc=0 cmp=32 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 185 objects
+IF/if01 | pristine rc=0 cmp=336 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 236 objects
+IF/if02 | pristine rc=0 cmp=0 STRICT_NOTEQUAL name | law rc=0 cmp=0 STRICT_EQUAL 318 objects
+IF/if03 | pristine rc=0 cmp=388 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname
+OB/ob01 | pristine rc=0 cmp=0 STRICT_EQUAL 310 objects | law rc=0 cmp=0 STRICT_EQUAL 310 objects
+OB/ob02 | pristine rc=0 cmp=78 NOT_EQUAL stage1 | law rc=0 cmp=78 NOT_EQUAL stage1
+OB/ob03 | pristine rc=0 cmp=756 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 305 objects
+OB/ob04 | pristine rc=0 cmp=78 NOT_EQUAL stage1 | law rc=0 cmp=78 NOT_EQUAL stage1
+OB/ob05 | pristine rc=0 cmp=78 NOT_EQUAL stage1 | law rc=0 cmp=78 NOT_EQUAL stage1
+SQ/sq01 | pristine rc=0 cmp=85 NOT_EQUAL stage1 | law rc=0 cmp=17 NOT_EQUAL stage1
+SQ/sq02 | pristine rc=0 cmp=121 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 236 objects
+SQ/sq03 | pristine rc=0 cmp=85 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 163 objects
+SQ/sq04 | pristine rc=0 cmp=85 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 154 objects
+SQ/sq05 | pristine rc=0 cmp=121 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 248 objects
+SQ/sq06 | pristine rc=0 cmp=121 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_NOTEQUAL fullname
+UZ/uz01 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 120 objects
+UZ/uz02 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 133 objects
+UZ/uz03 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 139 objects
+UZ/uz04 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 137 objects
+UZ/uz05 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 142 objects
+UZ/uz06 | pristine rc=0 cmp=28 NOT_EQUAL stage1 | law rc=0 cmp=0 STRICT_EQUAL 167 objects

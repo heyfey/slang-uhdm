@@ -2075,7 +2075,7 @@ generated/uvm-examples/uvm_ef_vif_config_db.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_persistence.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_poly.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_randomization.sv,EQUAL,,equal
-generated/uvm-examples/uvm_id_register.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_id_register.sv,STRICT_NOTEQUAL,differ:name(5),differ:name(5)
 generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,
 generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
 generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,

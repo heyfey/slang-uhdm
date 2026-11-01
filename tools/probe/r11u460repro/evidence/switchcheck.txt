@@ -1,0 +1,25 @@
+IC/ic01 pris=0:e6260df4 off=0:e6260df4 OFF=same law=0:705666b8 IMPNETAFTER_off=0:e6260df4
+IC/ic02 pris=0:100ba3a4 off=0:100ba3a4 OFF=same law=0:db525490 IMPNETAFTER_off=0:100ba3a4
+IC/ic03 pris=0:50e5be30 off=0:50e5be30 OFF=same law=0:460422ad IMPNETAFTER_off=0:50e5be30
+IC/ic04 pris=0:b5260507 off=0:b5260507 OFF=same law=0:b5260507
+IC/ic05 pris=0:ccff30b7 off=0:ccff30b7 OFF=same law=0:4e5e6da9 IMPNETAFTER_off=0:ccff30b7
+IF/if01 pris=0:e2bd679c off=0:e2bd679c OFF=same law=0:d4597c18 IFCOWNTRANS_off=0:e2bd679c
+IF/if02 pris=0:cf5018e9 off=0:cf5018e9 OFF=same law=0:24848b42 IFCOWNTRANS_off=0:cf5018e9 IFCTFORDER_off=0:cf5018e9
+IF/if03 pris=0:c104df70 off=0:c104df70 OFF=same law=0:d7dd14bd IFCOWNTRANS_off=0:c104df70
+OB/ob01 pris=0:f4015ad1 off=0:f4015ad1 OFF=same law=0:8756bda0 OOBCOPYCALL_off=0:f4015ad1
+OB/ob02 pris=0:2ed53b3b off=0:2ed53b3b OFF=same law=0:0383c7c2 OOBCOPYCALL_off=0:2ed53b3b
+OB/ob03 pris=0:c4482d92 off=0:c4482d92 OFF=same law=0:4d9d1e6d OOBCOPYCALL_off=0:c4482d92
+OB/ob04 pris=0:9697170e off=0:9697170e OFF=same law=0:9697170e
+OB/ob05 pris=0:345e6c5d off=0:345e6c5d OFF=same law=0:345e6c5d
+SQ/sq01 pris=0:7bdc8a28 off=0:7bdc8a28 OFF=same law=0:e9043cc7 PKGTDSPEC_off=0:7bdc8a28
+SQ/sq02 pris=0:4ef57c30 off=0:4ef57c30 OFF=same law=0:7a05d86d PKGTDSPEC_off=0:4ef57c30
+SQ/sq03 pris=0:7fff2821 off=0:7fff2821 OFF=same law=0:a9a2353b PKGTDSPEC_off=0:7fff2821
+SQ/sq04 pris=0:efe58ff6 off=0:efe58ff6 OFF=same law=0:ad649774 PKGTDSPEC_off=0:efe58ff6
+SQ/sq05 pris=0:bab2eecd off=0:bab2eecd OFF=same law=0:3af52615 PKGTDSPEC_off=0:bab2eecd NESTCLONEINST_off=0:834efa77
+SQ/sq06 pris=0:3cfb0f5e off=0:3cfb0f5e OFF=same law=0:024b77ea PKGTDSPEC_off=0:3cfb0f5e NESTCLONEINST_off=0:8e9829b6
+UZ/uz01 pris=0:40f50fcd off=0:40f50fcd OFF=same law=0:a6d88dbe PATBASEDW_off=0:40f50fcd
+UZ/uz02 pris=0:33f50c8a off=0:33f50c8a OFF=same law=0:321d2678 PATBASEDW_off=0:33f50c8a
+UZ/uz03 pris=0:739611a9 off=0:739611a9 OFF=same law=0:608d5e77 PATBASEDW_off=0:739611a9
+UZ/uz04 pris=0:d262bc15 off=0:d262bc15 OFF=same law=0:72b46f3b PATBASEDW_off=0:d262bc15
+UZ/uz05 pris=0:dba78591 off=0:dba78591 OFF=same law=0:042a7d70 PATBASEDW_off=0:dba78591
+UZ/uz06 pris=0:b87b09d4 off=0:b87b09d4 OFF=same law=0:41c2c0f5 PATBASEDW_off=0:b87b09d4

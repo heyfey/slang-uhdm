@@ -1,0 +1,6 @@
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/uvm-examples/uvm_id_register.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=11 EQUAL=1928 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+svtests rc=0

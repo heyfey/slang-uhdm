@@ -19,6 +19,11 @@
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+// § clsArrPatBasedLitElemW460 — defined in UhdmExporter.cpp (law text there).
+bool basedLitTakesElemW460(const UHDM::any* o);
+// § elemBitsByExprEvalSize460v — defined in UhdmExporter.cpp (fix text there).
+bool basedLitElemFire460(const UHDM::any* o, const slang::ast::Type* t, int32_t w,
+                         int32_t& out, const std::string& who);
 extern bool g428ClsLocalSpec;  // § clsMethodLocalForeignPkgSpec428 (defined below)
 // § bareTdCopyOwnRangeAfterSpec434 (defined below): the package typedef listing
 // objects a class-method local's specialization alias clone reached.
@@ -33212,6 +33217,24 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
             bool savedSCP = suppressConstParent;
             suppressConstParent = true;
             if (auto* e = emitExpr(ic, reg, fullName, none)) {
+                // § modArrPatBasedLitElemW460 (r11u460, R11U460_PATBASEDW_OFF;
+                // cases tools/probe/r11u460repro/cases/UZ uz06) — the module
+                // twin of § clsArrPatBasedLitElemW460: the fixed array's
+                // pattern operands written as HEX/OCT or unsized binary
+                // literals take the element width (adjustSize).
+                if (e->UhdmType() == UHDM::uhdmoperation &&
+                    ic.kind == ExpressionKind::SimpleAssignmentPattern)
+                    if (auto* os460 = ((UHDM::operation*)e)->Operands()) {
+                        const int32_t w460 = (int32_t)leaf->getCanonicalType().getBitWidth();
+                        for (auto* o460 : *os460)
+                            if (int32_t w460v = 0; w460 > 0 &&
+                                basedLitElemFire460(o460, leaf, w460, w460v, fullName)) {
+                                ((UHDM::expr*)o460)->VpiSize(w460v);
+                                lawTrace(460, "modArrPatBasedLitElemW460",
+                                         fullName + " " +
+                                             std::string(((UHDM::expr*)o460)->VpiDecompile()));
+                            }
+                    }
                 av->Expr((UHDM::expr*)e);
                 reg->Expr((UHDM::expr*)e);
             }
@@ -33236,9 +33259,17 @@ UHDM::array_var* UhdmExporter::emitArrayVar(const Symbol& sym, const std::string
                 const int32_t w430 = (int32_t)leaf->getCanonicalType().getBitWidth();
                 if (w430 > 0)
                     if (auto* os430 = ((UHDM::operation*)e430)->Operands())
-                        for (auto* o430 : *os430)
+                        for (auto* o430 : *os430) {
                             if (bareDecimalDefault64_31(o430))
                                 ((UHDM::expr*)o430)->VpiSize(w430);
+                            else if (int32_t w460v = 0;
+                                     basedLitElemFire460(o430, leaf, w430, w460v, fullName)) {
+                                ((UHDM::expr*)o430)->VpiSize(w460v);
+                                lawTrace(460, "modArrPatBasedLitElemW460",
+                                         fullName + " " +
+                                             std::string(((UHDM::expr*)o430)->VpiDecompile()));
+                            }
+                        }
                 av->Expr((UHDM::expr*)e430);
                 reg->Expr((UHDM::expr*)e430);
                 lawTrace(430, "modArrConcatInitElemSize430", fullName);
@@ -33713,9 +33744,20 @@ UHDM::array_var* UhdmExporter::emitDynArrayVar(const Symbol& sym,
                             if (ew9 > 0 && e9->UhdmType() == UHDM::uhdmoperation)
                                 if (auto* os9 =
                                         ((UHDM::operation*)e9)->Operands())
-                                    for (auto* o9 : *os9)
+                                    for (auto* o9 : *os9) {
                                         if (bareDecimalDefault64_31(o9))
                                             ((UHDM::expr*)o9)->VpiSize(ew9);
+                                        // § modArrPatBasedLitElemW460 (the
+                                        // dynamic carrier; reg_dut.sv 39:29)
+                                        else if (int32_t w460v = 0; basedLitElemFire460(
+                                                     o9, leaf, ew9, w460v, fullName)) {
+                                            ((UHDM::expr*)o9)->VpiSize(w460v);
+                                            lawTrace(460, "modArrPatBasedLitElemW460",
+                                                     fullName + " " +
+                                                         std::string(((UHDM::expr*)o9)
+                                                                         ->VpiDecompile()));
+                                        }
+                                    }
                             av->Expr((UHDM::expr*)e9);
                             reg->Expr((UHDM::expr*)e9);
                         }

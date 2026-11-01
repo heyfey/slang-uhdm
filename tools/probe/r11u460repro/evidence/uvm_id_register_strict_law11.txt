@@ -1,0 +1,14 @@
+#335244 name
+  A: 9	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+  B: 9	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+#701330 name
+  A: 7	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+  B: 7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+#832730 name
+  A: 7	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+  B: 7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+#973752 name
+  A: 7	bit_typespec	uvm_pkg::uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+  B: 7	bit_typespec	uvm_reg_addr_t			uvm_reg_model.svh	77	10	77	31				
+fields: name=5 objects_differing=5
+STRICT_NOTEQUAL name
