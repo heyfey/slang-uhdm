@@ -16304,6 +16304,22 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
         return nullptr;
+    // § pkgBitsTypeEnumZero459 (EmitHelpers.h) — the fold reads Surelog's
+    // zero-width base-less enum through $bits and the parameters it feeds.
+    if (!cv.integer().hasUnknown() && srlgZeroEnumReaches459(expr) &&
+        lawOn(459, "R11U459_ZEROENUMBITS_OFF")) {
+        slang::SVInt z459;
+        if (srlgZeroEnumEval459(ctx, expr, z459)) {
+            z459 = z459.resize(cv.integer().getBitWidth());
+            z459.setSigned(cv.integer().isSigned());
+            lawTrace(459, "pkgBitsTypeEnumZero459",
+                     "fold " + cv.integer().toString(LiteralBase::Decimal, false) +
+                         " -> " + z459.toString(LiteralBase::Decimal, false));
+            cv = ConstantValue(z459);
+        }
+        else
+            lawTrace(459, "pkgBitsTypeEnumZero459", "fold abstain");
+    }
     slang::SVInt iv = cv.integer();
     // A CONCAT with x/z bits ({12'h800, 4'b001x, 16'bx...}) still folds — to
     // a full-width BINARY constant preserving the 0/1/x/z bits. Other

@@ -1,0 +1,20 @@
+PREDICTION, written before the law sweep (law binary law6, md5 7ae64b3a79ea5489a4e1b37927b2e4ae)
+
+Census (drivers/census_scan.py text scan, fence-filtered; then traced runs of law6 on every candidate):
+  surelog     66 candidate rows (both modes traced through verify_golden --filter): 0 firings, 0 status changes
+  uhdm2rtlil   0 candidate rows
+  probe        1 candidate (r10earl_repro/e): 0 firings, bytes identical to pristine
+  svtests    680 rows traced (679 scan candidates + the 13 open rows): firings on exactly 3 rows
+     uvm_ac_config_db                  § defFlipUnszBasedRaw459 (sfr_master_bfm, sfr_monitor_bfm)
+     uvm_param_vif_config_db           § defFlipUnszBasedRaw459 (sfr_master_bfm, sfr_monitor_bfm)
+     uvm_use_models_pipelined_get_put  § unitImpTransLateList459 (uvm_pkg via $unit import of
+                                       mbus_pipelined_agent_pkg) + § pkgBitsTypeEnumZero459
+
+Predicted movers:
+  probe 0 of 4087, surelog 0 of 962, uhdm2rtlil 0 of 1608, downstream 0 of 805
+  svtests: bytes move on the 3 rows above; status:
+     uvm_ac_config_db                 DIFFERENT -> STRICT_NOTEQUAL differ:fullname(1863)   (CONVERSION)
+     uvm_param_vif_config_db          DIFFERENT -> DIFFERENT (head unchanged: class_typespec this_t)
+     uvm_use_models_pipelined_get_put DIFFERENT -> DIFFERENT (head moves later, to mbus_types_pkg's
+                                      param_assign: § unitImportHoistsPkgParams146's branch, UhdmExporter)
+  every other row: status and strict column unchanged; no exit-code mover.

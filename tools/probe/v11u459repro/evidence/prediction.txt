@@ -1,0 +1,6 @@
+Prediction written before the verifier's law sweep (/tmp/sw_v11u459, law binary md5 efb75a40b10e27254abfe1eabf4e72e6 = the implementer's law7):
+- probe: 0 movers, EQUAL 4023 + STRICT_NOTEQUAL 64, 0/0/0 (implementer's census 0 firings; 1456 earlier case dirs of r11u405..v11u435 byte-identical pristine vs law).
+- surelog: 480 + 474, 0/0/0, byteverify 0 of 962 (no firing in the implementer's traced census of the 66 + 27 candidate rows).
+- uhdm2rtlil: 803/1/67 both modes, 0/0/0, byteverify 0 of 1608.
+- downstream: 803/66/2/0, byteverify 0 of 805.
+- sv-tests: one conversion, generated/uvm-examples/uvm_ac_config_db.sv DIFFERENT -> STRICT_NOTEQUAL differ:fullname(1863) (law A); uvm_use_models_pipelined_get_put.sv (laws B and C) and uvm_param_vif_config_db.sv (law A) move bytes and stay DIFFERENT; the six generated/black-parrot rows fire law C and stay SURELOG_CRASH; regressions 0, changes 0.

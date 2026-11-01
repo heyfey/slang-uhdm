@@ -11215,6 +11215,31 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         const ImpOcc9* occ9 = paramImp9[occIx9];
         const Symbol& member = *psPtr;
         auto& ps = *psPtr;
+        // § pkgBitsTypeEnumZero459 (EmitHelpers.h) — the parameter's value
+        // under Surelog's zero-width base-less enum, read below wherever the
+        // listing reads the parameter's value (psValue459 for ps.getValue()).
+        ConstantValue zv459;
+        if (auto* zi459 = ps.getInitializer();
+            zi459 && !ps.isOverridden() && srlgZeroEnumReaches459(*zi459) &&
+            lawOn(459, "R11U459_ZEROENUMBITS_OFF")) {
+            const ConstantValue& b459 = ps.getValue();
+            ASTContext zc459(body, LookupLocation::max);
+            slang::SVInt z459;
+            if (b459.isInteger() && !b459.integer().hasUnknown() &&
+                srlgZeroEnumEval459(zc459, *zi459, z459)) {
+                z459 = z459.resize(b459.integer().getBitWidth());
+                z459.setSigned(b459.integer().isSigned());
+                lawTrace(459, "pkgBitsTypeEnumZero459",
+                         "param " + std::string(ps.name) + " " +
+                             b459.integer().toString(LiteralBase::Decimal, false) +
+                             " -> " + z459.toString(LiteralBase::Decimal, false) +
+                             " in " + prefix);
+                zv459 = ConstantValue(z459);
+            }
+        }
+        auto psValue459 = [&]() -> const ConstantValue& {
+            return zv459 ? zv459 : ps.getValue();
+        };
         // § paramFoldParenSpan131 — record a PARENTHESIZED initializer's
         // written span (the post-pass is at the law, near
         // drainShareDefParamTs).
@@ -11681,7 +11706,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 ASTContext actx(body, LookupLocation::max);
                 dcv = actx.tryEval(*defaultInit);
             }
-            const ConstantValue& cv = overridden ? dcv : ps.getValue();
+            const ConstantValue& cv = overridden ? dcv : psValue459();
             bool unknownDefault = cv.isInteger() && cv.integer().hasUnknown();
             if (literalInit && unknownDefault && defaultInit) {
                 // 'x/'z defaults: BIN value with UPPERCASE digits.
@@ -12081,8 +12106,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (sb9.kind == ExpressionKind::Call &&
                     sb9.as<CallExpression>().isSystemCall() &&
                     sb9.as<CallExpression>().getSubroutineName() == "$bits" &&
-                    ps.getValue().isInteger() &&
-                    !ps.getValue().integer().hasUnknown())
+                    psValue459().isInteger() &&
+                    !psValue459().integer().hasUnknown())
                     bitsFoldInit = true;
                 // § bitsParamArgNoFold405 (r11u405, R11U405_BITSPARAM_OFF) —
                 // `$bits(k)` whose argument is a PARAMETER (typed or not,
@@ -14644,7 +14669,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         // Surelog could not compute.
         if (topView && (overridden || noDefExprOv || noDefLitMP) &&
             !structOvPat && !elabOvMiseval9) {
-            auto& cvo = ps.getValue();
+            auto& cvo = psValue459();
             // An override actual that CONCATENATES a struct-typed parameter
             // (.init({init_val})) is NOT folded: Surelog substitutes the
             // referenced parameter with its own assignment pattern, flattened
@@ -16920,7 +16945,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                                 ai9->getParentScope()->asSymbol().kind ==
                                     SymbolKind::Package;
                     int32_t aw9 = (int32_t)slPackedWidth(ps.getType());
-                    auto av9 = ps.getValue();
+                    auto av9 = psValue459();
                     if (aw9 > 0 && av9.isInteger() &&
                         !av9.integer().hasUnknown() &&
                         (apk9 || !defViewOrig9)) {
@@ -16970,9 +16995,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     auto* leftovers = srlgEvalFuncMemberLeftovers(*mlSub);
                     if (leftovers &&
                         mst.kind == SymbolKind::PackedStructType &&
-                        ps.getValue().isInteger() &&
-                        !ps.getValue().integer().hasUnknown()) {
-                        auto& whole = ps.getValue().integer();
+                        psValue459().isInteger() &&
+                        !psValue459().integer().hasUnknown()) {
+                        auto& whole = psValue459().integer();
                         SrlgMemLeftStamp st9;
                         // § memLeftFormalReadTs18 — the builder subroutine and
                         // the ref's VpiFullName, captured here because the
@@ -17566,9 +17591,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // ParamCast: work@otp_ctrl.NumAgents is UINT:3/size 32 with the
             // 10:12 `int` typespec in allModules and topModules alike.
             if (!rhs && pkgTypeCastFold9 && !inPackage && isImported &&
-                ps.getValue().isInteger() &&
-                !ps.getValue().integer().hasUnknown()) {
-                auto& iv9 = ps.getValue().integer();
+                psValue459().isInteger() &&
+                !psValue459().integer().hasUnknown()) {
+                auto& iv9 = psValue459().integer();
                 bool neg9 = iv9.isSigned() && iv9.isNegative();
                 std::string dg9 = iv9.toString(LiteralBase::Decimal, false);
                 auto* c9 = s.MakeConstant();
@@ -18016,9 +18041,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // evaluated value: size 32, INT/UINT by the value's sign,
                 // whole-init span, ts ref patched to the param ts (Surelog).
                 else if (pkgElabComputed && containsUserCall(*init) &&
-                         ps.getValue().isInteger() &&
-                         !ps.getValue().integer().hasUnknown()) {
-                    auto& iv2 = ps.getValue().integer();
+                         psValue459().isInteger() &&
+                         !psValue459().integer().hasUnknown()) {
+                    auto& iv2 = psValue459().integer();
                     std::string digits =
                         iv2.toString(LiteralBase::Decimal, false);
                     bool sgn2 = iv2.isSigned();
@@ -23837,7 +23862,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     // (const_func_block_var). Lifetime is irrelevant.
                     if (csub9 && !unevalArg9 && !subroutineDeclaresParam(*csub9) &&
                         !subroutinePoisonsEvalFunc(*csub9, comp)) {
-                        auto& pv9 = ps.getValue();
+                        auto& pv9 = psValue459();
                         if (pv9.isInteger() &&
                             !pv9.integer().hasUnknown()) {
                             auto iv9 = pv9.integer();
@@ -24567,9 +24592,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 if (!rhs && !topView && isImported &&
                     ((!inPackage && (sysFold7 || arithFold7 || condFold7)) ||
                      userFold7) &&
-                    ps.getValue().isInteger() &&
-                    !ps.getValue().integer().hasUnknown()) {
-                    auto& sv7 = ps.getValue().integer();
+                    psValue459().isInteger() &&
+                    !psValue459().integer().hasUnknown()) {
+                    auto& sv7 = psValue459().integer();
                     std::string dg7 = sv7.toString(LiteralBase::Decimal, false);
                     bool neg7 = sv7.isSigned() && sv7.isNegative();
                     // § impArithFoldSigned (r10earl5) — an ARITHMETIC init is
@@ -24741,9 +24766,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // generic const-call fold's function-return-width UINT.
                 if (topView && !inPackage && isImported && userFold7 && rhs &&
                     rhs->UhdmType() == UHDM::uhdmconstant &&
-                    ps.getValue().isInteger() &&
-                    !ps.getValue().integer().hasUnknown()) {
-                    auto& sv8 = ps.getValue().integer();
+                    psValue459().isInteger() &&
+                    !psValue459().integer().hasUnknown()) {
+                    auto& sv8 = psValue459().integer();
                     std::string dg8 = sv8.toString(LiteralBase::Decimal, false);
                     auto* c8 = (UHDM::constant*)rhs;
                     c8->VpiDecompile(dg8);
@@ -26487,9 +26512,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     ik52 != ExpressionKind::Concatenation &&
                     ik52 != ExpressionKind::Replication &&
                     rhs && rhs->UhdmType() == UHDM::uhdmconstant &&
-                    init && ps.getValue().isInteger() &&
-                    !ps.getValue().integer().hasUnknown() &&
-                    ps.getValue().integer().getBitWidth() <= 64) {
+                    init && psValue459().isInteger() &&
+                    !psValue459().integer().hasUnknown() &&
+                    psValue459().integer().getBitWidth() <= 64) {
                     SrlgTsK tk52;
                     bool tsg52;
                     int32_t tw52;
@@ -26628,6 +26653,24 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         c52->VpiConstType(e52.ct);
                         c52->VpiSize(e52.size);
                         c52->VpiDecompile(e52.dec);
+                        // § pkgBitsTypeEnumZero459 — the encoding pipeline
+                        // re-reads slang's value; keep the Surelog value's
+                        // digits in the decimal forms it renders.
+                        if (zv459 && zv459.isInteger() &&
+                            (e52.ct == vpiIntConst || e52.ct == vpiUIntConst)) {
+                            auto& z52 = zv459.integer();
+                            bool n52 = z52.isSigned() && z52.isNegative();
+                            if (!n52 || e52.ct == vpiIntConst) {
+                                std::string d52 = (n52 ? "-" : "") +
+                                                  (n52 ? (-z52) : z52)
+                                                      .toString(LiteralBase::Decimal, false);
+                                lawTrace(459, "pkgBitsTypeEnumZero459",
+                                         "elab adjust " + std::string(ps.name) + " " +
+                                             std::string(c52->VpiDecompile()) + " -> " + d52);
+                                c52->VpiValue((e52.ct == vpiIntConst ? "INT:" : "UINT:") + d52);
+                                c52->VpiDecompile(d52);
+                            }
+                        }
                     }
                 }
                 // § elabStrLitParamDeclWidth — a parameter whose DECLARED type
@@ -27155,7 +27198,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             init->type);
                 }
                 if (isImported && !inPackage && typedParam && castLit9) {
-                    auto cv9 = ps.getValue();
+                    auto cv9 = psValue459();
                     if (cv9.isInteger() && !cv9.integer().hasUnknown()) {
                         std::string dg9 =
                             cv9.integer().toString(LiteralBase::Decimal, false);
@@ -27277,7 +27320,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // width is — byte/shortint/longint/integer/bit/logic/vector and
                 // `int unsigned` alike.  Plain signed `int` = `'b1` is the ONE
                 // measured exception (INT:-1 at size 32); `int` = `'b0` is not.
-                if (topView && !inPackage && typedParam &&
+                // § defFlipUnszBasedRaw459 (r11u459, R11U459_DEFFLIPRAW_OFF)
+                // — the respell is the ELABORATOR's: a module's DEF listing
+                // reached through § modDefImportShape's flip (an imported
+                // typed parameter in a module with a parameter port list)
+                // keeps the literal as written.  sv-tests uvm_ac_config_db:
+                // sfr_master_bfm #(ADDR_WIDTH, DATA_WIDTH) imports uvm_pkg,
+                // golden's AllModules copy of `parameter uvm_field_flag_t
+                // UVM_DEFAULT = 'b000010101010101` reads 'b000010101010101
+                // where ours read 28'b000010101010101; the instance copy
+                // keeps the 28'b respell.  Grid tools/probe/r11u459repro/
+                // cases/UD.
+                bool defFlipRaw459 = false;
+                if (topView && defViewOrig9 && !inPackage && typedParam &&
+                    rhs->UhdmType() == UHDM::uhdmconstant &&
+                    lawOn(459, "R11U459_DEFFLIPRAW_OFF")) {
+                    std::string dc459(((UHDM::constant*)rhs)->VpiDecompile());
+                    size_t b459 = 1;
+                    if (dc459.size() > b459 && (dc459[b459] == 's' || dc459[b459] == 'S'))
+                        b459++;
+                    char k459 = dc459.size() > b459 ? (char)std::tolower(dc459[b459]) : 0;
+                    if (!dc459.empty() && dc459[0] == '\'' &&
+                        (k459 == 'b' || k459 == 'o' || k459 == 'h')) {
+                        defFlipRaw459 = true;
+                        lawTrace(459, "defFlipUnszBasedRaw459",
+                                 std::string(ps.name) + " " + dc459 + " in " + prefix);
+                    }
+                }
+                if (topView && !defFlipRaw459 && !inPackage && typedParam &&
                     rhs->UhdmType() == UHDM::uhdmconstant) {
                     auto* rc8 = (UHDM::constant*)rhs;
                     std::string dc8(rc8->VpiDecompile());
@@ -28195,6 +28265,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             // in the param_assign Rhs (hierdefparam: UINT:44 / Rhs 42).
             if (!inPackage && !overridden && hasDefault && defaultInit &&
                 rhs && rhs->UhdmType() == UHDM::uhdmconstant) {
+                // (slang's own value: the defparam test compares slang
+                // against slang, § pkgBitsTypeEnumZero459 stays out)
                 auto& cvd9 = ps.getValue();
                 if (cvd9.isInteger() && !cvd9.integer().hasUnknown() &&
                     ps.getType().getCanonicalType().isIntegral()) {
@@ -31316,6 +31388,61 @@ void UhdmExporter::drainPaNameCopySrc38() {
         rc38->VpiConstType(sct38);
         if (rc38->VpiSize() == sc38->VpiSize())
             rc38->VpiDecompile(std::string(sc38->VpiDecompile()));
+    }
+}
+
+// § pkgBitsTypeEnumZero459 (EmitHelpers.h) — a folded packed bound of a
+// typedef listing (`typedef bit [N-1:0] v_t` with N = $bits over a base-less
+// enum member) takes the parameter's Surelog value: golden INT:7 where slang
+// folds 39.  Only constants already written in an INT or UINT form change
+// digits; the unfolded definition-view operations are left alone.
+static void zeroEnumBoundFix459(UHDM::typespec* lts, const syntax::SyntaxNode& typeSyn,
+                                const Scope& scope, const std::string& tdName) {
+    if (!lts || !syntax::IntegerTypeSyntax::isKind(typeSyn.kind))
+        return;
+    auto& dims459 = typeSyn.as<syntax::IntegerTypeSyntax>().dimensions;
+    UHDM::VectorOfrange* rs459 = nullptr;
+    if (lts->UhdmType() == UHDM::uhdmlogic_typespec)
+        rs459 = ((UHDM::logic_typespec*)lts)->Ranges();
+    else if (lts->UhdmType() == UHDM::uhdmbit_typespec)
+        rs459 = ((UHDM::bit_typespec*)lts)->Ranges();
+    if (!rs459 || dims459.size() != rs459->size())
+        return;
+    ASTContext zc459(scope, LookupLocation::max);
+    auto fix459 = [&](const syntax::ExpressionSyntax& bs, UHDM::expr* be) {
+        if (!be || be->UhdmType() != UHDM::uhdmconstant)
+            return;
+        auto* bc = (UHDM::constant*)be;
+        std::string v(bc->VpiValue());
+        if (v.rfind("INT:", 0) != 0 && v.rfind("UINT:", 0) != 0)
+            return;
+        auto& bx = Expression::bind(bs, zc459);
+        if (bx.bad() || !srlgZeroEnumReaches459(bx))
+            return;
+        slang::SVInt z;
+        if (!srlgZeroEnumEval459(zc459, bx, z))
+            return;
+        bool neg = z.isSigned() && z.isNegative();
+        if (neg && v.rfind("UINT:", 0) == 0)
+            return;
+        std::string dg = (neg ? "-" : "") +
+                         (neg ? (-z) : z).toString(LiteralBase::Decimal, false);
+        lawTrace(459, "pkgBitsTypeEnumZero459", "bound " + tdName + " " + v + " -> " + dg);
+        bc->VpiValue(v.substr(0, v.find(':') + 1) + dg);
+        bc->VpiDecompile(dg);
+    };
+    for (size_t i459 = 0; i459 < rs459->size(); i459++) {
+        auto* d459 = dims459[i459];
+        if (!d459 || !d459->specifier ||
+            d459->specifier->kind != syntax::SyntaxKind::RangeDimensionSpecifier)
+            continue;
+        const syntax::SelectorSyntax* sel459 =
+            &*d459->specifier->as<syntax::RangeDimensionSpecifierSyntax>().selector;
+        if (!sel459 || sel459->kind != syntax::SyntaxKind::SimpleRangeSelect)
+            continue;
+        auto& rsy459 = sel459->as<syntax::RangeSelectSyntax>();
+        fix459(*rsy459.left, (*rs459)[i459]->Left_expr());
+        fix459(*rsy459.right, (*rs459)[i459]->Right_expr());
     }
 }
 
@@ -42119,6 +42246,13 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                             continue;
                         cl8->VpiName(std::string(home8->asSymbol().name) +
                                      "::" + std::string(ta8.name));
+                        // § pkgBitsTypeEnumZero459 — the importer's re-listing
+                        // folds the same bound (sv-tests pipelined_get_put:
+                        // mbus_pipelined_agent_pkg's copy of
+                        // mbus_seq_item_vector_t; the case BE/be24).
+                        if (tSyn8 && !arr250 && lawOn(459, "R11U459_ZEROENUMBITS_OFF"))
+                            zeroEnumBoundFix459(cl8, *tSyn8, *home8,
+                                                std::string(ta8.name));
                         if (tSyn8 && !arr250)
                             setLoc(cl8, tSyn8->sourceRange());
                         // An AGGREGATE clone (packed union) built here comes
@@ -42987,6 +43121,12 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         bindRefs(r->Right_expr());
                     }
             }
+            // § pkgBitsTypeEnumZero459 (EmitHelpers.h) — the ELABORATED
+            // listing folds a bound that reads such a parameter with the
+            // parameter's Surelog value (`typedef bit [N-1:0] v_t` with N =
+            // $bits over a base-less enum member: golden INT:7, slang 39).
+            if (topView && typeSyn && lawOn(459, "R11U459_ZEROENUMBITS_OFF"))
+                zeroEnumBoundFix459(lts, *typeSyn, pkg, std::string(ta.name));
             typedefClone[&ta] = nullptr;
             ts = lts;
         }

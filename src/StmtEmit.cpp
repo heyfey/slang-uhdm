@@ -8,6 +8,7 @@
 #include "UhdmExporter.h"
 
 #include "EmitHelpers.h"
+#include "slang/syntax/SyntaxTree.h"  // § unitImpTransLateList459 (the package order scan)
 #include "LawSwitch.h"
 #include "LawState.h"
 #include <uhdm/UhdmListener.h>
@@ -488,6 +489,89 @@ bool UhdmExporter::pkgImportedByUnit21(const Symbol& pkgSym) {
         }
         if (any)
             break;
+    }
+    // § unitImpTransLateList459 (r11u459, R11U459_UNITTRANS_OFF) — the
+    // list importPackage copies is the imported package's WHOLE late list,
+    // and a package whose BODY imports another already holds that package's
+    // list (CompilePackage runs the body's import items through the same
+    // importPackage), so a $unit import of a package that imports the home
+    // package, directly or through a chain, also hands the FileContent pass
+    // the home package's class-property names.  Only import declarations
+    // written in the package body count and only an edge to a package
+    // declared EARLIER in source order (Surelog compiles packages in strict
+    // source order, so a later one is still empty: pass 454's
+    // § pkgLateTsBodyImportsOnly454v and § pkgLateTsEarlierPkgOnly454v).
+    // sv-tests uvm_use_models_pipelined_get_put: mbus_pipelined_driver_bfm.sv
+    // writes `import mbus_pipelined_agent_pkg::*;` at file scope and that
+    // package imports uvm_pkg, so golden writes uvm_default_factory's foreach
+    // loop variables as int_var where ours wrote array_var.  Grid
+    // tools/probe/r11u459repro/cases/FT.
+    if (!any && pkgSym.kind == SymbolKind::Package &&
+        lawOn(459, "R11U459_UNITTRANS_OFF")) {
+        std::map<std::string, size_t> ord459;
+        std::map<std::string, std::set<std::string>> body459;
+        size_t n459 = 0;
+        for (auto& tr459 : comp.getSyntaxTrees()) {
+            if (!tr459 || tr459->root().kind != syntax::SyntaxKind::CompilationUnit)
+                continue;
+            for (auto* m459 : tr459->root().as<syntax::CompilationUnitSyntax>().members) {
+                if (!m459 || m459->kind != syntax::SyntaxKind::PackageDeclaration)
+                    continue;
+                auto& md459 = m459->as<syntax::ModuleDeclarationSyntax>();
+                std::string pn459(md459.header->name.valueText());
+                ord459.emplace(pn459, n459++);
+                auto& b459 = body459[pn459];
+                for (auto* bm459 : md459.members)
+                    if (bm459 && bm459->kind == syntax::SyntaxKind::PackageImportDeclaration)
+                        for (auto* it459 :
+                             bm459->as<syntax::PackageImportDeclarationSyntax>().items)
+                            if (it459)
+                                b459.insert(std::string(it459->package.valueText()));
+                b459.erase(pn459);
+            }
+        }
+        // does package `q` (by name) hold `target`'s late list?
+        const std::string target459(pkgSym.name);
+        auto holds459 = [&](const std::string& q) {
+            std::set<std::string> seen;
+            std::vector<std::string> work{q};
+            while (!work.empty()) {
+                std::string pk = work.back();
+                work.pop_back();
+                if (!seen.insert(pk).second)
+                    continue;
+                auto bit = body459.find(pk);
+                auto op = ord459.find(pk);
+                if (bit == body459.end() || op == ord459.end())
+                    continue;
+                for (auto& r : bit->second) {
+                    auto orr = ord459.find(r);
+                    if (orr == ord459.end() || orr->second >= op->second)
+                        continue;
+                    if (r == target459)
+                        return true;
+                    work.push_back(r);
+                }
+            }
+            return false;
+        };
+        for (auto* cu : comp.getCompilationUnits()) {
+            for (auto& m : cu->members()) {
+                const Symbol* ip = nullptr;
+                if (m.kind == SymbolKind::WildcardImport)
+                    ip = (const Symbol*)m.as<WildcardImportSymbol>().getPackage();
+                else if (m.kind == SymbolKind::ExplicitImport)
+                    ip = (const Symbol*)m.as<ExplicitImportSymbol>().package();
+                if (ip && ip != &pkgSym && holds459(std::string(ip->name))) {
+                    any = true;
+                    lawTrace(459, "unitImpTransLateList459",
+                             target459 + " via $unit import of " + std::string(ip->name));
+                    break;
+                }
+            }
+            if (any)
+                break;
+        }
     }
     pkgUnitImp21[(const void*)&pkgSym] = any;
     return any;

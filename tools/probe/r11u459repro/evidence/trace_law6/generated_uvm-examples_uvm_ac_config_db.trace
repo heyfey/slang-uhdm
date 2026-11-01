@@ -1,0 +1,13 @@
+OUT /tmp/sw_r11u459/svtests/work/generated/uvm-examples/uvm_ac_config_db/slang.uhdm
+defFlipUnszBasedRaw459 UVM_DEFAULT 'b000010101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_ALL_ON 'b000000101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_FLAGS_ON 'b000000101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_DEFAULT 'b000010101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_ALL_ON 'b000000101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_FLAGS_ON 'b000000101010101 in work@sfr_master_bfm
+defFlipUnszBasedRaw459 UVM_DEFAULT 'b000010101010101 in work@sfr_monitor_bfm
+defFlipUnszBasedRaw459 UVM_ALL_ON 'b000000101010101 in work@sfr_monitor_bfm
+defFlipUnszBasedRaw459 UVM_FLAGS_ON 'b000000101010101 in work@sfr_monitor_bfm
+defFlipUnszBasedRaw459 UVM_DEFAULT 'b000010101010101 in work@sfr_monitor_bfm
+defFlipUnszBasedRaw459 UVM_ALL_ON 'b000000101010101 in work@sfr_monitor_bfm
+defFlipUnszBasedRaw459 UVM_FLAGS_ON 'b000000101010101 in work@sfr_monitor_bfm

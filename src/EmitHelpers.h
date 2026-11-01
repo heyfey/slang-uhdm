@@ -1361,6 +1361,251 @@ inline uint64_t slPackedWidth(const Type& t0) {
     return t->getBitWidth();
 }
 
+// § pkgBitsTypeEnumZero459 (r11u459, R11U459_ZEROENUMBITS_OFF) — Surelog's
+// `ExprEval::size` gives a base-less enum (`typedef enum { A, B } e`) ZERO
+// bits (§ enumNoBaseTypespecZeroBits28, ExprEmit), and a PARAMETER whose
+// initializer is `$bits(<type>)` over such a type keeps that value: the
+// compile-time reduction stores it on the parameter and every reader that
+// folds through the parameter (`(N+7)/8`, `N-1` in a range) computes from it.
+// sv-tests uvm_use_models_pipelined_get_put: mbus_types_pkg's
+// `parameter int MBUS_SEQ_ITEM_NUM_BITS = $bits(mbus_seq_item_s)` over a
+// struct holding the base-less `mbus_opcode_e` reads UINT:100 in golden where
+// slang (and ours) computes 132, and MBUS_SEQ_ITEM_NUM_BYTES reads 13, not 17.
+// These helpers re-evaluate an integral constant expression with that width
+// rule; the callers substitute the result only when the walk met such an
+// enum, so every other fold keeps slang's value byte for byte.  Only the
+// shapes below are evaluated (literals, implicit and explicit conversions,
+// + - * / % and unary +/-, non-overridden parameter reads, $bits of a type or
+// a plain name); anything else on a reaching path abstains.  Grid
+// tools/probe/r11u459repro/cases/BE.
+inline const Expression& stripImplicitConv(const Expression& e);
+inline bool srlgZeroEnumBits459(const Type& t0, uint64_t& out, bool& reached,
+                                int depth) {
+    if (depth > 12)
+        return false;
+    const Type* ct = &t0.getCanonicalType();
+    uint64_t mult = 1;
+    for (int g = 0; g < 16 && ct->isUnpackedArray(); g++) {
+        if (ct->kind == SymbolKind::FixedSizeUnpackedArrayType) {
+            uint64_t n = ct->as<FixedSizeUnpackedArrayType>().range.width();
+            if (n == 0)
+                return false;
+            mult *= n;
+        }
+        const Type* el = ct->getArrayElementType();
+        if (!el)
+            return false;
+        ct = &el->getCanonicalType();
+    }
+    for (int g = 0; g < 16 && ct->kind == SymbolKind::PackedArrayType; g++) {
+        auto& pa = ct->as<PackedArrayType>();
+        uint64_t n = pa.range.width();
+        if (n == 0)
+            return false;
+        mult *= n;
+        ct = &pa.elementType.getCanonicalType();
+    }
+    if (ct->kind == SymbolKind::EnumType) {
+        auto* syn = ct->getSyntax();
+        if (syn && syn->kind == syntax::SyntaxKind::EnumType &&
+            syn->as<syntax::EnumTypeSyntax>().baseType == nullptr) {
+            reached = true;
+            out = 0;
+            return true;
+        }
+    }
+    if (ct->kind == SymbolKind::PackedStructType || ct->isUnpackedStruct() ||
+        ct->isPackedUnion() || ct->isUnpackedUnion()) {
+        bool isUnion = ct->isPackedUnion() || ct->isUnpackedUnion();
+        uint64_t acc = 0;
+        for (auto& fm : ct->as<Scope>().members()) {
+            if (fm.kind != SymbolKind::Field)
+                continue;
+            const DeclaredType* fdt = fm.getDeclaredType();
+            if (!fdt)
+                return false;
+            uint64_t fb = 0;
+            if (!srlgZeroEnumBits459(fdt->getType(), fb, reached, depth + 1))
+                return false;
+            acc = isUnion ? std::max(acc, fb) : acc + fb;
+        }
+        out = mult * acc;
+        return true;
+    }
+    if (ct->isIntegral()) {
+        if (auto* pit = ct->as_if<PredefinedIntegerType>();
+            pit && pit->integerKind == PredefinedIntegerType::Time)
+            return false;
+        uint64_t w = ct->getBitWidth();
+        if (w == 0)
+            return false;
+        out = mult * w;
+        return true;
+    }
+    return false;
+}
+
+// The type a `$bits` argument names, for the two argument shapes evaluated.
+inline const Type* srlgZeroEnumBitsArg459(const Expression& a0) {
+    auto& a = stripImplicitConv(a0);
+    if (a.kind == ExpressionKind::DataType)
+        return a.type;
+    if (a.kind == ExpressionKind::NamedValue)
+        return &a.as<NamedValueExpression>().symbol.getDeclaredType()->getType();
+    return nullptr;
+}
+
+// Does `e` read a base-less enum width through a $bits call, directly or
+// through the initializers of the (non-overridden) parameters it reads?
+inline bool srlgZeroEnumReaches459(const Expression& e, int depth = 0) {
+    if (depth > 24)
+        return false;
+    switch (e.kind) {
+        case ExpressionKind::Conversion:
+            return srlgZeroEnumReaches459(e.as<ConversionExpression>().operand(),
+                                          depth + 1);
+        case ExpressionKind::UnaryOp:
+            return srlgZeroEnumReaches459(e.as<UnaryExpression>().operand(),
+                                          depth + 1);
+        case ExpressionKind::BinaryOp:
+            return srlgZeroEnumReaches459(e.as<BinaryExpression>().left(), depth + 1) ||
+                   srlgZeroEnumReaches459(e.as<BinaryExpression>().right(), depth + 1);
+        case ExpressionKind::ConditionalOp: {
+            auto& c = e.as<ConditionalExpression>();
+            for (auto& cd : c.conditions)
+                if (srlgZeroEnumReaches459(*cd.expr, depth + 1))
+                    return true;
+            return srlgZeroEnumReaches459(c.left(), depth + 1) ||
+                   srlgZeroEnumReaches459(c.right(), depth + 1);
+        }
+        case ExpressionKind::Call: {
+            auto& c = e.as<CallExpression>();
+            if (c.isSystemCall() && c.getSubroutineName() == "$bits" &&
+                c.arguments().size() == 1) {
+                if (auto* t = srlgZeroEnumBitsArg459(*c.arguments()[0])) {
+                    uint64_t w = 0;
+                    bool r = false;
+                    return srlgZeroEnumBits459(*t, w, r, 0) && r;
+                }
+                return false;
+            }
+            for (auto* a : c.arguments())
+                if (a && srlgZeroEnumReaches459(*a, depth + 1))
+                    return true;
+            return false;
+        }
+        case ExpressionKind::NamedValue: {
+            auto& sy = e.as<NamedValueExpression>().symbol;
+            if (sy.kind != SymbolKind::Parameter)
+                return false;
+            auto& ps = sy.as<ParameterSymbol>();
+            if (ps.isOverridden())
+                return false;
+            if (auto* in = ps.getInitializer())
+                return srlgZeroEnumReaches459(*in, depth + 1);
+            return false;
+        }
+        default:
+            return false;
+    }
+}
+
+// Evaluate `e` under the zero-width rule (see above).  False = abstain.
+inline bool srlgZeroEnumEval459(const ASTContext& ctx, const Expression& e,
+                                slang::SVInt& out, int depth = 0) {
+    if (depth > 24 || !e.type)
+        return false;
+    if (!srlgZeroEnumReaches459(e)) {
+        ConstantValue cv = ctx.tryEval(e);
+        if (!cv || !cv.isInteger() || cv.integer().hasUnknown())
+            return false;
+        out = cv.integer();
+        return true;
+    }
+    switch (e.kind) {
+        case ExpressionKind::Conversion: {
+            auto& c = e.as<ConversionExpression>();
+            if (!e.type->isIntegral() || e.type->getBitWidth() == 0)
+                return false;
+            slang::SVInt v;
+            if (!srlgZeroEnumEval459(ctx, c.operand(), v, depth + 1))
+                return false;
+            v = v.resize((slang::bitwidth_t)e.type->getBitWidth());
+            v.setSigned(e.type->isSigned());
+            out = v;
+            return true;
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& u = e.as<UnaryExpression>();
+            slang::SVInt v;
+            if (!srlgZeroEnumEval459(ctx, u.operand(), v, depth + 1))
+                return false;
+            if (u.op == UnaryOperator::Plus)
+                out = v;
+            else if (u.op == UnaryOperator::Minus)
+                out = -v;
+            else
+                return false;
+            return true;
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& b = e.as<BinaryExpression>();
+            slang::SVInt l, r;
+            if (!srlgZeroEnumEval459(ctx, b.left(), l, depth + 1) ||
+                !srlgZeroEnumEval459(ctx, b.right(), r, depth + 1))
+                return false;
+            if (l.getBitWidth() != r.getBitWidth())
+                return false;
+            switch (b.op) {
+                case BinaryOperator::Add: out = l + r; return true;
+                case BinaryOperator::Subtract: out = l - r; return true;
+                case BinaryOperator::Multiply: out = l * r; return true;
+                case BinaryOperator::Divide:
+                    if (r == 0)
+                        return false;
+                    out = l / r;
+                    return true;
+                case BinaryOperator::Mod:
+                    if (r == 0)
+                        return false;
+                    out = l % r;
+                    return true;
+                default: return false;
+            }
+        }
+        case ExpressionKind::Call: {
+            auto& c = e.as<CallExpression>();
+            if (!(c.isSystemCall() && c.getSubroutineName() == "$bits" &&
+                  c.arguments().size() == 1))
+                return false;
+            auto* t = srlgZeroEnumBitsArg459(*c.arguments()[0]);
+            uint64_t w = 0;
+            bool r = false;
+            if (!t || !srlgZeroEnumBits459(*t, w, r, 0) || !r ||
+                !e.type->isIntegral() || e.type->getBitWidth() == 0)
+                return false;
+            out = slang::SVInt((slang::bitwidth_t)e.type->getBitWidth(), w,
+                               e.type->isSigned());
+            return true;
+        }
+        case ExpressionKind::NamedValue: {
+            auto& ps = e.as<NamedValueExpression>().symbol.as<ParameterSymbol>();
+            auto* in = ps.getInitializer();
+            if (!in || !ps.getType().isIntegral() || ps.getType().getBitWidth() == 0)
+                return false;
+            slang::SVInt v;
+            if (!srlgZeroEnumEval459(ctx, *in, v, depth + 1))
+                return false;
+            v = v.resize((slang::bitwidth_t)ps.getType().getBitWidth());
+            v.setSigned(ps.getType().isSigned());
+            out = v;
+            return true;
+        }
+        default:
+            return false;
+    }
+}
+
 // The set of local types passed as `type` parameter arguments to child
 // instances of `body` — a module-local net of such a type omits its def-view
 // typespec (Surelog leaves it a bare logic_net; the elab view re-types it).
