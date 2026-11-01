@@ -1,0 +1,40 @@
+LHS:
+decompile:
+parameter: (MBUS_SEQ_ITEM_NUM_BITS), id:379258, line:39:15, endln:39:37
+|vpiParent:
+\_design: (work@top_tb), id:478773
+|UINT:100
+|vpiTypespec:
+\_ref_typespec: (MBUS_SEQ_ITEM_NUM_BITS), id:379259
+  |vpiParent:
+  \_parameter: (MBUS_SEQ_ITEM_NUM_BITS), id:379258, line:39:15, endln:39:37
+  |vpiFullName:MBUS_SEQ_ITEM_NUM_BITS
+  |vpiActual:
+  \_int_typespec: , id:379260, line:39:11, endln:39:14
+|vpiSigned:1
+|vpiName:MBUS_SEQ_ITEM_NUM_BITS
+|vpiImported:mbus_types_pkg
+
+decompile:
+parameter: (MBUS_SEQ_ITEM_NUM_BITS), id:379258, line:39:15, endln:39:37
+|vpiParent:
+\_design: (work@top_tb), id:478773
+|UINT:100
+|vpiTypespec:
+\_ref_typespec: (MBUS_SEQ_ITEM_NUM_BITS), id:379259
+  |vpiParent:
+  \_parameter: (MBUS_SEQ_ITEM_NUM_BITS), id:379258, line:39:15, endln:39:37
+  |vpiFullName:MBUS_SEQ_ITEM_NUM_BITS
+  |vpiActual:
+  \_int_typespec: , id:379260, line:39:11, endln:39:14
+|vpiSigned:1
+|vpiName:MBUS_SEQ_ITEM_NUM_BITS
+|vpiImported:mbus_types_pkg
+RHS:
+decompile:
+sys_func_call: ($bits), id:2917, line:39:41, endln:39:63
+|vpiParent:
+\_param_assign: , id:2916, line:39:15, endln:39:63
+|vpiArgument:
+\_ref_obj: (mbus_types_pkg::mbus_seq_item_s), id:2918, line:39:47, endln:39:62
+  |vpiParent:

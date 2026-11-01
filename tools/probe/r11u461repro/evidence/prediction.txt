@@ -1,0 +1,12 @@
+# r11u461 prediction, written from the traced census on law3 (md5 4ab1f3deaa31cdec702d8021bd9c2d15; law2 a7ef5a44 gave the same firings)
+# BEFORE the full sweep. Census: files naming `union` (119) or holding a typedef struct/union with a nested struct/union (153), fence-filtered from 22082 files,
+# mapped to 24 probe cases, 84 surelog row-modes (Earlgrey*, Opentitan, IncompTitan, BlackParrot* ...), 40 uhdm2rtlil row-modes and 30 sv-tests
+# rows; the traced binary run over all of them (positive control UN/un04 fires).
+probe:      0 firings on the 24 candidate cases -> NO mover, no status change.
+surelog:    BlackBePipeInt default+testflags trace one `nested-union-walk` entry each that changes no
+            instance (law1 output byte-identical to the control's slang.uhdm on default) -> NO mover.
+uhdm2rtlil: 0 firings -> NO mover. downstream: NO mover (same databases' sources).
+sv-tests:   the 6 generated/black-parrot rows fire (§ pkgNestedAnonAggMemberInst461 changes 1 object in
+            bp_me_pkg bp_cce_inst_pushq_s.way_or_size, twice per row; § pkgImportUnionCloneHomeInst461
+            walks only); those rows are SURELOG_CRASH with the slang side exiting 3 under the size guard,
+            so no status moves. Every other row: no firing, no status change.

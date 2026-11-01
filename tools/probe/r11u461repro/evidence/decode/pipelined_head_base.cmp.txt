@@ -1,0 +1,56 @@
+LHS:
+decompile:
+sys_func_call: ($bits), id:120506, line:39:41, endln:39:63
+|vpiParent:
+\_param_assign: , id:120499, line:39:15, endln:39:63
+|vpiArgument:
+\_ref_obj: (mbus_types_pkg::mbus_seq_item_s), id:120507, line:39:47, endln:39:62
+  |vpiParent:
+  \_sys_func_call: ($bits), id:120506, line:39:41, endln:39:63
+  |vpiName:mbus_seq_item_s
+  |vpiFullName:mbus_types_pkg::mbus_seq_item_s
+|vpiName:$bits
+
+decompile:
+sys_func_call: ($bits), id:120506, line:39:41, endln:39:63
+|vpiParent:
+\_param_assign: , id:120499, line:39:15, endln:39:63
+|vpiArgument:
+\_ref_obj: (mbus_types_pkg::mbus_seq_item_s), id:120507, line:39:47, endln:39:62
+  |vpiParent:
+  \_sys_func_call: ($bits), id:120506, line:39:41, endln:39:63
+  |vpiName:mbus_seq_item_s
+  |vpiFullName:mbus_types_pkg::mbus_seq_item_s
+|vpiName:$bits
+RHS:
+decompile:
+constant: , id:183035, line:39:41, endln:39:63
+|vpiParent:
+\_param_assign: , id:183034, line:39:15, endln:39:63
+|vpiDecompile:100
+|vpiSize:32
+|UINT:100
+|vpiTypespec:
+\_ref_typespec: (mbus_types_pkg), id:183036
+  |vpiParent:
+  \_constant: , id:183035, line:39:41, endln:39:63
+  |vpiFullName:mbus_types_pkg
+  |vpiActual:
+  \_int_typespec: , id:183037, line:39:11, endln:39:14
+|vpiConstType:9
+
+decompile:
+constant: , id:183035, line:39:41, endln:39:63
+|vpiParent:
+\_param_assign: , id:183034, line:39:15, endln:39:63
+|vpiDecompile:100
+|vpiSize:32
+|UINT:100
+|vpiTypespec:
+\_ref_typespec: (mbus_types_pkg), id:183036
+  |vpiParent:
+  \_constant: , id:183035, line:39:41, endln:39:63
+  |vpiFullName:mbus_types_pkg
+  |vpiActual:
+  \_int_typespec: , id:183037, line:39:11, endln:39:14
+|vpiConstType:9

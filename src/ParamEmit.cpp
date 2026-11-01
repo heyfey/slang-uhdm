@@ -35903,6 +35903,32 @@ static UHDM::VectorOftypespec_member* aggMembersOf(UHDM::typespec* ts) {
     return nullptr;
 }
 
+// § pkgNestedAnonAggMemberInst461 — the leaf member typespecs of an
+// ANONYMOUS struct or union nested in a package struct or union listing carry
+// that package's vpiInstance, at any depth, where one has none yet (Surelog
+// compiles the nested aggregate in the package scope like the outer one).
+static int stampNestedAnonAgg461(UHDM::typespec* agg, UHDM::instance* inst,
+                                 std::set<UHDM::typespec*>& seen) {
+    int n = 0;
+    auto* ms = aggMembersOf(agg);
+    if (!ms || !inst || !seen.insert(agg).second)
+        return 0;
+    for (auto* tm : *ms) {
+        if (!tm || !tm->Typespec())
+            continue;
+        auto* at = tm->Typespec()->Actual_typespec();
+        if (!at)
+            continue;
+        if (!at->Instance()) {
+            at->Instance(inst);
+            n++;
+        }
+        if (at->VpiName().empty() && aggMembersOf(at))
+            n += stampNestedAnonAgg461(at, inst, seen);
+    }
+    return n;
+}
+
 // The aggregate SCOPE behind a canonical type (nullptr when not aggregate).
 static const Scope* aggScopeOf(const Type& ct) {
     switch (ct.kind) {
@@ -41877,13 +41903,29 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 hip3 != pkgDefMap.end()) {
                                 std::function<void(UHDM::typespec*)> stampHome =
                                     [&](UHDM::typespec* t3) {
+                                        // § pkgImportUnionCloneHomeInst461
+                                        // also walks an ANONYMOUS union
+                                        // member of the clone (golden: its
+                                        // members at the home package too;
+                                        // the case UN/un08).
                                         if (!t3 ||
-                                            t3->UhdmType() !=
-                                                UHDM::uhdmstruct_typespec)
+                                            (t3->UhdmType() !=
+                                                 UHDM::uhdmstruct_typespec &&
+                                             !(t3 != scl &&
+                                               t3->UhdmType() ==
+                                                   UHDM::uhdmunion_typespec &&
+                                               t3->VpiName().empty() &&
+                                               lawOn(461,
+                                                     "R11U461_UNIONCLONE_OFF"))))
                                             return;
-                                        auto* ms3 =
-                                            ((UHDM::struct_typespec*)t3)
-                                                ->Members();
+                                        if (t3->UhdmType() ==
+                                            UHDM::uhdmunion_typespec)
+                                            lawTrace(461,
+                                                     "pkgImportUnionCloneHomeInst461",
+                                                     std::string(pkg.name) +
+                                                         " nested-union-walk " +
+                                                         nm2);
+                                        auto* ms3 = aggMembersOf(t3);
                                         if (!ms3)
                                             return;
                                         for (auto* tm3 : *ms3) {
@@ -42263,6 +42305,55 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         // members (BlackBePipeInt bp_bedrock_msg_u, whose six
                         // members are all bp_common_pkg enums).
                         bindImportCloneMembers(cl8, ta8.getCanonicalType());
+                        // § pkgImportUnionCloneHomeInst461 — a UNION import
+                        // clone's fresh (unnamed) member typespecs take the
+                        // HOME package's definition view as vpiInstance, and
+                        // so do the members of an anonymous struct or union
+                        // member, at any depth: Surelog's importPackage
+                        // clones the home package's compiled union, whose
+                        // member typespecs were minted in the home package
+                        // (the struct clone's stampHome above, which reaches
+                        // structs only).  A named member keeps the binding
+                        // bindImportCloneMembers gave it.  Witness: package
+                        // p's `typedef union packed {...} u_t`, package ap
+                        // importing p, a module importing ap: golden's module
+                        // copy of u_t has its bit_typespec members at p's
+                        // definition view, ours had none (uhdm-cmp head; the
+                        // grid tools/probe/r11u461repro/cases/UN).  Switch
+                        // R11U461_UNIONCLONE_OFF.
+                        if (cl8->UhdmType() == UHDM::uhdmunion_typespec &&
+                            lawOn(461, "R11U461_UNIONCLONE_OFF"))
+                            if (auto hp461 = pkgDefMap.find(&home8->asSymbol());
+                                hp461 != pkgDefMap.end() && hp461->second) {
+                                auto* hi461 = (UHDM::instance*)hp461->second;
+                                std::set<UHDM::typespec*> seen461;
+                                int ch461 = 0;
+                                std::function<void(UHDM::typespec*)> st461 =
+                                    [&](UHDM::typespec* a461) {
+                                        auto* ms461 = aggMembersOf(a461);
+                                        if (!ms461 || !seen461.insert(a461).second)
+                                            return;
+                                        for (auto* tm461 : *ms461) {
+                                            if (!tm461 || !tm461->Typespec())
+                                                continue;
+                                            auto* at461 =
+                                                tm461->Typespec()->Actual_typespec();
+                                            if (!at461 || !at461->VpiName().empty())
+                                                continue;
+                                            if (at461->Instance() != hi461)
+                                                ch461++;
+                                            at461->Instance(hi461);
+                                            st461(at461);
+                                        }
+                                    };
+                                st461(cl8);
+                                if (ch461)
+                                lawTrace(461, "pkgImportUnionCloneHomeInst461",
+                                         std::to_string(ch461) + " " +
+                                         std::string(pkg.name) + " " +
+                                             std::string(home8->asSymbol().name) +
+                                             "::" + std::string(ta8.name));
+                            }
                         // NOTE § pkgImportClassTdClone50 — a CLASS-HANDLE clone
                         // is NOT a plain makeTypespec copy: golden's is the same
                         // shape the package's own class-handle listing entries
@@ -43539,6 +43630,28 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                         ->Actual_typespec()
                                         ->Instance((UHDM::instance*)up);
                     }
+            // § pkgNestedAnonAggMemberInst461 — the same holds for an
+            // ANONYMOUS UNION member, which the loop above never entered, and
+            // for an anonymous aggregate at any depth below the first:
+            // golden's `typedef struct packed { union packed {...} u; ... }`
+            // has the union's leaf members at the package in both views (the
+            // cases UN/un17, un21, un26).  Switch R11U461_NESTEDAGG_OFF.
+            if (sts->Members() && lawOn(461, "R11U461_NESTEDAGG_OFF"))
+                for (auto* tmN : *sts->Members())
+                    if (tmN->Typespec() && tmN->Typespec()->Actual_typespec() &&
+                        aggMembersOf(tmN->Typespec()->Actual_typespec()) &&
+                        tmN->Typespec()->Actual_typespec()->VpiName().empty()) {
+                        std::set<UHDM::typespec*> seenN461;
+                        int nN461 = stampNestedAnonAgg461(
+                            tmN->Typespec()->Actual_typespec(),
+                            (UHDM::instance*)up, seenN461);
+                        if (nN461)
+                        lawTrace(461, "pkgNestedAnonAggMemberInst461",
+                                 std::to_string(nN461) + " " +
+                                 std::string(pkg.name) + " struct " +
+                                     std::string(ta.name) + "." +
+                                     std::string(tmN->VpiName()));
+                    }
             // The TOP view's span stretches to the first module-signal USE
             // declarator (patched once defs exist); the def view keeps the
             // typedef span.
@@ -43867,6 +43980,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                 pkgDefMemberActual.insert(muA);
                             }
                         }
+                    }
+            // § pkgNestedAnonAggMemberInst461 (see stampNestedAnonAgg461): an
+            // ANONYMOUS struct or union member of a package union carries the
+            // package instance on its own leaf members too (the cases UN/un07,
+            // un18).  Switch R11U461_NESTEDAGG_OFF.
+            if (uts->Members() && lawOn(461, "R11U461_NESTEDAGG_OFF"))
+                for (auto* tm : *uts->Members())
+                    if (tm->Typespec() && tm->Typespec()->Actual_typespec() &&
+                        tm->Typespec()->Actual_typespec()->VpiName().empty() &&
+                        aggMembersOf(tm->Typespec()->Actual_typespec())) {
+                        std::set<UHDM::typespec*> seenU461;
+                        int nU461 = stampNestedAnonAgg461(
+                            tm->Typespec()->Actual_typespec(),
+                            (UHDM::instance*)up, seenU461);
+                        if (nU461)
+                        lawTrace(461, "pkgNestedAnonAggMemberInst461",
+                                 std::to_string(nU461) + " " +
+                                 std::string(pkg.name) + " union " +
+                                     std::string(ta.name) + "." +
+                                     std::string(tm->VpiName()));
                     }
             // Mirror the struct arm: Surelog CROSS-WIRES the two views' member
             // typespecs. The DEF pass folds member bounds ([K:0] -> constant);

@@ -1,0 +1,6 @@
+VB/vb13 | rc=0 cmp=309 NOT_EQUAL stage1 md5=faf8e9e6 | rc=0 cmp=746 NOT_EQUAL stage1 md5=f542ffa9 | MOVED
+LT/lt02 | rc=0 cmp=149 NOT_EQUAL stage1 md5=f12b110e | rc=0 cmp=386 NOT_EQUAL stage1 md5=adb9fa04 | MOVED
+LT/lt06 | rc=0 cmp=149 NOT_EQUAL stage1 md5=0738fd30 | rc=0 cmp=386 NOT_EQUAL stage1 md5=1b6a1cd0 | MOVED
+v11u458repro/cases/VB/vb13 rtinst 120 -> 118
+r11u458repro/cases/LT/lt02 rtinst 28 -> 24
+r11u458repro/cases/LT/lt06 rtinst 28 -> 24

@@ -1,0 +1,5 @@
+OUT /tmp/v11u461_trsv/work/generated/black-parrot/bp_unicore/slang.uhdm
+pkgImportUnionCloneHomeInst461 bp_fe_pkg nested-union-walk bp_common_pkg::rv64_instr_s
+pkgImportUnionCloneHomeInst461 bp_fe_pkg nested-union-walk bp_common_pkg::rv64_cinstr_s
+pkgNestedAnonAggMemberInst461 1 bp_me_pkg struct bp_cce_inst_pushq_s.way_or_size
+pkgNestedAnonAggMemberInst461 1 bp_me_pkg struct bp_cce_inst_pushq_s.way_or_size
