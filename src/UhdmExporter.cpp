@@ -2303,6 +2303,342 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         const_cast<UHDM::BaseClass*>(t)->VpiParent(p);
 }
 
+// THE AGGREGATE COPY NAMES OF PASS 458 (r11u458; cases
+// tools/probe/r11u458repro/cases/MA and MB; sv-tests generated/uvm-examples/
+// uvm_ef_vif_config_db.sv, strict differ:fullname(427) at the base).  Surelog
+// stores no full name on a struct or union member's ref_typespec, on an enum's
+// base ref_typespec or on the Typedef_alias ref of a member's per-member
+// typedef copy: BaseClass::ComputeFullName names each from its FINAL parent
+// chain at save time.  Ours stores the name the emitter computed when it made
+// the object, and two kinds of object kept a name from a chain that changed
+// afterwards; both laws run design-final (final287), after every parent is
+// final.
+//
+// § subrAggCopyNamesByChain458 — a struct, union or enum typespec that a
+// subroutine's local or formal OWNS (parented at the ref_typespec that binds
+// it, under a task or function before any package, class, module, interface
+// or program) names its member refs, its base ref and the alias refs of its
+// members' own typedef copies through its chain: golden
+// `sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::
+// uvm_reg_bus_op::addr` and `sfr_agent_pkg::uvm_printer::print_object::
+// recursion_policy::uvm_pkg::uvm_recursion_policy_enum` where ours kept the
+// name its source object read when the importer copy was cloned
+// (`work@hdl_top.uvm_pkg::uvm_reg_bus_op.addr`, the shared typedef parented
+// at the module listing that wrote it then; § cloneOwnAggMemberChainName285
+// renames only a struct whose ref sits directly under a variable, so the
+// element struct of a queue local `op_s q[$]`, its struct_var element and
+// the enum copies stayed stale).  A stored name that differs from the
+// chain's and ends with the object's own tail (the typedef name and member
+// name) is replaced by the chain's; a member typedef copy shared with
+// another binder gets its own deep copy under the member ref first, as
+// § cloneMembTdOwnCopy285 does.  Switch R11U458_SUBRCOPYNAME_OFF.
+//
+// § memberAliasFollowsMemberName458 — the per-member typedef copy that
+// § memberBareTdAliasNamedByUse183 mints for a struct or union member
+// (`a_t addr;`, a bit or logic copy left without a parent) names its alias
+// ref `<member ref name><sep><typedef>` from the member ref's name at
+// emission; § typedefParentLastWriter134 later re-parents the shared typedef
+// at its last writer and renames the member refs but cannot reach the copy
+// (no parent), so the alias kept the earlier module's name: golden
+// `work@hvl_top.uvm_pkg::uvm_reg_bus_op.addr.uvm_reg_addr_t` (Surelog writes
+// modules in allModules NAME order, hdl_top then hvl_top) where ours read
+// `work@hdl_top...` (the module our emitter wrote last, in source order).
+// The alias of such a copy (one binder only) whose stored name is a member
+// chain name for this member takes the member ref's final name and its
+// separator.  Switch R11U458_MEMBALIASNAME_OFF.
+static void aggCopyNames458(UHDM::Serializer& s) {
+    const bool lawB = lawOn(458, "R11U458_SUBRCOPYNAME_OFF");
+    const bool lawA = lawOn(458, "R11U458_MEMBALIASNAME_OFF");
+    if (!lawA && !lawB)
+        return;
+    // § subrAggCopyNamesByChain458, the stray copy: a subroutine body's
+    // reference (a local's, a formal's, an array element's) that binds a
+    // struct or union object parented at a module, interface or program
+    // whose own listing does not hold it (a copy taken from the shared
+    // typedef while a module listing held it, the r11u458 case MB/mb01's
+    // `op_s q[$]` and `op_s one` in the importer copy ap::C::t, golden the
+    // copy's own objects under each reference) takes its own deep copy
+    // parented at the reference; the names below follow.
+    if (lawB) {
+        auto stray = [](const UHDM::typespec* a) {
+            auto* p = a->VpiParent();
+            if (!p)
+                return false;
+            const UHDM::VectorOftypespec* ls = nullptr;
+            auto k = p->UhdmType();
+            if (k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram)
+                ls = ((const UHDM::instance*)p)->Typespecs();
+            else
+                return false;
+            return !ls || std::find(ls->begin(), ls->end(), a) == ls->end();
+        };
+        std::vector<UHDM::ref_typespec*> rs;
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::any*)kv.first;
+            if (!o || o->UhdmType() != UHDM::uhdmref_typespec)
+                continue;
+            auto* r = (UHDM::ref_typespec*)o;
+            auto* a = r->Actual_typespec();
+            if (!a || a->VpiName().empty() || a->VpiParent() == r ||
+                (a->UhdmType() != UHDM::uhdmstruct_typespec &&
+                 a->UhdmType() != UHDM::uhdmunion_typespec) ||
+                !stray(a))
+                continue;
+            bool viaTf = false;
+            for (auto* u = r->VpiParent(); u; u = u->VpiParent()) {
+                auto k = u->UhdmType();
+                if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask) {
+                    viaTf = true;
+                    break;
+                }
+                if (k == UHDM::uhdmpackage || k == UHDM::uhdmclass_defn ||
+                    k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                    k == UHDM::uhdmprogram || k == UHDM::uhdmdesign)
+                    break;
+            }
+            if (viaTf)
+                rs.push_back(r);
+        }
+        std::sort(rs.begin(), rs.end(), [](const UHDM::ref_typespec* a, const UHDM::ref_typespec* b) {
+            return a->UhdmId() < b->UhdmId();
+        });
+        for (auto* r : rs) {
+            auto* a = (UHDM::typespec*)r->Actual_typespec();
+            UHDM::ElaboratorContext ctx458(&s, false, /*muteErrors=*/true);
+            auto* c = (UHDM::typespec*)UHDM::clone_tree(a, &ctx458);
+            if (!c || c == a)
+                continue;
+            c->VpiParent(r);
+            r->Actual_typespec(c);
+            lawTrace(458, "subrAggCopyNamesByChain458",
+                     "stray copy " + std::string(a->VpiName()) + " under " +
+                         std::string(a->VpiParent()->VpiName()));
+        }
+    }
+    std::vector<UHDM::typespec*> aggs;
+    std::map<const UHDM::typespec*, int> refCnt;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o)
+            continue;
+        auto k = o->UhdmType();
+        if (k == UHDM::uhdmstruct_typespec || k == UHDM::uhdmunion_typespec ||
+            k == UHDM::uhdmenum_typespec)
+            aggs.push_back((UHDM::typespec*)o);
+        else if (k == UHDM::uhdmref_typespec)
+            if (auto* a = ((const UHDM::ref_typespec*)o)->Actual_typespec())
+                refCnt[a]++;
+    }
+    std::sort(aggs.begin(), aggs.end(), [](const UHDM::typespec* a, const UHDM::typespec* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    // BaseClass::ComputeFullName (the walk § cloneOwnAggMemberChainName285
+    // transcribes); `column` reports the "::" join.
+    auto chain = [](const UHDM::BaseClass* o, bool* column = nullptr) {
+        std::vector<std::string_view> names;
+        bool col = false;
+        const UHDM::BaseClass* child = nullptr;
+        for (const UHDM::BaseClass* a = o; a; child = a, a = a->VpiParent()) {
+            auto t = a->UhdmType();
+            if (t == UHDM::uhdmdesign)
+                break;
+            if (t == UHDM::uhdmpackage || t == UHDM::uhdmclass_defn)
+                col = true;
+            const UHDM::BaseClass* ap = a->VpiParent();
+            bool skip = (ap && ap->UhdmType() == UHDM::uhdmref_obj) ||
+                        t == UHDM::uhdmmethod_func_call || t == UHDM::uhdmmethod_task_call ||
+                        t == UHDM::uhdmfunc_call || t == UHDM::uhdmtask_call ||
+                        t == UHDM::uhdmsys_func_call || t == UHDM::uhdmsys_task_call;
+            if (child) {
+                auto ct = child->UhdmType();
+                if (ct == UHDM::uhdmbit_select && t == UHDM::uhdmport)
+                    skip = true;
+                if (ct == UHDM::uhdmref_obj &&
+                    (t == UHDM::uhdmbit_select || t == UHDM::uhdmindexed_part_select ||
+                     t == UHDM::uhdmhier_path))
+                    skip = true;
+            }
+            if (skip)
+                continue;
+            std::string_view nm = a->VpiName().empty() ? a->VpiDefName() : a->VpiName();
+            if (!nm.empty())
+                names.push_back(nm);
+        }
+        std::string out;
+        for (auto it = names.rbegin(); it != names.rend(); ++it) {
+            if (!out.empty())
+                out += col ? "::" : ".";
+            out += *it;
+        }
+        if (column)
+            *column = col;
+        return out;
+    };
+    auto endsAt = [](const std::string& full, const std::string& tail) {
+        if (tail.empty())
+            return false;
+        if (full == tail)
+            return true;
+        if (full.size() <= tail.size() ||
+            full.compare(full.size() - tail.size(), tail.size(), tail) != 0)
+            return false;
+        char c = full[full.size() - tail.size() - 1];
+        return c == '.' || c == ':';
+    };
+    // a tail joined with either separator
+    auto endsAtAny = [&](const std::string& full, std::initializer_list<std::string_view> parts) {
+        std::string d, c;
+        for (auto p : parts) {
+            if (!d.empty()) {
+                d += '.';
+                c += "::";
+            }
+            d += p;
+            c += p;
+        }
+        return endsAt(full, d) || endsAt(full, c);
+    };
+    auto aliasOf = [](const UHDM::typespec* t) -> UHDM::ref_typespec* {
+        if (!t)
+            return nullptr;
+        if (t->UhdmType() == UHDM::uhdmbit_typespec)
+            return (UHDM::ref_typespec*)((const UHDM::bit_typespec*)t)->Typedef_alias();
+        if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+            return (UHDM::ref_typespec*)((const UHDM::logic_typespec*)t)->Typedef_alias();
+        return nullptr;
+    };
+    auto membersOf = [](const UHDM::typespec* t) -> const UHDM::VectorOftypespec_member* {
+        if (t->UhdmType() == UHDM::uhdmstruct_typespec)
+            return ((const UHDM::struct_typespec*)t)->Members();
+        if (t->UhdmType() == UHDM::uhdmunion_typespec)
+            return ((const UHDM::union_typespec*)t)->Members();
+        return nullptr;
+    };
+    // owned by a subroutine's local or formal
+    auto subrOwned = [](const UHDM::typespec* a) {
+        auto* r = a->VpiParent();
+        if (!r || r->UhdmType() != UHDM::uhdmref_typespec)
+            return false;
+        for (auto* u = r->VpiParent(); u; u = u->VpiParent()) {
+            auto k = u->UhdmType();
+            if (k == UHDM::uhdmfunction || k == UHDM::uhdmtask)
+                return true;
+            if (k == UHDM::uhdmpackage || k == UHDM::uhdmclass_defn ||
+                k == UHDM::uhdmmodule_inst || k == UHDM::uhdminterface_inst ||
+                k == UHDM::uhdmprogram || k == UHDM::uhdmdesign)
+                return false;
+        }
+        return false;
+    };
+    auto rename = [&](UHDM::ref_typespec* r, const std::string& nf, const char* law) {
+        std::string st;
+        if (!r || !r215StoredFullName(r, st) || st.empty() || nf.empty() || st == nf)
+            return;
+        r->VpiFullName(nf);
+        lawTrace(458, law, st + " -> " + nf);
+    };
+    std::set<const UHDM::typespec*> owned;
+    if (lawB)
+        for (auto* a : aggs) {
+            if (a->VpiName().empty() || !subrOwned(a))
+                continue;
+            owned.insert(a);
+            std::string an(a->VpiName());
+            if (a->UhdmType() == UHDM::uhdmenum_typespec) {
+                auto* br = (UHDM::ref_typespec*)((const UHDM::enum_typespec*)a)->Base_typespec();
+                std::string st;
+                if (br && br->VpiParent() == a && r215StoredFullName(br, st) &&
+                    endsAt(st, an))
+                    rename(br, chain(br), "subrAggCopyNamesByChain458");
+                continue;
+            }
+            auto* ms = membersOf(a);
+            if (!ms)
+                continue;
+            for (auto* m : *ms) {
+                if (!m || m->VpiParent() != a)
+                    continue;
+                auto* mr = (UHDM::ref_typespec*)m->Typespec();
+                std::string st;
+                if (!mr || mr->VpiParent() != m || !r215StoredFullName(mr, st) ||
+                    !endsAtAny(st, {an, m->VpiName()}))
+                    continue;
+                rename(mr, chain(mr), "subrAggCopyNamesByChain458");
+            }
+        }
+    // The member typedef copies' alias refs.
+    for (auto* a : aggs) {
+        if (a->VpiName().empty())
+            continue;
+        auto* ms = membersOf(a);
+        if (!ms)
+            continue;
+        const bool own = owned.count(a) > 0;
+        std::string an(a->VpiName());
+        for (auto* m : *ms) {
+            if (!m || m->VpiParent() != a)
+                continue;
+            auto* mr = (UHDM::ref_typespec*)m->Typespec();
+            std::string mst;
+            if (!mr || mr->VpiParent() != m)
+                continue;
+            // law A reads the member ref's stored name; an owned copy's
+            // member ref may carry none (ComputeFullName then names it)
+            if ((!r215StoredFullName(mr, mst) || mst.empty()) && !(own && lawB))
+                continue;
+            auto* mt = (UHDM::typespec*)mr->Actual_typespec();
+            auto* al = aliasOf(mt);
+            std::string st, tn(mt ? mt->VpiName() : "");
+            if (!al || al->VpiParent() != mt || tn.empty() || !r215StoredFullName(al, st) ||
+                st.empty())
+                continue;
+            const bool chainNamed = endsAtAny(st, {an, m->VpiName(), tn});
+            if (own && lawB) {
+                // § subrAggCopyNamesByChain458, the member copy's alias.
+                if (mt->VpiParent() == mr) {
+                    if (chainNamed || st == tn)
+                        rename(al, chain(al), "subrAggCopyNamesByChain458");
+                    continue;
+                }
+                if (!chainNamed && st != tn)
+                    continue;
+                bool col = false;
+                std::string want = chain(mr, &col);
+                want += (col ? "::" : ".") + tn;
+                if (st == want)
+                    continue;
+                // a copy another binder shares, or one parented elsewhere
+                // (a module's): the member takes its own deep copy
+                if (refCnt[mt] > 1 || mt->VpiParent()) {
+                    UHDM::ElaboratorContext ctx458(&s, false, /*muteErrors=*/true);
+                    auto* c0 = (UHDM::typespec*)UHDM::clone_tree(mt, &ctx458);
+                    auto* cal = aliasOf(c0);
+                    if (!c0 || c0 == mt || !cal)
+                        continue;
+                    c0->VpiParent(mr);
+                    cal->VpiParent(c0);
+                    mr->Actual_typespec(c0);
+                    refCnt[mt]--;
+                    refCnt[c0] = 1;
+                    lawTrace(458, "subrAggCopyNamesByChain458", "own copy " + tn);
+                    rename(cal, chain(cal), "subrAggCopyNamesByChain458");
+                    continue;
+                }
+                rename(al, want, "subrAggCopyNamesByChain458");
+                continue;
+            }
+            // § memberAliasFollowsMemberName458
+            if (!lawA || mt->VpiParent() || refCnt[mt] != 1 || !chainNamed)
+                continue;
+            std::string mn(m->VpiName());
+            const bool colSep = mst.size() > mn.size() + 2 &&
+                                mst.compare(mst.size() - mn.size() - 2, 2, "::") == 0;
+            rename(al, mst + (colSep ? "::" : ".") + tn, "memberAliasFollowsMemberName458");
+        }
+    }
+}
+
 // § typeParamStructLastNetParent273 (r11u273) — A TYPE PARAMETER'S
 // ANONYMOUS STRUCT IS PARENTED AT THE LAST SIGNAL DECLARED WITH IT.
 // Surelog's NetlistElaboration::elabSignal, for a signal whose declared type
@@ -15305,6 +15641,7 @@ public:
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
     g_cloneArrTs241; // § cloneLocalArrayTsParented241 (TaskFuncEmit.cpp)
 extern std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+extern std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458; // § cloneDeclOnlyTwinOwnObject458
 extern std::vector<std::pair<UHDM::ref_typespec*, std::vector<UHDM::ref_typespec*>>>
     g_lvHomeDeclTs259;  // § cloneLoopVarHomeDeclTs259
 UHDM::design* UhdmExporter::exportDesign() {
@@ -28318,6 +28655,29 @@ UHDM::design* UhdmExporter::exportDesign() {
                              "calls=" + std::to_string(n446));
             }
         }
+        // § cloneDeclOnlyTwinOwnObject458 (r11u458; law at TaskFuncEmit's
+        // declaration-only body) — the repeated entries take their deep
+        // copies now, after every rebind of the first entry's typespecs.
+        for (auto& [tf458, at458] : g_cloneTwin458) {
+            auto* vs458 = tf458 ? tf458->Variables() : nullptr;
+            if (!vs458 || at458 >= vs458->size() || !(*vs458)[at458])
+                continue;
+            auto* v458 = (*vs458)[at458];
+            if (std::count(vs458->begin(), vs458->end(), v458) < 2)
+                continue;  // no longer a repeated entry
+            UHDM::ElaboratorContext ctx458(&s, false, /*muteErrors=*/true);
+            auto* c458 = (UHDM::variables*)UHDM::clone_tree(v458, &ctx458);
+            if (!c458 || c458 == v458)
+                continue;
+            c458->VpiParent(tf458);
+            (*vs458)[at458] = c458;
+            lawTrace(458, "cloneDeclOnlyTwinOwnObject458",
+                     std::string(tf458->VpiName()) + " " + std::string(v458->VpiName()));
+        }
+        g_cloneTwin458.clear();
+        // § subrAggCopyNamesByChain458 / § memberAliasFollowsMemberName458
+        // (r11u458) — design-final (law and decode at the function).
+        aggCopyNames458(s);
         return d420;
     };
     if (!lawOn(146, "R11U146_TFARGTD_OFF"))

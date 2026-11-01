@@ -1,0 +1,9 @@
+downstream verdict (ds.one, -parse -nobuiltin -nocache -sv dut.sv), pristine | law
+VA/va01 IDENTICAL | IDENTICAL
+VA/va06 IDENTICAL | IDENTICAL
+VA/va08 IDENTICAL | IDENTICAL
+VB/vb01 IDENTICAL | IDENTICAL
+VB/vb06 IDENTICAL | IDENTICAL
+VB/vb07 IDENTICAL | IDENTICAL
+VB/vb09 IDENTICAL | IDENTICAL
+VB/vb10 EQUIVALENT (nohier, no common assigns) | EQUIVALENT

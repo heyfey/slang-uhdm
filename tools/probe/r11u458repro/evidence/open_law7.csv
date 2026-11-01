@@ -1,0 +1,7 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+uvm_ac_config_db,generated/uvm-examples/uvm_ac_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,13.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_ef_vif_config_db,generated/uvm-examples/uvm_ef_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,13.4,,EQUAL,equal,IDENTICAL,ok,ok
+uvm_id_register,generated/uvm-examples/uvm_id_register.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,19.1,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,13.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,18.6,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_many_to_one,generated/uvm-examples/uvm_many_to_one.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,31.7,,NOTEQUAL,decompile:,DIFFERENT,ok,ok

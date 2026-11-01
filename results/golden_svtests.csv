@@ -2071,7 +2071,7 @@ generated/uvm-examples/uart_example.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tes
 generated/uvm-examples/uvm_ac_config_db.sv,DIFFERENT,decompile:,
 generated/uvm-examples/uvm_alu_config_analysis.sv,BOTH_REJECT,error: '/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_alu_config_analysis/a': No such file or directory,
 generated/uvm-examples/uvm_c_stimulus_bl_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
-generated/uvm-examples/uvm_ef_vif_config_db.sv,STRICT_NOTEQUAL,differ:fullname(427),differ:fullname(427)
+generated/uvm-examples/uvm_ef_vif_config_db.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_persistence.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_poly.sv,EQUAL,,equal
 generated/uvm-examples/uvm_generation_seq_randomization.sv,EQUAL,,equal

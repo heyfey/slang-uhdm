@@ -1,0 +1,12 @@
+r11u458 prediction, written before the law sweep (final binary law7, md5 2bc868e0bde5fcc16f311b8b0d5cd30c)
+from the traced census on the candidate rows (drivers/scan_cand.py: 102 surelog rows both modes,
+the whole uhdm2rtlil corpus both modes, 286 probe candidates):
+  surelog: MiniAmiq default + testflags, SeqDriver default + testflags move bytes
+           (subrAggCopyNamesByChain458: 132 firings each, the importer copies of
+           uvm_reg_map::do_bus_write's uvm_reg_bus_op locals) and stay CMP_EQUAL strict equal;
+           every other row byte-identical
+  uhdm2rtlil: 0 firings, 0 movers; downstream (same sources): 0 movers
+  probe: r10uvm180repro/g180_a_kinds moves bytes (2 firings, the enum copy's base ref
+         names toward golden) and stays EQUAL; every other case byte-identical
+  sv-tests: generated/uvm-examples/uvm_ef_vif_config_db.sv STRICT_NOTEQUAL -> EQUAL
+            (STRICT_EQUAL 840299 objects); no other status moves

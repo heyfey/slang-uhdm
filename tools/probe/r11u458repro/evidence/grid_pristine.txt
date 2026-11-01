@@ -1,0 +1,27 @@
+LT/lt01 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=224c1417
+LT/lt02 rc=0 cmp=149 NOT_EQUAL stage1 md5=7a48f1f8
+LT/lt03 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=3ffc9a67
+LT/lt04 rc=0 cmp=0 STRICT_NOTEQUAL name md5=49a79ca7
+LT/lt05 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=90c75bc4
+LT/lt06 rc=0 cmp=149 NOT_EQUAL stage1 md5=63295e71
+LT/lt07 rc=0 cmp=0 STRICT_EQUAL 180 objects md5=7517c429
+LT/lt08 rc=0 cmp=0 STRICT_EQUAL 101 objects md5=7986e132
+MA/ma01 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=8b157a77
+MA/ma02 rc=0 cmp=0 STRICT_EQUAL 1007 objects md5=b7f93a8a
+MA/ma03 rc=0 cmp=0 STRICT_EQUAL 677 objects md5=e0c8492b
+MA/ma04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=952e9042
+MA/ma05 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4b2e75fb
+MA/ma06 rc=0 cmp=591 NOT_EQUAL stage1 md5=5dabdfb9
+MA/ma07 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ffa1610a
+MA/ma08 rc=0 cmp=0 STRICT_EQUAL 355 objects md5=c2bad698
+MA/ma09 rc=0 cmp=0 STRICT_EQUAL 631 objects md5=d6f882b5
+MA/ma10 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ca754700
+MB/mb01 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=d6867adc
+MB/mb02 rc=0 cmp=1580 NOT_EQUAL stage1 md5=dcdcfd6e
+MB/mb03 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c63c5855
+MB/mb04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=a01715fb
+MB/mb05 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=c2c6f852
+MB/mb06 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e25ce802
+MB/mb07 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=75f8edfb
+MB/mb08 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=d31cd98c
+MB/mb09 rc=0 cmp=1270 NOT_EQUAL stage1 md5=83bbe512

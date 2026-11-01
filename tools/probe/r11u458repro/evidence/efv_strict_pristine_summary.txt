@@ -1,0 +1,25 @@
+uvm_ef_vif_config_db at the base (pristine), build/uhdm-strictcmp --max 500: 427 fullname records
+    371   work@hvl_top | work@hdl_top
+      5   sfr_agent_pkg::uvm_transaction::do_record::p::uvm_pkg::uvm_recursion_policy_enum | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::status | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::n_bits | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::kind | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::data | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::byte_en | work@hdl_top
+      5   sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::addr | work@hdl_top
+      5   sfr_agent_pkg::uvm_printer::print_object::recursion_policy::uvm_pkg::uvm_recursion_policy_enum | work@hdl_top
+      2   sfr_test_pkg::uvm_transaction::do_record::p::uvm_pkg::uvm_recursion_policy_enum | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::status | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::n_bits | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::kind | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::data | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::byte_en | work@hdl_top
+      2   sfr_test_pkg::uvm_reg_map::do_bus_access::accesses::uvm_pkg::uvm_reg_bus_op::addr | work@hdl_top
+      2   sfr_test_pkg::uvm_printer::print_object::recursion_policy::uvm_pkg::uvm_recursion_policy_enum | work@hdl_top
+
+tails of the 371 module-named records:
+     85 uvm_pkg::uvm_reg_map_addr_range.min.uvm_reg_addr_t
+     85 uvm_pkg::uvm_reg_map_addr_range.max.uvm_reg_addr_t
+     71 uvm_pkg::uvm_reg_bus_op.byte_en.uvm_reg_byte_en_t
+     65 uvm_pkg::uvm_reg_bus_op.data.uvm_reg_data_t
+     65 uvm_pkg::uvm_reg_bus_op.addr.uvm_reg_addr_t

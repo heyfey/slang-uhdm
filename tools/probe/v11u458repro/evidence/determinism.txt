@@ -1,0 +1,4 @@
+three concurrent draws per row, law binary (md5 2bc868e0bde5fcc16f311b8b0d5cd30c), plus the sweep's own database
+uvm_ef_vif_config_db: e3d42f5242e9fda1f0bc20b519567237 x3, rc 0 each, STRICT_EQUAL 840299 objects, uhdm-cmp 0 lines
+SeqDriver testflags: d06eaeb7d1c2... 4 of 4 (sweep + 3 draws)
+MiniAmiq default: 38d47ca68188... 4 of 4 (sweep + 3 draws)

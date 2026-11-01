@@ -1,0 +1,6 @@
+default/MiniAmiq-055eab74/slang.uhdm firings=132
+testflags/MiniAmiq-055eab74/slang.uhdm firings=132
+default/SeqDriver-65178d3a/slang.uhdm firings=132
+testflags/SeqDriver-65178d3a/slang.uhdm firings=132
+r10uvm180repro__g180_a_kinds.uhdm firings=2
+uhdm2rtlil census: 0 trace files (both modes, 1742 runs)

@@ -1,0 +1,22 @@
+// § cloneDeclOnlyTwinOwnObject458
+package p;
+  class C;
+    extern task t();
+  endclass
+  task C::t();
+    int un;
+  endtask
+endpackage
+package ap;
+  import p::*;
+  int k;
+endpackage
+package bp;
+  import p::*;
+  int j;
+endpackage
+module top;
+  import p::*;
+  import ap::*;
+  import bp::*;
+endmodule

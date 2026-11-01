@@ -1,0 +1,13 @@
+probe csv lines differing from control: 0
+surelog csv lines differing from control: 4
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/intr11u456/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/r11u458sw1/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/intr11u456/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+uhdm2rtlil csv lines differing from control: 0
+downstream csv lines differing from control: 0
+surelog audit: 1523 of 1573 cmds.txt name the law7 binary
+uhdm2rtlil audit: 1740 of 1740 cmds.txt name the law7 binary
+downstream audit: 0 of 0 cmds.txt name the law7 binary

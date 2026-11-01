@@ -1767,6 +1767,9 @@ pureProtoNoDirKw247(const slang::ast::FormalArgumentSymbol& arg) {
 
 std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>> g_cloneArrTs241;
 std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+// § cloneDeclOnlyTwinOwnObject458 — (subroutine, variable list position) of
+// each repeated entry of an importer copy's declaration-only listing.
+std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458;
 static void cloneLocalArrayTsParent241(bool importClone, UHDM::typespec* ats,
                                        UHDM::ref_typespec* art) {
     if (!importClone || !ats || !art || ats->VpiParent() ||
@@ -9309,6 +9312,26 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // its own scope and once from the body item (tb01 t1, tb02 t7).  A
         // non-void function's single multi-declarator item (tb02 f2, where
         // golden hangs the second local under an assignment) abstains.
+        // § cloneDeclOnlyTwinOwnObject458 (r11u458, R11U458_CLONETWIN_OFF;
+        // cases tools/probe/r11u458repro/cases/LT) — an IMPORTER's copy of a
+        // subroutine whose body is declarations only is Surelog's deep clone
+        // (UHDM DeepClone) of the home's compiled subroutine, which clones
+        // every entry of the variable list on its own: the second listing of
+        // § tfDeclOnlyBodyBegin412 (a task's or void function's lone item)
+        // and the repeated first declarator of § fnDeclOnlyFirstTwice412v
+        // are DISTINCT objects in the copy (golden `ap::C::t::un` twice, the
+        // second with its own ref_typespec and int_typespec, parented at the
+        // task), the same object twice in the home.  Ours listed the copy's
+        // one object twice, so the second entry walked as already visited
+        // (strict `depth`).  Only under the importer copy emission; the
+        // entry's position is recorded here and the deep copy is taken
+        // design-final (UhdmExporter final287), after every rebind of the
+        // first entry's typespecs has run, so the copy clones their final
+        // state.
+        auto cloneTwin458 = [&](UHDM::variables* v, size_t at) {
+            if (pkgImportCloneEmit && v && lawOn(458, "R11U458_CLONETWIN_OFF"))
+                g_cloneTwin458.push_back({tf, at});
+        };
         if (!body && !qualLifetime46 && blockItems9 && fvarsAll71 &&
             !fvarsAll71->empty() && tf->Variables() == fvarsAll71 &&
             (sub.flags & MethodFlags::Constructor) == MethodFlags::None &&
@@ -9371,6 +9394,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             as412->Lhs(v412);
                             v412->VpiParent(as412);
                         }
+                        cloneTwin458(fvarsAll71->front(), dv412->size());
                         dv412->push_back(fvarsAll71->front());
                         tf->Variables(dv412);
                         lawTrace(412, "fnDeclOnlyFirstTwice412v", fullName);
@@ -9379,8 +9403,10 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         auto* dv412 = s.MakeVariablesVec();
                         for (auto* v412 : *fvarsAll71)
                             dv412->push_back(v412);
-                        for (auto* v412 : *fvarsAll71)
+                        for (auto* v412 : *fvarsAll71) {
+                            cloneTwin458(v412, dv412->size());
                             dv412->push_back(v412);
+                        }
                         tf->Variables(dv412);
                         lawTrace(412, "tfDeclOnlyBodyBegin412", "twice " + fullName);
                     }
