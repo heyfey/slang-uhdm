@@ -1,0 +1,7 @@
+---- canary rows: ok=52 changed=0 absent=0 unknown-names=7
+---- canary rows: ok=16 changed=0 absent=0 unknown-names=25
+---- ctcan2 rows: ok=58 changed=0 absent=0 unknown-patterns=1
+PASS: every supplementary canary row is byte-identical to the baseline.
+---- ctcan2 rows: ok=2 changed=0 absent=0 unknown-patterns=6
+PASS: every supplementary canary row is byte-identical to the baseline.
+binary audit: surelog 1531 of 1581 cmds.txt name /tmp/r11u467_bin/law1, the other 50 hold only a Surelog line; uhdm2rtlil 1742 of 1742; svtests 2346 of 2346; downstream records no command line (SLANG_UHDM exported to law1 by the launcher)

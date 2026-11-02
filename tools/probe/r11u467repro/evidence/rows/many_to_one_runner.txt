@@ -1,0 +1,4 @@
+# runner rows (drivers/runrow.sh): name,cmp,strict,agreement
+pristine: uvm_many_to_one,JUDGE_EQUAL,differ:fullname(200),JUDGE_EQUAL
+law1:     uvm_many_to_one,EQUAL,equal,IDENTICAL
+law1 trace: 200 firings

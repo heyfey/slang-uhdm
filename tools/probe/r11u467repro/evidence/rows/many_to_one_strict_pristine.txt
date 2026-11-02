@@ -1,0 +1,602 @@
+#1074219 fullname
+  A: 3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+#1074226 fullname
+  A: 3	ref_typespec			UVM_VERSION_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_VERSION_STRING		0	0	0	0		0
+#1074233 fullname
+  A: 3	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STREAMBITS		0	0	0	0		0
+#1074240 fullname
+  A: 3	ref_typespec			UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+#1074251 fullname
+  A: 3	ref_typespec			UVM_RECURSION		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECURSION		0	0	0	0		0
+#1074266 fullname
+  A: 3	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#1074289 fullname
+  A: 3	ref_typespec			UVM_DEFAULT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_DEFAULT		0	0	0	0		0
+#1074312 fullname
+  A: 3	ref_typespec			UVM_ALL_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_ALL_ON		0	0	0	0		0
+#1074335 fullname
+  A: 3	ref_typespec			UVM_FLAGS_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_ON		0	0	0	0		0
+#1074358 fullname
+  A: 3	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_OFF		0	0	0	0		0
+#1074381 fullname
+  A: 3	ref_typespec			UVM_COPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COPY		0	0	0	0		0
+#1074404 fullname
+  A: 3	ref_typespec			UVM_NOCOPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOPY		0	0	0	0		0
+#1074427 fullname
+  A: 3	ref_typespec			UVM_COMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COMPARE		0	0	0	0		0
+#1074450 fullname
+  A: 3	ref_typespec			UVM_NOCOMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOMPARE		0	0	0	0		0
+#1074473 fullname
+  A: 3	ref_typespec			UVM_PRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PRINT		0	0	0	0		0
+#1074496 fullname
+  A: 3	ref_typespec			UVM_NOPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPRINT		0	0	0	0		0
+#1074519 fullname
+  A: 3	ref_typespec			UVM_RECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECORD		0	0	0	0		0
+#1074542 fullname
+  A: 3	ref_typespec			UVM_NORECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NORECORD		0	0	0	0		0
+#1074565 fullname
+  A: 3	ref_typespec			UVM_PACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PACK		0	0	0	0		0
+#1074588 fullname
+  A: 3	ref_typespec			UVM_NOPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPACK		0	0	0	0		0
+#1074611 fullname
+  A: 3	ref_typespec			UVM_UNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_UNPACK		0	0	0	0		0
+#1074634 fullname
+  A: 3	ref_typespec			UVM_NOUNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOUNPACK		0	0	0	0		0
+#1074657 fullname
+  A: 3	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SET		0	0	0	0		0
+#1074680 fullname
+  A: 3	ref_typespec			UVM_NOSET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOSET		0	0	0	0		0
+#1074703 fullname
+  A: 3	ref_typespec			UVM_NODEFPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NODEFPRINT		0	0	0	0		0
+#1074726 fullname
+  A: 3	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#1074749 fullname
+  A: 3	ref_typespec			UVM_FLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS		0	0	0	0		0
+#1074772 fullname
+  A: 3	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CHECK_FIELDS		0	0	0	0		0
+#1074795 fullname
+  A: 3	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#1074818 fullname
+  A: 3	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_START_FUNCS		0	0	0	0		0
+#1074841 fullname
+  A: 3	ref_typespec			UVM_END_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_FUNCS		0	0	0	0		0
+#1074858 fullname
+  A: 3	ref_typespec			UVM_STDIN		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDIN		0	0	0	0		0
+#1074869 fullname
+  A: 3	ref_typespec			UVM_STDOUT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDOUT		0	0	0	0		0
+#1074880 fullname
+  A: 3	ref_typespec			UVM_STDERR		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDERR		0	0	0	0		0
+#1074899 fullname
+  A: 3	ref_typespec			UVM_CORE_POST_INIT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CORE_POST_INIT		0	0	0	0		0
+#1074919 fullname
+  A: 3	ref_typespec			UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+#1074929 fullname
+  A: 3	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#1074936 fullname
+  A: 3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NUM_LINES		0	0	0	0		0
+#1074943 fullname
+  A: 3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SMALL_STRING		0	0	0	0		0
+#1074950 fullname
+  A: 3	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LARGE_STRING		0	0	0	0		0
+#1074957 fullname
+  A: 3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+#1074964 fullname
+  A: 3	ref_typespec			UVM_VERSION_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_VERSION_STRING		0	0	0	0		0
+#1074971 fullname
+  A: 3	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STREAMBITS		0	0	0	0		0
+#1074978 fullname
+  A: 3	ref_typespec			UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+#1074989 fullname
+  A: 3	ref_typespec			UVM_RECURSION		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECURSION		0	0	0	0		0
+#1075004 fullname
+  A: 3	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#1075027 fullname
+  A: 3	ref_typespec			UVM_DEFAULT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_DEFAULT		0	0	0	0		0
+#1075050 fullname
+  A: 3	ref_typespec			UVM_ALL_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_ALL_ON		0	0	0	0		0
+#1075073 fullname
+  A: 3	ref_typespec			UVM_FLAGS_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_ON		0	0	0	0		0
+#1075096 fullname
+  A: 3	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_OFF		0	0	0	0		0
+#1075119 fullname
+  A: 3	ref_typespec			UVM_COPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COPY		0	0	0	0		0
+#1075142 fullname
+  A: 3	ref_typespec			UVM_NOCOPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOPY		0	0	0	0		0
+#1075165 fullname
+  A: 3	ref_typespec			UVM_COMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COMPARE		0	0	0	0		0
+#1075188 fullname
+  A: 3	ref_typespec			UVM_NOCOMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOMPARE		0	0	0	0		0
+#1075211 fullname
+  A: 3	ref_typespec			UVM_PRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PRINT		0	0	0	0		0
+#1075234 fullname
+  A: 3	ref_typespec			UVM_NOPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPRINT		0	0	0	0		0
+#1075257 fullname
+  A: 3	ref_typespec			UVM_RECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECORD		0	0	0	0		0
+#1075280 fullname
+  A: 3	ref_typespec			UVM_NORECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NORECORD		0	0	0	0		0
+#1075303 fullname
+  A: 3	ref_typespec			UVM_PACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PACK		0	0	0	0		0
+#1075326 fullname
+  A: 3	ref_typespec			UVM_NOPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPACK		0	0	0	0		0
+#1075349 fullname
+  A: 3	ref_typespec			UVM_UNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_UNPACK		0	0	0	0		0
+#1075372 fullname
+  A: 3	ref_typespec			UVM_NOUNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOUNPACK		0	0	0	0		0
+#1075395 fullname
+  A: 3	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SET		0	0	0	0		0
+#1075418 fullname
+  A: 3	ref_typespec			UVM_NOSET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOSET		0	0	0	0		0
+#1075441 fullname
+  A: 3	ref_typespec			UVM_NODEFPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NODEFPRINT		0	0	0	0		0
+#1075464 fullname
+  A: 3	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#1075487 fullname
+  A: 3	ref_typespec			UVM_FLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS		0	0	0	0		0
+#1075510 fullname
+  A: 3	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CHECK_FIELDS		0	0	0	0		0
+#1075533 fullname
+  A: 3	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#1075556 fullname
+  A: 3	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_START_FUNCS		0	0	0	0		0
+#1075579 fullname
+  A: 3	ref_typespec			UVM_END_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_FUNCS		0	0	0	0		0
+#1075596 fullname
+  A: 3	ref_typespec			UVM_STDIN		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDIN		0	0	0	0		0
+#1075607 fullname
+  A: 3	ref_typespec			UVM_STDOUT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDOUT		0	0	0	0		0
+#1075618 fullname
+  A: 3	ref_typespec			UVM_STDERR		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDERR		0	0	0	0		0
+#1075637 fullname
+  A: 3	ref_typespec			UVM_CORE_POST_INIT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CORE_POST_INIT		0	0	0	0		0
+#1075657 fullname
+  A: 3	ref_typespec			UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+#1075667 fullname
+  A: 3	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#1075674 fullname
+  A: 3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NUM_LINES		0	0	0	0		0
+#1075681 fullname
+  A: 3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SMALL_STRING		0	0	0	0		0
+#1075688 fullname
+  A: 3	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LARGE_STRING		0	0	0	0		0
+#1075695 fullname
+  A: 3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+#1075702 fullname
+  A: 3	ref_typespec			UVM_VERSION_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_VERSION_STRING		0	0	0	0		0
+#1075709 fullname
+  A: 3	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STREAMBITS		0	0	0	0		0
+#1075716 fullname
+  A: 3	ref_typespec			UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+#1075727 fullname
+  A: 3	ref_typespec			UVM_RECURSION		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECURSION		0	0	0	0		0
+#1075742 fullname
+  A: 3	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#1075765 fullname
+  A: 3	ref_typespec			UVM_DEFAULT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_DEFAULT		0	0	0	0		0
+#1075788 fullname
+  A: 3	ref_typespec			UVM_ALL_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_ALL_ON		0	0	0	0		0
+#1075811 fullname
+  A: 3	ref_typespec			UVM_FLAGS_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_ON		0	0	0	0		0
+#1075834 fullname
+  A: 3	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_OFF		0	0	0	0		0
+#1075857 fullname
+  A: 3	ref_typespec			UVM_COPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COPY		0	0	0	0		0
+#1075880 fullname
+  A: 3	ref_typespec			UVM_NOCOPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOPY		0	0	0	0		0
+#1075903 fullname
+  A: 3	ref_typespec			UVM_COMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COMPARE		0	0	0	0		0
+#1075926 fullname
+  A: 3	ref_typespec			UVM_NOCOMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOMPARE		0	0	0	0		0
+#1075949 fullname
+  A: 3	ref_typespec			UVM_PRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PRINT		0	0	0	0		0
+#1075972 fullname
+  A: 3	ref_typespec			UVM_NOPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPRINT		0	0	0	0		0
+#1075995 fullname
+  A: 3	ref_typespec			UVM_RECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECORD		0	0	0	0		0
+#1076018 fullname
+  A: 3	ref_typespec			UVM_NORECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NORECORD		0	0	0	0		0
+#1076041 fullname
+  A: 3	ref_typespec			UVM_PACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PACK		0	0	0	0		0
+#1076064 fullname
+  A: 3	ref_typespec			UVM_NOPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPACK		0	0	0	0		0
+#1076087 fullname
+  A: 3	ref_typespec			UVM_UNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_UNPACK		0	0	0	0		0
+#1076110 fullname
+  A: 3	ref_typespec			UVM_NOUNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOUNPACK		0	0	0	0		0
+#1076133 fullname
+  A: 3	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SET		0	0	0	0		0
+#1076156 fullname
+  A: 3	ref_typespec			UVM_NOSET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOSET		0	0	0	0		0
+#1076179 fullname
+  A: 3	ref_typespec			UVM_NODEFPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NODEFPRINT		0	0	0	0		0
+#1076202 fullname
+  A: 3	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#1076225 fullname
+  A: 3	ref_typespec			UVM_FLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS		0	0	0	0		0
+#1076248 fullname
+  A: 3	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CHECK_FIELDS		0	0	0	0		0
+#1076271 fullname
+  A: 3	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#1076294 fullname
+  A: 3	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_START_FUNCS		0	0	0	0		0
+#1076317 fullname
+  A: 3	ref_typespec			UVM_END_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_FUNCS		0	0	0	0		0
+#1076334 fullname
+  A: 3	ref_typespec			UVM_STDIN		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDIN		0	0	0	0		0
+#1076345 fullname
+  A: 3	ref_typespec			UVM_STDOUT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDOUT		0	0	0	0		0
+#1076356 fullname
+  A: 3	ref_typespec			UVM_STDERR		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDERR		0	0	0	0		0
+#1076375 fullname
+  A: 3	ref_typespec			UVM_CORE_POST_INIT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CORE_POST_INIT		0	0	0	0		0
+#1076395 fullname
+  A: 3	ref_typespec			UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+#1076405 fullname
+  A: 3	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#1076412 fullname
+  A: 3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NUM_LINES		0	0	0	0		0
+#1076419 fullname
+  A: 3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SMALL_STRING		0	0	0	0		0
+#1076426 fullname
+  A: 3	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LARGE_STRING		0	0	0	0		0
+#1076433 fullname
+  A: 3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+#1076440 fullname
+  A: 3	ref_typespec			UVM_VERSION_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_VERSION_STRING		0	0	0	0		0
+#1076447 fullname
+  A: 3	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STREAMBITS		0	0	0	0		0
+#1076454 fullname
+  A: 3	ref_typespec			UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+#1076465 fullname
+  A: 3	ref_typespec			UVM_RECURSION		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECURSION		0	0	0	0		0
+#1076480 fullname
+  A: 3	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#1076503 fullname
+  A: 3	ref_typespec			UVM_DEFAULT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_DEFAULT		0	0	0	0		0
+#1076526 fullname
+  A: 3	ref_typespec			UVM_ALL_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_ALL_ON		0	0	0	0		0
+#1076549 fullname
+  A: 3	ref_typespec			UVM_FLAGS_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_ON		0	0	0	0		0
+#1076572 fullname
+  A: 3	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_OFF		0	0	0	0		0
+#1076595 fullname
+  A: 3	ref_typespec			UVM_COPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COPY		0	0	0	0		0
+#1076618 fullname
+  A: 3	ref_typespec			UVM_NOCOPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOPY		0	0	0	0		0
+#1076641 fullname
+  A: 3	ref_typespec			UVM_COMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COMPARE		0	0	0	0		0
+#1076664 fullname
+  A: 3	ref_typespec			UVM_NOCOMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOMPARE		0	0	0	0		0
+#1076687 fullname
+  A: 3	ref_typespec			UVM_PRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PRINT		0	0	0	0		0
+#1076710 fullname
+  A: 3	ref_typespec			UVM_NOPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPRINT		0	0	0	0		0
+#1076733 fullname
+  A: 3	ref_typespec			UVM_RECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECORD		0	0	0	0		0
+#1076756 fullname
+  A: 3	ref_typespec			UVM_NORECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NORECORD		0	0	0	0		0
+#1076779 fullname
+  A: 3	ref_typespec			UVM_PACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PACK		0	0	0	0		0
+#1076802 fullname
+  A: 3	ref_typespec			UVM_NOPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPACK		0	0	0	0		0
+#1076825 fullname
+  A: 3	ref_typespec			UVM_UNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_UNPACK		0	0	0	0		0
+#1076848 fullname
+  A: 3	ref_typespec			UVM_NOUNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOUNPACK		0	0	0	0		0
+#1076871 fullname
+  A: 3	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SET		0	0	0	0		0
+#1076894 fullname
+  A: 3	ref_typespec			UVM_NOSET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOSET		0	0	0	0		0
+#1076917 fullname
+  A: 3	ref_typespec			UVM_NODEFPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NODEFPRINT		0	0	0	0		0
+#1076940 fullname
+  A: 3	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#1076963 fullname
+  A: 3	ref_typespec			UVM_FLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS		0	0	0	0		0
+#1076986 fullname
+  A: 3	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CHECK_FIELDS		0	0	0	0		0
+#1077009 fullname
+  A: 3	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#1077032 fullname
+  A: 3	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_START_FUNCS		0	0	0	0		0
+#1077055 fullname
+  A: 3	ref_typespec			UVM_END_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_FUNCS		0	0	0	0		0
+#1077072 fullname
+  A: 3	ref_typespec			UVM_STDIN		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDIN		0	0	0	0		0
+#1077083 fullname
+  A: 3	ref_typespec			UVM_STDOUT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDOUT		0	0	0	0		0
+#1077094 fullname
+  A: 3	ref_typespec			UVM_STDERR		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDERR		0	0	0	0		0
+#1077113 fullname
+  A: 3	ref_typespec			UVM_CORE_POST_INIT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CORE_POST_INIT		0	0	0	0		0
+#1077133 fullname
+  A: 3	ref_typespec			UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+#1077143 fullname
+  A: 3	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#1077150 fullname
+  A: 3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NUM_LINES		0	0	0	0		0
+#1077157 fullname
+  A: 3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SMALL_STRING		0	0	0	0		0
+#1077164 fullname
+  A: 3	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LARGE_STRING		0	0	0	0		0
+#1077171 fullname
+  A: 3	ref_typespec			UVM_HDL_MAX_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_HDL_MAX_WIDTH		0	0	0	0		0
+#1077178 fullname
+  A: 3	ref_typespec			UVM_VERSION_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_VERSION_STRING		0	0	0	0		0
+#1077185 fullname
+  A: 3	ref_typespec			UVM_STREAMBITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STREAMBITS		0	0	0	0		0
+#1077192 fullname
+  A: 3	ref_typespec			UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FIELD_FLAG_RESERVED_BITS		0	0	0	0		0
+#1077203 fullname
+  A: 3	ref_typespec			UVM_RECURSION		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECURSION		0	0	0	0		0
+#1077218 fullname
+  A: 3	ref_typespec			UVM_MACRO_NUMFLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_NUMFLAGS		0	0	0	0		0
+#1077241 fullname
+  A: 3	ref_typespec			UVM_DEFAULT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_DEFAULT		0	0	0	0		0
+#1077264 fullname
+  A: 3	ref_typespec			UVM_ALL_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_ALL_ON		0	0	0	0		0
+#1077287 fullname
+  A: 3	ref_typespec			UVM_FLAGS_ON		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_ON		0	0	0	0		0
+#1077310 fullname
+  A: 3	ref_typespec			UVM_FLAGS_OFF		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS_OFF		0	0	0	0		0
+#1077333 fullname
+  A: 3	ref_typespec			UVM_COPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COPY		0	0	0	0		0
+#1077356 fullname
+  A: 3	ref_typespec			UVM_NOCOPY		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOPY		0	0	0	0		0
+#1077379 fullname
+  A: 3	ref_typespec			UVM_COMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_COMPARE		0	0	0	0		0
+#1077402 fullname
+  A: 3	ref_typespec			UVM_NOCOMPARE		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOCOMPARE		0	0	0	0		0
+#1077425 fullname
+  A: 3	ref_typespec			UVM_PRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PRINT		0	0	0	0		0
+#1077448 fullname
+  A: 3	ref_typespec			UVM_NOPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPRINT		0	0	0	0		0
+#1077471 fullname
+  A: 3	ref_typespec			UVM_RECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_RECORD		0	0	0	0		0
+#1077494 fullname
+  A: 3	ref_typespec			UVM_NORECORD		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NORECORD		0	0	0	0		0
+#1077517 fullname
+  A: 3	ref_typespec			UVM_PACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_PACK		0	0	0	0		0
+#1077540 fullname
+  A: 3	ref_typespec			UVM_NOPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOPACK		0	0	0	0		0
+#1077563 fullname
+  A: 3	ref_typespec			UVM_UNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_UNPACK		0	0	0	0		0
+#1077586 fullname
+  A: 3	ref_typespec			UVM_NOUNPACK		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOUNPACK		0	0	0	0		0
+#1077609 fullname
+  A: 3	ref_typespec			UVM_SET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SET		0	0	0	0		0
+#1077632 fullname
+  A: 3	ref_typespec			UVM_NOSET		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NOSET		0	0	0	0		0
+#1077655 fullname
+  A: 3	ref_typespec			UVM_NODEFPRINT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NODEFPRINT		0	0	0	0		0
+#1077678 fullname
+  A: 3	ref_typespec			UVM_MACRO_EXTRAS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_MACRO_EXTRAS		0	0	0	0		0
+#1077701 fullname
+  A: 3	ref_typespec			UVM_FLAGS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_FLAGS		0	0	0	0		0
+#1077724 fullname
+  A: 3	ref_typespec			UVM_CHECK_FIELDS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CHECK_FIELDS		0	0	0	0		0
+#1077747 fullname
+  A: 3	ref_typespec			UVM_END_DATA_EXTRA		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_DATA_EXTRA		0	0	0	0		0
+#1077770 fullname
+  A: 3	ref_typespec			UVM_START_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_START_FUNCS		0	0	0	0		0
+#1077793 fullname
+  A: 3	ref_typespec			UVM_END_FUNCS		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_END_FUNCS		0	0	0	0		0
+#1077810 fullname
+  A: 3	ref_typespec			UVM_STDIN		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDIN		0	0	0	0		0
+#1077821 fullname
+  A: 3	ref_typespec			UVM_STDOUT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDOUT		0	0	0	0		0
+#1077832 fullname
+  A: 3	ref_typespec			UVM_STDERR		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STDERR		0	0	0	0		0
+#1077851 fullname
+  A: 3	ref_typespec			UVM_CORE_POST_INIT		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_CORE_POST_INIT		0	0	0	0		0
+#1077871 fullname
+  A: 3	ref_typespec			UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_STR_CRC_POLYNOMIAL		0	0	0	0		0
+#1077881 fullname
+  A: 3	ref_typespec			UVM_LINE_WIDTH		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LINE_WIDTH		0	0	0	0		0
+#1077888 fullname
+  A: 3	ref_typespec			UVM_NUM_LINES		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_NUM_LINES		0	0	0	0		0
+#1077895 fullname
+  A: 3	ref_typespec			UVM_SMALL_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_SMALL_STRING		0	0	0	0		0
+#1077902 fullname
+  A: 3	ref_typespec			UVM_LARGE_STRING		0	0	0	0		0
+  B: 3	ref_typespec			env_pkg::UVM_LARGE_STRING		0	0	0	0		0
+fields: fullname=200 objects_differing=200
+STRICT_NOTEQUAL fullname

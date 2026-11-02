@@ -31019,6 +31019,7 @@ static void cloneLvSharesHomeUnitTs465(
     UHDM::Serializer& s, UHDM::design* d, Compilation& comp,
     std::map<std::string, UHDM::ref_var*>& cloneLoopVarShared37,
     const std::function<bool(const slang::ast::Symbol&)>& pkgImportedByUnit21);  // § cloneLvSharesHomeUnitTs465
+static void unitCopyOwnTsEveryPath467(UHDM::Serializer& s, UHDM::design* d);  // § unitCopyOwnTsEveryPath467
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31399,6 +31400,88 @@ void UhdmExporter::drainPaNameCopySrc38() {
                                [this](const slang::ast::Symbol& p465) {
                                    return pkgImportedByUnit21(p465);
                                });
+    unitCopyOwnTsEveryPath467(s, d);
+}
+
+// § unitCopyOwnTsEveryPath467 (r11u467, R11U467_UNITCOPYTS_OFF; grid
+// tools/probe/r11u467repro/cases/UC) — EVERY design-listing copy of a
+// `$unit`-imported package parameter holds its OWN typespec reference, the
+// copies of a package's per-path repeats included.  Surelog's
+// CompileHelper::importPackage clones each param_assign of the imported
+// package's getParamAssignVec() (one entry per import path,
+// § diamondImportParamAssignsPerPath451) with clone_tree, so every design
+// copy is a new parameter whose ref_typespec stores no full name and
+// ComputeFullName reads the copy's chain: the bare parameter name under the
+// design.  § unitImportHoistsPkgParams146's copy shares its source's
+// reference and UhdmExporter's § unitImportCopyOwnTsRef214 gives a private
+// one only to a copy sharing the FIRST same-named parameter of the package
+// (its source map keeps the first entry), so the copies of the later per-path
+// repeats kept the package's reference and read `<pkg>::<name>` (sv-tests
+// uvm_many_to_one: test.sv's `import env_pkg::*;` lists UVM_HDL_MAX_WIDTH
+// and the other 39 uvm_pkg parameters six times through env_pkg's paths,
+// golden's 200 later copies bare, ours env_pkg::UVM_HDL_MAX_WIDTH).
+// Design-final, after § unitImportCopyOwnTsRef214 and every drain that
+// re-points a package parameter's typespec: a design copy (vpiImported set)
+// still sharing the reference of any same-named parameter of its package's
+// listing (vpiParameter entries and param_assign left sides) takes the same
+// private reference § 214 gives, the typedef'd chain through
+// § unitImpTdParamTsClone402's impTsChain402 first.
+UHDM::ref_typespec* impTsChain402(UHDM::Serializer& s, const UHDM::ref_typespec* src,
+                                  UHDM::BaseClass* owner, const std::string& refName,
+                                  int depth, const char* sep);
+static void unitCopyOwnTsEveryPath467(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !d->TopPackages() || (!d->Parameters() && !d->Param_assigns()) ||
+        !lawOn(467, "R11U467_UNITCOPYTS_OFF"))
+        return;
+    std::map<std::pair<std::string, std::string>, std::set<const UHDM::ref_typespec*>> src467;
+    auto addSrc467 = [&](const std::string& pk467, const UHDM::any* a467) {
+        if (a467 && a467->UhdmType() == UHDM::uhdmparameter &&
+            ((const UHDM::parameter*)a467)->Typespec())
+            src467[{pk467, std::string(a467->VpiName())}].insert(
+                ((const UHDM::parameter*)a467)->Typespec());
+    };
+    for (auto* pk467 : *d->TopPackages()) {
+        if (!pk467)
+            continue;
+        const std::string pn467(pk467->VpiName());
+        if (pk467->Parameters())
+            for (auto* a467 : *pk467->Parameters())
+                addSrc467(pn467, a467);
+        if (pk467->Param_assigns())
+            for (auto* pa467 : *pk467->Param_assigns())
+                if (pa467)
+                    addSrc467(pn467, pa467->Lhs());
+    }
+    auto own467 = [&](const UHDM::any* o467) {
+        if (!o467 || o467->UhdmType() != UHDM::uhdmparameter)
+            return;
+        auto* cp467 = (UHDM::parameter*)o467;
+        if (cp467->VpiImported().empty() || !cp467->Typespec())
+            return;
+        auto it467 = src467.find({std::string(cp467->VpiImported()),
+                                  std::string(cp467->VpiName())});
+        if (it467 == src467.end() || !it467->second.count(cp467->Typespec()))
+            return;
+        lawTrace(467, "unitCopyOwnTsEveryPath467",
+                 std::string(cp467->VpiImported()) + "::" + std::string(cp467->VpiName()));
+        if (auto* rt467 = impTsChain402(s, cp467->Typespec(), cp467,
+                                        std::string(cp467->VpiName()), 0, ".")) {
+            rt467->VpiFullName("");
+            cp467->Typespec(rt467);
+            return;
+        }
+        auto* rt467 = s.MakeRef_typespec();
+        rt467->VpiParent(cp467);
+        rt467->Actual_typespec((UHDM::typespec*)cp467->Typespec()->Actual_typespec());
+        cp467->Typespec(rt467);
+    };
+    if (auto* v467 = d->Parameters())
+        for (auto* a467 : *v467)
+            own467(a467);
+    if (auto* v467 = d->Param_assigns())
+        for (auto* pa467 : *v467)
+            if (pa467)
+                own467(pa467->Lhs());
 }
 
 // § cloneLvSharesHomeUnitTs465 (r11u465, R11U465_CLONELVUNITTS_OFF; grid

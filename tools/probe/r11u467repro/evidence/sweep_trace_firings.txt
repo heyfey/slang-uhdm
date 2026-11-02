@@ -1,0 +1,3 @@
+# sweep trace (R11U467_TRACE) firings per process
+1198193 svtests/work/generated/rsd/rsd/slang.uhdm
+200 svtests/work/generated/uvm-examples/uvm_many_to_one/slang.uhdm

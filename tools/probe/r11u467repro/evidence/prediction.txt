@@ -1,0 +1,28 @@
+r11u467 PREDICTION, written before the law sweep (law binary law1 md5 c9b2f893019899967f666555de7bc9e8)
+
+(1) Database census: evidence/tools/pred.cpp (the law's predicate: a design-listing copy with
+vpiImported still sharing the ref_typespec of a same-named parameter of its package's listing)
+over every slang database of the master's control sweep /tmp/intr11u465 (probe, surelog,
+uhdm2rtlil, downstream, svtests), the path list fence-filtered first: 7482 databases
+(7493 listed, 11 dropped by the fence filter's substring match, never opened).
+Positive controls: cases/UC/uc01..uc04 fire (2 each), uc05/uc06 do not; uvm_many_to_one's
+pristine database fires 200.
+Firing databases:
+  svtests/work/generated/uvm-examples/uvm_many_to_one/slang.uhdm 200 env_pkg::UVM_HDL_MAX_WIDTH
+  svtests/work/generated/rsd/rsd/slang.uhdm 1198193 CacheSystemTypes::CONF_FETCH_WIDTH
+=> corpora (surelog 962, uhdm2rtlil 1608, downstream 805) and probe (4087): NO MOVER predicted.
+
+(2) sv-tests rows whose databases the control does not keep (EQUAL rows): text census
+(evidence/tools/census_unit_import.py: a file-scope import; census_broad.py: two or more
+non-UVM packages imported) plus every uvm-examples, testbenches, easyUVM and tnoc row:
+226 candidate rows, run with the traced law1 binary
+(drivers/runrow.sh, TRACE=1 JOBS=2).  Trace firings:
+  generated/uvm-examples/uvm_many_to_one  200
+  generated/rsd/rsd                       1198193
+No other candidate fires.  Census statuses: every candidate keeps its baseline status except
+uvm_many_to_one STRICT_NOTEQUAL -> EQUAL.
+
+PREDICTED: sv-tests conversion uvm_many_to_one STRICT_NOTEQUAL differ:fullname(200) -> EQUAL;
+rsd moves bytes (SURELOG_CRASH, no golden, status kept); no other sv-tests row moves by law
+(the serialization-order variance of the re-kept databases aside); probe, surelog,
+uhdm2rtlil and downstream: 0 byte movers, 0 exit-code movers (the law throws nothing).

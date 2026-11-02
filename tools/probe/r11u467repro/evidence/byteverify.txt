@@ -1,0 +1,47 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== probe (4087 databases; raw bytes carry the worktree's case paths): path-normalized uhdm-dump (evidence/tools/pdcmp.sh) 4087 SAME / 0 DIFF; negative control (two different databases) flagged
+== svtests: 30 re-kept databases common to both dirs (uvm_many_to_one not kept, now EQUAL); raw-byte movers vs control under uhdm-strictcmp --no-canon:
+  RAWMOVER ./work/chapter-16/16.15--property-disable-iff-fail/slang.uhdm | STRICT_EQUAL 271 objects
+  RAWMOVER ./work/chapter-16/16.15--property-disable-iff/slang.uhdm | STRICT_EQUAL 271 objects
+  RAWMOVER ./work/chapter-18/18.17.3--case-production-statements_0/slang.uhdm | STRICT_EQUAL 123 objects
+  RAWMOVER ./work/chapter-18/18.5.11--static-constraint-blocks_1/slang.uhdm | STRICT_EQUAL 300059 objects
+  RAWMOVER ./work/chapter-20/20.14--coverage/slang.uhdm | STRICT_EQUAL 262 objects
+  RAWMOVER ./work/chapter-6/6.23--type_op_compare/slang.uhdm | STRICT_EQUAL 151 objects
+  RAWMOVER ./work/chapter-8/8.26.5--cast_between_interface_classes/slang.uhdm | STRICT_EQUAL 131 objects
+  RAWMOVER ./work/chapter-8/8.26.5--implemented_class_handle/slang.uhdm | STRICT_EQUAL 117 objects
+  RAWMOVER ./work/generated/easyUVM/top/slang.uhdm | STRICT_EQUAL 302365 objects
+  RAWMOVER ./work/generated/hdlconv_std2012/hdlconvertor_std2012_p58/slang.uhdm | STRICT_EQUAL 150 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p482/slang.uhdm | STRICT_EQUAL 166 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p506/slang.uhdm | STRICT_EQUAL 112 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p612/slang.uhdm | STRICT_EQUAL 479 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p633/slang.uhdm | STRICT_EQUAL 157 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p733/slang.uhdm | STRICT_EQUAL 302 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p737/slang.uhdm | STRICT_EQUAL 94 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p771/slang.uhdm | STRICT_EQUAL 278 objects
+  RAWMOVER ./work/generated/hdlconv_std2017/hdlconvertor_std2017_p94/slang.uhdm | STRICT_EQUAL 150 objects
+  RAWMOVER ./work/generated/rggen/rggen/slang.uhdm | STRICT_EQUAL 272636 objects
+  RAWMOVER ./work/generated/rsd/rsd/slang.uhdm | STRICT_NOTEQUAL fullname
+  RAWMOVER ./work/generated/tnoc/tnoc/slang.uhdm | STRICT_EQUAL 2603054 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_overriding/slang.uhdm | STRICT_EQUAL 553963 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm | STRICT_EQUAL 878222 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm | STRICT_EQUAL 756531 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_slave_agent/slang.uhdm | STRICT_EQUAL 754331 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_use_models_pipelined_get_put/slang.uhdm | STRICT_EQUAL 751580 objects
+  RAWMOVER ./work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm | STRICT_EQUAL 618080 objects
+  RAWMOVER ./work/testbenches/uvm_scoreboard_env/slang.uhdm | STRICT_EQUAL 374972 objects
+  RAWMOVER ./work/testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm | STRICT_EQUAL 377730 objects
+  RAWMOVER ./work/testbenches/uvm_scoreboard_monitor_env/slang.uhdm | STRICT_EQUAL 376368 objects

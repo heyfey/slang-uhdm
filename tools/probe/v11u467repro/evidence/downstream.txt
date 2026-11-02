@@ -1,0 +1,14 @@
+pristine VU/vu02 IDENTICAL differs=
+pristine VU/vu04 IDENTICAL differs=
+pristine VU/vu09 EQUIVALENT differs=nohier il synth
+pristine VU/vu10 IDENTICAL differs=
+pristine VU/vu16 IDENTICAL differs=
+pristine VU/vu20 IDENTICAL differs=
+pristine VU/vu22 IDENTICAL differs=
+law VU/vu02 IDENTICAL differs=
+law VU/vu04 IDENTICAL differs=
+law VU/vu09 EQUIVALENT differs=nohier il synth
+law VU/vu10 IDENTICAL differs=
+law VU/vu16 IDENTICAL differs=
+law VU/vu20 IDENTICAL differs=
+law VU/vu22 IDENTICAL differs=

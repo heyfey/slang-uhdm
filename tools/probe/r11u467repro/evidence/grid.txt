@@ -1,0 +1,7 @@
+# grid: case | pristine (exit, uhdm-cmp lines, strict) -> law1 | dump distance pristine -> law1 (evidence/tools/ddist.sh) | upstream slang exit
+UC/uc01 | rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 402 objects | dump 380 -> 366 | upstream=0
+UC/uc02 | rc=0 cmp=690 NOT_EQUAL stage1 -> rc=0 cmp=690 NOT_EQUAL stage1 | dump 1297 -> 1284 | upstream=0
+UC/uc03 | rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 297 objects | dump 266 -> 252 | upstream=0
+UC/uc04 | rc=0 cmp=0 STRICT_NOTEQUAL fullname -> rc=0 cmp=0 STRICT_EQUAL 321 objects | dump 257 -> 243 | upstream=0
+UC/uc05 | rc=0 cmp=0 STRICT_EQUAL 133 objects -> rc=0 cmp=0 STRICT_EQUAL 133 objects | dump 106 -> 106 | upstream=0
+UC/uc06 | rc=0 cmp=0 STRICT_EQUAL 95 objects -> rc=0 cmp=0 STRICT_EQUAL 95 objects | dump 50 -> 50 | upstream=0
