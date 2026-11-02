@@ -11,6 +11,8 @@
 
 #include "UhdmExporter.h"
 #include <uhdm/UhdmListener.h>
+#include <uhdm/ElaboratorListener.h>  // § importCopyTsInstByRole469 (clone_tree)
+#include <uhdm/clone_tree.h>
 
 #include "EmitHelpers.h"
 #include "LawSwitch.h"
@@ -31020,6 +31022,7 @@ static void cloneLvSharesHomeUnitTs465(
     std::map<std::string, UHDM::ref_var*>& cloneLoopVarShared37,
     const std::function<bool(const slang::ast::Symbol&)>& pkgImportedByUnit21);  // § cloneLvSharesHomeUnitTs465
 static void unitCopyOwnTsEveryPath467(UHDM::Serializer& s, UHDM::design* d);  // § unitCopyOwnTsEveryPath467
+static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d);  // § importCopyTsInstByRole469
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31401,6 +31404,229 @@ void UhdmExporter::drainPaNameCopySrc38() {
                                    return pkgImportedByUnit21(p465);
                                });
     unitCopyOwnTsEveryPath467(s, d);
+    importCopyTsInstByRole469(s, d);
+}
+
+// § importCopyTsInstByRole469 (r11u469, R11U469_IMPTSINST_OFF; grid
+// tools/probe/r11u469repro/cases/IR) — in an IMPORTING package's listing, the
+// typespec chain of a wildcard- or explicitly-imported copy of a TYPEDEF-typed
+// package parameter is Instanced, at EVERY hop (the typedef's typespec and its
+// Typedef_alias target), by the copy's ROLE: the vpiParameter entry at the home
+// package's ELABORATED view in both views of the importer, the param_assign
+// (its Lhs parameter and its Rhs constant) at the home package's view of the
+// importer's own view (the definition view in the importer's definition
+// listing, the elaborated view in its elaborated listing).  Surelog's
+// CompileHelper::importPackage clone_tree's the home package's Parameters
+// (cloned once the home package is elaborated, its typespecs already
+// Instanced at the elaborated package) and, separately, the param_assigns of
+// the package being compiled in each view, so the two roles carry different
+// instances and every hop is a fresh clone.  Ours instanced the first hop at
+// the elaborated home in both roles and left the alias target at the
+// definition home (shared with the home's own listing), so uhdm-cmp paired the
+// home package's two views (r11u453's TS/ts02 residue: the definition view's
+// UINT:1 at size 64 against the elaborated view's size 4).  Design-final, after
+// every drain that stamps a package typespec's Instance: only the exact shape
+// (two hops, both Instanced at a view of the parameter's vpiImported home, no
+// third hop) is touched; a hop whose instance must change is replaced by a
+// clone per (object, wanted instance), and a reference shared by roles that
+// want different instances is split.
+static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
+    const bool main469 = lawOn(469, "R11U469_IMPTSINST_OFF");
+    const bool enum469 = lawOn(469, "R11U469_IMPENUMINST_OFF");  // § importEnumCloneHomeInst469
+    if (!d || !d->AllPackages() || !d->TopPackages() || (!main469 && !enum469))
+        return;
+    std::map<std::string, UHDM::package*> def469, top469;
+    for (auto* p469 : *d->AllPackages())
+        if (p469)
+            def469.emplace(std::string(p469->VpiName()), p469);
+    for (auto* p469 : *d->TopPackages())
+        if (p469)
+            top469.emplace(std::string(p469->VpiName()), p469);
+    struct Role469 {
+        UHDM::BaseClass* owner;
+        UHDM::ref_typespec* rt;
+        UHDM::instance* want;
+        std::string what;
+        int law;  // 1 § importCopyTsInstByRole469, 2 § importEnumCloneHomeInst469
+    };
+    std::vector<Role469> roles469;
+    // A qualified hop name `<pkg>::<T>` must name the home package.
+    auto homeName469 = [](const UHDM::typespec* t, const std::string& home) {
+        std::string_view n = t->VpiName();
+        auto c = n.find("::");
+        return c == std::string_view::npos || n.substr(0, c) == home;
+    };
+    // The package a typespec's Instance names (either view), or null.
+    std::map<const void*, std::string> pkgOf469;
+    for (auto& [n469, p469] : def469)
+        pkgOf469[p469] = n469;
+    for (auto& [n469, p469] : top469)
+        pkgOf469[p469] = n469;
+    auto instPkg469 = [&](const UHDM::typespec* t) -> std::string {
+        auto it = pkgOf469.find((const void*)t->Instance());
+        return it == pkgOf469.end() ? std::string() : it->second;
+    };
+    // Returns the law (1 or 2, 0 = abstain) and the home package whose views
+    // the chain is Instanced at: the package the first hop already names (a
+    // per-path repeat's vpiImported is the PATH package, § diamondImportListsPerPath451,
+    // while its chain is the home's), never the importer itself.
+    auto shape469 = [&](const UHDM::ref_typespec* rt, const std::string& imp,
+                        const std::string& pn, std::string& home) -> int {
+        if (!rt)
+            return 0;
+        auto* h1 = rt->Actual_typespec();
+        if (!h1)
+            return 0;
+        const std::string i1 = instPkg469(h1);
+        if (!h1->Typedef_alias() && i1 == pn) {
+            // § importEnumCloneHomeInst469 — an ENUM import clone our listing
+            // instanced at the importer: the home is the qualifier of its
+            // name, else the copy's vpiImported.
+            if (!enum469 || h1->UhdmType() != UHDM::uhdmenum_typespec)
+                return 0;
+            std::string_view n = h1->VpiName();
+            auto c = n.find("::");
+            home = c == std::string_view::npos ? imp : std::string(n.substr(0, c));
+            if (home == pn || !def469.count(home) || !top469.count(home))
+                return 0;
+            return 2;
+        }
+        if (!main469 || i1.empty() || i1 == pn || !homeName469(h1, i1))
+            return 0;
+        home = i1;
+        if (!h1->Typedef_alias())
+            return 1;  // one hop: the typespec itself
+        auto* h2 = h1->Typedef_alias()->Actual_typespec();
+        if (!h2 || h2 == h1 || instPkg469(h2) != home || h2->Typedef_alias() ||
+            !homeName469(h2, home))
+            return 0;
+        return 1;
+    };
+    for (int v469 = 0; v469 < 2; v469++) {
+        auto* list469 = v469 ? d->TopPackages() : d->AllPackages();
+        for (auto* pk469 : *list469) {
+            if (!pk469)
+                continue;
+            const std::string pn469(pk469->VpiName());
+            auto imported469 = [&](const UHDM::parameter* cp) {
+                return cp && !cp->VpiImported().empty() && cp->VpiImported() != pn469;
+            };
+            const char* vw469 = v469 ? "!TOP" : "!DEF";
+            if (auto* ps469 = pk469->Parameters())
+                for (auto* a469 : *ps469) {
+                    if (!a469 || a469->UhdmType() != UHDM::uhdmparameter)
+                        continue;
+                    auto* cp = (UHDM::parameter*)a469;
+                    if (!imported469(cp))
+                        continue;
+                    std::string home;
+                    if (int k = shape469(cp->Typespec(), std::string(cp->VpiImported()), pn469,
+                                         home))
+                        roles469.push_back({cp, (UHDM::ref_typespec*)cp->Typespec(),
+                                            (UHDM::instance*)top469[home],
+                                            pn469 + vw469 + " param " +
+                                                std::string(cp->VpiName()),
+                                            k});
+                }
+            if (auto* pas469 = pk469->Param_assigns())
+                for (auto* pa469 : *pas469) {
+                    if (!pa469 || !pa469->Lhs() ||
+                        pa469->Lhs()->UhdmType() != UHDM::uhdmparameter)
+                        continue;
+                    auto* lp = (UHDM::parameter*)pa469->Lhs();
+                    if (!imported469(lp))
+                        continue;
+                    std::string tag = pn469 + vw469 + " pa " + std::string(lp->VpiName());
+                    std::string home;
+                    if (int k = shape469(lp->Typespec(), std::string(lp->VpiImported()), pn469,
+                                         home))
+                        roles469.push_back({lp, (UHDM::ref_typespec*)lp->Typespec(),
+                                            (UHDM::instance*)(v469 ? top469[home]
+                                                                   : def469[home]),
+                                            tag + " lhs", k});
+                    if (auto* r469 = pa469->Rhs();
+                        r469 && r469->UhdmType() == UHDM::uhdmconstant) {
+                        auto* c469 = (UHDM::constant*)r469;
+                        std::string homeR;
+                        if (int k = shape469(c469->Typespec(), std::string(lp->VpiImported()),
+                                             pn469, homeR))
+                            roles469.push_back({c469, (UHDM::ref_typespec*)c469->Typespec(),
+                                                (UHDM::instance*)(v469 ? top469[homeR]
+                                                                       : def469[homeR]),
+                                                tag + " rhs", k});
+                    }
+                }
+        }
+    }
+    if (roles469.empty())
+        return;
+    std::map<std::pair<const UHDM::typespec*, const UHDM::instance*>, UHDM::typespec*> memo469;
+    std::function<UHDM::typespec*(UHDM::typespec*, UHDM::instance*)> fix469 =
+        [&](UHDM::typespec* ts, UHDM::instance* want) -> UHDM::typespec* {
+        auto key = std::make_pair((const UHDM::typespec*)ts, (const UHDM::instance*)want);
+        if (auto mi = memo469.find(key); mi != memo469.end())
+            return mi->second;
+        UHDM::typespec* a2 = nullptr;
+        UHDM::typespec* h2 = nullptr;
+        if (ts->Typedef_alias() && ts->Typedef_alias()->Actual_typespec()) {
+            h2 = (UHDM::typespec*)ts->Typedef_alias()->Actual_typespec();
+            a2 = fix469(h2, want);
+        }
+        UHDM::typespec* out = ts;
+        if (ts->Instance() != want || a2 != h2) {
+            UHDM::ElaboratorContext ctx469(&s, false, /*muteErrors=*/true);
+            auto* cl = (UHDM::typespec*)UHDM::clone_tree((UHDM::any*)ts, &ctx469);
+            if (cl && cl->UhdmType() == ts->UhdmType()) {
+                cl->VpiParent(ts->VpiParent());
+                cl->Instance(want);
+                if (auto* oa = ts->Typedef_alias()) {
+                    auto* na = s.MakeRef_typespec();
+                    na->VpiName(oa->VpiName());
+                    na->VpiFullName(oa->VpiFullName());
+                    na->VpiParent(cl);
+                    na->Actual_typespec(a2);
+                    cl->Typedef_alias(na);
+                }
+                out = cl;
+            }
+        }
+        memo469[key] = out;
+        return out;
+    };
+    std::map<const UHDM::ref_typespec*, const UHDM::instance*> first469;
+    for (auto& r : roles469) {
+        auto* h1 = (UHDM::typespec*)r.rt->Actual_typespec();
+        auto* f1 = fix469(h1, r.want);
+        auto fi = first469.find(r.rt);
+        if (fi == first469.end()) {
+            first469.emplace(r.rt, r.want);
+            if (f1 != h1) {
+                r.rt->Actual_typespec(f1);
+                lawTrace(469, r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
+                         r.what);
+            }
+            continue;
+        }
+        if (fi->second == r.want)
+            continue;
+        // A reference shared by two roles that want different instances.
+        auto* nr = s.MakeRef_typespec();
+        nr->VpiName(r.rt->VpiName());
+        nr->VpiFullName(r.rt->VpiFullName());
+        nr->VpiParent(r.owner);
+        nr->VpiFile(r.rt->VpiFile());
+        nr->VpiLineNo(r.rt->VpiLineNo());
+        nr->VpiColumnNo(r.rt->VpiColumnNo());
+        nr->VpiEndLineNo(r.rt->VpiEndLineNo());
+        nr->VpiEndColumnNo(r.rt->VpiEndColumnNo());
+        nr->Actual_typespec(f1);
+        if (r.owner->UhdmType() == UHDM::uhdmparameter)
+            ((UHDM::parameter*)r.owner)->Typespec(nr);
+        else
+            ((UHDM::constant*)r.owner)->Typespec(nr);
+        lawTrace(469, r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
+                 r.what + " split");
+    }
 }
 
 // § unitCopyOwnTsEveryPath467 (r11u467, R11U467_UNITCOPYTS_OFF; grid

@@ -1,0 +1,81 @@
+=== generated/uvm-examples/uvm_use_models_pipelined_get_put
+#0 L=interface_inst:@26:1 < design:work@top_tb@0:0
+    R=interface_inst:@26:1 < design:work@top_tb@0:0
+  skip interface_inst:@26:1 < design:work@top_tb@0:0
+#1 L=design:work@top_tb@0:0
+    R=design:work@top_tb@0:0
+  no culprit
+=== generated/uvm-examples/uvm_param_vif_config_db
+#0 L=class_typespec:this_t@50:9 < class_defn:sfr_config_object@39:1 < package:sfr_agent_pkg@39:1 < design:work@hdl_top@0:0
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:sfr_agent_pkg::type_id@564:12 < module_inst:@39:1 < design:work@hdl_top@0:0
+  skip class_typespec:this_t@50:9 < class_defn:sfr_config_object@39:1 < package:sfr_agent_pkg@39:1
+#1 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_comparer@39:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_comparer@39:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#2 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_comparer@39:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#3 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_field_op@30:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_field_op@30:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#4 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_field_op@30:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#5 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_copier@40:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_copier@40:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#6 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_copier@40:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#7 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_packer@48:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_packer@48:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#8 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_packer@48:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#9 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_simple_lock_dap@36:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_simple_lock_dap@36:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#10 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < param_assign:@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_simple_lock_dap@36:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+#11 L=class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_get_to_lock_dap@35:1
+    R=class_typespec:sfr_config_object@564:32 < type_parameter:T@0:0 < class_typespec:type_id@564:12 < class_defn:uvm_get_to_lock_dap@35:1 < package:uvm_pkg@28:1
+  skip class_typespec:this_t@50:9 < ref_typespec:@0:0 < type_parameter:T@0:0
+=== generated/easyUVM/top
+#0 L=class_defn:work@sequencer@1:1 < design:work@top@0:0
+    R=null
+  skip class_defn:work@sequencer@1:1 < design:work@top@0:0
+#1 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@211:5
+#2 L=class_defn:work@packet_in@1:1 < design:work@top@0:0
+    R=class_defn:work@packet_in@1:1 < design:work@top@0:0
+  skip class_defn:work@packet_in@1:1 < design:work@top@0:0
+#3 L=class_defn:work@packet_out@1:1 < design:work@top@0:0
+    R=class_defn:work@packet_out@1:1 < design:work@top@0:0
+  skip class_defn:work@packet_out@1:1 < design:work@top@0:0
+#4 L=null
+    R=design:work@top@0:0
+  skip class_typespec:uvm_component@183:30
+#5 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@0:0
+#6 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@0:0
+#7 L=null
+    R=design:work@top@0:0
+  skip class_typespec:uvm_component@199:30
+#8 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@0:0
+#9 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@0:0
+#10 L=null
+    R=design:work@top@0:0
+  skip class_typespec:uvm_component@183:30
+#11 L=null
+    R=design:work@top@0:0
+  skip class_typespec:@0:0

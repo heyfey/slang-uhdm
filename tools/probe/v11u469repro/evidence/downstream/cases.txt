@@ -1,0 +1,12 @@
+# ds.one(<case>, <case dir>, ['-parse','-nobuiltin','-nocache','-sv','dut.sv'], <workroot>, 300) per binary
+# case            pristine            law
+VE/ve04           IDENTICAL (0 gates) IDENTICAL (0 gates)
+VE/ve12           IDENTICAL (0 gates) IDENTICAL (0 gates)
+VM/vm01           IDENTICAL (2 gates) IDENTICAL (2 gates)
+VM/vm02           IDENTICAL (4 gates) IDENTICAL (4 gates)
+VT/vt06           IDENTICAL (0 gates) IDENTICAL (0 gates)
+VT/vt08           IDENTICAL (0 gates) IDENTICAL (0 gates)
+VT/vt14           IDENTICAL (0 gates) IDENTICAL (0 gates)
+r11u469 IR/ir07   IDENTICAL (0 gates) IDENTICAL (0 gates)
+r11u469 IA/ia04   IDENTICAL (0 gates) IDENTICAL (0 gates)
+r11u469 IA/ia12   IDENTICAL (0 gates) IDENTICAL (0 gates)

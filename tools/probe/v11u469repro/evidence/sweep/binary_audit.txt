@@ -1,0 +1,3 @@
+surelog cmds=1573 naming_law=1523 naming_other=0
+uhdm2rtlil cmds=1740 naming_law=1740 naming_other=0
+svtests cmds=2346 naming_law=2346 naming_other=0

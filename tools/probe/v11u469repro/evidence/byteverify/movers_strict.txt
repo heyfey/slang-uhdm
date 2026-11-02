@@ -1,0 +1,18 @@
+== surelog/default/BlackBePipeInt-1fcd9dad
+  intr11u467 canon: STRICT_EQUAL 339479 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 339479 objects | nocanon: STRICT_NOTEQUAL depth
+== surelog/default/HierPathOverride-2fa13a4d
+  intr11u467 canon: STRICT_EQUAL 622 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 622 objects | nocanon: STRICT_NOTEQUAL depth
+== surelog/default/MiniAmiq-055eab74
+  intr11u467 canon: STRICT_EQUAL 435559 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 435559 objects | nocanon: STRICT_NOTEQUAL depth
+== surelog/testflags/SeqDriver-65178d3a
+  intr11u467 canon: STRICT_EQUAL 475538 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 475538 objects | nocanon: STRICT_NOTEQUAL depth
+== uhdm2rtlil/default/BitSelectOfParameterPassedToSubmodule-a5ea6428
+  intr11u467 canon: STRICT_EQUAL 664 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 664 objects | nocanon: STRICT_NOTEQUAL depth
+== uhdm2rtlil/default/ibex_tracer-5e24e441
+  intr11u467 canon: STRICT_EQUAL 35922 objects | nocanon: STRICT_NOTEQUAL depth
+  v11u469_sw canon: STRICT_EQUAL 35922 objects | nocanon: STRICT_NOTEQUAL depth

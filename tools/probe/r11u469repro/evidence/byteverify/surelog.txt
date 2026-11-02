@@ -1,0 +1,12 @@
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=5fb9d66bbd6c pristine=65309a366c9c
+MOVER ./default/HierPathOverride-2fa13a4d/slang.uhdm  patched=1a39924f0c4e pristine=e6d978de1eed
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm  patched=8be0993ea71f pristine=6f8fb21fe3f4
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm  patched=e8adab38a326 pristine=0dadc366a5ba
+MOVER ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=0b666364d97d pristine=e5fe0266d8ff
+MOVER ./testflags/HierPathOverride-2fa13a4d/slang.uhdm  patched=6aace6b907d1 pristine=d1847b36de37
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm  patched=8be0993ea71f pristine=6f8fb21fe3f4
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm  patched=06ced7e4bcef pristine=d06eaeb7d1c2
+MOVERS: 8 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged

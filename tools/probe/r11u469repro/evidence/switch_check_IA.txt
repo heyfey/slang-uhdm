@@ -1,0 +1,12 @@
+ia01 pr md5=ba90b442 | R11U469_OFF rc=0 md5=ba90b442
+ia02 pr md5=1d2ecc88 | R11U469_OFF rc=0 md5=1d2ecc88
+ia03 pr md5=ec492fc5 | R11U469_OFF rc=0 md5=ec492fc5
+ia04 pr md5=22a634dc | R11U469_OFF rc=0 md5=22a634dc
+ia05 pr md5=f9d9764f | R11U469_OFF rc=0 md5=f9d9764f
+ia06 pr md5=499d9caf | R11U469_OFF rc=0 md5=499d9caf
+ia07 pr md5=a0636d2f | R11U469_OFF rc=0 md5=a0636d2f
+ia08 pr md5=607e2295 | R11U469_OFF rc=0 md5=607e2295
+ia09 pr md5=27cf2f94 | R11U469_OFF rc=0 md5=27cf2f94
+ia10 pr md5=32e15c50 | R11U469_OFF rc=0 md5=32e15c50
+ia11 pr md5=c01e4abc | R11U469_OFF rc=0 md5=c01e4abc
+ia12 pr md5=bb5fa73d | R11U469_OFF rc=0 md5=bb5fa73d

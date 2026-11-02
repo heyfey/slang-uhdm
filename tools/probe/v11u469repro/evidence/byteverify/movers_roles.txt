@@ -1,0 +1,6 @@
+surelog/default/BlackBePipeInt-1fcd9dad ctl: roles g=970 o=970 onlyG=66 onlyO=66 | law: roles g=970 o=970 onlyG=0 onlyO=0
+surelog/default/HierPathOverride-2fa13a4d ctl: roles g=6 o=6 onlyG=2 onlyO=2 | law: roles g=6 o=6 onlyG=0 onlyO=0
+surelog/default/MiniAmiq-055eab74 ctl: roles g=270 o=270 onlyG=14 onlyO=14 | law: roles g=270 o=270 onlyG=0 onlyO=0
+surelog/testflags/SeqDriver-65178d3a ctl: roles g=270 o=270 onlyG=14 onlyO=14 | law: roles g=270 o=270 onlyG=0 onlyO=0
+uhdm2rtlil/default/BitSelectOfParameterPassedToSubmodule-a5ea6428 ctl: roles g=6 o=6 onlyG=2 onlyO=2 | law: roles g=6 o=6 onlyG=0 onlyO=0
+uhdm2rtlil/default/ibex_tracer-5e24e441 ctl: roles g=380 o=380 onlyG=134 onlyO=134 | law: roles g=380 o=380 onlyG=0 onlyO=0

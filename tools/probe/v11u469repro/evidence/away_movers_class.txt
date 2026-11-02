@@ -1,0 +1,7 @@
+r11u453repro XP/xp05 cmp 64->286 WORSE | (0, 64, 'NE', 319, 6) -> (0, 286, 'NE', 218, 0)
+r11u453repro r11u453repro/evidence/residue/TS/ts02 STRICT-BETTER | (0, 64, 'NE', 313, 6) -> (0, 0, 'SE', 212, 0)
+r11u461repro r11u461repro/evidence/decode/RX/rx01 STRICT-BETTER | (0, 64, 'NE', 313, 6) -> (0, 0, 'SE', 212, 0)
+r11u467repro UC/uc02 STRICT-BETTER | (0, 690, 'NE', 1284, 24) -> (0, 0, 'SE', 1077, 0)
+v11u453repro VO/vo07 STRICT-BETTER | (0, 64, 'NE', 234, 10) -> (0, 0, 'SE', 250, 0)
+v11u467repro VU/vu11 STRICT-BETTER | (0, 282, 'NE', 532, 6) -> (0, 0, 'SE', 430, 0)
+{'roles-better': 73, 'cmp-worse': 1, 'STRICT-BETTER': 5}

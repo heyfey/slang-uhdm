@@ -1,0 +1,6 @@
+./work/generated/uvm-examples/uvm_overriding/slang.uhdm STRICT_EQUAL 621515 objects
+./work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm STRICT_EQUAL 981228 objects
+./work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm STRICT_EQUAL 843913 objects
+./work/generated/uvm-examples/uvm_slave_agent/slang.uhdm STRICT_EQUAL 841104 objects
+./work/generated/uvm-examples/uvm_use_models_pipelined_get_put/slang.uhdm STRICT_EQUAL 838222 objects
+./work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm STRICT_EQUAL 685311 objects

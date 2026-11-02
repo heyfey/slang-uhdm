@@ -1,0 +1,10 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+hdlconvertor_std2017_p733,generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+hdlconvertor_std2017_p737,generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,plain,parsing,hdlconv_std2017,0,120,OK,0,0.0,,OK,0,0.0,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+easyUVM,generated/easyUVM/top.sv,uvm,elaboration,uvm,0,300,OK,0,0.0,,OK,0,4.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,18.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,13.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_env,testbenches/uvm_scoreboard_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,4.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_agent_env,testbenches/uvm_scoreboard_monitor_agent_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,4.4,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_scoreboard_monitor_env,testbenches/uvm_scoreboard_monitor_env.sv,uvm,simulation,uvm uvm-scoreboards,0,300,OK,0,0.0,,OK,0,4.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+TNoC,generated/tnoc/tnoc.sv,cores,elaboration,TNoC,0,120,OK,0,0.0,,OK,0,37.2,,NOTEQUAL,decompile:,DIFFERENT,ok,ok

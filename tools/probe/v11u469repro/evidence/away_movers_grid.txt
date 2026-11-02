@@ -1,0 +1,79 @@
+r11u451repro DI/di01 pr rc=0 cmp=0 STRICT_EQUAL 251 objects dd=218 roles=6 || DI/di01 law rc=0 cmp=0 STRICT_EQUAL 251 objects dd=224 roles=0
+r11u451repro DI/di02 pr rc=0 cmp=35 NOT_EQUAL stage1 dd=208 roles=6 || DI/di02 law rc=0 cmp=35 NOT_EQUAL stage1 dd=214 roles=0
+r11u451repro DI/di03 pr rc=0 cmp=0 STRICT_EQUAL 353 objects dd=426 roles=10 || DI/di03 law rc=0 cmp=0 STRICT_EQUAL 353 objects dd=456 roles=0
+r11u451repro DI/di04 pr rc=0 cmp=0 STRICT_EQUAL 189 objects dd=198 roles=8 || DI/di04 law rc=0 cmp=0 STRICT_EQUAL 189 objects dd=202 roles=0
+r11u451repro DI/di05 pr rc=0 cmp=151 NOT_EQUAL stage1 dd=469 roles=6 || DI/di05 law rc=0 cmp=151 NOT_EQUAL stage1 dd=487 roles=0
+r11u451repro DI/di06 pr rc=0 cmp=0 STRICT_EQUAL 274 objects dd=290 roles=10 || DI/di06 law rc=0 cmp=0 STRICT_EQUAL 274 objects dd=292 roles=0
+r11u451repro DI/di07 pr rc=0 cmp=0 STRICT_EQUAL 380 objects dd=379 roles=24 || DI/di07 law rc=0 cmp=0 STRICT_EQUAL 380 objects dd=371 roles=0
+r11u453repro XP/xp01 pr rc=0 cmp=0 STRICT_EQUAL 103 objects dd=92 roles=4 || XP/xp01 law rc=0 cmp=0 STRICT_EQUAL 103 objects dd=92 roles=0
+r11u453repro XP/xp02 pr rc=0 cmp=0 STRICT_EQUAL 130 objects dd=46 roles=2 || XP/xp02 law rc=0 cmp=0 STRICT_EQUAL 130 objects dd=52 roles=0
+r11u453repro XP/xp03 pr rc=0 cmp=0 STRICT_EQUAL 220 objects dd=182 roles=8 || XP/xp03 law rc=0 cmp=0 STRICT_EQUAL 220 objects dd=192 roles=0
+r11u453repro XP/xp04 pr rc=0 cmp=0 STRICT_EQUAL 119 objects dd=94 roles=6 || XP/xp04 law rc=0 cmp=0 STRICT_EQUAL 119 objects dd=82 roles=0
+r11u453repro XP/xp05 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=319 roles=6 || XP/xp05 law rc=0 cmp=286 NOT_EQUAL stage1 dd=218 roles=0
+r11u453repro XP/xp06 pr rc=0 cmp=0 STRICT_EQUAL 121 objects dd=116 roles=8 || XP/xp06 law rc=0 cmp=0 STRICT_EQUAL 121 objects dd=100 roles=0
+r11u453repro XP/xp07 pr rc=0 cmp=0 STRICT_EQUAL 105 objects dd=90 roles=6 || XP/xp07 law rc=0 cmp=0 STRICT_EQUAL 105 objects dd=78 roles=0
+r11u453repro r11u453repro/evidence/residue/TS/ts02 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=313 roles=6 || r11u453repro/evidence/residue/TS/ts02 law rc=0 cmp=0 STRICT_EQUAL 210 objects dd=212 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx01 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=313 roles=6 || r11u461repro/evidence/decode/RX/rx01 law rc=0 cmp=0 STRICT_EQUAL 210 objects dd=212 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx02 pr rc=0 cmp=0 STRICT_EQUAL 66 objects dd=32 roles=2 || r11u461repro/evidence/decode/RX/rx02 law rc=0 cmp=0 STRICT_EQUAL 66 objects dd=32 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx04 pr rc=0 cmp=50 NOT_EQUAL stage1 dd=65 roles=2 || r11u461repro/evidence/decode/RX/rx04 law rc=0 cmp=50 NOT_EQUAL stage1 dd=71 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx03 pr rc=0 cmp=0 STRICT_EQUAL 143 objects dd=42 roles=2 || r11u461repro/evidence/decode/RX/rx03 law rc=0 cmp=0 STRICT_EQUAL 143 objects dd=42 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx05 pr rc=0 cmp=0 STRICT_EQUAL 208 objects dd=86 roles=4 || r11u461repro/evidence/decode/RX/rx05 law rc=0 cmp=0 STRICT_EQUAL 208 objects dd=84 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx06 pr rc=0 cmp=0 STRICT_EQUAL 111 objects dd=108 roles=2 || r11u461repro/evidence/decode/RX/rx06 law rc=0 cmp=0 STRICT_EQUAL 111 objects dd=89 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx07 pr rc=0 cmp=0 STRICT_EQUAL 143 objects dd=42 roles=2 || r11u461repro/evidence/decode/RX/rx07 law rc=0 cmp=0 STRICT_EQUAL 143 objects dd=42 roles=0
+r11u461repro r11u461repro/evidence/decode/RX/rx08 pr rc=0 cmp=0 STRICT_EQUAL 66 objects dd=32 roles=2 || r11u461repro/evidence/decode/RX/rx08 law rc=0 cmp=0 STRICT_EQUAL 66 objects dd=32 roles=0
+r11u467repro UC/uc01 pr rc=0 cmp=0 STRICT_EQUAL 402 objects dd=366 roles=14 || UC/uc01 law rc=0 cmp=0 STRICT_EQUAL 402 objects dd=364 roles=0
+r11u467repro UC/uc02 pr rc=0 cmp=690 NOT_EQUAL stage1 dd=1284 roles=24 || UC/uc02 law rc=0 cmp=0 STRICT_EQUAL 701 objects dd=1077 roles=0
+r11u467repro UC/uc05 pr rc=0 cmp=0 STRICT_EQUAL 133 objects dd=106 roles=6 || UC/uc05 law rc=0 cmp=0 STRICT_EQUAL 133 objects dd=98 roles=0
+r11u467repro UC/uc03 pr rc=0 cmp=0 STRICT_EQUAL 297 objects dd=252 roles=10 || UC/uc03 law rc=0 cmp=0 STRICT_EQUAL 297 objects dd=242 roles=0
+r11u467repro UC/uc04 pr rc=0 cmp=0 STRICT_EQUAL 321 objects dd=243 roles=6 || UC/uc04 law rc=0 cmp=0 STRICT_EQUAL 321 objects dd=243 roles=0
+r11u467repro UC/uc06 pr rc=0 cmp=0 STRICT_EQUAL 95 objects dd=50 roles=2 || UC/uc06 law rc=0 cmp=0 STRICT_EQUAL 95 objects dd=56 roles=0
+v11u451repro VA/va01 pr rc=0 cmp=199 NOT_EQUAL stage1 dd=406 roles=12 || VA/va01 law rc=0 cmp=199 NOT_EQUAL stage1 dd=396 roles=0
+v11u451repro VA/va03 pr rc=0 cmp=42 NOT_EQUAL stage1 dd=137 roles=6 || VA/va03 law rc=0 cmp=42 NOT_EQUAL stage1 dd=155 roles=0
+v11u451repro VA/va02 pr rc=0 cmp=46 NOT_EQUAL stage1 dd=946 roles=18 || VA/va02 law rc=0 cmp=46 NOT_EQUAL stage1 dd=820 roles=0
+v11u451repro VA/va04 pr rc=0 cmp=474 NOT_EQUAL stage1 dd=538 roles=8 || VA/va04 law rc=0 cmp=474 NOT_EQUAL stage1 dd=562 roles=0
+v11u451repro VA/va06 pr rc=0 cmp=0 STRICT_EQUAL 162 objects dd=106 roles=6 || VA/va06 law rc=0 cmp=0 STRICT_EQUAL 162 objects dd=124 roles=0
+v11u451repro VA/va05 pr rc=0 cmp=0 STRICT_EQUAL 293 objects dd=222 roles=12 || VA/va05 law rc=0 cmp=0 STRICT_EQUAL 293 objects dd=258 roles=0
+v11u451repro VD/vd05 pr rc=0 cmp=0 STRICT_EQUAL 7866 objects dd=9162 roles=248 || VD/vd05 law rc=0 cmp=0 STRICT_EQUAL 7866 objects dd=9954 roles=0
+v11u453repro VM/vm06 pr rc=0 cmp=0 STRICT_EQUAL 78 objects dd=46 roles=2 || VM/vm06 law rc=0 cmp=0 STRICT_EQUAL 78 objects dd=50 roles=0
+v11u453repro VO/vo01 pr rc=0 cmp=0 STRICT_EQUAL 128 objects dd=56 roles=2 || VO/vo01 law rc=0 cmp=0 STRICT_EQUAL 128 objects dd=62 roles=0
+v11u453repro VO/vo02 pr rc=0 cmp=0 STRICT_EQUAL 97 objects dd=42 roles=2 || VO/vo02 law rc=0 cmp=0 STRICT_EQUAL 97 objects dd=48 roles=0
+v11u453repro VO/vo03 pr rc=0 cmp=0 STRICT_EQUAL 271 objects dd=206 roles=12 || VO/vo03 law rc=0 cmp=0 STRICT_EQUAL 271 objects dd=210 roles=0
+v11u453repro VO/vo04 pr rc=0 cmp=0 STRICT_EQUAL 123 objects dd=42 roles=2 || VO/vo04 law rc=0 cmp=0 STRICT_EQUAL 123 objects dd=48 roles=0
+v11u453repro VO/vo05 pr rc=0 cmp=0 STRICT_EQUAL 118 objects dd=42 roles=2 || VO/vo05 law rc=0 cmp=0 STRICT_EQUAL 118 objects dd=48 roles=0
+v11u453repro VO/vo06 pr rc=0 cmp=50 NOT_EQUAL stage1 dd=83 roles=2 || VO/vo06 law rc=0 cmp=50 NOT_EQUAL stage1 dd=89 roles=0
+v11u453repro VO/vo07 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=234 roles=10 || VO/vo07 law rc=0 cmp=0 STRICT_EQUAL 210 objects dd=250 roles=0
+v11u453repro VX/vx01 pr rc=0 cmp=0 STRICT_EQUAL 92 objects dd=50 roles=2 || VX/vx01 law rc=0 cmp=0 STRICT_EQUAL 92 objects dd=54 roles=0
+v11u453repro VX/vx02 pr rc=0 cmp=0 STRICT_EQUAL 179 objects dd=212 roles=4 || VX/vx02 law rc=0 cmp=0 STRICT_EQUAL 179 objects dd=200 roles=0
+v11u453repro VX/vx04 pr rc=0 cmp=0 STRICT_EQUAL 91 objects dd=32 roles=2 || VX/vx04 law rc=0 cmp=0 STRICT_EQUAL 91 objects dd=38 roles=0
+v11u453repro VX/vx03 pr rc=0 cmp=0 STRICT_EQUAL 179 objects dd=129 roles=6 || VX/vx03 law rc=0 cmp=0 STRICT_EQUAL 179 objects dd=125 roles=0
+v11u453repro VX/vx05 pr rc=0 cmp=0 STRICT_EQUAL 229 objects dd=202 roles=12 || VX/vx05 law rc=0 cmp=0 STRICT_EQUAL 229 objects dd=186 roles=0
+v11u453repro VX/vx06 pr rc=0 cmp=50 NOT_EQUAL stage1 dd=69 roles=2 || VX/vx06 law rc=0 cmp=50 NOT_EQUAL stage1 dd=75 roles=0
+v11u453repro VX/vx07 pr rc=0 cmp=191 NOT_EQUAL stage1 dd=64 roles=2 || VX/vx07 law rc=0 cmp=191 NOT_EQUAL stage1 dd=64 roles=0
+v11u453repro VX/vx08 pr rc=0 cmp=0 STRICT_EQUAL 153 objects dd=126 roles=8 || VX/vx08 law rc=0 cmp=0 STRICT_EQUAL 153 objects dd=118 roles=0
+v11u453repro VX/vx09 pr rc=0 cmp=91 NOT_EQUAL stage1 dd=36 roles=2 || VX/vx09 law rc=0 cmp=91 NOT_EQUAL stage1 dd=42 roles=0
+v11u453repro VX/vx11 pr rc=0 cmp=346 NOT_EQUAL stage1 dd=242 roles=2 || VX/vx11 law rc=0 cmp=346 NOT_EQUAL stage1 dd=246 roles=0
+v11u453repro VX/vx12 pr rc=0 cmp=0 STRICT_EQUAL 97 objects dd=70 roles=4 || VX/vx12 law rc=0 cmp=0 STRICT_EQUAL 97 objects dd=68 roles=0
+v11u453repro VX/vx13 pr rc=0 cmp=0 STRICT_EQUAL 95 objects dd=48 roles=2 || VX/vx13 law rc=0 cmp=0 STRICT_EQUAL 95 objects dd=54 roles=0
+v11u461repro VC/vc03 pr rc=0 cmp=62 NOT_EQUAL stage1 dd=78 roles=2 || VC/vc03 law rc=0 cmp=62 NOT_EQUAL stage1 dd=78 roles=0
+v11u467repro VU/vu03 pr rc=0 cmp=346 NOT_EQUAL stage1 dd=1135 roles=6 || VU/vu03 law rc=0 cmp=346 NOT_EQUAL stage1 dd=1127 roles=0
+v11u467repro VU/vu02 pr rc=0 cmp=558 NOT_EQUAL stage1 dd=481 roles=6 || VU/vu02 law rc=0 cmp=558 NOT_EQUAL stage1 dd=499 roles=0
+v11u467repro VU/vu01 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=919 roles=24 || VU/vu01 law rc=0 cmp=64 NOT_EQUAL stage1 dd=878 roles=0
+v11u467repro VU/vu06 pr rc=0 cmp=1116 NOT_EQUAL stage1 dd=250 roles=6 || VU/vu06 law rc=0 cmp=1116 NOT_EQUAL stage1 dd=250 roles=0
+v11u467repro VU/vu04 pr rc=0 cmp=0 STRICT_EQUAL 393 objects dd=356 roles=14 || VU/vu04 law rc=0 cmp=0 STRICT_EQUAL 393 objects dd=344 roles=0
+v11u467repro VU/vu05 pr rc=0 cmp=736 NOT_EQUAL stage1 dd=2086 roles=21 || VU/vu05 law rc=0 cmp=736 NOT_EQUAL stage1 dd=1978 roles=5
+v11u467repro VU/vu07 pr rc=0 cmp=1342 NOT_EQUAL stage1 dd=1490 roles=18 || VU/vu07 law rc=0 cmp=1342 NOT_EQUAL stage1 dd=1452 roles=0
+v11u467repro VU/vu08 pr rc=0 cmp=0 STRICT_EQUAL 340 objects dd=296 roles=12 || VU/vu08 law rc=0 cmp=0 STRICT_EQUAL 340 objects dd=290 roles=0
+v11u467repro VU/vu09 pr rc=0 cmp=558 NOT_EQUAL stage1 dd=677 roles=6 || VU/vu09 law rc=0 cmp=558 NOT_EQUAL stage1 dd=695 roles=0
+v11u467repro VU/vu10 pr rc=0 cmp=50 NOT_EQUAL stage1 dd=794 roles=14 || VU/vu10 law rc=0 cmp=50 NOT_EQUAL stage1 dd=836 roles=0
+v11u467repro VU/vu11 pr rc=0 cmp=282 NOT_EQUAL stage1 dd=532 roles=6 || VU/vu11 law rc=0 cmp=0 STRICT_EQUAL 307 objects dd=430 roles=0
+v11u467repro VU/vu12 pr rc=0 cmp=0 STRICT_EQUAL 238 objects dd=186 roles=6 || VU/vu12 law rc=0 cmp=0 STRICT_EQUAL 238 objects dd=176 roles=0
+v11u467repro VU/vu14 pr rc=0 cmp=558 NOT_EQUAL stage1 dd=644 roles=6 || VU/vu14 law rc=0 cmp=558 NOT_EQUAL stage1 dd=634 roles=0
+v11u467repro VU/vu15 pr rc=0 cmp=558 NOT_EQUAL stage1 dd=677 roles=6 || VU/vu15 law rc=0 cmp=558 NOT_EQUAL stage1 dd=695 roles=0
+v11u467repro VU/vu13 pr rc=0 cmp=184 NOT_EQUAL stage1 dd=846 roles=6 || VU/vu13 law rc=0 cmp=184 NOT_EQUAL stage1 dd=846 roles=0
+v11u467repro VU/vu18 pr rc=0 cmp=558 NOT_EQUAL stage1 dd=584 roles=6 || VU/vu18 law rc=0 cmp=558 NOT_EQUAL stage1 dd=574 roles=0
+v11u467repro VU/vu16 pr rc=0 cmp=966 NOT_EQUAL stage1 dd=1246 roles=20 || VU/vu16 law rc=0 cmp=966 NOT_EQUAL stage1 dd=1234 roles=0
+v11u467repro VU/vu17 pr rc=0 cmp=64 NOT_EQUAL stage1 dd=630 roles=6 || VU/vu17 law rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0
+v11u467repro VU/vu21 pr rc=0 cmp=50 NOT_EQUAL stage1 dd=203 roles=6 || VU/vu21 law rc=0 cmp=50 NOT_EQUAL stage1 dd=199 roles=0
+v11u467repro VU/vu19 pr rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1189 roles=9 || VU/vu19 law rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1062 roles=0
+v11u467repro VU/vu20 pr rc=0 cmp=0 STRICT_EQUAL 893 objects dd=1630 roles=24 || VU/vu20 law rc=0 cmp=0 STRICT_EQUAL 893 objects dd=1467 roles=0
+v11u467repro VU/vu22 pr rc=0 cmp=0 STRICT_EQUAL 320 objects dd=306 roles=14 || VU/vu22 law rc=0 cmp=0 STRICT_EQUAL 320 objects dd=290 roles=0

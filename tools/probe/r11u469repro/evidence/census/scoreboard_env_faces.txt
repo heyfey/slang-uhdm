@@ -1,0 +1,23 @@
+G:
+ io seq_type -> class_typespec:uvm_object_wrapper@516:44-516:62 parent= inst=package:uvm_pkg@28:1-39:11 cdef=class_defn:uvm_object_wrapper@947:9-984:9 alias=null params=0 pa=0
+ io lib -> class_typespec:this_type@52:13-52:23 parent=class_defn:work@comparator@51:1-92:9 < design:work@top@0:0-0:0 inst=null cdef=class_defn:work@comparator@51:1-92:9 alias=null params=0 pa=0
+O:
+ io seq_type -> class_typespec:uvm_object_wrapper@516:44-516:62 parent= inst=package:uvm_pkg@28:1-39:11 cdef=class_defn:uvm_object_wrapper@947:9-984:9 alias=null params=0 pa=0
+ io lib -> class_typespec:this_type@292:11-292:42 parent=class_defn:uvm_abstract_component_registry@290:1-403:9 < package:uvm_pkg@28:1-39:11 < design:work@top@0:0-0:0 inst=design:work@top@0:0-0:0 cdef=class_defn:uvm_abstract_component_registry@290:1-403:9 alias=null params=0 pa=0
+L=
+R=design:work@top@0:0-0:0
+visited 28
+path d6 ref_typespec:@0:0-0:0 < io_decl:lib@516:83-516:86 < function:m_check@516:1-542:12 < class_defn:uvm_sequence_library@67:1-327:9
+path d5 io_decl:lib@516:83-516:86 < function:m_check@516:1-542:12 < class_defn:uvm_sequence_library@67:1-327:9 < package:uvm_pkg@28:1-39:11
+path d3 class_typespec:this_type@52:13-52:23 < class_defn:work@comparator@51:1-92:9 < design:work@top@0:0-0:0
+
+G
+class_typespec:comparator@95:5-95:15 < class_var:comp@95:30-95:34 < class_defn:work@env@94:1-139:9 < design:work@top@0:0-0:0 cdef=class_defn:work@comparator@51:1-92:9
+  param type_parameter:UVM_ALL_ON@0:0-0:0 < class_typespec:comparator@95:5-95:15
+  pa lhs=parameter:UVM_ALL_ON@196:28-196:38 rhs=type_parameter:UVM_ALL_ON@0:0-0:0
+O
+class_typespec:comparator@621:35-621:47 < type_parameter:T@0:0-0:0 < class_typespec:type_id@621:12-621:34 < class_defn:work@comparator@51:1-92:9 cdef=class_defn:work@comparator@51:1-92:9
+class_typespec:comparator@58:22-58:37 < type_parameter:IMP@0:0-0:0 < class_typespec:uvm_analysis_imp@58:5-58:21 < class_var:from_dut@58:38-58:46 cdef=class_defn:work@comparator@51:1-92:9
+class_typespec:comparator@95:5-95:15 < class_var:comp@95:30-95:34 < class_defn:work@env@94:1-139:9 < design:work@top@0:0-0:0 cdef=class_defn:work@comparator@51:1-92:9
+  param type_parameter:T@0:0-0:0 < class_typespec:comparator@95:5-95:15
+  pa lhs=type_parameter:T@51:25-51:26 rhs=type_parameter:T@0:0-0:0

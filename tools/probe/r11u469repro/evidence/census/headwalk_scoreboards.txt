@@ -1,0 +1,33 @@
+=== testbenches/uvm_scoreboard_env
+#0 L=null
+    R=design:work@top@0:0
+  skip class_typespec:this_type@52:13 < class_defn:work@comparator@51:1 < design:work@top@0:0
+#1 L=type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@95:5 < class_var:comp@95:30 < class_defn:work@env@94:1 < design:work@top@0:0
+    R=type_parameter:T@0:0 < class_typespec:comparator@95:5 < class_var:comp@95:30 < class_defn:work@env@94:1 < design:work@top@0:0
+  skip type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@95:5 < class_var:comp@95:30
+#2 L=parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@51:1 < design:work@top@0:0
+    R=type_parameter:T@51:25 < class_defn:work@comparator@51:1 < design:work@top@0:0
+  skip parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@51:1 < design:work@top@0:0
+EQUAL after 3 heads
+=== testbenches/uvm_scoreboard_monitor_agent_env
+#0 L=null
+    R=design:work@top@0:0
+  skip class_typespec:this_type@113:13 < class_defn:work@comparator@112:1 < design:work@top@0:0
+#1 L=type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@157:5 < class_var:comp@157:30 < class_defn:work@env@155:1 < design:work@top@0:0
+    R=type_parameter:T@0:0 < class_typespec:comparator@157:5 < class_var:comp@157:30 < class_defn:work@env@155:1 < design:work@top@0:0
+  skip type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@157:5 < class_var:comp@157:30
+#2 L=parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@112:1 < design:work@top@0:0
+    R=type_parameter:T@112:25 < class_defn:work@comparator@112:1 < design:work@top@0:0
+  skip parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@112:1 < design:work@top@0:0
+EQUAL after 3 heads
+=== testbenches/uvm_scoreboard_monitor_env
+#0 L=null
+    R=design:work@top@0:0
+  skip class_typespec:this_type@91:13 < class_defn:work@comparator@90:1 < design:work@top@0:0
+#1 L=type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@135:5 < class_var:comp@135:30 < class_defn:work@env@133:1 < design:work@top@0:0
+    R=type_parameter:T@0:0 < class_typespec:comparator@135:5 < class_var:comp@135:30 < class_defn:work@env@133:1 < design:work@top@0:0
+  skip type_parameter:UVM_ALL_ON@0:0 < class_typespec:comparator@135:5 < class_var:comp@135:30
+#2 L=parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@90:1 < design:work@top@0:0
+    R=type_parameter:T@90:25 < class_defn:work@comparator@90:1 < design:work@top@0:0
+  skip parameter:UVM_ALL_ON@196:28 < class_defn:work@comparator@90:1 < design:work@top@0:0
+EQUAL after 3 heads

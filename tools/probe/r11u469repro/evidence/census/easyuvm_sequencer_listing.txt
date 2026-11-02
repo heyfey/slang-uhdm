@@ -1,0 +1,7 @@
+G
+class_defn:work@sequencer@sv-tests/third_party/tests/easyUVM/sequencer.sv:1:1-7:20 vars=52 tds=129 tf=984 params=82 pa=82 named_events=null
+  var string_var:uvm_aa_string_key@slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_object_globals.svh:239:8-239:25
+  var enum_var:m_uvm_core_state@slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/base/uvm_object_globals.svh:713:16-713:32
+O
+class_defn:work@sequencer@sv-tests/third_party/tests/easyUVM/./sequencer.sv:1:1-7:20 vars=null tds=1 tf=5 params=null pa=null named_events=null
+  td class_typespec:type_id@slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/macros/uvm_object_defines.svh:621:12-621:34

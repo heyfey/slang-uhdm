@@ -1,0 +1,13 @@
+probe.csv identical to /tmp/intr11u467/probe.csv
+surelog.csv differs from the control:
+845c845
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+847c847
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "WD/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+uhdm2rtlil.csv identical to /tmp/intr11u467/uhdm2rtlil.csv
+downstream.csv identical to /tmp/intr11u467/downstream.csv
+svtests.csv identical to /tmp/intr11u467/svtests.csv
