@@ -1,0 +1,10 @@
+designshallow
+   L=interface_inst:@26:1 < design:work@top_tb@0:0
+   R=interface_inst:@26:1 < design:work@top_tb@0:0
+module DEF 
+   L=interface_inst:@26:1 < design:work@top_tb@0:0
+   R=interface_inst:@26:1 < design:work@top_tb@0:0
+module TOP work@top_hdl
+   L=interface_inst:mbus_pipelined_drv@26:1 < module_inst:work@top_hdl@21:1 < design:work@top_tb@0:0
+   R=null
+failures 0

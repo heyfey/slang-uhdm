@@ -1,0 +1,18 @@
+Prediction for the law5 sweep, written BEFORE the sweep from the traced census
+(tools/r11u465_tracerun.py over the union of the two text censuses: 45 probe
+case dirs, 97 surelog row-modes, 14 uhdm2rtlil row-modes, 316 sv-tests rows;
+positive control uvm_use_models_pipelined_get_put firing both laws; LowMemPkg
+default rerun by hand with its quoted -D, 0 firings; every other nonzero exit
+a row already SLANG_REJECT / BOTH_REJECT / SURELOG_ONLY / TIMEOUT at the base).
+
+Firing rows (law, firings):
+  sv-tests generated/uvm-examples/uvm_use_models_pipelined_get_put  cloneLvSharesHomeUnitTs465 180, pkgTransImpAggTd465 6
+  sv-tests generated/uvm-examples/uvm_many_to_one                   cloneLvSharesHomeUnitTs465 180
+  sv-tests generated/uvm-examples/uvm_param_vif_config_db           pkgTransImpAggTd465 74
+  sv-tests generated/rsd/rsd                                         pkgTransImpAggTd465 524
+Predicted movers: exactly those four sv-tests databases (raw bytes); statuses
+unchanged (pipelined_get_put, many_to_one, param_vif_config_db DIFFERENT with
+heads on the sister's ground; rsd SURELOG_CRASH).  Probe, surelog, uhdm2rtlil,
+downstream: 0 movers, 0 conversions, 0 changes.  Other sv-tests raw-byte
+movers can only be the serialization-order variance (STRICT_EQUAL under
+uhdm-strictcmp --no-canon against the control).

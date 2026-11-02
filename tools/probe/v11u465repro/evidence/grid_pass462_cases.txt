@@ -1,0 +1,9 @@
+pristine EB/eb01 rc=0 cmp=160 NOT_EQUAL stage1 md5=53ad9d7c
+pristine VS/vs08 rc=0 cmp=76 NOT_EQUAL stage1 md5=6aec803a
+pristine VS/vs09 rc=0 cmp=50 NOT_EQUAL stage1 md5=e593c8b5
+law EB/eb01 rc=0 cmp=0 STRICT_EQUAL 122 objects md5=b2cb15c2
+law VS/vs08 rc=0 cmp=76 NOT_EQUAL stage1 md5=6aec803a
+law VS/vs09 rc=0 cmp=50 NOT_EQUAL stage1 md5=e593c8b5
+verified EB/eb01 rc=0 cmp=0 STRICT_EQUAL 122 objects md5=b2cb15c2
+verified VS/vs08 rc=0 cmp=76 NOT_EQUAL stage1 md5=6aec803a
+verified VS/vs09 rc=0 cmp=50 NOT_EQUAL stage1 md5=e593c8b5

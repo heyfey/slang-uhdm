@@ -1,0 +1,3 @@
+uvm_use_models_pipelined_get_put clsloc pristine: failures 500 law: failures 0
+uvm_many_to_one clsloc pristine: failures 1250 law: failures 0
+uvm_param_vif_config_db clsloc pristine: failures 1574 law: failures 1574

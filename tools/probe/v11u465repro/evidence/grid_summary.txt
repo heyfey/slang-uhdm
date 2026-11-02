@@ -1,0 +1,71 @@
+# case | pristine | law | dump distance pris -> law | package-typedef listing lines != golden pris/law | loop-var census lines != golden pris/law
+VT/vt01 | rc=0 cmp=284 NOT_EQUAL stage1 | rc=0 cmp=284 NOT_EQUAL stage1 | 43 -> 35 | 2/2 | pris_miss=0 law_miss=0
+VT/vt02 | rc=0 cmp=184 NOT_EQUAL stage1 | rc=0 cmp=184 NOT_EQUAL stage1 | 78 -> 74 | 2/0 | pris_miss=0 law_miss=0
+VT/vt03 | rc=0 cmp=232 NOT_EQUAL stage1 | rc=0 cmp=294 NOT_EQUAL stage1 | 44 -> 38 | 2/0 | pris_miss=0 law_miss=0
+VT/vt04 | rc=0 cmp=388 NOT_EQUAL stage1 | rc=0 cmp=388 NOT_EQUAL stage1 | 20 -> 8 | 2/0 | pris_miss=0 law_miss=0
+VT/vt05 | rc=0 cmp=412 NOT_EQUAL stage1 | rc=0 cmp=412 NOT_EQUAL stage1 | 50 -> 30 | 4/0 | pris_miss=0 law_miss=0
+VT/vt06 | rc=0 cmp=508 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 300 objects | 26 -> 8 | 2/0 | pris_miss=0 law_miss=0
+VT/vt07 | rc=0 cmp=56 NOT_EQUAL stage1 | rc=0 cmp=56 NOT_EQUAL stage1 | 266 -> 266 | 0/0 | pris_miss=0 law_miss=0
+VT/vt08 | rc=0 cmp=308 NOT_EQUAL stage1 | rc=0 cmp=308 NOT_EQUAL stage1 | 14 -> 2 | 2/0 | pris_miss=0 law_miss=0
+VT/vt09 | rc=0 cmp=0 STRICT_EQUAL 259 objects | rc=0 cmp=0 STRICT_EQUAL 259 objects | 8 -> 8 | 0/0 | pris_miss=0 law_miss=0
+VT/vt10 | rc=0 cmp=0 STRICT_EQUAL 63 objects | rc=0 cmp=0 STRICT_EQUAL 63 objects | 30 -> 30 | 0/0 | pris_miss=0 law_miss=0
+VT/vt11 | rc=0 cmp=95 NOT_EQUAL stage1 | rc=0 cmp=95 NOT_EQUAL stage1 | 148 -> 142 | 2/0 | pris_miss=0 law_miss=0
+VT/vt12 | rc=0 cmp=284 NOT_EQUAL stage1 | rc=0 cmp=284 NOT_EQUAL stage1 | 70 -> 64 | 4/4 | pris_miss=0 law_miss=0
+VT/vt13 | rc=0 cmp=440 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 329 objects | 70 -> 64 | 2/0 | pris_miss=0 law_miss=0
+VT/vt14 | rc=0 cmp=384 NOT_EQUAL stage1 | rc=0 cmp=384 NOT_EQUAL stage1 | 2 -> 2 | 0/0 | pris_miss=0 law_miss=0
+VT/vt15 | rc=0 cmp=132 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 69 objects | 8 -> 2 | 2/0 | pris_miss=0 law_miss=0
+VT/vt16 | rc=0 cmp=314 NOT_EQUAL stage1 | rc=0 cmp=314 NOT_EQUAL stage1 | 20 -> 8 | 2/0 | pris_miss=0 law_miss=0
+VT/vt17 | rc=0 cmp=322 NOT_EQUAL stage1 | rc=0 cmp=426 NOT_EQUAL stage1 | 74 -> 68 | 2/0 | pris_miss=0 law_miss=0
+VT/vt18 | rc=0 cmp=392 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 283 objects | 20 -> 8 | 2/0 | pris_miss=0 law_miss=0
+VT/vt19 | rc=0 cmp=218 NOT_EQUAL stage1 | rc=0 cmp=290 NOT_EQUAL stage1 | 116 -> 111 | 2/0 | pris_miss=0 law_miss=0
+VT/vt20 | rc=0 cmp=468 NOT_EQUAL stage1 | rc=0 cmp=468 NOT_EQUAL stage1 | 175 -> 163 | 2/0 | pris_miss=0 law_miss=0
+VT/vt21 | rc=0 cmp=284 NOT_EQUAL stage1 | rc=0 cmp=284 NOT_EQUAL stage1 | 40 -> 20 | 4/0 | pris_miss=0 law_miss=0
+VT/vt22 | rc=0 cmp=216 NOT_EQUAL stage1 | rc=0 cmp=216 NOT_EQUAL stage1 | 14 -> 8 | 2/0 | pris_miss=0 law_miss=0
+VL/vl01 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 161 objects | 80 -> 72 | 0/0 | pris_miss=8 law_miss=0
+VL/vl02 | rc=0 cmp=12 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 180 objects | 84 -> 84 | 0/0 | pris_miss=4 law_miss=0
+VL/vl03 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 194 objects | 102 -> 94 | 0/0 | pris_miss=8 law_miss=0
+VL/vl04 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 167 objects | 72 -> 70 | 0/0 | pris_miss=3 law_miss=0
+VL/vl05 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=223 NOT_EQUAL stage1 | 64 -> 60 | 0/0 | pris_miss=4 law_miss=0
+VL/vl06 | rc=0 cmp=54 NOT_EQUAL stage1 | rc=0 cmp=317 NOT_EQUAL stage1 | 90 -> 90 | 0/0 | pris_miss=4 law_miss=0
+VL/vl07 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 103 objects | 52 -> 48 | 0/0 | pris_miss=4 law_miss=0
+VL/vl08 | rc=0 cmp=0 STRICT_EQUAL 30 objects | rc=0 cmp=0 STRICT_EQUAL 30 objects | 12 -> 12 | 0/0 | pris_miss=0 law_miss=0
+VL/vl09 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 106 objects | 52 -> 48 | 0/0 | pris_miss=4 law_miss=0
+VL/vl10 | rc=0 cmp=29 NOT_EQUAL stage1 | rc=0 cmp=24 NOT_EQUAL stage1 | 128 -> 128 | 0/0 | pris_miss=6 law_miss=0
+VL/vl11 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=414 NOT_EQUAL stage1 | 56 -> 52 | 0/0 | pris_miss=5 law_miss=1
+VL/vl12 | rc=0 cmp=0 STRICT_EQUAL 66 objects | rc=0 cmp=0 STRICT_EQUAL 66 objects | 50 -> 50 | 0/0 | pris_miss=0 law_miss=0
+VL/vl13 | rc=0 cmp=0 STRICT_EQUAL 203 objects | rc=0 cmp=0 STRICT_EQUAL 203 objects | 70 -> 70 | 0/0 | pris_miss=1 law_miss=1
+VL/vl14 | rc=0 cmp=0 STRICT_EQUAL 215 objects | rc=0 cmp=0 STRICT_EQUAL 215 objects | 67 -> 67 | 0/0 | pris_miss=1 law_miss=1
+VL/vl15 | rc=0 cmp=12 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 108 objects | 54 -> 54 | 0/0 | pris_miss=4 law_miss=0
+VL/vl16 | rc=0 cmp=1042 NOT_EQUAL stage1 | rc=0 cmp=1042 NOT_EQUAL stage1 | 100 -> 100 | 0/0 | pris_miss=0 law_miss=0
+VL/vl17 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 120 objects | 52 -> 48 | 0/0 | pris_miss=4 law_miss=0
+VL/vl18 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 107 objects | 52 -> 48 | 0/0 | pris_miss=5 law_miss=0
+VL/vl19 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 103 objects | 52 -> 48 | 0/0 | pris_miss=4 law_miss=0
+VL/vl20 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 169 objects | 94 -> 86 | 0/0 | pris_miss=8 law_miss=0
+VL/vl21 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 119 objects | 50 -> 46 | 0/0 | pris_miss=5 law_miss=0
+VL/vl22 | rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 180 objects | 86 -> 86 | 0/0 | pris_miss=4 law_miss=0
+VL/vl23 | rc=0 cmp=126 NOT_EQUAL stage1 | rc=0 cmp=126 NOT_EQUAL stage1 | 90 -> 88 | 0/0 | pris_miss=3 law_miss=0
+VL/vl24 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 183 objects | 134 -> 132 | 0/0 | pris_miss=4 law_miss=0
+LV/lv01 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 103 objects | 52 -> 48 | 0/0 | pris_miss=4 law_miss=0
+LV/lv02 | rc=0 cmp=456 NOT_EQUAL stage1 | rc=0 cmp=456 NOT_EQUAL stage1 | 54 -> 50 | 0/0 | pris_miss=2 law_miss=0
+LV/lv03 | rc=0 cmp=0 STRICT_NOTEQUAL type | rc=0 cmp=0 STRICT_EQUAL 139 objects | 82 -> 80 | 0/0 | pris_miss=4 law_miss=0
+LV/lv04 | rc=0 cmp=14 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 180 objects | 86 -> 86 | 0/0 | pris_miss=4 law_miss=0
+LV/lv05 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 168 objects | 88 -> 88 | 0/0 | pris_miss=4 law_miss=0
+LV/lv06 | rc=0 cmp=0 STRICT_EQUAL 164 objects | rc=0 cmp=0 STRICT_EQUAL 164 objects | 61 -> 61 | 0/0 | pris_miss=1 law_miss=1
+LV/lv07 | rc=0 cmp=0 STRICT_EQUAL 107 objects | rc=0 cmp=0 STRICT_EQUAL 107 objects | 48 -> 48 | 0/0 | pris_miss=0 law_miss=0
+LV/lv08 | rc=0 cmp=18 NOT_EQUAL stage1 | rc=0 cmp=18 NOT_EQUAL stage1 | 40 -> 42 | 0/0 | pris_miss=6 law_miss=0
+TL/tl01 | rc=0 cmp=528 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 316 objects | 20 -> 2 | 2/0 | pris_miss=0 law_miss=0
+TL/tl02 | rc=0 cmp=354 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 201 objects | 22 -> 2 | 4/0 | pris_miss=0 law_miss=0
+TL/tl03 | rc=0 cmp=0 STRICT_EQUAL 201 objects | rc=0 cmp=0 STRICT_EQUAL 201 objects | 2 -> 2 | 0/0 | pris_miss=0 law_miss=0
+TL/tl04 | rc=0 cmp=234 NOT_EQUAL stage1 | rc=0 cmp=234 NOT_EQUAL stage1 | 68 -> 68 | 4/4 | pris_miss=0 law_miss=0
+TL/tl05 | rc=0 cmp=328 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 178 objects | 14 -> 2 | 2/0 | pris_miss=0 law_miss=0
+TL/tl06 | rc=0 cmp=192 NOT_EQUAL stage1 | rc=0 cmp=385 NOT_EQUAL stage1 | 10 -> 4 | 2/0 | pris_miss=0 law_miss=0
+TL/tl07 | rc=0 cmp=252 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 94 objects | 14 -> 2 | 2/0 | pris_miss=0 law_miss=0
+TL/tl08 | rc=0 cmp=140 NOT_EQUAL stage1 | rc=0 cmp=0 STRICT_EQUAL 101 objects | 12 -> 2 | 4/0 | pris_miss=0 law_miss=0
+TL/tl09 | rc=0 cmp=0 STRICT_EQUAL 33 objects | rc=0 cmp=0 STRICT_EQUAL 33 objects | 2 -> 2 | 0/0 | pris_miss=0 law_miss=0
+TL/tl10 | rc=0 cmp=0 STRICT_EQUAL 265 objects | rc=0 cmp=0 STRICT_EQUAL 265 objects | 2 -> 2 | 0/0 | pris_miss=0 law_miss=0
+
+# break cases (§ pkgTransImpEarlierOnly465v): package-typedef listing lines != golden  pristine / law / verified
+VT/vt23 listing-diff 2 4 2
+VT/vt24 listing-diff 2 3 2
+VT/vt25 listing-diff 0 2 0
+VT/vt26 listing-diff 2 4 2

@@ -1,0 +1,12 @@
+Prediction for the verified sweep (binary /tmp/v11u465_bin/verified, md5 8e409ad68c5c44922ad20c6b616e464e),
+written 2026-11-02T03:29:04-05:00 BEFORE that sweep.
+The refinement § pkgTransImpEarlierOnly465v only removes edges from § pkgTransImpAggTd465's walk, so it can
+only move databases where § pkgTransImpAggTd465 fired. The law sweep's trace (/tmp/v11u465_trace) holds
+§ pkgTransImpAggTd465 firings on exactly three databases: sv-tests generated/rsd/rsd (524),
+generated/uvm-examples/uvm_param_vif_config_db (74) and uvm_use_models_pipelined_get_put (6); no probe,
+surelog, uhdm2rtlil or downstream database fired. A traced runner call of the verified binary on those three
+rows (/tmp/v11u465_tr3) fires the law with the same counts and the refinement 0 times, the three databases
+STRICT_EQUAL under uhdm-strictcmp --no-canon to the law sweep's.
+Predicted: 0 movers of any kind against the law sweep; every csv of the verified sweep identical to the law
+sweep's (surelog differing only in the LowMem log-path texts); sv-tests raw-byte movers only the
+serialization-order variance (STRICT_EQUAL under --no-canon).

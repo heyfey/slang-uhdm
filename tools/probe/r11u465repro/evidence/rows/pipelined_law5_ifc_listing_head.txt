@@ -1,0 +1,20 @@
+Parameters 90 90
+Param_assigns 90 90
+Typespecs 131 4
+Typespecs uvm_pkg::UVM_FILE vs mbus_types_pkg::mbus_opcode_e
+   L=int_typespec:uvm_pkg::UVM_FILE@669:9 < module_inst:@106:1 < design:work@top_tb@0:0
+   R=enum_typespec:mbus_types_pkg::mbus_opcode_e@23:1 < module_inst:@106:1 < design:work@top_tb@0:0
+Typespecs uvm_pkg::UVM_SEQ_ARB_TYPE vs mbus_types_pkg::mbus_resp_e
+   L=enum_typespec:uvm_pkg::UVM_SEQ_ARB_TYPE@274:40 < module_inst:@106:1 < design:work@top_tb@0:0
+   R=enum_typespec:mbus_types_pkg::mbus_resp_e@24:1 < module_inst:@106:1 < design:work@top_tb@0:0
+Typespecs uvm_pkg::m_uvm_config_obj_misc vs mbus_types_pkg::mbus_seq_item_s
+   L=class_typespec:uvm_pkg::m_uvm_config_obj_misc@60:9 < module_inst:@106:1 < design:work@top_tb@0:0
+   R=struct_typespec:mbus_types_pkg::mbus_seq_item_s@27:9 < module_inst:@106:1 < design:work@top_tb@0:0
+Typespecs uvm_pkg::m_uvm_factory_type_pair_t vs mbus_types_pkg::mbus_seq_item_vector_t
+   L=struct_typespec:uvm_pkg::m_uvm_factory_type_pair_t@581:40 < module_inst:@106:1 < design:work@top_tb@0:0
+   R=bit_typespec:mbus_types_pkg::mbus_seq_item_vector_t@42:9 < module_inst:dut@38:1 < module_inst:work@top_hdl@21:1 < design:work@top_tb@0:0
+Variables 0 0
+Nets 65 65
+Task_funcs 985 985
+Task_funcs begin_transfer vs begin_transfer
+   L=interface_inst:@26:1 < design:work@top_tb@0:0

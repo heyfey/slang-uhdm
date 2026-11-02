@@ -1,0 +1,38 @@
+== pristine (d59c9ff65c1b72790be68a21e7794397)
+LV/lv01 rc=0 cmp=18 NOT_EQUAL stage1 md5=a56243e5
+LV/lv02 rc=0 cmp=456 NOT_EQUAL stage1 md5=d86de443
+LV/lv03 rc=0 cmp=0 STRICT_NOTEQUAL type md5=fb999e62
+LV/lv04 rc=0 cmp=14 NOT_EQUAL stage1 md5=d998b681
+LV/lv05 rc=0 cmp=18 NOT_EQUAL stage1 md5=5f09b7d3
+LV/lv06 rc=0 cmp=0 STRICT_EQUAL 164 objects md5=70da43c1
+LV/lv07 rc=0 cmp=0 STRICT_EQUAL 107 objects md5=a0c0f0f9
+LV/lv08 rc=0 cmp=18 NOT_EQUAL stage1 md5=eb937251
+TL/tl01 rc=0 cmp=528 NOT_EQUAL stage1 md5=377676c9
+TL/tl02 rc=0 cmp=354 NOT_EQUAL stage1 md5=2bdc447b
+TL/tl03 rc=0 cmp=0 STRICT_EQUAL 201 objects md5=4b3f6008
+TL/tl04 rc=0 cmp=234 NOT_EQUAL stage1 md5=4c6bfad8
+TL/tl05 rc=0 cmp=328 NOT_EQUAL stage1 md5=e1eb3f85
+TL/tl06 rc=0 cmp=192 NOT_EQUAL stage1 md5=d0473f0a
+TL/tl07 rc=0 cmp=252 NOT_EQUAL stage1 md5=53413090
+TL/tl08 rc=0 cmp=140 NOT_EQUAL stage1 md5=c9769245
+TL/tl09 rc=0 cmp=0 STRICT_EQUAL 33 objects md5=f8be7855
+TL/tl10 rc=0 cmp=0 STRICT_EQUAL 265 objects md5=7ad4347d
+== law5 (0d6857acbfa6cefc70fddf3c8a30045c)
+LV/lv01 rc=0 cmp=0 STRICT_EQUAL 103 objects md5=c191daa4
+LV/lv02 rc=0 cmp=456 NOT_EQUAL stage1 md5=f3414d1f
+LV/lv03 rc=0 cmp=0 STRICT_EQUAL 139 objects md5=87febe14
+LV/lv04 rc=0 cmp=0 STRICT_EQUAL 180 objects md5=979787e8
+LV/lv05 rc=0 cmp=0 STRICT_EQUAL 168 objects md5=0c50788a
+LV/lv06 rc=0 cmp=0 STRICT_EQUAL 164 objects md5=70da43c1
+LV/lv07 rc=0 cmp=0 STRICT_EQUAL 107 objects md5=a0c0f0f9
+LV/lv08 rc=0 cmp=18 NOT_EQUAL stage1 md5=4a098644
+TL/tl01 rc=0 cmp=0 STRICT_EQUAL 316 objects md5=8e7072e5
+TL/tl02 rc=0 cmp=0 STRICT_EQUAL 201 objects md5=5993d8a2
+TL/tl03 rc=0 cmp=0 STRICT_EQUAL 201 objects md5=4b3f6008
+TL/tl04 rc=0 cmp=234 NOT_EQUAL stage1 md5=4c6bfad8
+TL/tl05 rc=0 cmp=0 STRICT_EQUAL 178 objects md5=1994fc30
+TL/tl06 rc=0 cmp=385 NOT_EQUAL stage1 md5=3491c1f9
+TL/tl07 rc=0 cmp=0 STRICT_EQUAL 94 objects md5=b1ef03e5
+TL/tl08 rc=0 cmp=0 STRICT_EQUAL 101 objects md5=4bf11707
+TL/tl09 rc=0 cmp=0 STRICT_EQUAL 33 objects md5=f8be7855
+TL/tl10 rc=0 cmp=0 STRICT_EQUAL 265 objects md5=7ad4347d

@@ -31015,6 +31015,10 @@ static void pcwRefLastWriter250(
 }
 
 static void firstListerNamesClassTd463(UHDM::design* d, Compilation& comp);  // § firstListerNamesClassTd463
+static void cloneLvSharesHomeUnitTs465(
+    UHDM::Serializer& s, UHDM::design* d, Compilation& comp,
+    std::map<std::string, UHDM::ref_var*>& cloneLoopVarShared37,
+    const std::function<bool(const slang::ast::Symbol&)>& pkgImportedByUnit21);  // § cloneLvSharesHomeUnitTs465
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31391,6 +31395,125 @@ void UhdmExporter::drainPaNameCopySrc38() {
             rc38->VpiDecompile(std::string(sc38->VpiDecompile()));
     }
     firstListerNamesClassTd463(d, comp);
+    cloneLvSharesHomeUnitTs465(s, d, comp, cloneLoopVarShared37,
+                               [this](const slang::ast::Symbol& p465) {
+                                   return pkgImportedByUnit21(p465);
+                               });
+}
+
+// § cloneLvSharesHomeUnitTs465 (r11u465, R11U465_CLONELVUNITTS_OFF; grid
+// tools/probe/r11u465repro/cases) — under a $unit import of the home package
+// (§ classPropUnitImport21, with § unitImpTransLateList459's chain), the
+// shared clone loop-variable object of § cloneLoopVarShared37 binds the very
+// typespec object the home package's ELABORATED view gave its own loop
+// variable.  Surelog's UhdmWriter::lateTypedefBinding runs the FileContent
+// pass over the copied late list last; its swapForSpecifiedVar replaces the
+// home foreach's loop variable (the int_var fallback for a class property
+// the $unit scope cannot resolve, the element's class_var for a package
+// queue) and the shared ref_var every importer's clone binds ends up over
+// that same typespec (sv-tests uvm_use_models_pipelined_get_put: golden's
+// ref_var uvm_pkg::uvm_default_factory::set_type_override_by_type::index
+// binds int_typespec, the one the class view's int_var index carries, and
+// uvm_pkg::uvm_init::idx the class_typespec uvm_object_wrapper of the
+// class_var idx, where ours kept the unsupported placeholder or the
+// unimported route's answer).  Design-final, after every deferred binding
+// of the shared object: for each shared object whose home package a $unit
+// import reaches, the home foreach in the TopPackages listing with a loop
+// variable of the same full name, name and location that is not a ref_var
+// gives its typespec; no such loop variable, or two different typespecs,
+// abstain.
+static void cloneLvSharesHomeUnitTs465(
+    UHDM::Serializer& s, UHDM::design* d, Compilation& comp,
+    std::map<std::string, UHDM::ref_var*>& cloneLoopVarShared37,
+    const std::function<bool(const slang::ast::Symbol&)>& pkgImportedByUnit21) {
+    if (!d || !d->TopPackages() || cloneLoopVarShared37.empty() ||
+        !lawOn(465, "R11U465_CLONELVUNITTS_OFF"))
+        return;
+    std::map<std::string, std::vector<UHDM::ref_var*>> byFull465;
+    for (auto& kv465 : cloneLoopVarShared37) {
+        auto* sh465 = kv465.second;
+        if (!sh465 || !sh465->Typespec())
+            continue;
+        std::string fn465(sh465->VpiFullName());
+        auto q465 = fn465.find("::");
+        if (q465 == std::string::npos)
+            continue;
+        auto* ps465 = comp.getPackage(fn465.substr(0, q465));
+        if (!ps465 || !pkgImportedByUnit21(*ps465))
+            continue;
+        byFull465[fn465].push_back(sh465);
+    }
+    if (byFull465.empty())
+        return;
+    std::set<const UHDM::any*> top465;
+    for (auto* p465 : *d->TopPackages())
+        top465.insert(p465);
+    // full name -> (home loop variable, its typespec)
+    std::map<std::string, std::vector<std::pair<const UHDM::any*, UHDM::typespec*>>> home465;
+    for (auto& kv465 : s.AllObjects()) {
+        auto* o465 = (const UHDM::any*)kv465.first;
+        if (!o465 || o465->UhdmType() != UHDM::uhdmforeach_stmt)
+            continue;
+        auto* lvs465 = ((const UHDM::foreach_stmt*)o465)->VpiLoopVars();
+        if (!lvs465)
+            continue;
+        const UHDM::any* up465 = o465->VpiParent();
+        for (int g465 = 0; up465 && g465 < 256 &&
+                           up465->UhdmType() != UHDM::uhdmpackage;
+             g465++)
+            up465 = up465->VpiParent();
+        if (!up465 || !top465.count(up465))
+            continue;
+        for (auto* lv465 : *lvs465) {
+            auto* v465 = lv465 ? any_cast<const UHDM::variables*>(lv465) : nullptr;
+            if (!v465 || lv465->UhdmType() == UHDM::uhdmref_var || !v465->Typespec() ||
+                !v465->Typespec()->Actual_typespec())
+                continue;
+            std::string f465(v465->VpiFullName());
+            if (!byFull465.count(f465))
+                continue;
+            home465[f465].push_back(
+                {lv465, const_cast<UHDM::typespec*>(v465->Typespec()->Actual_typespec())});
+        }
+    }
+    for (auto& [f465, shs465] : byFull465)
+        for (auto* sh465 : shs465) {
+            UHDM::typespec* ts465 = nullptr;
+            bool amb465 = false;
+            if (auto it465 = home465.find(f465); it465 != home465.end())
+                for (auto& [lv465, t465] : it465->second) {
+                    if (lv465->VpiName() != sh465->VpiName() ||
+                        lv465->VpiLineNo() != sh465->VpiLineNo() ||
+                        lv465->VpiColumnNo() != sh465->VpiColumnNo())
+                        continue;
+                    if (ts465 && ts465 != t465)
+                        amb465 = true;
+                    ts465 = t465;
+                }
+            if (!ts465 || amb465) {
+                lawTrace(465, "cloneLvSharesHomeUnitTs465",
+                         std::string("abstain ") + f465 + (amb465 ? " ambiguous" : " nohome"));
+                continue;
+            }
+            // a shared object already over a typespec of the home's kind at
+            // the home's location keeps it (an associative index's own
+            // int_typespec at its keyword is NOT the int fallback with no
+            // span the home took, uvm_packer::pack_object_with_meta): the existing branches (§ cloneLoopVarHomeObject183 and
+            // its successors) built that object from the declaration the
+            // home's answer is read from, with its own vpiInstance, where
+            // the home loop variable's copy has none (uvm_has_wildcard's
+            // string formal: golden's one string_typespec carries the home
+            // package, ours split across two objects)
+            if (auto* cur465 = sh465->Typespec()->Actual_typespec();
+                cur465 == ts465 ||
+                (cur465 && cur465->UhdmType() == ts465->UhdmType() &&
+                 cur465->VpiLineNo() == ts465->VpiLineNo() &&
+                 cur465->VpiColumnNo() == ts465->VpiColumnNo()))
+                continue;
+            lawTrace(465, "cloneLvSharesHomeUnitTs465",
+                     f465 + " " + std::to_string((int)ts465->UhdmType()));
+            sh465->Typespec()->Actual_typespec(ts465);
+        }
 }
 
 // § firstListerNamesClassTd463 (r11u463, R11U463_FIRSTLISTER_OFF; grid
@@ -41956,6 +42079,8 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
     // listings share it) plus an import_typespec per import item (after the
     // sorted typedefs).
     std::vector<UHDM::typespec*> importTss;
+    // § pkgTransImpAggTd465 — the clones its transitive walk listed.
+    std::set<const UHDM::typespec*> trans465;
     // Wildcard-import subroutine clones take over subMap for the rest of this
     // package's emission; the home entries are put back when the view ends.
     std::vector<std::tuple<const Symbol*, SubInfo, bool>> pkgWildcardHomeSi9;
@@ -41970,7 +42095,127 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             else
                 continue;
             if (auto* spkg = comp.getPackage(pn)) {
-                for (auto& pm : spkg->members()) {
+                // § pkgTransImpAggTd465 (r11u465, R11U465_TRANSAGGTD_OFF;
+                // grid tools/probe/r11u465repro/cases/TL) — the enum and
+                // struct typedefs list TRANSITIVELY too, exactly as the
+                // vector, scalar and class aliases below already do:
+                // CompileHelper::importPackage copies the imported package's
+                // whole datatype map, which holds what that package's own
+                // wildcard imports copied into it, so a package importing a
+                // package that imports a third lists the third's enum and
+                // struct typedefs as well, the ONE shared clone each, named
+                // after its own home and stamped by the last package to list
+                // it (sv-tests uvm_use_models_pipelined_get_put:
+                // mbus_pipelined_env_pkg imports mbus_pipelined_agent_pkg,
+                // which imports mbus_types_pkg, and golden's env listing
+                // holds mbus_types_pkg::mbus_opcode_e, mbus_resp_e and
+                // mbus_seq_item_s, 133 entries where ours had 130).  Only a
+                // wildcard import item reaches through, along the imported
+                // packages' own wildcard imports; a transitive typedef whose
+                // shared clone no earlier importer has made abstains.
+                std::vector<const Symbol*> tdIter465;
+                for (auto& pm465 : spkg->members())
+                    tdIter465.push_back(&pm465);
+                if (mem.kind == SymbolKind::WildcardImport &&
+                    lawOn(465, "R11U465_TRANSAGGTD_OFF")) {
+                    // § pkgTransImpEarlierOnly465v (v11u465,
+                    // R11V465_TRANSORDER_OFF; cases
+                    // tools/probe/v11u465repro/cases/VT vt23, vt25, vt26) —
+                    // Surelog compiles the packages in strict source order
+                    // (CompileDesign "Compile packages in strict order"), so
+                    // an importPackage of a package declared LATER copies an
+                    // empty datatype map: an import edge reaches through only
+                    // to a package declared EARLIER than the importer, the
+                    // first edge (this package -> spkg) included (pass 454's
+                    // § pkgLateTsEarlierPkgOnly454v, the same order: the
+                    // syntax trees' compilation-unit members).  Without it the
+                    // walk listed C's clones in A where golden lists only the
+                    // import (pristine right, the law wrong).
+                    std::map<std::string_view, size_t> ord465v;
+                    if (fixOn(465, "R11V465_TRANSORDER_OFF")) {
+                        size_t n465v = 0;
+                        for (auto& tr465v : comp.getSyntaxTrees())
+                            if (tr465v && tr465v->root().kind ==
+                                              syntax::SyntaxKind::CompilationUnit)
+                                for (auto* m465v :
+                                     tr465v->root()
+                                         .as<syntax::CompilationUnitSyntax>()
+                                         .members)
+                                    if (m465v && m465v->kind ==
+                                                     syntax::SyntaxKind::PackageDeclaration)
+                                        ord465v.emplace(
+                                            m465v->as<syntax::ModuleDeclarationSyntax>()
+                                                .header->name.valueText(),
+                                            n465v++);
+                    }
+                    auto earlier465v = [&](const PackageSymbol& q465v,
+                                           const PackageSymbol& p465v) {
+                        if (ord465v.empty())
+                            return true;
+                        auto oq465v = ord465v.find(q465v.name);
+                        auto op465v = ord465v.find(p465v.name);
+                        bool ok465v = oq465v != ord465v.end() &&
+                                      op465v != ord465v.end() &&
+                                      oq465v->second < op465v->second;
+                        if (!ok465v)
+                            lawTrace(465, "pkgTransImpEarlierOnly465v",
+                                     std::string(pkg.name) + " skip " +
+                                         std::string(p465v.name) + " -> " +
+                                         std::string(q465v.name));
+                        return ok465v;
+                    };
+                    std::set<const PackageSymbol*> seen465{spkg};
+                    std::function<void(const PackageSymbol&)> walk465 =
+                        [&](const PackageSymbol& p465) {
+                            for (auto& pm465 : p465.members()) {
+                                if (pm465.kind != SymbolKind::WildcardImport)
+                                    continue;
+                                auto* np465 =
+                                    pm465.as<WildcardImportSymbol>().getPackage();
+                                if (!np465 || seen465.count(np465) ||
+                                    !earlier465v(*np465, p465))
+                                    continue;
+                                seen465.insert(np465);
+                                for (auto& tm465 : np465->members()) {
+                                    if (tm465.kind != SymbolKind::TypeAlias)
+                                        continue;
+                                    auto k465 = tm465.as<TypeAliasType>()
+                                                    .getCanonicalType()
+                                                    .kind;
+                                    if (k465 != SymbolKind::EnumType &&
+                                        k465 != SymbolKind::PackedStructType &&
+                                        k465 != SymbolKind::UnpackedStructType)
+                                        continue;
+                                    if (importShadowOf(tm465))
+                                        continue;
+                                    if (!pkgImportCloneTs.count(&tm465)) {
+                                        lawTrace(465, "pkgTransImpAggTd465",
+                                                 std::string(pkg.name) + " abstain " +
+                                                     std::string(np465->name) + "::" +
+                                                     std::string(tm465.name));
+                                        continue;
+                                    }
+                                    bool dup465 = false;
+                                    for (auto& [n465, t465] : pkgTdByName)
+                                        if (t465 == pkgImportCloneTs[&tm465])
+                                            dup465 = true;
+                                    if (dup465)
+                                        continue;
+                                    lawTrace(465, "pkgTransImpAggTd465",
+                                             std::string(pkg.name) + (topView ? " top " : " def ") +
+                                                 std::string(np465->name) + "::" +
+                                                 std::string(tm465.name));
+                                    trans465.insert(pkgImportCloneTs[&tm465]);
+                                    tdIter465.push_back(&tm465);
+                                }
+                                walk465(*np465);
+                            }
+                        };
+                    if (earlier465v(*spkg, pkg))
+                        walk465(*spkg);
+                }
+                for (auto* pmp465 : tdIter465) {
+                    auto& pm = *pmp465;
                     if (pm.kind != SymbolKind::TypeAlias)
                         continue;
                     auto& ta2 = pm.as<TypeAliasType>();
@@ -44619,6 +44864,18 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 cts50->Typedef_alias(art50);
             }
         }
+    }
+    // § pkgTransImpAggTd465 — a clone the transitive walk listed and a
+    // direct import item listed again is one entry (Surelog's datatype map
+    // holds one object per name; tools/probe/r11u465repro/cases/TL tl03,
+    // tl10).
+    if (!trans465.empty()) {
+        std::set<const UHDM::typespec*> once465;
+        std::vector<std::pair<std::string, UHDM::typespec*>> keep465;
+        for (auto& e465 : pkgTdByName)
+            if (!trans465.count(e465.second) || once465.insert(e465.second).second)
+                keep465.push_back(e465);
+        pkgTdByName.swap(keep465);
     }
     // The Typespecs LIST is name-sorted (creation stayed source-ordered).
     std::stable_sort(pkgTdByName.begin(), pkgTdByName.end(),
