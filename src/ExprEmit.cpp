@@ -29850,7 +29850,38 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         setLoc(ref, expr.sourceRange);
                         return ref;
                     }
-                    if (curPkg != std::string(scope->asSymbol().name)) {
+                    // § pkgInitImpReadFolds471 (r11u471,
+                    // R11U471_PKGINITFOLD_OFF; grid
+                    // tools/probe/r11u471repro/cases/PI) — ...EXCEPT an
+                    // UNQUALIFIED read, which resolves through the package's
+                    // own import: Surelog's importPackage materializes the
+                    // imported parameter into the importing package's
+                    // param_assigns with vpiImported set, and the component
+                    // branch of compileExpression folds any read of such a copy
+                    // (`paramFromPackage`, CompileExpression.cpp) to a clone
+                    // of its Rhs, so golden's definition listing writes
+                    // `localparam int LB = PA + 1;` with a constant where the
+                    // cross-package ref_obj b::a::PA stood.  Only a read whose
+                    // package imports the home directly (a wildcard import of
+                    // it or an explicit import of the parameter) is reached.
+                    bool impRead471 = false;
+                    if (curPkg != std::string(scope->asSymbol().name) &&
+                        rawText(expr.sourceRange).find("::") == std::string::npos &&
+                        lawOn(471, "R11U471_PKGINITFOLD_OFF"))
+                        if (auto* cp471 = comp.getPackage(curPkg))
+                            for (auto& m471 : cp471->members())
+                                if ((m471.kind == SymbolKind::WildcardImport &&
+                                     m471.as<WildcardImportSymbol>().getPackage() ==
+                                         &scope->asSymbol()) ||
+                                    (m471.kind == SymbolKind::ExplicitImport &&
+                                     m471.as<ExplicitImportSymbol>().importedSymbol() ==
+                                         &nv.symbol)) {
+                                    impRead471 = true;
+                                    lawTrace(471, "pkgInitImpReadFolds471",
+                                             curPkg + " " + std::string(nv.symbol.name));
+                                    break;
+                                }
+                    if (curPkg != std::string(scope->asSymbol().name) && !impRead471) {
                         std::string pn = std::string(scope->asSymbol().name) +
                                          "::" + std::string(nv.symbol.name);
                         ref->VpiName(pn);
@@ -31511,6 +31542,28 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     bool procOpFold9 = inProcessEmit && !inParamInit && parent &&
                                        parent->UhdmType() ==
                                            UHDM::uhdmoperation;
+                    // § procAsgRhsPkgFoldTs471 (r11u471, R11U471_PROCASGTS_OFF;
+                    // grid tools/probe/r11u471repro/cases/PF) — the WHOLE right
+                    // side of a procedural assignment in a module process
+                    // (`always_comb y = PA;`, `s <= RST;`) folding an imported
+                    // package parameter carries the same per-reference
+                    // typespec clone a continuous assignment's does: Surelog's
+                    // getValue clones the materialized param_assign Rhs and
+                    // stamps the parameter's declaration typespec on it
+                    // wherever the read sits (CompileExpression.cpp, the
+                    // component branch), and ours stamped only operands
+                    // (procOpFold9), leaving the whole-side read bare.  A
+                    // parameter is never an assignment's left side, so a fold
+                    // parented directly at an assignment is its right side.
+                    // A module task or function body is reached the same way
+                    // (the reference still names the module, the param_assign's
+                    // owner); a subroutine of a package or class (no owning
+                    // instance on the chain) abstains.
+                    const bool procAsgFold471 =
+                        (inProcessEmit || currentTf) && !inParamInit && parent &&
+                        parent->UhdmType() == UHDM::uhdmassignment &&
+                        lawOn(471, "R11U471_PROCASGTS_OFF") &&
+                        !ownerInstName192(parent).empty();
                     // § genScopeProcOpFoldTs75 (r10earl75) — AND THE SAME LAW
                     // INSIDE A GENERATE SCOPE'S PROCESS.  `inProcessEmit` is
                     // set by emitModuleDef's process loop ONLY; the ELABORATED
@@ -31948,6 +32001,48 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         rawText(expr.sourceRange).find("::") ==
                             std::string::npos)
                         c->VpiSize((int32_t)psym.getType().getBitWidth());
+                    // § impTdParamCaFoldTs471 (r11u471,
+                    // R11U471_TDIMPFOLDTS_OFF; grid
+                    // tools/probe/r11u471repro/cases/TF) — a module's
+                    // import copy of a package parameter typed by a vector
+                    // TYPEDEF (`typedef logic [3:0] t; parameter t PA`)
+                    // folded as a continuous assignment's right side
+                    // carries the same per-reference typespec clone as an
+                    // untyped-vector one: Surelog's getValue clones the
+                    // module's materialized param_assign Rhs, whose
+                    // constant holds its own reference to the typedef's
+                    // typespec, Instanced at the home package (golden
+                    // `logic_typespec (t)` with its alias, the reference
+                    // named after the module).  Ours wrote no typespec,
+                    // because that copy's definition typespec is deferred
+                    // past the typedef listing and importedParamDefTs
+                    // stays empty for it.  Only the per-reference-clone
+                    // folds (caFold9's set) are reached; a fold that shares
+                    // the definition object abstains.
+                    const void* home471 = nullptr;
+                    if (!importedParamDefTs.count(&nv.symbol) &&
+                        nv.symbol.kind == SymbolKind::Parameter &&
+                        ((parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
+                          contAssignView != 2) ||
+                         selFold9 || caOpFold9 || caSelIdxOp112 || caSysArg115 ||
+                         vsBare115 || procAsgFold471))
+                        if (auto h471 = impTdParamHome471().find(&nv.symbol);
+                            h471 != impTdParamHome471().end() &&
+                            lawOn(471, "R11U471_TDIMPFOLDTS_OFF"))
+                            home471 = h471->second;
+                    UHDM::instance* inst471 = nullptr;
+                    bool instDef471 = false;
+                    if (home471) {
+                        if (auto t471 = pkgTopMap.find(home471); t471 != pkgTopMap.end())
+                            inst471 = (UHDM::instance*)t471->second;
+                        else if (auto d471 = pkgDefMap.find(home471);
+                                 d471 != pkgDefMap.end()) {
+                            inst471 = (UHDM::instance*)d471->second;
+                            instDef471 = true;
+                        }
+                        if (!inst471)
+                            home471 = nullptr;
+                    }
                     if ((parent &&
                          parent->UhdmType() == UHDM::uhdmcont_assign &&
                          contAssignView != 2) ||
@@ -31957,6 +32052,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          parent &&
                          parent->UhdmType() == UHDM::uhdmoperation) ||
                         procOpFold9 || gsProcOpFold75 || tfOpFold9 ||
+                        procAsgFold471 ||  // § procAsgRhsPkgFoldTs471
                         sysFuncArgFold ||
                         procSelFold9 || procPsFold9 || selFoldTs21 ||
                         ndaOpFold9 ||
@@ -31987,7 +32083,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // measured on a bit-select / pattern context — does
                         // not reach a part-select range bound.
                         if (auto tit = importedParamDefTs.find(&nv.symbol);
-                            tit != importedParamDefTs.end() &&
+                            (tit != importedParamDefTs.end() || home471) &&
                             (caPsOpFold9 ||
                              rawText(expr.sourceRange).find("::") ==
                                  std::string::npos)) {
@@ -32174,6 +32270,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // ParamEmit's pkgAliasTdNames284).
                                 if (lawOn(284, "R11U284_HPSELPORT_OFF"))
                                     hpSelFoldRefs284().push_back(rt);
+                            }
+                            else if (procAsgFold471 &&
+                                     !ownerInstName192(parent).empty()) {
+                                // § procAsgRhsPkgFoldTs471: golden's clone
+                                // hangs at the OWNING INSTANCE's param_assign,
+                                // so its reference reads the instance, never a
+                                // named block's path (`work@top`, not
+                                // `work@top.blk`).
+                                // A program's process is listed once, from
+                                // its definition: golden names the program
+                                // definition (`work@prg`), not the instance.
+                                std::string own471 = ownerInstName192(parent);
+                                for (const UHDM::any* p471 = parent; p471;
+                                     p471 = p471->VpiParent())
+                                    if (p471->UhdmType() == UHDM::uhdmmodule_inst ||
+                                        p471->UhdmType() == UHDM::uhdminterface_inst)
+                                        break;
+                                    else if (p471->UhdmType() == UHDM::uhdmprogram) {
+                                        if (!p471->VpiDefName().empty())
+                                            own471 = std::string(p471->VpiDefName());
+                                        break;
+                                    }
+                                rt->VpiFullName(own471);
                             }
                             else if (gsProcOpFold75 &&
                                      !gsProcInstPrefix75.empty()) {
@@ -32486,15 +32605,31 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  // the same cont-assign fold, so it takes the
                                  // same per-reference typespec clone.
                                  caOpFold9 || caSelIdxOp112 ||
-                                 caSysArg115 || vsBare115) &&
+                                 caSysArg115 || vsBare115 ||
+                                 procAsgFold471) &&  // § procAsgRhsPkgFoldTs471
                                 nv.symbol.kind == SymbolKind::Parameter;
                             if (caFold9) {
                                 std::string savedPfx9 = syntaxRefPrefix;
-                                syntaxRefPrefix = prefix;
+                                syntaxRefPrefix = procAsgFold471  // § procAsgRhsPkgFoldTs471
+                                                      ? std::string(rt->VpiFullName())
+                                                      : prefix;
                                 auto* cl9 = makeParamTs(
                                     nv.symbol.as<ParameterSymbol>(), true);
                                 syntaxRefPrefix = savedPfx9;
-                                cl9->Instance(tit->second->Instance());
+                                if (procAsgFold471)
+                                    lawTrace(471, "procAsgRhsPkgFoldTs471",
+                                             std::string(nv.symbol.name) + " " +
+                                                 std::string(rt->VpiFullName()));
+                                if (home471) {
+                                    cl9->Instance(inst471);
+                                    if (instDef471)
+                                        pkgImportTsTopFixups.emplace_back(cl9, home471);
+                                    lawTrace(471, "impTdParamCaFoldTs471",
+                                             std::string(nv.symbol.name) + " " +
+                                                 std::string(rt->VpiFullName()));
+                                }
+                                else
+                                    cl9->Instance(tit->second->Instance());
                                 cl9->VpiParent(rt);
                                 rt->Actual_typespec(cl9);
                             }
@@ -32604,6 +32739,39 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 rt159->Actual_typespec(pit159->second);
                                 c->Typespec(rt159);
                             }
+                    }
+                    // § pkgInitImpReadFolds471: an OPERAND of such a fold in
+                    // a package's definition listing carries a reference
+                    // named after the importing package to the import copy's
+                    // typespec (the component branch's `param_ass->Lhs()->
+                    // Typespec()`), as a module definition's operand does
+                    // (defParamInitOpFold9).
+                    if (!c->Typespec() && inParamInit && paramInitDef && paramInitPkg &&
+                        parent && (parent->UhdmType() == UHDM::uhdmoperation ||
+                                   parent->UhdmType() == UHDM::uhdmsys_func_call) &&
+                        nv.symbol.kind == SymbolKind::Parameter &&
+                        rawText(expr.sourceRange).find("::") == std::string::npos &&
+                        lawOn(471, "R11U471_PKGINITFOLD_OFF")) {
+                        std::string cur471 = prefix;
+                        if (auto p471 = cur471.find("::"); p471 != std::string::npos)
+                            cur471.resize(p471);
+                        const Symbol* home471p =
+                            nv.symbol.getParentScope() ? &nv.symbol.getParentScope()->asSymbol()
+                                                       : nullptr;
+                        // The typespec is the importing package's own
+                        // definition-listing copy's (its param_assign Lhs,
+                        // Instanced at the home's definition view), bound
+                        // design-final once that listing exists.
+                        if (home471p && home471p->kind == SymbolKind::Package &&
+                            cur471 != std::string(home471p->name) && !cur471.empty()) {
+                            auto* rt471 = s.MakeRef_typespec();
+                            rt471->VpiParent(c);
+                            rt471->VpiFullName(cur471);
+                            c->Typespec(rt471);
+                            pkgInitTs471().push_back({rt471, c, cur471,
+                                                      std::string(nv.symbol.name),
+                                                      std::string(home471p->name)});
+                        }
                     }
                     // § caseItemPkgFoldTsLate423 (EmitHelpers.h) — the
                     // case-item stamp whose import copy binds its typespec

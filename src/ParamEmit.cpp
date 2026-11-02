@@ -9738,6 +9738,89 @@ static bool pkgImpParamsAheadOfOwn453(const PackageSymbol& psc) {
     return false;
 }
 
+// § pkgExportItemReImports471 (r11u471, R11U471_EXPORTITEM_OFF; grid
+// tools/probe/r11u471repro/cases/EX) — AN EXPORT ITEM IS ONE MORE IMPORT ITEM.
+// The SystemVerilog grammar writes `export a::*;` and `export a::N;` as a
+// package_export_declaration holding package_import_item nodes, and
+// CompilePackage::collectObjects_ walks the package body depth-first in
+// source order calling CompileHelper::importPackage on EVERY
+// paPackage_import_item it meets, so each export item copies the exported
+// package's parameters again: `package b; import a::*; import a::PA; export
+// a::PA;` lists PA three times in both of b's vectors, and an importer of b
+// lists it once in its Parameters (b's getParameterMap(), one per name) and
+// three times in its Param_assigns (b's getParamAssignVec()); ours, seeing
+// only the import members, listed two (the v11u469 cases VE/ve04, VT/vt06,
+// ve03).  `export *::*` holds no import item and copies nothing.  The entries
+// are the package's members with each export item merged in at its source
+// position: a member (mem), a wildcard export (wpkg) or an explicit export of
+// a parameter (xp); with the law off, the members alone.
+struct PkgItem471 {
+    const Symbol* mem = nullptr;
+    const PackageSymbol* wpkg = nullptr;
+    const ParameterSymbol* xp = nullptr;
+};
+static std::vector<PkgItem471> pkgItems471(const PackageSymbol& psc) {
+    std::vector<PkgItem471> out;
+    std::vector<std::pair<SourceLocation, PkgItem471>> exps;
+    static const bool on471 = lawOn(471, "R11U471_EXPORTITEM_OFF");
+    if (on471)
+        if (auto* syn = psc.getSyntax();
+            syn && syn->kind == syntax::SyntaxKind::PackageDeclaration) {
+            auto& comp = psc.getCompilation();
+            for (auto* m : syn->as<syntax::ModuleDeclarationSyntax>().members) {
+                if (m->kind != syntax::SyntaxKind::PackageExportDeclaration)
+                    continue;
+                for (auto* it : m->as<syntax::PackageExportDeclarationSyntax>().items) {
+                    if (!it || it->package.kind == parsing::TokenKind::Star)
+                        continue;
+                    auto* hp = comp.getPackage(it->package.valueText());
+                    if (!hp || hp == &psc)
+                        continue;
+                    PkgItem471 e;
+                    if (it->item.kind == parsing::TokenKind::Star)
+                        e.wpkg = hp;
+                    else if (auto* fs = hp->find(it->item.valueText());
+                             fs && fs->kind == SymbolKind::Parameter)
+                        e.xp = &fs->as<ParameterSymbol>();
+                    else
+                        continue;
+                    lawTrace(471, "pkgExportItemReImports471",
+                             std::string(psc.name) + " export " +
+                                 std::string(it->package.valueText()) + "::" +
+                                 std::string(it->item.rawText()));
+                    exps.push_back({it->package.location(), e});
+                }
+            }
+        }
+    size_t k = 0;
+    for (auto& pm : psc.members()) {
+        while (k < exps.size() && pm.location.buffer() == exps[k].first.buffer() &&
+               exps[k].first < pm.location)
+            out.push_back(exps[k++].second);
+        PkgItem471 e;
+        e.mem = &pm;
+        out.push_back(e);
+    }
+    while (k < exps.size())
+        out.push_back(exps[k++].second);
+    return out;
+}
+// § pkgExportItemReImports471: an export item written after a parameter
+// declaration is still materialized ahead of the package's own parameters
+// (Surelog's FUNCTION pass, which runs importPackage on every import item, runs
+// before its DEFINITION pass), the same order § pkgImpParamsAheadOfOwn453
+// gives an import member written after one.
+static bool pkgExportAfterParam471(const std::vector<PkgItem471>& items) {
+    bool sawParam = false;
+    for (auto& it : items) {
+        if (it.mem && it.mem->kind == SymbolKind::Parameter)
+            sawParam = true;
+        else if (!it.mem && sawParam)
+            return true;
+    }
+    return false;
+}
+
 // § impOcc — ONE MATERIALIZED OCCURRENCE of an imported package parameter.
 //
 // Surelog's importPackage runs ONCE PER IMPORT ITEM and appends the imported
@@ -9819,6 +9902,10 @@ static void collectImportedParams(
     // below meets a package it already visited under the current item; the
     // full walk runs only then.
     bool repeat451 = false;
+    // § exportDupKeepsDiamondPaths471v: the acc slots an EXPORT item of a
+    // parameter already listed under the current import item filled (the
+    // assign-only repeats § pkgExportItemReImports471 adds).
+    std::vector<size_t> expDup471v;
     std::function<void(const Symbol*, std::set<const Symbol*>&,
                        std::vector<const ParameterSymbol*>&)>
         collectPkgParams = [&](const Symbol* pkgSym,
@@ -9832,9 +9919,24 @@ static void collectImportedParams(
             auto& psc = pkgSym->as<PackageSymbol>();
             // § pkgImpParamsAheadOfOwn453 — two phases when the law holds:
             // the import items first, then the package's own declarations.
-            const bool two453 = pkgImpParamsAheadOfOwn453(psc);
+            const auto items471 = pkgItems471(psc);  // § pkgExportItemReImports471
+            const bool two453 =
+                pkgImpParamsAheadOfOwn453(psc) || pkgExportAfterParam471(items471);
             for (int ph453 = two453 ? 0 : 2; ph453 < (two453 ? 2 : 3); ph453++)
-                for (auto& pm : psc.members()) {
+                for (auto& it471 : items471) {
+                    if (!it471.mem) {
+                        if (ph453 == 1)
+                            continue;
+                        if (it471.wpkg)
+                            collectPkgParams(it471.wpkg, vis, acc);
+                        else if (it471.xp) {
+                            if (std::find(acc.begin(), acc.end(), it471.xp) != acc.end())
+                                expDup471v.push_back(acc.size());  // § exportDupKeepsDiamondPaths471v
+                            acc.push_back(it471.xp);
+                        }
+                        continue;
+                    }
+                    auto& pm = *it471.mem;
                     if (pm.kind == SymbolKind::Parameter) {
                         if (ph453 != 0)
                             acc.push_back(&pm.as<ParameterSymbol>());
@@ -9909,7 +10011,7 @@ static void collectImportedParams(
     // is the `body.members()` half below, unchanged.  `emitParameters` fences
     // this call on `!funcScope`, and the compilation-unit walk here fires only
     // for an `InstanceBodySymbol`, so no package can reach it.
-    std::vector<const Symbol*> items9;
+    std::vector<PkgItem471> items9;
     if (body.asSymbol().kind == SymbolKind::InstanceBody) {
         auto& ib9 = body.asSymbol().as<InstanceBodySymbol>();
         const SourceLocation modLoc9 = ib9.getDefinition().location;
@@ -9919,22 +10021,39 @@ static void collectImportedParams(
                 if ((m9.kind == SymbolKind::WildcardImport ||
                      m9.kind == SymbolKind::ExplicitImport) &&
                     m9.location.buffer() == modLoc9.buffer()) {
-                    items9.push_back(&m9);
-                    items9.push_back(&m9);
+                    items9.push_back({&m9, nullptr, nullptr});
+                    items9.push_back({&m9, nullptr, nullptr});
                 }
     }
-    for (auto& m9 : body.members())
-        if (m9.kind == SymbolKind::WildcardImport ||
-            m9.kind == SymbolKind::ExplicitImport)
-            items9.push_back(&m9);
-    for (const Symbol* mp9 : items9) {
-        const Symbol& m = *mp9;
-        if (m.kind == SymbolKind::WildcardImport) {
-            if (auto* p = m.as<WildcardImportSymbol>().getPackage()) {
+    // § pkgExportItemReImports471: a package's own export items are import
+    // items too, at their source position.
+    if (body.asSymbol().kind == SymbolKind::Package) {
+        for (auto& it471 : pkgItems471(body.asSymbol().as<PackageSymbol>()))
+            if (!it471.mem || it471.mem->kind == SymbolKind::WildcardImport ||
+                it471.mem->kind == SymbolKind::ExplicitImport)
+                items9.push_back(it471);
+    }
+    else
+        for (auto& m9 : body.members())
+            if (m9.kind == SymbolKind::WildcardImport ||
+                m9.kind == SymbolKind::ExplicitImport)
+                items9.push_back({&m9, nullptr, nullptr});
+    for (const PkgItem471& it9 : items9) {
+        if (!it9.mem && it9.xp) {
+            explicitSyms.insert(it9.xp);
+            occ.push_back({it9.xp, item9, (size_t)0, {}});
+            item9++;
+            continue;
+        }
+        const Symbol& m = it9.mem ? *it9.mem : body.asSymbol();
+        if (!it9.mem || m.kind == SymbolKind::WildcardImport) {
+            if (auto* p = it9.mem ? m.as<WildcardImportSymbol>().getPackage()
+                                  : (const PackageSymbol*)it9.wpkg) {
                 wildcardPkgs.insert(p);
                 std::set<const Symbol*> vis; // PER-ITEM: a diamond re-export
                 std::vector<const ParameterSymbol*> acc; // lists once per item
                 repeat451 = false;
+                expDup471v.clear();
                 collectPkgParams(p, vis, acc);
                 // § diamondImportParamAssignsPerPath451
                 // (R11U451_DIAMONDPA_OFF) — THE PARAM_ASSIGN VECTOR IS NOT
@@ -9963,10 +10082,22 @@ static void collectImportedParams(
                             if (!ps451 || !path451.insert(ps451).second)
                                 return;
                             auto& pk453 = ps451->as<PackageSymbol>();
-                            const bool two453 = pkgImpParamsAheadOfOwn453(pk453);
+                            const auto items471 = pkgItems471(pk453);  // § pkgExportItemReImports471
+                            const bool two453 = pkgImpParamsAheadOfOwn453(pk453) ||
+                                                pkgExportAfterParam471(items471);
                             for (int ph453 = two453 ? 0 : 2; ph453 < (two453 ? 2 : 3);
                                  ph453++)
-                                for (auto& pm : pk453.members()) {
+                                for (auto& it471 : items471) {
+                                    if (!it471.mem) {
+                                        if (ph453 == 1)
+                                            continue;
+                                        if (it471.wpkg)
+                                            walk451(it471.wpkg);
+                                        else if (it471.xp)
+                                            full451.push_back(it471.xp);
+                                        continue;
+                                    }
+                                    auto& pm = *it471.mem;
                                     if (pm.kind == SymbolKind::Parameter) {
                                         if (ph453 != 0)
                                             full451.push_back(&pm.as<ParameterSymbol>());
@@ -9987,7 +10118,35 @@ static void collectImportedParams(
                     for (auto* pp : full451)
                         if (fs451.insert(pp).second)
                             first451.push_back(pp);
-                    if (first451 != acc) {
+                    // § exportDupKeepsDiamondPaths471v (v11u471,
+                    // R11V471_EXPDIAMOND_OFF; grid
+                    // tools/probe/v11u471repro/cases/VX/vx08, vx10) — THE BREAK
+                    // § pkgExportItemReImports471 MADE: an export item of a
+                    // parameter the item already lists puts a SECOND entry in
+                    // the de-duplicated walk's `acc`, so `first451 != acc` and
+                    // the per-path walk abstained, dropping the diamond's
+                    // per-path repeats from an importer's param_assigns
+                    // (`package c; import a::*; import b::*; export a::PZ;`
+                    // with b importing a: golden's importer of c lists PA PZ
+                    // PA PZ PZ, pristine PA PZ PA PZ, the law PA PZ PZ).
+                    // Surelog's importPackage copies getParamAssignVec(), the
+                    // per-path vector the full walk reproduces, export items
+                    // included; so the comparison skips the export repeats.
+                    std::vector<const ParameterSymbol*> accNoExp471v;
+                    if (first451 != acc && !expDup471v.empty() &&
+                        fixOn(471, "R11V471_EXPDIAMOND_OFF")) {
+                        for (size_t i = 0; i < acc.size(); i++)
+                            if (std::find(expDup471v.begin(), expDup471v.end(), i) ==
+                                expDup471v.end())
+                                accNoExp471v.push_back(acc[i]);
+                        if (first451 == accNoExp471v)
+                            lawTrace(471, "exportDupKeepsDiamondPaths471v",
+                                     std::string(p->name) + " " +
+                                         std::to_string(acc.size()) + "->" +
+                                         std::to_string(full451.size()));
+                    }
+                    if (first451 != acc &&
+                        (accNoExp471v.empty() || first451 != accNoExp471v)) {
                         use451 = false;
                         lawTrace(451, "diamondImportParamAssignsPerPath451",
                                  std::string("abstain ") + std::string(p->name));
@@ -28937,6 +29096,13 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                      typedParam});
             }
             else if (deferAggTs) {
+                // § impTdParamCaFoldTs471: remember a module's typedef-typed
+                // import copy's home for ExprEmit's fold (the direct branch's
+                // importedParamDefTs is not written on this road).
+                if (!inPackage && isImported && typedParam && ps.getParentScope() &&
+                    ps.getParentScope()->asSymbol().kind == SymbolKind::Package &&
+                    lawOn(471, "R11U471_TDIMPFOLDTS_OFF"))
+                    impTdParamHome471()[&ps] = &ps.getParentScope()->asSymbol();
                 pendingDefParamTs.push_back({&ps, up, prt, rhsRt, typedParam, m,
                                              &member, di, inPackage,
                                              joinPath(prefix, ps.name)});
@@ -31405,6 +31571,38 @@ void UhdmExporter::drainPaNameCopySrc38() {
                                });
     unitCopyOwnTsEveryPath467(s, d);
     importCopyTsInstByRole469(s, d);
+    // § pkgInitImpReadFolds471 — bind each package-definition operand fold's
+    // reference to the importing package's definition-listing import copy
+    // (its param_assign Lhs typespec); with no such copy the reference is
+    // dropped, as pristine writes the constant.
+    for (auto& r471 : pkgInitTs471()) {
+        UHDM::typespec* ts471 = nullptr;
+        if (d && d->AllPackages())
+            for (auto* p471 : *d->AllPackages())
+                if (p471 && p471->VpiName() == r471.pkg && p471->Param_assigns()) {
+                    for (auto* pa471 : *p471->Param_assigns())
+                        if (pa471 && pa471->Lhs() &&
+                            pa471->Lhs()->UhdmType() == UHDM::uhdmparameter &&
+                            pa471->Lhs()->VpiName() == r471.name &&
+                            ((UHDM::parameter*)pa471->Lhs())->VpiImported() == r471.home &&
+                            ((UHDM::parameter*)pa471->Lhs())->Typespec()) {
+                            ts471 = (UHDM::typespec*)((UHDM::parameter*)pa471->Lhs())
+                                        ->Typespec()
+                                        ->Actual_typespec();
+                            break;
+                        }
+                    break;
+                }
+        if (ts471) {
+            r471.rt->Actual_typespec(ts471);
+            lawTrace(471, "pkgInitImpReadFolds471", "operand ts " + r471.pkg + " " + r471.name);
+        }
+        else {
+            r471.c->Typespec(nullptr);
+            lawTrace(471, "pkgInitImpReadFolds471", "operand abstain " + r471.pkg + " " + r471.name);
+        }
+    }
+    pkgInitTs471().clear();
 }
 
 // § importCopyTsInstByRole469 (r11u469, R11U469_IMPTSINST_OFF; grid
@@ -31433,7 +31631,8 @@ void UhdmExporter::drainPaNameCopySrc38() {
 static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
     const bool main469 = lawOn(469, "R11U469_IMPTSINST_OFF");
     const bool enum469 = lawOn(469, "R11U469_IMPENUMINST_OFF");  // § importEnumCloneHomeInst469
-    if (!d || !d->AllPackages() || !d->TopPackages() || (!main469 && !enum469))
+    const bool shared471 = lawOn(471, "R11U471_ENUMSHAREDINST_OFF");  // § enumSharedCloneHomeInst471
+    if (!d || !d->AllPackages() || !d->TopPackages() || (!main469 && !enum469 && !shared471))
         return;
     std::map<std::string, UHDM::package*> def469, top469;
     for (auto* p469 : *d->AllPackages())
@@ -31447,7 +31646,7 @@ static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
         UHDM::ref_typespec* rt;
         UHDM::instance* want;
         std::string what;
-        int law;  // 1 § importCopyTsInstByRole469, 2 § importEnumCloneHomeInst469
+        int law;  // 1 § importCopyTsInstByRole469, 2 § importEnumCloneHomeInst469, 3 § enumSharedCloneHomeInst471
     };
     std::vector<Role469> roles469;
     // A qualified hop name `<pkg>::<T>` must name the home package.
@@ -31490,6 +31689,26 @@ static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
             if (home == pn || !def469.count(home) || !top469.count(home))
                 return 0;
             return 2;
+        }
+        if (shared471 && !h1->Typedef_alias() && h1->UhdmType() == UHDM::uhdmenum_typespec &&
+            !i1.empty() && i1 != pn && !homeName469(h1, i1)) {
+            // § enumSharedCloneHomeInst471 (r11u471, R11U471_ENUMSHAREDINST_OFF;
+            // grid tools/probe/r11u471repro/cases/ES) — an ENUM import clone
+            // SHARED by several importing packages is Instanced (by our
+            // listing) at the LAST importer, so in every earlier importer's
+            // listing its instance names a package that is neither the
+            // importer nor the home.  Surelog's importPackage clones the
+            // home's enum per importer and per role, every clone Instanced at
+            // a view of the home, so each role is re-instanced at the home
+            // the qualified name names (an unqualified name abstains).
+            std::string_view n = h1->VpiName();
+            auto c = n.find("::");
+            if (c == std::string_view::npos)
+                return 0;
+            home = std::string(n.substr(0, c));
+            if (home == pn || home == i1 || !def469.count(home) || !top469.count(home))
+                return 0;
+            return 3;
         }
         if (!main469 || i1.empty() || i1 == pn || !homeName469(h1, i1))
             return 0;
@@ -31602,7 +31821,7 @@ static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
             first469.emplace(r.rt, r.want);
             if (f1 != h1) {
                 r.rt->Actual_typespec(f1);
-                lawTrace(469, r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
+                lawTrace(r.law == 3 ? 471 : 469, r.law == 3 ? "enumSharedCloneHomeInst471" : r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
                          r.what);
             }
             continue;
@@ -31624,7 +31843,7 @@ static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
             ((UHDM::parameter*)r.owner)->Typespec(nr);
         else
             ((UHDM::constant*)r.owner)->Typespec(nr);
-        lawTrace(469, r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
+        lawTrace(r.law == 3 ? 471 : 469, r.law == 3 ? "enumSharedCloneHomeInst471" : r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
                  r.what + " split");
     }
 }

@@ -1,0 +1,7 @@
+tests/probe/r10v194repro/v194_e_explclone/dut.sv
+third_party/Surelog/third_party/tests/Verilator/t_package_export.v
+third_party/Surelog/third_party/tests/Zachjs/basic/package.sv
+tests/probe/r10v179repro/v179_f_nomod/dut.sv
+third_party/Surelog/third_party/tests/IncompTitan/src/lowrisc_ip_kmac_0.1/rtl/kmac_pkg.sv
+third_party/Surelog/third_party/tests/Earlgrey_Verilator_01_05_21/src/lowrisc_ip_kmac_0.1/rtl/kmac_pkg.sv
+third_party/Surelog/third_party/tests/Earlgrey_nexysvideo/src/lowrisc_ip_kmac_0.1/rtl/kmac_pkg.sv

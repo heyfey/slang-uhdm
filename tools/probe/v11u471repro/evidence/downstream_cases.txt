@@ -1,0 +1,34 @@
+pristine VP/vp01 IDENTICAL 0 0
+pristine VP/vp02 IDENTICAL 0 0
+pristine VP/vp05 IDENTICAL 0 0
+pristine VP/vp06 IDENTICAL 0 0
+pristine VP/vp08 IDENTICAL 0 0
+pristine VP/vp11 IDENTICAL 0 0
+pristine VT/vt01 IDENTICAL 0 0
+pristine VT/vt02 IDENTICAL 0 0
+pristine VT/vt05 IDENTICAL 0 0
+pristine VT/vt07 IDENTICAL 0 0
+pristine VT/vt08 IDENTICAL 0 0
+pristine VT/vt06 IDENTICAL 0 0
+pristine VS/vs02 IDENTICAL 0 0
+pristine VI/vi01 IDENTICAL 0 0
+pristine VI/vi05 EQUIVALENT 0 0 nohier il ✅ All 1 common constant assignments match
+pristine VX/vx01 IDENTICAL 0 0
+pristine VX/vx06 IDENTICAL 0 0
+law VP/vp01 IDENTICAL 0 0
+law VP/vp02 IDENTICAL 0 0
+law VP/vp05 IDENTICAL 0 0
+law VP/vp06 IDENTICAL 0 0
+law VP/vp08 IDENTICAL 0 0
+law VP/vp11 IDENTICAL 0 0
+law VT/vt01 IDENTICAL 0 0
+law VT/vt02 IDENTICAL 0 0
+law VT/vt05 IDENTICAL 0 0
+law VT/vt07 IDENTICAL 0 0
+law VT/vt08 IDENTICAL 0 0
+law VT/vt06 IDENTICAL 0 0
+law VS/vs02 IDENTICAL 0 0
+law VI/vi01 IDENTICAL 0 0
+law VI/vi05 EQUIVALENT 0 0 nohier il ✅ All 1 common constant assignments match
+law VX/vx01 IDENTICAL 0 0
+law VX/vx06 IDENTICAL 0 0

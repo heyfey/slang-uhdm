@@ -1,0 +1,38 @@
+VI/vi01 moved restoredBy: PKGINITFOLD (PKGINITFOLD:changes)
+VI/vi02 moved restoredBy: (EXPORTITEM:changes) (PKGINITFOLD:changes)
+VI/vi03 moved restoredBy: (TDIMPFOLDTS:changes) (PKGINITFOLD:changes)
+VI/vi04 moved restoredBy: PKGINITFOLD (PKGINITFOLD:changes)
+VI/vi05 moved restoredBy: PKGINITFOLD (PKGINITFOLD:changes)
+VI/vi06 moved restoredBy: (TDIMPFOLDTS:changes) (PKGINITFOLD:changes)
+VI/vi07 unmoved
+VP/vp01 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp02 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp03 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp04 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp05 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp06 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VP/vp07 unmoved
+VP/vp08 moved restoredBy: PROCASGTS (PROCASGTS:changes)
+VS/vs01 moved restoredBy: ENUMSHAREDINST (ENUMSHAREDINST:changes)
+VS/vs02 moved restoredBy: ENUMSHAREDINST (ENUMSHAREDINST:changes)
+VS/vs03 moved restoredBy: ENUMSHAREDINST (ENUMSHAREDINST:changes)
+VS/vs04 moved restoredBy: ENUMSHAREDINST (ENUMSHAREDINST:changes)
+VS/vs05 moved restoredBy: ENUMSHAREDINST (ENUMSHAREDINST:changes)
+VS/vs06 unmoved
+VT/vt01 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt02 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt03 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt04 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt05 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt06 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt07 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt08 moved restoredBy: TDIMPFOLDTS (TDIMPFOLDTS:changes)
+VT/vt09 unmoved
+VT/vt10 unmoved
+VX/vx01 moved restoredBy: (EXPORTITEM:changes) (PKGINITFOLD:changes)
+VX/vx02 moved restoredBy: EXPORTITEM (EXPORTITEM:changes)
+VX/vx03 unmoved
+VX/vx04 moved restoredBy: EXPORTITEM (EXPORTITEM:changes)
+VX/vx05 moved restoredBy: EXPORTITEM (EXPORTITEM:changes)
+VX/vx06 moved restoredBy: EXPORTITEM (EXPORTITEM:changes)
+VX/vx07 moved restoredBy: EXPORTITEM (EXPORTITEM:changes)

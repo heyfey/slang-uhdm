@@ -51,6 +51,29 @@ using namespace slang::ast;
 
 inline constexpr int kVpiAssignmentOp = 82; // sv_vpi_user.h vpiAssignmentOp
 
+// § impTdParamCaFoldTs471 (r11u471): a module's import copy of a package
+// parameter typed by a TYPEDEF of a vector, whose definition typespec is
+// deferred past the typedef listing (ParamEmit's deferAggTs branch), keyed to its
+// home package symbol so ExprEmit's continuous-assignment fold can still mint
+// the per-reference typespec clone the direct branch's importedParamDefTs gives.
+inline std::map<const Symbol*, const void*>& impTdParamHome471() {
+    static std::map<const Symbol*, const void*> v;
+    return v;
+}
+// § pkgInitImpReadFolds471 (r11u471): an operand fold of an imported
+// parameter in a package's definition listing waits for that package's
+// param_assign listing (resolved design-final in ParamEmit's
+// drainPaNameCopySrc38): the reference, its constant, the importing package's
+// name, the parameter's name and its home package's name.
+struct PkgInitTs471 {
+    UHDM::ref_typespec* rt;
+    UHDM::constant* c;
+    std::string pkg, name, home;
+};
+inline std::vector<PkgInitTs471>& pkgInitTs471() {
+    static std::vector<PkgInitTs471> v;
+    return v;
+}
 // § elabProgMemberArrLoopVar443 / § elabProgLoopVarReadBinds443 (r11u443):
 // true while StmtEmit's emitProcess writes the body of a process of a program
 // some module instantiates (Surelog's writeElabProgram road, which runs

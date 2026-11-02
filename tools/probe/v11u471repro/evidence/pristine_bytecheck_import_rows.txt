@@ -1,0 +1,4 @@
+MOVER LowMemPkg-508b3015 rc=2
+rows=437 import_candidates=71 same=70 differ=1
+rows=803 import_candidates=77 same=77 differ=0
+LowMemPkg-508b3015 rerun with its quoted -D argument: SAME

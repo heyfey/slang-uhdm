@@ -1,0 +1,110 @@
+VI/vi01 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=507 roles=0 md5=da41f9a7 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi02 ver rc=0 cmp=50 NOT_EQUAL stage1 dd=231 roles=0 md5=574fd926 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi03 ver rc=0 cmp=46 NOT_EQUAL stage1 dd=458 roles=0 md5=81779be6 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi04 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=111 roles=0 md5=b4c4e226 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi05 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=469 roles=0 md5=d8180592 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi06 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=657 roles=0 md5=67c2fc46 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi07 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=167 roles=0 md5=06d01d08 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VI/vi08 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0 md5=b7b001aa | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp01 ver rc=0 cmp=0 STRICT_EQUAL 192 objects dd=28 roles=0 md5=26d2c2d9 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp02 ver rc=0 cmp=68 NOT_EQUAL stage1 dd=72 roles=0 md5=a80c59b6 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp03 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=14af0612 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp04 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=71 roles=0 md5=56e2585f | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp05 ver rc=0 cmp=0 STRICT_EQUAL 165 objects dd=2 roles=0 md5=84e7ec88 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp06 ver rc=0 cmp=0 STRICT_EQUAL 129 objects dd=10 roles=0 md5=79c24c71 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp07 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=92 roles=0 md5=983c13aa | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp08 ver rc=0 cmp=0 STRICT_EQUAL 215 objects dd=2 roles=0 md5=548706b1 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp09 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=eeb390d2 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp10 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=12 roles=0 md5=45713e47 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VP/vp11 ver rc=0 cmp=0 STRICT_EQUAL 202 objects dd=6 roles=0 md5=a4a043f9 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs01 ver rc=0 cmp=0 STRICT_EQUAL 375 objects dd=862 roles=0 md5=525c80b1 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs02 ver rc=0 cmp=0 STRICT_EQUAL 467 objects dd=1092 roles=0 md5=94d4b344 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs03 ver rc=0 cmp=0 STRICT_EQUAL 414 objects dd=1170 roles=0 md5=9bc22c03 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs04 ver rc=0 cmp=404 NOT_EQUAL stage1 dd=1422 roles=0 md5=752f61de | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs05 ver rc=0 cmp=0 STRICT_EQUAL 570 objects dd=1266 roles=0 md5=2ab186a4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VS/vs06 ver rc=0 cmp=88 NOT_EQUAL stage1 dd=525 roles=12 md5=4d41f838 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt01 ver rc=0 cmp=144 NOT_EQUAL stage1 dd=514 roles=0 md5=e541e103 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt02 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=165 roles=0 md5=dfc0e345 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt03 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=d6d627e4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt04 ver rc=0 cmp=192 NOT_EQUAL stage1 dd=325 roles=0 md5=dd5362f9 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt05 ver rc=0 cmp=0 STRICT_EQUAL 382 objects dd=178 roles=0 md5=01603627 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt06 ver rc=0 cmp=112 NOT_EQUAL stage1 dd=224 roles=0 md5=1ca036ab | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt07 ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=103 roles=0 md5=9197b754 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt08 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=d061955f | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt09 ver rc=0 cmp=112 NOT_EQUAL stage1 dd=124 roles=0 md5=68817303 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VT/vt10 ver rc=0 cmp=64 NOT_EQUAL stage1 dd=85 roles=0 md5=30ef3dce | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx01 ver rc=0 cmp=0 STRICT_NOTEQUAL line dd=176 roles=0 md5=1c9975ea | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx02 ver rc=0 cmp=0 STRICT_EQUAL 165 objects dd=106 roles=0 md5=bf78bc9a | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx03 ver rc=0 cmp=344 NOT_EQUAL stage1 dd=401 roles=0 md5=e05bcecb | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx04 ver rc=0 cmp=936 NOT_EQUAL stage1 dd=224 roles=0 md5=0d767434 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx05 ver rc=0 cmp=0 STRICT_EQUAL 204 objects dd=156 roles=0 md5=3e07fa5a | ver==law:n R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx06 ver rc=0 cmp=0 STRICT_EQUAL 691 objects dd=1391 roles=0 md5=9ae86ecd | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx07 ver rc=0 cmp=0 STRICT_EQUAL 165 objects dd=107 roles=0 md5=68173e73 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx08 ver rc=0 cmp=0 STRICT_EQUAL 283 objects dd=232 roles=0 md5=d09cbd77 | ver==law:n R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx09 ver rc=0 cmp=0 STRICT_EQUAL 345 objects dd=322 roles=0 md5=28b6afd5 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+VX/vx10 ver rc=0 cmp=0 STRICT_EQUAL 242 objects dd=208 roles=0 md5=dc5554a8 | ver==law:n R11V_OFF==law:y R11U_OFF==pris:y
+ES/es01 ver rc=0 cmp=0 STRICT_EQUAL 271 objects dd=712 roles=0 md5=57e93e8d | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es02 ver rc=0 cmp=0 STRICT_EQUAL 583 objects dd=2120 roles=0 md5=6c9b0128 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es03 ver rc=0 cmp=0 STRICT_EQUAL 342 objects dd=1006 roles=0 md5=ab0221d5 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es04 ver rc=0 cmp=0 STRICT_EQUAL 631 objects dd=1864 roles=0 md5=18a521f0 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es05 ver rc=0 cmp=292 NOT_EQUAL stage1 dd=436 roles=0 md5=3c366089 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es06 ver rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=ff5d5320 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+ES/es07 ver rc=0 cmp=0 STRICT_EQUAL 324 objects dd=632 roles=0 md5=ab631b7d | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex01 ver rc=0 cmp=0 STRICT_EQUAL 283 objects dd=369 roles=0 md5=29bbcb5e | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex02 ver rc=0 cmp=0 STRICT_EQUAL 237 objects dd=240 roles=0 md5=da78a2be | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex03 ver rc=0 cmp=0 STRICT_EQUAL 111 objects dd=90 roles=0 md5=6ee44492 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex04 ver rc=0 cmp=0 STRICT_EQUAL 212 objects dd=192 roles=0 md5=11766399 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex05 ver rc=0 cmp=0 STRICT_EQUAL 364 objects dd=1258 roles=0 md5=3974ed3b | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex06 ver rc=0 cmp=0 STRICT_EQUAL 160 objects dd=106 roles=0 md5=e64416d4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+EX/ex07 ver rc=0 cmp=112 NOT_EQUAL stage1 dd=616 roles=0 md5=f36468a8 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf01 ver rc=0 cmp=0 STRICT_EQUAL 437 objects dd=417 roles=0 md5=9197b710 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf02 ver rc=0 cmp=0 STRICT_EQUAL 456 objects dd=417 roles=0 md5=b313064e | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf03 ver rc=0 cmp=22 NOT_EQUAL stage1 dd=396 roles=0 md5=3d7167cf | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf04 ver rc=0 cmp=46 NOT_EQUAL stage1 dd=445 roles=0 md5=9be6aa41 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf05 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=395 roles=0 md5=2f1a10e4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf06 ver rc=0 cmp=28 NOT_EQUAL stage1 dd=375 roles=0 md5=77558e64 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf07 ver rc=0 cmp=0 STRICT_EQUAL 430 objects dd=417 roles=0 md5=857b0898 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf08 ver rc=0 cmp=0 STRICT_EQUAL 445 objects dd=417 roles=0 md5=dc285095 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf09 ver rc=0 cmp=0 STRICT_EQUAL 415 objects dd=397 roles=0 md5=9f6743f7 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf10 ver rc=0 cmp=0 STRICT_EQUAL 265 objects dd=103 roles=0 md5=57d5b348 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf11 ver rc=0 cmp=0 STRICT_EQUAL 666 objects dd=1116 roles=0 md5=d52fcb14 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf12 ver rc=0 cmp=0 STRICT_EQUAL 544 objects dd=383 roles=0 md5=e6045b67 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf13 ver rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=52a00bb2 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf14 ver rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=2281e962 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf15 ver rc=0 cmp=22 NOT_EQUAL stage1 dd=376 roles=0 md5=4171281e | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf16 ver rc=0 cmp=0 STRICT_EQUAL 397 objects dd=389 roles=0 md5=f86a7a08 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf17 ver rc=0 cmp=22 NOT_EQUAL stage1 dd=378 roles=0 md5=2f1e36b8 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf18 ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=445 roles=0 md5=8e4f0b9a | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf19 ver rc=0 cmp=50 NOT_EQUAL stage1 dd=852 roles=0 md5=768acdd9 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf20 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=875 roles=0 md5=2c839fe8 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf21 ver rc=0 cmp=17 NOT_EQUAL stage1 dd=1116 roles=0 md5=174cfd5b | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf22 ver rc=0 cmp=1162 NOT_EQUAL stage1 dd=461 roles=0 md5=31a686f2 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf23 ver rc=0 cmp=0 STRICT_EQUAL 447 objects dd=417 roles=0 md5=4c78ffe3 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf24 ver rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=807c4765 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf25 ver rc=0 cmp=0 STRICT_EQUAL 418 objects dd=375 roles=0 md5=ac90a9a5 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf26 ver rc=0 cmp=0 STRICT_EQUAL 178 objects dd=97 roles=0 md5=fdbc2949 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf27 ver rc=0 cmp=0 STRICT_EQUAL 107 objects dd=2 roles=0 md5=ec404f63 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PF/pf28 ver rc=0 cmp=0 STRICT_EQUAL 189 objects dd=190 roles=0 md5=8538316b | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi01 ver rc=0 cmp=0 STRICT_EQUAL 65 objects dd=40 roles=0 md5=a856f674 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi02 ver rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=07efdeb0 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi03 ver rc=0 cmp=0 STRICT_EQUAL 193 objects dd=173 roles=0 md5=c90b8c8e | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi04 ver rc=0 cmp=199 NOT_EQUAL stage1 dd=62 roles=0 md5=cf71dc75 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi05 ver rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=5f4e87fe | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi06 ver rc=0 cmp=199 NOT_EQUAL stage1 dd=56 roles=0 md5=95f4fcf4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi07 ver rc=0 cmp=0 STRICT_EQUAL 68 objects dd=38 roles=0 md5=9301f66a | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi08 ver rc=0 cmp=0 STRICT_EQUAL 105 objects dd=76 roles=0 md5=f2b96c55 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi09 ver rc=0 cmp=0 STRICT_EQUAL 78 objects dd=48 roles=0 md5=ecd1276b | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi10 ver rc=0 cmp=0 STRICT_EQUAL 129 objects dd=106 roles=0 md5=c0055983 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+PI/pi11 ver rc=0 cmp=0 STRICT_EQUAL 65 objects dd=21 roles=0 md5=d51dcb46 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf01 ver rc=0 cmp=0 STRICT_EQUAL 176 objects dd=99 roles=0 md5=e3aaa2e8 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf02 ver rc=0 cmp=0 STRICT_EQUAL 168 objects dd=99 roles=0 md5=cfc08f87 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf03 ver rc=0 cmp=0 STRICT_EQUAL 187 objects dd=190 roles=0 md5=c0a654e4 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf04 ver rc=0 cmp=0 STRICT_EQUAL 201 objects dd=195 roles=0 md5=0087a24f | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf05 ver rc=0 cmp=46 NOT_EQUAL stage1 dd=215 roles=0 md5=7b289f0a | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf06 ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=60 roles=0 md5=f8c89ade | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf07 ver rc=0 cmp=32 NOT_EQUAL stage1 dd=10 roles=0 md5=bfe6c22a | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf08 ver rc=0 cmp=0 STRICT_EQUAL 105 objects dd=4 roles=0 md5=ce02b2a1 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf09 ver rc=0 cmp=32 NOT_EQUAL stage1 dd=270 roles=0 md5=84179c6f | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf10 ver rc=0 cmp=0 STRICT_EQUAL 509 objects dd=732 roles=0 md5=9d9edb7f | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf11 ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=101 roles=0 md5=2b72d49c | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y
+TF/tf12 ver rc=0 cmp=68 NOT_EQUAL stage1 dd=207 roles=0 md5=0cb11683 | ver==law:y R11V_OFF==law:y R11U_OFF==pris:y

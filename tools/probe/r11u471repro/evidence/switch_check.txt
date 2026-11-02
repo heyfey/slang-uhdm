@@ -1,0 +1,65 @@
+ES/es01/ pris=[0 1d6b24f3] law=[0 20cc4e56] OFF=[0 1d6b24f3] OFF_OK ENUMSHAREDINST_OFF=moves ENUMSHAREDINST_OFF=restores
+ES/es02/ pris=[0 2c48d302] law=[0 a650fc22] OFF=[0 2c48d302] OFF_OK ENUMSHAREDINST_OFF=moves ENUMSHAREDINST_OFF=restores
+ES/es03/ pris=[0 f039ae48] law=[0 14a8a406] OFF=[0 f039ae48] OFF_OK ENUMSHAREDINST_OFF=moves ENUMSHAREDINST_OFF=restores
+ES/es04/ pris=[0 e29bc424] law=[0 5b338a4e] OFF=[0 e29bc424] OFF_OK ENUMSHAREDINST_OFF=moves TDIMPFOLDTS_OFF=moves
+ES/es05/ pris=[0 61770701] law=[0 4a8e2d0c] OFF=[0 61770701] OFF_OK ENUMSHAREDINST_OFF=moves ENUMSHAREDINST_OFF=restores
+ES/es06/ pris=[0 5aed9bf9] law=[0 5aed9bf9] OFF=[0 5aed9bf9] OFF_OK
+ES/es07/ pris=[0 97680a58] law=[0 33b78800] OFF=[0 97680a58] OFF_OK ENUMSHAREDINST_OFF=moves ENUMSHAREDINST_OFF=restores
+EX/ex01/ pris=[0 b9b70bf0] law=[0 a3c50531] OFF=[0 b9b70bf0] OFF_OK EXPORTITEM_OFF=moves EXPORTITEM_OFF=restores
+EX/ex02/ pris=[0 7e006f22] law=[0 fba8c8bb] OFF=[0 7e006f22] OFF_OK EXPORTITEM_OFF=moves PKGINITFOLD_OFF=moves
+EX/ex03/ pris=[0 ab8eb872] law=[0 a87240c2] OFF=[0 ab8eb872] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+EX/ex04/ pris=[0 e9978233] law=[0 2d8bdf35] OFF=[0 e9978233] OFF_OK EXPORTITEM_OFF=moves EXPORTITEM_OFF=restores
+EX/ex05/ pris=[0 3d0bd4c1] law=[0 c4bdbca8] OFF=[0 3d0bd4c1] OFF_OK ENUMSHAREDINST_OFF=moves EXPORTITEM_OFF=moves
+EX/ex06/ pris=[0 ba434de3] law=[0 13a3d1a3] OFF=[0 ba434de3] OFF_OK EXPORTITEM_OFF=moves EXPORTITEM_OFF=restores
+EX/ex07/ pris=[0 ac21388a] law=[0 52372947] OFF=[0 ac21388a] OFF_OK EXPORTITEM_OFF=moves TDIMPFOLDTS_OFF=moves PKGINITFOLD_OFF=moves
+PF/pf01/ pris=[0 81f2a777] law=[0 c013680e] OFF=[0 81f2a777] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf02/ pris=[0 59e0f91d] law=[0 1ce5ef4c] OFF=[0 59e0f91d] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf03/ pris=[0 d25090b0] law=[0 5d7ba18a] OFF=[0 d25090b0] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf04/ pris=[0 08c87940] law=[0 08c87940] OFF=[0 08c87940] OFF_OK
+PF/pf05/ pris=[0 c5b976ca] law=[0 c5b976ca] OFF=[0 c5b976ca] OFF_OK
+PF/pf06/ pris=[0 d551b147] law=[0 d551b147] OFF=[0 d551b147] OFF_OK
+PF/pf07/ pris=[0 5fc1476b] law=[0 356e2e9f] OFF=[0 5fc1476b] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf08/ pris=[0 69a1955b] law=[0 1d63651b] OFF=[0 69a1955b] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf09/ pris=[0 dcbcee18] law=[0 af9c6b1c] OFF=[0 dcbcee18] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf10/ pris=[0 4299c41a] law=[0 a17f44ce] OFF=[0 4299c41a] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf11/ pris=[0 b248e6c2] law=[0 cb70c5fb] OFF=[0 b248e6c2] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf12/ pris=[0 91fa4425] law=[0 5e9bd032] OFF=[0 91fa4425] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf13/ pris=[0 10f1d440] law=[0 bb395060] OFF=[0 10f1d440] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf14/ pris=[0 02ab1e71] law=[0 b61009fa] OFF=[0 02ab1e71] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf15/ pris=[0 186412c3] law=[0 e0183261] OFF=[0 186412c3] OFF_OK PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf16/ pris=[0 056fa25c] law=[0 7da57823] OFF=[0 056fa25c] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf17/ pris=[0 f8450e29] law=[0 f8450e29] OFF=[0 f8450e29] OFF_OK
+PF/pf18/ pris=[0 ca56a7d1] law=[0 3c7d69bc] OFF=[0 ca56a7d1] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf19/ pris=[0 16e500fb] law=[0 16e500fb] OFF=[0 16e500fb] OFF_OK
+PF/pf20/ pris=[0 dc462d36] law=[0 dc462d36] OFF=[0 dc462d36] OFF_OK
+PF/pf21/ pris=[0 9da2aa89] law=[0 9da2aa89] OFF=[0 9da2aa89] OFF_OK
+PF/pf22/ pris=[0 a8ae4e15] law=[0 e34a35cb] OFF=[0 a8ae4e15] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf23/ pris=[0 5ddb5524] law=[0 e5425d5a] OFF=[0 5ddb5524] OFF_OK TDIMPFOLDTS_OFF=moves PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf24/ pris=[0 bcb61146] law=[0 c65acfc5] OFF=[0 bcb61146] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf25/ pris=[0 ef56f338] law=[0 052fb1fe] OFF=[0 ef56f338] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf26/ pris=[0 72785313] law=[0 b9b0fbb0] OFF=[0 72785313] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf27/ pris=[0 dc153872] law=[0 97b48c9d] OFF=[0 dc153872] OFF_OK PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PF/pf28/ pris=[0 2d4071fd] law=[0 4c010ce6] OFF=[0 2d4071fd] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores PROCASGTS_OFF=moves PROCASGTS_OFF=restores
+PI/pi01/ pris=[0 e25a4a18] law=[0 5ab45845] OFF=[0 e25a4a18] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi02/ pris=[0 5d0efe13] law=[0 bbdb6202] OFF=[0 5d0efe13] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi03/ pris=[0 bb098ae6] law=[0 1e18ec5a] OFF=[0 bb098ae6] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi04/ pris=[0 bb02d941] law=[0 51f13483] OFF=[0 bb02d941] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi05/ pris=[0 a6ec0eb8] law=[0 7e73d5bb] OFF=[0 a6ec0eb8] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi06/ pris=[0 241ea251] law=[0 241ea251] OFF=[0 241ea251] OFF_OK
+PI/pi07/ pris=[0 284bd0ac] law=[0 284bd0ac] OFF=[0 284bd0ac] OFF_OK
+PI/pi08/ pris=[0 4ad5d8d9] law=[0 bc4dcfdf] OFF=[0 4ad5d8d9] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi09/ pris=[0 e156f1cb] law=[0 e4ff8723] OFF=[0 e156f1cb] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi10/ pris=[0 fa56b67f] law=[0 a1fb5269] OFF=[0 fa56b67f] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+PI/pi11/ pris=[0 af7397d0] law=[0 fb63c196] OFF=[0 af7397d0] OFF_OK PKGINITFOLD_OFF=moves PKGINITFOLD_OFF=restores
+TF/tf01/ pris=[0 376b17a7] law=[0 ef87114b] OFF=[0 376b17a7] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf02/ pris=[0 7adf08ea] law=[0 d6f89e90] OFF=[0 7adf08ea] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf03/ pris=[0 edae623b] law=[0 b8c83577] OFF=[0 edae623b] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf04/ pris=[0 8d6c1c2c] law=[0 3ffae90d] OFF=[0 8d6c1c2c] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf05/ pris=[0 ec65782e] law=[0 ec65782e] OFF=[0 ec65782e] OFF_OK
+TF/tf06/ pris=[0 697beb49] law=[0 697beb49] OFF=[0 697beb49] OFF_OK
+TF/tf07/ pris=[0 631afc51] law=[0 631afc51] OFF=[0 631afc51] OFF_OK
+TF/tf08/ pris=[0 26560e00] law=[0 26560e00] OFF=[0 26560e00] OFF_OK
+TF/tf09/ pris=[0 fea077f2] law=[0 fea077f2] OFF=[0 fea077f2] OFF_OK
+TF/tf10/ pris=[0 207a7e86] law=[0 40d283df] OFF=[0 207a7e86] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf11/ pris=[0 9b74fd31] law=[0 351f471d] OFF=[0 9b74fd31] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores
+TF/tf12/ pris=[0 9aacb903] law=[0 5a3d9204] OFF=[0 9aacb903] OFF_OK TDIMPFOLDTS_OFF=moves TDIMPFOLDTS_OFF=restores

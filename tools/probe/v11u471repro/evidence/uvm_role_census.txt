@@ -1,0 +1,7 @@
+drivers/v11u471_rowroles.sh: rerun of each row's recorded slang command with pristine (and law when the sweep did not keep the database);
+rolecmp = importer-package import-copy roles (instance view per role/hop), golden vs ours.
+uvm_overriding      pristine onlyG=3  onlyO=3  | law onlyG=0 onlyO=0 | pristine vs law STRICT_EQUAL 621515 objects
+uvm_test_init       pristine onlyG=56 onlyO=56 | law onlyG=0 onlyO=0 | golden vs law STRICT_EQUAL 1524739, golden vs pristine STRICT_EQUAL 1524739
+uvm_many_to_one     pristine onlyG=21 onlyO=21 | law onlyG=0 onlyO=0 | golden vs law STRICT_EQUAL 1089118, golden vs pristine STRICT_EQUAL 1089118
+uvm_ac_config_db    pristine onlyG=3  onlyO=3  | law onlyG=0 onlyO=0 | golden vs law STRICT_EQUAL 654541,  golden vs pristine STRICT_EQUAL 654541
+(the mismatch counts equal the § enumSharedCloneHomeInst471 firing counts of the law sweep's trace: 3, 56, 21, 3)

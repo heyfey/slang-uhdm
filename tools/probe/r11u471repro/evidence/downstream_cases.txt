@@ -1,0 +1,16 @@
+pristine TF/tf01 {'name': 'tf01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine TF/tf04 {'name': 'tf04', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 2, 'slang_gates': 2, 'differs': '', 'detail': ''}
+pristine TF/tf10 {'name': 'tf10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine PF/pf02 {'name': 'pf02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine PF/pf12 {'name': 'pf12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine PF/pf27 {'name': 'pf27', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine EX/ex04 {'name': 'ex04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine ES/es04 {'name': 'es04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 TF/tf01 {'name': 'tf01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 TF/tf04 {'name': 'tf04', 'verdict': 'IDENTICAL', 'surelog_status': 'OK', 'slang_status': 'OK', 'surelog_gates': 2, 'slang_gates': 2, 'differs': '', 'detail': ''}
+law13 TF/tf10 {'name': 'tf10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 PF/pf02 {'name': 'pf02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 PF/pf12 {'name': 'pf12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 PF/pf27 {'name': 'pf27', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 EX/ex04 {'name': 'ex04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law13 ES/es04 {'name': 'es04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

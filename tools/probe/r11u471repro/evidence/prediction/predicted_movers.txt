@@ -1,0 +1,17 @@
+Prediction written BEFORE the law sweep (law binary law13, md5 in README).
+Sources: pred471 (E/C/P predicates) and predpk (package-init unqualified imported reads) over the
+7481 fence-filtered control databases of /tmp/intr11u469 (probe 4087, surelog 954, uhdm2rtlil 1606,
+downstream 804, svtests 30 kept); a text census of export items over 19736 fence-filtered corpus and
+probe sources (export_text_census.txt: the 2 probe cases byte-identical on law13, the kmac_pkg /
+Zachjs / Verilator sources only in SLANG_REJECT or DEFERRED rows); a traced law13 runner pass over
+562 sv-tests candidate rows (sv_candidates.txt; every row keeps its golden status).
+
+probe: 0 byte movers (0 E, 0 C, 0 P, 0 package-init; the two export cases byte-identical)
+surelog: 0 of 962
+uhdm2rtlil: 0 of 1608
+downstream: 0 of 805
+sv-tests: 0 status changes; kept databases moving bytes by law: generated/rsd/rsd (P + package-init),
+  uvm_overriding, uvm_param_vif_config_db, uvm_slave_agent, uvm_slave_agent_multi_seq_item,
+  uvm_use_models_pipelined_get_put (E); the trace fires on the 15 rows of sv_trace_firing_rows.txt
+  (rsd plus 14 uvm-examples rows by § enumSharedCloneHomeInst471), each keeping its status.
+determinism hashes: unchanged (no corpus mover).

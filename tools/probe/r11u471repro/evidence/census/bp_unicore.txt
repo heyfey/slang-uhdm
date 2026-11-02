@@ -1,0 +1,4 @@
+1 tests to run, 0 already in csv, 0 excluded by regex, jobs=1
+[1/1] SURELOG_CRASH=1
+done
+bp_unicore law13: surelog CRASH -11, slang REJECT exit 3 in 14.0 s, max child RSS 833 MB (Python rusage wrapper over the runner, -j 1, machine quiet)

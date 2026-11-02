@@ -1,0 +1,8 @@
+Prediction for the verified binary (written before its sweep, 2026-11-02):
+§ exportDupKeepsDiamondPaths471v fires only when an EXPORT item of a parameter (export p::N, N a parameter)
+duplicates a parameter the import item already lists AND the import item reaches a package twice (repeat451).
+The law sweep's trace (/tmp/v11u471_sw/trace) shows § pkgExportItemReImports471 resolving export items on exactly one
+database, probe r10v179repro/v179_f_nomod, and that item is a wildcard export (export pkg_uniform::*), never an
+explicit parameter export. So the fix fires on NO corpus row, probe case or sv-tests row:
+byteverify verified vs law: surelog 0 of 962, uhdm2rtlil 0 of 1608, downstream 0 of 805; probe 0 of 4087 movers;
+every csv identical to the law sweep's (surelog differing only in the LowMem log-path texts).
