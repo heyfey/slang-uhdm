@@ -1,0 +1,8 @@
+-- law
+surelog: 1523 of 1573 records name /tmp/v11u463_bin/law; no slang line 50; another binary 0
+uhdm2rtlil: 1740 of 1740 records name /tmp/v11u463_bin/law; no slang line 0; another binary 0
+svtests: 2346 of 2346 records name /tmp/v11u463_bin/law; no slang line 0; another binary 0
+-- verified
+surelog: 1523 of 1573 records name /tmp/v11u463_bin/ver; no slang line 50; another binary 0
+uhdm2rtlil: 1740 of 1740 records name /tmp/v11u463_bin/ver; no slang line 0; another binary 0
+svtests: 2346 of 2346 records name /tmp/v11u463_bin/ver; no slang line 0; another binary 0

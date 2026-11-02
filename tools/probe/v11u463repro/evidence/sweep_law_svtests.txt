@@ -1,0 +1,5 @@
+sv-tests: BOTH_REJECT=303 DIFFERENT=10 EQUAL=1928 SLANG_ONLY=19 STRICT_NOTEQUAL=2 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0
+golden cache: 5288 of 5669 runs served from the cache
+svtests rc=1
+law index STALE: tests/LAWS.md (run scripts/law_index.py)

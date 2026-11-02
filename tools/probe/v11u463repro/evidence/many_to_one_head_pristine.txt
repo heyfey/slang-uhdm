@@ -1,0 +1,6 @@
+LHS:
+decompile:
+class_typespec: (b_pkg::A_sequencer), id:912651, line:88:9, endln:88:22
+|vpiParent:
+\_class_defn: (work@test), id:346, file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_many_to_one/test.sv, line:32:1, endln:58:9
+|vpiName:b_pkg::A_sequencer

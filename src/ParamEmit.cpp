@@ -31014,6 +31014,7 @@ static void pcwRefLastWriter250(
     }
 }
 
+static void firstListerNamesClassTd463(UHDM::design* d, Compilation& comp);  // § firstListerNamesClassTd463
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31388,6 +31389,118 @@ void UhdmExporter::drainPaNameCopySrc38() {
         rc38->VpiConstType(sct38);
         if (rc38->VpiSize() == sc38->VpiSize())
             rc38->VpiDecompile(std::string(sc38->VpiDecompile()));
+    }
+    firstListerNamesClassTd463(d, comp);
+}
+
+// § firstListerNamesClassTd463 (r11u463, R11U463_FIRSTLISTER_OFF; grid
+// tools/probe/r11u463repro/cases/MO) — a package class-specialization typedef
+// object that an EARLIER package also lists is named by that earlier package.
+// Surelog's UhdmWriter::writeDataTypes renames a package listing's typespec
+// to `<writer>::<name>` only while its name holds no `::` yet
+// (third_party/Surelog/src/DesignCompile/UhdmWriter.cpp writeDataTypes), and
+// UhdmWriter::write runs writePackage over the elaborated packages first and
+// then over the definition packages, each in compile order.  The group base
+// of a cross-package class-specialization group (the name-first typedef of a
+// generic class across the design, which every package with a member lists)
+// is therefore named by the FIRST package that lists it, not by the package
+// that declares it: sv-tests uvm_many_to_one's `typedef uvm_sequencer
+// #(A_item) A_sequencer;` in a_pkg is `b_pkg::A_sequencer` in golden at every
+// one of its 42 occurrences, b_pkg (b.sv, compiled before a.sv) being the
+// first package listing it, where ours wrote `a_pkg::A_sequencer`.  Ours
+// names each package typedef `<declaring package>::<name>` when the object
+// is made; this design-final pass, after the listings are complete, finds
+// the first lister of every class_typespec in that order (TopPackages, then
+// AllPackages) and, for an object named `<package>::<typedef of that
+// package>` that the declaring package lists itself (its own object, wherever
+// a later writer parents it; an import clone carrying the home package's name
+// is not listed by the home), renames it `<first lister>::<name>`.
+static void firstListerNamesClassTd463(UHDM::design* d, Compilation& comp) {
+    if (!d || !lawOn(463, "R11U463_FIRSTLISTER_OFF"))
+        return;
+    std::vector<std::pair<UHDM::typespec*, const UHDM::package*>> ord463;
+    std::map<const UHDM::typespec*, std::set<std::string>> listers463;
+    for (auto* v463 : {d->TopPackages(), d->AllPackages()}) {
+        if (!v463)
+            continue;
+        for (auto* p463 : *v463) {
+            if (!p463 || !p463->Typespecs())
+                continue;
+            for (auto* t463 : *p463->Typespecs()) {
+                if (!t463 || t463->UhdmType() != UHDM::uhdmclass_typespec)
+                    continue;
+                auto& l463 = listers463[t463];
+                if (l463.empty())
+                    ord463.emplace_back(t463, p463);
+                l463.insert(std::string(p463->VpiName()));
+            }
+        }
+    }
+    for (auto& [t463, p463] : ord463) {
+        std::string nm463(t463->VpiName());
+        size_t c463 = nm463.find("::");
+        if (c463 == std::string::npos || c463 == 0 ||
+            nm463.find("::", c463 + 2) != std::string::npos)
+            continue;
+        std::string home463 = nm463.substr(0, c463);
+        // The declaring package's own object (it lists it too), never an
+        // import clone carrying the home package's name.
+        if (p463->VpiName() == home463 || p463->VpiName().empty() ||
+            !listers463[t463].count(home463))
+            continue;
+        auto* pk463 = comp.getPackage(home463);
+        if (!pk463)
+            continue;
+        std::string td463 = nm463.substr(c463 + 2);
+        auto* sym463 = pk463->find(td463);
+        if (!sym463 || sym463->kind != SymbolKind::TypeAlias)
+            continue;
+        auto& ta463 = sym463->as<TypeAliasType>();
+        // § tdChainAbstain463v (v11u463, R11V463_TDCHAIN_OFF; cases
+        // tools/probe/v11u463repro/cases/VG vg10) — a typedef of a typedef
+        // (`typedef a_seqr a2_seqr;`) that ours made the group's object is not
+        // golden's base: golden keeps a::a2_seqr and names the base after b's
+        // own b_seqr, so the rename moved a name golden has away (pristine
+        // a::a2_seqr 8 of golden's 2, the law 0).  Abstain.
+        if (fixOn(463, "R11V463_TDCHAIN_OFF") &&
+            ta463.targetType.getType().kind == SymbolKind::TypeAlias)
+            continue;
+        // § unitGroupAbstain463v (v11u463, R11V463_UNITGRP_OFF; cases VG vg06,
+        // vg14) — when a $unit typedef specializes the same generic class,
+        // golden's group base is that $unit typedef (b::aa_unit_seqr) and the
+        // declaring package's object keeps its own name a::a_seqr, where ours
+        // leaves the $unit typedef out of the group; the rename then wrote
+        // b::a_seqr, a name golden lacks (pristine a::a_seqr 13 + a::a::a_seqr
+        // 5, golden 4 + 13, the law 0 + 0).  Abstain.
+        if (fixOn(463, "R11V463_UNITGRP_OFF")) {
+            auto& ct463 = ta463.targetType.getType().getCanonicalType();
+            const Symbol* gen463 = ct463.kind == SymbolKind::ClassType
+                                       ? ct463.as<ClassType>().genericClass
+                                       : nullptr;
+            bool unit463 = false;
+            if (gen463)
+                for (auto* cu463 : comp.getCompilationUnits()) {
+                    for (auto& m463 : cu463->members()) {
+                        if (m463.kind != SymbolKind::TypeAlias)
+                            continue;
+                        auto& uc463 = m463.as<TypeAliasType>()
+                                          .targetType.getType()
+                                          .getCanonicalType();
+                        if (uc463.kind == SymbolKind::ClassType &&
+                            uc463.as<ClassType>().genericClass == gen463) {
+                            unit463 = true;
+                            break;
+                        }
+                    }
+                    if (unit463)
+                        break;
+                }
+            if (unit463)
+                continue;
+        }
+        t463->VpiName(std::string(p463->VpiName()) + "::" + td463);
+        lawTrace(463, "firstListerNamesClassTd463",
+                 nm463 + " -> " + std::string(t463->VpiName()));
     }
 }
 

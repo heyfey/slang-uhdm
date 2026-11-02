@@ -1,0 +1,8 @@
+uhdm-cmp on the law pair: 1428344 lines; the head is module_inst work@top; its vpiTypedef listing (each side printed twice by uhdm-cmp):
+1 |vpiTypedef 256
+0 |vpiTypedef 260
+entries golden has and ours lacks:
+8d7
+<       2 X \_class_typespec: (b_pkg::B_sequencer), line:88:9, endln:88:22
+47d45
+<       2 X \_class_typespec: (c_pkg::C_sequencer), line:88:9, endln:88:22

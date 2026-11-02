@@ -1,0 +1,6 @@
+LHS:
+decompile:
+module_inst: work@top (work@top), id:933352, file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_many_to_one/test.sv, line:67:1, endln:71:10
+|vpiParent:
+\_design: (work@top), id:929649
+|vpiFullName:work@top

@@ -1,0 +1,20 @@
+== surelog ver vs control
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil ver vs control
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream ver vs control
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== svtests ver vs control
+databases: patched=33 pristine=33
+PATH_SETS_IDENTICAL (33 paths)
+MOVERS: 33 / 33
+SELFCHECK (every file vs one fixed file): 33 / 33 flagged

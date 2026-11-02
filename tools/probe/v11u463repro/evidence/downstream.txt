@@ -1,0 +1,12 @@
+pris VG/vg08 {'name': 'vg08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pris VU/vu01 {'name': 'vu01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pris VU/vu03 {'name': 'vu03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pris VG/vg06 {'name': 'vg06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law VG/vg08 {'name': 'vg08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law VU/vu01 {'name': 'vu01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law VU/vu03 {'name': 'vu03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law VG/vg06 {'name': 'vg06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver VG/vg08 {'name': 'vg08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver VU/vu01 {'name': 'vu01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver VU/vu03 {'name': 'vu03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver VG/vg06 {'name': 'vg06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

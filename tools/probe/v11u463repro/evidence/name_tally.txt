@@ -1,0 +1,120 @@
+== VE/ve01
+g: a::a_seqr=11 work@top.a::a_seqr=5 
+pris: a::a_seqr=9 b::a::a_seqr=5 
+law: a::a_seqr=9 b::a::a_seqr=5 
+ver: a::a_seqr=9 b::a::a_seqr=5 
+== VE/ve02
+g: a::a_seqr=17 b::b_seqr=6 work@top.a::a_seqr=5 work@top.b::b_seqr=13 
+pris: a::a_seqr=15 b::b_seqr=5 work@top.a::a_seqr=5 work@top.b::b_seqr=5 
+law: a::a_seqr=15 b::b_seqr=5 work@top.a::a_seqr=5 work@top.b::b_seqr=5 
+ver: a::a_seqr=15 b::b_seqr=5 work@top.a::a_seqr=5 work@top.b::b_seqr=5 
+== VE/ve03
+g: a::kt=11 
+pris: a::kt=10 
+law: a::kt=10 
+ver: a::kt=10 
+== VE/ve04
+g: a::a_seqr=13 b::a::a_seqr=5 b::b::b_seqr=13 b::b_seqr=4 
+pris: a::a::a_seqr=5 a::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+law: a::a::a_seqr=5 a::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::a::a_seqr=5 a::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg01
+g: b::a_ct=5 b::b::b_ct=1 b::b_ct=2 
+pris: a::a_ct=1 b::b_ct=1 
+law: a::a_ct=1 b::b_ct=1 
+ver: a::a_ct=1 b::b_ct=1 
+== VG/vg02
+g: a::b::a_si=5 b::a_si=7 b::b::b_si=13 b::b_si=4 
+pris: a::a::a_si=5 a::a_si=3 b::b::b_si=5 b::b_si=3 
+law: a::a::a_si=5 a::a_si=3 b::b::b_si=5 b::b_si=3 
+ver: a::a::a_si=5 a::a_si=3 b::b::b_si=5 b::b_si=3 
+== VG/vg03
+g: a::u2::a_seqr=5 b::b::b_seqr=13 b::b_seqr=4 u2::a_seqr=12 u2::u2::z_dflt=13 u2::z_dflt=4 
+pris: a::a::a_seqr=5 a::a_seqr=10 b::b::b_seqr=5 b::b_seqr=3 u2::u2::z_dflt=5 u2::z_dflt=3 
+law: a::u2::a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 u2::a_seqr=10 u2::u2::z_dflt=5 u2::z_dflt=3 
+ver: a::u2::a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 u2::a_seqr=10 u2::u2::z_dflt=5 u2::z_dflt=3 
+== VG/vg04
+g: a::d::a_seqr=5 b::b::b_seqr=13 b::b_seqr=4 c::c::c_seqr=13 c::c_seqr=4 d::a_seqr=17 d::d::d_seqr=13 d::d_seqr=4 
+pris: a::a::a_seqr=5 a::a_seqr=14 b::b::b_seqr=5 b::b_seqr=3 c::c::c_seqr=5 c::c_seqr=3 d::d::d_seqr=5 d::d_seqr=3 
+law: a::d::a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 c::c::c_seqr=5 c::c_seqr=3 d::a_seqr=14 d::d::d_seqr=5 d::d_seqr=3 
+ver: a::d::a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 c::c::c_seqr=5 c::c_seqr=3 d::a_seqr=14 d::d::d_seqr=5 d::d_seqr=3 
+== VG/vg05
+g: a::z_seqr=5 b::b::b_seqr=1 b::b_seqr=2 
+pris: a::z_seqr=4 b::b::b_seqr=5 b::b_seqr=3 
+law: a::z_seqr=4 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::z_seqr=4 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg06
+g: a::a::a_seqr=13 a::a_seqr=4 b::aa_unit_seqr=17 b::b::b_seqr=13 b::b_seqr=4 work@ui::b::aa_unit_seqr=5 
+pris: a::a::a_seqr=5 a::a_seqr=13 aa_unit_seqr=8 b::b::b_seqr=5 b::b_seqr=3 
+law: aa_unit_seqr=8 a::b::a_seqr=5 b::a_seqr=13 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::a::a_seqr=5 a::a_seqr=13 aa_unit_seqr=8 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg07
+g: a::b::a_top=5 a::K::a_seqr=13 a_seqr=5 b::a_top=11 b::b::b_seqr=13 b::b_seqr=4 
+pris: a::a::a_top=5 a::a_top=10 a::K::a_seqr=6 a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 
+law: a::b::a_top=5 a::K::a_seqr=6 a_seqr=5 b::a_top=10 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::b::a_top=5 a::K::a_seqr=6 a_seqr=5 b::a_top=10 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg08
+g: b::a_seqr=15 b::b::b_seqr=13 b::b_seqr=4 work@top.b::a_seqr=5 
+pris: a::a_seqr=14 b::b::b_seqr=5 b::b_seqr=4 work@top.a::a_seqr=5 
+law: b::a_seqr=14 b::b::b_seqr=5 b::b_seqr=4 work@top.b::a_seqr=5 
+ver: b::a_seqr=14 b::b::b_seqr=5 b::b_seqr=4 work@top.b::a_seqr=5 
+== VG/vg09
+g: b::a_v=5 b::b::b_v=1 b::b_v=2 
+pris: a::a_v=1 b::b_v=1 
+law: a::a_v=1 b::b_v=1 
+ver: a::a_v=1 b::b_v=1 
+== VG/vg10
+g: a::a2_seqr=1 a::b::b_seqr=5 b::b_seqr=8 
+pris: a::a2_seqr=7 a::a::a_seqr=1 a::a_seqr=2 b::b::b_seqr=5 b::b_seqr=3 
+law: a::a::a_seqr=1 a::a_seqr=2 b::a2_seqr=7 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::a2_seqr=7 a::a::a_seqr=1 a::a_seqr=2 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg11
+g: a::z_seqr=9 b::a::z_seqr=5 b::b::b_seqr=13 b::b_seqr=4 
+pris: a::a::z_seqr=5 a::z_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+law: a::a::z_seqr=5 a::z_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::a::z_seqr=5 a::z_seqr=11 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg12
+g: a::b::a_drv=5 a::b::a_seqr=5 b::a_drv=9 b::a_seqr=9 b::b::b_drv=13 b::b::b_seqr=13 b::b_drv=4 b::b_seqr=4 
+pris: a::a::a_drv=5 a::a::a_seqr=5 a::a_drv=8 a::a_seqr=8 b::b::b_drv=5 b::b::b_seqr=5 b::b_drv=3 b::b_seqr=3 
+law: a::b::a_drv=5 a::b::a_seqr=5 b::a_drv=8 b::a_seqr=8 b::b::b_drv=5 b::b::b_seqr=5 b::b_drv=3 b::b_seqr=3 
+ver: a::b::a_drv=5 a::b::a_seqr=5 b::a_drv=8 b::a_seqr=8 b::b::b_drv=5 b::b::b_seqr=5 b::b_drv=3 b::b_seqr=3 
+== VG/vg13
+g: aa_mod_seqr=7 b::a_seqr=12 b::b::b_seqr=13 b::b_seqr=4 work@top.aa_mod_seqr=13 work@top.b::a_seqr=5 
+pris: a::a::a_seqr=5 aa_mod_seqr=7 a::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 work@top.aa_mod_seqr=6 
+law: aa_mod_seqr=7 a::b::a_seqr=5 b::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 work@top.aa_mod_seqr=6 
+ver: aa_mod_seqr=7 a::b::a_seqr=5 b::a_seqr=11 b::b::b_seqr=5 b::b_seqr=3 work@top.aa_mod_seqr=6 
+== VG/vg14
+g: a::a::a_seqr=13 a::a_seqr=4 b::b::b_seqr=13 b::b_seqr=4 b::zz_unit_seqr=17 work@ui::b::zz_unit_seqr=5 
+pris: a::a::a_seqr=5 a::a_seqr=13 b::b::b_seqr=5 b::b_seqr=3 zz_unit_seqr=8 
+law: a::b::a_seqr=5 b::a_seqr=13 b::b::b_seqr=5 b::b_seqr=3 zz_unit_seqr=8 
+ver: a::a::a_seqr=5 a::a_seqr=13 b::b::b_seqr=5 b::b_seqr=3 zz_unit_seqr=8 
+== VG/vg15
+g: a::a::z2_seqr=13 a::b::a_seqr=5 a::z2_seqr=4 b::a_seqr=10 b::b::b_seqr=13 b::b_seqr=4 
+pris: a::a::a_seqr=5 a::a_seqr=9 a::a::z2_seqr=13 a::z2_seqr=4 b::b::b_seqr=5 b::b_seqr=3 
+law: a::a::z2_seqr=13 a::b::a_seqr=5 a::z2_seqr=4 b::a_seqr=9 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::a::z2_seqr=13 a::b::a_seqr=5 a::z2_seqr=4 b::a_seqr=9 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg16
+g: aa_other=11 a::b::a_seqr=5 b::a_seqr=9 b::b::b_seqr=13 b::b_seqr=4 work@top.aa_other=5 
+pris: a::a::a_seqr=5 aa_other=8 a::a_seqr=8 b::b::b_seqr=5 b::b_seqr=3 
+law: aa_other=8 a::b::a_seqr=5 b::a_seqr=8 b::b::b_seqr=5 b::b_seqr=3 
+ver: aa_other=8 a::b::a_seqr=5 b::a_seqr=8 b::b::b_seqr=5 b::b_seqr=3 
+== VG/vg17
+g: a::b::a_seqr=5 b::a_seqr=8 b::b2_seqr=1 
+pris: a::a::a_seqr=5 a::a_seqr=8 b::b2_seqr=2 b::b::b_seqr=1 b::b_seqr=2 
+law: a::b::a_seqr=5 b::a_seqr=8 b::b2_seqr=2 b::b::b_seqr=1 b::b_seqr=2 
+ver: a::b::a_seqr=5 b::a_seqr=8 b::b2_seqr=2 b::b::b_seqr=1 b::b_seqr=2 
+== VU/vu01
+g: b::a_seqr=17 b::b_seqr=8 work@top.b::a_seqr=5 work@top.b::b_seqr=13 
+pris: a::a_seqr=16 b::b_seqr=7 work@top.a::a_seqr=5 work@top.b::b_seqr=5 
+law: b::a_seqr=16 b::b_seqr=7 work@top.b::a_seqr=5 work@top.b::b_seqr=5 
+ver: b::a_seqr=16 b::b_seqr=7 work@top.b::a_seqr=5 work@top.b::b_seqr=5 
+== VU/vu02
+g: b::a_seqr=11 b::b::b_seqr=13 b::b_seqr=4 work@prg.b::a_seqr=5 
+pris: a::a::a_seqr=5 a::a_seqr=9 b::b::b_seqr=5 b::b_seqr=3 
+law: a::b::a_seqr=5 b::a_seqr=9 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::b::a_seqr=5 b::a_seqr=9 b::b::b_seqr=5 b::b_seqr=3 
+== VU/vu03
+g: b::a_seqr=15 b::b::b_seqr=13 b::b_seqr=4 work@top.b::a_seqr=5 
+pris: a::a_seqr=14 a::mk::mk::a::a_seqr=5 b::b::b_seqr=5 b::b_seqr=3 
+law: a::mk::mk::b::a_seqr=5 b::a_seqr=14 b::b::b_seqr=5 b::b_seqr=3 
+ver: a::mk::mk::b::a_seqr=5 b::a_seqr=14 b::b::b_seqr=5 b::b_seqr=3 

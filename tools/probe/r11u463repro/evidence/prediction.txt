@@ -1,0 +1,34 @@
+Prediction for the law sweep of r11u463 (law2, md5 below), written BEFORE the sweep.
+
+Law: § firstListerNamesClassTd463 (R11U463_FIRSTLISTER_OFF), one design-final
+pass at the end of ParamEmit's drainPaNameCopySrc38; it renames a class_typespec
+only, and touches nothing else.
+
+Traced census of law2 (R11U463_TRACE), with the positive control MO/mo01
+(firing: a::a_seqr -> b::a_seqr) on the same binary:
+  probe: all 4087 tests/probe dut.sv run directly (--single-unit --nobuiltin): 0 firings.
+  surelog: verify_golden.py --mode both on the 26 candidate rows of a text census
+    (any non-UVM corpus file with `typedef <name> #(` : AmiqEth, Ariane, Ariane2024,
+    ArianeElab, ArianeElab2, ClassMemberFunc, ClassParamAsParam, ClassTypeParam,
+    ClassTypeParamAlias, Google, Ibex, IbexGoogle, Opentitan, SimpleClass1,
+    SimpleClass2, SplitFile, Tnoc, TNocBadType, TypeDefScope, UnitAmiqEth,
+    UVMNestedSeq, plus the UVM family MiniAmiq, SeqDriver, SimpleUVM, Scoreboard,
+    BuildUVMPkg): 0 firings, statuses equal to results/golden_surelog.csv.
+  uhdm2rtlil (and downstream, its subset): the text census finds no
+    `typedef <name> #(` in any test: no candidate, 0 firings predicted.
+  sv-tests: the 106 uvm / testbenches / easyUVM rows through the runner:
+    1 firing, generated/uvm-examples/uvm_many_to_one.sv
+    (a_pkg::A_sequencer -> b_pkg::A_sequencer); no status moved.
+
+Predicted sweep:
+  probe 4023 + 64, 0/0/0, no byte mover.
+  surelog 480 + 0 / 474 + 0, 0/0/0; byteverify 0 movers beyond the known UVM coin
+    (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard order coin) and Scoreboard default's coin.
+  uhdm2rtlil 803/1/67 both modes, 0/0/0, 0 movers; downstream 803/66/2/0, 0 movers.
+  sv-tests 0 regressions, 0 conversions, 0 changes: uvm_many_to_one stays DIFFERENT
+    with its uhdm-cmp head moved from the class_typespec name (b_pkg::A_sequencer
+    vs a_pkg::A_sequencer) to module work@top's typedef listing (golden lists
+    b_pkg::B_sequencer and c_pkg::C_sequencer, ours does not; ModuleEmit, the
+    sister's ground); its bytes move (the only sv-tests mover by law; the
+    serialization-order raw-byte variance of passes 455 to 461 aside).
+52ac6a553edc38ab6cd19ded4afdbf5e  /tmp/r11u463_bin/law2

@@ -1,0 +1,9 @@
+MO/mo01 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=3288eda1 | dist 109 -> 79
+MO/mo02 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=0f2ac335 | dist 117 -> 79
+MO/mo03 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=669f37b5 | dist 178 -> 154
+MO/mo04 pris rc=0 cmp=244 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=ab3aa036 | dist 93 -> 93
+MO/mo05 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=17 NOT_EQUAL stage1 md5=2b23146d | dist 185 -> 155
+MO/mo06 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=17 NOT_EQUAL stage1 md5=74277954 | dist 147 -> 107
+MO/mo07 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=6a1c85d8 | dist 109 -> 79
+MO/mo08 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=244 NOT_EQUAL stage1 md5=fec47e0d | dist 192 -> 168
+MO/mo09 pris rc=0 cmp=168 NOT_EQUAL | law rc=0 cmp=466 NOT_EQUAL stage1 md5=11de13f3 | dist 100 -> 56

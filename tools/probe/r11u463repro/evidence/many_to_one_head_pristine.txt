@@ -1,0 +1,12 @@
+LHS:
+decompile:
+class_typespec: (b_pkg::A_sequencer), line:88:9, endln:88:22
+|vpiParent:
+\_class_defn: (work@test), file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_many_to_one/test.sv, line:32:1, endln:58:9
+|vpiName:b_pkg::A_sequencer
+|vpiInstance:
+\_package: env_pkg (env_pkg::), file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_many_to_one/env.sv, line:22:1, endln:63:11
+|vpiParameter:
+\_type_parameter: (work@test::b_pkg::A_sequencer::REQ)
+  |vpiParent:
+  \_class_typespec: (b_pkg::A_sequencer), line:88:9, endln:88:22

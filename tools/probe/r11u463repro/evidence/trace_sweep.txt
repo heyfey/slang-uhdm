@@ -1,0 +1,2 @@
+OUT /tmp/r11u463_sw/svtests/work/generated/uvm-examples/uvm_many_to_one/slang.uhdm
+firstListerNamesClassTd463 a_pkg::A_sequencer -> b_pkg::A_sequencer
