@@ -1,0 +1,51 @@
+VD/vd01 | rc 0/0/0 | pristine cmp=230 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 114 objects | verified cmp=0 STRICT_EQUAL 114 objects | MOVED dist 6->0
+VD/vd02 | rc 0/0/0 | pristine cmp=94 NOT_EQUAL stage1 | law cmp=94 NOT_EQUAL stage1 | verified cmp=94 NOT_EQUAL stage1 | same 
+VD/vd03 | rc 0/0/0 | pristine cmp=148 NOT_EQUAL stage1 | law cmp=148 NOT_EQUAL stage1 | verified cmp=148 NOT_EQUAL stage1 | same 
+VD/vd04 | rc 0/0/0 | pristine cmp=320 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 231 objects | verified cmp=0 STRICT_EQUAL 231 objects | MOVED dist 24->0
+VD/vd05 | rc 0/0/0 | pristine cmp=230 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 112 objects | verified cmp=0 STRICT_EQUAL 112 objects | MOVED dist 4->0
+VD/vd06 | rc 0/0/0 | pristine cmp=94 NOT_EQUAL stage1 | law cmp=94 NOT_EQUAL stage1 | verified cmp=94 NOT_EQUAL stage1 | same 
+VD/vd07 | rc 0/0/0 | pristine cmp=210 NOT_EQUAL stage1 | law cmp=210 NOT_EQUAL stage1 | verified cmp=210 NOT_EQUAL stage1 | MOVED dist 64->62
+VD/vd08 | rc 0/0/0 | pristine cmp=94 NOT_EQUAL stage1 | law cmp=94 NOT_EQUAL stage1 | verified cmp=94 NOT_EQUAL stage1 | same 
+VE/ve01 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 109 objects | verified cmp=0 STRICT_EQUAL 109 objects | MOVED dist 21->0
+VE/ve02 | rc 0/0/0 | pristine cmp=283 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 90 objects | verified cmp=0 STRICT_EQUAL 90 objects | MOVED dist 6->0
+VE/ve03 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL line | verified cmp=0 STRICT_EQUAL 108 objects | MOVED dist 15->0
+VE/ve04 | rc 0/0/0 | pristine cmp=153 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 63 objects | verified cmp=0 STRICT_EQUAL 63 objects | MOVED dist 6->0
+VE/ve05 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=910 NOT_EQUAL stage1 | verified cmp=910 NOT_EQUAL stage1 | MOVED dist 76->69
+VE/ve06 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=32 NOT_EQUAL stage1 | verified cmp=32 NOT_EQUAL stage1 | MOVED dist 28->14
+VE/ve07 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 174 objects | verified cmp=0 STRICT_EQUAL 174 objects | MOVED dist 21->0
+VE/ve08 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 102 objects | verified cmp=0 STRICT_EQUAL 102 objects | MOVED dist 15->0
+VE/ve09 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL line | verified cmp=0 STRICT_EQUAL 105 objects | MOVED dist 15->0
+VE/ve10 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 112 objects | verified cmp=0 STRICT_EQUAL 112 objects | MOVED dist 21->0
+VE/ve11 | rc 0/0/0 | pristine cmp=223 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 132 objects | verified cmp=0 STRICT_EQUAL 132 objects | MOVED dist 34->21
+VE/ve12 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 145 objects | verified cmp=0 STRICT_EQUAL 145 objects | MOVED dist 30->0
+VE/ve13 | rc 0/0/0 | pristine cmp=413 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL line | verified cmp=0 STRICT_EQUAL 127 objects | MOVED dist 13->0
+VE/ve14 | rc 0/0/0 | pristine cmp=29 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL depth | verified cmp=0 STRICT_NOTEQUAL depth | MOVED dist 25->10
+VE/ve15 | rc 0/0/0 | pristine cmp=17 NOT_EQUAL stage1 | law cmp=0 STRICT_NOTEQUAL line | verified cmp=0 STRICT_EQUAL 147 objects | MOVED dist 19->4
+VG/vg01 | rc 0/0/0 | pristine cmp=0 STRICT_NOTEQUAL depth | law cmp=0 STRICT_EQUAL 138 objects | verified cmp=0 STRICT_EQUAL 138 objects | MOVED dist 115->50
+VG/vg02 | rc 0/0/0 | pristine cmp=0 STRICT_NOTEQUAL depth | law cmp=0 STRICT_EQUAL 175 objects | verified cmp=0 STRICT_EQUAL 175 objects | MOVED dist 162->88
+VG/vg03 | rc 0/0/0 | pristine cmp=30 NOT_EQUAL stage1 | law cmp=30 NOT_EQUAL stage1 | verified cmp=30 NOT_EQUAL stage1 | same 
+VG/vg04 | rc 0/0/0 | pristine cmp=34 NOT_EQUAL stage1 | law cmp=34 NOT_EQUAL stage1 | verified cmp=34 NOT_EQUAL stage1 | same 
+VG/vg05 | rc 0/0/0 | pristine cmp=0 STRICT_NOTEQUAL depth | law cmp=0 STRICT_EQUAL 148 objects | verified cmp=0 STRICT_EQUAL 148 objects | MOVED dist 146->72
+VG/vg06 | rc 0/0/0 | pristine cmp=0 STRICT_NOTEQUAL depth | law cmp=0 STRICT_EQUAL 110 objects | verified cmp=0 STRICT_EQUAL 110 objects | MOVED dist 38->2
+VG/vg07 | rc 0/0/0 | pristine cmp=0 STRICT_NOTEQUAL depth | law cmp=0 STRICT_EQUAL 131 objects | verified cmp=0 STRICT_EQUAL 131 objects | MOVED dist 94->58
+VG/vg08 | rc 0/0/0 | pristine cmp=34 NOT_EQUAL stage1 | law cmp=34 NOT_EQUAL stage1 | verified cmp=34 NOT_EQUAL stage1 | same 
+VK/vk01 | rc 0/0/0 | pristine cmp=193 NOT_EQUAL stage1 | law cmp=157 NOT_EQUAL stage1 | verified cmp=157 NOT_EQUAL stage1 | MOVED dist 59->49
+VK/vk02 | rc 0/0/0 | pristine cmp=402 NOT_EQUAL stage1 | law cmp=211 NOT_EQUAL stage1 | verified cmp=211 NOT_EQUAL stage1 | MOVED dist 34->22
+VK/vk03 | rc 0/0/0 | pristine cmp=134 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 111 objects | verified cmp=0 STRICT_EQUAL 111 objects | MOVED dist 18->0
+VK/vk04 | rc 0/0/0 | pristine cmp=256 NOT_EQUAL stage1 | law cmp=17 NOT_EQUAL stage1 | verified cmp=17 NOT_EQUAL stage1 | MOVED dist 92->58
+VK/vk05 | rc 0/0/0 | pristine cmp=330 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 66 objects | verified cmp=0 STRICT_EQUAL 66 objects | MOVED dist 41->35
+VK/vk06 | rc 0/0/0 | pristine cmp=156 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 115 objects | verified cmp=0 STRICT_EQUAL 115 objects | MOVED dist 89->77
+VK/vk07 | rc 0/0/0 | pristine cmp=166 NOT_EQUAL stage1 | law cmp=166 NOT_EQUAL stage1 | verified cmp=166 NOT_EQUAL stage1 | same 
+VK/vk08 | rc 0/0/0 | pristine cmp=294 NOT_EQUAL stage1 | law cmp=294 NOT_EQUAL stage1 | verified cmp=294 NOT_EQUAL stage1 | same 
+VK/vk09 | rc 0/0/0 | pristine cmp=166 NOT_EQUAL stage1 | law cmp=166 NOT_EQUAL stage1 | verified cmp=166 NOT_EQUAL stage1 | same 
+VK/vk10 | rc 0/0/0 | pristine cmp=358 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 136 objects | verified cmp=0 STRICT_EQUAL 136 objects | MOVED dist 77->63
+VK/vk11 | rc 0/0/0 | pristine cmp=50 NOT_EQUAL stage1 | law cmp=50 NOT_EQUAL stage1 | verified cmp=50 NOT_EQUAL stage1 | MOVED dist 74->54
+VM/vm01 | rc 0/0/0 | pristine cmp=117 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 48 objects | verified cmp=0 STRICT_EQUAL 48 objects | MOVED dist 10->2
+VM/vm02 | rc 0/0/0 | pristine cmp=107 NOT_EQUAL stage1 | law cmp=107 NOT_EQUAL stage1 | verified cmp=107 NOT_EQUAL stage1 | same 
+VM/vm03 | rc 0/0/0 | pristine cmp=103 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 70 objects | verified cmp=0 STRICT_EQUAL 70 objects | MOVED dist 12->2
+VM/vm04 | rc 0/0/0 | pristine cmp=175 NOT_EQUAL stage1 | law cmp=0 STRICT_EQUAL 124 objects | verified cmp=0 STRICT_EQUAL 124 objects | MOVED dist 14->0
+VM/vm05 | rc 0/0/0 | pristine cmp=103 NOT_EQUAL stage1 | law cmp=103 NOT_EQUAL stage1 | verified cmp=103 NOT_EQUAL stage1 | MOVED dist 12->8
+VM/vm06 | rc 0/0/0 | pristine cmp=0 STRICT_EQUAL 25 objects | law cmp=0 STRICT_EQUAL 25 objects | verified cmp=0 STRICT_EQUAL 25 objects | same 
+VU/vu01 | rc 0/0/0 | pristine cmp=0 STRICT_EQUAL 266 objects | law cmp=0 STRICT_EQUAL 266 objects | verified cmp=0 STRICT_EQUAL 266 objects | same 
+VU/vu02 | rc 0/0/0 | pristine cmp=0 STRICT_EQUAL 145 objects | law cmp=0 STRICT_EQUAL 145 objects | verified cmp=0 STRICT_EQUAL 145 objects | same 
+VU/vu03 | rc 0/0/0 | pristine cmp=468 NOT_EQUAL stage1 | law cmp=468 NOT_EQUAL stage1 | verified cmp=468 NOT_EQUAL stage1 | same 

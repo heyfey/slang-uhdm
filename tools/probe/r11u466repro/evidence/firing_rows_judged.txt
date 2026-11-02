@@ -1,0 +1,22 @@
+ef_vif_config_db svhp cmp=0 STRICT_EQUAL 840299 objects
+ef_vif_config_db svfin cmp=0 STRICT_EQUAL 840299 objects
+id_register svhp cmp=0 STRICT_EQUAL 1054705 objects
+id_register svfin cmp=0 STRICT_EQUAL 1054705 objects
+many_to_one svhp cmp=0 STRICT_EQUAL 1089118 objects
+many_to_one svfin cmp=0 STRICT_EQUAL 1089118 objects
+param_vif_config_db svhp cmp=230 NOT_EQUAL stage1
+param_vif_config_db svfin cmp=230 NOT_EQUAL stage1
+use_models_bidir_get_put svhp cmp=0 STRICT_EQUAL 685505 objects
+use_models_bidir_get_put svfin cmp=0 STRICT_EQUAL 685505 objects
+use_models_bidir_item_done svhp cmp=0 STRICT_EQUAL 685468 objects
+use_models_bidir_item_done svfin cmp=0 STRICT_EQUAL 685468 objects
+use_models_pipelined_get_put svhp cmp=1388336 NOT_EQUAL stage1
+use_models_pipelined_get_put svfin cmp=0 STRICT_EQUAL 838378 objects
+use_models_unidirectional svhp cmp=0 STRICT_EQUAL 684017 objects
+use_models_unidirectional svfin cmp=0 STRICT_EQUAL 684017 objects
+ef_vif_config_db STRICT_EQUAL 751612 objects
+id_register STRICT_EQUAL 939074 objects
+param_vif_config_db NOT_EQUAL stage1
+use_models_bidir_get_put STRICT_EQUAL 617838 objects
+use_models_bidir_item_done STRICT_EQUAL 617801 objects
+use_models_unidirectional STRICT_EQUAL 616316 objects

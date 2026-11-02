@@ -29229,6 +29229,27 @@ UHDM::design* UhdmExporter::exportDesign() {
                     for (auto* x450 : *tm450)
                         walk450(x450);
             }
+            // § unitGroupKeepsHomeOrder466 (r11u466, R11U466_UNITGRPORDER_OFF;
+            // cases tools/probe/r11u466repro/cases/UG; sv-tests generated/
+            // uvm-examples/uvm_use_models_pipelined_get_put.sv, the driver
+            // bfm's file-scope `import mbus_pipelined_agent_pkg::*;`) — the
+            // same reorder for the DESIGN's own subroutine listing.  That
+            // listing is the FileContent's list importPackage fills from the
+            // imported package's listing, so a group of clones a file-scope
+            // import brings keeps the home's DEF order exactly as a module's
+            // listing does: golden lists uvm_packer's six macro-written
+            // get/set_packed_* clones at positions 227 to 233 of 979 where
+            // ours, copied from the importer's group before the package
+            // views were re-ordered above, had them at 947 to 952.
+            if (lawOn(446, "R11U446_IMPGRPORDER_OFF") &&
+                lawOn(466, "R11U466_UNITGRPORDER_OFF") && d->Task_funcs()) {
+                std::vector<UHDM::task_func*> before466(d->Task_funcs()->begin(),
+                                                        d->Task_funcs()->end());
+                reorder446(d->Task_funcs(), "design");
+                if (!std::equal(before466.begin(), before466.end(),
+                                d->Task_funcs()->begin()))
+                    lawTrace(466, "unitGroupKeepsHomeOrder466", "design");
+            }
             // § cloneBodyCallBindsHomeTopTf446 — the twin of
             // § clsBodyCallBindsHomeTopTf446 for the BODIES OF THE IMPORT
             // GROUP itself: a call written in a subroutine the group

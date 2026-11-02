@@ -1,0 +1,2 @@
+r10uvm212repro/grid_c7_cuclass_foreignpkg_and_pkgclass_design rc=0 same transImpClassKeys466
+r10uvm50repro/a7 rc=0 same transImpClassKeys466

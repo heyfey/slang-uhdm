@@ -1,0 +1,9 @@
+# PREDICTION written before the verified sweep (2026-11-02), for the two verifier fixes on top of the law binary.
+# The fixes only narrow two laws:
+#  § ifcDeepTransEarlierOnly466v narrows § ifcBodyImpDeepTrans466, which fires on no corpus row, probe case or sv-tests row
+#    (the implementer's sweep trace evidence/sweep_trace_firings.txt of r11u466repro names no ifcBodyImpDeepTrans466 firing);
+#  § ifcEventShadowSkip466v narrows § ifcEventTrigNet466, which fires on one sv-tests row only,
+#    generated/uvm-examples/uvm_use_models_pipelined_get_put.sv (do_data_phase); its first reference is `->do_data_phase;`
+#    in task begin_transfer, which declares no local or formal of that name.
+# -> verified binary vs law binary: NO byte mover in probe, surelog, uhdm2rtlil, downstream or sv-tests;
+#    pipelined_get_put stays EQUAL with the law binary's bytes; the five csvs equal to the law sweep's.

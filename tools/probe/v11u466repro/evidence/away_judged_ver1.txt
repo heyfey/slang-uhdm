@@ -1,0 +1,15 @@
+r11u450repro/cases/FL/fl01 | rc=0 slrc=0 cmp=72 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 70 objects | dist 14->2
+r11u452repro/cases/CK/ck01 | rc=0 slrc=0 cmp=17 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=17 NOT_EQUAL stage1 | dist 34->14
+r11u456repro/cases/WT/wt04 | rc=0 slrc=0 cmp=811 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=811 NOT_EQUAL stage1 | dist 109->96
+r11u463repro/cases/MO/mo08 | rc=0 slrc=0 cmp=244 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=244 NOT_EQUAL stage1 | dist 166->162
+v11u445repro/cases/VI/vi03 | rc=0 slrc=0 cmp=29 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=249 NOT_EQUAL stage1 | dist 14->15
+v11u450repro/cases/VF/vf01 | rc=0 slrc=0 cmp=80 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 80 objects | dist 14->2
+v11u450repro/cases/VF/vf02 | rc=0 slrc=0 cmp=54 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 46 objects | dist 8->2
+v11u450repro/cases/VT/vt03 | rc=0 slrc=0 cmp=278 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 121 objects | dist 38->32
+v11u450repro/cases/VW/vw07 | rc=0 slrc=0 cmp=17 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 106 objects | no golden
+v11u452repro/cases/VK/vk01 | rc=0 slrc=0 cmp=118 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 88 objects | dist 56->36
+v11u452repro/cases/VK/vk02 | rc=0 slrc=0 cmp=118 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 86 objects | dist 42->22
+v11u456repro/cases/VW/vw11 | rc=0 slrc=0 cmp=31 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=31 NOT_EQUAL stage1 | dist 52->37
+v11u460repro/cases/VS/vs06 | rc=0 slrc=0 cmp=254 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=0 STRICT_EQUAL 82 objects | dist 42->22
+v11u463repro/cases/VG/vg06 | rc=0 slrc=0 cmp=168 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=168 NOT_EQUAL stage1 | dist 230->230
+v11u463repro/cases/VG/vg14 | rc=0 slrc=0 cmp=168 NOT_EQUAL stage1 | rc=0 slrc=0 cmp=168 NOT_EQUAL stage1 | dist 230->230

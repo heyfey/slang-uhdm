@@ -1,0 +1,6 @@
+surelog testflags LowMemLib rc=0 MOVED 
+surelog testflags LowMemPkg rc=0 MOVED 
+surelog default MiniAmiq rc=0 same transImpClassKeys466
+surelog testflags MiniAmiq rc=0 same transImpClassKeys466
+surelog default PreProcMacro rc=0 MOVED 
+surelog testflags PreProcMacro rc=0 MOVED 

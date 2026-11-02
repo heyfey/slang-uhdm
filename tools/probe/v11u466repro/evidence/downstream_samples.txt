@@ -1,0 +1,18 @@
+pristine VE/ve01 {'name': 'VE_ve01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 2 common constant assignments match'}
+pristine VE/ve12 {'name': 'VE_ve12', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier', 'detail': '✅ All 1 common constant assignments match'}
+pristine VE/ve15 {'name': 'VE_ve15', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '✅ All 2 common constant assignments match'}
+pristine VG/vg01 {'name': 'VG_vg01', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+pristine VG/vg02 {'name': 'VG_vg02', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+pristine VK/vk03 {'name': 'VK_vk03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine VD/vd01 {'name': 'VD_vd01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine VM/vm01 {'name': 'VM_vm01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine VD/vd02 {'name': 'VD_vd02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VE/ve01 {'name': 'VE_ve01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VE/ve12 {'name': 'VE_ve12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VE/ve15 {'name': 'VE_ve15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VG/vg01 {'name': 'VG_vg01', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+ver2 VG/vg02 {'name': 'VG_vg02', 'verdict': 'IDENTICAL', 'surelog_status': 'READ_FAIL', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': 'both READ_FAIL'}
+ver2 VK/vk03 {'name': 'VK_vk03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VD/vd01 {'name': 'VD_vd01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VM/vm01 {'name': 'VM_vm01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+ver2 VD/vd02 {'name': 'VD_vd02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

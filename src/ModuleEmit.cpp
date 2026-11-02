@@ -1973,6 +1973,28 @@ void genPlainViewDrain176(UHDM::Serializer& s) {
         for (auto* view : vv) {
             if (view->Variables() || !nv->empty())
                 view->Variables(nv);
+            // § genIfcViewSharesParamAssigns466 (r11u466,
+            // R11U466_GENVIEWPA_OFF; cases tools/probe/r11u466repro/cases/GP)
+            // — the view's param_assigns are the connected instance's too:
+            // elab_interface_ hands a port copy `netl->param_assigns()` when
+            // it has none, and a plain generic view's netlist is the
+            // connected instance's, so golden's work@top.dut.bus (gp01,
+            // gp03, gp05: `module s(interface bus, ...)` on `bif M()`) lists
+            // the very param_assign objects of work@top.M, the header, body
+            // and package-imported ones alike, where ours listed fresh ones
+            // elaborated at the definition's values (sv-tests
+            // uvm_use_models_pipelined_get_put: work@top_hdl.dut.bus, the
+            // row's last strict difference, golden 838378 objects, ours
+            // 838392).
+            if (lawOn(466, "R11U466_GENVIEWPA_OFF") && dst->Param_assigns() &&
+                view->Param_assigns() != dst->Param_assigns()) {
+                auto* pa466 = s.MakeParam_assignVec();
+                for (auto* p466 : *dst->Param_assigns())
+                    pa466->push_back(p466);
+                view->Param_assigns(pa466);
+                lawTrace(466, "genIfcViewSharesParamAssigns466",
+                         std::string(view->VpiFullName()) + " <- " + pre);
+            }
             // (the view's nets are not the connected instance's: golden
             // r11u173 cx/x07's view lists no net)
             trace176("GENPLAINVARS", pre + " <- " + std::string(view->VpiName()));
@@ -14650,6 +14672,64 @@ std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
     return out;
 }
 
+// § transImpClassKeys466 (r11u466, R11U466_TRANSCLSKEYS_OFF; cases
+// tools/probe/r11u466repro/cases/IK; sv-tests generated/uvm-examples/
+// uvm_use_models_pipelined_get_put.sv, `interface mbus_pipelined_driver_bfm`
+// under the file-scope `import mbus_pipelined_agent_pkg::*;`, that package
+// importing uvm_pkg) — AN IMPORT PUBLISHES THE CLASS KEYS THE IMPORTED
+// PACKAGE'S OWN DATATYPEMAP HOLDS, NOT ONLY THE KEYS OF ITS OWN CLASSES.
+// CompileHelper::importPackage inserts the imported package's class-name
+// keys and then copies its whole DataTypeMap, and that map already holds the
+// class keys ITS body imports inserted when it was compiled (and theirs,
+// transitively).  Golden's interface listing is 131 entries: uvm_pkg's class
+// keys (`mbus_pipelined_agent_pkg::this_type` x30, `this_subtype`, `type_id`,
+// `cb_type`, `common_type`, `super_type`, with `uvm_heartbeat_cbs_t`,
+// `uvm_mem_cb_iter` and `uvm_tlm_time` moved to their class keys) beside the
+// typedefs, where the three branches (§ 24 a package, § 45 a module or interface,
+// § 206 the design) published the direct package's keys only (ours 93).
+// The packages a package's map holds keys of: its body wildcard imports in
+// written order, each followed by what that package's map holds, an edge
+// counting only when the imported package is declared before the importer
+// (Surelog compiles packages in source order; § pkgLateTsEarlierPkgOnly454v).
+static std::vector<std::string> transClsKeyPkgs466(Compilation& comp,
+                                                   std::string_view pn) {
+    std::vector<std::string> out;
+    auto* root = comp.getPackage(pn);
+    if (!root)
+        return out;
+    std::map<const Symbol*, size_t> ord;
+    {
+        size_t n = 0;
+        for (auto& tr : comp.getSyntaxTrees())
+            if (tr && tr->root().kind == syntax::SyntaxKind::CompilationUnit)
+                for (auto* m : tr->root().as<syntax::CompilationUnitSyntax>().members)
+                    if (m && m->kind == syntax::SyntaxKind::PackageDeclaration)
+                        if (auto* ps = comp.getPackage(
+                                m->as<syntax::ModuleDeclarationSyntax>().header->name.valueText()))
+                            ord.emplace(ps, n++);
+    }
+    std::set<const Symbol*> seen{root};
+    std::function<void(const PackageSymbol&)> walk = [&](const PackageSymbol& p) {
+        auto oi = ord.find(&p);
+        for (auto& pm : p.members()) {
+            if (pm.kind != SymbolKind::WildcardImport)
+                continue;
+            auto* np = pm.as<WildcardImportSymbol>().getPackage();
+            if (!np)
+                continue;
+            auto oj = ord.find(np);
+            if (oi == ord.end() || oj == ord.end() || oj->second >= oi->second)
+                continue;
+            if (!seen.insert(np).second)
+                continue;
+            out.emplace_back(np->name);
+            walk(*np);
+        }
+    };
+    walk(*root);
+    return out;
+}
+
 // § importedClassTsRideTheFileUnit206 — the FILE-UNIT arm of § 24, on the
 // DESIGN's own typespec listing.  See the law in include/UhdmExporter.h
 // (`fileUnitPublishesPackageClasses206`).
@@ -14707,6 +14787,20 @@ void UhdmExporter::fileUnitPublishesPackageClasses206() {
     // into a wrong one — both views.  A key with more than one candidate is
     // therefore left to the typedef half; this can only ever publish LESS, so
     // it cannot introduce a cell.
+    // § transImpClassKeys466 — each file-scope import also publishes the
+    // class keys the imported package's own map holds, at the import's
+    // location, after the package's own keys.
+    std::vector<std::pair<std::string, slang::SourceLocation>> imps206;
+    std::set<std::string> trans466;
+    for (auto& [pn206, loc206] : fileUnitImports206) {
+        imps206.emplace_back(pn206, loc206);
+        if (!lawOn(466, "R11U466_TRANSCLSKEYS_OFF"))
+            continue;
+        for (auto& qn466 : transClsKeyPkgs466(comp, pn206)) {
+            imps206.emplace_back(qn466, loc206);
+            trans466.insert(qn466);
+        }
+    }
     std::map<std::string, std::set<const UHDM::typespec*>> cand206;
     for (auto& [pn206, loc206] : fileUnitImports206) {
         (void)loc206;
@@ -14719,10 +14813,13 @@ void UhdmExporter::fileUnitPublishesPackageClasses206() {
     }
 
     bool moved206 = false;
-    for (auto& [pn206, loc206] : fileUnitImports206) {
+    for (auto& [pn206, loc206] : imps206) {
         auto pit206 = pv206.find(pn206);
         if (pit206 == pv206.end())
             continue;
+        bool tr466 = trans466.count(pn206) &&
+                     std::none_of(fileUnitImports206.begin(), fileUnitImports206.end(),
+                                  [&](const auto& f) { return f.first == pn206; });
         for (auto& [ck206, cts206] : pkgClassKeys24(pit206->second)) {
             if (!cts206)
                 continue;
@@ -14742,6 +14839,8 @@ void UhdmExporter::fileUnitPublishesPackageClasses206() {
                 continue;
             heldBy206.emplace(cts206, ck206);
             designTsRootLoc206[ck206] = loc206;
+            if (tr466)
+                lawTrace(466, "transImpClassKeys466", "design key " + ck206 + " of " + pn206);
             // `writeDataTypes`' `if (!tps->Instance())` arm: an entry that
             // reaches the union with no home instance is stamped with the
             // DESIGN.  A class-scope typespec has none, which is exactly why
@@ -14866,10 +14965,30 @@ void UhdmExporter::importPublishesPackageClasses24() {
             // Class keys go in FIRST — importPackage inserts them before it
             // copies the package's DataTypeMap, and std::map::emplace keeps
             // the first insertion.
-            for (auto* q : imp24)
+            for (auto* q : imp24) {
                 for (auto& [k, t] : pkgClassKeys24(q))
                     if (m24.emplace(k, t).second)
                         fresh24.insert(t);
+                // § transImpClassKeys466 — then the keys q's own map holds.
+                if (!lawOn(466, "R11U466_TRANSCLSKEYS_OFF"))
+                    continue;
+                size_t add466 = 0;
+                for (auto& rn466 : transClsKeyPkgs466(comp, q->VpiName())) {
+                    auto cr466 = clsSrc24.find(rn466);
+                    if (cr466 == clsSrc24.end())
+                        continue;
+                    for (auto& [k, t] : pkgClassKeys24(cr466->second))
+                        if (t && m24.emplace(k, t).second) {
+                            fresh24.insert(t);
+                            add466++;
+                        }
+                }
+                if (add466)
+                    lawTrace(466, "transImpClassKeys466",
+                             "package " + std::string(p->VpiName()) + " via " +
+                                 std::string(q->VpiName()) + " +" +
+                                 std::to_string(add466));
+            }
             std::vector<UHDM::typespec*> imports24;
             for (auto* t : *p->Typespecs()) {
                 if (!t)
@@ -15017,8 +15136,24 @@ void UhdmExporter::modulePublishesPackageClasses45() {
         auto p = n.rfind("::");
         return std::string(p == std::string_view::npos ? n : n.substr(p + 2));
     };
+    const bool trans466 = lawOn(466, "R11U466_TRANSCLSKEYS_OFF");
+    const bool emptyKeys466 = lawOn(466, "R11U466_EMPTYLISTKEYS_OFF");
     for (auto& [mv45, pkgs45] : modImportPkgs45) {
         auto* cur45 = mv45 ? mv45->Typespecs() : nullptr;
+        // § emptyListClassKeys466 (r11u466, R11U466_EMPTYLISTKEYS_OFF; cases
+        // tools/probe/r11u466repro/cases/IK ik05, ik06) — A VIEW WITH NO
+        // TYPEDEF OF ITS OWN STILL LISTS THE CLASS KEYS ITS IMPORTS PUBLISH.
+        // importPackage inserts the class keys whatever else the map holds,
+        // so a module or interface under a file-scope import of a package
+        // that declares classes and no typedef lists those keys (golden ik05:
+        // `this_type`, `a::this_type` in the interface, its instance and the
+        // module) where the branch skipped every view whose listing was empty.
+        UHDM::VectorOftypespec empty466;
+        bool fresh466 = false;
+        if (!cur45 && mv45 && emptyKeys466) {
+            cur45 = &empty466;
+            fresh466 = true;
+        }
         if (!cur45)
             continue;
         // Class keys FIRST and in import order — importPackage inserts them
@@ -15027,11 +15162,28 @@ void UhdmExporter::modulePublishesPackageClasses45() {
         std::map<std::string, UHDM::typespec*> keys45;
         for (auto& pn45 : pkgs45) {
             auto cs45 = clsSrc45.find(pn45);
-            if (cs45 == clsSrc45.end())
+            if (cs45 != clsSrc45.end())
+                for (auto& [k45, t45] : pkgClassKeys24(cs45->second))
+                    if (t45)
+                        keys45.emplace(k45, t45);
+            // § transImpClassKeys466 — then the keys pn45's own map holds.
+            if (!trans466)
                 continue;
-            for (auto& [k45, t45] : pkgClassKeys24(cs45->second))
-                if (t45)
-                    keys45.emplace(k45, t45);
+            size_t add466 = 0;
+            for (auto& qn466 : transClsKeyPkgs466(comp, pn45)) {
+                auto cq466 = clsSrc45.find(qn466);
+                if (cq466 == clsSrc45.end())
+                    continue;
+                for (auto& [k466, t466] : pkgClassKeys24(cq466->second))
+                    if (t466 && keys45.emplace(k466, t466).second)
+                        add466++;
+            }
+            if (add466)
+                lawTrace(466, "transImpClassKeys466",
+                         "view " + std::string(mv45->VpiName().empty()
+                                                   ? mv45->VpiDefName()
+                                                   : mv45->VpiName()) +
+                             " via " + pn45 + " +" + std::to_string(add466));
         }
         if (keys45.empty())
             continue;
@@ -15086,6 +15238,11 @@ void UhdmExporter::modulePublishesPackageClasses45() {
         for (size_t i45 = cut45; i45 < cur45->size(); i45++)
             if (auto* t45 = (*cur45)[i45])
                 nv45->push_back(t45);
+        if (fresh466)
+            lawTrace(466, "emptyListClassKeys466",
+                     "view " + std::string(mv45->VpiName().empty() ? mv45->VpiDefName()
+                                                                   : mv45->VpiName()) +
+                         " +" + std::to_string(nv45->size()));
         mv45->Typespecs(nv45);
     }
 }
@@ -17015,7 +17172,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     bool ifcBody450 = false;
     if (m->UhdmType() == UHDM::uhdminterface_inst && !ifcFile418 &&
         lawOn(450, "R11U450_IFCBODYTRANS_OFF")) {
-        bool any450 = false, ok450 = true, trans450 = false;
+        bool any450 = false, ok450 = true, trans450 = false, deepTr466 = false;
         for (auto& mem450 : body.members()) {
             if (mem450.kind == SymbolKind::ExplicitImport) {
                 ok450 = false;
@@ -17033,10 +17190,83 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                 if (pm450.kind == SymbolKind::TypeAlias)
                     ok450 = false;
                 else if (pm450.kind == SymbolKind::WildcardImport)
-                    if (auto* np450 = pm450.as<WildcardImportSymbol>().getPackage())
+                    if (auto* np450 = pm450.as<WildcardImportSymbol>().getPackage()) {
                         for (auto& qm450 : np450->members())
                             if (qm450.kind == SymbolKind::TypeAlias)
                                 trans450 = true;
+                        // § ifcBodyImpDeepTrans466 (r11u466,
+                        // R11U466_IFCDEEPTRANS_OFF; cases tools/probe/
+                        // r11u466repro/cases/IK ik09) — the typedefs may
+                        // sit deeper in the chain: importPackage copies the
+                        // imported package's map, which holds what its own
+                        // imports' maps held, so an interface importing a
+                        // whose import b declares no typedef but imports c
+                        // lists c's typedefs too (golden ik09: c::c_t in
+                        // work@ifc, ours none since the gate looked one
+                        // level down only).
+                        // § ifcDeepTransEarlierOnly466v (v11u466,
+                        // R11V466_DEEPORDER_OFF; cases tools/probe/
+                        // v11u466repro/cases/VD vd02, vd08) — THE DEEPER
+                        // EDGES FOLLOW SURELOG'S SOURCE ORDER: a package is
+                        // compiled in source order, so an import of a
+                        // package declared later copies an empty map and an
+                        // edge counts only when the imported package is
+                        // declared earlier than the importer (the rule of
+                        // § pkgLateTsEarlierPkgOnly454v; golden vd02, b
+                        // importing a later c, and vd08, a importing a later
+                        // b, list no c::c_t in work@ifc where the walk took it).
+                        const bool ord466v = fixOn(466, "R11V466_DEEPORDER_OFF");
+                        std::map<const Symbol*, size_t> pord466v;
+                        if (ord466v) {
+                            size_t n466v = 0;
+                            for (auto& tr : comp.getSyntaxTrees())
+                                if (tr && tr->root().kind == syntax::SyntaxKind::CompilationUnit)
+                                    for (auto* m466v :
+                                         tr->root().as<syntax::CompilationUnitSyntax>().members)
+                                        if (m466v &&
+                                            m466v->kind == syntax::SyntaxKind::PackageDeclaration)
+                                            if (auto* ps466v = comp.getPackage(
+                                                    m466v->as<syntax::ModuleDeclarationSyntax>()
+                                                        .header->name.valueText()))
+                                                pord466v.emplace(ps466v, n466v++);
+                        }
+                        auto earlier466v = [&](const Symbol* from, const Symbol* to) {
+                            if (!ord466v)
+                                return true;
+                            auto fi = pord466v.find(from), ti = pord466v.find(to);
+                            bool ok = fi != pord466v.end() && ti != pord466v.end() &&
+                                      ti->second < fi->second;
+                            if (!ok)
+                                lawTrace(466, "ifcDeepTransEarlierOnly466v",
+                                         std::string(from->name) + " -> " +
+                                             std::string(to->name));
+                            return ok;
+                        };
+                        if (!trans450 && lawOn(466, "R11U466_IFCDEEPTRANS_OFF") &&
+                            earlier466v(pkg450, np450)) {
+                            std::set<const PackageSymbol*> seen466{pkg450, np450};
+                            std::function<bool(const PackageSymbol&)> deep466 =
+                                [&](const PackageSymbol& p466) {
+                                    for (auto& r466 : p466.members())
+                                        if (r466.kind == SymbolKind::WildcardImport)
+                                            if (auto* q466 = r466.as<WildcardImportSymbol>()
+                                                                 .getPackage();
+                                                q466 && earlier466v(&p466, q466) &&
+                                                seen466.insert(q466).second) {
+                                                for (auto& t466 : q466->members())
+                                                    if (t466.kind == SymbolKind::TypeAlias)
+                                                        return true;
+                                                if (deep466(*q466))
+                                                    return true;
+                                            }
+                                    return false;
+                                };
+                            if (deep466(*np450)) {
+                                trans450 = true;
+                                deepTr466 = true;
+                            }
+                        }
+                    }
             }
         }
         std::string mf450 = rootFilePath(body.getDefinition().location);
@@ -17048,6 +17278,8 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                         rootFilePath(mem450.location) == mf450)
                         ok450 = false;
         ifcBody450 = (ok450 && any450 && trans450) || ifcOwn460;
+        if (ifcBody450 && deepTr466 && ok450 && any450)
+            lawTrace(466, "ifcBodyImpDeepTrans466", std::string(m->VpiDefName()));
         if (ifcBody450) {
             lawTrace(450, "ifcBodyImpTransitiveTds450", std::string(m->VpiDefName()));
             // ...and the copied DataTypeMap carries the class keys the
@@ -61499,6 +61731,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     auto* vars = s.MakeVariablesVec();
     auto* elabNets = s.MakeNetVec();
     UHDM::VectorOfarray_net* elabArrayNets = nullptr;
+    std::vector<std::pair<const Symbol*, UHDM::named_event*>> ifcEvents466;
     // All declarators of ONE declaration (logic vld, rdy, trn;) share a single
     // typespec object per interface view; its parent ends up the LAST net of
     // the declaration (Surelog's TypespecCache — same as the module elab view).
@@ -61786,6 +62019,26 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         auto* v = makeVar(*it.sym, /*portBacked=*/pb450);
         if (pb450 && !v)
             lawTrace(450, "ifcAnsiLogicPortNet450", fullName);
+        // § ifcEventTrigNet466 (r11u466, R11U466_IFCEVENT_OFF; cases
+        // tools/probe/r11u466repro/cases/EV) — AN ELABORATED INTERFACE LISTS
+        // ITS `event` DECLARATIONS AS named_events (vpiNamedEvent, at the
+        // declarator, in declaration order), as a module instance does; the
+        // interface road dropped them (makeVar declines an event).  The
+        // late-binding wire of the same name is minted below.
+        if (!v && !portView && it.sym->kind == SymbolKind::Variable &&
+            it.sym->getDeclaredType() &&
+            it.sym->getDeclaredType()->getType().getCanonicalType().kind ==
+                SymbolKind::EventType &&
+            lawOn(466, "R11U466_IFCEVENT_OFF")) {
+            auto* ne466 = s.MakeNamed_event();
+            ne466->VpiName(name);
+            ne466->VpiFullName(fullName);
+            ne466->VpiParent(iface);
+            setLoc(ne466, nameSpan(it.sym->location, it.sym->name));
+            ifcEvents466.emplace_back(it.sym, ne466);
+            lawTrace(466, "ifcEventTrigNet466", "named_event " + fullName);
+            continue;
+        }
         if (!v) {
             // A LOGIC/wire interface net (input logic clk/rst) that makeVar
             // does not model becomes a logic_net under the interface instance
@@ -62183,6 +62436,152 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
         walk(*bsy);
         }
     }
+    // § ifcEventTrigNet466 — THE LATE-BINDING WIRE OF AN INTERFACE EVENT.
+    // Surelog's interface elaboration does not resolve a reference to an
+    // `event` declared in the interface body (`@ev`, `->ev`), and its late
+    // binding mints the wire on the ELABORATED instance as for a `$unit`
+    // variable (§ ifcUnitVarRefMintsNet424): logic_net work@<inst>.ev,
+    // vpiNetType 1, at the event's FIRST reference in source order (a task's
+    // `->ev` before the always's `@ev`), after the instance's other nets, one
+    // per referenced event in first-reference order, minted by the first
+    // elaborated instance only, and the shared processes' and tasks' `@ev`
+    // references bind it (golden sv-tests uvm_use_models_pipelined_get_put:
+    // work@top_hdl.mbus_pipelined_drv.do_data_phase at
+    // mbus_pipelined_driver_bfm.sv 50:5, `->do_data_phase;` in task
+    // begin_transfer, the always's `@do_data_phase` bound to it; ours listed
+    // neither the named_event nor the wire).  An event no body statement
+    // reads mints nothing (EV/ev07).
+    if (!ifcEvents466.empty()) {
+        auto* nev466 = s.MakeNamed_eventVec();
+        for (auto& [sy466, ne466] : ifcEvents466)
+            nev466->push_back(ne466);
+        ((UHDM::scope*)iface)->Named_events(nev466);
+        static std::map<const void*, std::map<std::string, UHDM::logic_net*>> evNets466;
+        auto ins466 = evNets466.emplace((const void*)&def,
+                                        std::map<std::string, UHDM::logic_net*>{});
+        auto& got466 = ins466.first->second;
+        auto* bsy466 = body.asSymbol().getSyntax();
+        if (ins466.second && bsy466) {
+            std::set<std::string> evNames466;
+            for (auto& [sy466, ne466] : ifcEvents466)
+                evNames466.insert(std::string(sy466->name));
+            // § ifcEventShadowSkip466v (v11u466, R11V466_EVSHADOW_OFF; cases
+            // tools/probe/v11u466repro/cases/VE ve03, ve09, ve13, ve14, ve15)
+            // — A NAME DECLARED AGAIN IN A TASK, FUNCTION, BLOCK OR LOOP IS
+            // NOT A REFERENCE TO THE EVENT: golden places the wire at the
+            // first reference that resolves to the interface's event (ve03
+            // `@ev` at 9:6, not the task formal `ev` read at 6:9; ve09 a
+            // task-local `event ev`; ve13 a function formal; ve14 a foreach
+            // loop variable; ve15 a for-loop variable) and mints none when
+            // no reference resolves to it (v11u445 VI/vi03), where the text
+            // match took the shadowing name's read.
+            const bool shadow466v = fixOn(466, "R11V466_EVSHADOW_OFF");
+            std::map<std::string, int> shadowed466v;
+            auto scopeNames466v = [&](const syntax::SyntaxNode& n) {
+                std::vector<std::string> out;
+                auto take = [&](const syntax::DeclaratorSyntax* d) {
+                    if (!d)
+                        return;
+                    std::string nm(d->name.valueText());
+                    if (evNames466.count(nm))
+                        out.push_back(nm);
+                };
+                auto items = [&](const syntax::SyntaxList<syntax::SyntaxNode>& its) {
+                    for (auto* it : its) {
+                        if (!it)
+                            continue;
+                        if (it->kind == syntax::SyntaxKind::DataDeclaration)
+                            for (auto* d : it->as<syntax::DataDeclarationSyntax>().declarators)
+                                take(d);
+                        else if (it->kind == syntax::SyntaxKind::PortDeclaration)
+                            for (auto* d : it->as<syntax::PortDeclarationSyntax>().declarators)
+                                take(d);
+                    }
+                };
+                if (n.kind == syntax::SyntaxKind::FunctionDeclaration ||
+                    n.kind == syntax::SyntaxKind::TaskDeclaration) {
+                    auto& fd = n.as<syntax::FunctionDeclarationSyntax>();
+                    if (auto* pl = fd.prototype->portList)
+                        for (auto* pb : pl->ports)
+                            if (pb && pb->kind == syntax::SyntaxKind::FunctionPort)
+                                take(pb->as<syntax::FunctionPortSyntax>().declarator);
+                    items(fd.items);
+                } else if (n.kind == syntax::SyntaxKind::SequentialBlockStatement ||
+                           n.kind == syntax::SyntaxKind::ParallelBlockStatement) {
+                    items(n.as<syntax::BlockStatementSyntax>().items);
+                } else if (n.kind == syntax::SyntaxKind::ForeachLoopStatement) {
+                    // a foreach loop variable of the name (v11u445 VI/vi03:
+                    // `event i;` and `foreach (sig[i]) s = s + i;`, golden
+                    // binding the read to the loop variable, no wire)
+                    for (auto* lv : n.as<syntax::ForeachLoopStatementSyntax>()
+                                        .loopList->loopVariables)
+                        if (lv && lv->kind == syntax::SyntaxKind::IdentifierName) {
+                            std::string nm(
+                                lv->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                            if (evNames466.count(nm))
+                                out.push_back(nm);
+                        }
+                } else if (n.kind == syntax::SyntaxKind::ForLoopStatement) {
+                    for (auto* in : n.as<syntax::ForLoopStatementSyntax>().initializers)
+                        if (in && in->kind == syntax::SyntaxKind::ForVariableDeclaration)
+                            take(in->as<syntax::ForVariableDeclarationSyntax>().declarator);
+                }
+                return out;
+            };
+            std::function<void(const syntax::SyntaxNode&)> walk466 =
+                [&](const syntax::SyntaxNode& n) {
+                    auto k = n.kind;
+                    if (k == syntax::SyntaxKind::GenerateBlock ||
+                        k == syntax::SyntaxKind::LoopGenerate ||
+                        k == syntax::SyntaxKind::IfGenerate ||
+                        k == syntax::SyntaxKind::CaseGenerate ||
+                        k == syntax::SyntaxKind::ClassDeclaration ||
+                        k == syntax::SyntaxKind::ModuleDeclaration ||
+                        k == syntax::SyntaxKind::InterfaceDeclaration ||
+                        k == syntax::SyntaxKind::ProgramDeclaration)
+                        if (&n != bsy466)
+                            return;
+                    if (k == syntax::SyntaxKind::IdentifierName) {
+                        std::string nm(
+                            n.as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                        if (!evNames466.count(nm) || got466.count(nm) ||
+                            (shadow466v && shadowed466v[nm] > 0) ||
+                            (n.parent &&
+                             (n.parent->kind == syntax::SyntaxKind::MemberAccessExpression ||
+                              n.parent->kind == syntax::SyntaxKind::ScopedName)))
+                            return;
+                        auto* inet = s.MakeLogic_net();
+                        inet->VpiName(nm);
+                        inet->VpiFullName(prefix + "." + nm);
+                        inet->VpiParent(iface);
+                        inet->VpiNetType(1);
+                        setLoc(inet, n.sourceRange());
+                        inet->VpiFile("");  // the late-binding wire has no file
+                        elabNets->push_back(inet);
+                        got466[nm] = inet;
+                        lawTrace(466, "ifcEventTrigNet466", prefix + "." + nm);
+                        return;
+                    }
+                    std::vector<std::string> sh466v;
+                    if (shadow466v) {
+                        sh466v = scopeNames466v(n);
+                        for (auto& x : sh466v) {
+                            shadowed466v[x]++;
+                            lawTrace(466, "ifcEventShadowSkip466v", prefix + "." + x);
+                        }
+                    }
+                    for (size_t i = 0; i < n.getChildCount(); i++)
+                        if (auto* c = n.childNode(i))
+                            walk466(*c);
+                    for (auto& x : sh466v)
+                        shadowed466v[x]--;
+                };
+            walk466(*bsy466);
+        }
+        for (auto& [sy466, ne466] : ifcEvents466)
+            if (auto g466 = got466.find(std::string(sy466->name)); g466 != got466.end())
+                netMap[sy466] = g466->second;
+    }
     if (!elabNets->empty())
         iface->Nets(elabNets);
     if (elabArrayNets)
@@ -62262,6 +62661,25 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             if (!pk45.empty() && !have45)
                 modImportPkgs45.emplace_back(iface, pk45);
         }
+    }
+    // § emptyListClassKeys466 — the elab home view of a def view that lists
+    // nothing yet is registered under the def view's import set too, so the
+    // design-final publication gives both views the class keys (golden ik05:
+    // the interface instance work@top.u lists the same two keys).
+    else if (auto dIt466 = ifaceDefMap.find(&def);
+             !portView && dIt466 != ifaceDefMap.end() &&
+             (!dIt466->second->Typespecs() || dIt466->second->Typespecs()->empty()) &&
+             lawOn(466, "R11U466_EMPTYLISTKEYS_OFF")) {
+        std::vector<std::string> pk466;
+        bool have466 = false;
+        for (auto& [mv45, p45] : modImportPkgs45) {
+            if (mv45 == (UHDM::instance*)dIt466->second)
+                pk466 = p45;
+            else if (mv45 == (UHDM::instance*)iface)
+                have466 = true;
+        }
+        if (!pk466.empty() && !have466)
+            modImportPkgs45.emplace_back(iface, pk466);
     }
 
     // Fresh logic_nets created for interface-HEADER-port modport members

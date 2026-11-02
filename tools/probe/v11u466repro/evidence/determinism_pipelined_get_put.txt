@@ -1,0 +1,62 @@
+# pipelined_get_put, the row's recorded slang command rerun against the cached golden (5b51ea3e7dc475b50f32/golden.uhdm); tag rc cmp strict md5
+## verified binary, 3 concurrent draws, then 3 more, then 6 more (V*)
+d1 rc=0 cmp=0 STRICT_EQUAL 838378 objects md5=507435dfc5a2
+d3 rc=0 cmp=0 STRICT_EQUAL 838378 objects md5=05d1b644b52b
+d2 rc=0 cmp=0 STRICT_EQUAL 838378 objects md5=507435dfc5a2
+## pristine, 3 concurrent draws (p*)
+p2 rc=0 cmp=1388336 NOT_EQUAL stage1 md5=1ed9fd1094b1
+p3 rc=0 cmp=1388336 NOT_EQUAL stage1 md5=1ed9fd1094b1
+p1 rc=0 cmp=1388336 NOT_EQUAL stage1 md5=1ed9fd1094b1
+## md5 of every draw file
+d1.uhdm 507435dfc5a2
+d2.uhdm 507435dfc5a2
+d3.uhdm 05d1b644b52b
+d4.uhdm 507435dfc5a2
+d5.uhdm 05d1b644b52b
+d6.uhdm 507435dfc5a2
+G1-a.uhdm 7938c362d688
+G1-b.uhdm 322e30447f56
+G1-c.uhdm 322e30447f56
+G2-a.uhdm 7938c362d688
+G2-b.uhdm 7938c362d688
+G2-c.uhdm 7938c362d688
+GENVIEWPA_a.uhdm 322e30447f56
+GENVIEWPA_b.uhdm 322e30447f56
+GENVIEWPA_c.uhdm 322e30447f56
+GENVIEWPA_d.uhdm 322e30447f56
+IFCEVENT_a.uhdm 9490985fa16e
+IFCEVENT_b.uhdm 4acb8be66d9c
+IFCEVENT_c.uhdm 9490985fa16e
+IFCEVENT_d.uhdm 9490985fa16e
+l1.uhdm 507435dfc5a2
+l2.uhdm 05d1b644b52b
+l3.uhdm 507435dfc5a2
+P1-a.uhdm 1ed9fd1094b1
+P1-b.uhdm 1ed9fd1094b1
+P1-c.uhdm aab3b19e03d8
+p1.uhdm 1ed9fd1094b1
+P2-a.uhdm aab3b19e03d8
+P2-b.uhdm 1ed9fd1094b1
+P2-c.uhdm 1ed9fd1094b1
+p2.uhdm 1ed9fd1094b1
+p3.uhdm 1ed9fd1094b1
+T1-a.uhdm 61f9e219b263
+T1-b.uhdm 61f9e219b263
+T1-c.uhdm 3455f5bee254
+T2-a.uhdm 61f9e219b263
+T2-b.uhdm 61f9e219b263
+T2-c.uhdm 61f9e219b263
+TRANSCLSKEYS_a.uhdm 61f9e219b263
+TRANSCLSKEYS_b.uhdm 61f9e219b263
+TRANSCLSKEYS_c.uhdm 61f9e219b263
+TRANSCLSKEYS_d.uhdm 61f9e219b263
+UNITGRPORDER_a.uhdm 5018df6b645c
+UNITGRPORDER_b.uhdm 4abc72a0b0ed
+UNITGRPORDER_c.uhdm 5018df6b645c
+UNITGRPORDER_d.uhdm 5018df6b645c
+V1-a.uhdm 507435dfc5a2
+V1-b.uhdm 507435dfc5a2
+V1-c.uhdm 507435dfc5a2
+V2-a.uhdm 507435dfc5a2
+V2-b.uhdm 05d1b644b52b
+V2-c.uhdm 507435dfc5a2

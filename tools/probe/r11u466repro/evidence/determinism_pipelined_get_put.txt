@@ -1,0 +1,3 @@
+draw 1 md5=979e2a27c93b STRICT_EQUAL 838378 objects
+draw 2 md5=979e2a27c93b STRICT_EQUAL 838378 objects
+draw 3 md5=979e2a27c93b STRICT_EQUAL 838378 objects
