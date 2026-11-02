@@ -2079,7 +2079,7 @@ generated/uvm-examples/uvm_id_register.sv,EQUAL,,equal
 generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,
 generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
 generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,
-generated/uvm-examples/uvm_many_to_one.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_many_to_one.sv,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
 generated/uvm-examples/uvm_messaging_example.sv,EQUAL,,equal
 generated/uvm-examples/uvm_overriding.sv,SLANG_ONLY,[  ERROR] : 2,
 generated/uvm-examples/uvm_param_vif_config_db.sv,DIFFERENT,decompile:,

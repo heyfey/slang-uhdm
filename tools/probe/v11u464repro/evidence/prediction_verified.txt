@@ -1,0 +1,9 @@
+# Prediction written BEFORE the verified sweep (ver3 md5 450798454c55b4a77ef33ecc1d731c07).
+# § unitImpTransNameFirst464v only narrows § unitImpTransitiveTds464, which fires on no
+# surelog, uhdm2rtlil, downstream or probe database (law sweep trace /tmp/v11u464_trL) and on
+# three sv-tests rows: rsd, uvm_many_to_one, uvm_use_models_pipelined_get_put. A traced
+# runner call of ver3 on those three rows logs NO firing of the refinement (and ver1, with
+# the untrimmed trace, gives databases STRICT_EQUAL --no-canon to the law sweep's on all three).
+# PREDICTION: all five verified csvs equal the law sweep's; byteverify verified vs law:
+# 0 corpus movers (surelog 0/962, uhdm2rtlil 0/1608, downstream 0/805); sv-tests raw-byte
+# movers only serialization-order variance, STRICT_EQUAL --no-canon to the law sweep.

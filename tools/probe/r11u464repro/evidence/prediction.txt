@@ -1,0 +1,15 @@
+# Prediction written before the sweep (law7 md5 0cc21ab91f3f74e62f3ed31f81161d8d), from the traced census
+# tools/census.py (surelog + uhdm2rtlil, both modes, slang side only, bytes against /tmp/intr11u462) and tools/probecensus.py (4087 probe cases).
+# Corpus rows that fire or move:
+surelog testflags LowMemLib rc=0 MOVED 
+surelog testflags LowMemPkg rc=0 MOVED 
+surelog default PreProcMacro rc=0 MOVED 
+surelog testflags PreProcMacro rc=0 MOVED 
+surelog default Scoreboard rc=0 MOVED unitClsListsSpecBase464
+surelog default SimpleUVM rc=0 MOVED unitClsListsSpecBase464
+surelog testflags SimpleUVM rc=0 MOVED unitClsListsSpecBase464
+# (LowMemLib/LowMemPkg testflags and PreProcMacro d/t: SURELOG_FAIL rows, the control holds no slang database, so 'MOVED' is a missing control file, no firing)
+# Probe cases that fire or move:
+cases 4087
+r10uvm49repro/a6 rc=0 MOVED unitClsListsSpecBase464
+# PREDICTION: byteverify surelog movers = Scoreboard default (also the svunit order coin), SimpleUVM default, SimpleUVM testflags, by unitClsListsSpecBase464, verdicts kept STRICT_EQUAL; a fenced row cannot be predicted from a fence-filtered list; uhdm2rtlil 0; downstream 0 (no law fires on the uhdm2rtlil sources); probe: r10uvm49repro/a6 moves and stays EQUAL; sv-tests: uvm_many_to_one DIFFERENT -> STRICT_NOTEQUAL differ:type(1) (laws 1-3), other UVM rows with a $unit class listing a uvm_pkg specialization base move bytes (vpiParent and type-parameter full names toward golden) with no status change.

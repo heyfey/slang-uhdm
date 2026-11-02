@@ -1,0 +1,7 @@
+surelog testflags LowMemLib rc=0 MOVED 
+surelog testflags LowMemPkg rc=0 MOVED 
+surelog default PreProcMacro rc=0 MOVED 
+surelog testflags PreProcMacro rc=0 MOVED 
+surelog default Scoreboard rc=0 MOVED unitClsListsSpecBase464
+surelog default SimpleUVM rc=0 MOVED unitClsListsSpecBase464
+surelog testflags SimpleUVM rc=0 MOVED unitClsListsSpecBase464

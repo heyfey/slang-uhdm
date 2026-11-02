@@ -1321,6 +1321,29 @@ static void enumTdLastWriter214(
         const UHDM::BaseClass* p = t->VpiParent();
         return clsScope && p && p->UhdmType() == UHDM::uhdmclass_defn;
     };
+    // § unitClsListsSpecBase464 (r11u464, R11U464_UNITCLSBASE_OFF; cases
+    // tools/probe/r11u464repro/cases/UB; sv-tests generated/uvm-examples/
+    // uvm_many_to_one.sv, `class test` in test.sv listing b_pkg::A_sequencer
+    // through its file's `import a_pkg::*;`) — the $unit class writer also
+    // takes a package class typedef that carries NO typedef-alias ref (the
+    // specialization group's BASE, `typedef uvm_sequencer #(A_item)
+    // A_sequencer;`, which § classTdAliasLastWriter214 leaves out): the
+    // compilation-unit classes write after every module (UhdmWriter::write's
+    // `classes` loop), so a $unit class listing it is its parent (golden
+    // `work@test::b_pkg::A_sequencer::REQ` on its type parameter where ours
+    // kept module top's `work@top.b_pkg::A_sequencer.REQ`).  Only that class
+    // cell is added: the package, interface and module cells of such an
+    // object stay with the writers that already place it.
+    const bool clsBaseOn464 = clsTd && lawOn(464, "R11U464_UNITCLSBASE_OFF");
+    std::set<const UHDM::typespec*> base464;
+    auto clsBase464 = [&](const UHDM::typespec* t) {
+        if (!clsBaseOn464 || !t || t->UhdmType() != UHDM::uhdmclass_typespec ||
+            t->VpiName().find("::") == std::string_view::npos ||
+            ((const UHDM::class_typespec*)t)->Typedef_alias())
+            return false;
+        const UHDM::BaseClass* p = t->VpiParent();
+        return !(p && p->UhdmType() == UHDM::uhdmclass_defn);
+    };
     std::map<size_t, UHDM::BaseClass*> pkgLast, clsLast, modLast;
     std::set<const UHDM::BaseClass*> topPk;
     // § enumPkgWriterImportsType219: a package writes an enum it lists only
@@ -1390,8 +1413,11 @@ static void enumTdLastWriter214(
                 }
                 if (auto* ts = c->Typespecs())
                     for (auto* t : *ts)
-                        if (pkgEnum(t) || pkgClsTd(t))
+                        if (pkgEnum(t) || pkgClsTd(t) || clsBase464(t)) {
                             clsLast[unit(t)] = c;
+                            if (clsBase464(t))
+                                base464.insert(t);
+                        }
             }
     // § clsInModEnumLastWriter462 (r11u462, uvm_ac_config_db: the base refs
     // of uvm_pkg's enums `work@sfr_monitor_bfm::sfr_monitor_concrete::
@@ -1550,7 +1576,43 @@ static void enumTdLastWriter214(
                         f.compare(0, oldNm.size() + 2, oldNm + "::") == 0)
                         o->VpiFullName(nm + f.substr(oldNm.size()));
                 };
-                if (clsScope && !ct->Typedef_alias())
+                // § unitClsListsSpecBase464 — a base moved from a module or
+                // package chain: its own parameters' stored names (`<old>.Q`
+                // or `<old>::Q`) take the class chain's `<new>::Q`.
+                if (base464.count(t) && !ct->Typedef_alias()) {
+                    auto move464 = [&](auto* o) {
+                        if (!o)
+                            return;
+                        std::string f(o->VpiFullName());
+                        for (const char* sep : {"::", "."}) {
+                            std::string pre = oldNm + sep;
+                            if (f.size() > pre.size() && f.compare(0, pre.size(), pre) == 0) {
+                                o->VpiFullName(nm + "::" + f.substr(pre.size()));
+                                return;
+                            }
+                        }
+                    };
+                    if (auto* ps = ct->Parameters())
+                        for (auto* a : *ps) {
+                            if (!a || a->VpiParent() != ct)
+                                continue;
+                            if (a->UhdmType() == UHDM::uhdmtype_parameter) {
+                                auto* tp = (UHDM::type_parameter*)a;
+                                move464(tp);
+                                if (auto* r = tp->Typespec())
+                                    move464((UHDM::ref_typespec*)r);
+                            }
+                            else if (a->UhdmType() == UHDM::uhdmparameter) {
+                                auto* pp = (UHDM::parameter*)a;
+                                move464(pp);
+                                if (auto* r = pp->Typespec())
+                                    move464((UHDM::ref_typespec*)r);
+                            }
+                        }
+                    lawTrace(464, "unitClsListsSpecBase464",
+                             std::string(t->VpiName()) + " " + oldNm + " -> " + nm);
+                }
+                else if (clsScope && !ct->Typedef_alias())
                     if (auto* ps = ct->Parameters())
                         for (auto* a : *ps) {
                             if (!a || a->VpiParent() != ct)
@@ -8604,9 +8666,53 @@ UHDM::expr* UhdmExporter::cloneUnitParamRhs(const UHDM::expr* src,
     }
 }
 
+// § unitImpTransitiveTds464 — the closure: the typedefs of every package
+// `pkg` reaches through wildcard imports written in package bodies, an edge
+// counting only when the imported package is declared before the importing
+// one in the syntax trees' member order.  Appended to `tas` (no symbol twice).
+static void unitImpTransTds464(Compilation& comp, const PackageSymbol& pkg,
+                               std::vector<const Symbol*>& tas,
+                               const std::function<bool(const Symbol&)>& keep) {
+    std::map<const Symbol*, size_t> ord;
+    {
+        size_t n = 0;
+        for (auto& tr : comp.getSyntaxTrees())
+            if (tr && tr->root().kind == syntax::SyntaxKind::CompilationUnit)
+                for (auto* m : tr->root().as<syntax::CompilationUnitSyntax>().members)
+                    if (m && m->kind == syntax::SyntaxKind::PackageDeclaration)
+                        if (auto* ps = comp.getPackage(
+                                m->as<syntax::ModuleDeclarationSyntax>().header->name.valueText()))
+                            ord.emplace(ps, n++);
+    }
+    std::set<const Symbol*> seen{&pkg};
+    std::set<const Symbol*> have(tas.begin(), tas.end());
+    std::function<void(const PackageSymbol&)> walk = [&](const PackageSymbol& p) {
+        auto oi = ord.find(&p);
+        for (auto& pm : p.members()) {
+            if (pm.kind != SymbolKind::WildcardImport)
+                continue;
+            auto* np = pm.as<WildcardImportSymbol>().getPackage();
+            if (!np || !seen.insert(np).second)
+                continue;
+            auto oj = ord.find(np);
+            if (oi == ord.end() || oj == ord.end() || oj->second >= oi->second)
+                continue;
+            for (auto& qm : np->members())
+                if (qm.kind == SymbolKind::TypeAlias && keep(qm) && have.insert(&qm).second)
+                    tas.push_back(&qm);
+            walk(*np);
+        }
+    };
+    walk(pkg);
+}
+
 std::vector<std::pair<const Symbol*, const Symbol*>>
 UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
     std::vector<std::pair<const Symbol*, const Symbol*>> out;
+    // § unitImpTransNameFirst464v (v11u464, R11V464_TDNAMEFIRST_OFF) — the
+    // names the module's DataTypeMap already holds, in import order.
+    std::set<std::string> names464v;
+    const bool nameFirst464v = fixOn(464, "R11V464_TDNAMEFIRST_OFF");
     std::string modFile = rootFilePath(modLoc);
     if (modFile.empty())
         return out;
@@ -8619,8 +8725,10 @@ UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
                 continue;
             if (mem.kind == SymbolKind::ExplicitImport) {
                 auto* imported = mem.as<ExplicitImportSymbol>().importedSymbol();
-                if (imported && imported->kind == SymbolKind::TypeAlias)
+                if (imported && imported->kind == SymbolKind::TypeAlias) {
                     out.emplace_back(&mem, imported);
+                    names464v.insert(std::string(imported->name));
+                }
                 continue;
             }
             auto* pkg = comp.getPackage(
@@ -8631,6 +8739,69 @@ UhdmExporter::fileScopeImportTypedefs(SourceLocation modLoc) {
             for (auto& pm : pkg->members())
                 if (pm.kind == SymbolKind::TypeAlias)
                     tas.push_back(&pm);
+            // § unitImpTransitiveTds464 (r11u464, R11U464_UNITIMPTRANS_OFF;
+            // cases tools/probe/r11u464repro/cases/UT; sv-tests generated/
+            // uvm-examples/uvm_many_to_one.sv, module top in test.sv under
+            // `import env_pkg::*;` at file scope, env_pkg importing abc_pkg
+            // which imports a_pkg, b_pkg and c_pkg) — A FILE-SCOPE WILDCARD
+            // IMPORT LISTS THE PACKAGE'S TRANSITIVE TYPEDEFS TOO.  CompileModule
+            // replays the file's paPackage_import_item through importPackage
+            // (CompileHelper.cpp), which copies the package's whole DataTypeMap,
+            // and a package's map already holds what its own body imports
+            // copied in when it was compiled; writeModule's writeDataTypes then
+            // walks the module's map (golden many_to_one: module work@top lists
+            // b_pkg::B_sequencer and c_pkg::C_sequencer, 130 entries, where the
+            // direct-only walk gave 128).  The body-import branch in ModuleEmit
+            // already walks the closure; this is the same closure for the file
+            // route, under the order rule of § pkgLateTsEarlierPkgOnly454v:
+            // Surelog compiles the packages in source order, so an import edge
+            // counts only when the imported package is declared before the
+            // importing one (a later package's map is still empty).  Only
+            // import declarations written in the package body count.
+            if (lawOn(464, "R11U464_UNITIMPTRANS_OFF")) {
+                size_t before464 = tas.size();
+                // § unitImpTransNameFirst464v (v11u464, R11V464_TDNAMEFIRST_OFF;
+                // cases tools/probe/v11u464repro/cases/VT vt02, vt14 to vt16) —
+                // THE MAP IS KEYED BY NAME, FIRST WRITER WINS.  importPackage
+                // fills the scope's DataTypeMap through insertDataType, a
+                // std::map emplace (DesignComponent.cpp), and a package's own
+                // map was filled the same way, so of two transitive typedefs
+                // named t (abc importing a::t then b::t) only the first
+                // reaches the module; the law listed both (vt02: golden a::t
+                // only, the law a::t and b::t).  A transitive typedef is
+                // listed only while its name is not yet in the module's map:
+                // the names of earlier explicit imports, of the direct
+                // package's own typedefs that no import of theirs shadows, and
+                // of the transitive typedefs already taken, in walk order.
+                if (nameFirst464v)
+                    for (auto* d464 : tas)
+                        if (!importShadowOf(*d464))
+                            names464v.insert(std::string(d464->name));
+                unitImpTransTds464(comp, *pkg, tas, [&](const Symbol& q) {
+                    if (importShadowOf(q))
+                        return false;
+                    if (!nameFirst464v)
+                        return true;
+                    if (names464v.insert(std::string(q.name)).second)
+                        return true;
+                    // Traced only when the skipped typedef is not the one
+                    // already taken (a diamond, or an earlier import, reaches
+                    // the same symbol twice).
+                    if (lawTraceOn(464) &&
+                        std::find(tas.begin(), tas.end(), &q) == tas.end() &&
+                        std::find_if(out.begin(), out.end(), [&](const auto& o) {
+                            return o.second == &q;
+                        }) == out.end())
+                        lawTrace(464, "unitImpTransNameFirst464v",
+                                 "skip " + std::string(q.name) + " in " +
+                                     std::string(pkg->name));
+                    return false;
+                });
+                if (tas.size() != before464)
+                    lawTrace(464, "unitImpTransitiveTds464",
+                             "module " + std::string(pkg->name) + " +" +
+                                 std::to_string(tas.size() - before464));
+            }
             std::stable_sort(tas.begin(), tas.end(),
                              [](const Symbol* a, const Symbol* b) {
                                  return a->name < b->name;
@@ -10091,18 +10262,63 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 // they are all fixed or bounded; with no unsized dim the shape
                 // is new only when a bounded queue is present (the all-fixed
                 // shape is § fixedClassPropIsArrayVar6's).
-                if (firstUnsized == 0 && nUnsized > 1)
+                // § clsNestedUnsizedDims464 (r11u464,
+                // R11U464_CLSNESTUNSIZED_OFF; goal 1: the v11u462 case VR/vr09
+                // `real dd[][]`, exiting 4 with 'class array property
+                // element'; cases tools/probe/r11u464repro/cases/CN) — a
+                // leading unsized dim followed by more unsized dims is the
+                // same one array_var (the leading marker erased, its kind the
+                // array kind), each later dim a range in written order: a
+                // dynamic `[]` the range [0 : "unsized"] (UINT:0 and
+                // STRING:unsized, vpiStringConst, both at the `[` token, the
+                // range over the brackets), an unbounded queue `[$]` the
+                // range [0 : $] (UINT:0 with no location, STRING:$ of size 1,
+                // vpiUnboundedConst, at the `$`, the range at the `$`), the
+                // fixed and bounded dims as before; the innermost element
+                // under vpiReg (cn01 to cn06, cn08).
+                bool nest464 = firstUnsized == 0 && nUnsized > 1 &&
+                               lawOn(464, "R11U464_CLSNESTUNSIZED_OFF");
+                if (firstUnsized == 0 && nUnsized > 1 && !nest464)
                     ok = false;
                 if (firstUnsized < 0 && !anyB)
                     ok = false;
                 // An inner unsized dim: measured only as the LAST dim over a
                 // predefined integer element (QM/qm08).
+                // § clsInnerUnsizedAnyElem464 (r11u464,
+                // R11U464_CLSINNERELEM_OFF; goal 1: the r11u462 case CR/cr03
+                // `real m[2][]`, exiting 4 with 'class property type:
+                // FixedSizeUnpackedArrayType'; cases
+                // tools/probe/r11u464repro/cases/CM) — the same no-element
+                // array_var for a floating element (real, shortreal,
+                // realtime, an alias of real), a string element and a logic
+                // vector element; the inner element typespec of the
+                // array_typespec is a bare unsupported_typespec, a bare
+                // string_typespec and a bare logic_typespec with no range.
+                auto innerElemOk464 = [&](const Type& et) {
+                    auto& ec = et.getCanonicalType();
+                    if (ec.kind == SymbolKind::FloatingType || ec.kind == SymbolKind::StringType)
+                        return true;
+                    if (ec.kind == SymbolKind::PackedArrayType && et.kind != SymbolKind::TypeAlias) {
+                        auto* e = &ec;
+                        while (e->kind == SymbolKind::PackedArrayType)
+                            e = &e->as<PackedArrayType>().elementType.getCanonicalType();
+                        return e->kind == SymbolKind::ScalarType &&
+                               e->as<ScalarType>().scalarKind == ScalarType::Logic;
+                    }
+                    return false;
+                };
                 if (firstUnsized > 0 &&
                     ((size_t)firstUnsized + 1 != dims.size() ||
-                     t->getCanonicalType().kind != SymbolKind::PredefinedIntegerType ||
-                     t->getCanonicalType().as<PredefinedIntegerType>().integerKind ==
-                         PredefinedIntegerType::Time))
+                     ((t->getCanonicalType().kind != SymbolKind::PredefinedIntegerType ||
+                       t->getCanonicalType().as<PredefinedIntegerType>().integerKind ==
+                           PredefinedIntegerType::Time) &&
+                      !(innerElemOk464(*t) && lawOn(464, "R11U464_CLSINNERELEM_OFF")))))
                     ok = false;
+                if (ok && firstUnsized > 0 &&
+                    t->getCanonicalType().kind != SymbolKind::PredefinedIntegerType)
+                    lawTrace(464, "clsInnerUnsizedAnyElem464", pfn);
+                if (ok && nest464)
+                    lawTrace(464, "clsNestedUnsizedDims464", pfn);
                 if (ok) {
                     mixed410 = true;
                     noElem410 = firstUnsized > 0;
@@ -10188,6 +10404,14 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
             if (auto* rngsNe410 = buildUnpackedRanges(cp, av410, {}, &hookNe410))
                 inner410->Ranges(rngsNe410);
             UHDM::typespec* ets410 = nullptr;
+            // § clsInnerUnsizedAnyElem464 — the element kinds it admits.
+            if (elem410->getCanonicalType().kind == SymbolKind::FloatingType)
+                ets410 = s.MakeUnsupported_typespec();
+            else if (elem410->getCanonicalType().kind == SymbolKind::StringType)
+                ets410 = s.MakeString_typespec();
+            else if (elem410->getCanonicalType().kind == SymbolKind::PackedArrayType)
+                ets410 = s.MakeLogic_typespec();
+            else
             switch (elem410->getCanonicalType().as<PredefinedIntegerType>().integerKind) {
                 case PredefinedIntegerType::Integer:
                     ets410 = s.MakeInteger_typespec();
@@ -10502,12 +10726,53 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                 // shared builder; a bounded queue dim answered by this hook
                 // with § classBoundedQueueStatic408's range; a LEADING
                 // unsized dim (the marker ElaborationStep erases) skipped.
+                bool lead464 = false;
+                const bool nest464 = lawOn(464, "R11U464_CLSNESTUNSIZED_OFF");
                 NonFixedDimHook225 hook410 =
                     [&](const syntax::VariableDimensionSyntax& dim,
                         const Type& canon, UHDM::BaseClass* parent,
                         const Type*& next) -> UHDM::range* {
+                    // § clsNestedUnsizedDims464 — an unsized dim after the
+                    // leading one keeps its range.
+                    auto unsized464 = [&](const syntax::SyntaxNode* at, bool queue,
+                                          const parsing::Token* tok) -> UHDM::range* {
+                        auto* r = s.MakeRange();
+                        r->VpiParent(parent);
+                        auto* l = s.MakeConstant();
+                        l->VpiParent(r);
+                        l->VpiDecompile("0");
+                        l->VpiSize(64);
+                        l->VpiValue("UINT:0");
+                        l->VpiConstType(vpiUIntConst);
+                        auto* rc = s.MakeConstant();
+                        rc->VpiParent(r);
+                        if (queue) {
+                            setLoc(r, tok->range());
+                            rc->VpiDecompile("$");
+                            rc->VpiSize(1);
+                            rc->VpiValue("STRING:$");
+                            rc->VpiConstType(vpiUnboundedConst);
+                            setLoc(rc, tok->range());
+                        }
+                        else {
+                            setLoc(r, at->sourceRange());
+                            setLoc(l, tok->range());
+                            rc->VpiDecompile("unsized");
+                            rc->VpiValue("STRING:unsized");
+                            rc->VpiConstType(vpiStringConst);
+                            setLoc(rc, tok->range());
+                        }
+                        r->Left_expr(l);
+                        r->Right_expr(rc);
+                        lawTrace(464, "clsNestedUnsizedDims464",
+                                 pfn + (queue ? " [$]" : " []"));
+                        return r;
+                    };
                     if (canon.kind == SymbolKind::DynamicArrayType) {
                         next = &canon.as<DynamicArrayType>().elementType;
+                        if (nest464 && lead464)
+                            return unsized464(&dim, false, &dim.openBracket);
+                        lead464 = true;
                         return nullptr;
                     }
                     if (canon.kind != SymbolKind::QueueType)
@@ -10518,6 +10783,11 @@ UHDM::class_defn* UhdmExporter::emitClassDefn(const ClassType& cls,
                                    ? dim.specifier->as_if<
                                          syntax::QueueDimensionSpecifierSyntax>()
                                    : nullptr;
+                    if (qd && !qd->maxSizeClause) {
+                        if (nest464 && lead464)
+                            return unsized464(&dim, true, &qd->dollar);
+                        lead464 = true;
+                    }
                     if (!qd || !qd->maxSizeClause)
                         return nullptr;
                     const syntax::ExpressionSyntax* me = qd->maxSizeClause->expr;
@@ -12030,6 +12300,31 @@ UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
     // real_var (golden's real_typespec then the typedef's or the default's,
     // CR cr03, cr05), any other alias of a floating type keeps the old path.
     // Switch R11U462_CLSDYNREAL_OFF.
+    // § clsShortRealAliasElem464 (r11u464, R11U464_CLSSRALIAS_OFF; goal 1:
+    // the v11u462 case VR/vr06, `typedef shortreal sr_t; class C; sr_t d[];`,
+    // exiting 4 with 'class array property element'; cases
+    // tools/probe/r11u464repro/cases/CS) — the other two floating aliases as
+    // the element of a dynamic, queue or associative class property: an
+    // alias of `shortreal` ($unit, package or class scope) is golden's bare
+    // logic_var with no typespec (Surelog's makeVar_ fallback; CS cs01 to
+    // cs04), an alias of `realtime` a time_var whose typespec is the
+    // typedef's own time_typespec (cs05), the § clsDynRealArrPropElem462
+    // shape with the alias's typespec.
+    if (elemType.kind == SymbolKind::TypeAlias &&
+        elemType.getCanonicalType().kind == SymbolKind::FloatingType &&
+        elemType.getCanonicalType().as<FloatingType>().floatKind != FloatingType::Real &&
+        lawOn(462, "R11U462_CLSDYNREAL_OFF") && lawOn(464, "R11U464_CLSSRALIAS_OFF")) {
+        auto fk464 = elemType.getCanonicalType().as<FloatingType>().floatKind;
+        lawTrace(464, "clsShortRealAliasElem464",
+                 std::string(cp.name) + (fk464 == FloatingType::ShortReal ? " sr" : " rt"));
+        if (fk464 == FloatingType::ShortReal)
+            return s.MakeLogic_var();
+        auto* tv464 = s.MakeTime_var();
+        auto* rt464 = s.MakeRef_typespec();
+        rt464->VpiParent(tv464);
+        tv464->Typespec(rt464);
+        return tv464;
+    }
     if (elemType.getCanonicalType().kind == SymbolKind::FloatingType &&
         (elemType.kind == SymbolKind::FloatingType ||
          elemType.getCanonicalType().as<FloatingType>().floatKind == FloatingType::Real) &&
@@ -19996,7 +20291,31 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 if (!ipkg)
                     continue;
-                for (auto& pm : ipkg->members()) {
+                std::vector<const Symbol*> pms464;
+                for (auto& pm : ipkg->members())
+                    pms464.push_back(&pm);
+                // § unitImpTransitiveTds464 — the design listing is the union
+                // of the FileContents' maps, so a file-scope wildcard import
+                // brings the imported package's transitive typedefs here too
+                // (golden many_to_one's design lists b_pkg::B_sequencer and
+                // c_pkg::C_sequencer).  Byname's first entry per name stays.
+                if (!only && lawOn(464, "R11U464_UNITIMPTRANS_OFF")) {
+                    std::vector<const Symbol*> tr464;
+                    for (auto* pm : pms464)
+                        if (pm->kind == SymbolKind::TypeAlias)
+                            tr464.push_back(pm);
+                    size_t before464 = tr464.size();
+                    unitImpTransTds464(comp, *ipkg, tr464,
+                                       [&](const Symbol& q) { return !importShadowOf(q); });
+                    for (size_t k464 = before464; k464 < tr464.size(); k464++)
+                        pms464.push_back(tr464[k464]);
+                    if (tr464.size() != before464)
+                        lawTrace(464, "unitImpTransitiveTds464",
+                                 "design " + std::string(ipkg->name) + " +" +
+                                     std::to_string(tr464.size() - before464));
+                }
+                for (auto* pmp464 : pms464) {
+                    auto& pm = *pmp464;
                     if (pm.kind != SymbolKind::TypeAlias)
                         continue;
                     if (only && &pm != only)
@@ -21133,9 +21452,62 @@ UHDM::design* UhdmExporter::exportDesign() {
     // module so the groups are the same objects the modules list.
     if (auto uw9 = unitScopeWildcardImports(); !uw9.empty()) {
         std::vector<UHDM::task_func*> dtf9;
+        // § unitImpTfNameDedup464 (r11u464, R11U464_UNITTFDEDUP_OFF; cases
+        // tools/probe/r11u464repro/cases/UF; sv-tests generated/uvm-examples/
+        // uvm_many_to_one.sv: test.sv's `import uvm_pkg::*; import
+        // env_pkg::*; import a_pkg::*;`, golden's design listing 979
+        // subroutines, uvm_pkg's, where ours listed 2937, uvm_pkg's and the
+        // import clones env_pkg and a_pkg carry of them) — importPackage
+        // (CompileHelper.cpp, "tasks/functions") appends an imported
+        // package's subroutine to the FileContent's list only when no entry
+        // of that list has its VpiName yet, and the design's listing is the
+        // FileContents' lists ("Non-Elaborated Model").  So within one file
+        // the first import's subroutine of a name wins and a later package's
+        // clone of it is not listed.  Applied when every compilation-unit
+        // wildcard import sits in one root file (the per-file lists are then
+        // one list); the dropped entries stay listed by their own packages.
+        std::set<UHDM::task_func*> drop464;
+        if (uw9.size() > 1 && lawOn(464, "R11U464_UNITTFDEDUP_OFF")) {
+            std::set<std::string> files464;
+            for (auto* cu : comp.getCompilationUnits())
+                for (auto& mem : cu->members())
+                    if (mem.kind == SymbolKind::WildcardImport)
+                        files464.insert(rootFilePath(mem.location));
+            if (files464.size() == 1 && !files464.begin()->empty()) {
+                std::set<std::string> names464;
+                std::set<UHDM::task_func*> kept464;
+                for (auto* p9 : uw9)
+                    for (auto* tf9 : materializedPkgTfGroup(*p9)) {
+                        if (!tf9 || kept464.count(tf9) || drop464.count(tf9))
+                            continue;
+                        // Surelog's VpiName of a package subroutine: the
+                        // bare name, `C::m` for an out-of-body method;
+                        // ours is read off the full name below the package.
+                        std::string fn464(tf9->VpiFullName());
+                        std::string key464(tf9->VpiName());
+                        if (auto k464 = fn464.find("::"); k464 != std::string::npos)
+                            key464 = fn464.substr(k464 + 2);
+                        if (names464.insert(key464).second)
+                            kept464.insert(tf9);
+                        else {
+                            drop464.insert(tf9);
+                            if (lawTraceOn(464))
+                                lawTrace(464, "unitImpTfNameDedup464",
+                                         "drop " + std::string(p9->name) + " " +
+                                             key464 + " " +
+                                             std::to_string(tf9->VpiLineNo()));
+                        }
+                    }
+                if (!drop464.empty())
+                    lawTrace(464, "unitImpTfNameDedup464",
+                             std::to_string(drop464.size()) + " dropped, " +
+                                 std::to_string(kept464.size()) + " kept");
+            }
+        }
         for (auto* p9 : uw9)
             for (auto* tf9 : materializedPkgTfGroup(*p9))
-                if (std::find(dtf9.begin(), dtf9.end(), tf9) == dtf9.end())
+                if (!drop464.count(tf9) &&
+                    std::find(dtf9.begin(), dtf9.end(), tf9) == dtf9.end())
                     dtf9.push_back(tf9);
         if (!dtf9.empty()) {
             // `$unit`-scope subroutines of the sources themselves already own
@@ -21184,7 +21556,8 @@ UHDM::design* UhdmExporter::exportDesign() {
                     auto grp416 = materializedPkgTfGroup(
                         sym416->as<PackageSymbol>());
                     for (auto* tf9 : grp416)
-                        if (std::find(out416.begin(), out416.end(), tf9) == out416.end() &&
+                        if (!drop464.count(tf9) &&
+                            std::find(out416.begin(), out416.end(), tf9) == out416.end() &&
                             std::find(own416.begin(), own416.end(), tf9) == own416.end()) {
                             out416.push_back(tf9);
                             if (oi416 < own416.size())
