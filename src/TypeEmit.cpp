@@ -14720,6 +14720,31 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
                     if (i + 1 < (int)cs.size() &&
                         cs[i + 1] == (const UHDM::any*)tf->Return())
                         return;
+                    // § cloneRetVarViaRefKeepsHome462 (r11u462, uvm_id_register's
+                    // last 5 strict objects: the class view of
+                    // uvm_reg_map::get_base_addr, whose return bit_var the
+                    // importer's clone shares, aliased golden's listing object
+                    // `uvm_pkg::uvm_reg_addr_t` where ours aliased the clone's
+                    // bare copy `uvm_reg_addr_t`) — the exception above, reached
+                    // the other way: a clone body that writes its own function
+                    // name (`get_base_addr = m_parent_map.get_submap_offset(this);`)
+                    // reaches the return variable through the ref_obj's actual,
+                    // so the listener (its visited set) meets the variable's
+                    // ref first below a statement and not right under the
+                    // function.  The return variable keeps the home's target
+                    // whatever path reaches it.  Grid
+                    // tools/probe/r11u462repro/cases/RV.  Switch
+                    // R11U462_CLONERETVAR_OFF.
+                    if (cs.size() >= 2 && tf->Return() &&
+                        cs[cs.size() - 2] == (const UHDM::any*)tf->Return() &&
+                        (i + 1 >= (int)cs.size() ||
+                         cs[i + 1] != (const UHDM::any*)tf->Return()) &&
+                        clones->count(tf) &&
+                        lawOn(462, "R11U462_CLONERETVAR_OFF")) {
+                        lawTrace(462, "cloneRetVarViaRefKeepsHome462",
+                                 std::string(tf->VpiFullName()));
+                        return;
+                    }
                     if (clones->count(tf) && homeLv259 &&
                         (*homeLv259)((UHDM::ref_typespec*)o, tf))
                         return;

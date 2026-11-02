@@ -1,0 +1,12 @@
+      1 designshallow 
+      1 failures 500
+      1 module DEF
+      1 module TOP
+    125 pkgfunc mbus_pipelined_agent_pkg#DEF
+    125 pkgfunc mbus_pipelined_agent_pkg#TOP
+    125 pkgfunc mbus_pipelined_env_pkg#DEF
+    125 pkgfunc mbus_pipelined_env_pkg#TOP
+      1 pkgshallow mbus_pipelined_agent_pkg#DEF
+      1 pkgshallow mbus_pipelined_agent_pkg#TOP
+      1 pkgshallow mbus_pipelined_env_pkg#DEF
+      1 pkgshallow mbus_pipelined_env_pkg#TOP

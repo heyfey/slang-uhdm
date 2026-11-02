@@ -1169,7 +1169,7 @@ r10v134repro/v134_1kinds,EQUAL,,equal
 r10v134repro/v134_4bodies,EQUAL,,equal
 r10v135repro/v135_b3,EQUAL,,equal
 r10v135repro/v135_b8,EQUAL,,equal
-r10v136repro/v136_d_homes,STRICT_NOTEQUAL,differ:fullname(18),differ:fullname(18)
+r10v136repro/v136_d_homes,EQUAL,,equal
 r10v136repro/v136_g_param,EQUAL,,equal
 r10v139repro/v139_d_shapes,EQUAL,,equal
 r10v139repro/v139_e_inst,EQUAL,,equal

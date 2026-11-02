@@ -1,0 +1,40 @@
+LHS:
+decompile:
+package: mbus_pipelined_env_pkg (mbus_pipelined_env_pkg::), id:314036, file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_get_put/pipelined_get_put/top_tb.sv, line:24:1, endln:104:35
+|vpiParent:
+\_design: (work@top_tb), id:478773
+|vpiName:mbus_pipelined_env_pkg
+|vpiFullName:mbus_pipelined_env_pkg::
+|vpiVariables:
+\_string_var: (mbus_pipelined_env_pkg::uvm_aa_string_key), id:470199, line:239:8, endln:239:25
+  |vpiParent:
+  \_package: mbus_pipelined_env_pkg (mbus_pipelined_env_pkg::), id:314036, file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_get_put/pipelined_get_put/top_tb.sv, line:24:1, endln:104:35
+  |vpiTypespec:
+  \_ref_typespec: (mbus_pipelined_env_pkg::uvm_aa_string_key), id:470200
+    |vpiParent:
+    \_string_var: (mbus_pipelined_env_pkg::uvm_aa_string_key), id:470199, line:239:8, endln:239:25
+    |vpiFullName:mbus_pipelined_env_pkg::uvm_aa_string_key
+    |vpiActual:
+    \_string_typespec: , id:470198, line:239:1, endln:239:7
+  |vpiName:uvm_aa_string_key
+  |vpiFullName:mbus_pipelined_env_pkg::uvm_aa_string_key
+  |vpiAutomatic:1
+  |vpiVisibility:1
+|vpiVariables:
+\_enum_var: (mbus_pipelined_env_pkg::m_uvm_core_state), id:470202, line:713:16, endln:713:32
+  |vpiParent:
+  \_package: mbus_pipelined_env_pkg (mbus_pipelined_env_pkg::), id:314036, file:/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_get_put/pipelined_get_put/top_tb.sv, line:24:1, endln:104:35
+  |vpiTypespec:
+  \_ref_typespec: (mbus_pipelined_env_pkg::m_uvm_core_state), id:470203
+    |vpiParent:
+    \_enum_var: (mbus_pipelined_env_pkg::m_uvm_core_state), id:470202, line:713:16, endln:713:32
+    |vpiFullName:mbus_pipelined_env_pkg::m_uvm_core_state
+    |vpiActual:
+    \_enum_typespec: (uvm_pkg::uvm_core_state), id:2972, line:700:1, endln:711:18
+  |vpiName:m_uvm_core_state
+  |vpiFullName:mbus_pipelined_env_pkg::m_uvm_core_state
+  |vpiVisibility:1
+  |vpiExpr:
+  \_ref_obj: (mbus_pipelined_env_pkg::m_uvm_core_state::UVM_CORE_UNINITIALIZED), id:470201, line:713:35, endln:713:57
+    |vpiParent:
+    \_enum_var: (mbus_pipelined_env_pkg::m_uvm_core_state), id:470202, line:713:16, endln:713:32

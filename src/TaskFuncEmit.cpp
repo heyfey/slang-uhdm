@@ -4305,6 +4305,36 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (ownAuto9)
                 tf->VpiAutomatic(true);
         }
+        // § clsMethodOwnAutomatic462 (r11u462, uvm_use_models_pipelined_
+        // get_put's third face, pass 461's decode: golden's
+        // `task automatic dummy_response();` in class mbus_pipelined_check_seq
+        // carries vpiAutomatic:1, ours none) — the branch above skips class
+        // scope because slang reports every class method automatic; Surelog
+        // reads the declaration's own lifetime keyword there too, so a class
+        // method (in the body or an out-of-body definition) written with
+        // `automatic` is marked.  A method with a qualifier in front
+        // (`static`, `virtual`, `local`, `protected`) is one Surelog's class
+        // compile misnames after the class and leaves unmarked (grid TA ta03,
+        // ta05), so it abstains.  Grid tools/probe/r11u462repro/cases/TA.
+        // Switch R11U462_CLSMETHODAUTO_OFF.
+        else if (classScope && !dpiImport && !dpiExport && !protoOf &&
+                 lawOn(462, "R11U462_CLSMETHODAUTO_OFF")) {
+            if (auto lsyn462 = sub.getSyntax())
+                if (auto* fd462 = lsyn462->as_if<syntax::FunctionDeclarationSyntax>();
+                    fd462 && fd462->prototype &&
+                    fd462->prototype->lifetime.valueText() == "automatic") {
+                    bool qual462 = false;
+                    const syntax::SyntaxNode* par462 = lsyn462->parent;
+                    if (par462 && par462->kind == syntax::SyntaxKind::ClassMethodDeclaration)
+                        qual462 = !par462->template as<syntax::ClassMethodDeclarationSyntax>()
+                                       .qualifiers.empty();
+                    if (!qual462) {
+                        tf->VpiAutomatic(true);
+                        lawTrace(462, "clsMethodOwnAutomatic462",
+                                 std::string(tf->VpiFullName()));
+                    }
+                }
+        }
         // An `extern` PROTOTYPE spans its own declaration, and the same
         // qualifier-collapse artifact applies as for `static`: a FUNCTION
         // prototype collapses onto the `extern` token alone, a TASK

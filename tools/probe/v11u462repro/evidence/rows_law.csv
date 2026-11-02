@@ -1,0 +1,4 @@
+name,path,tier,mode,tags,should_fail,timeout,surelog,surelog_rc,surelog_s,surelog_msg,slang,slang_rc,slang_s,slang_msg,cmp,strict,agreement,slang_vs_expect,surelog_vs_expect
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,11.3,,NOTEQUAL,decompile:,DIFFERENT,ok,ok
+uvm_ac_config_db,generated/uvm-examples/uvm_ac_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,11.4,,EQUAL,equal,IDENTICAL,ok,ok
+uvm_id_register,generated/uvm-examples/uvm_id_register.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,16.2,,EQUAL,equal,IDENTICAL,ok,ok

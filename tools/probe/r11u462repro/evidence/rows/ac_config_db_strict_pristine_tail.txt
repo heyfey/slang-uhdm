@@ -1,0 +1,3 @@
+  raw fullname A: work@sfr_monitor_bfm::sfr_monitor_concrete::uvm_pkg::uvm_reg_bus_op::kind | B: work@sfr_monitor_bfm.uvm_pkg::uvm_reg_bus_op.kind
+fields: fullname=1823 objects_differing=1823
+STRICT_NOTEQUAL fullname

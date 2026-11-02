@@ -1,0 +1,2 @@
+name,path,surelog,slang,cmp,strict,agreement
+uvm_id_register,generated/uvm-examples/uvm_id_register.sv,OK,OK,EQUAL,equal,IDENTICAL

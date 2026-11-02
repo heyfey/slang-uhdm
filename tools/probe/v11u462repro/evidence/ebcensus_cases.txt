@@ -1,0 +1,43 @@
+== VB/vb01 sl/slpp_all/surelog
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+== VB/vb01 pris
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | TOP:a
+== VB/vb01 law
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+== VB/vb02 sl/slpp_all/surelog
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+a::f_t | DEF:a | DEF:a
+a::f_t | DEF:b | DEF:a
+== VB/vb02 pris
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | TOP:a
+a::f_t | DEF:a | DEF:a
+a::f_t | DEF:b | DEF:a
+== VB/vb02 law
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+a::f_t | DEF:a | DEF:a
+a::f_t | DEF:b | DEF:a
+== VB/vb04 sl/slpp_all/surelog
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+== VB/vb04 pris
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | TOP:a
+== VB/vb04 law
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+== VB/vb07 sl/slpp_all/surelog
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a
+a::e_t | DEF:b | DEF:a
+== VB/vb07 pris
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | TOP:a
+== VB/vb07 law
+a::e_t | DEF:a | DEF:a
+a::e_t | DEF:b | DEF:a

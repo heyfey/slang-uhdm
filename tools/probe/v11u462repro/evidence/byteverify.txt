@@ -1,0 +1,53 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=65309a366c9c pristine=350c51902ffa
+MOVER ./default/GenScopeHierPath-39985ad7/slang.uhdm  patched=b94020a621a5 pristine=d97ea4e77e58
+MOVER ./default/<FENCED>-eb418205/slang.uhdm  patched=834e2c46b01c pristine=331c4c812068
+MOVER ./default/HierPathOverride-2fa13a4d/slang.uhdm  patched=e6d978de1eed pristine=3170fbe601d3
+MOVER ./default/IndexedSelectHex-19463cab/slang.uhdm  patched=4af28000a83f pristine=4574781596dc
+MOVER ./default/MultiConcatValueSize-6d3b144c/slang.uhdm  patched=0574d7763454 pristine=d355640904e3
+MOVER ./default/ParamElabMulti-ffef7a64/slang.uhdm  patched=768dd8b755e8 pristine=8a6ea4d22c7b
+MOVER ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=e5fe0266d8ff pristine=650fc48910ca
+MOVER ./testflags/GenScopeHierPath-39985ad7/slang.uhdm  patched=c71005973515 pristine=0b2f4b24b67c
+MOVER ./testflags/<FENCED>-eb418205/slang.uhdm  patched=dd4e616b1157 pristine=998368d8cd5c
+MOVER ./testflags/HierPathOverride-2fa13a4d/slang.uhdm  patched=d1847b36de37 pristine=7e0b494687b3
+MOVER ./testflags/IndexedSelectHex-19463cab/slang.uhdm  patched=9324a9faa72d pristine=6bfb1349e95a
+MOVER ./testflags/MultiConcatValueSize-6d3b144c/slang.uhdm  patched=d18627e6233f pristine=465bbc514344
+MOVER ./testflags/ParamElabMulti-ffef7a64/slang.uhdm  patched=075740925092 pristine=76825437c774
+MOVERS: 14 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVER ./default/BitSelectOfParameterPassedToSubmodule-a5ea6428/slang.uhdm  patched=239eb8340c79 pristine=64ca87ae65c1
+MOVER ./default/BitSelectOfParameterPassedToSubmoduleInGenFor-0e2559af/slang.uhdm  patched=0348f5908e18 pristine=7e6e43b083cd
+MOVER ./default/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-eae92b3e/slang.uhdm  patched=e9f0d38b3eec pristine=9b23fda4a2d8
+MOVER ./default/ParameterPassedTo3TimesNestedSubmodule-c100c346/slang.uhdm  patched=ad8167adc382 pristine=7c681785dbbd
+MOVER ./default/ParameterPassedToSubmoduleInGenscopeOfSubmodule-7c9f4b43/slang.uhdm  patched=4317cb221bb2 pristine=1cd2d15b8ef1
+MOVER ./default/ParameterPassedToSubmoduleOfSubmodule-fafd4287/slang.uhdm  patched=f688d826c4f6 pristine=fb15e42bd9e0
+MOVER ./default/rp32_r5p_wbu-e7eb0208/slang.uhdm  patched=2c80a11abbad pristine=8a051732144f
+MOVER ./default/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule-754d7cd4/slang.uhdm  patched=1468349335e2 pristine=34c5fa18025b
+MOVER ./testflags/BitSelectOfParameterPassedToSubmodule-a5ea6428/slang.uhdm  patched=4c1cc4b991f5 pristine=444f2d131b0c
+MOVER ./testflags/BitSelectOfParameterPassedToSubmoduleInGenFor-0e2559af/slang.uhdm  patched=63fb5b977e7c pristine=76e1adf4fc90
+MOVER ./testflags/BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule-eae92b3e/slang.uhdm  patched=f5e6b783d3e4 pristine=507aec8f4526
+MOVER ./testflags/ParameterPassedTo3TimesNestedSubmodule-c100c346/slang.uhdm  patched=1c3a5c4a7e09 pristine=2208c91afa82
+MOVER ./testflags/ParameterPassedToSubmoduleInGenscopeOfSubmodule-7c9f4b43/slang.uhdm  patched=d564a9b6d729 pristine=4de5eed3591d
+MOVER ./testflags/ParameterPassedToSubmoduleOfSubmodule-fafd4287/slang.uhdm  patched=058b4ad106dd pristine=dd838ee16a0e
+MOVER ./testflags/rp32_r5p_wbu-e7eb0208/slang.uhdm  patched=f6e46217627d pristine=231bb892798e
+MOVER ./testflags/SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule-754d7cd4/slang.uhdm  patched=1be33965f42b pristine=95f0e73bfb4f
+MOVERS: 16 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVER ./BitSelectOfParameterPassedToSubmoduleInGenForOfSubmodule/slang.uhdm  patched=f5e6b783d3e4 pristine=507aec8f4526
+MOVER ./BitSelectOfParameterPassedToSubmoduleInGenFor/slang.uhdm  patched=63fb5b977e7c pristine=76e1adf4fc90
+MOVER ./BitSelectOfParameterPassedToSubmodule/slang.uhdm  patched=4c1cc4b991f5 pristine=444f2d131b0c
+MOVER ./ParameterPassedTo3TimesNestedSubmodule/slang.uhdm  patched=1c3a5c4a7e09 pristine=2208c91afa82
+MOVER ./ParameterPassedToSubmoduleInGenscopeOfSubmodule/slang.uhdm  patched=d564a9b6d729 pristine=4de5eed3591d
+MOVER ./ParameterPassedToSubmoduleOfSubmodule/slang.uhdm  patched=058b4ad106dd pristine=dd838ee16a0e
+MOVER ./rp32_r5p_wbu/slang.uhdm  patched=f6e46217627d pristine=231bb892798e
+MOVER ./SubmoduleInGenScopeWithGenScopeParametrizedByParameterFromTopModule/slang.uhdm  patched=1be33965f42b pristine=95f0e73bfb4f
+MOVERS: 8 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

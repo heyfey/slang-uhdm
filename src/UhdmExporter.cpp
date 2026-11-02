@@ -1393,6 +1393,72 @@ static void enumTdLastWriter214(
                         if (pkgEnum(t) || pkgClsTd(t))
                             clsLast[unit(t)] = c;
             }
+    // § clsInModEnumLastWriter462 (r11u462, uvm_ac_config_db: the base refs
+    // of uvm_pkg's enums `work@sfr_monitor_bfm::sfr_monitor_concrete::
+    // uvm_pkg::uvm_severity` where ours read `work@sfr_monitor_bfm.uvm_pkg::
+    // uvm_severity`, and the class specialization typedefs' alias refs) —
+    // the enum and class-typedef face of § clsInModTdLastWriter462: a class
+    // declared in the winning MODULE writes right after it (writeModule's
+    // writeClasses, by name, each class then its nested classes), so when
+    // that module is the last module writer and one of its classes lists the
+    // object, the last such class is its parent and the refs read
+    // ComputeFullName over it.  Interfaces write no classes (writeInterface
+    // has no writeClasses), so an interface winner keeps the object.  Grid
+    // tools/probe/r11u462repro/cases/CE.  Switch R11U462_CLSINMODENUM_OFF.
+    const bool clsInModEnum462 = lawOn(462, "R11U462_CLSINMODENUM_OFF");
+    std::map<const UHDM::BaseClass*, std::vector<UHDM::class_defn*>> nested462;
+    std::map<std::string, UHDM::BaseClass*> modDef462;
+    std::function<void(const UHDM::class_defn*)> nest462 = [&](const UHDM::class_defn* c) {
+        if (!c || nested462.count(c))
+            return;
+        auto& v = nested462[c];
+        if (auto* is = c->Scopes())
+            for (auto* sc : *is)
+                if (sc && sc->UhdmType() == UHDM::uhdmclass_defn) {
+                    v.push_back((UHDM::class_defn*)sc);
+                    nest462((UHDM::class_defn*)sc);
+                }
+    };
+    if (clsInModEnum462) {
+        if (auto* v = d->AllModules())
+            for (auto* m : *v)
+                modDef462.emplace(std::string(m->VpiDefName()), m);
+    }
+    auto lastModCls462 = [&](UHDM::BaseClass* mw,
+                             const std::vector<UHDM::typespec*>& ms) -> UHDM::BaseClass* {
+        if (!clsInModEnum462 || !mw || mw->UhdmType() != UHDM::uhdmmodule_inst)
+            return nullptr;
+        auto dit = modDef462.find(std::string(((UHDM::module_inst*)mw)->VpiDefName()));
+        if (dit == modDef462.end())
+            return nullptr;
+        UHDM::BaseClass* last = nullptr;
+        std::function<void(const UHDM::BaseClass*, std::vector<UHDM::class_defn*>, int)> walk =
+            [&](const UHDM::BaseClass* owner, std::vector<UHDM::class_defn*> cs, int depth) {
+                if (depth > 8)
+                    return;
+                std::stable_sort(cs.begin(), cs.end(),
+                                 [](const UHDM::class_defn* a, const UHDM::class_defn* b) {
+                                     return a->VpiName() < b->VpiName();
+                                 });
+                for (auto* c : cs) {
+                    if (!c || c->VpiParent() != owner)
+                        continue;
+                    nest462(c);
+                    if (auto* ts = c->Typespecs())
+                        for (auto* t : *ts)
+                            if (std::find(ms.begin(), ms.end(), t) != ms.end()) {
+                                last = c;
+                                break;
+                            }
+                    if (auto it = nested462.find(c); it != nested462.end())
+                        walk(c, it->second, depth + 1);
+                }
+            };
+        auto* md = (UHDM::module_inst*)dit->second;
+        if (auto* cv = md->Class_defns())
+            walk(md, std::vector<UHDM::class_defn*>(cv->begin(), cv->end()), 0);
+        return last;
+    };
     for (size_t u = 0; u < units.size(); ++u) {
         auto& ms = units[u];
         // The interface / module writer § enumImportParentLastWriter180 chose.
@@ -1419,6 +1485,13 @@ static void enumTdLastWriter214(
         } else if (modW) {
             w = modW;
             why = "ENUMALIASGRP";
+            if (auto* c462 = lastModCls462(modW, ms)) {
+                w = c462;
+                why = "CLSINMODENUM462";
+                lawTrace(462, "clsInModEnumLastWriter462",
+                         std::string(c462->VpiName()) + " " +
+                             std::string(ms[0]->VpiName()));
+            }
         } else if (auto it = pkgLast.find(u); pkgW && it != pkgLast.end()) {
             w = it->second;
             why = "ENUMPKGW";
@@ -1566,15 +1639,77 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
         if (auto* v = d->AllPackages())
             for (auto* p : *v)
                 listOf(p, p->Typespecs());
+        // § clsInModTdLastWriter462 (r11u462, uvm_ac_config_db's 1823 strict
+        // full names `work@sfr_monitor_bfm::sfr_monitor_concrete::uvm_pkg::
+        // uvm_reg_bus_op::addr` where ours read `work@sfr_monitor_bfm.uvm_pkg::
+        // uvm_reg_bus_op.addr`) — A CLASS DECLARED IN A MODULE OR PROGRAM
+        // WRITES ITS TYPEDEFS RIGHT AFTER ITS DEFINITION: UhdmWriter's
+        // writeModule (and writeProgram) runs writeDataTypes(mod, m, ..,
+        // setParent=true) and then writeClasses over the definition's
+        // getClassDefinitions (a multimap by name), and writeClass runs
+        // writeDataTypes(classDef, c, .., true) over the class's DataTypeMap,
+        // which holds the typedefs the enclosing definition imported; then its
+        // nested classes (getClassMap) in turn.  So a package struct or union
+        // typedef such a class lists is parented at that class while its
+        // definition is the last writer.  Grid
+        // tools/probe/r11u462repro/cases/CM.  Switch R11U462_CLSINMODTD_OFF.
+        const bool clsInMod462 = lawOn(462, "R11U462_CLSINMODTD_OFF");
+        // a class's nested classes: its internal scopes of class kind
+        std::map<const UHDM::BaseClass*, std::vector<UHDM::class_defn*>> nested462;
+        std::function<void(const UHDM::class_defn*)> nest462 = [&](const UHDM::class_defn* c) {
+            if (!c || nested462.count(c))
+                return;
+            auto& v = nested462[c];
+            if (auto* is = c->Scopes())
+                for (auto* sc : *is)
+                    if (sc && sc->UhdmType() == UHDM::uhdmclass_defn) {
+                        v.push_back((UHDM::class_defn*)sc);
+                        nest462((UHDM::class_defn*)sc);
+                    }
+        };
+        std::function<void(UHDM::BaseClass*, const UHDM::VectorOfclass_defn*, int)>
+            clsList462 = [&](UHDM::BaseClass* owner, const UHDM::VectorOfclass_defn* cv,
+                             int depth) {
+                if (!cv || depth > 8)
+                    return;
+                std::vector<UHDM::class_defn*> cs(cv->begin(), cv->end());
+                std::stable_sort(cs.begin(), cs.end(),
+                                 [](const UHDM::class_defn* a, const UHDM::class_defn* b) {
+                                     return a->VpiName() < b->VpiName();
+                                 });
+                for (auto* c : cs) {
+                    if (!c || c->VpiParent() != owner)
+                        continue;
+                    nest462(c);
+                    if (auto* ts = c->Typespecs())
+                        for (auto* t : *ts)
+                            if (named(t) && t->UhdmType() != UHDM::uhdmenum_typespec) {
+                                setNP(t, c);
+                                lawTrace(462, "clsInModTdLastWriter462",
+                                         std::string(c->VpiFullName()) + " " +
+                                             std::string(t->VpiName()));
+                            }
+                    if (auto it = nested462.find(c); it != nested462.end()) {
+                        UHDM::VectorOfclass_defn nv(it->second.begin(), it->second.end());
+                        clsList462(c, &nv, depth + 1);
+                    }
+                }
+            };
         if (auto* v = d->AllPrograms())
-            for (auto* p : *v)
+            for (auto* p : *v) {
                 listOf(p, p->Typespecs());
+                if (clsInMod462)
+                    clsList462(p, p->Class_defns(), 0);
+            }
         if (auto* v = d->AllInterfaces())
             for (auto* p : *v)
                 listOf(p, p->Typespecs());
         if (auto* v = d->AllModules())
-            for (auto* p : *v)
+            for (auto* p : *v) {
                 listOf(p, p->Typespecs());
+                if (clsInMod462)
+                    clsList462(p, p->Class_defns(), 0);
+            }
         // § unitClsAggTdLastWriter235 (r11u235, SimpleUVM d/t's first record
         // #63750, `work@env::uvm_pkg::uvm_hdl_path_slice::path` where ours
         // read `work@top.uvm_pkg::uvm_hdl_path_slice.path`) — the
@@ -11883,6 +12018,34 @@ UHDM::variables* UhdmExporter::classAssocElemVar(const Symbol& cp,
                                                  const ClassType& owner) {
     if (auto* v442 = classChandleTdArrElem442(s, cp, elemType))
         return v442;
+    // § clsDynRealArrPropElem462 (r11u462, goal 1: the v11u460 case VZ/vz05,
+    // `class C; real r[] = '{'h1, 'h2}; endclass`, exiting 4 with 'class array
+    // property element') — the element of a DYNAMIC, QUEUE or ASSOCIATIVE
+    // class property of a floating type, which classElemVar has no branch for:
+    // golden writes the fixed branch's objects (§ fixedClassPropIsArrayVar6),
+    // a real_var whose typespec is a real_typespec at the `real` keyword for
+    // `real`, a short_real_var with no typespec for `shortreal`, and for
+    // `realtime` a time_var with a time_typespec at the keyword (grid CR);
+    // a typedef name or type parameter standing for `real` gives the same
+    // real_var (golden's real_typespec then the typedef's or the default's,
+    // CR cr03, cr05), any other alias of a floating type keeps the old path.
+    // Switch R11U462_CLSDYNREAL_OFF.
+    if (elemType.getCanonicalType().kind == SymbolKind::FloatingType &&
+        (elemType.kind == SymbolKind::FloatingType ||
+         elemType.getCanonicalType().as<FloatingType>().floatKind == FloatingType::Real) &&
+        lawOn(462, "R11U462_CLSDYNREAL_OFF")) {
+        auto fk = elemType.getCanonicalType().as<FloatingType>().floatKind;
+        lawTrace(462, "clsDynRealArrPropElem462", std::string(cp.name));
+        if (fk == FloatingType::ShortReal)
+            return s.MakeShort_real_var();
+        UHDM::variables* rv = fk == FloatingType::RealTime
+                                  ? (UHDM::variables*)s.MakeTime_var()
+                                  : (UHDM::variables*)s.MakeReal_var();
+        auto* rt = s.MakeRef_typespec();
+        rt->VpiParent(rv);
+        rv->Typespec(rt);
+        return rv;
+    }
     const Type* named = &elemType;
     if (named->kind == SymbolKind::TypeAlias || named->kind == SymbolKind::EnumType) {
         auto sc = named->getParentScope();
@@ -23882,8 +24045,22 @@ UHDM::design* UhdmExporter::exportDesign() {
             // `parameter (UVM_SETINT) @217:11` in golden, `SeqDriver` and
             // `MiniAmiq` — whose imports are not at compilation-unit scope —
             // bind the Rhs `ref_obj (uvm_pkg::UVM_SET) @217:31`.
+            // § unitHoistBindsSysCallRhs462 (r11u462, uvm_use_models_pipelined_
+            // get_put's second face, pass 459's residue 2: golden's references
+            // to `MBUS_SEQ_ITEM_NUM_BITS`, whose package param_assign Rhs is
+            // `$bits(mbus_seq_item_s)`, bind the design-level parameter the
+            // `$unit` import in mbus_pipelined_driver_bfm.sv hoisted, where
+            // ours kept the Rhs's sys_func_call) — `lateBinding` reaches the
+            // design parameter before it reads the Rhs whatever the Rhs's
+            // kind, so a system-call Rhs is replaced like a constant or an
+            // operation.  Grid tools/probe/r11u462repro/cases/SB (pass 459's
+            // BE cases be14, be20 to be22 and be25 reshaped).  Switch
+            // R11U462_UNITHOISTSYSF_OFF.
+            static const bool sysf462 = lawOn(462, "R11U462_UNITHOISTSYSF_OFF");
+            const bool isSysf462 = sysf462 && at146 == UHDM::uhdmsys_func_call;
             if (at146 != UHDM::uhdmconstant && at146 != UHDM::uhdmoperation &&
-                !(at146 == UHDM::uhdmref_obj && cloneRhsBound214.count(r146)))
+                !(at146 == UHDM::uhdmref_obj && cloneRhsBound214.count(r146)) &&
+                !isSysf462)
                 continue;
             if (r146->VpiName().empty())
                 continue;
@@ -23903,6 +24080,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             }
             if (!reaches146)
                 continue;
+            if (isSysf462)
+                lawTrace(462, "unitHoistBindsSysCallRhs462", std::string(r146->VpiName()));
             r146->Actual_group(it146->second);
         }
     // § cloneArrayRecvArgMintsElemVar193 — the OTHER half of the same UHDM
@@ -29024,6 +29203,81 @@ UHDM::design* UhdmExporter::exportDesign() {
         // § subrAggCopyNamesByChain458 / § memberAliasFollowsMemberName458
         // (r11u458) — design-final (law and decode at the function).
         aggCopyNames458(s);
+        // § enumBaseInstFollowsEnum462 (r11u462, uvm_use_models_pipelined_
+        // get_put's first face, decoded by pass 461: the unparented
+        // `logic [2:0]` base of the mbus_resp_e copy module top_tb lists
+        // through its transitive import carried the ELABORATED mbus_types_pkg
+        // as vpiInstance where golden's carries the DEFINITION view, so
+        // uhdm-cmp, which visits each golden object once, paired golden's
+        // definition-view package with our elaborated one) — the base of an
+        // enum copy is in the same VIEW as the enum, in its home package:
+        // golden's transitive copy (enum vpiInstance the importer's direct
+        // import package, a definition view) has its base at the home
+        // package's definition view, a direct import copy in an elaborated
+        // view (enum at the elaborated package) has its base there too (grid
+        // EB eb04), and the package's own listing has both at the definition
+        // view.  Ours handed the importer the elaborated listing's import
+        // clone, re-stamped the enum's instance at the definition-view direct
+        // import package and left the base at the elaborated home package.
+        // Only the measured direction (enum at a definition-view package,
+        // unnamed base at an elaborated one) moves, to the definition view of
+        // the base's own package, and only when every enum sharing that base
+        // agrees.  Grid tools/probe/r11u462repro/cases/EB.  Switch
+        // R11U462_ENUMBASEINST_OFF.
+        if (lawOn(462, "R11U462_ENUMBASEINST_OFF")) {
+            std::vector<UHDM::enum_typespec*> es462;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::BaseClass*)kv.first;
+                if (o->UhdmType() == UHDM::uhdmenum_typespec)
+                    es462.push_back((UHDM::enum_typespec*)o);
+            }
+            std::sort(es462.begin(), es462.end(),
+                      [](const UHDM::BaseClass* a, const UHDM::BaseClass* b) {
+                          return a->UhdmId() < b->UhdmId();
+                      });
+            std::map<UHDM::typespec*, std::set<UHDM::instance*>> want462;
+            std::vector<UHDM::typespec*> ord462;
+            for (auto* e : es462) {
+                auto* br = e->Base_typespec();
+                auto* b = br ? const_cast<UHDM::typespec*>(br->Actual_typespec()) : nullptr;
+                auto* ei = e->Instance();
+                if (!b || !ei)
+                    continue;
+                if (!want462.count(b))
+                    ord462.push_back(b);
+                want462[b].insert(ei);
+            }
+            // the two views of each package: definition (AllPackages) and
+            // elaborated (TopPackages), by name
+            std::set<const UHDM::BaseClass*> defP462, topP462;
+            std::map<std::string, UHDM::package*> defByName462;
+            if (auto* v = d->AllPackages())
+                for (auto* p : *v) {
+                    defP462.insert(p);
+                    defByName462.emplace(std::string(p->VpiName()), p);
+                }
+            if (auto* v = d->TopPackages())
+                for (auto* p : *v)
+                    topP462.insert(p);
+            for (auto* b : ord462) {
+                auto& w = want462[b];
+                auto* bi = b->Instance();
+                if (w.size() != 1 || !bi || !b->VpiName().empty())
+                    continue;
+                auto* ei = *w.begin();
+                // the measured direction only: an enum in a definition view
+                // whose base reads an elaborated package
+                if (!defP462.count(ei) || !topP462.count(bi) || defP462.count(bi))
+                    continue;
+                auto dit = defByName462.find(std::string(bi->VpiName()));
+                if (dit == defByName462.end())
+                    continue;
+                b->Instance(dit->second);
+                lawTrace(462, "enumBaseInstFollowsEnum462",
+                         std::string(ei->VpiName()) + " " + std::string(bi->VpiName()) +
+                             " base#" + std::to_string(b->UhdmId()));
+            }
+        }
         return d420;
     };
     if (!lawOn(146, "R11U146_TFARGTD_OFF"))

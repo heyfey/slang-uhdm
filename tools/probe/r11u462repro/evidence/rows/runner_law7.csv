@@ -1,0 +1,2 @@
+name,path,surelog,slang,cmp,strict,agreement
+uvm_use_models_pipelined_get_put,generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,OK,OK,NOTEQUAL,decompile:,DIFFERENT

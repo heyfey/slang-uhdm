@@ -1,0 +1,25 @@
+pkgshallow mbus_pipelined_agent_pkg#DEF
+   L=class_typespec:uvm_object_wrapper@717:1
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:mbus_pipelined_agent_pkg@20:1 < design:work@top_tb@0:0
+--
+pkgshallow mbus_pipelined_env_pkg#DEF
+   L=package:mbus_pipelined_env_pkg@24:1 < design:work@top_tb@0:0
+   R=package:mbus_pipelined_env_pkg@24:1 < design:work@top_tb@0:0
+--
+pkgshallow mbus_pipelined_agent_pkg#TOP
+   L=class_typespec:uvm_object_wrapper@717:1
+   R=unsupported_typespec:idx@373:29 < ref_var:idx@373:29 < foreach_stmt:@373:3 < begin:@324:3 < function:uvm_init@321:1 < package:mbus_pipelined_agent_pkg@20:1 < design:work@top_tb@0:0
+--
+pkgshallow mbus_pipelined_env_pkg#TOP
+   L=package:mbus_pipelined_env_pkg@24:1 < design:work@top_tb@0:0
+   R=package:mbus_pipelined_env_pkg@24:1 < design:work@top_tb@0:0
+--
+designshallow
+   L=interface_inst:@26:1 < design:work@top_tb@0:0
+   R=interface_inst:@26:1 < design:work@top_tb@0:0
+module DEF 
+   L=interface_inst:@26:1 < design:work@top_tb@0:0
+   R=interface_inst:@26:1 < design:work@top_tb@0:0
+module TOP work@top_hdl
+   L=interface_inst:mbus_pipelined_drv@26:1 < module_inst:work@top_hdl@21:1 < design:work@top_tb@0:0
+   R=null

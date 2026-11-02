@@ -1,0 +1,4 @@
+1172c1172
+< r10v136repro/v136_d_homes,STRICT_NOTEQUAL,differ:fullname(18),differ:fullname(18)
+---
+> r10v136repro/v136_d_homes,EQUAL,,equal

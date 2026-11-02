@@ -1,0 +1,2 @@
+fields: fullname=660 objects_differing=660
+STRICT_NOTEQUAL fullname

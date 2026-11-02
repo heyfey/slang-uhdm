@@ -1,0 +1,8 @@
+2103c2103
+< generated/uvm-examples/uvm_ac_config_db.sv,STRICT_NOTEQUAL,differ:fullname(1823),differ:fullname(1823)
+---
+> generated/uvm-examples/uvm_ac_config_db.sv,EQUAL,,equal
+2110c2110
+< generated/uvm-examples/uvm_id_register.sv,STRICT_NOTEQUAL,differ:name(5),differ:name(5)
+---
+> generated/uvm-examples/uvm_id_register.sv,EQUAL,,equal

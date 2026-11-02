@@ -1,0 +1,75 @@
+VA/va01 rc=0 cmp=0 STRICT_EQUAL 39 objects md5=7725b812
+VA/va02 rc=0 cmp=38 NOT_EQUAL stage1 md5=40c3c888
+VA/va03 rc=0 cmp=86 NOT_EQUAL stage1 md5=c21034f9
+VA/va04 rc=0 cmp=126 NOT_EQUAL stage1 md5=43ad2fb2
+VA/va05 rc=0 cmp=38 NOT_EQUAL stage1 md5=168fc255
+VA/va06 rc=0 cmp=0 STRICT_EQUAL 22 objects md5=9132eae6
+VA/va07 rc=0 cmp=38 NOT_EQUAL stage1 md5=877336b0
+VA/va08 rc=0 cmp=42 NOT_EQUAL stage1 md5=44c5a3b6
+VA/va09 rc=0 cmp=38 NOT_EQUAL stage1 md5=c661b3d8
+VA/va10 rc=0 cmp=130 NOT_EQUAL stage1 md5=0995d2ea
+VA/va11 rc=0 cmp=38 NOT_EQUAL stage1 md5=a00759e6
+VA/va12 rc=0 cmp=370 NOT_EQUAL stage1 md5=2408b008
+VB/vb01 rc=0 cmp=0 STRICT_EQUAL 95 objects md5=155a9170
+VB/vb02 rc=0 cmp=0 STRICT_EQUAL 167 objects md5=78071e15
+VB/vb03 rc=0 cmp=36 NOT_EQUAL stage1 md5=6cbf7f03
+VB/vb04 rc=0 cmp=196 NOT_EQUAL stage1 md5=8fe4a204
+VB/vb05 rc=0 cmp=0 STRICT_EQUAL 96 objects md5=2e9c03cf
+VB/vb06 rc=0 cmp=192 NOT_EQUAL stage1 md5=2d19db68
+VB/vb07 rc=0 cmp=0 STRICT_EQUAL 230 objects md5=6f05d7c2
+VC/vc01 rc=0 cmp=0 STRICT_EQUAL 190 objects md5=863f13a7
+VC/vc02 rc=0 cmp=17 NOT_EQUAL stage1 md5=ebd669b8
+VE/ve01 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=7d9dc518
+VE/ve02 rc=0 cmp=0 STRICT_EQUAL 126 objects md5=fa713e3c
+VE/ve03 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=65e754ae
+VE/ve04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=653d3cf9
+VE/ve05 rc=0 cmp=296 NOT_EQUAL stage1 md5=e744d493
+VE/ve06 rc=0 cmp=0 STRICT_EQUAL 116 objects md5=27dad931
+VE/ve07 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ec650941
+VE/ve08 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=6cfcb9bc
+VE/ve09 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=907a89ec
+VE/ve10 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=f4f50947
+VM/vm01 rc=0 cmp=0 STRICT_EQUAL 150 objects md5=1edee757
+VM/vm02 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=15735778
+VM/vm03 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fd8d3866
+VM/vm04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=947577d2
+VM/vm05 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2db92caa
+VM/vm06 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=1a90bd23
+VM/vm07 rc=0 cmp=0 STRICT_EQUAL 65 objects md5=871346be
+VM/vm08 rc=0 cmp=0 STRICT_EQUAL 73 objects md5=cd074db9
+VM/vm09 rc=0 cmp=0 STRICT_EQUAL 137 objects md5=5d608c84
+VM/vm10 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fcadd329
+VM/vm11 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=fb205145
+VM/vm12 rc=0 cmp=340 NOT_EQUAL stage1 md5=952d075b
+VM/vm13 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=9be95a33
+VM/vm14 rc=0 cmp=50 NOT_EQUAL stage1 md5=5e4ffeb9
+VM/vm15 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=81339785
+VM/vm16 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=2926f4b5
+VM/vm17 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=bb8042ef
+VM/vm18 rc=0 cmp=0 STRICT_EQUAL 126 objects md5=05e44754
+VM/vm19 rc=0 cmp=139 NOT_EQUAL stage1 md5=926753dc
+VM/vm20 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=4231a3fb
+VM/vm21 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=0b3ac17d
+VR/vr01 rc=4 cmp=179 NOT_EQUAL stage1 md5=261e207d
+VR/vr02 rc=4 cmp=99 NOT_EQUAL stage1 md5=2a7b90ee
+VR/vr03 rc=4 cmp=160 NOT_EQUAL stage1 md5=50942041
+VR/vr04 rc=4 cmp=217 NOT_EQUAL stage1 md5=821db2e6
+VR/vr05 rc=4 cmp=113 NOT_EQUAL stage1 md5=300ef643
+VR/vr06 rc=4 cmp=310 NOT_EQUAL stage1 md5=7decf254
+VR/vr07 rc=4 cmp=197 NOT_EQUAL stage1 md5=780e8788
+VR/vr08 rc=4 cmp=327 NOT_EQUAL stage1 md5=85003b25
+VR/vr09 rc=4 cmp=171 NOT_EQUAL stage1 md5=978a6cfa
+VR/vr10 rc=0 cmp=0 STRICT_EQUAL 63 objects md5=4e57902f
+VS/vs01 rc=0 cmp=0 STRICT_EQUAL 159 objects md5=b799a747
+VS/vs02 rc=0 cmp=17 NOT_EQUAL stage1 md5=3b4f0217
+VS/vs03 rc=0 cmp=42 NOT_EQUAL stage1 md5=e14ad643
+VS/vs04 rc=0 cmp=0 STRICT_EQUAL 113 objects md5=d53b8967
+VS/vs05 rc=0 cmp=74 NOT_EQUAL stage1 md5=786aea1b
+VS/vs06 rc=0 cmp=0 STRICT_EQUAL 149 objects md5=88c3eac4
+VS/vs07 rc=0 cmp=60 NOT_EQUAL stage1 md5=caaa08a8
+VS/vs08 rc=0 cmp=56 NOT_EQUAL stage1 md5=139cf611
+VS/vs09 rc=0 cmp=50 NOT_EQUAL stage1 md5=f95b8642
+VS/vs10 rc=0 cmp=100 NOT_EQUAL stage1 md5=00913671
+VS/vs11 rc=0 cmp=56 NOT_EQUAL stage1 md5=2d05d950
+VS/vs12 rc=0 cmp=60 NOT_EQUAL stage1 md5=8c727ede
+VS/vs13 rc=0 cmp=56 NOT_EQUAL stage1 md5=956a14e3
