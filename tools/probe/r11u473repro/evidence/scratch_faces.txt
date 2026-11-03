@@ -1,0 +1,78 @@
+=== scratch b1
+package b;
+  localparam int LB = 7;
+  parameter logic [3:0] LC = 4'd3;
+  parameter LD = 5;
+endpackage
+module top(output int y, output logic [3:0] z);
+  import b::*;
+  logic [31:0] q = LB;
+  logic [3:0] r = LC;
+  int s = LD;
+  int u = b::LB;
+  assign y = LB;
+  assign z = LC;
+  int t;
+  always_comb t = LB;
+endmodule
+--- golden vs pristine vs law6 (modroles, elaborated module listing / variables)
+[sl/slpp_all/surelog.uhdm]
+TOP work@top pa-rhs LB 7 UINT:7 ct=9 sz=32 [ref ''  par=constant: -> int_typespec: inst=package:b @2:14]
+TOP work@top pa-rhs LC 3 INT:3 ct=7 sz=4 [ref ''  par=constant: -> logic_typespec: inst=package:b @3:13]
+TOP work@top pa-rhs LD 5 UINT:5 ct=9 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @4:3]
+TOP work@top var y [ref ''  par=int_var:y -> int_typespec: inst=null @6:19]
+TOP work@top var q [ref ''  par=logic_var:q -> logic_typespec: inst=null @8:3] expr=constant: 7 UINT:7 sz=32 [ref ''  par=constant: -> int_typespec: inst=package:b @2:14]
+TOP work@top var r [ref ''  par=logic_var:r -> logic_typespec: inst=null @9:3] expr=constant: 3 INT:3 sz=4 [ref ''  par=constant: -> logic_typespec: inst=package:b @3:13]
+TOP work@top var s [ref ''  par=int_var:s -> int_typespec: inst=null @10:3] expr=constant: 5 UINT:5 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @4:3]
+TOP work@top var u [ref ''  par=int_var:u -> int_typespec: inst=null @11:3] expr=constant: 7 UINT:7 sz=32
+TOP work@top var t [ref ''  par=int_var:t -> int_typespec: inst=null @14:3]
+[pris.uhdm]
+TOP work@top pa-rhs LB 7 UINT:7 ct=9 sz=32 [ref ''  par=constant: -> int_typespec: inst=package:b @2:14]
+TOP work@top pa-rhs LC 3 INT:3 ct=7 sz=4 [ref ''  par=constant: -> logic_typespec: inst=package:b @3:13]
+TOP work@top pa-rhs LD 5 UINT:5 ct=9 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @4:3]
+TOP work@top var y [ref ''  par=int_var:y -> int_typespec: inst=null @6:19]
+TOP work@top var q [ref ''  par=logic_var:q -> logic_typespec: inst=null @8:3] expr=constant: 7 UINT:7 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @2:14]
+TOP work@top var r [ref ''  par=logic_var:r -> logic_typespec: inst=null @9:3] expr=constant: 3 UINT:3 sz=4 [ref ''  par=constant: -> logic_typespec: inst=null @3:13]
+TOP work@top var s [ref ''  par=int_var:s -> int_typespec: inst=null @10:3] expr=constant: 5 UINT:5 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @4:3]
+TOP work@top var u [ref ''  par=int_var:u -> int_typespec: inst=null @11:3] expr=constant: 7 UINT:7 sz=32 [ref ''  par=constant: -> int_typespec: inst=null @2:14]
+TOP work@top var t [ref ''  par=int_var:t -> int_typespec: inst=null @14:3]
+=== scratch c1
+package a;
+  typedef logic [5:0] t;
+  parameter t PA = 6'd33;
+  parameter t PC = PA;
+  parameter t PD = PA + 6'd1;
+endpackage
+module top(output logic [5:0] y);
+  import a::*;
+  assign y = PC ^ PD;
+endmodule
+--- golden vs pristine vs law6 (modroles, elaborated module listing / variables)
+[sl/slpp_all/surelog.uhdm]
+TOP work@top pa-rhs PA 33 INT:33 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PC 33 INT:33 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PD 34 INT:34 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+[law6.uhdm]
+TOP work@top pa-rhs PA 33 INT:33 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PC 6'd33 DEC:33 ct=1 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PD 34 UINT:34 ct=9 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+=== scratch c2
+package a;
+  typedef logic [5:0] t;
+endpackage
+package b;
+  import a::*;
+  parameter t PB = 6'd7;
+  parameter logic [5:0] PE = 6'd8;
+endpackage
+module top(output logic [5:0] y);
+  import b::*;
+  assign y = PB ^ PE;
+endmodule
+--- golden vs pristine vs law6 (modroles, elaborated module listing / variables)
+[sl/slpp_all/surelog.uhdm]
+TOP work@top pa-rhs PB 7 INT:7 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PE 8 INT:8 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec: inst=package:b @7:13]
+[law6.uhdm]
+TOP work@top pa-rhs PB 7 INT:7 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec:t inst=package:a @2:11] [ref ''  par=logic_typespec:t -> logic_typespec:t inst=package:a @2:11]
+TOP work@top pa-rhs PE 8 INT:8 ct=7 sz=6 [ref ''  par=constant: -> logic_typespec: inst=package:b @7:13]

@@ -32636,6 +32636,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else
                                 rt->Actual_typespec(tit->second);
                             c->Typespec(rt);
+                            // § modImpCopyTdChainHomeTop473: both the clone and
+                            // the shared definition object are re-pointed
+                            // design-final like the module's import copies.
+                            if (auto* hs473 = nv.symbol.getParentScope();
+                                hs473 && hs473->asSymbol().kind == SymbolKind::Package)
+                                modCopyFold473().push_back(
+                                    {c, std::string(hs473->asSymbol().name)});
                             // The imported-param sys-func fold re-parents the
                             // folded constant at the pkg param's param_assign;
                             // so does a cont-assign fold.

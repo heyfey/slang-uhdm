@@ -60,6 +60,18 @@ inline std::map<const Symbol*, const void*>& impTdParamHome471() {
     static std::map<const Symbol*, const void*> v;
     return v;
 }
+// § modImpCopyTdChainHomeTop473 (r11u473): every per-reference typespec
+// clone ExprEmit mints for a module's fold of an imported package parameter
+// (caFold9's set), with the parameter's own package, re-pointed design-final in
+// ParamEmit's drainPaNameCopySrc38 like the module's import copies.
+struct ModCopyFold473 {
+    UHDM::constant* c;
+    std::string imp;
+};
+inline std::vector<ModCopyFold473>& modCopyFold473() {
+    static std::vector<ModCopyFold473> v;
+    return v;
+}
 // § pkgInitImpReadFolds471 (r11u471): an operand fold of an imported
 // parameter in a package's definition listing waits for that package's
 // param_assign listing (resolved design-final in ParamEmit's

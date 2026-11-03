@@ -1,0 +1,4 @@
+surelog: 1573 records (fence-filtered), 1523 naming /tmp/r11u473_bin/law6; the other 50 hold only a Surelog line (two of them, CoresSweRV and CoresSweRVMP default, name the repository path in a uvm_pkg.sv source argument, no slang-uhdm binary)
+uhdm2rtlil: 1740 of 1740 naming law6
+svtests: 2346 of 2346 naming law6
+no record names any other slang-uhdm binary

@@ -1,0 +1,66 @@
+MC/mc01 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=235 roles=0 md5=f54ae5d1
+MC/mc01 law6 rc=0 cmp=0 STRICT_EQUAL 190 objects dd=157 roles=0 md5=c94a9eb5
+MC/mc01 golden 872 pris=669 law6=870
+MC/mc02 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=235 roles=0 md5=ccc895b3
+MC/mc02 law6 rc=0 cmp=0 STRICT_EQUAL 182 objects dd=157 roles=0 md5=3f56664e
+MC/mc02 golden 868 pris=665 law6=866
+MC/mc03 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=209 roles=0 md5=7f423aae
+MC/mc03 law6 rc=0 cmp=506 NOT_EQUAL stage1 dd=165 roles=0 md5=ac25ef28
+MC/mc03 golden 800 pris=621 law6=792
+MC/mc04 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=201 roles=0 md5=f8e65782
+MC/mc04 law6 rc=0 cmp=0 STRICT_EQUAL 192 objects dd=171 roles=0 md5=23ec0968
+MC/mc04 golden 802 pris=629 law6=800
+MC/mc05 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=384 roles=0 md5=bfc54a29
+MC/mc05 law6 rc=0 cmp=0 STRICT_EQUAL 286 objects dd=312 roles=0 md5=d6dfa472
+MC/mc05 golden 1375 pris=1029 law6=1370
+MC/mc06 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=709 roles=0 md5=e98c05c9
+MC/mc06 law6 rc=0 cmp=86 NOT_EQUAL stage1 dd=507 roles=0 md5=626d15aa
+MC/mc06 golden 2264 pris=1719 law6=1946
+MC/mc07 pris rc=0 cmp=0 STRICT_EQUAL 211 objects dd=194 roles=0 md5=032dfa3f
+MC/mc07 law6 rc=0 cmp=0 STRICT_EQUAL 211 objects dd=194 roles=0 md5=032dfa3f
+MC/mc07 golden 809 pris=619 law6=619
+MC/mc08 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=592 roles=0 md5=5edb757c
+MC/mc08 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=588 roles=0 md5=b8a40ebc
+MC/mc08 golden 1077 pris=524 law6=538
+MC/mc09 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=45 roles=0 md5=7f72b87e
+MC/mc09 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=45 roles=0 md5=7f72b87e
+MC/mc09 golden 596 pris=567 law6=567
+MC/mc10 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=207 roles=0 md5=51ccad94
+MC/mc10 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=133 roles=0 md5=0819c355
+MC/mc10 golden 769 pris=593 law6=763
+MC/mc11 pris rc=0 cmp=84 NOT_EQUAL stage1 dd=522 roles=0 md5=97c68b96
+MC/mc11 law6 rc=0 cmp=84 NOT_EQUAL stage1 dd=240 roles=0 md5=335af92e
+MC/mc11 golden 1339 pris=870 law6=1308
+MC/mc12 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=578 roles=0 md5=c67e0684
+MC/mc12 law6 rc=0 cmp=0 STRICT_EQUAL 281 objects dd=252 roles=0 md5=35c05f87
+MC/mc12 golden 1414 pris=954 law6=1374
+MC/mc13 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=189 roles=0 md5=6fe7b24d
+MC/mc13 law6 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=139 roles=0 md5=494436fb
+MC/mc13 golden 720 pris=544 law6=717
+MC/mc14 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=279 roles=0 md5=fde23f5f
+MC/mc14 law6 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=279 roles=0 md5=30d880d9
+MC/mc14 golden 1026 pris=825 law6=1024
+MC/mc15 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=103 roles=0 md5=8ace1400
+MC/mc15 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=103 roles=0 md5=8ace1400
+MC/mc15 golden 849 pris=785 law6=785
+MC/mc16 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=236 roles=0 md5=c2bab4f9
+MC/mc16 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=438 roles=0 md5=8d8ced7c
+MC/mc16 golden 1268 pris=1063 law6=1262
+PO/po01 pris rc=0 cmp=0 STRICT_EQUAL 73 objects dd=6 roles=0 md5=77750b65
+PO/po01 law6 rc=0 cmp=0 STRICT_EQUAL 73 objects dd=6 roles=0 md5=77750b65
+PO/po01 golden 245 pris=243 law6=243
+PO/po02 pris rc=0 cmp=0 STRICT_EQUAL 73 objects dd=6 roles=0 md5=13a2d0c9
+PO/po02 law6 rc=0 cmp=0 STRICT_EQUAL 73 objects dd=6 roles=0 md5=13a2d0c9
+PO/po02 golden 247 pris=245 law6=245
+PO/po03 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=214 roles=0 md5=60537dfa
+PO/po03 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=214 roles=0 md5=60537dfa
+PO/po03 golden 904 pris=742 law6=742
+PO/po04 pris rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 roles=0 md5=a4f8d3d5
+PO/po04 law6 rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 roles=0 md5=a4f8d3d5
+PO/po04 golden 170 pris=170 law6=170
+PO/po05 pris rc=0 cmp=0 STRICT_EQUAL 59 objects dd=2 roles=0 md5=bea3d551
+PO/po05 law6 rc=0 cmp=0 STRICT_EQUAL 59 objects dd=2 roles=0 md5=bea3d551
+PO/po05 golden 222 pris=222 law6=222
+PO/po06 pris rc=0 cmp=214 NOT_EQUAL stage1 dd=22 roles=0 md5=9f66b94a
+PO/po06 law6 rc=0 cmp=214 NOT_EQUAL stage1 dd=22 roles=0 md5=9f66b94a
+PO/po06 golden 404 pris=400 law6=400

@@ -1,0 +1,1183 @@
+HP/hp01 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=36285c11
+HP/hp01 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=36285c11
+HP/hp01 golden 206 pris=206 law6=206
+HP/hp02 pris rc=0 cmp=0 STRICT_EQUAL 69 objects dd=2 roles=0 md5=e4446108
+HP/hp02 law6 rc=0 cmp=0 STRICT_EQUAL 69 objects dd=2 roles=0 md5=e4446108
+HP/hp02 golden 216 pris=216 law6=216
+HP/hp03 pris rc=0 cmp=0 STRICT_EQUAL 57 objects dd=2 roles=0 md5=60c4434e
+HP/hp03 law6 rc=0 cmp=0 STRICT_EQUAL 57 objects dd=2 roles=0 md5=60c4434e
+HP/hp03 golden 227 pris=227 law6=227
+HP/hp04 pris rc=0 cmp=0 STRICT_EQUAL 125 objects dd=2 roles=0 md5=c6c28c95
+HP/hp04 law6 rc=0 cmp=0 STRICT_EQUAL 125 objects dd=2 roles=0 md5=c6c28c95
+HP/hp04 golden 326 pris=326 law6=326
+HP/hp05 pris rc=0 cmp=0 STRICT_EQUAL 89 objects dd=6 roles=0 md5=d380c028
+HP/hp05 law6 rc=0 cmp=0 STRICT_EQUAL 89 objects dd=6 roles=0 md5=d380c028
+HP/hp05 golden 312 pris=308 law6=308
+HP/hp06 pris rc=0 cmp=0 STRICT_EQUAL 81 objects dd=2 roles=0 md5=8b5be58a
+HP/hp06 law6 rc=0 cmp=0 STRICT_EQUAL 81 objects dd=2 roles=0 md5=8b5be58a
+HP/hp06 golden 286 pris=286 law6=286
+HP/hp07 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=6 roles=0 md5=eb80b637
+HP/hp07 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=6 roles=0 md5=eb80b637
+HP/hp07 golden 279 pris=275 law6=275
+HP/hp08 pris rc=0 cmp=0 STRICT_EQUAL 105 objects dd=2 roles=0 md5=a15a5c83
+HP/hp08 law6 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=2 roles=0 md5=a15a5c83
+HP/hp08 golden 347 pris=347 law6=347
+HP/hp09 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=098ad4f0
+HP/hp09 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=098ad4f0
+HP/hp09 golden 209 pris=209 law6=209
+HP/hp10 pris rc=0 cmp=0 STRICT_EQUAL 59 objects dd=2 roles=0 md5=41d6e328
+HP/hp10 law6 rc=0 cmp=0 STRICT_EQUAL 59 objects dd=2 roles=0 md5=41d6e328
+HP/hp10 golden 237 pris=237 law6=237
+HP/hp11 pris rc=0 cmp=0 STRICT_EQUAL 96 objects dd=2 roles=0 md5=3fc54cfa
+HP/hp11 law6 rc=0 cmp=0 STRICT_EQUAL 96 objects dd=2 roles=0 md5=3fc54cfa
+HP/hp11 golden 310 pris=310 law6=310
+HP/hp12 pris rc=0 cmp=0 STRICT_EQUAL 113 objects dd=6 roles=0 md5=9800961d
+HP/hp12 law6 rc=0 cmp=0 STRICT_EQUAL 113 objects dd=6 roles=0 md5=9800961d
+HP/hp12 golden 375 pris=371 law6=371
+HP/hp13 pris rc=0 cmp=0 STRICT_EQUAL 105 objects dd=2 roles=0 md5=9c5437dc
+HP/hp13 law6 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=2 roles=0 md5=9c5437dc
+HP/hp13 golden 347 pris=347 law6=347
+HP/hp14 pris rc=0 cmp=0 STRICT_EQUAL 169 objects dd=2 roles=0 md5=c97e8800
+HP/hp14 law6 rc=0 cmp=0 STRICT_EQUAL 169 objects dd=2 roles=0 md5=c97e8800
+HP/hp14 golden 436 pris=436 law6=436
+HP/hp15 pris rc=0 cmp=0 STRICT_EQUAL 109 objects dd=6 roles=0 md5=fa1ec014
+HP/hp15 law6 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=6 roles=0 md5=fa1ec014
+HP/hp15 golden 359 pris=355 law6=355
+VP/vp01 pris rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=0feaec01
+VP/vp01 law6 rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=0feaec01
+VP/vp01 golden 293 pris=293 law6=293
+VP/vp02 pris rc=0 cmp=0 STRICT_EQUAL 55 objects dd=2 roles=0 md5=1c2161ad
+VP/vp02 law6 rc=0 cmp=0 STRICT_EQUAL 55 objects dd=2 roles=0 md5=1c2161ad
+VP/vp02 golden 256 pris=256 law6=256
+VP/vp03 pris rc=0 cmp=0 STRICT_EQUAL 55 objects dd=2 roles=0 md5=1146cda0
+VP/vp03 law6 rc=0 cmp=0 STRICT_EQUAL 55 objects dd=2 roles=0 md5=1146cda0
+VP/vp03 golden 256 pris=256 law6=256
+VP/vp04 pris rc=0 cmp=0 STRICT_EQUAL 121 objects dd=2 roles=0 md5=4d13798f
+VP/vp04 law6 rc=0 cmp=0 STRICT_EQUAL 121 objects dd=2 roles=0 md5=4d13798f
+VP/vp04 golden 398 pris=398 law6=398
+VP/vp05 pris rc=0 cmp=0 STRICT_EQUAL 88 objects dd=2 roles=0 md5=54276da4
+VP/vp05 law6 rc=0 cmp=0 STRICT_EQUAL 88 objects dd=2 roles=0 md5=54276da4
+VP/vp05 golden 360 pris=360 law6=360
+VS/vs01 pris rc=0 cmp=0 STRICT_EQUAL 93 objects dd=2 roles=0 md5=c80949ef
+VS/vs01 law6 rc=0 cmp=0 STRICT_EQUAL 93 objects dd=2 roles=0 md5=c80949ef
+VS/vs01 golden 314 pris=314 law6=314
+VS/vs02 pris rc=0 cmp=0 STRICT_EQUAL 93 objects dd=2 roles=0 md5=a284522b
+VS/vs02 law6 rc=0 cmp=0 STRICT_EQUAL 93 objects dd=2 roles=0 md5=a284522b
+VS/vs02 golden 312 pris=312 law6=312
+VS/vs03 pris rc=0 cmp=0 STRICT_EQUAL 101 objects dd=2 roles=0 md5=300cd3e0
+VS/vs03 law6 rc=0 cmp=0 STRICT_EQUAL 101 objects dd=2 roles=0 md5=300cd3e0
+VS/vs03 golden 344 pris=344 law6=344
+VS/vs04 pris rc=0 cmp=0 STRICT_EQUAL 113 objects dd=2 roles=0 md5=9a9ff589
+VS/vs04 law6 rc=0 cmp=0 STRICT_EQUAL 113 objects dd=2 roles=0 md5=9a9ff589
+VS/vs04 golden 372 pris=372 law6=372
+VS/vs05 pris rc=0 cmp=0 STRICT_EQUAL 30 objects dd=2 roles=0 md5=15685dd0
+VS/vs05 law6 rc=0 cmp=0 STRICT_EQUAL 30 objects dd=2 roles=0 md5=15685dd0
+VS/vs05 golden 170 pris=170 law6=170
+VS/vs06 pris rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 roles=0 md5=8dd0b2c4
+VS/vs06 law6 rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 roles=0 md5=8dd0b2c4
+VS/vs06 golden 151 pris=151 law6=151
+VS/vs07 pris rc=0 cmp=0 STRICT_EQUAL 88 objects dd=2 roles=0 md5=daacd330
+VS/vs07 law6 rc=0 cmp=0 STRICT_EQUAL 88 objects dd=2 roles=0 md5=daacd330
+VS/vs07 golden 356 pris=356 law6=356
+VS/vs08 pris rc=0 cmp=0 STRICT_EQUAL 195 objects dd=18 roles=0 md5=a6ad5d09
+VS/vs08 law6 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=18 roles=0 md5=a6ad5d09
+VS/vs08 golden 810 pris=810 law6=810
+VS/vs09 pris rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 roles=0 md5=f8053439
+VS/vs09 law6 rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 roles=0 md5=f8053439
+VS/vs09 golden 149 pris=149 law6=149
+VS/vs10 pris rc=0 cmp=0 STRICT_EQUAL 89 objects dd=36 roles=0 md5=2b2d463d
+VS/vs10 law6 rc=0 cmp=0 STRICT_EQUAL 89 objects dd=36 roles=0 md5=2b2d463d
+VS/vs10 golden 425 pris=419 law6=419
+VS/vs11 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=7bce9175
+VS/vs11 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=7bce9175
+VS/vs11 golden 230 pris=230 law6=230
+VS/vs12 pris rc=0 cmp=0 STRICT_EQUAL 149 objects dd=2 roles=0 md5=177b101f
+VS/vs12 law6 rc=0 cmp=0 STRICT_EQUAL 149 objects dd=2 roles=0 md5=177b101f
+VS/vs12 golden 504 pris=504 law6=504
+VS/vs13 pris rc=0 cmp=0 STRICT_EQUAL 49 objects dd=16 roles=0 md5=e0426cde
+VS/vs13 law6 rc=0 cmp=0 STRICT_EQUAL 49 objects dd=16 roles=0 md5=e0426cde
+VS/vs13 golden 268 pris=262 law6=262
+XP/xp01 pris rc=0 cmp=0 STRICT_EQUAL 103 objects dd=92 roles=0 md5=89297e31
+XP/xp01 law6 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=92 roles=0 md5=89297e31
+XP/xp01 golden 646 pris=592 law6=592
+XP/xp02 pris rc=0 cmp=0 STRICT_EQUAL 130 objects dd=52 roles=0 md5=04b8d76b
+XP/xp02 law6 rc=0 cmp=0 STRICT_EQUAL 130 objects dd=52 roles=0 md5=04b8d76b
+XP/xp02 golden 767 pris=746 law6=746
+XP/xp03 pris rc=0 cmp=0 STRICT_EQUAL 220 objects dd=192 roles=0 md5=b31cda9f
+XP/xp03 law6 rc=0 cmp=0 STRICT_EQUAL 220 objects dd=192 roles=0 md5=b31cda9f
+XP/xp03 golden 1354 pris=1269 law6=1269
+XP/xp04 pris rc=0 cmp=0 STRICT_EQUAL 119 objects dd=82 roles=0 md5=40eefb63
+XP/xp04 law6 rc=0 cmp=0 STRICT_EQUAL 119 objects dd=82 roles=0 md5=40eefb63
+XP/xp04 golden 746 pris=683 law6=683
+XP/xp05 pris rc=0 cmp=286 NOT_EQUAL stage1 dd=218 roles=0 md5=6d05533e
+XP/xp05 law6 rc=0 cmp=286 NOT_EQUAL stage1 dd=218 roles=0 md5=6d05533e
+XP/xp05 golden 1026 pris=861 law6=861
+XP/xp06 pris rc=0 cmp=0 STRICT_EQUAL 121 objects dd=100 roles=0 md5=547307dc
+XP/xp06 law6 rc=0 cmp=0 STRICT_EQUAL 121 objects dd=100 roles=0 md5=547307dc
+XP/xp06 golden 729 pris=645 law6=645
+XP/xp07 pris rc=0 cmp=0 STRICT_EQUAL 105 objects dd=78 roles=0 md5=a42267ef
+XP/xp07 law6 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=78 roles=0 md5=a42267ef
+XP/xp07 golden 652 pris=589 law6=589
+XV/xv01 pris rc=0 cmp=0 STRICT_EQUAL 85 objects dd=58 roles=0 md5=2f5fb2ab
+XV/xv01 law6 rc=0 cmp=0 STRICT_EQUAL 85 objects dd=58 roles=0 md5=2f5fb2ab
+XV/xv01 golden 465 pris=441 law6=441
+XV/xv02 pris rc=0 cmp=0 STRICT_EQUAL 85 objects dd=58 roles=0 md5=96f2fdc9
+XV/xv02 law6 rc=0 cmp=0 STRICT_EQUAL 85 objects dd=58 roles=0 md5=96f2fdc9
+XV/xv02 golden 465 pris=441 law6=441
+XV/xv03 pris rc=0 cmp=0 STRICT_EQUAL 51 objects dd=34 roles=0 md5=f6a20d98
+XV/xv03 law6 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=34 roles=0 md5=f6a20d98
+XV/xv03 golden 301 pris=281 law6=281
+XV/xv04 pris rc=0 cmp=0 STRICT_EQUAL 133 objects dd=132 roles=0 md5=98b01762
+XV/xv04 law6 rc=0 cmp=0 STRICT_EQUAL 133 objects dd=132 roles=0 md5=98b01762
+XV/xv04 golden 682 pris=666 law6=666
+LV/lv01 pris rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=12b7960d
+LV/lv01 law6 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=12b7960d
+LV/lv01 golden 425 pris=414 law6=414
+LV/lv02 pris rc=0 cmp=456 NOT_EQUAL stage1 dd=52 roles=0 md5=d6d314c9
+LV/lv02 law6 rc=0 cmp=456 NOT_EQUAL stage1 dd=52 roles=0 md5=d6d314c9
+LV/lv02 golden 425 pris=412 law6=412
+LV/lv03 pris rc=0 cmp=0 STRICT_EQUAL 139 objects dd=84 roles=0 md5=32a79195
+LV/lv03 law6 rc=0 cmp=0 STRICT_EQUAL 139 objects dd=84 roles=0 md5=32a79195
+LV/lv03 golden 643 pris=626 law6=626
+LV/lv04 pris rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 roles=0 md5=eab7b123
+LV/lv04 law6 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 roles=0 md5=eab7b123
+LV/lv04 golden 678 pris=665 law6=665
+LV/lv05 pris rc=0 cmp=0 STRICT_EQUAL 168 objects dd=90 roles=0 md5=d01be58a
+LV/lv05 law6 rc=0 cmp=0 STRICT_EQUAL 168 objects dd=90 roles=0 md5=d01be58a
+LV/lv05 golden 620 pris=607 law6=607
+LV/lv06 pris rc=0 cmp=0 STRICT_EQUAL 164 objects dd=61 roles=0 md5=b37c3b47
+LV/lv06 law6 rc=0 cmp=0 STRICT_EQUAL 164 objects dd=61 roles=0 md5=b37c3b47
+LV/lv06 golden 601 pris=582 law6=582
+LV/lv07 pris rc=0 cmp=0 STRICT_EQUAL 107 objects dd=50 roles=0 md5=83caf262
+LV/lv07 law6 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=50 roles=0 md5=83caf262
+LV/lv07 golden 424 pris=413 law6=413
+LV/lv08 pris rc=0 cmp=18 NOT_EQUAL stage1 dd=42 roles=0 md5=28934bec
+LV/lv08 law6 rc=0 cmp=18 NOT_EQUAL stage1 dd=42 roles=0 md5=28934bec
+LV/lv08 golden 526 pris=511 law6=511
+TL/tl01 pris rc=0 cmp=0 STRICT_EQUAL 316 objects dd=2 roles=0 md5=c686032d
+TL/tl01 law6 rc=0 cmp=0 STRICT_EQUAL 316 objects dd=2 roles=0 md5=c686032d
+TL/tl01 golden 561 pris=561 law6=561
+TL/tl02 pris rc=0 cmp=0 STRICT_EQUAL 201 objects dd=2 roles=0 md5=627f91b0
+TL/tl02 law6 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=2 roles=0 md5=627f91b0
+TL/tl02 golden 367 pris=367 law6=367
+TL/tl03 pris rc=0 cmp=0 STRICT_EQUAL 201 objects dd=2 roles=0 md5=95c34631
+TL/tl03 law6 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=2 roles=0 md5=95c34631
+TL/tl03 golden 302 pris=302 law6=302
+TL/tl04 pris rc=0 cmp=234 NOT_EQUAL stage1 dd=68 roles=0 md5=1c72e68f
+TL/tl04 law6 rc=0 cmp=234 NOT_EQUAL stage1 dd=68 roles=0 md5=1c72e68f
+TL/tl04 golden 335 pris=321 law6=321
+TL/tl05 pris rc=0 cmp=0 STRICT_EQUAL 178 objects dd=2 roles=0 md5=4bfef989
+TL/tl05 law6 rc=0 cmp=0 STRICT_EQUAL 178 objects dd=2 roles=0 md5=4bfef989
+TL/tl05 golden 345 pris=345 law6=345
+TL/tl06 pris rc=0 cmp=0 STRICT_EQUAL 124 objects dd=2 roles=0 md5=557cd91e
+TL/tl06 law6 rc=0 cmp=0 STRICT_EQUAL 124 objects dd=2 roles=0 md5=557cd91e
+TL/tl06 golden 237 pris=237 law6=237
+TL/tl07 pris rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 roles=0 md5=cd9d8478
+TL/tl07 law6 rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 roles=0 md5=cd9d8478
+TL/tl07 golden 173 pris=173 law6=173
+TL/tl08 pris rc=0 cmp=0 STRICT_EQUAL 101 objects dd=2 roles=0 md5=590a11a4
+TL/tl08 law6 rc=0 cmp=0 STRICT_EQUAL 101 objects dd=2 roles=0 md5=590a11a4
+TL/tl08 golden 213 pris=213 law6=213
+TL/tl09 pris rc=0 cmp=0 STRICT_EQUAL 33 objects dd=2 roles=0 md5=33940c15
+TL/tl09 law6 rc=0 cmp=0 STRICT_EQUAL 33 objects dd=2 roles=0 md5=33940c15
+TL/tl09 golden 108 pris=108 law6=108
+TL/tl10 pris rc=0 cmp=0 STRICT_EQUAL 265 objects dd=2 roles=0 md5=f11a90cc
+TL/tl10 law6 rc=0 cmp=0 STRICT_EQUAL 265 objects dd=2 roles=0 md5=f11a90cc
+TL/tl10 golden 357 pris=357 law6=357
+UC/uc01 pris rc=0 cmp=0 STRICT_EQUAL 402 objects dd=364 roles=0 md5=94068b71
+UC/uc01 law6 rc=0 cmp=0 STRICT_EQUAL 402 objects dd=364 roles=0 md5=94068b71
+UC/uc01 golden 2586 pris=2393 law6=2393
+UC/uc02 pris rc=0 cmp=0 STRICT_EQUAL 701 objects dd=1077 roles=0 md5=decc093e
+UC/uc02 law6 rc=0 cmp=0 STRICT_EQUAL 701 objects dd=1077 roles=0 md5=decc093e
+UC/uc02 golden 3996 pris=3446 law6=3446
+UC/uc03 pris rc=0 cmp=0 STRICT_EQUAL 297 objects dd=242 roles=0 md5=9fdd7ce8
+UC/uc03 law6 rc=0 cmp=0 STRICT_EQUAL 297 objects dd=242 roles=0 md5=9fdd7ce8
+UC/uc03 golden 1845 pris=1712 law6=1712
+UC/uc04 pris rc=0 cmp=0 STRICT_EQUAL 321 objects dd=243 roles=0 md5=08075ec8
+UC/uc04 law6 rc=0 cmp=0 STRICT_EQUAL 321 objects dd=243 roles=0 md5=08075ec8
+UC/uc04 golden 1904 pris=1772 law6=1772
+UC/uc05 pris rc=0 cmp=0 STRICT_EQUAL 133 objects dd=98 roles=0 md5=48be57ea
+UC/uc05 law6 rc=0 cmp=0 STRICT_EQUAL 133 objects dd=98 roles=0 md5=48be57ea
+UC/uc05 golden 788 pris=733 law6=733
+UC/uc06 pris rc=0 cmp=0 STRICT_EQUAL 95 objects dd=56 roles=0 md5=d6b797e2
+UC/uc06 law6 rc=0 cmp=0 STRICT_EQUAL 95 objects dd=56 roles=0 md5=d6b797e2
+UC/uc06 golden 595 pris=556 law6=556
+IA/ia01 pris rc=0 cmp=58 NOT_EQUAL stage1 dd=768 roles=4 md5=fb0f8d9c
+IA/ia01 law6 rc=0 cmp=58 NOT_EQUAL stage1 dd=768 roles=4 md5=fb0f8d9c
+IA/ia01 golden 1141 pris=421 law6=421
+IA/ia02 pris rc=0 cmp=0 STRICT_EQUAL 219 objects dd=189 roles=0 md5=a5bae52b
+IA/ia02 law6 rc=0 cmp=0 STRICT_EQUAL 219 objects dd=189 roles=0 md5=a5bae52b
+IA/ia02 golden 1049 pris=890 law6=890
+IA/ia03 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=98 roles=0 md5=80858be5
+IA/ia03 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=98 roles=0 md5=80858be5
+IA/ia03 golden 721 pris=658 law6=658
+IA/ia04 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=486 roles=0 md5=50fcd297
+IA/ia04 law6 rc=0 cmp=0 STRICT_EQUAL 344 objects dd=330 roles=0 md5=97ccb3e3
+IA/ia04 golden 1701 pris=1337 law6=1536
+IA/ia05 pris rc=0 cmp=0 STRICT_EQUAL 267 objects dd=380 roles=0 md5=0cc41e57
+IA/ia05 law6 rc=0 cmp=0 STRICT_EQUAL 267 objects dd=380 roles=0 md5=0cc41e57
+IA/ia05 golden 1386 pris=1138 law6=1138
+IA/ia06 pris rc=0 cmp=271 NOT_EQUAL stage1 dd=225 roles=0 md5=9f3f9149
+IA/ia06 law6 rc=0 cmp=271 NOT_EQUAL stage1 dd=225 roles=0 md5=9f3f9149
+IA/ia06 golden 1023 pris=842 law6=842
+IA/ia07 pris rc=0 cmp=0 STRICT_EQUAL 307 objects dd=430 roles=0 md5=4554ee0b
+IA/ia07 law6 rc=0 cmp=0 STRICT_EQUAL 307 objects dd=430 roles=0 md5=4554ee0b
+IA/ia07 golden 1600 pris=1275 law6=1275
+IA/ia08 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=478 roles=0 md5=bd8d43e6
+IA/ia08 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=478 roles=0 md5=bd8d43e6
+IA/ia08 golden 1417 pris=1056 law6=1056
+IA/ia09 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=410 roles=0 md5=165d03d7
+IA/ia09 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=410 roles=0 md5=165d03d7
+IA/ia09 golden 1488 pris=1175 law6=1175
+IA/ia10 pris rc=0 cmp=345 NOT_EQUAL stage1 dd=512 roles=0 md5=6d27593f
+IA/ia10 law6 rc=0 cmp=345 NOT_EQUAL stage1 dd=512 roles=0 md5=6d27593f
+IA/ia10 golden 2191 pris=1865 law6=1865
+IA/ia11 pris rc=0 cmp=48 NOT_EQUAL stage1 dd=266 roles=6 md5=f14d7580
+IA/ia11 law6 rc=0 cmp=48 NOT_EQUAL stage1 dd=266 roles=6 md5=f14d7580
+IA/ia11 golden 770 pris=583 law6=583
+IA/ia12 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=496 roles=0 md5=cbdb5be3
+IA/ia12 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=496 roles=0 md5=cbdb5be3
+IA/ia12 golden 2082 pris=1746 law6=1746
+IE/ie01 pris rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=a70b5d44
+IE/ie01 law6 rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=a70b5d44
+IE/ie01 golden 741 pris=489 law6=489
+IE/ie02 pris rc=0 cmp=0 STRICT_EQUAL 241 objects dd=552 roles=0 md5=e77fb337
+IE/ie02 law6 rc=0 cmp=0 STRICT_EQUAL 241 objects dd=552 roles=0 md5=e77fb337
+IE/ie02 golden 1161 pris=617 law6=617
+IE/ie03 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=344 roles=0 md5=49aee12a
+IE/ie03 law6 rc=0 cmp=50 NOT_EQUAL stage1 dd=344 roles=0 md5=49aee12a
+IE/ie03 golden 924 pris=625 law6=625
+IE/ie04 pris rc=0 cmp=292 NOT_EQUAL stage1 dd=218 roles=0 md5=b21cdc01
+IE/ie04 law6 rc=0 cmp=292 NOT_EQUAL stage1 dd=218 roles=0 md5=b21cdc01
+IE/ie04 golden 513 pris=362 law6=362
+IE/ie05 pris rc=0 cmp=72 NOT_EQUAL stage1 dd=241 roles=6 md5=6ef622d8
+IE/ie05 law6 rc=0 cmp=72 NOT_EQUAL stage1 dd=241 roles=6 md5=6ef622d8
+IE/ie05 golden 455 pris=246 law6=246
+IR/ir01 pris rc=0 cmp=0 STRICT_EQUAL 210 objects dd=212 roles=0 md5=2f05db16
+IR/ir01 law6 rc=0 cmp=0 STRICT_EQUAL 210 objects dd=212 roles=0 md5=2f05db16
+IR/ir01 golden 1026 pris=866 law6=866
+IR/ir02 pris rc=0 cmp=0 STRICT_EQUAL 181 objects dd=193 roles=0 md5=4cbb4ae1
+IR/ir02 law6 rc=0 cmp=0 STRICT_EQUAL 181 objects dd=193 roles=0 md5=4cbb4ae1
+IR/ir02 golden 951 pris=831 law6=831
+IR/ir03 pris rc=0 cmp=0 STRICT_EQUAL 139 objects dd=154 roles=0 md5=f7dcc3c7
+IR/ir03 law6 rc=0 cmp=0 STRICT_EQUAL 139 objects dd=154 roles=0 md5=f7dcc3c7
+IR/ir03 golden 725 pris=601 law6=601
+IR/ir04 pris rc=0 cmp=0 STRICT_EQUAL 75 objects dd=72 roles=0 md5=b5c22439
+IR/ir04 law6 rc=0 cmp=0 STRICT_EQUAL 75 objects dd=72 roles=0 md5=b5c22439
+IR/ir04 golden 425 pris=383 law6=383
+IR/ir05 pris rc=0 cmp=0 STRICT_EQUAL 149 objects dd=133 roles=0 md5=f9af4d28
+IR/ir05 law6 rc=0 cmp=0 STRICT_EQUAL 149 objects dd=133 roles=0 md5=f9af4d28
+IR/ir05 golden 861 pris=746 law6=746
+IR/ir06 pris rc=0 cmp=0 STRICT_EQUAL 123 objects dd=77 roles=0 md5=88984680
+IR/ir06 law6 rc=0 cmp=0 STRICT_EQUAL 123 objects dd=77 roles=0 md5=88984680
+IR/ir06 golden 593 pris=535 law6=535
+IR/ir07 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=393 roles=0 md5=2f443c6f
+IR/ir07 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=393 roles=0 md5=2f443c6f
+IR/ir07 golden 1647 pris=1383 law6=1383
+IR/ir08 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=693 roles=0 md5=b736fbeb
+IR/ir08 law6 rc=0 cmp=0 STRICT_EQUAL 507 objects dd=493 roles=0 md5=515ef928
+IR/ir08 golden 2547 pris=2051 law6=2279
+IR/ir09 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=395 roles=0 md5=49c62bce
+IR/ir09 law6 rc=0 cmp=50 NOT_EQUAL stage1 dd=395 roles=0 md5=49c62bce
+IR/ir09 golden 1324 pris=1053 law6=1053
+IR/ir10 pris rc=0 cmp=0 STRICT_EQUAL 194 objects dd=193 roles=0 md5=e4212db3
+IR/ir10 law6 rc=0 cmp=0 STRICT_EQUAL 194 objects dd=193 roles=0 md5=e4212db3
+IR/ir10 golden 975 pris=855 law6=855
+IR/ir11 pris rc=0 cmp=0 STRICT_EQUAL 301 objects dd=379 roles=0 md5=7edbed48
+IR/ir11 law6 rc=0 cmp=0 STRICT_EQUAL 301 objects dd=379 roles=0 md5=7edbed48
+IR/ir11 golden 1660 pris=1363 law6=1363
+IR/ir12 pris rc=0 cmp=86 NOT_EQUAL stage1 dd=590 roles=6 md5=cc351c45
+IR/ir12 law6 rc=0 cmp=86 NOT_EQUAL stage1 dd=590 roles=6 md5=cc351c45
+IR/ir12 golden 930 pris=366 law6=366
+IR/ir13 pris rc=0 cmp=242 NOT_EQUAL stage1 dd=314 roles=6 md5=050fbaa8
+IR/ir13 law6 rc=0 cmp=242 NOT_EQUAL stage1 dd=314 roles=6 md5=050fbaa8
+IR/ir13 golden 752 pris=456 law6=456
+IR/ir14 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=73 roles=0 md5=88dbd99f
+IR/ir14 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=73 roles=0 md5=88dbd99f
+IR/ir14 golden 697 pris=631 law6=631
+ES/es01 pris rc=0 cmp=0 STRICT_EQUAL 271 objects dd=712 roles=0 md5=8e43e246
+ES/es01 law6 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=712 roles=0 md5=8e43e246
+ES/es01 golden 1346 pris=642 law6=642
+ES/es02 pris rc=0 cmp=0 STRICT_EQUAL 583 objects dd=2120 roles=0 md5=36cc8307
+ES/es02 law6 rc=0 cmp=0 STRICT_EQUAL 583 objects dd=2120 roles=0 md5=36cc8307
+ES/es02 golden 3213 pris=1101 law6=1101
+ES/es03 pris rc=0 cmp=0 STRICT_EQUAL 342 objects dd=1006 roles=0 md5=18aa3046
+ES/es03 law6 rc=0 cmp=0 STRICT_EQUAL 342 objects dd=1006 roles=0 md5=18aa3046
+ES/es03 golden 1727 pris=729 law6=729
+ES/es04 pris rc=0 cmp=0 STRICT_EQUAL 631 objects dd=1864 roles=0 md5=e5a298fa
+ES/es04 law6 rc=0 cmp=0 STRICT_EQUAL 631 objects dd=1864 roles=0 md5=e5a298fa
+ES/es04 golden 3255 pris=1456 law6=1456
+ES/es05 pris rc=0 cmp=292 NOT_EQUAL stage1 dd=436 roles=0 md5=6e0ae5ea
+ES/es05 law6 rc=0 cmp=292 NOT_EQUAL stage1 dd=436 roles=0 md5=6e0ae5ea
+ES/es05 golden 848 pris=483 law6=483
+ES/es06 pris rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=685547fb
+ES/es06 law6 rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=685547fb
+ES/es06 golden 741 pris=489 law6=489
+ES/es07 pris rc=0 cmp=0 STRICT_EQUAL 324 objects dd=632 roles=0 md5=ee9acd28
+ES/es07 law6 rc=0 cmp=0 STRICT_EQUAL 324 objects dd=632 roles=0 md5=ee9acd28
+ES/es07 golden 1358 pris=734 law6=734
+EX/ex01 pris rc=0 cmp=0 STRICT_EQUAL 283 objects dd=369 roles=0 md5=f185ffd4
+EX/ex01 law6 rc=0 cmp=0 STRICT_EQUAL 283 objects dd=369 roles=0 md5=f185ffd4
+EX/ex01 golden 1633 pris=1336 law6=1336
+EX/ex02 pris rc=0 cmp=0 STRICT_EQUAL 237 objects dd=240 roles=0 md5=b870a2a4
+EX/ex02 law6 rc=0 cmp=0 STRICT_EQUAL 237 objects dd=240 roles=0 md5=b870a2a4
+EX/ex02 golden 1545 pris=1354 law6=1354
+EX/ex03 pris rc=0 cmp=0 STRICT_EQUAL 111 objects dd=90 roles=0 md5=8c42800b
+EX/ex03 law6 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=90 roles=0 md5=8c42800b
+EX/ex03 golden 690 pris=625 law6=625
+EX/ex04 pris rc=0 cmp=0 STRICT_EQUAL 212 objects dd=192 roles=0 md5=7c4b9d3e
+EX/ex04 law6 rc=0 cmp=0 STRICT_EQUAL 212 objects dd=192 roles=0 md5=7c4b9d3e
+EX/ex04 golden 1338 pris=1270 law6=1270
+EX/ex05 pris rc=0 cmp=0 STRICT_EQUAL 364 objects dd=1258 roles=0 md5=523d0d2d
+EX/ex05 law6 rc=0 cmp=0 STRICT_EQUAL 364 objects dd=1258 roles=0 md5=523d0d2d
+EX/ex05 golden 2020 pris=772 law6=772
+EX/ex06 pris rc=0 cmp=0 STRICT_EQUAL 160 objects dd=106 roles=0 md5=180695af
+EX/ex06 law6 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=106 roles=0 md5=180695af
+EX/ex06 golden 983 pris=949 law6=949
+EX/ex07 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=616 roles=0 md5=baf66e23
+EX/ex07 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=432 roles=0 md5=68f852d4
+EX/ex07 golden 2339 pris=1988 law6=2184
+PF/pf01 pris rc=0 cmp=0 STRICT_EQUAL 437 objects dd=417 roles=0 md5=0c8bbc06
+PF/pf01 law6 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=417 roles=0 md5=0c8bbc06
+PF/pf01 golden 1955 pris=1708 law6=1708
+PF/pf02 pris rc=0 cmp=0 STRICT_EQUAL 456 objects dd=417 roles=0 md5=bc07b061
+PF/pf02 law6 rc=0 cmp=0 STRICT_EQUAL 456 objects dd=417 roles=0 md5=bc07b061
+PF/pf02 golden 2040 pris=1793 law6=1793
+PF/pf03 pris rc=0 cmp=22 NOT_EQUAL stage1 dd=396 roles=0 md5=340594b1
+PF/pf03 law6 rc=0 cmp=22 NOT_EQUAL stage1 dd=396 roles=0 md5=340594b1
+PF/pf03 golden 1937 pris=1688 law6=1688
+PF/pf04 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=445 roles=0 md5=deb2ce72
+PF/pf04 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=445 roles=0 md5=deb2ce72
+PF/pf04 golden 1884 pris=1566 law6=1566
+PF/pf05 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=395 roles=0 md5=541c39a2
+PF/pf05 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=395 roles=0 md5=541c39a2
+PF/pf05 golden 1738 pris=1423 law6=1423
+PF/pf06 pris rc=0 cmp=28 NOT_EQUAL stage1 dd=375 roles=0 md5=2a09ebc3
+PF/pf06 law6 rc=0 cmp=28 NOT_EQUAL stage1 dd=375 roles=0 md5=2a09ebc3
+PF/pf06 golden 1701 pris=1451 law6=1451
+PF/pf07 pris rc=0 cmp=0 STRICT_EQUAL 430 objects dd=417 roles=0 md5=b5c2fa04
+PF/pf07 law6 rc=0 cmp=0 STRICT_EQUAL 430 objects dd=417 roles=0 md5=b5c2fa04
+PF/pf07 golden 1903 pris=1656 law6=1656
+PF/pf08 pris rc=0 cmp=0 STRICT_EQUAL 445 objects dd=417 roles=0 md5=9c04b888
+PF/pf08 law6 rc=0 cmp=0 STRICT_EQUAL 445 objects dd=417 roles=0 md5=9c04b888
+PF/pf08 golden 1980 pris=1733 law6=1733
+PF/pf09 pris rc=0 cmp=0 STRICT_EQUAL 415 objects dd=397 roles=0 md5=ce879921
+PF/pf09 law6 rc=0 cmp=0 STRICT_EQUAL 415 objects dd=397 roles=0 md5=ce879921
+PF/pf09 golden 1830 pris=1583 law6=1583
+PF/pf10 pris rc=0 cmp=0 STRICT_EQUAL 265 objects dd=103 roles=0 md5=42565b6b
+PF/pf10 law6 rc=0 cmp=0 STRICT_EQUAL 265 objects dd=103 roles=0 md5=42565b6b
+PF/pf10 golden 1146 pris=1085 law6=1085
+PF/pf11 pris rc=0 cmp=0 STRICT_EQUAL 666 objects dd=1116 roles=0 md5=f985be94
+PF/pf11 law6 rc=0 cmp=0 STRICT_EQUAL 666 objects dd=1116 roles=0 md5=f985be94
+PF/pf11 golden 3336 pris=2464 law6=2464
+PF/pf12 pris rc=0 cmp=0 STRICT_EQUAL 544 objects dd=383 roles=0 md5=ee687406
+PF/pf12 law6 rc=0 cmp=0 STRICT_EQUAL 544 objects dd=383 roles=0 md5=ee687406
+PF/pf12 golden 2445 pris=2197 law6=2197
+PF/pf13 pris rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=e3b9dce4
+PF/pf13 law6 rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=e3b9dce4
+PF/pf13 golden 1769 pris=1522 law6=1522
+PF/pf14 pris rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=97bf2c5a
+PF/pf14 law6 rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=97bf2c5a
+PF/pf14 golden 1768 pris=1521 law6=1521
+PF/pf15 pris rc=0 cmp=22 NOT_EQUAL stage1 dd=376 roles=0 md5=7f621ed2
+PF/pf15 law6 rc=0 cmp=22 NOT_EQUAL stage1 dd=376 roles=0 md5=7f621ed2
+PF/pf15 golden 1713 pris=1466 law6=1466
+PF/pf16 pris rc=0 cmp=0 STRICT_EQUAL 397 objects dd=389 roles=0 md5=9e81fbe2
+PF/pf16 law6 rc=0 cmp=0 STRICT_EQUAL 397 objects dd=389 roles=0 md5=9e81fbe2
+PF/pf16 golden 1772 pris=1523 law6=1523
+PF/pf17 pris rc=0 cmp=22 NOT_EQUAL stage1 dd=378 roles=0 md5=a9ac32d9
+PF/pf17 law6 rc=0 cmp=22 NOT_EQUAL stage1 dd=378 roles=0 md5=a9ac32d9
+PF/pf17 golden 1732 pris=1487 law6=1487
+PF/pf18 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=445 roles=0 md5=357e0ea1
+PF/pf18 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=445 roles=0 md5=357e0ea1
+PF/pf18 golden 1963 pris=1713 law6=1713
+PF/pf19 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=852 roles=0 md5=a0081b7c
+PF/pf19 law6 rc=0 cmp=50 NOT_EQUAL stage1 dd=852 roles=0 md5=a0081b7c
+PF/pf19 golden 2518 pris=1926 law6=1926
+PF/pf20 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=875 roles=0 md5=326bbc16
+PF/pf20 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=875 roles=0 md5=326bbc16
+PF/pf20 golden 2527 pris=1833 law6=1833
+PF/pf21 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=1116 roles=0 md5=733b507b
+PF/pf21 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=1116 roles=0 md5=733b507b
+PF/pf21 golden 2893 pris=1999 law6=1999
+PF/pf22 pris rc=0 cmp=1162 NOT_EQUAL stage1 dd=461 roles=0 md5=57edf8d0
+PF/pf22 law6 rc=0 cmp=1162 NOT_EQUAL stage1 dd=461 roles=0 md5=57edf8d0
+PF/pf22 golden 1620 pris=1359 law6=1359
+PF/pf23 pris rc=0 cmp=0 STRICT_EQUAL 447 objects dd=417 roles=0 md5=0d8616c7
+PF/pf23 law6 rc=0 cmp=0 STRICT_EQUAL 447 objects dd=417 roles=0 md5=0d8616c7
+PF/pf23 golden 1986 pris=1739 law6=1739
+PF/pf24 pris rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=74f9f1d0
+PF/pf24 law6 rc=0 cmp=0 STRICT_EQUAL 397 objects dd=375 roles=0 md5=74f9f1d0
+PF/pf24 golden 1769 pris=1522 law6=1522
+PF/pf25 pris rc=0 cmp=0 STRICT_EQUAL 418 objects dd=375 roles=0 md5=41ef46bb
+PF/pf25 law6 rc=0 cmp=0 STRICT_EQUAL 418 objects dd=375 roles=0 md5=41ef46bb
+PF/pf25 golden 1858 pris=1611 law6=1611
+PF/pf26 pris rc=0 cmp=0 STRICT_EQUAL 178 objects dd=97 roles=0 md5=f341c27f
+PF/pf26 law6 rc=0 cmp=0 STRICT_EQUAL 178 objects dd=97 roles=0 md5=f341c27f
+PF/pf26 golden 774 pris=713 law6=713
+PF/pf27 pris rc=0 cmp=0 STRICT_EQUAL 107 objects dd=2 roles=0 md5=b470883b
+PF/pf27 law6 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=2 roles=0 md5=b470883b
+PF/pf27 golden 530 pris=530 law6=530
+PF/pf28 pris rc=0 cmp=0 STRICT_EQUAL 189 objects dd=190 roles=0 md5=07be41e8
+PF/pf28 law6 rc=0 cmp=0 STRICT_EQUAL 189 objects dd=190 roles=0 md5=07be41e8
+PF/pf28 golden 783 pris=595 law6=595
+PI/pi01 pris rc=0 cmp=0 STRICT_EQUAL 65 objects dd=40 roles=0 md5=7d96cc17
+PI/pi01 law6 rc=0 cmp=0 STRICT_EQUAL 65 objects dd=40 roles=0 md5=7d96cc17
+PI/pi01 golden 391 pris=368 law6=368
+PI/pi02 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=c6a6c419
+PI/pi02 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=c6a6c419
+PI/pi02 golden 409 pris=382 law6=382
+PI/pi03 pris rc=0 cmp=0 STRICT_EQUAL 193 objects dd=173 roles=0 md5=fda20445
+PI/pi03 law6 rc=0 cmp=0 STRICT_EQUAL 193 objects dd=173 roles=0 md5=fda20445
+PI/pi03 golden 867 pris=764 law6=764
+PI/pi04 pris rc=0 cmp=199 NOT_EQUAL stage1 dd=62 roles=0 md5=8063762e
+PI/pi04 law6 rc=0 cmp=199 NOT_EQUAL stage1 dd=62 roles=0 md5=8063762e
+PI/pi04 golden 733 pris=702 law6=702
+PI/pi05 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=90ff8833
+PI/pi05 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=42 roles=0 md5=90ff8833
+PI/pi05 golden 407 pris=380 law6=380
+PI/pi06 pris rc=0 cmp=199 NOT_EQUAL stage1 dd=56 roles=0 md5=007380ce
+PI/pi06 law6 rc=0 cmp=199 NOT_EQUAL stage1 dd=56 roles=0 md5=007380ce
+PI/pi06 golden 715 pris=690 law6=690
+PI/pi07 pris rc=0 cmp=0 STRICT_EQUAL 68 objects dd=38 roles=0 md5=d0423876
+PI/pi07 law6 rc=0 cmp=0 STRICT_EQUAL 68 objects dd=38 roles=0 md5=d0423876
+PI/pi07 golden 396 pris=375 law6=375
+PI/pi08 pris rc=0 cmp=0 STRICT_EQUAL 105 objects dd=76 roles=0 md5=fa7a27f6
+PI/pi08 law6 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=76 roles=0 md5=fa7a27f6
+PI/pi08 golden 657 pris=603 law6=603
+PI/pi09 pris rc=0 cmp=0 STRICT_EQUAL 78 objects dd=48 roles=0 md5=91f204d5
+PI/pi09 law6 rc=0 cmp=0 STRICT_EQUAL 78 objects dd=48 roles=0 md5=91f204d5
+PI/pi09 golden 481 pris=446 law6=446
+PI/pi10 pris rc=0 cmp=0 STRICT_EQUAL 129 objects dd=106 roles=0 md5=c07a4720
+PI/pi10 law6 rc=0 cmp=0 STRICT_EQUAL 129 objects dd=106 roles=0 md5=c07a4720
+PI/pi10 golden 812 pris=737 law6=737
+PI/pi11 pris rc=0 cmp=0 STRICT_EQUAL 65 objects dd=21 roles=0 md5=60391578
+PI/pi11 law6 rc=0 cmp=0 STRICT_EQUAL 65 objects dd=21 roles=0 md5=60391578
+PI/pi11 golden 352 pris=333 law6=333
+TF/tf01 pris rc=0 cmp=0 STRICT_EQUAL 176 objects dd=99 roles=0 md5=b9bb6371
+TF/tf01 law6 rc=0 cmp=0 STRICT_EQUAL 176 objects dd=99 roles=0 md5=b9bb6371
+TF/tf01 golden 777 pris=715 law6=715
+TF/tf02 pris rc=0 cmp=0 STRICT_EQUAL 168 objects dd=99 roles=0 md5=95206d8a
+TF/tf02 law6 rc=0 cmp=0 STRICT_EQUAL 168 objects dd=99 roles=0 md5=95206d8a
+TF/tf02 golden 773 pris=711 law6=711
+TF/tf03 pris rc=0 cmp=0 STRICT_EQUAL 187 objects dd=190 roles=0 md5=37c717e0
+TF/tf03 law6 rc=0 cmp=0 STRICT_EQUAL 187 objects dd=190 roles=0 md5=37c717e0
+TF/tf03 golden 786 pris=598 law6=598
+TF/tf04 pris rc=0 cmp=0 STRICT_EQUAL 201 objects dd=195 roles=0 md5=455a384d
+TF/tf04 law6 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=195 roles=0 md5=455a384d
+TF/tf04 golden 1003 pris=942 law6=942
+TF/tf05 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=215 roles=0 md5=26b2a7fb
+TF/tf05 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=215 roles=0 md5=26b2a7fb
+TF/tf05 golden 1001 pris=793 law6=793
+TF/tf06 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=60 roles=0 md5=48412f3b
+TF/tf06 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=60 roles=0 md5=48412f3b
+TF/tf06 golden 545 pris=539 law6=539
+TF/tf07 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=10 roles=0 md5=0cb1f3f6
+TF/tf07 law6 rc=0 cmp=32 NOT_EQUAL stage1 dd=10 roles=0 md5=0cb1f3f6
+TF/tf07 golden 382 pris=377 law6=377
+TF/tf08 pris rc=0 cmp=0 STRICT_EQUAL 105 objects dd=4 roles=0 md5=2d0127be
+TF/tf08 law6 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=4 roles=0 md5=2d0127be
+TF/tf08 golden 533 pris=532 law6=532
+TF/tf09 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=270 roles=0 md5=0471c881
+TF/tf09 law6 rc=0 cmp=32 NOT_EQUAL stage1 dd=270 roles=0 md5=0471c881
+TF/tf09 golden 1186 pris=1021 law6=1021
+TF/tf10 pris rc=0 cmp=0 STRICT_EQUAL 509 objects dd=732 roles=0 md5=efef4db5
+TF/tf10 law6 rc=0 cmp=0 STRICT_EQUAL 509 objects dd=732 roles=0 md5=efef4db5
+TF/tf10 golden 2546 pris=2084 law6=2084
+TF/tf11 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=101 roles=0 md5=8a00e871
+TF/tf11 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=101 roles=0 md5=8a00e871
+TF/tf11 golden 1307 pris=1244 law6=1244
+TF/tf12 pris rc=0 cmp=68 NOT_EQUAL stage1 dd=207 roles=0 md5=a6d6ba2d
+TF/tf12 law6 rc=0 cmp=68 NOT_EQUAL stage1 dd=207 roles=0 md5=a6d6ba2d
+TF/tf12 golden 808 pris=781 law6=781
+VB/vb01 pris rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 roles=0 md5=435993b5
+VB/vb01 law6 rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 roles=0 md5=435993b5
+VB/vb01 golden 301 pris=301 law6=301
+VB/vb02 pris rc=0 cmp=0 STRICT_EQUAL 102 objects dd=8 roles=0 md5=bbca7e59
+VB/vb02 law6 rc=0 cmp=0 STRICT_EQUAL 102 objects dd=8 roles=0 md5=bbca7e59
+VB/vb02 golden 329 pris=323 law6=323
+VB/vb03 pris rc=0 cmp=296 NOT_EQUAL stage1 dd=36 roles=0 md5=a882da2e
+VB/vb03 law6 rc=0 cmp=296 NOT_EQUAL stage1 dd=36 roles=0 md5=a882da2e
+VB/vb03 golden 404 pris=386 law6=386
+VB/vb04 pris rc=0 cmp=0 STRICT_EQUAL 104 objects dd=8 roles=0 md5=de971146
+VB/vb04 law6 rc=0 cmp=0 STRICT_EQUAL 104 objects dd=8 roles=0 md5=de971146
+VB/vb04 golden 334 pris=328 law6=328
+VB/vb05 pris rc=0 cmp=0 STRICT_EQUAL 116 objects dd=6 roles=0 md5=b7407c44
+VB/vb05 law6 rc=0 cmp=0 STRICT_EQUAL 116 objects dd=6 roles=0 md5=b7407c44
+VB/vb05 golden 407 pris=403 law6=403
+VB/vb06 pris rc=0 cmp=0 STRICT_EQUAL 109 objects dd=2 roles=0 md5=8a18454f
+VB/vb06 law6 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=2 roles=0 md5=8a18454f
+VB/vb06 golden 360 pris=360 law6=360
+VB/vb07 pris rc=0 cmp=110 NOT_EQUAL stage1 dd=45 roles=0 md5=8ddb8b36
+VB/vb07 law6 rc=0 cmp=110 NOT_EQUAL stage1 dd=45 roles=0 md5=8ddb8b36
+VB/vb07 golden 282 pris=253 law6=253
+VB/vb08 pris rc=0 cmp=186 NOT_EQUAL stage1 dd=55 roles=0 md5=7fcd7326
+VB/vb08 law6 rc=0 cmp=186 NOT_EQUAL stage1 dd=55 roles=0 md5=7fcd7326
+VB/vb08 golden 239 pris=204 law6=204
+VB/vb09 pris rc=0 cmp=376 NOT_EQUAL stage1 dd=50 roles=0 md5=1aaf718f
+VB/vb09 law6 rc=0 cmp=376 NOT_EQUAL stage1 dd=50 roles=0 md5=1aaf718f
+VB/vb09 golden 456 pris=424 law6=424
+VB/vb10 pris rc=0 cmp=0 STRICT_EQUAL 120 objects dd=8 roles=0 md5=9bfcf7c2
+VB/vb10 law6 rc=0 cmp=0 STRICT_EQUAL 120 objects dd=8 roles=0 md5=9bfcf7c2
+VB/vb10 golden 420 pris=414 law6=414
+VB/vb11 pris rc=0 cmp=0 STRICT_EQUAL 128 objects dd=14 roles=0 md5=2a6294be
+VB/vb11 law6 rc=0 cmp=0 STRICT_EQUAL 128 objects dd=14 roles=0 md5=2a6294be
+VB/vb11 golden 449 pris=437 law6=437
+VB/vb12 pris rc=0 cmp=0 STRICT_EQUAL 112 objects dd=2 roles=0 md5=7b0f73ee
+VB/vb12 law6 rc=0 cmp=0 STRICT_EQUAL 112 objects dd=2 roles=0 md5=7b0f73ee
+VB/vb12 golden 395 pris=395 law6=395
+VB/vb13 pris rc=0 cmp=208 NOT_EQUAL stage1 dd=22 roles=0 md5=0e24e6b4
+VB/vb13 law6 rc=0 cmp=208 NOT_EQUAL stage1 dd=22 roles=0 md5=0e24e6b4
+VB/vb13 golden 301 pris=291 law6=291
+VB/vb14 pris rc=0 cmp=0 STRICT_EQUAL 110 objects dd=14 roles=0 md5=232cdd5c
+VB/vb14 law6 rc=0 cmp=0 STRICT_EQUAL 110 objects dd=14 roles=0 md5=232cdd5c
+VB/vb14 golden 357 pris=345 law6=345
+VC/vc01 pris rc=0 cmp=0 STRICT_EQUAL 29 objects dd=2 roles=0 md5=968a676e
+VC/vc01 law6 rc=0 cmp=0 STRICT_EQUAL 29 objects dd=2 roles=0 md5=968a676e
+VC/vc01 golden 163 pris=163 law6=163
+VC/vc02 pris rc=0 cmp=0 STRICT_EQUAL 30 objects dd=2 roles=0 md5=f9e207d8
+VC/vc02 law6 rc=0 cmp=0 STRICT_EQUAL 30 objects dd=2 roles=0 md5=f9e207d8
+VC/vc02 golden 168 pris=168 law6=168
+VC/vc03 pris rc=0 cmp=0 STRICT_EQUAL 37 objects dd=6 roles=0 md5=ff50f282
+VC/vc03 law6 rc=0 cmp=0 STRICT_EQUAL 37 objects dd=6 roles=0 md5=ff50f282
+VC/vc03 golden 208 pris=206 law6=206
+VC/vc04 pris rc=0 cmp=0 STRICT_EQUAL 195 objects dd=2 roles=0 md5=2c711e86
+VC/vc04 law6 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=2 roles=0 md5=2c711e86
+VC/vc04 golden 650 pris=650 law6=650
+VC/vc05 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=261b76b1
+VC/vc05 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=261b76b1
+VC/vc05 golden 406 pris=406 law6=406
+VC/vc06 pris rc=0 cmp=0 STRICT_EQUAL 95 objects dd=36 roles=0 md5=5a4e492b
+VC/vc06 law6 rc=0 cmp=0 STRICT_EQUAL 95 objects dd=36 roles=0 md5=5a4e492b
+VC/vc06 golden 446 pris=440 law6=440
+VC/vc07 pris rc=0 cmp=0 STRICT_EQUAL 109 objects dd=2 roles=0 md5=d8b88b21
+VC/vc07 law6 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=2 roles=0 md5=d8b88b21
+VC/vc07 golden 374 pris=374 law6=374
+VC/vc08 pris rc=0 cmp=0 STRICT_EQUAL 70 objects dd=2 roles=0 md5=46e9450f
+VC/vc08 law6 rc=0 cmp=0 STRICT_EQUAL 70 objects dd=2 roles=0 md5=46e9450f
+VC/vc08 golden 179 pris=179 law6=179
+VC/vc09 pris rc=0 cmp=0 STRICT_EQUAL 45 objects dd=6 roles=0 md5=998329ae
+VC/vc09 law6 rc=0 cmp=0 STRICT_EQUAL 45 objects dd=6 roles=0 md5=998329ae
+VC/vc09 golden 250 pris=248 law6=248
+VC/vc10 pris rc=0 cmp=0 STRICT_EQUAL 98 objects dd=6 roles=0 md5=0657d36a
+VC/vc10 law6 rc=0 cmp=0 STRICT_EQUAL 98 objects dd=6 roles=0 md5=0657d36a
+VC/vc10 golden 346 pris=346 law6=346
+VC/vc11 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=52 roles=0 md5=27e182cd
+VC/vc11 law6 rc=0 cmp=50 NOT_EQUAL stage1 dd=52 roles=0 md5=27e182cd
+VC/vc11 golden 812 pris=774 law6=774
+VC/vc12 pris rc=0 cmp=140 NOT_EQUAL stage1 dd=50 roles=0 md5=c92d5b01
+VC/vc12 law6 rc=0 cmp=140 NOT_EQUAL stage1 dd=50 roles=0 md5=c92d5b01
+VC/vc12 golden 459 pris=419 law6=419
+VH/vh01 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=581cc700
+VH/vh01 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=581cc700
+VH/vh01 golden 206 pris=206 law6=206
+VH/vh02 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=ae555c46
+VH/vh02 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=ae555c46
+VH/vh02 golden 206 pris=206 law6=206
+VH/vh03 pris rc=0 cmp=0 STRICT_EQUAL 57 objects dd=2 roles=0 md5=1403ec10
+VH/vh03 law6 rc=0 cmp=0 STRICT_EQUAL 57 objects dd=2 roles=0 md5=1403ec10
+VH/vh03 golden 227 pris=227 law6=227
+VH/vh04 pris rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=b7351d1c
+VH/vh04 law6 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 roles=0 md5=b7351d1c
+VH/vh04 golden 206 pris=206 law6=206
+VH/vh05 pris rc=0 cmp=0 STRICT_EQUAL 80 objects dd=2 roles=0 md5=d979fcf2
+VH/vh05 law6 rc=0 cmp=0 STRICT_EQUAL 80 objects dd=2 roles=0 md5=d979fcf2
+VH/vh05 golden 275 pris=275 law6=275
+VH/vh06 pris rc=0 cmp=0 STRICT_EQUAL 125 objects dd=2 roles=0 md5=5e8fd385
+VH/vh06 law6 rc=0 cmp=0 STRICT_EQUAL 125 objects dd=2 roles=0 md5=5e8fd385
+VH/vh06 golden 326 pris=326 law6=326
+VH/vh07 pris rc=0 cmp=0 STRICT_EQUAL 89 objects dd=4 roles=0 md5=24e11693
+VH/vh07 law6 rc=0 cmp=0 STRICT_EQUAL 89 objects dd=4 roles=0 md5=24e11693
+VH/vh07 golden 310 pris=308 law6=308
+VH/vh08 pris rc=0 cmp=0 STRICT_EQUAL 51 objects dd=2 roles=0 md5=9bdefff7
+VH/vh08 law6 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=2 roles=0 md5=9bdefff7
+VH/vh08 golden 142 pris=142 law6=142
+VH/vh09 pris rc=0 cmp=0 STRICT_EQUAL 71 objects dd=6 roles=0 md5=9544eac5
+VH/vh09 law6 rc=0 cmp=0 STRICT_EQUAL 71 objects dd=6 roles=0 md5=9544eac5
+VH/vh09 golden 221 pris=217 law6=217
+VH/vh10 pris rc=0 cmp=0 STRICT_EQUAL 81 objects dd=2 roles=0 md5=d31c42b2
+VH/vh10 law6 rc=0 cmp=0 STRICT_EQUAL 81 objects dd=2 roles=0 md5=d31c42b2
+VH/vh10 golden 232 pris=232 law6=232
+VM/vm01 pris rc=0 cmp=0 STRICT_EQUAL 57 objects dd=32 roles=0 md5=f60759c4
+VM/vm01 law6 rc=0 cmp=0 STRICT_EQUAL 57 objects dd=32 roles=0 md5=f60759c4
+VM/vm01 golden 336 pris=314 law6=314
+VM/vm02 pris rc=0 cmp=0 STRICT_EQUAL 57 objects dd=28 roles=0 md5=ab73edfe
+VM/vm02 law6 rc=0 cmp=0 STRICT_EQUAL 57 objects dd=28 roles=0 md5=ab73edfe
+VM/vm02 golden 269 pris=257 law6=257
+VM/vm03 pris rc=0 cmp=0 STRICT_EQUAL 81 objects dd=50 roles=0 md5=8fcd4b33
+VM/vm03 law6 rc=0 cmp=0 STRICT_EQUAL 81 objects dd=50 roles=0 md5=8fcd4b33
+VM/vm03 golden 478 pris=446 law6=446
+VM/vm04 pris rc=0 cmp=56 NOT_EQUAL stage1 dd=116 roles=0 md5=eb9ab6a7
+VM/vm04 law6 rc=0 cmp=56 NOT_EQUAL stage1 dd=116 roles=0 md5=eb9ab6a7
+VM/vm04 golden 437 pris=414 law6=414
+VM/vm05 pris rc=0 cmp=0 STRICT_EQUAL 75 objects dd=54 roles=0 md5=19e99fde
+VM/vm05 law6 rc=0 cmp=0 STRICT_EQUAL 75 objects dd=54 roles=0 md5=19e99fde
+VM/vm05 golden 443 pris=413 law6=413
+VM/vm06 pris rc=0 cmp=0 STRICT_EQUAL 78 objects dd=50 roles=0 md5=e0eee310
+VM/vm06 law6 rc=0 cmp=0 STRICT_EQUAL 78 objects dd=50 roles=0 md5=e0eee310
+VM/vm06 golden 468 pris=441 law6=441
+VM/vm07 pris rc=0 cmp=0 STRICT_EQUAL 61 objects dd=28 roles=0 md5=d20149f6
+VM/vm07 law6 rc=0 cmp=0 STRICT_EQUAL 61 objects dd=28 roles=0 md5=d20149f6
+VM/vm07 golden 326 pris=310 law6=310
+VM/vm08 pris rc=0 cmp=0 STRICT_EQUAL 101 objects dd=36 roles=0 md5=3215297f
+VM/vm08 law6 rc=0 cmp=0 STRICT_EQUAL 101 objects dd=36 roles=0 md5=3215297f
+VM/vm08 golden 579 pris=555 law6=555
+VO/vo01 pris rc=0 cmp=0 STRICT_EQUAL 128 objects dd=62 roles=0 md5=6ebe8610
+VO/vo01 law6 rc=0 cmp=0 STRICT_EQUAL 128 objects dd=62 roles=0 md5=6ebe8610
+VO/vo01 golden 781 pris=760 law6=760
+VO/vo02 pris rc=0 cmp=0 STRICT_EQUAL 97 objects dd=48 roles=0 md5=16d424c1
+VO/vo02 law6 rc=0 cmp=0 STRICT_EQUAL 97 objects dd=48 roles=0 md5=16d424c1
+VO/vo02 golden 585 pris=564 law6=564
+VO/vo03 pris rc=0 cmp=0 STRICT_EQUAL 271 objects dd=210 roles=0 md5=2637a825
+VO/vo03 law6 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=210 roles=0 md5=2637a825
+VO/vo03 golden 1705 pris=1579 law6=1579
+VO/vo04 pris rc=0 cmp=0 STRICT_EQUAL 123 objects dd=48 roles=0 md5=0ac6ce67
+VO/vo04 law6 rc=0 cmp=0 STRICT_EQUAL 123 objects dd=48 roles=0 md5=0ac6ce67
+VO/vo04 golden 615 pris=594 law6=594
+VO/vo05 pris rc=0 cmp=0 STRICT_EQUAL 118 objects dd=48 roles=0 md5=d7f40603
+VO/vo05 law6 rc=0 cmp=0 STRICT_EQUAL 118 objects dd=48 roles=0 md5=d7f40603
+VO/vo05 golden 701 pris=680 law6=680
+VO/vo06 pris rc=0 cmp=269 NOT_EQUAL stage1 dd=72 roles=0 md5=ac99d241
+VO/vo06 law6 rc=0 cmp=269 NOT_EQUAL stage1 dd=72 roles=0 md5=ac99d241
+VO/vo06 golden 854 pris=823 law6=823
+VO/vo07 pris rc=0 cmp=0 STRICT_EQUAL 210 objects dd=250 roles=0 md5=37d5a030
+VO/vo07 law6 rc=0 cmp=0 STRICT_EQUAL 210 objects dd=250 roles=0 md5=37d5a030
+VO/vo07 golden 1257 pris=1170 law6=1170
+VR/vr01 pris rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=ac70e885
+VR/vr01 law6 rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=ac70e885
+VR/vr01 golden 293 pris=293 law6=293
+VR/vr02 pris rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=40f60b27
+VR/vr02 law6 rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=40f60b27
+VR/vr02 golden 290 pris=290 law6=290
+VR/vr03 pris rc=0 cmp=0 STRICT_EQUAL 46 objects dd=2 roles=0 md5=9aeca547
+VR/vr03 law6 rc=0 cmp=0 STRICT_EQUAL 46 objects dd=2 roles=0 md5=9aeca547
+VR/vr03 golden 219 pris=219 law6=219
+VR/vr04 pris rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=689c7fdf
+VR/vr04 law6 rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=689c7fdf
+VR/vr04 golden 247 pris=247 law6=247
+VR/vr05 pris rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=d07d42da
+VR/vr05 law6 rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=d07d42da
+VR/vr05 golden 247 pris=247 law6=247
+VR/vr06 pris rc=0 cmp=0 STRICT_EQUAL 107 objects dd=2 roles=0 md5=a7a54315
+VR/vr06 law6 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=2 roles=0 md5=a7a54315
+VR/vr06 golden 633 pris=633 law6=633
+VR/vr07 pris rc=0 cmp=0 STRICT_EQUAL 74 objects dd=2 roles=0 md5=eae1b459
+VR/vr07 law6 rc=0 cmp=0 STRICT_EQUAL 74 objects dd=2 roles=0 md5=eae1b459
+VR/vr07 golden 347 pris=347 law6=347
+VR/vr08 pris rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=d48a9c96
+VR/vr08 law6 rc=0 cmp=0 STRICT_EQUAL 53 objects dd=2 roles=0 md5=d48a9c96
+VR/vr08 golden 247 pris=247 law6=247
+VR/vr09 pris rc=0 cmp=0 STRICT_EQUAL 70 objects dd=2 roles=0 md5=40809080
+VR/vr09 law6 rc=0 cmp=0 STRICT_EQUAL 70 objects dd=2 roles=0 md5=40809080
+VR/vr09 golden 307 pris=307 law6=307
+VR/vr10 pris rc=0 cmp=0 STRICT_EQUAL 76 objects dd=2 roles=0 md5=38bee949
+VR/vr10 law6 rc=0 cmp=0 STRICT_EQUAL 76 objects dd=2 roles=0 md5=38bee949
+VR/vr10 golden 332 pris=332 law6=332
+VR/vr11 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=6 roles=0 md5=557ef303
+VR/vr11 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=6 roles=0 md5=557ef303
+VR/vr11 golden 355 pris=353 law6=353
+VR/vr12 pris rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=ccc2868a
+VR/vr12 law6 rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles=0 md5=ccc2868a
+VR/vr12 golden 293 pris=293 law6=293
+VV/vv01 pris rc=0 cmp=0 STRICT_EQUAL 45 objects dd=26 roles=0 md5=01ec990f
+VV/vv01 law6 rc=0 cmp=0 STRICT_EQUAL 45 objects dd=26 roles=0 md5=01ec990f
+VV/vv01 golden 257 pris=241 law6=241
+VV/vv02 pris rc=0 cmp=0 STRICT_EQUAL 51 objects dd=14 roles=0 md5=44940ce0
+VV/vv02 law6 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=14 roles=0 md5=44940ce0
+VV/vv02 golden 275 pris=273 law6=273
+VV/vv03 pris rc=0 cmp=0 STRICT_EQUAL 151 objects dd=68 roles=0 md5=4b6a70d9
+VV/vv03 law6 rc=0 cmp=0 STRICT_EQUAL 151 objects dd=68 roles=0 md5=4b6a70d9
+VV/vv03 golden 863 pris=843 law6=843
+VV/vv04 pris rc=0 cmp=0 STRICT_EQUAL 93 objects dd=24 roles=0 md5=0cdad2a6
+VV/vv04 law6 rc=0 cmp=0 STRICT_EQUAL 93 objects dd=24 roles=0 md5=0cdad2a6
+VV/vv04 golden 491 pris=477 law6=477
+VV/vv05 pris rc=0 cmp=0 STRICT_EQUAL 49 objects dd=32 roles=0 md5=34c90f93
+VV/vv05 law6 rc=0 cmp=0 STRICT_EQUAL 49 objects dd=32 roles=0 md5=34c90f93
+VV/vv05 golden 283 pris=269 law6=269
+VV/vv06 pris rc=0 cmp=111 NOT_EQUAL stage1 dd=36 roles=0 md5=31524a00
+VV/vv06 law6 rc=0 cmp=111 NOT_EQUAL stage1 dd=36 roles=0 md5=31524a00
+VV/vv06 golden 238 pris=222 law6=222
+VV/vv07 pris rc=0 cmp=0 STRICT_EQUAL 72 objects dd=40 roles=0 md5=af6f929b
+VV/vv07 law6 rc=0 cmp=0 STRICT_EQUAL 72 objects dd=40 roles=0 md5=af6f929b
+VV/vv07 golden 429 pris=409 law6=409
+VV/vv08 pris rc=0 cmp=382 NOT_EQUAL stage1 dd=149 roles=0 md5=f0e13ccc
+VV/vv08 law6 rc=0 cmp=382 NOT_EQUAL stage1 dd=149 roles=0 md5=f0e13ccc
+VV/vv08 golden 707 pris=676 law6=676
+VV/vv09 pris rc=0 cmp=0 STRICT_EQUAL 57 objects dd=22 roles=0 md5=776962ba
+VV/vv09 law6 rc=0 cmp=0 STRICT_EQUAL 57 objects dd=22 roles=0 md5=776962ba
+VV/vv09 golden 324 pris=314 law6=314
+VX/vx01 pris rc=0 cmp=0 STRICT_EQUAL 92 objects dd=54 roles=0 md5=2f3b6fe4
+VX/vx01 law6 rc=0 cmp=0 STRICT_EQUAL 92 objects dd=54 roles=0 md5=2f3b6fe4
+VX/vx01 golden 552 pris=525 law6=525
+VX/vx02 pris rc=0 cmp=0 STRICT_EQUAL 179 objects dd=200 roles=0 md5=52167f78
+VX/vx02 law6 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=200 roles=0 md5=52167f78
+VX/vx02 golden 979 pris=823 law6=823
+VX/vx03 pris rc=0 cmp=0 STRICT_EQUAL 179 objects dd=125 roles=0 md5=12476642
+VX/vx03 law6 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=125 roles=0 md5=12476642
+VX/vx03 golden 1139 pris=1084 law6=1084
+VX/vx04 pris rc=0 cmp=0 STRICT_EQUAL 91 objects dd=38 roles=0 md5=599a92a3
+VX/vx04 law6 rc=0 cmp=0 STRICT_EQUAL 91 objects dd=38 roles=0 md5=599a92a3
+VX/vx04 golden 446 pris=425 law6=425
+VX/vx05 pris rc=0 cmp=0 STRICT_EQUAL 229 objects dd=186 roles=0 md5=ce94a709
+VX/vx05 law6 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=186 roles=0 md5=ce94a709
+VX/vx05 golden 1434 pris=1324 law6=1324
+VX/vx06 pris rc=0 cmp=197 NOT_EQUAL stage1 dd=58 roles=0 md5=8f0ef007
+VX/vx06 law6 rc=0 cmp=197 NOT_EQUAL stage1 dd=58 roles=0 md5=8f0ef007
+VX/vx06 golden 658 pris=627 law6=627
+VX/vx07 pris rc=0 cmp=191 NOT_EQUAL stage1 dd=64 roles=0 md5=b2ee7c52
+VX/vx07 law6 rc=0 cmp=191 NOT_EQUAL stage1 dd=64 roles=0 md5=b2ee7c52
+VX/vx07 golden 515 pris=486 law6=486
+VX/vx08 pris rc=0 cmp=0 STRICT_EQUAL 153 objects dd=118 roles=0 md5=897bd135
+VX/vx08 law6 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=118 roles=0 md5=897bd135
+VX/vx08 golden 913 pris=837 law6=837
+VX/vx09 pris rc=0 cmp=91 NOT_EQUAL stage1 dd=42 roles=0 md5=0ec7eae2
+VX/vx09 law6 rc=0 cmp=91 NOT_EQUAL stage1 dd=42 roles=0 md5=0ec7eae2
+VX/vx09 golden 560 pris=535 law6=535
+VX/vx10 pris rc=0 cmp=82 NOT_EQUAL stage1 dd=8 roles=0 md5=10c54bdb
+VX/vx10 law6 rc=0 cmp=82 NOT_EQUAL stage1 dd=8 roles=0 md5=10c54bdb
+VX/vx10 golden 193 pris=188 law6=188
+VX/vx11 pris rc=0 cmp=91 NOT_EQUAL stage1 dd=76 roles=0 md5=98279fc5
+VX/vx11 law6 rc=0 cmp=91 NOT_EQUAL stage1 dd=76 roles=0 md5=98279fc5
+VX/vx11 golden 650 pris=612 law6=612
+VX/vx12 pris rc=0 cmp=0 STRICT_EQUAL 97 objects dd=68 roles=0 md5=f68e31c7
+VX/vx12 law6 rc=0 cmp=0 STRICT_EQUAL 97 objects dd=68 roles=0 md5=f68e31c7
+VX/vx12 golden 595 pris=561 law6=561
+VX/vx13 pris rc=0 cmp=0 STRICT_EQUAL 95 objects dd=54 roles=0 md5=a4089dbe
+VX/vx13 law6 rc=0 cmp=0 STRICT_EQUAL 95 objects dd=54 roles=0 md5=a4089dbe
+VX/vx13 golden 577 pris=548 law6=548
+VL/vl01 pris rc=0 cmp=0 STRICT_EQUAL 161 objects dd=76 roles=0 md5=7448b155
+VL/vl01 law6 rc=0 cmp=0 STRICT_EQUAL 161 objects dd=76 roles=0 md5=7448b155
+VL/vl01 golden 648 pris=638 law6=638
+VL/vl02 pris rc=0 cmp=0 STRICT_EQUAL 180 objects dd=86 roles=0 md5=50f1ddd2
+VL/vl02 law6 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=86 roles=0 md5=50f1ddd2
+VL/vl02 golden 677 pris=664 law6=664
+VL/vl03 pris rc=0 cmp=0 STRICT_EQUAL 194 objects dd=98 roles=0 md5=561eaa1d
+VL/vl03 law6 rc=0 cmp=0 STRICT_EQUAL 194 objects dd=98 roles=0 md5=561eaa1d
+VL/vl03 golden 793 pris=771 law6=771
+VL/vl04 pris rc=0 cmp=0 STRICT_EQUAL 167 objects dd=74 roles=0 md5=72fc7129
+VL/vl04 law6 rc=0 cmp=0 STRICT_EQUAL 167 objects dd=74 roles=0 md5=72fc7129
+VL/vl04 golden 801 pris=784 law6=784
+VL/vl05 pris rc=0 cmp=0 STRICT_EQUAL 160 objects dd=54 roles=0 md5=22f92158
+VL/vl05 law6 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=54 roles=0 md5=22f92158
+VL/vl05 golden 538 pris=524 law6=524
+VL/vl06 pris rc=0 cmp=0 STRICT_EQUAL 206 objects dd=84 roles=0 md5=cd90fa14
+VL/vl06 law6 rc=0 cmp=0 STRICT_EQUAL 206 objects dd=84 roles=0 md5=cd90fa14
+VL/vl06 golden 734 pris=722 law6=722
+VL/vl07 pris rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=5c3c95f8
+VL/vl07 law6 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=5c3c95f8
+VL/vl07 golden 425 pris=414 law6=414
+VL/vl08 pris rc=0 cmp=0 STRICT_EQUAL 30 objects dd=12 roles=0 md5=b9e2a21f
+VL/vl08 law6 rc=0 cmp=0 STRICT_EQUAL 30 objects dd=12 roles=0 md5=b9e2a21f
+VL/vl08 golden 162 pris=162 law6=162
+VL/vl09 pris rc=0 cmp=0 STRICT_EQUAL 106 objects dd=50 roles=0 md5=46c65c40
+VL/vl09 law6 rc=0 cmp=0 STRICT_EQUAL 106 objects dd=50 roles=0 md5=46c65c40
+VL/vl09 golden 437 pris=425 law6=425
+VL/vl10 pris rc=0 cmp=24 NOT_EQUAL stage1 dd=132 roles=0 md5=4753ecdc
+VL/vl10 law6 rc=0 cmp=24 NOT_EQUAL stage1 dd=132 roles=0 md5=4753ecdc
+VL/vl10 golden 1046 pris=1015 law6=1015
+VL/vl11 pris rc=0 cmp=414 NOT_EQUAL stage1 dd=54 roles=0 md5=7bf29f41
+VL/vl11 law6 rc=0 cmp=414 NOT_EQUAL stage1 dd=54 roles=0 md5=7bf29f41
+VL/vl11 golden 431 pris=424 law6=424
+VL/vl12 pris rc=0 cmp=0 STRICT_EQUAL 66 objects dd=50 roles=0 md5=8bf6371a
+VL/vl12 law6 rc=0 cmp=0 STRICT_EQUAL 66 objects dd=50 roles=0 md5=8bf6371a
+VL/vl12 golden 396 pris=382 law6=382
+VL/vl13 pris rc=0 cmp=0 STRICT_EQUAL 203 objects dd=70 roles=0 md5=c8c7375b
+VL/vl13 law6 rc=0 cmp=0 STRICT_EQUAL 203 objects dd=70 roles=0 md5=c8c7375b
+VL/vl13 golden 753 pris=738 law6=738
+VL/vl14 pris rc=0 cmp=0 STRICT_EQUAL 215 objects dd=67 roles=0 md5=fbc6415c
+VL/vl14 law6 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=67 roles=0 md5=fbc6415c
+VL/vl14 golden 793 pris=778 law6=778
+VL/vl15 pris rc=0 cmp=0 STRICT_EQUAL 108 objects dd=56 roles=0 md5=eae5f887
+VL/vl15 law6 rc=0 cmp=0 STRICT_EQUAL 108 objects dd=56 roles=0 md5=eae5f887
+VL/vl15 golden 450 pris=439 law6=439
+VL/vl16 pris rc=0 cmp=1042 NOT_EQUAL stage1 dd=100 roles=0 md5=3aea5aa6
+VL/vl16 law6 rc=0 cmp=1042 NOT_EQUAL stage1 dd=100 roles=0 md5=3aea5aa6
+VL/vl16 golden 1143 pris=1108 law6=1108
+VL/vl17 pris rc=0 cmp=0 STRICT_EQUAL 120 objects dd=50 roles=0 md5=291f04d8
+VL/vl17 law6 rc=0 cmp=0 STRICT_EQUAL 120 objects dd=50 roles=0 md5=291f04d8
+VL/vl17 golden 480 pris=471 law6=471
+VL/vl18 pris rc=0 cmp=0 STRICT_EQUAL 107 objects dd=50 roles=0 md5=40a1aa78
+VL/vl18 law6 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=50 roles=0 md5=40a1aa78
+VL/vl18 golden 450 pris=439 law6=439
+VL/vl19 pris rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=7ef1d5f1
+VL/vl19 law6 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 roles=0 md5=7ef1d5f1
+VL/vl19 golden 424 pris=413 law6=413
+VL/vl20 pris rc=0 cmp=0 STRICT_EQUAL 169 objects dd=90 roles=0 md5=0801f208
+VL/vl20 law6 rc=0 cmp=0 STRICT_EQUAL 169 objects dd=90 roles=0 md5=0801f208
+VL/vl20 golden 660 pris=646 law6=646
+VL/vl21 pris rc=0 cmp=0 STRICT_EQUAL 119 objects dd=48 roles=0 md5=d59bcf75
+VL/vl21 law6 rc=0 cmp=0 STRICT_EQUAL 119 objects dd=48 roles=0 md5=d59bcf75
+VL/vl21 golden 500 pris=491 law6=491
+VL/vl22 pris rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 roles=0 md5=4d9fc5ba
+VL/vl22 law6 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 roles=0 md5=4d9fc5ba
+VL/vl22 golden 678 pris=666 law6=666
+VL/vl23 pris rc=0 cmp=126 NOT_EQUAL stage1 dd=92 roles=0 md5=fb7511cd
+VL/vl23 law6 rc=0 cmp=126 NOT_EQUAL stage1 dd=92 roles=0 md5=fb7511cd
+VL/vl23 golden 621 pris=592 law6=592
+VL/vl24 pris rc=0 cmp=0 STRICT_EQUAL 183 objects dd=136 roles=0 md5=3fc98994
+VL/vl24 law6 rc=0 cmp=0 STRICT_EQUAL 183 objects dd=136 roles=0 md5=3fc98994
+VL/vl24 golden 833 pris=814 law6=814
+VT/vt01 pris rc=0 cmp=284 NOT_EQUAL stage1 dd=35 roles=0 md5=3c74f158
+VT/vt01 law6 rc=0 cmp=284 NOT_EQUAL stage1 dd=35 roles=0 md5=3c74f158
+VT/vt01 golden 382 pris=380 law6=380
+VT/vt02 pris rc=0 cmp=184 NOT_EQUAL stage1 dd=74 roles=0 md5=8b5fca58
+VT/vt02 law6 rc=0 cmp=184 NOT_EQUAL stage1 dd=74 roles=0 md5=8b5fca58
+VT/vt02 golden 269 pris=265 law6=265
+VT/vt03 pris rc=0 cmp=294 NOT_EQUAL stage1 dd=38 roles=0 md5=3e935ec2
+VT/vt03 law6 rc=0 cmp=294 NOT_EQUAL stage1 dd=38 roles=0 md5=3e935ec2
+VT/vt03 golden 415 pris=397 law6=397
+VT/vt04 pris rc=0 cmp=388 NOT_EQUAL stage1 dd=8 roles=0 md5=52d94dd4
+VT/vt04 law6 rc=0 cmp=388 NOT_EQUAL stage1 dd=8 roles=0 md5=52d94dd4
+VT/vt04 golden 554 pris=548 law6=548
+VT/vt05 pris rc=0 cmp=412 NOT_EQUAL stage1 dd=30 roles=0 md5=9848f4cd
+VT/vt05 law6 rc=0 cmp=412 NOT_EQUAL stage1 dd=30 roles=0 md5=9848f4cd
+VT/vt05 golden 638 pris=622 law6=622
+VT/vt06 pris rc=0 cmp=0 STRICT_EQUAL 300 objects dd=8 roles=0 md5=45a6436c
+VT/vt06 law6 rc=0 cmp=0 STRICT_EQUAL 300 objects dd=8 roles=0 md5=45a6436c
+VT/vt06 golden 442 pris=436 law6=436
+VT/vt07 pris rc=0 cmp=56 NOT_EQUAL stage1 dd=276 roles=0 md5=0c2b3ffa
+VT/vt07 law6 rc=0 cmp=56 NOT_EQUAL stage1 dd=276 roles=0 md5=0c2b3ffa
+VT/vt07 golden 639 pris=529 law6=529
+VT/vt08 pris rc=0 cmp=308 NOT_EQUAL stage1 dd=2 roles=0 md5=a8f93762
+VT/vt08 law6 rc=0 cmp=308 NOT_EQUAL stage1 dd=2 roles=0 md5=a8f93762
+VT/vt08 golden 457 pris=457 law6=457
+VT/vt09 pris rc=0 cmp=0 STRICT_EQUAL 259 objects dd=8 roles=0 md5=2a3f13ec
+VT/vt09 law6 rc=0 cmp=0 STRICT_EQUAL 259 objects dd=8 roles=0 md5=2a3f13ec
+VT/vt09 golden 494 pris=488 law6=488
+VT/vt10 pris rc=0 cmp=0 STRICT_EQUAL 63 objects dd=30 roles=0 md5=6e7c2d28
+VT/vt10 law6 rc=0 cmp=0 STRICT_EQUAL 63 objects dd=30 roles=0 md5=6e7c2d28
+VT/vt10 golden 326 pris=310 law6=310
+VT/vt11 pris rc=0 cmp=95 NOT_EQUAL stage1 dd=142 roles=0 md5=b37351b4
+VT/vt11 law6 rc=0 cmp=95 NOT_EQUAL stage1 dd=142 roles=0 md5=b37351b4
+VT/vt11 golden 294 pris=269 law6=269
+VT/vt12 pris rc=0 cmp=284 NOT_EQUAL stage1 dd=64 roles=0 md5=8393304e
+VT/vt12 law6 rc=0 cmp=284 NOT_EQUAL stage1 dd=64 roles=0 md5=8393304e
+VT/vt12 golden 471 pris=454 law6=454
+VT/vt13 pris rc=0 cmp=0 STRICT_EQUAL 329 objects dd=64 roles=0 md5=0d780ab8
+VT/vt13 law6 rc=0 cmp=0 STRICT_EQUAL 329 objects dd=64 roles=0 md5=0d780ab8
+VT/vt13 golden 506 pris=502 law6=502
+VT/vt14 pris rc=0 cmp=384 NOT_EQUAL stage1 dd=2 roles=0 md5=063db3a8
+VT/vt14 law6 rc=0 cmp=384 NOT_EQUAL stage1 dd=2 roles=0 md5=063db3a8
+VT/vt14 golden 480 pris=480 law6=480
+VT/vt15 pris rc=0 cmp=0 STRICT_EQUAL 69 objects dd=2 roles=0 md5=8eb802aa
+VT/vt15 law6 rc=0 cmp=0 STRICT_EQUAL 69 objects dd=2 roles=0 md5=8eb802aa
+VT/vt15 golden 214 pris=214 law6=214
+VT/vt16 pris rc=0 cmp=314 NOT_EQUAL stage1 dd=8 roles=0 md5=4e5712ff
+VT/vt16 law6 rc=0 cmp=314 NOT_EQUAL stage1 dd=8 roles=0 md5=4e5712ff
+VT/vt16 golden 543 pris=537 law6=537
+VT/vt17 pris rc=0 cmp=426 NOT_EQUAL stage1 dd=68 roles=0 md5=1045d348
+VT/vt17 law6 rc=0 cmp=426 NOT_EQUAL stage1 dd=68 roles=0 md5=1045d348
+VT/vt17 golden 335 pris=327 law6=327
+VT/vt18 pris rc=0 cmp=0 STRICT_EQUAL 283 objects dd=8 roles=0 md5=ac971783
+VT/vt18 law6 rc=0 cmp=0 STRICT_EQUAL 283 objects dd=8 roles=0 md5=ac971783
+VT/vt18 golden 449 pris=443 law6=443
+VT/vt19 pris rc=0 cmp=290 NOT_EQUAL stage1 dd=111 roles=0 md5=728ba485
+VT/vt19 law6 rc=0 cmp=290 NOT_EQUAL stage1 dd=111 roles=0 md5=728ba485
+VT/vt19 golden 316 pris=312 law6=312
+VT/vt20 pris rc=0 cmp=468 NOT_EQUAL stage1 dd=173 roles=0 md5=00cb8532
+VT/vt20 law6 rc=0 cmp=468 NOT_EQUAL stage1 dd=173 roles=0 md5=00cb8532
+VT/vt20 golden 1112 pris=1095 law6=1095
+VT/vt21 pris rc=0 cmp=284 NOT_EQUAL stage1 dd=20 roles=0 md5=7ec1c65d
+VT/vt21 law6 rc=0 cmp=284 NOT_EQUAL stage1 dd=20 roles=0 md5=7ec1c65d
+VT/vt21 golden 465 pris=455 law6=455
+VT/vt22 pris rc=0 cmp=216 NOT_EQUAL stage1 dd=8 roles=0 md5=b53ba5d9
+VT/vt22 law6 rc=0 cmp=216 NOT_EQUAL stage1 dd=8 roles=0 md5=b53ba5d9
+VT/vt22 golden 374 pris=368 law6=368
+VT/vt23 pris rc=0 cmp=200 NOT_EQUAL stage1 dd=140 roles=0 md5=83712722
+VT/vt23 law6 rc=0 cmp=200 NOT_EQUAL stage1 dd=140 roles=0 md5=83712722
+VT/vt23 golden 422 pris=398 law6=398
+VT/vt24 pris rc=0 cmp=136 NOT_EQUAL stage1 dd=197 roles=0 md5=d9031cd1
+VT/vt24 law6 rc=0 cmp=136 NOT_EQUAL stage1 dd=197 roles=0 md5=d9031cd1
+VT/vt24 golden 343 pris=326 law6=326
+VT/vt25 pris rc=0 cmp=260 NOT_EQUAL stage1 dd=103 roles=0 md5=8dcd814b
+VT/vt25 law6 rc=0 cmp=260 NOT_EQUAL stage1 dd=103 roles=0 md5=8dcd814b
+VT/vt25 golden 406 pris=392 law6=392
+VT/vt26 pris rc=0 cmp=150 NOT_EQUAL stage1 dd=92 roles=0 md5=32420f46
+VT/vt26 law6 rc=0 cmp=150 NOT_EQUAL stage1 dd=92 roles=0 md5=32420f46
+VT/vt26 golden 432 pris=411 law6=411
+VU/vu01 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=878 roles=0 md5=32ba9fe0
+VU/vu01 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=878 roles=0 md5=32ba9fe0
+VU/vu01 golden 4561 pris=4032 law6=4032
+VU/vu02 pris rc=0 cmp=0 STRICT_EQUAL 248 objects dd=270 roles=0 md5=29d3a4d9
+VU/vu02 law6 rc=0 cmp=0 STRICT_EQUAL 248 objects dd=270 roles=0 md5=29d3a4d9
+VU/vu02 golden 1552 pris=1458 law6=1458
+VU/vu03 pris rc=0 cmp=0 STRICT_EQUAL 329 objects dd=316 roles=0 md5=e2ce1167
+VU/vu03 law6 rc=0 cmp=0 STRICT_EQUAL 329 objects dd=316 roles=0 md5=e2ce1167
+VU/vu03 golden 2082 pris=1943 law6=1943
+VU/vu04 pris rc=0 cmp=0 STRICT_EQUAL 393 objects dd=344 roles=0 md5=2ddb19c1
+VU/vu04 law6 rc=0 cmp=0 STRICT_EQUAL 393 objects dd=344 roles=0 md5=2ddb19c1
+VU/vu04 golden 2443 pris=2281 law6=2281
+VU/vu05 pris rc=0 cmp=0 STRICT_EQUAL 737 objects dd=1974 roles=0 md5=fc20ecd8
+VU/vu05 law6 rc=0 cmp=0 STRICT_EQUAL 737 objects dd=1974 roles=0 md5=fc20ecd8
+VU/vu05 golden 4095 pris=2224 law6=2224
+VU/vu06 pris rc=0 cmp=1116 NOT_EQUAL stage1 dd=250 roles=0 md5=34d58606
+VU/vu06 law6 rc=0 cmp=1116 NOT_EQUAL stage1 dd=250 roles=0 md5=34d58606
+VU/vu06 golden 1340 pris=1259 law6=1259
+VU/vu07 pris rc=0 cmp=68 NOT_EQUAL stage1 dd=1172 roles=0 md5=4a741ed2
+VU/vu07 law6 rc=0 cmp=68 NOT_EQUAL stage1 dd=1172 roles=0 md5=4a741ed2
+VU/vu07 golden 4652 pris=3862 law6=3862
+VU/vu08 pris rc=0 cmp=0 STRICT_EQUAL 340 objects dd=290 roles=0 md5=1929868a
+VU/vu08 law6 rc=0 cmp=0 STRICT_EQUAL 340 objects dd=290 roles=0 md5=1929868a
+VU/vu08 golden 2120 pris=1975 law6=1975
+VU/vu09 pris rc=0 cmp=0 STRICT_EQUAL 366 objects dd=378 roles=0 md5=ff4d5379
+VU/vu09 law6 rc=0 cmp=0 STRICT_EQUAL 366 objects dd=378 roles=0 md5=ff4d5379
+VU/vu09 golden 2288 pris=2207 law6=2207
+VU/vu10 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=596 roles=0 md5=997bff1c
+VU/vu10 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=596 roles=0 md5=997bff1c
+VU/vu10 golden 3039 pris=2796 law6=2796
+VU/vu11 pris rc=0 cmp=0 STRICT_EQUAL 307 objects dd=430 roles=0 md5=3dcc569e
+VU/vu11 law6 rc=0 cmp=0 STRICT_EQUAL 307 objects dd=430 roles=0 md5=3dcc569e
+VU/vu11 golden 1600 pris=1275 law6=1275
+VU/vu12 pris rc=0 cmp=0 STRICT_EQUAL 238 objects dd=176 roles=0 md5=48d1a5c3
+VU/vu12 law6 rc=0 cmp=0 STRICT_EQUAL 238 objects dd=176 roles=0 md5=48d1a5c3
+VU/vu12 golden 1481 pris=1420 law6=1420
+VU/vu13 pris rc=0 cmp=184 NOT_EQUAL stage1 dd=846 roles=0 md5=171edb81
+VU/vu13 law6 rc=0 cmp=184 NOT_EQUAL stage1 dd=846 roles=0 md5=171edb81
+VU/vu13 golden 3856 pris=3227 law6=3227
+VU/vu14 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=299 roles=0 md5=b23482c0
+VU/vu14 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=299 roles=0 md5=b23482c0
+VU/vu14 golden 1769 pris=1573 law6=1573
+VU/vu15 pris rc=0 cmp=0 STRICT_EQUAL 369 objects dd=350 roles=0 md5=da072b42
+VU/vu15 law6 rc=0 cmp=0 STRICT_EQUAL 369 objects dd=350 roles=0 md5=da072b42
+VU/vu15 golden 1967 pris=1895 law6=1895
+VU/vu16 pris rc=0 cmp=0 STRICT_EQUAL 681 objects dd=732 roles=0 md5=8847e51f
+VU/vu16 law6 rc=0 cmp=0 STRICT_EQUAL 681 objects dd=732 roles=0 md5=8847e51f
+VU/vu16 golden 4359 pris=4059 law6=4059
+VU/vu17 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0 md5=18bd0686
+VU/vu17 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0 md5=18bd0686
+VU/vu17 golden 3073 pris=2661 law6=2661
+VU/vu18 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=223 roles=0 md5=f84d29be
+VU/vu18 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=223 roles=0 md5=f84d29be
+VU/vu18 golden 1756 pris=1647 law6=1647
+VU/vu19 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1062 roles=0 md5=bd609b0a
+VU/vu19 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1062 roles=0 md5=bd609b0a
+VU/vu19 golden 4404 pris=3720 law6=3720
+VU/vu20 pris rc=0 cmp=0 STRICT_EQUAL 893 objects dd=1467 roles=0 md5=90763f32
+VU/vu20 law6 rc=0 cmp=0 STRICT_EQUAL 893 objects dd=1467 roles=0 md5=90763f32
+VU/vu20 golden 5151 pris=4350 law6=4350
+VU/vu21 pris rc=0 cmp=0 STRICT_EQUAL 234 objects dd=182 roles=0 md5=2495c108
+VU/vu21 law6 rc=0 cmp=0 STRICT_EQUAL 234 objects dd=182 roles=0 md5=2495c108
+VU/vu21 golden 1477 pris=1376 law6=1376
+VU/vu22 pris rc=0 cmp=0 STRICT_EQUAL 320 objects dd=290 roles=0 md5=b099879c
+VU/vu22 law6 rc=0 cmp=0 STRICT_EQUAL 320 objects dd=290 roles=0 md5=b099879c
+VU/vu22 golden 1972 pris=1824 law6=1824
+VE/ve01 pris rc=0 cmp=0 STRICT_EQUAL 414 objects dd=1378 roles=0 md5=534aca79
+VE/ve01 law6 rc=0 cmp=0 STRICT_EQUAL 414 objects dd=1378 roles=0 md5=534aca79
+VE/ve01 golden 2201 pris=831 law6=831
+VE/ve02 pris rc=0 cmp=0 STRICT_EQUAL 182 objects dd=262 roles=0 md5=efd623a3
+VE/ve02 law6 rc=0 cmp=0 STRICT_EQUAL 182 objects dd=262 roles=0 md5=efd623a3
+VE/ve02 golden 764 pris=510 law6=510
+VE/ve03 pris rc=0 cmp=0 STRICT_EQUAL 364 objects dd=1258 roles=0 md5=919202ca
+VE/ve03 law6 rc=0 cmp=0 STRICT_EQUAL 364 objects dd=1258 roles=0 md5=919202ca
+VE/ve03 golden 2020 pris=772 law6=772
+VE/ve04 pris rc=0 cmp=0 STRICT_EQUAL 485 objects dd=1386 roles=0 md5=7d1a62e6
+VE/ve04 law6 rc=0 cmp=0 STRICT_EQUAL 485 objects dd=1386 roles=0 md5=7d1a62e6
+VE/ve04 golden 2577 pris=1277 law6=1277
+VE/ve05 pris rc=0 cmp=0 STRICT_EQUAL 195 objects dd=260 roles=0 md5=612b0042
+VE/ve05 law6 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=260 roles=0 md5=612b0042
+VE/ve05 golden 803 pris=551 law6=551
+VE/ve06 pris rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=9037b6d9
+VE/ve06 law6 rc=0 cmp=0 STRICT_EQUAL 158 objects dd=260 roles=0 md5=9037b6d9
+VE/ve06 golden 741 pris=489 law6=489
+VE/ve07 pris rc=0 cmp=0 STRICT_EQUAL 333 objects dd=824 roles=0 md5=b4b7954f
+VE/ve07 law6 rc=0 cmp=0 STRICT_EQUAL 333 objects dd=824 roles=0 md5=b4b7954f
+VE/ve07 golden 1645 pris=837 law6=837
+VE/ve08 pris rc=0 cmp=0 STRICT_EQUAL 279 objects dd=782 roles=0 md5=51136d4a
+VE/ve08 law6 rc=0 cmp=0 STRICT_EQUAL 279 objects dd=782 roles=0 md5=51136d4a
+VE/ve08 golden 1544 pris=770 law6=770
+VE/ve09 pris rc=0 cmp=0 STRICT_EQUAL 160 objects dd=154 roles=0 md5=c126c89b
+VE/ve09 law6 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=154 roles=0 md5=c126c89b
+VE/ve09 golden 621 pris=480 law6=480
+VE/ve10 pris rc=0 cmp=0 STRICT_EQUAL 250 objects dd=634 roles=0 md5=b008f6ba
+VE/ve10 law6 rc=0 cmp=0 STRICT_EQUAL 250 objects dd=634 roles=0 md5=b008f6ba
+VE/ve10 golden 1234 pris=608 law6=608
+VE/ve12 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1024 roles=0 md5=cb1c262b
+VE/ve12 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1024 roles=0 md5=cb1c262b
+VE/ve12 golden 2562 pris=1668 law6=1668
+VM/vm01 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=899 roles=0 md5=5abcc4e9
+VM/vm01 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=791 roles=0 md5=a21b5561
+VM/vm01 golden 3003 pris=2520 law6=2747
+VM/vm02 pris rc=0 cmp=0 STRICT_EQUAL 378 objects dd=508 roles=0 md5=5f429be4
+VM/vm02 law6 rc=0 cmp=0 STRICT_EQUAL 378 objects dd=508 roles=0 md5=5f429be4
+VM/vm02 golden 1542 pris=1101 law6=1101
+VT/vt01 pris rc=0 cmp=79 NOT_EQUAL stage1 dd=763 roles=6 md5=c7a7bb18
+VT/vt01 law6 rc=0 cmp=79 NOT_EQUAL stage1 dd=763 roles=6 md5=c7a7bb18
+VT/vt01 golden 1229 pris=489 law6=489
+VT/vt02 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=188 roles=0 md5=3c063db9
+VT/vt02 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=188 roles=0 md5=3c063db9
+VT/vt02 golden 1157 pris=1005 law6=1005
+VT/vt03 pris rc=0 cmp=0 STRICT_EQUAL 265 objects dd=351 roles=0 md5=32349b0c
+VT/vt03 law6 rc=0 cmp=0 STRICT_EQUAL 265 objects dd=351 roles=0 md5=32349b0c
+VT/vt03 golden 1145 pris=809 law6=809
+VT/vt04 pris rc=0 cmp=0 STRICT_EQUAL 133 objects dd=140 roles=0 md5=5e6657ce
+VT/vt04 law6 rc=0 cmp=0 STRICT_EQUAL 133 objects dd=140 roles=0 md5=5e6657ce
+VT/vt04 golden 735 pris=657 law6=657
+VT/vt05 pris rc=0 cmp=0 STRICT_EQUAL 261 objects dd=254 roles=0 md5=3169493a
+VT/vt05 law6 rc=0 cmp=0 STRICT_EQUAL 261 objects dd=254 roles=0 md5=3169493a
+VT/vt05 golden 1317 pris=1119 law6=1119
+VT/vt06 pris rc=0 cmp=0 STRICT_EQUAL 464 objects dd=554 roles=0 md5=d185e5fe
+VT/vt06 law6 rc=0 cmp=0 STRICT_EQUAL 464 objects dd=554 roles=0 md5=d185e5fe
+VT/vt06 golden 2502 pris=2254 law6=2254
+VT/vt07 pris rc=0 cmp=122 NOT_EQUAL stage1 dd=361 roles=6 md5=7b940ff5
+VT/vt07 law6 rc=0 cmp=122 NOT_EQUAL stage1 dd=361 roles=6 md5=7b940ff5
+VT/vt07 golden 712 pris=374 law6=374
+VT/vt08 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=614 roles=0 md5=679c44f7
+VT/vt08 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=446 roles=0 md5=0875a864
+VT/vt08 golden 1945 pris=1539 law6=1766
+VT/vt09 pris rc=0 cmp=0 STRICT_EQUAL 383 objects dd=514 roles=0 md5=40c9a0df
+VT/vt09 law6 rc=0 cmp=0 STRICT_EQUAL 383 objects dd=514 roles=0 md5=40c9a0df
+VT/vt09 golden 2135 pris=1739 law6=1739
+VT/vt10 pris rc=0 cmp=114 NOT_EQUAL stage1 dd=1315 roles=6 md5=94a6bd9d
+VT/vt10 law6 rc=0 cmp=114 NOT_EQUAL stage1 dd=1315 roles=6 md5=94a6bd9d
+VT/vt10 golden 1613 pris=378 law6=378
+VT/vt11 pris rc=0 cmp=96 NOT_EQUAL stage1 dd=375 roles=2 md5=293fc684
+VT/vt11 law6 rc=0 cmp=96 NOT_EQUAL stage1 dd=375 roles=2 md5=293fc684
+VT/vt11 golden 1270 pris=1026 law6=1026
+VT/vt12 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=750 roles=0 md5=ec127846
+VT/vt12 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=750 roles=0 md5=ec127846
+VT/vt12 golden 2583 pris=2081 law6=2081
+VT/vt13 pris rc=0 cmp=0 STRICT_EQUAL 229 objects dd=260 roles=0 md5=d578df87
+VT/vt13 law6 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=260 roles=0 md5=d578df87
+VT/vt13 golden 1204 pris=1006 law6=1006
+VT/vt14 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=551 roles=0 md5=ec8d5a53
+VT/vt14 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=483 roles=0 md5=82deab4d
+VT/vt14 golden 1937 pris=1627 law6=1826
+VT/vt15 pris rc=0 cmp=0 STRICT_EQUAL 193 objects dd=238 roles=0 md5=fa5d14fd
+VT/vt15 law6 rc=0 cmp=0 STRICT_EQUAL 193 objects dd=238 roles=0 md5=fa5d14fd
+VT/vt15 golden 915 pris=791 law6=791
+VI/vi01 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=507 roles=0 md5=0c7eb0c0
+VI/vi01 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=507 roles=0 md5=0c7eb0c0
+VI/vi01 golden 2155 pris=1756 law6=1756
+VI/vi02 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=231 roles=0 md5=cb32258c
+VI/vi02 law6 rc=0 cmp=50 NOT_EQUAL stage1 dd=231 roles=0 md5=cb32258c
+VI/vi02 golden 1524 pris=1410 law6=1410
+VI/vi03 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=458 roles=0 md5=b331c39a
+VI/vi03 law6 rc=0 cmp=46 NOT_EQUAL stage1 dd=458 roles=0 md5=b331c39a
+VI/vi03 golden 2147 pris=1972 law6=1972
+VI/vi04 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=111 roles=0 md5=54e2a5cb
+VI/vi04 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=111 roles=0 md5=54e2a5cb
+VI/vi04 golden 1127 pris=1077 law6=1077
+VI/vi05 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=469 roles=0 md5=d3bf6b1e
+VI/vi05 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=469 roles=0 md5=d3bf6b1e
+VI/vi05 golden 2078 pris=1782 law6=1782
+VI/vi06 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=657 roles=0 md5=9a720c90
+VI/vi06 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=469 roles=0 md5=586070c8
+VI/vi06 golden 2008 pris=1587 law6=1840
+VI/vi07 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=167 roles=0 md5=f8736f7f
+VI/vi07 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=167 roles=0 md5=f8736f7f
+VI/vi07 golden 973 pris=886 law6=886
+VI/vi08 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0 md5=ae02db63
+VI/vi08 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=569 roles=0 md5=ae02db63
+VI/vi08 golden 2080 pris=1821 law6=1821
+VP/vp01 pris rc=0 cmp=0 STRICT_EQUAL 192 objects dd=28 roles=0 md5=00e0da13
+VP/vp01 law6 rc=0 cmp=0 STRICT_EQUAL 192 objects dd=28 roles=0 md5=00e0da13
+VP/vp01 golden 896 pris=895 law6=895
+VP/vp02 pris rc=0 cmp=68 NOT_EQUAL stage1 dd=72 roles=0 md5=61c9232b
+VP/vp02 law6 rc=0 cmp=68 NOT_EQUAL stage1 dd=72 roles=0 md5=61c9232b
+VP/vp02 golden 827 pris=776 law6=776
+VP/vp03 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=56a23b93
+VP/vp03 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=56a23b93
+VP/vp03 golden 930 pris=896 law6=896
+VP/vp04 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=71 roles=0 md5=a4fd8eff
+VP/vp04 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=71 roles=0 md5=a4fd8eff
+VP/vp04 golden 637 pris=583 law6=583
+VP/vp05 pris rc=0 cmp=0 STRICT_EQUAL 165 objects dd=2 roles=0 md5=658736d6
+VP/vp05 law6 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=2 roles=0 md5=658736d6
+VP/vp05 golden 888 pris=888 law6=888
+VP/vp06 pris rc=0 cmp=0 STRICT_EQUAL 129 objects dd=10 roles=0 md5=a220a1e6
+VP/vp06 law6 rc=0 cmp=0 STRICT_EQUAL 129 objects dd=10 roles=0 md5=a220a1e6
+VP/vp06 golden 654 pris=654 law6=654
+VP/vp07 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=92 roles=0 md5=c584ea83
+VP/vp07 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=92 roles=0 md5=c584ea83
+VP/vp07 golden 1142 pris=1058 law6=1058
+VP/vp08 pris rc=0 cmp=0 STRICT_EQUAL 215 objects dd=2 roles=0 md5=9b4a4806
+VP/vp08 law6 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=2 roles=0 md5=9b4a4806
+VP/vp08 golden 1190 pris=1190 law6=1190
+VP/vp09 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=59a36b3d
+VP/vp09 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=36 roles=0 md5=59a36b3d
+VP/vp09 golden 814 pris=780 law6=780
+VP/vp10 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=12 roles=0 md5=4a38611a
+VP/vp10 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=12 roles=0 md5=4a38611a
+VP/vp10 golden 886 pris=885 law6=885
+VP/vp11 pris rc=0 cmp=0 STRICT_EQUAL 202 objects dd=6 roles=0 md5=77481964
+VP/vp11 law6 rc=0 cmp=0 STRICT_EQUAL 202 objects dd=6 roles=0 md5=77481964
+VP/vp11 golden 1077 pris=1077 law6=1077
+VS/vs01 pris rc=0 cmp=0 STRICT_EQUAL 375 objects dd=862 roles=0 md5=86fb45cd
+VS/vs01 law6 rc=0 cmp=0 STRICT_EQUAL 375 objects dd=862 roles=0 md5=86fb45cd
+VS/vs01 golden 1726 pris=914 law6=914
+VS/vs02 pris rc=0 cmp=0 STRICT_EQUAL 467 objects dd=1092 roles=0 md5=5116e7b5
+VS/vs02 law6 rc=0 cmp=0 STRICT_EQUAL 467 objects dd=1092 roles=0 md5=5116e7b5
+VS/vs02 golden 2754 pris=1732 law6=1732
+VS/vs03 pris rc=0 cmp=0 STRICT_EQUAL 414 objects dd=1170 roles=0 md5=be59f9ea
+VS/vs03 law6 rc=0 cmp=0 STRICT_EQUAL 414 objects dd=1170 roles=0 md5=be59f9ea
+VS/vs03 golden 2093 pris=968 law6=968
+VS/vs04 pris rc=0 cmp=404 NOT_EQUAL stage1 dd=1422 roles=0 md5=76cc99be
+VS/vs04 law6 rc=0 cmp=404 NOT_EQUAL stage1 dd=1422 roles=0 md5=76cc99be
+VS/vs04 golden 2466 pris=1093 law6=1093
+VS/vs05 pris rc=0 cmp=0 STRICT_EQUAL 570 objects dd=1266 roles=0 md5=d91067fe
+VS/vs05 law6 rc=0 cmp=0 STRICT_EQUAL 570 objects dd=1266 roles=0 md5=d91067fe
+VS/vs05 golden 3204 pris=2065 law6=2065
+VS/vs06 pris rc=0 cmp=88 NOT_EQUAL stage1 dd=525 roles=12 md5=7a4f4245
+VS/vs06 law6 rc=0 cmp=88 NOT_EQUAL stage1 dd=525 roles=12 md5=7a4f4245
+VS/vs06 golden 915 pris=441 law6=441
+VT/vt01 pris rc=0 cmp=144 NOT_EQUAL stage1 dd=514 roles=0 md5=576183b1
+VT/vt01 law6 rc=0 cmp=144 NOT_EQUAL stage1 dd=514 roles=0 md5=576183b1
+VT/vt01 golden 971 pris=485 law6=485
+VT/vt02 pris rc=0 cmp=17 NOT_EQUAL stage1 dd=165 roles=0 md5=fc3f6188
+VT/vt02 law6 rc=0 cmp=17 NOT_EQUAL stage1 dd=165 roles=0 md5=fc3f6188
+VT/vt02 golden 1068 pris=939 law6=939
+VT/vt03 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=d42a037a
+VT/vt03 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=d42a037a
+VT/vt03 golden 808 pris=743 law6=743
+VT/vt04 pris rc=0 cmp=192 NOT_EQUAL stage1 dd=325 roles=0 md5=71cd9f05
+VT/vt04 law6 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=154 roles=0 md5=c408aabb
+VT/vt04 golden 1071 pris=778 law6=1065
+VT/vt05 pris rc=0 cmp=0 STRICT_EQUAL 382 objects dd=178 roles=0 md5=c3e9a510
+VT/vt05 law6 rc=0 cmp=0 STRICT_EQUAL 382 objects dd=178 roles=0 md5=c3e9a510
+VT/vt05 golden 1885 pris=1762 law6=1762
+VT/vt06 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=224 roles=0 md5=38a6b3a8
+VT/vt06 law6 rc=0 cmp=112 NOT_EQUAL stage1 dd=224 roles=0 md5=38a6b3a8
+VT/vt06 golden 1422 pris=1298 law6=1298
+VT/vt07 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=103 roles=0 md5=d23a4134
+VT/vt07 law6 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=103 roles=0 md5=d23a4134
+VT/vt07 golden 902 pris=838 law6=838
+VT/vt08 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=2b8d012a
+VT/vt08 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=73 roles=0 md5=2b8d012a
+VT/vt08 golden 885 pris=820 law6=820
+VT/vt09 pris rc=0 cmp=112 NOT_EQUAL stage1 dd=124 roles=0 md5=c63aac82
+VT/vt09 law6 rc=0 cmp=112 NOT_EQUAL stage1 dd=124 roles=0 md5=c63aac82
+VT/vt09 golden 1088 pris=968 law6=968
+VT/vt10 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=85 roles=0 md5=079f5c8a
+VT/vt10 law6 rc=0 cmp=64 NOT_EQUAL stage1 dd=85 roles=0 md5=079f5c8a
+VT/vt10 golden 1144 pris=1115 law6=1115
+VX/vx01 pris rc=0 cmp=0 STRICT_NOTEQUAL line dd=176 roles=0 md5=55b48821
+VX/vx01 law6 rc=0 cmp=0 STRICT_NOTEQUAL line dd=176 roles=0 md5=55b48821
+VX/vx01 golden 1484 pris=1408 law6=1408
+VX/vx02 pris rc=0 cmp=0 STRICT_EQUAL 165 objects dd=106 roles=0 md5=c9548f85
+VX/vx02 law6 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=106 roles=0 md5=c9548f85
+VX/vx02 golden 1012 pris=978 law6=978
+VX/vx03 pris rc=0 cmp=344 NOT_EQUAL stage1 dd=401 roles=0 md5=ef2858cf
+VX/vx03 law6 rc=0 cmp=344 NOT_EQUAL stage1 dd=401 roles=0 md5=ef2858cf
+VX/vx03 golden 1661 pris=1392 law6=1392
+VX/vx04 pris rc=0 cmp=936 NOT_EQUAL stage1 dd=224 roles=0 md5=5c278c24
+VX/vx04 law6 rc=0 cmp=936 NOT_EQUAL stage1 dd=224 roles=0 md5=5c278c24
+VX/vx04 golden 1533 pris=1424 law6=1424
+VX/vx05 pris rc=0 cmp=0 STRICT_EQUAL 204 objects dd=156 roles=0 md5=b95f48b2
+VX/vx05 law6 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=156 roles=0 md5=b95f48b2
+VX/vx05 golden 1263 pris=1195 law6=1195
+VX/vx06 pris rc=0 cmp=0 STRICT_EQUAL 691 objects dd=1391 roles=0 md5=5378bf32
+VX/vx06 law6 rc=0 cmp=0 STRICT_EQUAL 691 objects dd=1391 roles=0 md5=5378bf32
+VX/vx06 golden 3651 pris=2584 law6=2584
+VX/vx07 pris rc=0 cmp=0 STRICT_EQUAL 165 objects dd=107 roles=0 md5=ed8b24f5
+VX/vx07 law6 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=107 roles=0 md5=ed8b24f5
+VX/vx07 golden 1029 pris=995 law6=995
+VX/vx08 pris rc=0 cmp=0 STRICT_EQUAL 283 objects dd=232 roles=0 md5=39163073
+VX/vx08 law6 rc=0 cmp=0 STRICT_EQUAL 283 objects dd=232 roles=0 md5=39163073
+VX/vx08 golden 1775 pris=1652 law6=1652
+VX/vx09 pris rc=0 cmp=0 STRICT_EQUAL 345 objects dd=322 roles=0 md5=348de4bb
+VX/vx09 law6 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=322 roles=0 md5=348de4bb
+VX/vx09 golden 2182 pris=2042 law6=2042
+VX/vx10 pris rc=0 cmp=0 STRICT_EQUAL 242 objects dd=208 roles=0 md5=2ecfb419
+VX/vx10 law6 rc=0 cmp=0 STRICT_EQUAL 242 objects dd=208 roles=0 md5=2ecfb419
+VX/vx10 golden 1508 pris=1401 law6=1401
+DONE

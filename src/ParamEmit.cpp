@@ -31189,6 +31189,7 @@ static void cloneLvSharesHomeUnitTs465(
     const std::function<bool(const slang::ast::Symbol&)>& pkgImportedByUnit21);  // § cloneLvSharesHomeUnitTs465
 static void unitCopyOwnTsEveryPath467(UHDM::Serializer& s, UHDM::design* d);  // § unitCopyOwnTsEveryPath467
 static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d);  // § importCopyTsInstByRole469
+static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d);  // § modImpCopyTdChainHomeTop473
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31571,6 +31572,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
                                });
     unitCopyOwnTsEveryPath467(s, d);
     importCopyTsInstByRole469(s, d);
+    modImpCopyTdChainHomeTop473(s, d);
     // § pkgInitImpReadFolds471 — bind each package-definition operand fold's
     // reference to the importing package's definition-listing import copy
     // (its param_assign Lhs typespec); with no such copy the reference is
@@ -31846,6 +31848,209 @@ static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d) {
         lawTrace(r.law == 3 ? 471 : 469, r.law == 3 ? "enumSharedCloneHomeInst471" : r.law == 2 ? "importEnumCloneHomeInst469" : "importCopyTsInstByRole469",
                  r.what + " split");
     }
+}
+
+// § modImpCopyTdChainHomeTop473 (r11u473, R11U473_MODCOPYTD_OFF; grid
+// tools/probe/r11u473repro/cases/MC) — in a MODULE's (or interface's or
+// program's) listing, in both views, the import copy of a package's OWN
+// parameter typed by a typedef that package itself imported (`package b;
+// import a::*; parameter t PB = 5;` read by `module top; import b::*;`) has
+// every hop of its typespec chain freshly cloned and Instanced at the
+// typedef home's ELABORATED package: the typespec (`t`) and its alias target,
+// which golden names BARE (`t`, Instanced at a) where ours shared the
+// importing package's typedef listing object (`a::t`, Instanced at b).
+// Surelog's CompileHelper::importPackage runs while the module is compiled,
+// before UhdmWriter renames the shared typedef object to `a::t` and re-homes
+// it at its last lister, and clone_tree's the package's param_assign there,
+// so each hop is a clone of the object as it was then: bare-named, Instanced
+// at the elaborated home of the typedef (the shape a home package's own
+// parameter, `parameter t PA`, already reads in ours).  Design-final, after
+// § importCopyTsInstByRole469: only the exact two-hop shape whose alias
+// target is named `<H>::<name>` after a package H different from the copy's
+// own vpiImported package, with the first hop named `<name>`, is touched; the
+// shared objects are never edited, the role's reference is re-pointed (or
+// split when another owner holds it).
+static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
+    if (!d || !d->TopPackages() || !lawOn(473, "R11U473_MODCOPYTD_OFF")) {
+        modCopyFold473().clear();
+        return;
+    }
+    std::map<std::string, UHDM::package*> top473;
+    for (auto* p473 : *d->TopPackages())
+        if (p473)
+            top473.emplace(std::string(p473->VpiName()), p473);
+    // (old first hop, home, the role reference's full name) -> new first hop
+    std::map<std::tuple<const UHDM::typespec*, const UHDM::package*, std::string>,
+             UHDM::typespec*>
+        memo473;
+    auto fix473 = [&](UHDM::BaseClass* owner, const UHDM::ref_typespec* rt,
+                      const std::string& imp, const std::string& what) {
+        if (!rt)
+            return;
+        auto* h1 = (UHDM::typespec*)rt->Actual_typespec();
+        if (!h1 || !h1->Typedef_alias())
+            return;
+        auto* h2 = (UHDM::typespec*)h1->Typedef_alias()->Actual_typespec();
+        if (!h2 || h2 == h1 || h2->Typedef_alias() || h2->UhdmType() != h1->UhdmType())
+            return;
+        std::string_view n2 = h2->VpiName();
+        auto c2 = n2.find("::");
+        if (c2 == std::string_view::npos || n2.find("::", c2 + 2) != std::string_view::npos)
+            return;
+        const std::string home(n2.substr(0, c2));
+        const std::string bare(n2.substr(c2 + 2));
+        if (home == imp || h1->VpiName() != bare)
+            return;
+        // The alias target must be an importer's listing object (Instanced
+        // at a package other than the home), never the home's own typedef:
+        // a QUALIFIED `parameter a::t PB` has no alias in golden at all.
+        if (!h2->Instance() || h2->Instance()->UhdmType() != UHDM::uhdmpackage ||
+            h2->Instance()->VpiName() == home)
+            return;
+        auto hi = top473.find(home);
+        if (hi == top473.end() || !hi->second)
+            return;
+        UHDM::package* hp = hi->second;
+        const std::string rfn(rt->VpiFullName());
+        auto key = std::make_tuple((const UHDM::typespec*)h1, (const UHDM::package*)hp, rfn);
+        UHDM::typespec* n1 = nullptr;
+        if (auto mi = memo473.find(key); mi != memo473.end())
+            n1 = mi->second;
+        else {
+            UHDM::ElaboratorContext ctx473(&s, false, /*muteErrors=*/true);
+            auto* c2t = (UHDM::typespec*)UHDM::clone_tree((UHDM::any*)h2, &ctx473);
+            auto* c1t = (UHDM::typespec*)UHDM::clone_tree((UHDM::any*)h1, &ctx473);
+            if (!c1t || !c2t || c1t->UhdmType() != h1->UhdmType() ||
+                c2t->UhdmType() != h2->UhdmType())
+                return;
+            c2t->VpiName(bare);
+            c2t->Instance(hp);
+            c1t->Instance(hp);
+            c1t->VpiParent(h1->VpiParent());
+            auto* oa = h1->Typedef_alias();
+            auto* na = s.MakeRef_typespec();
+            na->VpiName(oa->VpiName());
+            // Golden's reference stores no name: it reads its chain, the
+            // role's reference and the bare typedef name.
+            na->VpiFullName(rfn.empty() ? std::string(oa->VpiFullName()) : rfn + "." + bare);
+            na->VpiParent(c1t);
+            na->Actual_typespec(c2t);
+            c2t->VpiParent(na);
+            c1t->Typedef_alias(na);
+            memo473.emplace(key, c1t);
+            n1 = c1t;
+        }
+        if (rt->VpiParent() == owner) {
+            ((UHDM::ref_typespec*)rt)->Actual_typespec(n1);
+        }
+        else {
+            auto* nr = s.MakeRef_typespec();
+            nr->VpiName(rt->VpiName());
+            nr->VpiFullName(rt->VpiFullName());
+            nr->VpiParent(owner);
+            nr->VpiFile(rt->VpiFile());
+            nr->VpiLineNo(rt->VpiLineNo());
+            nr->VpiColumnNo(rt->VpiColumnNo());
+            nr->VpiEndLineNo(rt->VpiEndLineNo());
+            nr->VpiEndColumnNo(rt->VpiEndColumnNo());
+            nr->Actual_typespec(n1);
+            if (owner->UhdmType() == UHDM::uhdmparameter)
+                ((UHDM::parameter*)owner)->Typespec(nr);
+            else
+                ((UHDM::constant*)owner)->Typespec(nr);
+        }
+        lawTrace(473, "modImpCopyTdChainHomeTop473", what);
+    };
+    std::set<const UHDM::scope*> seen473;
+    std::function<void(UHDM::scope*)> walk473 = [&](UHDM::scope* sc) {
+        if (!sc || !seen473.insert(sc).second)
+            return;
+        const std::string sn(sc->VpiFullName().empty() ? sc->VpiName() : sc->VpiFullName());
+        if (auto* ps = sc->Parameters())
+            for (auto* a : *ps)
+                if (a && a->UhdmType() == UHDM::uhdmparameter) {
+                    auto* cp = (UHDM::parameter*)a;
+                    if (!cp->VpiImported().empty())
+                        fix473(cp, cp->Typespec(), std::string(cp->VpiImported()),
+                               sn + " param " + std::string(cp->VpiName()));
+                }
+        if (auto* pas = sc->Param_assigns())
+            for (auto* pa : *pas) {
+                if (!pa || !pa->Lhs() || pa->Lhs()->UhdmType() != UHDM::uhdmparameter)
+                    continue;
+                auto* lp = (UHDM::parameter*)pa->Lhs();
+                if (lp->VpiImported().empty())
+                    continue;
+                const std::string imp(lp->VpiImported());
+                fix473(lp, lp->Typespec(), imp, sn + " pa lhs " + std::string(lp->VpiName()));
+                if (auto* r = pa->Rhs(); r && r->UhdmType() == UHDM::uhdmconstant)
+                    fix473((UHDM::constant*)r, ((UHDM::constant*)r)->Typespec(), imp,
+                           sn + " pa rhs " + std::string(lp->VpiName()));
+            }
+        // A continuous assignment's fold (the whole right side or an
+        // operation operand, any depth) and a variable's folded initializer:
+        // the elaborated listing's folds are minted outside ExprEmit's fold
+        // site with no record of the parameter's package, so only the alias
+        // target's instance (an importer's listing object) gates them.
+        auto* cas473 = sc->UhdmType() == UHDM::uhdmmodule_inst
+                           ? ((UHDM::module_inst*)sc)->Cont_assigns()
+                       : sc->UhdmType() == UHDM::uhdminterface_inst
+                           ? ((UHDM::interface_inst*)sc)->Cont_assigns()
+                           : nullptr;
+        std::function<void(UHDM::any*, int)> rhs473 = [&](UHDM::any* e, int dep) {
+            if (!e || dep > 64)
+                return;
+            if (e->UhdmType() == UHDM::uhdmconstant) {
+                auto* c = (UHDM::constant*)e;
+                const UHDM::typespec* t1 =
+                    c->Typespec() ? c->Typespec()->Actual_typespec() : nullptr;
+                auto* ip = t1 ? t1->Instance() : nullptr;
+                if (ip && ip->UhdmType() == UHDM::uhdmpackage)
+                    fix473(c, c->Typespec(), std::string(), sn + " ca fold");
+                return;
+            }
+            if (e->UhdmType() == UHDM::uhdmoperation)
+                if (auto* ops = ((UHDM::operation*)e)->Operands())
+                    for (auto* o : *ops)
+                        rhs473(o, dep + 1);
+        };
+        if (cas473)
+            for (auto* ca : *cas473)
+                if (ca)
+                    rhs473((UHDM::any*)ca->Rhs(), 0);
+        if (sc->UhdmType() == UHDM::uhdmmodule_inst && ((UHDM::module_inst*)sc)->Variables())
+            for (auto* v : *((UHDM::module_inst*)sc)->Variables())
+                if (v && v->Expr() && v->Expr()->UhdmType() == UHDM::uhdmconstant) {
+                    auto* c = (UHDM::constant*)v->Expr();
+                    fix473(c, c->Typespec(), std::string(), sn + " var init " + std::string(v->VpiName()));
+                }
+        if (sc->UhdmType() == UHDM::uhdmmodule_inst) {
+            auto* m = (UHDM::module_inst*)sc;
+            if (m->Modules())
+                for (auto* c : *m->Modules())
+                    walk473(c);
+            if (m->Interfaces())
+                for (auto* c : *m->Interfaces())
+                    walk473(c);
+        }
+    };
+    if (d->AllModules())
+        for (auto* m : *d->AllModules())
+            walk473(m);
+    if (d->AllInterfaces())
+        for (auto* m : *d->AllInterfaces())
+            walk473(m);
+    if (d->AllPrograms())
+        for (auto* m : *d->AllPrograms())
+            walk473(m);
+    if (d->TopModules())
+        for (auto* m : *d->TopModules())
+            walk473(m);
+    // The per-reference fold clones ExprEmit minted for the module's reads.
+    for (auto& f473 : modCopyFold473())
+        if (f473.c)
+            fix473(f473.c, f473.c->Typespec(), f473.imp, "fold " + f473.imp);
+    modCopyFold473().clear();
 }
 
 // § unitCopyOwnTsEveryPath467 (r11u467, R11U467_UNITCOPYTS_OFF; grid

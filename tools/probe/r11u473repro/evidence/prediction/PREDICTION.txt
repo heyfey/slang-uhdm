@@ -1,0 +1,21 @@
+PREDICTION for the one five-stage sweep on law6 (written 2026-11-02 before the sweep)
+Law: § modImpCopyTdChainHomeTop473 (R11U473_MODCOPYTD_OFF; R11U473_OFF drops the pass)
+Sources:
+ - pred473 (evidence/tools/pred473.cpp; the law's exact predicate: module/interface/program import-copy
+   roles, continuous-assignment folds and variable initializers whose typespec alias target is an importer's
+   listing object named <H>::<x>) over the 7481 fence-filtered pristine databases of the master's control
+   /tmp/intr11u471 (probe 4087, surelog 954, uhdm2rtlil 1606, downstream 804, sv-tests kept 29) plus the
+   mc01 positive control: FIRE 0 on the control databases (the positive control fires 8 roles); one
+   ABSTAIN-HOMEALIAS (probe r11u111repro/grid/f1/a09_imp_explicit, a home-package alias target, byte-identical
+   on law6 by a direct run).
+ - a traced law6 runner census (R11U473_TRACE) over 562 sv-tests candidate rows (every row using import,
+   export or the uvm tag; pass 471's list): 0 trace files, every row keeping its golden status
+   (511 EQUAL, 6 DIFFERENT, 21 BOTH_REJECT, 10 SURELOG_ONLY, 6 SLANG_ONLY, 7 SURELOG_CRASH, 1 TIMEOUT).
+Predicted:
+ - probe: no byte mover, EQUAL 4024 + STRICT_NOTEQUAL 63, 0/0/0
+ - surelog: 0 of 962 byte movers, 480 + 0 / 474 + 0, 0/0/0
+ - uhdm2rtlil: 0 of 1608, 803/1/67 both modes, 0/0/0
+ - downstream: 0 of 805, 803/66/2/0
+ - sv-tests: no status change; kept databases differing only by the serialization-order variance
+ - trace: fires on no sweep database
+ - no exit-code mover anywhere
