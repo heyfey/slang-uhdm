@@ -99,7 +99,14 @@ and never in the gate; report its cost when run.
 - KNOWN FAILURES THAT STAY IN THE GATE (user decision 2026-09-29; they run in
   seconds): LogicTypespec d/t, Scr1SvTests d/t and stamped_gen_param d/t are
   Surelog behaviours the exporter does not copy. They stay STRICT_NOTEQUAL or
-  CMP_NOTEQUAL rows and are not work items.
+  CMP_NOTEQUAL rows and are not work items. (LogicTypespec d/t and Scr1SvTests
+  d/t were later converted by pass 290; stamped_gen_param d/t stays.)
+- KNOWN EXCEPTIONS IN THE SV-TESTS GATE (user decision 2026-11-02): the three
+  both-accepted rows generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,
+  generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv and
+  generated/tnoc/tnoc.sv stay DIFFERENT in results/golden_svtests.csv. They are
+  Surelog artefacts the exporter does not copy: no law targets them and no pass
+  briefs them. A change on them is still a CHANGE to attribute at a landing.
 - `r10earl23` (Earlgrey pass 23, `/tmp/r10earl23.patch`) is QUARANTINED: its
   agent edited a file outside its worktree (`.handled`) — flagged by a
   security classifier as a possible fake-review marker. Do not integrate it
