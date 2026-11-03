@@ -1,0 +1,5 @@
+verified binary (f430c65a529a2495885bc69cf3c6d5f1) on all 125 grid case dirs
+(82 v11u477repro/cases + 43 r11u477repro/cases), every exit code 0:
+R11U477_OFF=1          vs pristine bytes: same 125, differ 0
+R11V477_OFF=1          vs law bytes:      same 125, differ 0
+R11V477_PARAMENC_OFF=1 vs law bytes:      same 125, differ 0

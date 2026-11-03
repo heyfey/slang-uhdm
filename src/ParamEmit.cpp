@@ -10079,7 +10079,8 @@ static void collectImportedParams(
             for (auto& m9 : ps9->members())
                 if ((m9.kind == SymbolKind::WildcardImport ||
                      m9.kind == SymbolKind::ExplicitImport) &&
-                    m9.location.buffer() == modLoc9.buffer()) {
+                    unitImpReachesDef477(ib9.getCompilation(), m9.location,
+                                         modLoc9, "parameters")) {
                     items9.push_back({&m9, nullptr, nullptr});
                     items9.push_back({&m9, nullptr, nullptr});
                 }
@@ -42087,7 +42088,20 @@ void UhdmExporter::analyzeParamEnc(const Scope& body) {
             continue;
         auto& ps = member.as<ParameterSymbol>();
         if (auto init = ps.getInitializer()) {
-            if (init->kind != ExpressionKind::IntegerLiteral && isIntEncoded(*init))
+            // § paramEncNoAddLeaf477v (R11V477_PARAMENC_OFF): the marker is
+            // computed without § caAddLeafIntMint477's leaf rule.
+            bool enc477v = false;
+            if (init->kind != ExpressionKind::IntegerLiteral) {
+                const bool fix477v = fixOn(477, "R11V477_PARAMENC_OFF");
+                {
+                    ParamEncNoLeaf477v g477v(fix477v);
+                    enc477v = isIntEncoded(*init);
+                }
+                if (fix477v && !enc477v && lawTraceOn(477) && isIntEncoded(*init))
+                    lawTrace(477, "paramEncNoAddLeaf477v",
+                             std::string(member.name));
+            }
+            if (enc477v)
                 paramIntEnc[&member] = true;
             // A subtract init (localparam W = X-1) is signed arithmetic, so a
             // bare reference to W as a range bound folds to a signed INT

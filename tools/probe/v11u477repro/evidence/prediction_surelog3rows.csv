@@ -1,0 +1,7 @@
+name,mode,status,detail,blocked_by,strict
+BlackBePipeInt,default,CMP_EQUAL,,,equal
+BlackBePipeInt,testflags,CMP_EQUAL,,,equal
+Earlgrey_0_1,default,CMP_EQUAL,,,equal
+Earlgrey_0_1,testflags,CMP_EQUAL,,,equal
+YosysOldOpen,default,CMP_EQUAL,,,equal
+YosysOldOpen,testflags,CMP_EQUAL,,,equal

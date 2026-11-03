@@ -3772,6 +3772,72 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body,
 // nothing — so the buffer must match even when `--single-unit` merges every
 // file into one compilation unit (Surelog's default IS one unit, so the
 // scope alone cannot separate them).
+// § unitImpRootFileDef477 (r11u477, R11U477_ROOTFILE_OFF; cases
+// tools/probe/r11u477repro/cases/RF; generated/easyUVM/top.sv, whose
+// input_if, output_if and adder are written in files top.sv includes after
+// its `import uvm_pkg::*;`) -- the file-scope import reaches every module,
+// interface and program in the FileContent of the import's file, and
+// Surelog's preprocessor folds each `include into the including file's text,
+// so a definition written in an included file belongs to the ROOT file of
+// its include chain (the module/type ground's § unitInclClassImports468
+// carries the same rule for classes).  The test compares the root buffer of
+// each side's include chain (a macro location mapped to its original text
+// first); with the switch set it is the raw buffer test as before.
+inline slang::BufferID unitRootBuf477(const slang::SourceManager& sm,
+                                      SourceLocation l) {
+    if (l == SourceLocation::NoLocation)
+        return l.buffer();
+    if (sm.isMacroLoc(l))
+        l = sm.getFullyOriginalLoc(l);
+    slang::BufferID b = l.buffer();
+    for (int guard = 0; guard < 64; guard++) {
+        auto up = sm.getIncludedFrom(b);
+        if (!up.valid())
+            break;
+        b = up.buffer();
+    }
+    return b;
+}
+
+// § paramEncNoAddLeaf477v (v11u477, R11V477_PARAMENC_OFF; cases
+// tools/probe/v11u477repro/cases/VA/va33, va34, va37) -- the parameter
+// marker paramIntEnc is NOT widened by § caAddLeafIntMint477.  A marked
+// parameter reads INT under ANY operator of a later fold (isIntEncoded's
+// NamedValue branch), so marking `localparam logic [7:0] L = P + 8'd1` made
+// `L & 8'hff` and `L | 8'h0` read INT:34 where golden keeps UINT:34 (pristine
+// STRICT_EQUAL, the law NOT_EQUAL).  A read of L inside an add chain still
+// mints INT through red97OperandMintsInt97, which follows L's initializer.
+// True only while analyzeParamEnc evaluates an initializer.
+inline thread_local bool paramEncNoLeaf477v = false;
+struct ParamEncNoLeaf477v {
+    bool saved;
+    explicit ParamEncNoLeaf477v(bool on) : saved(paramEncNoLeaf477v) {
+        paramEncNoLeaf477v = on;
+    }
+    ~ParamEncNoLeaf477v() { paramEncNoLeaf477v = saved; }
+};
+
+// True when the compilation-unit import `imp` reaches the definition at
+// `defLoc` (same file, the root-file rule above; law off: same raw buffer).
+// `what` names the listing for the trace.
+inline bool unitImpReachesDef477(const slang::ast::Compilation& comp,
+                                 SourceLocation impLoc, SourceLocation defLoc,
+                                 const char* what) {
+    if (impLoc.buffer() == defLoc.buffer())
+        return true;
+    if (!lawOn(477, "R11U477_ROOTFILE_OFF"))
+        return false;
+    auto* sm = comp.getSourceManager();
+    if (!sm)
+        return false;
+    if (unitRootBuf477(*sm, impLoc) != unitRootBuf477(*sm, defLoc))
+        return false;
+    if (lawTraceOn(477))
+        lawTrace(477, "unitImpRootFileDef477",
+                 std::string(what) + " " + std::string(sm->getFileName(defLoc)));
+    return true;
+}
+
 inline std::vector<std::pair<const PackageSymbol*, int>> collectMaterializedPkgs(
     const InstanceBodySymbol& body) {
     std::vector<std::pair<const PackageSymbol*, int>> out;
@@ -3790,7 +3856,8 @@ inline std::vector<std::pair<const PackageSymbol*, int>> collectMaterializedPkgs
         ps && ps->asSymbol().kind == SymbolKind::CompilationUnit)
         for (auto& m : ps->members())
             if (m.kind == SymbolKind::WildcardImport &&
-                m.location.buffer() == modLoc.buffer())
+                unitImpReachesDef477(body.getCompilation(), m.location, modLoc,
+                                     "materialized"))
                 add(m.as<WildcardImportSymbol>().getPackage(), 2);
     for (auto& m : body.members())
         if (m.kind == SymbolKind::WildcardImport)
@@ -7278,10 +7345,43 @@ struct ShellCallSyntax167 {
 
 // The ONE accessor every written-argument decoder starts from.  Identical to
 // the expression it replaces whenever the call has a syntax node of its own.
+// ------------------------------------------- § parenCallWrittenArgs477
+//
+// A PARENTHESIZED CALL KEEPS ITS WRITTEN ARGUMENT LIST.  slang binds
+// `(f(a))` by creating the inner call and then stamping the PARENTHESIZED
+// node on it (`Expression::create`, `result->syntax = &syntax` after the
+// ParenthesizedExpression branch), so `call.syntax` is a
+// ParenthesizedExpressionSyntax, the as_if above answers null, and
+// writtenCallArgs16 falls back to the bound list, which holds every
+// defaulted formal.  Surelog lists only the written actuals whether or not
+// the call sits in parentheses (`if (!(exp.compare(rec)))`, easyUVM
+// comparator.sv 63:14, golden one vpiArgument where ours added
+// `uvm_comparer comparer = null`).  The accessor reads through the
+// parentheses to the invocation; any other inner node answers null as before.
+inline const syntax::InvocationExpressionSyntax* parenCallInvocation477(
+    const syntax::SyntaxNode* n) {
+    if (!n || n->kind != syntax::SyntaxKind::ParenthesizedExpression)
+        return nullptr;
+    while (n && n->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        n = n->as<syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!n || n->kind != syntax::SyntaxKind::InvocationExpression)
+        return nullptr;
+    if (!lawOn(477, "R11U477_PARENCALL_OFF"))
+        return nullptr;
+    return &n->as<syntax::InvocationExpressionSyntax>();
+}
+
 inline const syntax::InvocationExpressionSyntax* callInvocation167(
     const CallExpression& call) {
-    if (call.syntax)
+    if (call.syntax) {
+        if (auto* pi477 = parenCallInvocation477(call.syntax)) {
+            if (lawTraceOn(477))
+                lawTrace(477, "parenCallWrittenArgs477",
+                         std::string(call.getSubroutineName()));
+            return pi477;
+        }
         return call.syntax->as_if<syntax::InvocationExpressionSyntax>();
+    }
     return (static_cast<const slang::ast::Expression*>(&call) == shellCall167)
                ? shellInv167
                : nullptr;

@@ -1,0 +1,21 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=392ea753de6d pristine=5fb9d66bbd6c
+MOVER ./default/Earlgrey_0_1-a898def8/slang.uhdm  patched=811b20cb5c0a pristine=a6630028497b
+MOVER ./default/YosysOldOpen-eb819af1/slang.uhdm  patched=69c9554c94d3 pristine=8a8188ab463d
+MOVER ./testflags/BlackBePipeInt-1fcd9dad/slang.uhdm  patched=ce3bac8bbaa3 pristine=0b666364d97d
+MOVER ./testflags/Earlgrey_0_1-a898def8/slang.uhdm  patched=e5ea6fff0ce0 pristine=48c4da162cdd
+MOVER ./testflags/YosysOldOpen-eb819af1/slang.uhdm  patched=4031644009dd pristine=2171eea6dbbe
+MOVERS: 6 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

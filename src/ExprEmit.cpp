@@ -14,6 +14,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <regex>
+#include <filesystem>
 
 #include "EmitHelpers.h"
 
@@ -16832,13 +16833,28 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     return c;
 }
 
+// § caAddLeafIntMint477's reach: true while every enclosing node of the
+// isIntEncoded walk is an implicit conversion or a +, since every other
+// operator re-mints its own const type (`(P + 1) & 8'hff` stays UINT:34 in
+// golden, AD/ad06).
+static thread_local bool addChain477 = true;
+struct AddChain477 {
+    bool saved;
+    explicit AddChain477(bool keep) : saved(addChain477) {
+        addChain477 = addChain477 && keep;
+    }
+    ~AddChain477() { addChain477 = saved; }
+};
+
 bool UhdmExporter::isIntEncoded(const Expression& e) {
     switch (e.kind) {
         case ExpressionKind::Conversion:
             return e.as<ConversionExpression>().isImplicit() &&
                    isIntEncoded(e.as<ConversionExpression>().operand());
-        case ExpressionKind::UnaryOp:
+        case ExpressionKind::UnaryOp: {
+            AddChain477 g477(false);
             return isIntEncoded(e.as<UnaryExpression>().operand());
+        }
         case ExpressionKind::BinaryOp: {
             auto& be = e.as<BinaryExpression>();
             if (be.op == BinaryOperator::Divide || be.op == BinaryOperator::Mod)
@@ -16846,7 +16862,35 @@ bool UhdmExporter::isIntEncoded(const Expression& e) {
             // A signed power (2**n) reduces to a signed (INT) constant.
             if (be.op == BinaryOperator::Power && e.type && e.type->isSigned())
                 return true;
-            return isIntEncoded(be.left()) || isIntEncoded(be.right());
+            {
+                AddChain477 g477(be.op == BinaryOperator::Add);
+                if (isIntEncoded(be.left()) || isIntEncoded(be.right()))
+                    return true;
+            }
+            // § caAddLeafIntMint477 (r11u477, R11U477_CAADDLEAF_OFF; cases
+            // tools/probe/r11u477repro/cases/AD; the r11u475 case RC/rc02)
+            // -- ExprEval's vpiAddOp branch mints INT: when ANY reduced operand
+            // is a constant of const type INT, DEC, STRING or REAL
+            // (§ addOperandConstMint475, the same rule ParamEmit asks through
+            // red97OperandMintsInt97), so a 'd literal leaf or a parameter
+            // whose own constant is DEC mints INT on the +.  This test asked
+            // only operators and paramIntEnc, so `assign z = PB + 6'd1` with
+            // PB an imported `parameter t PB = PA` read UINT:34 where golden
+            // reads INT:34 (AD/ad01); a hex, binary, octal or plain decimal
+            // leaf keeps UINT (AD/ad04, ad05).
+            if (be.op == BinaryOperator::Add && addChain477 &&
+                !paramEncNoLeaf477v &&
+                (red97OperandMintsInt97(be.left(), true) ||
+                 red97OperandMintsInt97(be.right(), true)) &&
+                lawOn(477, "R11U477_CAADDLEAF_OFF")) {
+                if (lawTraceOn(477) && sm)
+                    lawTrace(477, "caAddLeafIntMint477",
+                             std::string(sm->getFileName(e.sourceRange.start())) +
+                                 ":" +
+                                 std::to_string(sm->getLineNumber(e.sourceRange.start())));
+                return true;
+            }
+            return false;
         }
         case ExpressionKind::NamedValue: {
             auto it = paramIntEnc.find(&e.as<NamedValueExpression>().symbol);
@@ -38522,6 +38566,49 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     lawTrace(401, "strLitMacroRefSubst401", inner + " -> " + cur401);
                     strMac401 = (int)cur401.size() - (int)inner.size();
                     inner = cur401;
+                    raw = "\"" + inner + "\"";
+                }
+            }
+            // § fileMacroPathNormal477 (r11u477, R11U477_FILEPATH_OFF;
+            // cases tools/probe/r11u477repro/cases/FN; generated/easyUVM/
+            // top.sv, whose `include "./env.sv" puts env.sv's `uvm_info
+            // __FILE__ text at .../easyUVM/./env.sv) -- slang's __FILE__
+            // intrinsic writes the buffer's name as the include resolved it
+            // (Preprocessor_macros.cpp MacroIntrinsic::File,
+            // sourceManager.getFileName), while Surelog substitutes
+            // FileSystem::toPath of the file id, a lexically normal path:
+            // golden reads .../easyUVM/env.sv (FN/fn01 "./sub/inc.svh",
+            // fn03 "sub/../sub/./inc.svh" -> sub/inc.svh).  A literal whose
+            // token is the __FILE__ expansion itself takes the lexically
+            // normal form; every other literal is untouched.  The token has
+            // no quoted source text of its own, so it is a macro-quoted
+            // literal above and its end column follows the normal form.  The
+            // token is recognised by its fully original text, `__FILE__
+            // (slang's intrinsic expansion carries no macro name, and its
+            // range has no raw text).
+            auto fileTok477 = [&]() {
+                if (!sm->isMacroLoc(expr.sourceRange.start()))
+                    return false;
+                auto o477 = sm->getFullyOriginalLoc(expr.sourceRange.start());
+                auto t477 = sm->getSourceText(o477.buffer());
+                size_t k477 = o477.offset();
+                if (k477 + 9 > t477.size() || t477.substr(k477, 9) != "`__FILE__")
+                    return false;
+                if (k477 + 9 < t477.size()) {
+                    char n477 = t477[k477 + 9];
+                    if (std::isalnum((unsigned char)n477) || n477 == '_' ||
+                        n477 == '$')
+                        return false;
+                }
+                return true;
+            };
+            if (macroQuoted9 && strMac401 == 0 && fileTok477() &&
+                lawOn(477, "R11U477_FILEPATH_OFF")) {
+                std::string norm477 =
+                    std::filesystem::path(inner).lexically_normal().string();
+                if (!norm477.empty() && norm477 != inner) {
+                    lawTrace(477, "fileMacroPathNormal477", inner + " -> " + norm477);
+                    inner = norm477;
                     raw = "\"" + inner + "\"";
                 }
             }
