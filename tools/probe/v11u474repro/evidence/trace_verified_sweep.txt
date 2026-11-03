@@ -1,0 +1,16 @@
+OUT /tmp/v11u474_sV/svtests/work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm
+clsScopedRangeKept474 address SFR::sfr_addr_width-1
+clsScopedRangeKept474 write_data SFR::sfr_data_width-1
+clsScopedRangeKept474 read_data SFR::sfr_data_width-1
+clsScopedRangeKept474 address SFR::sfr_addr_width-1
+clsScopedRangeKept474 write_data SFR::sfr_data_width-1
+clsScopedRangeKept474 read_data SFR::sfr_data_width-1
+cloneValFormalUnnamed474 this_t.UVM_ALL_ON
+cloneValFormalUnnamed474 this_t.UVM_CHECK_FIELDS
+thisTdRegDefView474 sfr_agent::this_t -> tb_params_pkg def
+cloneValFormalUnnamed474 this_t.UVM_ALL_ON
+cloneValFormalUnnamed474 this_t.UVM_CHECK_FIELDS
+thisTdRegDefView474 sfr_config_object::this_t -> tb_params_pkg def
+clsScopedRangeKept474 name work@hdl_top.address.SFR::sfr_addr_width
+clsScopedRangeKept474 name work@hdl_top.write_data.SFR::sfr_data_width
+clsScopedRangeKept474 name work@hdl_top.read_data.SFR::sfr_data_width

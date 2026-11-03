@@ -30,6 +30,7 @@
 #include "LawState.h"
 
 namespace slang_uhdm {
+extern bool g474IfaceElab;  // § elabParamClsScopedSubst474 (TypeEmit.cpp)
 int& ifaceDefArrNet436();  // § ifaceDefArrNetDimSym436 (TypeEmit.cpp)
 // § escNameSpanSites295 (r11u295) — A NAME SPAN WRITTEN BY HAND AS
 // `location + name.size()` MISSES AN ESCAPED IDENTIFIER'S BACKSLASH, SO THE
@@ -60446,6 +60447,13 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // (an interface-typed port's view) can inherit it.
     UHDM::BaseClass* gp313 = genIfaceParent313;
     genIfaceParent313 = nullptr;
+    // § elabParamClsScopedSubst474 (TypeEmit) — the elaborated interface body
+    // is an elaborated view for the law's bound substitution
+    struct IfaceElabGuard474 {
+        bool prev;
+        IfaceElabGuard474() : prev(g474IfaceElab) { g474IfaceElab = true; }
+        ~IfaceElabGuard474() { g474IfaceElab = prev; }
+    } ifaceElabGuard474;
     auto& body = inst.body;
     auto& def = inst.getDefinition();
     std::string prefix = path;

@@ -1,0 +1,63 @@
+r11u474 decode of generated/uvm-examples/uvm_param_vif_config_db.sv (golden = the shared golden cache
+entry 0445655ee703/50a224b0134d47ab3870; ours from scripts/svtests/svtests_matrix.py --keep-golden runs)
+
+1. The this_t vpiInstance face (pass 472's undecoded residue), tools/thist.cpp:
+   golden  sfr_agent_pkg::sfr_agent        class_typespec this_t @51:9 inst=tb_params_pkg[all]
+           sfr_agent_pkg::sfr_config_object class_typespec this_t @50:9 inst=tb_params_pkg[all]
+   pristine                                 both inst=tb_params_pkg[top]
+   (alias -> tb_params_pkg::SFR_agent_t / SFR_cfg_t, listed by BOTH views of tb_params_pkg, so pass
+   446's TOP-only predicate abstains; our TOP comes from § clsNestedSpecCloneHomeInst460, and with
+   R11U470_SPECVALARG_OFF the clone is not made and the instance falls back to sfr_test_pkg[all].)
+   Bisection on a copy of the row's sources (tools/bisect_run.sh, Surelog with the sv-tests UVM recipe,
+   about 70 s a run):
+     b0 all 8 files                                  golden [all]
+     b1 without hdl_top.sv and sfr_dut.sv            golden [all]
+     b2 without sfr_test_pkg.sv and hvl_top.sv       golden [all]
+     b3 sfr_agent_pkg + bfms + tb_params_pkg only    golden [all]
+     b4 b3 with `uvm_*_param_utils(this_t) removed   golden [top]   <- the distinguisher
+     b5 b3 with literal arguments #(16, 32)          golden [all]
+     b6 b3 with only `typedef uvm_*_registry #(this_t) type_id;` in place of the macro   golden [all]
+     b7 b6 plus the static get_type function          golden [all]
+   Small grid without UVM (cases/TI t11 to t22, cases/RG): golden DEFINITION view exactly when the
+   generic class declares `typedef R #(<this typedef>, ...) X;` with R reached through an IMPORT of
+   another package (rg01 wildcard, rg07 two arguments, rg10 explicit import u::R); TOP for a qualified
+   u::R (rg02), R in the class's own package (rg04, pass 472's ti05), another argument (rg03, rg08),
+   a property (rg05) or a function-local typedef (rg09).  -> § thisTdRegDefView474.
+
+2. With the law, uhdm-cmp's count on the row grows 172 -> 1376868 lines with the SAME first face: the
+   first failing object is now the definition-view package tb_params_pkg itself (its vpiTypedef 134
+   in golden against 132 in ours, the two interface_typespec typedefs the sister's ParamEmit does not
+   list; every other vector of both views equal, tools/pkgsz.cpp), reached earlier in the walk through
+   the this_t instance, and printed whole (two packages) by the vector overload.  Simulation
+   (tools/addvif.cpp, SIMULATION ONLY: copies the TOP-view interface typedefs into the definition
+   view): pristine 172 -> 172 (the this_t head stays), law4 58 lines, the head moving to hdl_top.
+
+3. The next faces behind, decoded on the simulated database (tools/cmptrace2 from r11u470repro):
+   a) hdl_top's `wire[SFR::sfr_addr_width-1:0] address;` golden keeps `operation -` over an unbound
+      ref_obj S::w and constant 1 (UINT size 64), ours folded INT:15  -> § clsScopedRangeKept474
+      (cases CS cs01, cs04, cs07, cs14; its naming half from cs01/cs07: work@<net>.S::w on the
+      typespec an elaborated net references, nothing on the definition copy)
+   b) the interface instances' param_assign Rhs: golden ref_obj SFR::sfr_addr_width at the actual
+      (56:30-56:35, the span ending after `SFR::`), full name work@hdl_top.SFR_MASTER.SFR::sfr_addr_width,
+      ours constant UINT:16 at the formal's default (ParamEmit emitParameters: the SISTER's ground)
+   c) behind b), in an elaborated body a declaration bound reading the overridden parameter keeps the
+      substituted reference (cases CS cs03, cs11 to cs13)  -> § elabParamClsScopedSubst474; the bfm
+      interfaces read the parameters only in header PORTS, where golden folds (the law leaves ports).
+   d) with a) and the simulated b) (tools/addpa.cpp, SIMULATION ONLY) uhdm-cmp reads 0 lines and
+      uhdm-strictcmp STRICT_NOTEQUAL fullname: the copied VALUE formals of the this_t copies,
+      golden <copy>.this_t.UVM_ALL_ON where ours kept sfr_agent_pkg::sfr_agent::UVM_ALL_ON
+      -> § cloneValFormalUnnamed474 (cases RG rg02, rg04, rg05, rg09, rg12; away movers r11u472 TI
+      ti04, ti05 and v11u470 VK/vk09, all STRICT_NOTEQUAL fullname -> STRICT_EQUAL)
+   e) on law14 with both simulations: uhdm-cmp 0, strict STRICT_NOTEQUAL fullname with objects
+      1002258 vs 994575, fields fullname=2 endcol=3 depth=1 (walk diverged):
+        - #93329 a ref_typespec under set_arbitration's formal val: golden raw full name
+          sfr_agent_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE, ours sfr_test_pkg::...
+        - #137701/#137702 the interface typedefs' end column (golden 54:31 / 53:32): the sister's span
+          face, carried by the simulation's copy of our TOP-view object (54:75)
+        - #138364 the divergence: golden's tb_params_pkg clones of uvm_pkg subroutines (the package
+          reaches uvm_pkg only through `import sfr_agent_pkg::*;`) bind references to sfr_agent_pkg's
+          TOP-view clone objects (tools/clbind.cpp census: golden 4594 references from tb_params_pkg's
+          clones to sfr_agent_pkg[top] objects and 2897 to their own; ours 542 to sfr_agent_pkg[all]
+          and 4035 to their own; golden's sfr_test_pkg, which imports uvm_pkg itself, binds none
+          into sfr_agent_pkg where ours binds 542)
+      These are the row's remaining faces on THIS ground once the sister writes 2 and 3b.

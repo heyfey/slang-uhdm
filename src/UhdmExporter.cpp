@@ -23,6 +23,7 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+void clsScopedRangeNames474();  // § clsScopedRangeKept474 (TypeEmit.cpp)
 // § clsMethodLocalForeignPkgSpec428 (TypeEmit.cpp) — the class-method local site.
 extern bool g428ClsLocalSpec;
 // § bareTdCopyOwnRangeAfterSpec434 (TypeEmit.cpp) — listings an alias clone reached.
@@ -14216,6 +14217,147 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
 // path and push nothing (va03 to va06, va11, va12), and a value formal still
 // advances the index.  `p::K::w` (golden names it `p::w`, va15) abstains.
 // Returns the ref_obj name, or empty.
+// § thisTdRegDefView474 (r11u474, R11U474_THISREGDEF_OFF; cases
+// tools/probe/r11u474repro/cases/RG; sv-tests generated/uvm-examples/
+// uvm_param_vif_config_db.sv, the this_t of sfr_agent and sfr_config_object)
+// -- the class-nested specialization clone that § clsNestedSpecCloneHomeInst460
+// re-stamps at the declaring package's TOP view keeps that package's
+// DEFINITION view in golden when the generic class also declares a typedef
+// of a specialization of a generic class R that it reaches through an
+// IMPORT from another package, with the nested typedef's own name as an
+// ordered argument (`typedef uvm_component_registry #(this_t) type_id;`, the
+// first line of `uvm_component_param_utils(this_t)`).  Surelog clones the
+// class typedef from the specialization typespec it binds
+// (ElaborationStep.cpp bindTypedefs_, clone_tree keeps the source's
+// vpiInstance), and which compile of the declaring package made that source
+// is decided by when the class's typedefs are bound; the rule is MEASURED,
+// not stepped through (grid RG): rg01 (wildcard import), rg07 (two
+// arguments) and rg10 (explicit import u::R) read golden's DEFINITION view;
+// rg02 (the qualified u::R), rg04 (R in the class's own package), rg03 (the
+// argument int), rg08 (the argument written A #(W, V)), rg05 (a property
+// R #(this_t) r) and rg09 (a function-local typedef) read the TOP view as the
+// pass 460 law writes it.  Returns true when generic class `gc` declares such
+// a typedef naming `td`.
+// § thisTdRegOrder474v (v11u474, R11V474_REGORDER_OFF; attack cases
+// tools/probe/v11u474repro/cases/VT vt03, vt04, vt15, vt18, vt19, pristine
+// right and § thisTdRegDefView474 wrong) -- the law's DEFINITION view holds
+// only when (a) the registry class R is visible through an import written in
+// the declaring package's own body (a wildcard import of a package that
+// supplies R, or an explicit import of R); R reached only through a
+// file-level import keeps the TOP view (vt04; vt17 with both imports reads
+// the definition view); and (b) no typedef of the class whose type is a
+// specialization of a class from ANOTHER package (imported or qualified,
+// any arguments, the registry typedef itself included) has a name that sorts
+// before the nested typedef's: Surelog's bindTypedefs_ walks a class's
+// typedefs through its TypeDefMap, a std::map keyed by name, so a foreign
+// specialization bound before this_t leaves golden at the TOP view (vt03
+// and vt15 R #(int) other_t, vt18 u::R #(int) other_t, vt19 the registry
+// typedef named aa_t), while one named after it does not (vt14 zz_t), nor
+// a same-package specialization (vt20) or a plain typedef (vt16).
+static bool thisTdRegImportHere474v(const slang::ast::Scope* ps, std::string_view rn) {
+    using namespace slang;
+    for (auto& m : ps->members()) {
+        if (m.kind == ast::SymbolKind::ExplicitImport && m.name == rn)
+            return true;
+        if (m.kind == ast::SymbolKind::WildcardImport)
+            if (auto* pk = m.as<ast::WildcardImportSymbol>().getPackage())
+                if (pk->findForImport(rn))
+                    return true;
+    }
+    return false;
+}
+static bool thisTdRegForeignBefore474v(const slang::ast::Scope* ps,
+                                       const slang::syntax::ClassDeclarationSyntax* cds,
+                                       std::string_view td) {
+    using namespace slang;
+    for (auto* it : cds->items) {
+        const syntax::SyntaxNode* in = it;
+        if (auto* cp = it ? it->as_if<syntax::ClassPropertyDeclarationSyntax>() : nullptr)
+            in = cp->declaration;
+        auto* tds = in ? in->as_if<syntax::TypedefDeclarationSyntax>() : nullptr;
+        auto* nt = tds ? tds->type->as_if<syntax::NamedTypeSyntax>() : nullptr;
+        if (!nt || !(tds->name.valueText() < td))
+            continue;
+        const ast::Scope* home = nullptr;
+        if (auto* cn = nt->name->as_if<syntax::ClassNameSyntax>()) {
+            if (!cn->parameters)
+                continue;
+            const ast::Symbol* r = ps->lookupName(cn->identifier.valueText());
+            if (r && (r->kind == ast::SymbolKind::GenericClassDef ||
+                      r->kind == ast::SymbolKind::ClassType))
+                home = r->getParentScope();
+        } else if (auto* sn = nt->name->as_if<syntax::ScopedNameSyntax>()) {
+            auto* rc = sn->right->as_if<syntax::ClassNameSyntax>();
+            auto* lp = sn->left->as_if<syntax::IdentifierNameSyntax>();
+            if (!rc || !rc->parameters || !lp)
+                continue;
+            // a package name is not found by a scope lookup
+            if (auto* pk = ps->getCompilation().getPackage(lp->identifier.valueText()))
+                home = pk;
+        }
+        if (home && home != ps && home->asSymbol().kind == ast::SymbolKind::Package)
+            return true;
+    }
+    return false;
+}
+
+static bool thisTdRegDefView474(const slang::ast::GenericClassDefSymbol* gc,
+                                std::string_view td) {
+    using namespace slang;
+    if (!gc || td.empty())
+        return false;
+    const ast::Scope* ps = gc->getParentScope();
+    auto* syn = gc->getSyntax();
+    auto* cds = syn ? syn->as_if<syntax::ClassDeclarationSyntax>() : nullptr;
+    if (!ps || !cds || ps->asSymbol().kind != ast::SymbolKind::Package)
+        return false;
+    for (auto* it : cds->items) {
+        const syntax::SyntaxNode* in = it;
+        if (auto* cp = it ? it->as_if<syntax::ClassPropertyDeclarationSyntax>() : nullptr)
+            in = cp->declaration;  // a class item wraps its declaration
+        auto* tds = in ? in->as_if<syntax::TypedefDeclarationSyntax>() : nullptr;
+        auto* nt = tds ? tds->type->as_if<syntax::NamedTypeSyntax>() : nullptr;
+        auto* cn = nt ? nt->name->as_if<syntax::ClassNameSyntax>() : nullptr;
+        if (!cn || !cn->parameters)
+            continue;
+        bool named = false;
+        for (auto* pa : cn->parameters->parameters) {
+            if (!pa || pa->kind != syntax::SyntaxKind::OrderedParamAssignment)
+                continue;
+            const syntax::SyntaxNode* e = &*pa->as<syntax::OrderedParamAssignmentSyntax>().expr;
+            if (auto* ent = e ? e->as_if<syntax::NamedTypeSyntax>() : nullptr)
+                e = ent->name;  // a type-or-expression argument parses as a named type
+            if (e && e->kind == syntax::SyntaxKind::IdentifierName &&
+                e->as<syntax::IdentifierNameSyntax>().identifier.valueText() == td)
+                named = true;
+        }
+        if (!named)
+            continue;
+        const ast::Symbol* r = ps->lookupName(cn->identifier.valueText());
+        if (!r || (r->kind != ast::SymbolKind::GenericClassDef &&
+                   r->kind != ast::SymbolKind::ClassType))
+            continue;  // (the lookup can hand back the class type itself)
+        const ast::Scope* rs = r->getParentScope();
+        if (rs && rs != ps && rs->asSymbol().kind == ast::SymbolKind::Package) {
+            if (!fixOn(474, "R11V474_REGORDER_OFF"))
+                return true;
+            // § thisTdRegOrder474v (v11u474, R11V474_REGORDER_OFF)
+            if (!thisTdRegImportHere474v(ps, cn->identifier.valueText())) {
+                lawTrace(474, "thisTdRegOrder474v",
+                         "abstain: no package-body import " + std::string(td));
+                return false;
+            }
+            if (thisTdRegForeignBefore474v(ps, cds, td)) {
+                lawTrace(474, "thisTdRegOrder474v",
+                         "abstain: foreign specialization typedef before " + std::string(td));
+                return false;
+            }
+            return true;
+        }
+    }
+    return false;
+}
+
 static std::string specValueArgRefObj470(const slang::syntax::ExpressionSyntax* a,
                                          const slang::ast::Scope* sc) {
     using namespace slang;
@@ -30225,6 +30367,8 @@ UHDM::design* UhdmExporter::exportDesign() {
             });
             std::set<const UHDM::class_typespec*> got460;
             std::map<const UHDM::class_typespec*, UHDM::package*> home460;
+            std::map<const UHDM::class_typespec*, const GenericClassDefSymbol*> gen474;
+            std::map<const UHDM::class_typespec*, UHDM::package*> def474;
             for (auto& [ta460, ts460] : c460) {
                 if (ts460->Parameters() || ts460->Typedef_alias())
                     continue;
@@ -30267,6 +30411,13 @@ UHDM::design* UhdmExporter::exportDesign() {
                     if (auto tp460 = pkgTopMap.find((const void*)&ps460->asSymbol());
                         tp460 != pkgTopMap.end())
                         home460[ts460] = tp460->second;
+                    // § thisTdRegDefView474 — the base's generic class and the
+                    // DEFINITION view of its typedef's package, for the
+                    // nested-clone instance below (side lists, read only there)
+                    gen474[ts460] = cls460.genericClass;
+                    if (auto dp474 = pkgDefMap.find((const void*)&ps460->asSymbol());
+                        dp474 != pkgDefMap.end())
+                        def474[ts460] = dp474->second;
                     lawTrace(460, "pkgTdForeignSpecParams460",
                              std::string(ps460->asSymbol().name) + "::" +
                                  std::string(ta460->name));
@@ -30326,7 +30477,36 @@ UHDM::design* UhdmExporter::exportDesign() {
                         // a copied formal is named by its new parent chain
                         // (golden work@top.u::dflt_t.REQ on the param_assign's
                         // copied Lhs, the class's own u::S::REQ in the base)
-                        auto unname460 = [](UHDM::any* x) {
+                        auto unname460 = [&](UHDM::any* x) {
+                            // § cloneValFormalUnnamed474 (r11u474,
+                            // R11U474_CLONEPARNAME_OFF; cases RG rg11, rg12;
+                            // sv-tests uvm_param_vif_config_db's SFR_cfg_t /
+                            // this_t copies of UVM_ALL_ON) -- a copied VALUE
+                            // formal (a `parameter`, the imported package
+                            // parameter § specArgPairsImportedFormal468 pairs)
+                            // is named by its new parent chain too: golden
+                            // `<copy>.this_t.UVM_ALL_ON` where the copy kept the
+                            // class's sfr_agent_pkg::sfr_agent::UVM_ALL_ON
+                            // only a fresh copy this loop made: parented by
+                            // the copy c itself or by its copied param_assign
+                            auto fresh474 = [&](const UHDM::any* y) {
+                                const UHDM::any* yp = y ? y->VpiParent() : nullptr;
+                                return yp && (yp == c || (yp->UhdmType() ==
+                                                              UHDM::uhdmparam_assign &&
+                                                          yp->VpiParent() == c));
+                            };
+                            if (x && x->UhdmType() == UHDM::uhdmparameter && fresh474(x) &&
+                                !((UHDM::parameter*)x)->VpiFullName().empty() &&
+                                lawOn(474, "R11U474_CLONEPARNAME_OFF")) {
+                                auto* vp = (UHDM::parameter*)x;
+                                lawTrace(474, "cloneValFormalUnnamed474",
+                                         std::string(c->VpiName()) + "." +
+                                             std::string(vp->VpiName()));
+                                vp->VpiFullName("");
+                                if (vp->Typespec())
+                                    vp->Typespec()->VpiFullName("");
+                                return;
+                            }
                             if (!x || x->UhdmType() != UHDM::uhdmtype_parameter)
                                 return;
                             auto* tp = (UHDM::type_parameter*)x;
@@ -30374,7 +30554,24 @@ UHDM::design* UhdmExporter::exportDesign() {
                             c->VpiName().find("::") == std::string_view::npos &&
                             c->Instance() != h460->second &&
                             lawOn(460, "R11U460_NESTCLONEINST_OFF")) {
-                            c->Instance(h460->second);
+                            UHDM::package* v474 = h460->second;
+                            // § thisTdRegDefView474 (R11U474_THISREGDEF_OFF): a
+                            // generic class that also declares `typedef R
+                            // #(<this typedef>) ...` with R imported from
+                            // another package keeps the DEFINITION view
+                            auto g474 = gen474.find(b);
+                            auto d474 = def474.find(b);
+                            if (g474 != gen474.end() && d474 != def474.end() &&
+                                d474->second &&
+                                thisTdRegDefView474(g474->second, c->VpiName()) &&
+                                lawOn(474, "R11U474_THISREGDEF_OFF")) {
+                                v474 = d474->second;
+                                lawTrace(474, "thisTdRegDefView474",
+                                         std::string(c->VpiParent()->VpiName()) + "::" +
+                                             std::string(c->VpiName()) + " -> " +
+                                             std::string(v474->VpiName()) + " def");
+                            }
+                            c->Instance(v474);
                             lawTrace(460, "clsNestedSpecCloneHomeInst460",
                                      std::string(c->VpiParent()->VpiName()) + "::" +
                                          std::string(c->VpiName()));
@@ -30390,6 +30587,8 @@ UHDM::design* UhdmExporter::exportDesign() {
         // § subrAggCopyNamesByChain458 / § memberAliasFollowsMemberName458
         // (r11u458) — design-final (law and decode at the function).
         aggCopyNames458(s);
+        // § clsScopedRangeKept474 (TypeEmit, its NAME half) — design-final.
+        clsScopedRangeNames474();
         // § enumBaseInstFollowsEnum462 (r11u462, uvm_use_models_pipelined_
         // get_put's first face, decoded by pass 461: the unparented
         // `logic [2:0]` base of the mbus_resp_e copy module top_tb lists

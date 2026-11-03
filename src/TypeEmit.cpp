@@ -19,6 +19,12 @@
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+static bool clsScopedRangeKept474(const syntax::SyntaxNode* bsyn, const Scope* scope);  // § clsScopedRangeKept474
+// § elabParamClsScopedSubst474 — true while ModuleEmit's emitInterfaceInstance
+// emits an ELABORATED interface body (written there, read only by the law)
+bool g474IfaceElab = false;
+static void clsScopedRangeRecord474(UHDM::any* e);  // § clsScopedRangeKept474
+static std::vector<std::pair<UHDM::ref_obj*, std::string>>& clsScopedRangeRefs474();
 // § specNamedArgsAbstain468v (UhdmExporter.cpp): records a class_typespec
 // whose written specialization carries a named argument.
 void markNamedSpec468v(const UHDM::class_typespec* cts, const slang::syntax::SyntaxNode* syn);
@@ -7538,6 +7544,112 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                                          int64_t value) -> UHDM::expr* {
                         if (!bsyn || bsyn->kind == syntax::SyntaxKind::IntegerLiteralExpression)
                             return makeBoundConst(bsyn, value, r);
+                        // § elabParamClsScopedSubst474 (R11U474_PARAMSUBST_OFF;
+                        // cases tools/probe/r11u474repro/cases/CS cs03, cs10 to
+                        // cs1x) -- in an ELABORATED instance body a bound that
+                        // reads a parameter whose override is a bare class-scoped
+                        // name `#(.A(K::w))` is the written tree with that
+                        // reference substituted for the parameter: Surelog
+                        // elaborates the parameter to the unreducible ref_obj
+                        // K::w and the bound cannot fold (golden `operation -`
+                        // over `ref_obj S::w` at A's own span with A's
+                        // typespec, and `constant 1`, cs03's work@top.u.d).
+                        // A PORT keeps the fold (golden's interface header port
+                        // `output logic [ADDR_WIDTH-1:0] address` reads the
+                        // folded constant; a module port's elaborated typespec
+                        // takes another, undecoded form, CS cs10): body
+                        // declarations only.
+                        auto port474 = [&]() {
+                            for (auto* p = declSymbol.getSyntax(); p; p = p->parent)
+                                if (p->kind == syntax::SyntaxKind::ImplicitAnsiPort ||
+                                    p->kind == syntax::SyntaxKind::PortDeclaration)
+                                    return true;
+                            return false;
+                        };
+                        if ((elabInstanceTs || g474IfaceElab) &&
+                            (declSymbol.kind == SymbolKind::Net ||
+                             declSymbol.kind == SymbolKind::Variable) && !port474() &&
+                            declSymbol.getParentScope() &&
+                            declSymbol.getParentScope()->asSymbol().kind ==
+                                SymbolKind::InstanceBody &&
+                            lawOn(474, "R11U474_PARAMSUBST_OFF")) {
+                            auto& body474 = declSymbol.getParentScope()->asSymbol()
+                                                .as<InstanceBodySymbol>();
+                            const Scope* ov474 = body474.parentInstance
+                                                     ? body474.parentInstance->getParentScope()
+                                                     : nullptr;
+                            std::map<std::string, std::string> sub474;
+                            std::function<void(const syntax::SyntaxNode&)> scan474 =
+                                [&](const syntax::SyntaxNode& sn) {
+                                    if (sn.kind == syntax::SyntaxKind::IdentifierName) {
+                                        std::string_view nm = sn.as<syntax::IdentifierNameSyntax>()
+                                                                  .identifier.valueText();
+                                        auto* ps = declSymbol.getParentScope()->find(nm);
+                                        if (!ps || ps->kind != SymbolKind::Parameter ||
+                                            !ps->as<ParameterSymbol>().isOverridden())
+                                            return;
+                                        auto* ini = ps->as<ParameterSymbol>()
+                                                        .getDeclaredType()
+                                                        ->getInitializerSyntax();
+                                        // a NAMED override only: Surelog drops an
+                                        // ordered `#(S::w)` and keeps the default
+                                        // (golden cs06 u: UINT:8, the bound 7)
+                                        if (ini && ini->kind == syntax::SyntaxKind::ScopedName &&
+                                            ini->parent &&
+                                            ini->parent->kind ==
+                                                syntax::SyntaxKind::NamedParamAssignment &&
+                                            clsScopedRangeKept474(ini, ov474))
+                                            sub474[std::string(nm)] =
+                                                std::string(rawText(ini->sourceRange()));
+                                        return;
+                                    }
+                                    for (size_t ci = 0; ci < sn.getChildCount(); ci++)
+                                        if (auto* cn = sn.childNode(ci))
+                                            scan474(*cn);
+                                };
+                            if (ov474)
+                                scan474(*bsyn);
+                            if (!sub474.empty())
+                                if (auto* e474 = emitSyntaxExpr(*bsyn, r)) {
+                                    std::function<void(UHDM::any*)> fix474 = [&](UHDM::any* x) {
+                                        if (!x)
+                                            return;
+                                        if (x->UhdmType() == UHDM::uhdmref_obj) {
+                                            auto it = sub474.find(std::string(x->VpiName()));
+                                            if (it == sub474.end())
+                                                return;
+                                            auto* ro = (UHDM::ref_obj*)x;
+                                            ro->VpiName(it->second);
+                                            ro->VpiFullName("");
+                                            ro->Actual_group(nullptr);
+                                            clsScopedRangeRefs474().push_back({ro, it->first});
+                                            return;
+                                        }
+                                        if (x->UhdmType() == UHDM::uhdmoperation)
+                                            if (auto* ops = ((UHDM::operation*)x)->Operands())
+                                                for (auto* o : *ops)
+                                                    fix474(o);
+                                    };
+                                    fix474(e474);
+                                    lawTrace(474, "elabParamClsScopedSubst474",
+                                             std::string(declSymbol.name) + " " +
+                                                 std::string(rawText(bsyn->sourceRange())));
+                                    return (UHDM::expr*)e474;
+                                }
+                        }
+                        // § clsScopedRangeKept474 (R11U474_CLSRANGE_OFF; the
+                        // helper above makeBoundConst)
+                        if ((declSymbol.kind == SymbolKind::Net ||
+                             declSymbol.kind == SymbolKind::Variable) &&
+                            clsScopedRangeKept474(bsyn, declSymbol.getParentScope()) &&
+                            lawOn(474, "R11U474_CLSRANGE_OFF"))
+                            if (auto* e474 = emitSyntaxExpr(*bsyn, r)) {
+                                lawTrace(474, "clsScopedRangeKept474",
+                                         std::string(declSymbol.name) + " " +
+                                             std::string(rawText(bsyn->sourceRange())));
+                                clsScopedRangeRecord474(e474);
+                                return (UHDM::expr*)e474;
+                            }
                         // § unitTdBoundUnitParamFold426, the PACKED half — a
                         // $unit typedef's packed bound naming a $unit
                         // parameter (`typedef bit [k:0] pk_t;`, `[(k):j]`) is
@@ -11295,6 +11407,116 @@ static std::string memberRootFile171(const slang::SourceManager* sm,
 // object carries), R11U172_SPAN_OFF (a sign call's name span in the syntax
 // view); R11U172_DEPTH_OFF is ExprEmit's (the elaborated package cast's
 // typedef listing).  R11U172_OFF drops every one of them (pristine bytes).
+
+// § clsScopedRangeKept474, the NAME half: the class-scoped ref_obj of a
+// kept bound carries no full name at the definition view's typespec and
+// `<net full name>.<K::w>` at the typespec an ELABORATED net references
+// (golden cs01 work@top.a.S::w, cs07 work@top.u.a.S::w beside the bare
+// definition copy), Surelog naming the reference when the elaborated
+// instance tries to bind it.  The kept ref_objs are recorded here (a side
+// list, read once) and named design-final by clsScopedRangeNames474, called
+// from UhdmExporter after every typespec has its final parent.
+static std::vector<std::pair<UHDM::ref_obj*, std::string>>& clsScopedRangeRefs474() {
+    static std::vector<std::pair<UHDM::ref_obj*, std::string>> v;
+    return v;
+}
+static void clsScopedRangeRecord474(UHDM::any* e) {
+    if (!e)
+        return;
+    if (e->UhdmType() == UHDM::uhdmref_obj) {
+        if (e->VpiName().find("::") != std::string_view::npos)
+            clsScopedRangeRefs474().push_back({(UHDM::ref_obj*)e, std::string()});
+        return;
+    }
+    if (e->UhdmType() == UHDM::uhdmoperation)
+        if (auto* ops = ((UHDM::operation*)e)->Operands())
+            for (auto* o : *ops)
+                clsScopedRangeRecord474(o);
+}
+void clsScopedRangeNames474() {
+    for (auto& [ro, pn474] : clsScopedRangeRefs474()) {
+        const UHDM::any* t = ro->VpiParent();
+        while (t && (t->UhdmType() == UHDM::uhdmoperation || t->UhdmType() == UHDM::uhdmrange))
+            t = t->VpiParent();
+        const UHDM::any* n = t ? t->VpiParent() : nullptr;
+        if (!t || !n || !dynamic_cast<const UHDM::typespec*>(t))
+            continue;  // the definition view's copy stays unnamed
+        std::string_view nf;
+        if (auto* nn = dynamic_cast<const UHDM::nets*>(n))
+            nf = nn->VpiFullName();
+        else if (auto* vv = dynamic_cast<const UHDM::variables*>(n))
+            nf = vv->VpiFullName();
+        if (nf.empty())
+            continue;
+        ro->VpiFullName(std::string(nf) + "." + std::string(ro->VpiName()));
+        lawTrace(474, "clsScopedRangeKept474", "name " + std::string(ro->VpiFullName()));
+        if (pn474.empty())
+            continue;
+        // § elabParamClsScopedSubst474 — the substituted reference carries
+        // the overridden parameter's own typespec (golden ref_typespec named
+        // like the reference, actual the declaration's int_typespec)
+        const UHDM::any* in474 = n->VpiParent();
+        auto* inst474 = in474 ? dynamic_cast<const UHDM::instance*>(in474) : nullptr;
+        if (!inst474 || !inst474->Parameters())
+            continue;
+        for (auto* pp : *inst474->Parameters()) {
+            auto* par474 = dynamic_cast<const UHDM::parameter*>(pp);
+            if (!par474 || par474->VpiName() != pn474 || !par474->Typespec() ||
+                !par474->Typespec()->Actual_typespec())
+                continue;
+            auto* rt474 = ((UHDM::Serializer*)ro->GetSerializer())->MakeRef_typespec();
+            rt474->VpiParent(ro);
+            rt474->VpiFullName(std::string(ro->VpiFullName()));
+            rt474->Actual_typespec((UHDM::typespec*)par474->Typespec()->Actual_typespec());
+            ro->Typespec(rt474);
+            lawTrace(474, "elabParamClsScopedSubst474", "ts " + std::string(ro->VpiFullName()));
+            break;
+        }
+    }
+    clsScopedRangeRefs474().clear();
+}
+
+// § clsScopedRangeKept474 (r11u474, R11U474_CLSRANGE_OFF; cases
+// tools/probe/r11u474repro/cases/CS; sv-tests generated/uvm-examples/
+// uvm_param_vif_config_db.sv, hdl_top's `wire[SFR::sfr_addr_width-1:0]
+// address;`) -- a packed range bound that reads a CLASS-scoped name `K::w`
+// is never reduced: Surelog's reduceExpr resolves a scoped name through a
+// package only, so the class-scoped reference stays a ref_obj and the bound
+// keeps its written operation tree (golden `operation -` over `ref_obj
+// S::w` and `constant 1`, the typespec shared by both module views), where
+// slang's constant folded it.  True when `bsyn` holds a two-part scoped name
+// whose left part names a class (directly or through a typedef) from
+// `scope`; `p::K::w` (golden p::w, § specValueArgRefObj470's va15) abstains.
+static bool clsScopedRangeKept474(const syntax::SyntaxNode* bsyn, const Scope* scope) {
+    if (!bsyn || !scope)
+        return false;
+    bool hit = false, bad = false;
+    std::function<void(const syntax::SyntaxNode&)> scan = [&](const syntax::SyntaxNode& sn) {
+        if (hit || bad)
+            return;
+        if (sn.kind == syntax::SyntaxKind::ScopedName) {
+            auto& sc = sn.as<syntax::ScopedNameSyntax>();
+            if (sc.separator.kind != parsing::TokenKind::DoubleColon || !sc.left ||
+                sc.left->kind != syntax::SyntaxKind::IdentifierName) {
+                bad = true;  // a longer chain or a parameterized class
+                return;
+            }
+            std::string_view l = sc.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+            const Symbol* ls = l.empty() ? nullptr : scope->lookupName(l);
+            if (ls && ls->kind == SymbolKind::TypeAlias)
+                ls = &ls->as<TypeAliasType>().targetType.getType().getCanonicalType();
+            if (ls && (ls->kind == SymbolKind::ClassType ||
+                       ls->kind == SymbolKind::GenericClassDef))
+                hit = true;
+            return;
+        }
+        for (size_t ci = 0; ci < sn.getChildCount(); ci++)
+            if (auto* cn = sn.childNode(ci))
+                scan(*cn);
+    };
+    scan(*bsyn);
+    return hit && !bad;
+}
 
 UHDM::constant* UhdmExporter::makeBoundConst(const syntax::SyntaxNode* syn, int64_t value,
                                              UHDM::BaseClass* parent) {

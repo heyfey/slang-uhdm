@@ -1,0 +1,21 @@
+r11u474 prediction, written BEFORE the law sweep (law binary law15, md5 b8ed2976069b17485592cfe7eb656f1d)
+
+Census 1, sv-tests (drivers/census.sh over 223 candidate rows whose own sources, files plus incdir
+.sv/.svh and never the bundled UVM library, hold `typedef X #(`, a scoped name inside [...], a named
+override `.P(K::w)` or `#(K::w`; path list fence-filtered first; law15 run slang-side only with
+R11U474_TRACE): every exit code equal to the control's status class (182 rc=0, 41 rc=3 on rows the
+control reads BOTH_REJECT 15, SURELOG_ONLY 19, SURELOG_CRASH 6, TIMEOUT 1); the laws fire on ONE row,
+generated/uvm-examples/uvm_param_vif_config_db.sv (thisTdRegDefView474 2, cloneValFormalUnnamed474 4,
+clsScopedRangeKept474 9 incl. its naming half; elabParamClsScopedSubst474 0: the bfm interfaces read
+the parameters only in header ports, which the law leaves to the fold).
+PREDICTED sv-tests byte mover: uvm_param_vif_config_db only; its status stays DIFFERENT (the head
+is the sister's package virtual-interface typedef listing).
+
+Census 2, corpora (Surelog tests + third_party/tests, uhdm2rtlil tests, tests/probe; sources
+fence-filtered first): no packed declaration range and no named override reads a class-scoped name
+(the two textual hits, SplitFile amiq_eth_ve_top.v `[uvmc_base::x_ports[...]]` and probe
+r10uvm48repro/t67e `[base67::stat.hval]`, are selects in expressions, not declaration ranges);
+thisTdRegDefView474 and cloneValFormalUnnamed474 act only inside pass 460's package-typedef
+specialization drain on a CLASS-nested clone or an alias copy whose listing pairs a VALUE formal
+(a `parameter`), shapes the corpus UVM rows (type arguments only) do not hold.
+PREDICTED corpus / probe / downstream byte movers: none.

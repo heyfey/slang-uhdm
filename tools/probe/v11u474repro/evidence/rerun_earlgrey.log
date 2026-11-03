@@ -1,0 +1,14 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== surelog: both modes, jobs=3, out=/tmp/v11u474_sVe/surelog.csv
+1 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u474/build/uhdm-strictcmp
+
+[default] 1 tests
+  CMP_EQUAL: 1
+
+[testflags] 1 tests
+  CMP_EQUAL: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=1
+[testflags] CMP_EQUAL=1
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+golden cache: 2 of 2 runs served from the cache

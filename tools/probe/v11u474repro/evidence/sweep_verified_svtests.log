@@ -1,0 +1,9 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/v11u474_sV/svtests.csv
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CHANGE generated/rsd/rsd.sv: SURELOG_CRASH -> TIMEOUT
+sv-tests: BOTH_REJECT=303 DIFFERENT=5 EQUAL=1935 SLANG_ONLY=19 SURELOG_CRASH=7 SURELOG_ONLY=75 TIMEOUT=2 (of 2346)
+regressions=0 conversions=0 changes=1
+golden cache: 5288 of 5669 runs served from the cache
+svtests rc=1

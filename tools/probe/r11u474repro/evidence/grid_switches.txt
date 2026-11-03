@@ -1,0 +1,47 @@
+cases/CS/cs01 pris=0:5f456772 law=0:038934a7 OFF=pristine restored-by: CLSRANGE_OFF
+cases/CS/cs02 pris=0:02f80c49 law=0:2e16bfcc OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs03 pris=0:040e1c8d law=0:d05c54cf OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs04 pris=0:2d836c8b law=0:11875b04 OFF=pristine restored-by: CLSRANGE_OFF
+cases/CS/cs05 pris=0:0c608761 law=0:7ec93829 OFF=pristine restored-by: CLSRANGE_OFF
+cases/CS/cs06 pris=0:4aebe3e0 law=0:4aebe3e0 OFF=pristine
+cases/CS/cs07 pris=0:9dd758a3 law=0:2de9a775 OFF=pristine restored-by: CLSRANGE_OFF
+cases/CS/cs08 pris=0:f57f915c law=0:f57f915c OFF=pristine
+cases/CS/cs09 pris=0:dd2241e6 law=0:e5b9eac3 OFF=pristine restored-by: CLSRANGE_OFF
+cases/CS/cs10 pris=0:e9290710 law=0:d7668e4c OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs11 pris=0:52cca26a law=0:dfd68a71 OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs12 pris=0:4d986979 law=0:dbaed9d6 OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs13 pris=0:f03d6e52 law=0:5822ecd0 OFF=pristine restored-by: PARAMSUBST_OFF
+cases/CS/cs14 pris=0:4b47db9e law=0:9226cd36 OFF=pristine restored-by: CLSRANGE_OFF
+cases/RG/rg01 pris=0:5e8e672a law=0:6d8e56f7 OFF=pristine restored-by: (none alone)
+cases/RG/rg02 pris=0:0b09ec85 law=0:11cdbb4b OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg03 pris=0:47b6528e law=0:d960e392 OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg04 pris=0:778a4ac3 law=0:d97e5a30 OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg05 pris=0:3c291559 law=0:f6333d13 OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg07 pris=0:93dcbfc7 law=0:8b5a1078 OFF=pristine restored-by: (none alone)
+cases/RG/rg08 pris=0:8f625eae law=0:5da8edf2 OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg09 pris=0:b9998c25 law=0:cc4a5be1 OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/RG/rg10 pris=0:1e348189 law=0:9a8a3ce7 OFF=pristine restored-by: (none alone)
+cases/RG/rg11 pris=0:1730792d law=0:a44153ec OFF=pristine restored-by: (none alone)
+cases/RG/rg12 pris=0:09ae94a5 law=0:b2ab13cd OFF=pristine restored-by: CLONEPARNAME_OFF
+cases/TI/t01 pris=0:9f4b7567 law=0:9f4b7567 OFF=pristine
+cases/TI/t02 pris=0:d12aab0b law=0:d12aab0b OFF=pristine
+cases/TI/t03 pris=0:7abe065a law=0:7abe065a OFF=pristine
+cases/TI/t04 pris=0:bff9d4cd law=0:bff9d4cd OFF=pristine
+cases/TI/t05 pris=0:282ced30 law=0:282ced30 OFF=pristine
+cases/TI/t06 pris=0:a97f4f72 law=0:a97f4f72 OFF=pristine
+cases/TI/t07 pris=0:ef7f0d37 law=0:ef7f0d37 OFF=pristine
+cases/TI/t08 pris=0:77b83a84 law=0:77b83a84 OFF=pristine
+cases/TI/t09 pris=0:379343f9 law=0:379343f9 OFF=pristine
+cases/TI/t10 pris=0:c3e6b617 law=0:c3e6b617 OFF=pristine
+cases/TI/t11 pris=0:28436fd1 law=0:28436fd1 OFF=pristine
+cases/TI/t12 pris=0:5c1234d2 law=0:5c1234d2 OFF=pristine
+cases/TI/t13 pris=0:b397ad7f law=0:b397ad7f OFF=pristine
+cases/TI/t14 pris=0:bfb4344e law=0:bfb4344e OFF=pristine
+cases/TI/t15 pris=0:e6be72bc law=0:e6be72bc OFF=pristine
+cases/TI/t16 pris=0:986e96fd law=0:986e96fd OFF=pristine
+cases/TI/t17 pris=0:69427b6c law=0:69427b6c OFF=pristine
+cases/TI/t18 pris=0:b73cf644 law=0:b73cf644 OFF=pristine
+cases/TI/t19 pris=0:a8675e12 law=0:a8675e12 OFF=pristine
+cases/TI/t20 pris=0:1f5c07df law=0:1f5c07df OFF=pristine
+cases/TI/t21 pris=0:444c44e0 law=0:444c44e0 OFF=pristine
+cases/TI/t22 pris=0:7b36bc4d law=0:7b36bc4d OFF=pristine
