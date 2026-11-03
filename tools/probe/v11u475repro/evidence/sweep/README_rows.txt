@@ -1,0 +1,5 @@
+probe.csv rows=4088 kept=4088 (fenced rows dropped)
+surelog.csv rows=1597 kept=1589 (fenced rows dropped)
+uhdm2rtlil.csv rows=1743 kept=1741 (fenced rows dropped)
+downstream.csv rows=872 kept=871 (fenced rows dropped)
+svtests.csv rows=2347 kept=2347 (fenced rows dropped)

@@ -1,0 +1,43 @@
+VA/va01 pris rc=0 cmp=0 STRICT_EQUAL 253 objects dd=88 roles= md5=a10fd2a5
+VA/va02 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=68 roles= md5=af428f00
+VA/va03 pris rc=0 cmp=0 STRICT_EQUAL 143 objects dd=2 roles= md5=b62c8329
+VA/va04 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=136 roles= md5=1f077f62
+VA/va05 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=59 roles= md5=bd06577b
+VA/va06 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=130 roles= md5=7ec868c2
+VA/va07 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=58 roles= md5=72b08a8f
+VH/vh01 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=88 roles= md5=1675519e
+VH/vh02 pris rc=0 cmp=46 NOT_EQUAL stage1 dd=216 roles= md5=274e7956
+VH/vh03 pris rc=0 cmp=0 STRICT_EQUAL 117 objects dd=2 roles= md5=a249c68d
+VH/vh04 pris rc=0 cmp=0 STRICT_EQUAL 171 objects dd=2 roles= md5=b72d5b85
+VQ/vq01 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=18 roles= md5=865c9f38
+VQ/vq02 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=54 roles= md5=432c1ef7
+VQ/vq03 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=27 roles= md5=ece3948b
+VQ/vq04 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=18 roles= md5=34fb2588
+VQ/vq05 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=12 roles= md5=93e2cc81
+VR/vr01 pris rc=0 cmp=0 STRICT_EQUAL 77 objects dd=2 roles= md5=03b5bf85
+VR/vr02 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=45 roles= md5=7b84a2fb
+VR/vr03 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=248 roles= md5=56306883
+VR/vr04 pris rc=0 cmp=0 STRICT_EQUAL 171 objects dd=2 roles= md5=224dbcd6
+VR/vr05 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=299 roles= md5=8586c168
+VR/vr06 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=90 roles= md5=a0abaf12
+VR/vr07 pris rc=0 cmp=60 NOT_EQUAL stage1 dd=182 roles= md5=a16a1e92
+VR/vr08 pris rc=0 cmp=87 NOT_EQUAL stage1 dd=38 roles= md5=663b3cda
+VT/vt01 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=563 roles= md5=cc853d74
+VT/vt02 pris rc=0 cmp=0 STRICT_EQUAL 352 objects dd=562 roles= md5=3b054d14
+VT/vt03 pris rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=133 roles= md5=44f41522
+VT/vt04 pris rc=0 cmp=322 NOT_EQUAL stage1 dd=694 roles= md5=157e6af1
+VX/vx01 pris rc=0 cmp=58 NOT_EQUAL stage1 dd=77 roles= md5=ec00ceb0
+VX/vx02 pris rc=0 cmp=50 NOT_EQUAL stage1 dd=108 roles= md5=749d3ec9
+VX/vx03 pris rc=0 cmp=42 NOT_EQUAL stage1 dd=19 roles= md5=14da8feb
+VX/vx04 pris rc=0 cmp=54 NOT_EQUAL stage1 dd=48 roles= md5=dbf84d99
+VX/vx05 pris rc=0 cmp=0 STRICT_EQUAL 82 objects dd=2 roles= md5=614a188f
+VX/vx06 pris rc=0 cmp=0 STRICT_EQUAL 108 objects dd=10 roles= md5=b89b7d9c
+VX/vx07 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=51 roles= md5=32edb1e0
+VX/vx08 pris rc=0 cmp=54 NOT_EQUAL stage1 dd=25 roles= md5=f6d466f2
+VX/vx09 pris rc=0 cmp=0 STRICT_EQUAL 121 objects dd=52 roles= md5=de193c47
+VX/vx10 pris rc=0 cmp=0 STRICT_EQUAL 91 objects dd=2 roles= md5=50950c7b
+VX/vx11 pris rc=0 cmp=36 NOT_EQUAL stage1 dd=78 roles= md5=11406570
+VX/vx12 pris rc=0 cmp=54 NOT_EQUAL stage1 dd=25 roles= md5=b04d72a3
+VA/va08 pris rc=0 cmp=64 NOT_EQUAL stage1 dd=130 roles= md5=27af9d56
+VA/va09 pris rc=0 cmp=0 STRICT_EQUAL 126 objects dd=2 roles= md5=98b0e0f9
+VQ/vq06 pris rc=0 cmp=32 NOT_EQUAL stage1 dd=24 roles= md5=3e7bbe19

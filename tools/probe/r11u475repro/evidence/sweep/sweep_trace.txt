@@ -1,0 +1,11 @@
+== OUT /tmp/r11u475_sw/probe/r10vrgg3repro__xl_deep_transitive.uhdm
+      6 addOperandConstMint475 fold
+== OUT /tmp/r11u475_sw/surelog/default/HierPathStructTypespec-f0bedc40/slang.uhdm
+      2 addOperandConstMint475 fold
+== OUT /tmp/r11u475_sw/surelog/testflags/HierPathStructTypespec-f0bedc40/slang.uhdm
+      2 addOperandConstMint475 fold
+== OUT /tmp/r11u475_sw/svtests/work/generated/rsd/rsd/slang.uhdm
+     42 addOperandConstMint475 fold
+      1 pkgReadRefChainLitForm475 RECOVERY_FROM_ACTIVE_LIST work@ActiveList
+      3 pkgReadRefChainLitForm475 RECOVERY_FROM_RRMT work@RenameLogic
+      1 pkgReadRefChainLitForm475 RECOVERY_FROM_RRMT work@RenameLogicCommitter

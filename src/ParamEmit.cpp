@@ -578,6 +578,64 @@ static bool srlgElabUnreducibleCall(const Expression& e) {
 // Corpus: flash_phy_pkg.sv:31 `parameter int AddrBitsRemain = DataWidth %
 // BusWidth`, the def-view import copy in Earlgrey_0_1's flash_phy_rd and
 // flash_phy_rd_buffers.
+// § addOperandConstMint475 (r11u475, R11U475_ADDMINT_OFF) — UHDM ExprEval's
+// vpiAddOp / vpiPlusOp branch (templates/ExprEval.cpp, the `unsignedOperation`
+// loop) mints INT: when ANY REDUCED OPERAND is a constant of const type INT,
+// DEC, STRING or REAL, and UINT: only when none is.  The operator-only rule
+// below (and § foldSigned9) answers the operators that mint INT themselves
+// (`-` `*` `/` `%`) but never asks a LEAF, so a based-decimal literal operand
+// (`PA + 6'd1`: 6'd1 is a vpiDecConst) or a reference to a parameter whose own
+// constant is DEC or INT (`PA + 1` with `parameter t PA = 6'd33`) stayed UINT
+// where golden reads INT:34, in the package's elaborated listing, in every
+// module listing's import copy and in a module's own elaborated listing alike
+// (tools/probe/r11u475repro/cases/AM).  The leaf answer is
+// § addMintFollowsOperandMint97's `red97OperandMintsInt97` (a 'd literal, a
+// minting operator, a parameter reference through its initializer); a hex,
+// binary, octal or plain decimal leaf, an enum member and a cast keep UINT.
+static bool addLeafMint475(const Expression& l, const Expression& r,
+                           const char* site) {
+    if (!(red97OperandMintsInt97(l, true) || red97OperandMintsInt97(r, true)))
+        return false;
+    if (!lawOn(475, "R11U475_ADDMINT_OFF"))
+        return false;
+    lawTrace(475, "addOperandConstMint475", std::string(site));
+    return true;
+}
+
+// § elabImpRefDecRespell475 — see its call site beside paramOriginBaseRecode.
+static void elabImpRefDecRespell475(UHDM::constant* c, const std::string& who) {
+    std::string v(c->VpiValue());
+    if (v.rfind("DEC:", 0) == 0) {
+        std::string dg = v.substr(4);
+        if (dg.empty() || dg.find_first_not_of("0123456789") != std::string::npos)
+            return;
+        if (!lawOn(475, "R11U475_REFRESPELL_OFF"))
+            return;
+        lawTrace(475, "elabImpRefDecRespell475", "DEC " + who);
+        c->VpiValue("INT:" + dg);
+        c->VpiConstType(vpiIntConst);
+        c->VpiDecompile(dg);
+    }
+    else if (v.rfind("OCT:", 0) == 0) {
+        std::string og = v.substr(4);
+        uint64_t ov = 0;
+        if (og.empty())
+            return;
+        for (char ch : og) {
+            if (ch < '0' || ch > '7' || ov > (~0ull >> 3))
+                return;
+            ov = ov * 8 + (uint64_t)(ch - '0');
+        }
+        if (!lawOn(475, "R11U475_REFRESPELL_OFF"))
+            return;
+        lawTrace(475, "elabImpRefDecRespell475", "OCT " + who);
+        std::string d10 = std::to_string(ov);
+        c->VpiValue("UINT:" + d10);
+        c->VpiConstType(vpiUIntConst);
+        c->VpiDecompile(d10);
+    }
+}
+
 static bool srlgArithFoldSigned(const Expression& e) {
     auto& s9 = stripImplicitConv(e);
     if (s9.kind == ExpressionKind::UnaryOp)
@@ -589,7 +647,8 @@ static bool srlgArithFoldSigned(const Expression& e) {
         b9.op == BinaryOperator::Divide || b9.op == BinaryOperator::Mod)
         return true;
     if (b9.op == BinaryOperator::Add)
-        return srlgArithFoldSigned(b9.left()) || srlgArithFoldSigned(b9.right());
+        return srlgArithFoldSigned(b9.left()) || srlgArithFoldSigned(b9.right()) ||
+               addLeafMint475(b9.left(), b9.right(), "impdef");  // § addOperandConstMint475
     return false;
 }
 
@@ -19455,7 +19514,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                             return true;
                         if (b9.op == BinaryOperator::Add)
                             return foldSigned9(b9.left()) ||
-                                   foldSigned9(b9.right());
+                                   foldSigned9(b9.right()) ||
+                                   // § addOperandConstMint475
+                                   addLeafMint475(b9.left(), b9.right(), "fold");
                         return false;
                     };
                     if (scv.kind == ExpressionKind::BinaryOp &&
@@ -27800,7 +27861,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     if (!enumOriginHexRecode((UHDM::constant*)rhs, init))
                         // ...and the same chaining for a plain param
                         // reference that lands on a BASED literal.
-                        paramOriginBaseRecode((UHDM::constant*)rhs, init);
+                        if (paramOriginBaseRecode((UHDM::constant*)rhs, init) &&
+                            !inPackage && !defViewOrig9)
+                            // § elabImpRefDecRespell475 (r11u475,
+                            // R11U475_REFRESPELL_OFF) — ...and in the
+                            // ELABORATED module instance the recoded literal
+                            // form is respelled exactly as a literal default
+                            // is (§ impCopyBasedDecKeep's DEC -> INT and
+                            // § sizedOctElabRespell's OCT -> UINT, the block
+                            // above): elab_parameters_ rebuilds the instance's
+                            // Rhs from the Value (uhdmValue / decompiledValue),
+                            // and a DEC or OCT literal reached through a
+                            // reference (`parameter t PB = PA`, PA = 6'd33,
+                            // wildcard-imported) has no base form left there:
+                            // golden INT:33 "33" (OCT 6'o41 -> UINT:33 "33")
+                            // where ours kept 6'd33 DEC.  HEX and BIN keep
+                            // their form, as the literal road does.  The
+                            // package views and both module DEF listings keep
+                            // the recoded literal.  Grid
+                            // tools/probe/r11u475repro/cases/RR.
+                            elabImpRefDecRespell475((UHDM::constant*)rhs,
+                                                    std::string(ps.name) + " " + prefix);
                 // § unboundedTypedParamTs405 (r11u405,
                 // R11U405_UNBOUNDEDPARAM_OFF) — a TYPED parameter whose
                 // default is `$` (`parameter int i = $;`) keeps the `$`
@@ -31884,7 +31965,8 @@ static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
              UHDM::typespec*>
         memo473;
     auto fix473 = [&](UHDM::BaseClass* owner, const UHDM::ref_typespec* rt,
-                      const std::string& imp, const std::string& what) {
+                      const std::string& imp, const std::string& what,
+                      const std::string& rfnOv475 = std::string()) {
         if (!rt)
             return;
         auto* h1 = (UHDM::typespec*)rt->Actual_typespec();
@@ -31911,7 +31993,10 @@ static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
         if (hi == top473.end() || !hi->second)
             return;
         UHDM::package* hp = hi->second;
-        const std::string rfn(rt->VpiFullName());
+        const std::string rfn(rfnOv475.empty() ? std::string(rt->VpiFullName()) : rfnOv475);
+        if (!rfnOv475.empty())
+            lawTrace(475, "elabRhsSharesDefParamChain475",
+                     what + " " + rfnOv475 + " was " + std::string(rt->VpiFullName()));
         auto key = std::make_tuple((const UHDM::typespec*)h1, (const UHDM::package*)hp, rfn);
         UHDM::typespec* n1 = nullptr;
         if (auto mi = memo473.find(key); mi != memo473.end())
@@ -31962,7 +32047,19 @@ static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
         lawTrace(473, "modImpCopyTdChainHomeTop473", what);
     };
     std::set<const UHDM::scope*> seen473;
-    std::function<void(UHDM::scope*)> walk473 = [&](UHDM::scope* sc) {
+    // § elabRhsSharesDefParamChain475 (r11u475, R11U475_ELABRHSDEF_OFF) —
+    // the ELABORATED instance's param_assign Rhs constant is built by
+    // NetlistElaboration::elab_parameters_ with `crt->Actual_typespec(ag)`,
+    // ag the typespec of `mod_assign->Lhs()`: the DEFINITION listing's
+    // parameter.  So it shares the definition copy's chain, whose alias is
+    // named after the definition (`work@sub.PB.t`), not after the instance
+    // (ours `work@top.u1.t`); in a top module the two names coincide, which
+    // is why § modImpCopyTdChainHomeTop473's grid read equal.  The role's
+    // name is taken from the definition's parameter (<defName>.<param>) so
+    // the memo shares the definition's clone.  Grid
+    // tools/probe/r11u475repro/cases/NT.
+    static const bool elabRhsDef475 = lawOn(475, "R11U475_ELABRHSDEF_OFF");
+    std::function<void(UHDM::scope*, bool)> walk473 = [&](UHDM::scope* sc, bool elab475) {
         if (!sc || !seen473.insert(sc).second)
             return;
         const std::string sn(sc->VpiFullName().empty() ? sc->VpiName() : sc->VpiFullName());
@@ -31983,9 +32080,13 @@ static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
                     continue;
                 const std::string imp(lp->VpiImported());
                 fix473(lp, lp->Typespec(), imp, sn + " pa lhs " + std::string(lp->VpiName()));
-                if (auto* r = pa->Rhs(); r && r->UhdmType() == UHDM::uhdmconstant)
+                if (auto* r = pa->Rhs(); r && r->UhdmType() == UHDM::uhdmconstant) {
+                    std::string ov475;
+                    if (elab475 && elabRhsDef475 && !sc->VpiDefName().empty())
+                        ov475 = std::string(sc->VpiDefName()) + "." + std::string(lp->VpiName());
                     fix473((UHDM::constant*)r, ((UHDM::constant*)r)->Typespec(), imp,
-                           sn + " pa rhs " + std::string(lp->VpiName()));
+                           sn + " pa rhs " + std::string(lp->VpiName()), ov475);
+                }
             }
         // A continuous assignment's fold (the whole right side or an
         // operation operand, any depth) and a variable's folded initializer:
@@ -32028,24 +32129,24 @@ static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d) {
             auto* m = (UHDM::module_inst*)sc;
             if (m->Modules())
                 for (auto* c : *m->Modules())
-                    walk473(c);
+                    walk473(c, elab475);
             if (m->Interfaces())
                 for (auto* c : *m->Interfaces())
-                    walk473(c);
+                    walk473(c, elab475);
         }
     };
     if (d->AllModules())
         for (auto* m : *d->AllModules())
-            walk473(m);
+            walk473(m, false);
     if (d->AllInterfaces())
         for (auto* m : *d->AllInterfaces())
-            walk473(m);
+            walk473(m, false);
     if (d->AllPrograms())
         for (auto* m : *d->AllPrograms())
-            walk473(m);
+            walk473(m, false);
     if (d->TopModules())
         for (auto* m : *d->TopModules())
-            walk473(m);
+            walk473(m, true);
     // The per-reference fold clones ExprEmit minted for the module's reads.
     for (auto& f473 : modCopyFold473())
         if (f473.c)
@@ -41944,8 +42045,24 @@ bool UhdmExporter::paramOriginBaseRecode(UHDM::constant* c,
             c->VpiConstType(vpiBinaryConst);
             break;
         case 'h':
-            for (auto& ch : digits)
-                ch = (char)toupper((unsigned char)ch);
+            // § refChainHexWrittenCase475 (r11u475, R11U475_HEXCASE_OFF) —
+            // the referenced literal's compiled value keeps its digits as
+            // WRITTEN (golden `parameter logic [7:0] HB = HA`, HA = 8'h2a,
+            // reads HEX:2a in every listing); only the enum-member road
+            // (enumOriginHexRecode) re-renders a Value.  Grid
+            // tools/probe/r11u475repro/cases/RC.
+            {
+                bool lower475 = false;
+                for (char ch : digits)
+                    if (ch >= 'a' && ch <= 'f')
+                        lower475 = true;
+                if (!lower475 || !lawOn(475, "R11U475_HEXCASE_OFF")) {
+                    for (auto& ch : digits)
+                        ch = (char)toupper((unsigned char)ch);
+                }
+                else
+                    lawTrace(475, "refChainHexWrittenCase475", lit);
+            }
             c->VpiValue("HEX:" + digits);
             c->VpiConstType(vpiHexConst);
             break;

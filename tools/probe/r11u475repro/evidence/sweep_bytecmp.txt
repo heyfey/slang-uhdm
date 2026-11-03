@@ -1,0 +1,6 @@
+downstream: compared=804 identical=804 movers=0 no-census-db=0 negative-control-flagged=804/804 []
+surelog/default: compared=480 identical=480 movers=0 no-census-db=0 negative-control-flagged=480/480 []
+surelog/testflags: compared=474 identical=474 movers=0 no-census-db=0 negative-control-flagged=474/474 []
+uhdm2rtlil/default: compared=803 identical=803 movers=0 no-census-db=0 negative-control-flagged=803/803 []
+uhdm2rtlil/testflags: compared=803 identical=803 movers=0 no-census-db=0 negative-control-flagged=803/803 []
+probe: compared=4087 identical=4087 movers=0 no-census-db=0 negative-control-flagged=4087/4087 []

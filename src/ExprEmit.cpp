@@ -16300,10 +16300,27 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             srlgUnbasedReduce(comp, expr, 0).bails)
             return nullptr;
     }
+    // § caReduceLeavesOpKept475 (r11u475, R11U475_CAXORKEEP_OFF) — a
+    // continuous assignment whose WHOLE right side is an operator UHDM
+    // ExprEval's reduceExpr has no branch for (`^`, `~^`/`^~`, `===`, `!==`,
+    // `==?`, `!=?` and unary `+`; § redTableOneHome72's measured set,
+    // `red72ReduceLeavesOp`) is never reduced: golden keeps the operation with
+    // its operands as written (literals, a module parameter as a ref_obj, an
+    // imported package parameter as its folded constant), where ours folded
+    // the whole value to one constant (`assign y = PA ^ PB` golden vpiOpType
+    // 30, ours UINT:36).  Parameter folds (paramCtx) keep folding: their value
+    // is the instance's Value, which Surelog's own evaluator computes.  Grid
+    // tools/probe/r11u475repro/cases/XK.
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
         return nullptr;
+    if (!paramCtx && red72ReduceLeavesOp(expr) &&
+        lawOn(475, "R11U475_CAXORKEEP_OFF")) {
+        lawTrace(475, "caReduceLeavesOpKept475",
+                 cv.integer().toString(LiteralBase::Decimal, false));
+        return nullptr;
+    }
     // § pkgBitsTypeEnumZero459 (EmitHelpers.h) — the fold reads Surelog's
     // zero-width base-less enum through $bits and the parameters it feeds.
     if (!cv.integer().hasUnknown() && srlgZeroEnumReaches459(expr) &&
@@ -31187,6 +31204,80 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     c->VpiDecompile("1'bX");
                                     c->VpiValue("BIN:X");
                                 }
+                            }
+                        }
+                    }
+                    // § pkgReadRefChainLitForm475 (r11u475,
+                    // R11U475_READCHAIN_OFF) — a module-side read of a
+                    // package parameter whose initializer is a REFERENCE
+                    // CHAIN to a based literal (`parameter t PB = PA`,
+                    // `parameter HB = HA`, PA = 6'd33, HA = 8'h2a) folds in
+                    // that literal's source form, exactly as the literal
+                    // initializer above does: Surelog's
+                    // substituteAssignedValue follows the reference to the
+                    // referenced parameter's compiled Rhs, the literal
+                    // (golden DEC:33 "6'd33", HEX:2a "8'h2a", typed or
+                    // untyped), where ours wrote slang's UINT digits.  The
+                    // walk is paramOriginBaseRecode's, which the package and
+                    // import-copy listings already take.  Grid
+                    // tools/probe/r11u475repro/cases/RC.
+                    if (auto* pini475 = psym.getInitializer();
+                        pini475 &&
+                        stripImplicitConv(*pini475).kind ==
+                            ExpressionKind::NamedValue &&
+                        lawOn(475, "R11U475_READCHAIN_OFF")) {
+                        if (paramOriginBaseRecode(c, pini475))
+                            lawTrace(475, "pkgReadRefChainLitForm475",
+                                     std::string(psym.name) + " " + prefix);
+                    }
+                    // § pkgQualCaReadValueForm475 (r11u475,
+                    // R11U475_QUALCAFORM_OFF) — a QUALIFIED read `p::P` as a
+                    // continuous assignment's whole right side is compiled
+                    // through the package's paPackage_scope node, which hands
+                    // back a constant built from the parameter's VALUE, not a
+                    // clone of its compiled Rhs: a DEC literal (`6'd33`,
+                    // `'d9`) reads INT:<digits> decompiled as the bare digits
+                    // and an OCT one (`6'o41`) UINT:<decimal>, exactly the
+                    // elaborated-instance respell of § impCopyBasedDecKeep;
+                    // HEX and BIN keep their written form (golden, grid
+                    // tools/probe/r11u475repro/cases/QR: q05d INT:33, q05u
+                    // INT:9, q05h HEX:2a, q05b BIN:1010).  The unqualified
+                    // read through an import keeps the literal form
+                    // (EX/ex07).  OCT (golden UINT:33, q05o) is NOT written:
+                    // a UINT whole right side takes ModuleEmit's elaborated
+                    // own-copy road (a second constant with a typespec, which
+                    // golden does not make for a qualified read), so the law
+                    // abstains there and q05o stays a reported residue.
+                    if (parent && parent->UhdmType() == UHDM::uhdmcont_assign &&
+                        rawText(expr.sourceRange).find("::") != std::string::npos) {
+                        std::string v475(c->VpiValue());
+                        if (v475.rfind("DEC:", 0) == 0 &&
+                            lawOn(475, "R11U475_QUALCAFORM_OFF")) {
+                            std::string dg475 = v475.substr(4);
+                            bool ok475 = !dg475.empty();
+                            uint64_t ov475 = 0;
+                            const bool oct475 = v475[0] == 'O';
+                            for (char ch : dg475) {
+                                if (ch < '0' || ch > (oct475 ? '7' : '9')) {
+                                    ok475 = false;
+                                    break;
+                                }
+                                if (oct475) {
+                                    if (ov475 > (~0ull >> 3)) {
+                                        ok475 = false;
+                                        break;
+                                    }
+                                    ov475 = ov475 * 8 + (uint64_t)(ch - '0');
+                                }
+                            }
+                            if (ok475) {
+                                if (oct475)
+                                    dg475 = std::to_string(ov475);
+                                c->VpiValue((oct475 ? "UINT:" : "INT:") + dg475);
+                                c->VpiConstType(oct475 ? vpiUIntConst : vpiIntConst);
+                                c->VpiDecompile(dg475);
+                                lawTrace(475, "pkgQualCaReadValueForm475",
+                                         std::string(psym.name) + " " + v475);
                             }
                         }
                     }

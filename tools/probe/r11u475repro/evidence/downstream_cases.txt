@@ -1,0 +1,24 @@
+pristine AM/am01 EQUIVALENT nohier il 0 0
+pristine AM/am04 EQUIVALENT nohier il 0 0
+pristine AM/am05 EQUIVALENT nohier il synth 0 0
+pristine XK/xk01 EQUIVALENT nohier il 0 0
+pristine XK/xk04 EQUIVALENT nohier il 0 0
+pristine XK/xk06 EQUIVALENT nohier il 0 0
+pristine RR/rr01 IDENTICAL  0 0
+pristine RR/rr02 EQUIVALENT nohier il synth 0 0
+pristine QR/qr_d IDENTICAL  0 0
+pristine NT/nt01 IDENTICAL  0 0
+pristine HC/hc01 IDENTICAL  0 0
+pristine RC/rc02 IDENTICAL  0 0
+law8 AM/am01 IDENTICAL  0 0
+law8 AM/am04 IDENTICAL  0 0
+law8 AM/am05 IDENTICAL  0 0
+law8 XK/xk01 IDENTICAL  0 0
+law8 XK/xk04 IDENTICAL  0 0
+law8 XK/xk06 EQUIVALENT nohier il 0 0
+law8 RR/rr01 IDENTICAL  0 0
+law8 RR/rr02 IDENTICAL  0 0
+law8 QR/qr_d IDENTICAL  0 0
+law8 NT/nt01 IDENTICAL  0 0
+law8 HC/hc01 IDENTICAL  0 0
+law8 RC/rc02 IDENTICAL  0 0

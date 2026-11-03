@@ -1,0 +1,7 @@
+away census (drivers/awaybytes.sh): 8845 fence-filtered case dirs (tools/probe/r11u4[0-7]?repro and v11u4[0-7]?repro, dut.sv), pristine and law
+     67 DIFF exit=0
+     56 DIFF exit=3
+   8684 SAME exit=0
+     38 SAME exit=4
+exit codes moving: 0
+the 56 exit-3 byte movers: 56 of 56 also differ between two pristine runs

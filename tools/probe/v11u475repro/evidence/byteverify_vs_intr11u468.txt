@@ -1,0 +1,20 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+2
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+1
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+1
+== probe
+databases: patched=0 pristine=0
+NO_DATABASES
+0
+probe: path-normalized uhdm-dump of law sweep vs /tmp/intr11u468 (pass 468 control): SAME 4087 of 4087; raw bytes differ on 4087 (worktree path in VpiFile); negative control (two different cases) reads DIFF

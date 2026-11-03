@@ -1,0 +1,12 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/r11u475_sw/svtests.csv
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+REGRESSION testbenches/uvm_scoreboard_env.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION testbenches/uvm_scoreboard_monitor_agent_env.sv: EQUAL -> DIFFERENT decompile:
+REGRESSION testbenches/uvm_scoreboard_monitor_env.sv: EQUAL -> DIFFERENT decompile:
+CHANGE generated/rsd/rsd.sv: SURELOG_CRASH -> TIMEOUT
+sv-tests: BOTH_REJECT=303 DIFFERENT=8 EQUAL=1932 SLANG_ONLY=19 SURELOG_CRASH=7 SURELOG_ONLY=75 TIMEOUT=2 (of 2346)
+regressions=3 conversions=0 changes=1
+golden cache: 5288 of 5669 runs served from the cache
+rcsv=1

@@ -1,0 +1,4 @@
+surelog cmds=1573 law=1523 other_binary=0
+uhdm2rtlil cmds=1740 law=1740 other_binary=0
+downstream cmds=0 law=0 other_binary=0
+svtests cmds=2346 law=2346 other_binary=0

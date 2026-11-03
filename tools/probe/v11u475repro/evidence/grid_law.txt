@@ -1,0 +1,43 @@
+VA/va01 law rc=0 cmp=0 STRICT_EQUAL 253 objects dd=88 roles= md5=a10fd2a5
+VA/va02 law rc=0 cmp=0 STRICT_EQUAL 166 objects dd=28 roles= md5=39ad3dec
+VA/va03 law rc=0 cmp=0 STRICT_EQUAL 143 objects dd=2 roles= md5=b62c8329
+VA/va04 law rc=0 cmp=64 NOT_EQUAL stage1 dd=110 roles= md5=3d88c49f
+VA/va05 law rc=0 cmp=64 NOT_EQUAL stage1 dd=23 roles= md5=319ac61d
+VA/va06 law rc=0 cmp=0 STRICT_EQUAL 231 objects dd=90 roles= md5=a3d5b431
+VA/va07 law rc=0 cmp=0 STRICT_EQUAL 214 objects dd=38 roles= md5=7fb70c83
+VA/va08 law rc=0 cmp=0 STRICT_EQUAL 345 objects dd=58 roles= md5=47f70d88
+VA/va09 law rc=0 cmp=0 STRICT_EQUAL 126 objects dd=2 roles= md5=98b0e0f9
+VH/vh01 law rc=0 cmp=0 STRICT_EQUAL 158 objects dd=38 roles= md5=c238f81e
+VH/vh02 law rc=0 cmp=46 NOT_EQUAL stage1 dd=160 roles= md5=2f90da93
+VH/vh03 law rc=0 cmp=0 STRICT_EQUAL 117 objects dd=2 roles= md5=a249c68d
+VH/vh04 law rc=0 cmp=0 STRICT_EQUAL 171 objects dd=2 roles= md5=b72d5b85
+VQ/vq01 law rc=0 cmp=0 STRICT_EQUAL 116 objects dd=6 roles= md5=cd7bff30
+VQ/vq02 law rc=0 cmp=0 STRICT_EQUAL 134 objects dd=6 roles= md5=cdc1d895
+VQ/vq03 law rc=0 cmp=34 NOT_EQUAL stage1 dd=15 roles= md5=99c53677
+VQ/vq04 law rc=0 cmp=0 STRICT_EQUAL 102 objects dd=6 roles= md5=ed33660f
+VQ/vq05 law rc=0 cmp=0 STRICT_EQUAL 133 objects dd=6 roles= md5=09108f3b
+VQ/vq06 law rc=0 cmp=0 STRICT_EQUAL 123 objects dd=8 roles= md5=88462538
+VR/vr01 law rc=0 cmp=0 STRICT_EQUAL 77 objects dd=2 roles= md5=03b5bf85
+VR/vr02 law rc=0 cmp=0 STRICT_EQUAL 101 objects dd=14 roles= md5=4a504b24
+VR/vr03 law rc=0 cmp=0 STRICT_EQUAL 307 objects dd=200 roles= md5=e68d4065
+VR/vr04 law rc=0 cmp=0 STRICT_EQUAL 171 objects dd=2 roles= md5=224dbcd6
+VR/vr05 law rc=0 cmp=0 STRICT_EQUAL 360 objects dd=186 roles= md5=e06d5af2
+VR/vr06 law rc=0 cmp=64 NOT_EQUAL stage1 dd=42 roles= md5=dc01fafd
+VR/vr07 law rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=114 roles= md5=e34fefae
+VR/vr08 law rc=0 cmp=87 NOT_EQUAL stage1 dd=38 roles= md5=663b3cda
+VT/vt01 law rc=0 cmp=0 STRICT_EQUAL 469 objects dd=562 roles= md5=23bc9e62
+VT/vt02 law rc=0 cmp=0 STRICT_EQUAL 352 objects dd=562 roles= md5=863592d6
+VT/vt03 law rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=133 roles= md5=a15d3742
+VT/vt04 law rc=0 cmp=322 NOT_EQUAL stage1 dd=694 roles= md5=937e0577
+VX/vx01 law rc=0 cmp=0 STRICT_EQUAL 87 objects dd=2 roles= md5=4b43f476
+VX/vx02 law rc=0 cmp=0 STRICT_EQUAL 242 objects dd=24 roles= md5=0c626d34
+VX/vx03 law rc=0 cmp=0 STRICT_EQUAL 87 objects dd=2 roles= md5=28c19c18
+VX/vx04 law rc=0 cmp=0 STRICT_EQUAL 73 objects dd=2 roles= md5=f536e06b
+VX/vx05 law rc=0 cmp=0 STRICT_EQUAL 82 objects dd=2 roles= md5=614a188f
+VX/vx06 law rc=0 cmp=0 STRICT_EQUAL 108 objects dd=10 roles= md5=b89b7d9c
+VX/vx07 law rc=0 cmp=0 STRICT_EQUAL 95 objects dd=2 roles= md5=17fe34b5
+VX/vx08 law rc=0 cmp=0 STRICT_EQUAL 60 objects dd=2 roles= md5=d7a1afc7
+VX/vx09 law rc=0 cmp=0 STRICT_EQUAL 121 objects dd=52 roles= md5=de193c47
+VX/vx10 law rc=0 cmp=0 STRICT_EQUAL 91 objects dd=2 roles= md5=50950c7b
+VX/vx11 law rc=0 cmp=36 NOT_EQUAL stage1 dd=40 roles= md5=9d5a7020
+VX/vx12 law rc=0 cmp=0 STRICT_EQUAL 116 objects dd=2 roles= md5=8abc3f1a

@@ -1,0 +1,18 @@
+PREDICTION for the one five-stage sweep (written from the census before the sweep was launched)
+Census: drivers/census.py, pristine (/tmp/r11u475_bin/pristine, md5 afa30e9d601c11d257df9155230c42ca)
+against law6 (md5 c70e7f640c88bc263b4066c28f731cd8, R11U475_TRACE on), each row's slang side run by both
+binaries from the row's own directory with the sweep's own arguments, fence-filtered:
+probe 4087, surelog default 789 + testflags 784, uhdm2rtlil default 870 + testflags 870,
+downstream 870, sv-tests 2346 (evidence/census_law6.tsv: lane, row, rc and md5 of each binary).
+law8 (the swept binary) differs from law6 only in where three lawTrace calls sit; its output equals
+law6's on all 34 grid case dirs (evidence/grid_law8.txt against the law6 grid).
+Census result: 0 exit-code movers in every lane; 0 byte movers in probe, surelog, uhdm2rtlil and
+downstream; in sv-tests one byte mover, generated/rsd/rsd.sv (SURELOG_CRASH, no golden: status cannot move).
+Predicted:
+ - probe: no byte mover, EQUAL 4024 + STRICT_NOTEQUAL 63, regressions/conversions/changes 0/0/0
+ - surelog: 0 byte movers, 480 + 0 / 474 + 0, 0/0/0
+ - uhdm2rtlil: 0 byte movers, 803/1/67 both modes, 0/0/0
+ - downstream: 0 byte movers, 803/66/2/0
+ - sv-tests: no status change (rsd stays SURELOG_CRASH; the kept databases differ only by the
+   serialization-order variance)
+ - no exit-code mover anywhere
