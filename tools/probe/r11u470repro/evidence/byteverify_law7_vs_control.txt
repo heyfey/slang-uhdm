@@ -1,0 +1,19 @@
+== surelog
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=aba237436221 pristine=10e9737f187d
+MOVERS: 1 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged
+== probe
+databases: patched=0 pristine=0
+NO_DATABASES

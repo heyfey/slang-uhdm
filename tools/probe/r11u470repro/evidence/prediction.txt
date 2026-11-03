@@ -1,0 +1,15 @@
+r11u470 prediction, written before the law sweep on law7 (md5 ee4d4068cf1c9d2e31e5e517e89afee3)
+basis: the grid (VA, VB, LZ, TS), the 17 away dirs of the v11u468 finding, a fence-filtered text census of
+the corpora (19734 source files: `_param_utils` in 21 directories, all large dv trees outside the corpus
+row file lists except Tnoc's tue library; `#(X::y` value arguments in 4 directories: ClassScope, ariane tb,
+uhdm2rtlil iface_struct_field_param_width, probe v11u111 y65), and the § 468 predicates (the re-pairing
+§ pkgTdSpecPairsImported470 calls is § specArgPairsImportedFormal468's own, which fired on no corpus row
+or probe case at pass 468).
+- probe: no status change; no byte mover expected.
+- surelog: no status change; Tnoc d/t may move bytes (a tue class-scope typedef of a foreign generic) and
+  stays CMP_NOTEQUAL; the UVM coin rows (MiniAmiq/SeqDriver/SimpleUVM/Scoreboard) may move by the known
+  coin; no other mover.
+- uhdm2rtlil, downstream: no status change, no byte mover.
+- sv-tests: no status change. generated/uvm-examples/uvm_param_vif_config_db.sv moves bytes and stays
+  DIFFERENT (uhdm-cmp 230 -> 172 lines, head at tb_params_pkg's definition-view listing of its virtual
+  interface typedefs, ParamEmit's emitPackage). The three scoreboard rows stay EQUAL; easyUVM unchanged.

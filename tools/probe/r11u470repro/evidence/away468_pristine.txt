@@ -1,0 +1,17 @@
+I/i10_copy rc=0 cmp=0 STRICT_EQUAL md5=54a638d5
+SF/sf04 rc=0 cmp=0 STRICT_EQUAL md5=e1f3de1c
+SF/sf05 rc=0 cmp=0 STRICT_EQUAL md5=f95be645
+SF/sf06 rc=0 cmp=0 STRICT_EQUAL md5=0f720bb8
+SF/sf07 rc=0 cmp=0 STRICT_EQUAL md5=a941349d
+VS/vs01 rc=0 cmp=0 STRICT_EQUAL md5=27097369
+VS/vs02 rc=0 cmp=0 STRICT_EQUAL md5=0679015e
+VS/vs03 rc=0 cmp=0 STRICT_EQUAL md5=56308cb1
+VS/vs04 rc=0 cmp=0 STRICT_EQUAL md5=cec33e04
+VS/vs05 rc=0 cmp=0 STRICT_EQUAL md5=f59586ab
+VS/vs06 rc=0 cmp=0 STRICT_EQUAL md5=cd3b04fa
+VS/vs07 rc=0 cmp=0 STRICT_EQUAL md5=5513cecb
+VS/vs08 rc=0 cmp=0 STRICT_EQUAL md5=4b22faa1
+VS/vs09 rc=0 cmp=0 STRICT_EQUAL md5=c9441389
+VS/vs10 rc=0 cmp=0 STRICT_EQUAL md5=366f9b15
+VS/vs11 rc=0 cmp=33 NOT_EQUAL md5=5d42d247
+VS/vs12 rc=0 cmp=0 STRICT_EQUAL md5=50d64422

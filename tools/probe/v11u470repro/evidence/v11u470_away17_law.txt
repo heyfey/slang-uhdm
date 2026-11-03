@@ -1,0 +1,17 @@
+I/i10_copy rc=0 cmp=0 STRICT_EQUAL 153 objects md5=46bd93c8
+SF/sf04 rc=0 cmp=0 STRICT_EQUAL 38 objects md5=7ba108ef
+SF/sf05 rc=0 cmp=0 STRICT_EQUAL 35 objects md5=3c7c176b
+SF/sf06 rc=0 cmp=0 STRICT_EQUAL 42 objects md5=5e33c10b
+SF/sf07 rc=0 cmp=0 STRICT_EQUAL 53 objects md5=d20d2018
+VS/vs01 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=22916518
+VS/vs02 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=af56df79
+VS/vs03 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=7d832e8a
+VS/vs04 rc=0 cmp=0 STRICT_EQUAL 49 objects md5=959a798f
+VS/vs05 rc=0 cmp=0 STRICT_EQUAL 66 objects md5=d844cf96
+VS/vs06 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=24b5258b
+VS/vs07 rc=0 cmp=0 STRICT_EQUAL 61 objects md5=bd82517e
+VS/vs08 rc=0 cmp=0 STRICT_EQUAL 56 objects md5=25cda7e9
+VS/vs09 rc=0 cmp=0 STRICT_EQUAL 49 objects md5=6c7c815b
+VS/vs10 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=aa5b5126
+VS/vs11 rc=0 cmp=33 NOT_EQUAL stage1 md5=a6a8589e
+VS/vs12 rc=0 cmp=0 STRICT_EQUAL 64 objects md5=24829fac

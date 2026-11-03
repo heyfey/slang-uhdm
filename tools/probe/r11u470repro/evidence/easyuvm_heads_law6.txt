@@ -1,0 +1,16 @@
+#0 L=method_func_call:compare@63:14 < hier_path:exp.compare@63 < operation:@63 < begin:@63 < function:write@59
+    R=method_func_call:compare@63:14 < hier_path:exp.compare@63 < operation:@63 < begin:@63 < function:write@59
+#1 L=constant:@119:104 < func_call:uvm_report_info@119 < if_stmt:@118 < begin:@117 < begin:@117
+    R=constant:@119:104 < func_call:uvm_report_info@119 < if_stmt:@118 < begin:@117 < begin:@117
+#2 L=constant:@155:113 < func_call:uvm_report_error@155 < if_stmt:@154 < begin:@153 < begin:@43
+    R=constant:@155:113 < func_call:uvm_report_error@155 < if_stmt:@154 < begin:@153 < begin:@43
+#3 L=interface_inst:@1:1 < design:work@top@0
+    R=null
+#4 L=interface_inst:@1:1 < design:work@top@0
+    R=null
+#5 L=module_inst:@1:1 < design:work@top@0
+    R=null
+#6 L=module_inst:@22:1 < design:work@top@0
+    R=module_inst:@22:1 < design:work@top@0
+#7 L=interface_inst:in@35:3 < module_inst:work@top@22 < design:work@top@0
+    R=interface_inst:in@35:3 < module_inst:work@top@22 < design:work@top@0

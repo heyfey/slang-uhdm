@@ -1,0 +1,29 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u470_s8/probe.csv
+probe cases: EQUAL=4024 STRICT_NOTEQUAL=63 (of 4087); goldens built now=0, from cache=4087
+== probe vs golden_probe.csv
+[probe] EQUAL=4024 STRICT_NOTEQUAL=63
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u470_s8/surelog.csv
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+start Tue Nov  3 00:52:55 EST 2026 SLANG_UHDM=/tmp/r11u470_bin/law8 md5=22eb28bc9ffef4bed8a34068c3be4e26  -
+probe+surelog rc=1 Tue Nov  3 00:58:28 EST 2026
+u2r class rows rc=0 Tue Nov  3 00:58:28 EST 2026
+downstream class rows rc=0 Tue Nov  3 00:58:28 EST 2026
+svtests rc=0 Tue Nov  3 01:18:55 EST 2026
+name,mode,status
+hello-uvm,default,SLANG_REJECT
+hello-uvm,testflags,SLANG_REJECT
+OneClass,default,CMP_EQUAL
+OneClass,testflags,CMP_EQUAL
+OneThis,default,CMP_EQUAL
+OneThis,testflags,CMP_EQUAL
+name,verdict
+hello-uvm,SLANG_REJECT
+OneClass,IDENTICAL
+OneThis,IDENTICAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=5 EQUAL=1935 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0

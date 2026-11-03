@@ -14049,6 +14049,27 @@ static std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>& g
     return v;
 }
 
+// § tdSpecArgTypedefShares470 — the references recorded at
+// emitClassTdSpecParams1 (membership only) and the (clone, base) pairs
+// copyClassTdSpecParams1's deep copy made, in creation order, so the drain can
+// give each clone of a re-pointed base its own deep copy of the typedef object
+// (Surelog's clone_tree of the base, made after the base was bound).
+static std::set<const UHDM::ref_typespec*>& g470TdArgRefs() {
+    static std::set<const UHDM::ref_typespec*> v;
+    return v;
+}
+// (reference, typedef object) pairs whose deep copy is made design-final, at
+// the end of finish241: the typedef object's own listing (§ 460) and its
+// re-pairing are written there, and golden's copy carries them.
+static std::vector<std::pair<UHDM::ref_typespec*, UHDM::typespec*>>& g470DeferredClones() {
+    static std::vector<std::pair<UHDM::ref_typespec*, UHDM::typespec*>> v;
+    return v;
+}
+static std::vector<std::pair<UHDM::class_typespec*, const UHDM::class_typespec*>>& g470TdClones() {
+    static std::vector<std::pair<UHDM::class_typespec*, const UHDM::class_typespec*>> v;
+    return v;
+}
+
 // § specNamedArgsAbstain468v (v11u468, R11V468_NAMEDSPEC_OFF; cases
 // tools/probe/v11u468repro/cases/VS vs01) -- a specialization written with
 // NAMED arguments (`C #(.U(item))`) is not paired by Surelog at all: the
@@ -14176,6 +14197,49 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
     cts->Param_assigns(pas);
 }
 
+// § specValueArgRefObj470 (r11u470, R11U470_SPECVALARG_OFF; cases
+// tools/probe/r11u470repro/cases/VA; sv-tests generated/uvm-examples/
+// uvm_param_vif_config_db.sv, `typedef sfr_config_object
+// #(SFR::sfr_addr_width, SFR::sfr_data_width) SFR_cfg_t;`) -- the VALUE branch
+// of Surelog's specialization loop (CompileType.cpp, the ClassDefinition
+// branch of compileDatastructureTypespec): an ordered argument that is not a
+// paData_type goes through compileExpression, and when that returns a
+// ref_obj (a name it does not reduce) the loop calls
+// compileDatastructureTypespec again with the Parameter_value_assignment node
+// and the ref_obj's name, which finds no data type of that name and mints an
+// unsupported_typespec named after it, located at the whole `#(...)`; the
+// type_parameter (named after the paired formal) and its param_assign carry
+// no location, the param_assign's Lhs is the formal.  Measured (grid VA):
+// only a CLASS-scoped name `K::w` stays a ref_obj (va01, va02, va13, va14,
+// va20); a literal, a package-scoped `r::X`, a package parameter, an
+// expression `K::w + 1` and a bare class-local name reduce or take another
+// path and push nothing (va03 to va06, va11, va12), and a value formal still
+// advances the index.  `p::K::w` (golden names it `p::w`, va15) abstains.
+// Returns the ref_obj name, or empty.
+static std::string specValueArgRefObj470(const slang::syntax::ExpressionSyntax* a,
+                                         const slang::ast::Scope* sc) {
+    using namespace slang;
+    if (!a || !sc || a->kind != syntax::SyntaxKind::ScopedName)
+        return {};
+    auto& sn = a->as<syntax::ScopedNameSyntax>();
+    if (sn.separator.kind != parsing::TokenKind::DoubleColon || !sn.left || !sn.right ||
+        sn.left->kind != syntax::SyntaxKind::IdentifierName ||
+        sn.right->kind != syntax::SyntaxKind::IdentifierName)
+        return {};
+    std::string_view l = sn.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    std::string_view r = sn.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    if (l.empty() || r.empty())
+        return {};
+    const ast::Symbol* ls = sc->lookupName(l);
+    if (!ls)
+        return {};
+    if (ls->kind == ast::SymbolKind::TypeAlias)
+        ls = &ls->as<ast::TypeAliasType>().targetType.getType().getCanonicalType();
+    if (ls->kind != ast::SymbolKind::ClassType && ls->kind != ast::SymbolKind::GenericClassDef)
+        return {};
+    return std::string(l) + "::" + std::string(r);
+}
+
 // NOTE § classPropSpecForeignPkgHome163 — the LISTING half.  The predicate that
 // decides WHETHER a class property's class_typespec carries a specialization
 // listing lives at the mint (src/TypeEmit.cpp, `grep -n foreignPkgHome163`);
@@ -14266,8 +14330,42 @@ void UhdmExporter::emitClassPropSpecParams163(
         if (idx163 >= ord163.size())
             break;
         const syntax::ExpressionSyntax* a163 = ord163[idx163++];
-        if (m163.kind != SymbolKind::TypeParameter)
-            continue;  // a VALUE formal consumes its argument and pushes nothing
+        if (m163.kind != SymbolKind::TypeParameter) {
+            // a VALUE formal consumes its argument and pushes nothing, except
+            // through § specValueArgRefObj470's ref_obj branch
+            std::string vn470 = specValueArgRefObj470(a163, declScope);
+            if (vn470.empty() || !lawOn(470, "R11U470_SPECVALARG_OFF"))
+                continue;
+            auto* tp470 = s.MakeType_parameter();
+            tp470->VpiName(m163.name);
+            tp470->VpiParent(cts);
+            auto* rt470 = s.MakeRef_typespec();
+            rt470->VpiParent(tp470);
+            auto* us470 = s.MakeUnsupported_typespec();
+            us470->VpiName(vn470);
+            us470->VpiParent(tp470);
+            setLoc(us470, cn163->parameters->sourceRange());
+            rt470->Actual_typespec(us470);
+            tp470->Typespec(rt470);
+            params163->push_back(tp470);
+            auto* pa470 = s.MakeParam_assign();
+            pa470->VpiParent(cts);
+            pa470->Rhs(tp470);
+            bool bound470 = false;
+            if (auto* bcd470 = classDefnFor(target); bcd470 && bcd470->Parameters())
+                for (auto* p470 : *bcd470->Parameters())
+                    if (p470->VpiName() == m163.name) {
+                        pa470->Lhs(p470);
+                        bound470 = true;
+                        break;
+                    }
+            if (!bound470)
+                pendingClassTsPa.push_back({pa470, &target, std::string(m163.name)});
+            pas163->push_back(pa470);
+            lawTrace(470, "specValueArgRefObj470",
+                     "prop163 " + std::string(m163.name) + " " + vn470);
+            continue;
+        }
         if (ownTypeFormal163v(a163))
             continue;  // and so does the declaring class's OWN type formal
         auto& tps163 = m163.as<TypeParameterSymbol>();
@@ -14560,6 +14658,7 @@ bool UhdmExporter::emitClassTdSpecParams1(
         return false;
     };
     std::set<std::string> ok1;
+    std::map<std::string, bool> idArg1;  // § tdSpecArgTypedefShares470
     size_t idx1 = 0;
     for (auto& m1 : target.members()) {
         if (m1.kind != SymbolKind::TypeParameter &&
@@ -14576,6 +14675,8 @@ bool UhdmExporter::emitClassTdSpecParams1(
         if (!id1.empty() && namesAParamOf1(id1))
             continue;
         ok1.insert(std::string(m1.name));
+        if (!id1.empty())
+            idArg1[std::string(m1.name)] = true;
     }
     if (ok1.empty())
         return false;
@@ -14618,6 +14719,26 @@ bool UhdmExporter::emitClassTdSpecParams1(
                 pendingClassTsLink.push_back({nts1, &dct1});
             setLoc(nts1, cn1->parameters->sourceRange());
             its1 = nts1;
+            // § tdSpecArgTypedefShares470 (r11u470, R11U470_TDSPECARGTD_OFF;
+            // cases tools/probe/r11u470repro/cases/TS; sv-tests
+            // generated/uvm-examples/uvm_param_vif_config_db.sv, whose
+            // `uvm_object_param_utils(this_t) writes `typedef
+            // uvm_object_registry #(this_t) type_id;` in class
+            // sfr_config_object) -- § specArgTypedefNameShares468 at this
+            // builder, the class-scope typedef of a foreign generic: an
+            // argument written as a typedef's name shares the typedef's own
+            // object (golden type_id's T reaching the class's listed
+            // `this_t`, ours a fresh class_typespec named sfr_config_object
+            // at the argument).  Recorded for the same design-final drain.
+            if (idArg1.count(std::string(tps1.name)) &&
+                tps1.targetType.getType().kind == SymbolKind::TypeAlias &&
+                lawOn(470, "R11U470_TDSPECARGTD_OFF") &&
+                lawOn(468, "R11U468_SPECARGTD_OFF")) {
+                g468SpecArgTd().push_back({rt1, &tps1.targetType.getType()});
+                g470TdArgRefs().insert(rt1);
+                lawTrace(470, "tdSpecArgTypedefShares470",
+                         "record " + std::string(tps1.targetType.getType().name));
+            }
         }
         else {
             its1 = makeTypespec(m1, tps1.targetType.getTypeSyntax());
@@ -14754,6 +14875,8 @@ void UhdmExporter::copyClassTdSpecParams1(UHDM::class_typespec* dst,
     // a copy of its actual, and the base parameter's and param_assign's spans.
     // Switch R11U269_TDCLONEDEEP_OFF.
     const bool deep269 = overwrite1 && lawOn(269, "R11U269_TDCLONEDEEP_OFF");
+    if (deep269 && !g470TdArgRefs().empty())
+        g470TdClones().push_back({dst, base});  // § tdSpecArgTypedefShares470
     std::function<UHDM::typespec*(UHDM::typespec*, UHDM::any*, int)> cpTs269 =
         [&](UHDM::typespec* t, UHDM::any* par, int depth) -> UHDM::typespec* {
         if (!deep269 || !t || depth > 8)
@@ -16368,6 +16491,24 @@ static void freshRangesRepaired468(UHDM::Serializer& s) {
 // variable, whose elaborated chain reads that way).  Design-final: a
 // type_parameter under a class_typespec whose parent is a class_var of a
 // class_defn, still holding `<class name>.<formal>`, takes the chain name.
+// § clsPropSpecFullNameLazy470 — the full name STORED on a type_parameter,
+// read without making one: UHDM's generated getter computes and stores (and so
+// registers a symbol, which renumbers the symbol table: bytes move with an
+// identical dump) when none is stored.  With the name and parent cleared the
+// computed name is empty and the getter stores nothing; both are restored
+// (the name's symbol already exists, so its id is unchanged).  Empty = none
+// stored.
+static std::string storedFullName470(UHDM::type_parameter* tp) {
+    const std::string nm(tp->VpiName());
+    UHDM::BaseClass* par = tp->VpiParent();
+    tp->VpiName("");
+    tp->VpiParent(nullptr);
+    std::string st(tp->VpiFullName());
+    tp->VpiName(nm);
+    tp->VpiParent(par);
+    return st;
+}
+
 static void clsPropSpecTpFullName468(UHDM::Serializer& s,
                                      const std::vector<UHDM::class_typespec*>& all) {
     if (!lawOn(468, "R11U468_PROPSPECFULL_OFF"))
@@ -16379,17 +16520,39 @@ static void clsPropSpecTpFullName468(UHDM::Serializer& s,
         auto* cd = cv->VpiParent();
         if (!cd || cd->UhdmType() != UHDM::uhdmclass_defn)
             continue;
-        const std::string cdFull(((UHDM::class_defn*)cd)->VpiFullName().empty()
-                                     ? cd->VpiName()
-                                     : ((UHDM::class_defn*)cd)->VpiFullName());
+        // § clsPropSpecFullNameLazy470 (r11u470, R11U470_PROPFULLLAZY_OFF;
+        // the v11u468 finding, away dirs i10_copy and sf05) -- UHDM's
+        // generated class_defn::VpiFullName() computes the full name and
+        // STORES it when it is empty, so reading it before a match wrote
+        // bytes (the stored name) on every class property specialization the
+        // law then did not touch, with no trace line.  The name is read only
+        // once a type_parameter matches.
+        const bool lazy470 = lawOn(470, "R11U470_PROPFULLLAZY_OFF");
+        std::string cdFull;
+        auto cdFullOf = [&]() {
+            return std::string(((UHDM::class_defn*)cd)->VpiFullName().empty()
+                                   ? cd->VpiName()
+                                   : ((UHDM::class_defn*)cd)->VpiFullName());
+        };
+        if (!lazy470)
+            cdFull = cdFullOf();
         for (auto* p : *cts->Parameters()) {
             if (!p || p->UhdmType() != UHDM::uhdmtype_parameter || p->VpiParent() != cts)
                 continue;
             auto* tp = (UHDM::type_parameter*)p;
             const std::string was = std::string(cts->VpiName()) + "." +
                                     std::string(tp->VpiName());
-            if (tp->VpiFullName() != was)
+            // § clsPropSpecFullNameLazy470: the type_parameter's and the
+            // class's getters both store what they compute, so the lazy path
+            // reads only a STORED name (a computed one always holds `::`
+            // here, the class_defn being in the chain, and never matches)
+            // and calls a getter only on a match.
+            if (lazy470 ? storedFullName470(tp) != was : tp->VpiFullName() != was)
                 continue;
+            if (lazy470 && cdFull.empty()) {
+                cdFull = cdFullOf();
+                lawTrace(470, "clsPropSpecFullNameLazy470", cdFull);
+            }
             const std::string full = cdFull + "::" + std::string(cv->VpiName()) + "::" +
                                      std::string(cts->VpiName()) + "::" +
                                      std::string(tp->VpiName());
@@ -16401,26 +16564,13 @@ static void clsPropSpecTpFullName468(UHDM::Serializer& s,
     }
 }
 
-static void specArgPairsImportedFormal468(UHDM::Serializer& s) {
-    std::vector<UHDM::class_typespec*> all;
-    for (auto& kv : s.AllObjects()) {
-        auto* o = (UHDM::BaseClass*)kv.first;
-        if (o && o->UhdmType() == UHDM::uhdmclass_typespec)
-            all.push_back((UHDM::class_typespec*)o);
-    }
-    std::sort(all.begin(), all.end(), [](const UHDM::class_typespec* a,
-                                         const UHDM::class_typespec* b) {
-        return a->UhdmId() < b->UhdmId();
-    });
-    if (!lawOn(468, "R11U468_SPECIMPFORMAL_OFF")) {
-        clsPropSpecTpFullName468(s, all);
-        return;
-    }
-    for (auto* cts : all) {
+// The per-specialization half of § specArgPairsImportedFormal468, also
+// called by § pkgTdSpecPairsImported470 for the listings § 460 writes later.
+static void repairSpecPairs468(UHDM::class_typespec* cts) {
         auto* cd = cts->Class_defn();
         auto* pas = cts->Param_assigns();
         if (!cd || !pas || pas->empty() || !cd->Parameters())
-            continue;
+            return;
         auto& lst = *cd->Parameters();
         size_t n = 0;
         while (n < lst.size() && lst[n] &&
@@ -16431,11 +16581,11 @@ static void specArgPairsImportedFormal468(UHDM::Serializer& s) {
                  !((UHDM::type_parameter*)lst[n])->VpiImported().empty())))
             n++;
         if (n == 0 || n == lst.size())
-            continue;
+            return;
         // § specNamedArgsAbstain468v — named arguments: Surelog pairs none.
         if (g468vNamedSpec().count(cts)) {
             lawTrace(468, "specNamedArgsAbstain468v", std::string(cts->VpiName()));
-            continue;
+            return;
         }
         for (auto* pa : *pas) {
             if (!pa || !pa->Lhs() || !pa->Rhs() ||
@@ -16485,7 +16635,25 @@ static void specArgPairsImportedFormal468(UHDM::Serializer& s) {
                      std::string(cd->VpiName()) + " " + oldName + " -> " + newName +
                          " @" + std::to_string(j));
         }
+}
+
+static void specArgPairsImportedFormal468(UHDM::Serializer& s) {
+    std::vector<UHDM::class_typespec*> all;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o && o->UhdmType() == UHDM::uhdmclass_typespec)
+            all.push_back((UHDM::class_typespec*)o);
     }
+    std::sort(all.begin(), all.end(), [](const UHDM::class_typespec* a,
+                                         const UHDM::class_typespec* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    if (!lawOn(468, "R11U468_SPECIMPFORMAL_OFF")) {
+        clsPropSpecTpFullName468(s, all);
+        return;
+    }
+    for (auto* cts : all)
+        repairSpecPairs468(cts);
     clsPropSpecTpFullName468(s, all);
 }
 
@@ -26091,8 +26259,54 @@ UHDM::design* UhdmExporter::exportDesign() {
                 continue;
             rt468->Actual_typespec(w468);
             lawTrace(468, "specArgTypedefNameShares468", std::string(sym468->name));
+            // § tdSpecArgTypedefShares470 — the base's clones (and theirs)
+            // take a deep copy of the typedef object for that formal, in
+            // their Parameters and their param_assign's Rhs alike (golden
+            // uvm_comparer::type_id's T: a this_t clone with its own alias
+            // and listing, parented at the reference).
+            if (g470TdArgRefs().count(rt468)) {
+                auto* tp470 = rt468->VpiParent();
+                auto* b470 = tp470 ? tp470->VpiParent() : nullptr;
+                const std::string fn470 = tp470 ? std::string(tp470->VpiName()) : "";
+                std::vector<const UHDM::any*> todo470{b470};
+                std::set<const UHDM::any*> seen470;
+                int n470 = 0;
+                while (!todo470.empty()) {
+                    const UHDM::any* cur = todo470.back();
+                    todo470.pop_back();
+                    if (!cur || !seen470.insert(cur).second)
+                        continue;
+                    for (auto& [dst470, src470] : g470TdClones()) {
+                        if ((const UHDM::any*)src470 != cur || !dst470)
+                            continue;
+                        todo470.push_back(dst470);
+                        auto fix470 = [&](UHDM::any* p) {
+                            if (!p || p->UhdmType() != UHDM::uhdmtype_parameter ||
+                                p->VpiName() != fn470)
+                                return;
+                            auto* rt = ((UHDM::type_parameter*)p)->Typespec();
+                            if (!rt)
+                                return;
+                            g470DeferredClones().push_back({rt, w468});
+                            n470++;
+                        };
+                        if (dst470->Parameters())
+                            for (auto* p : *dst470->Parameters())
+                                fix470(p);
+                        if (dst470->Param_assigns())
+                            for (auto* pa : *dst470->Param_assigns())
+                                if (pa)
+                                    fix470((UHDM::any*)pa->Rhs());
+                    }
+                }
+                if (n470)
+                    lawTrace(470, "tdSpecArgTypedefShares470",
+                             "clones " + std::string(sym468->name) + " " + std::to_string(n470));
+            }
         }
         g468SpecArgTd().clear();
+        g470TdArgRefs().clear();
+        g470TdClones().clear();
         r231OobClassTdRefs().clear();
         // § fwWinnerListedObject255 (r11u255, BuildUVMPkg d/t #185844: the
         // eight TLM socket classes' `connect(this_type provider)`, golden's
@@ -29985,6 +30199,26 @@ UHDM::design* UhdmExporter::exportDesign() {
                     continue;  // the component probe <pkg>::S hits
                 emitClassPropSpecParams163(ts460, cls460, ta460->targetType.getTypeSyntax(),
                                            ps460);
+                // § pkgTdSpecPairsImported470 (r11u470,
+                // R11U470_PKGTDPAIR_OFF; cases
+                // tools/probe/r11u470repro/cases/VA va01, VP; sv-tests
+                // generated/uvm-examples/uvm_param_vif_config_db.sv) -- this
+                // listing is written after § specArgPairsImportedFormal468
+                // ran (design-final, before this drain), so a target class
+                // whose own listing starts with its imports' parameters kept
+                // its arguments paired with its own formals (golden
+                // `type_parameter UVM_ALL_ON` on SFR_cfg_t, ours
+                // SFR_ADDR_WIDTH).  The same re-pairing, here, before the
+                // aliases below take their deep copies of the listing.
+                if (ts460->Parameters() && lawOn(470, "R11U470_PKGTDPAIR_OFF") &&
+                    lawOn(468, "R11U468_SPECIMPFORMAL_OFF")) {
+                    const std::string b470(((UHDM::any*)(*ts460->Parameters())[0])->VpiName());
+                    repairSpecPairs468(ts460);
+                    if (std::string(((UHDM::any*)(*ts460->Parameters())[0])->VpiName()) != b470)
+                        lawTrace(470, "pkgTdSpecPairsImported470",
+                                 std::string(ps460->asSymbol().name) + "::" +
+                                     std::string(ta460->name) + " " + b470);
+                }
                 if (ts460->Parameters()) {
                     got460.insert(ts460);
                     if (auto tp460 = pkgTopMap.find((const void*)&ps460->asSymbol());
@@ -30188,6 +30422,51 @@ UHDM::design* UhdmExporter::exportDesign() {
                              " base#" + std::to_string(b->UhdmId()));
             }
         }
+        // § tdSpecArgTypedefShares470 — the clones' deep copies of the
+        // typedef object.  Surelog's clone_tree ran at elaboration, before
+        // UhdmWriter renamed a package typedef `pkg::name` and re-instanced
+        // it, so a copied alias target keeps the bare name and its declaring
+        // package as instance (golden `class_typespec (SFR_cfg_t)` with
+        // vpiInstance tb_params_pkg under every this_t copy).
+        for (auto& [rt470, w470] : g470DeferredClones()) {
+            if (!rt470 || !w470)
+                continue;
+            UHDM::ElaboratorContext ctx470(&s, false, /*muteErrors=*/true);
+            auto* c470 = (UHDM::typespec*)UHDM::clone_tree((UHDM::any*)w470, &ctx470);
+            if (!c470)
+                continue;
+            c470->VpiParent(rt470);
+            rt470->Actual_typespec(c470);
+            // the elaborated package (uhdmtopPackages, vpiTop) of that name:
+            // golden's copies are instanced at the top view
+            auto defPkg470 = [&](const std::string& nm) -> UHDM::package* {
+                if (d420 && d420->TopPackages())
+                    for (auto* pk : *d420->TopPackages())
+                        if (pk && pk->VpiName() == nm)
+                            return pk;
+                return nullptr;
+            };
+            if (auto* i470 = c470->Instance();
+                i470 && i470->UhdmType() == UHDM::uhdmpackage)
+                if (auto* dp470 = defPkg470(std::string(i470->VpiName())))
+                    c470->Instance(dp470);
+            if (auto* al470 = c470->Typedef_alias())
+                if (auto* at470 = (UHDM::typespec*)al470->Actual_typespec();
+                    at470 && at470->VpiParent() == al470) {
+                    const std::string an470(at470->VpiName());
+                    const auto k470 = an470.rfind("::");
+                    if (k470 != std::string::npos) {
+                        const std::string pk470 = an470.substr(0, k470);
+                        at470->VpiName(an470.substr(k470 + 2));
+                        if (auto* dp470 = defPkg470(pk470))
+                            at470->Instance(dp470);
+                    }
+                }
+        }
+        if (!g470DeferredClones().empty())
+            lawTrace(470, "tdSpecArgTypedefShares470",
+                     "deep copies " + std::to_string(g470DeferredClones().size()));
+        g470DeferredClones().clear();
         // § specArgPairsImportedFormal468 — the re-paired formals' own
         // ranges, on every exit.
         freshRangesRepaired468(s);

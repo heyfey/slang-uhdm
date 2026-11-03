@@ -1,0 +1,5 @@
+generated/easyUVM/top/slang.uhdm :  1 clsPropSpecFullNameLazy470; 1 tdSpecArgTypedefShares470;
+generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm :  2 pkgTdSpecPairsImported470; 4 specValueArgRefObj470; 7 tdSpecArgTypedefShares470;
+testbenches/uvm_scoreboard_env/slang.uhdm :  1 clsPropSpecFullNameLazy470; 1 tdSpecArgTypedefShares470;
+testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm :  1 clsPropSpecFullNameLazy470; 1 tdSpecArgTypedefShares470;
+testbenches/uvm_scoreboard_monitor_env/slang.uhdm :  1 clsPropSpecFullNameLazy470; 1 tdSpecArgTypedefShares470;
