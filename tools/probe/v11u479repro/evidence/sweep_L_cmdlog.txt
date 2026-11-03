@@ -1,0 +1,4 @@
+BIN /tmp/v11u479_bin/law 6179073bad95337e0d3e88d55298ed2d  -
+four rc=1
+sv rc=1
+DONE

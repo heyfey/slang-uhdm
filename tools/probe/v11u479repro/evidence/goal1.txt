@@ -1,0 +1,13 @@
+goal 1 re-measured with the verified binary ver1 (= law on these; no pass-479 law fires on them):
+  r11u423repro/evidence/residue_cases/g1a C::mk().arr[1]     upstream 0, pristine 4, ver1 4 (Surelog 3, syntax error; not forced)
+  r11u423repro/evidence/residue_cases/g1b u.mk(x).a[2]       upstream 0, pristine 4, ver1 4 (Surelog 3; not forced)
+  r11u423repro/evidence/residue_cases/g1c this.mk().inner.s  upstream 0, pristine 0, ver1 0
+  v11u415repro/cases/VT/vt03              this.mk().inner.s  upstream 0, pristine 0, ver1 0
+  NEW exit-4 face (attack grid): v11u479 VL/vl05 (`typedef virtual ifc a_t; typedef a_t b_t;` at $unit, a local b_t g)
+    and VL/vl20 (`typedef K::v_t w_t;` at $unit): upstream 0, Surelog accepts (golden written), pristine 4, law 4, ver1 4,
+    "unsupported constructs encountered: typedef target: VirtualInterfaceType" from the $unit typedef-of-typedef
+    builder (UhdmExporter / TypeEmit noteUnsupported("typedef target: ...")), the sister's ground: reported.
+bp_unicore alone, the verified sweep's recorded slang command with ver1, guard on:
+  rc 3 in 15.1 s, max RSS 805 MB (children's ru_maxrss), "basic_string::substr: __pos (which is 18) > this->size() (which is 17)": the guard stays.
+SURELOG_ONLY: 75 rows in the verified sweep, every detail an upstream slang "error:" diagnostic; the one naming a path
+  (uvm-examples/biquad_example) carries slang's "design element does not have a time scale" error; none is the exporter's.

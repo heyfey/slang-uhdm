@@ -10349,6 +10349,34 @@ static bool superMethodCall17(const slang::syntax::SyntaxNode* n,
     return true;
 }
 
+// § parenCallCallee479 (R11U479_PARENCALLEE_OFF; cases
+// tools/probe/r11u479repro/cases/PC, the v11u477 cases VP/vp10, vp13, vp26
+// and the r11u477 case CD/cd21) — THE CALLEE-SHAPE DECODERS READ THROUGH A
+// CALL'S PARENTHESES, as § parenCallWrittenArgs477 made the written-argument
+// decoders do.  slang stamps the ParenthesizedExpression on a call written
+// `(f(a))`, so the decoders that read `expr.syntax` for the callee's written
+// shape (§ rootCallEatsTheChain150, § superMethodCall17, § staticScopedCall12)
+// found no InvocationExpression and fell to the generic branches: `(super.m(a))`
+// became a hier_path where golden keeps the method_func_call with the "super"
+// prefix it writes without parentheses, and `(C::sf(1))` a func_call where
+// golden keeps § staticScopedCall12's ref_obj `C::sf`.  Surelog compiles the
+// parenthesized primary's inner expression with the same compileExpression /
+// compileComplexFuncCall branches.  Any other inner node answers the syntax as is.
+static const slang::syntax::SyntaxNode* parenCallCallee479(
+    const slang::syntax::SyntaxNode* n) {
+    if (!n || n->kind != slang::syntax::SyntaxKind::ParenthesizedExpression)
+        return n;
+    const slang::syntax::SyntaxNode* in = n;
+    while (in && in->kind == slang::syntax::SyntaxKind::ParenthesizedExpression)
+        in = in->as<slang::syntax::ParenthesizedExpressionSyntax>().expression;
+    if (!in || in->kind != slang::syntax::SyntaxKind::InvocationExpression ||
+        !lawOn(479, "R11U479_PARENCALLEE_OFF"))
+        return n;
+    if (lawTraceOn(479))
+        lawTrace(479, "parenCallCallee479", std::string(in->toString()).substr(0, 60));
+    return in;
+}
+
 // § staticScopedRef12 — whether `sym` is declared INSIDE a class (directly or
 // through a nested enum/struct scope), which is what makes a `::` reference to
 // it a class_scope in Surelog rather than a package_scope.
@@ -42904,7 +42932,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // call-rooted chain lives in a SLANG_REJECT or SURELOG_FAIL
                 // row).
                 if (call.thisClass()) {
-                    if (int rc150 = rootCallEatsChain150(expr.syntax)) {
+                    if (int rc150 = rootCallEatsChain150(parenCallCallee479(expr.syntax))) {
                         auto& recv150 = stripImplicitConv(*call.thisClass());
                         callStmtContext = callStmtCtx0;
                         if (auto* r150 = emitExpr(recv150, parent, prefix,
@@ -42912,7 +42940,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // A BARE root is spanned by Surelog over the WHOLE
                             // `Subroutine_call` node, chain included.
                             if (rc150 == 2 && expr.syntax)
-                                setLoc(r150, expr.syntax->sourceRange());
+                                setLoc(r150, parenCallCallee479(expr.syntax)->sourceRange());
                             return r150;
                         }
                         return nullptr;
@@ -42938,7 +42966,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // alone.
                 {
                     slang::SourceRange spRng17, mRng17;
-                    if (superMethodCall17(expr.syntax, spRng17, mRng17)) {
+                    if (superMethodCall17(parenCallCallee479(expr.syntax), spRng17, mRng17)) {
                         bool savedSC17 = callStmtContext;
                         callStmtContext = false;
                         auto* mfc17 = s.MakeMethod_func_call();
@@ -43039,7 +43067,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (auto pscS = sub.getParentScope();
                     pscS && pscS->asSymbol().kind == SymbolKind::ClassType &&
                     !call.thisClass() && expr.syntax) {
-                    const slang::syntax::SyntaxNode* cs = expr.syntax;
+                    const slang::syntax::SyntaxNode* cs = parenCallCallee479(expr.syntax);
                     if (cs->kind == syntax::SyntaxKind::InvocationExpression)
                         cs = cs->as<syntax::InvocationExpressionSyntax>().left;
                     if (auto* ns12 = scopedNameSyntax12(cs)) {

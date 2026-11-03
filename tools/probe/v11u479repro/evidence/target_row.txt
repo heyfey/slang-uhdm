@@ -1,0 +1,9 @@
+generated/uvm-examples/uvm_param_vif_config_db.sv, runner (scripts/svtests/svtests_matrix.py --keep-golden, golden from the cache)
+pristine: NOTEQUAL,decompile:,DIFFERENT
+law:      NOTEQUAL,decompile:,DIFFERENT
+uhdm-cmp lines: pristine 172, law 172; the two outputs identical after removing object ids (same pairing:
+  golden interface_typespec tb_params_pkg::SFR_master_bfm_t 54:17-54:31 under tb_params_pkg (definition view)
+  against ours class_typespec tb_params_pkg::SFR_agent_t 51:9-51:18, the vpiInstance face, the sister's).
+dump distance to golden (uhdm-dump, directories stripped, first line dropped): pristine 928335, law 928285.
+lines 'interface_typespec: (tb_params_pkg::SFR_m...' in the dump: golden 26, pristine 24, law 26.
+verified sweep row: generated/uvm-examples/uvm_param_vif_config_db.sv,DIFFERENT,decompile:,

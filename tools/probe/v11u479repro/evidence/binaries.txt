@@ -1,0 +1,4 @@
+6179073bad95337e0d3e88d55298ed2d  /tmp/v11u479_bin/law
+5ba4752987885570af816df43e96f9e0  /tmp/v11u479_bin/pristine
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/v11u479_bin/uhdm-strictcmp
+7347b3417a262cd8ca085f3e8a13ed5c  /tmp/v11u479_bin/ver1

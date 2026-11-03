@@ -1,0 +1,4 @@
+BIN /tmp/v11u479_bin/ver1 7347b3417a262cd8ca085f3e8a13ed5c  -
+four rc=1
+sv rc=1
+DONE

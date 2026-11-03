@@ -31272,6 +31272,140 @@ static void cloneLvSharesHomeUnitTs465(
 static void unitCopyOwnTsEveryPath467(UHDM::Serializer& s, UHDM::design* d);  // § unitCopyOwnTsEveryPath467
 static void importCopyTsInstByRole469(UHDM::Serializer& s, UHDM::design* d);  // § importCopyTsInstByRole469
 static void modImpCopyTdChainHomeTop473(UHDM::Serializer& s, UHDM::design* d);  // § modImpCopyTdChainHomeTop473
+// § pkgVirtIfaceTd479 — the listing objects of package virtual-interface
+// typedefs, each view's object mapped to its definition-view twin (side list;
+// the law's own bookkeeping).
+extern std::set<const UHDM::typespec*> g410ModVifTs;  // § modVirtIfaceTd410 (TypeEmit.cpp)
+static std::map<const UHDM::typespec*, const UHDM::typespec*>& pkgVifTd479() {
+    static std::map<const UHDM::typespec*, const UHDM::typespec*> m479;
+    return m479;
+}
+
+// § pkgVirtIfaceTd479, the net half (design-final; cases PV pv01 to pv06,
+// pv10, pv15, pv23, pv24, pv27 to pv30, LV lv10, lv11): a net of a module,
+// interface, program or package that lists a package virtual-interface
+// typedef (its own, or imported into its typedef listing) binds a fresh copy of the
+// listing object, named like it (pkg::vi_t), at its span, Instanced like it
+// and aliased back to the definition listing object; a net written with the
+// qualified name and no import binds the listing object itself.
+static void pkgVifNetCopy479(UHDM::Serializer& s) {
+    if (pkgVifTd479().empty() && g410ModVifTs.empty())
+        return;
+    const bool net479 = lawOn(479, "R11U479_PKGVIFTD_OFF");
+    std::vector<UHDM::any*> objs;
+    for (auto& kv : s.AllObjects())
+        if (kv.first && ((UHDM::any*)kv.first)->UhdmType() == UHDM::uhdmref_typespec)
+            objs.push_back((UHDM::any*)kv.first);
+    std::stable_sort(objs.begin(), objs.end(), [](const UHDM::any* a, const UHDM::any* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    for (auto* o : objs) {
+        auto* rt = (UHDM::ref_typespec*)o;
+        auto* at = rt->Actual_typespec();
+        auto* par = rt->VpiParent();
+        if (!at || !par)
+            continue;
+        // § vifTdLocalIsRefVar479 — the module-typedef twin: the block local
+        // that is now a ref_var keeps § modVirtIfaceTd410's per-variable
+        // aliased copy, which that pass gives logic_var and logic_net only
+        // (LV/lv02).
+        if (par->UhdmType() == UHDM::uhdmref_var && g410ModVifTs.count(at) &&
+            lawOn(479, "R11U479_VIFLOCALREFVAR_OFF")) {
+            auto* cp = s.MakeInterface_typespec();
+            cp->VpiName(std::string(at->VpiName()));
+            cp->VpiFile(at->VpiFile());
+            cp->VpiLineNo(at->VpiLineNo());
+            cp->VpiColumnNo(at->VpiColumnNo());
+            cp->VpiEndLineNo(at->VpiEndLineNo());
+            cp->VpiEndColumnNo(at->VpiEndColumnNo());
+            // no vpiInstance: a statement-scope copy (golden lv02)
+            auto* al = s.MakeRef_typespec();
+            al->VpiParent(cp);
+            al->VpiFullName(std::string(at->VpiName()));
+            al->Actual_typespec((UHDM::typespec*)at);
+            cp->Typedef_alias(al);
+            rt->Actual_typespec(cp);
+            lawTrace(479, "vifTdLocalIsRefVar479", "modTdCopy " + std::string(rt->VpiFullName()));
+            continue;
+        }
+        auto hit = pkgVifTd479().find(at);
+        if (hit == pkgVifTd479().end() || !hit->second)
+            continue;
+        // § pkgVifLocalBareCopy479 (R11U479_VIFLOCALCOPY_OFF; cases PV pv09,
+        // pv18, LV lv03, lv04, lv07, lv08, lv12; it reads the listing map of
+        // § pkgVirtIfaceTd479, so R11U479_PKGVIFTD_OFF drops it too) — a procedural local (a variable directly under a begin,
+        // fork, task or function) typed by a package virtual-interface
+        // typedef binds LAW S's per-use copy: the bare name (vt_t), the
+        // listing's span and vpiInstance, aliased back to the definition
+        // listing object (Surelog clones the typedef's typespec per
+        // declaration in a statement scope).
+        if ((par->UhdmType() == UHDM::uhdmref_var || par->UhdmType() == UHDM::uhdmlogic_var) &&
+            par->VpiParent() &&
+            (par->VpiParent()->UhdmType() == UHDM::uhdmbegin ||
+             par->VpiParent()->UhdmType() == UHDM::uhdmnamed_begin ||
+             par->VpiParent()->UhdmType() == UHDM::uhdmfork_stmt ||
+             par->VpiParent()->UhdmType() == UHDM::uhdmnamed_fork ||
+             par->VpiParent()->UhdmType() == UHDM::uhdmfunction ||
+             par->VpiParent()->UhdmType() == UHDM::uhdmtask) &&
+            lawOn(479, "R11U479_VIFLOCALCOPY_OFF")) {
+            std::string qn(at->VpiName());
+            auto* cp = s.MakeInterface_typespec();
+            cp->VpiName(qn.substr(qn.rfind("::") == std::string::npos ? 0 : qn.rfind("::") + 2));
+            cp->VpiFile(at->VpiFile());
+            cp->VpiLineNo(at->VpiLineNo());
+            cp->VpiColumnNo(at->VpiColumnNo());
+            cp->VpiEndLineNo(at->VpiEndLineNo());
+            cp->VpiEndColumnNo(at->VpiEndColumnNo());
+            cp->Instance(at->Instance());
+            auto* al = s.MakeRef_typespec();
+            al->VpiParent(cp);
+            al->VpiFullName(std::string(cp->VpiName()));
+            al->Actual_typespec((UHDM::typespec*)hit->second);
+            cp->Typedef_alias(al);
+            rt->Actual_typespec(cp);
+            lawTrace(479, "pkgVifLocalBareCopy479", std::string(rt->VpiFullName()));
+            continue;
+        }
+        if (par->UhdmType() != UHDM::uhdmlogic_net || !net479)
+            continue;
+        auto* own = par->VpiParent();
+        const UHDM::VectorOftypespec* tds = nullptr;
+        if (own && (own->UhdmType() == UHDM::uhdmmodule_inst ||
+                    own->UhdmType() == UHDM::uhdminterface_inst ||
+                    own->UhdmType() == UHDM::uhdmprogram ||
+                    own->UhdmType() == UHDM::uhdmpackage))
+            tds = ((const UHDM::scope*)own)->Typespecs();
+        else
+            continue;
+        bool listed = false;
+        if (tds)
+            for (auto* t : *tds)
+                if (t && t->VpiName() == at->VpiName())
+                    listed = true;
+        if (!listed) {
+            lawTrace(479, "pkgVirtIfaceTd479",
+                     "netQualified " + std::string(((const UHDM::logic_net*)par)->VpiFullName()));
+            continue;
+        }
+        auto* cp = s.MakeInterface_typespec();
+        cp->VpiName(std::string(at->VpiName()));
+        cp->VpiFile(at->VpiFile());
+        cp->VpiLineNo(at->VpiLineNo());
+        cp->VpiColumnNo(at->VpiColumnNo());
+        cp->VpiEndLineNo(at->VpiEndLineNo());
+        cp->VpiEndColumnNo(at->VpiEndColumnNo());
+        cp->Instance(at->Instance());
+        auto* al = s.MakeRef_typespec();
+        al->VpiParent(cp);
+        al->VpiFullName(std::string(at->VpiName()));
+        al->Actual_typespec((UHDM::typespec*)hit->second);
+        cp->Typedef_alias(al);
+        rt->Actual_typespec(cp);
+        lawTrace(479, "pkgVirtIfaceTd479",
+                 "netCopy " + std::string(((const UHDM::logic_net*)par)->VpiFullName()));
+    }
+}
+
 void UhdmExporter::drainPaNameCopySrc38() {
     memReadCopySync274();  // § elabMemberReadCopyChain274 (r11u274)
     // § insideSetParamFoldKeepsPa270 (r11u270, ExprEmit) — design-final.
@@ -31687,6 +31821,7 @@ void UhdmExporter::drainPaNameCopySrc38() {
         }
     }
     pkgInitTs471().clear();
+    pkgVifNetCopy479(s);
 }
 
 // § importCopyTsInstByRole469 (r11u469, R11U469_IMPTSINST_OFF; grid
@@ -43517,8 +43652,26 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                         if (tSyn8 && !arr250 && lawOn(459, "R11U459_ZEROENUMBITS_OFF"))
                             zeroEnumBoundFix459(cl8, *tSyn8, *home8,
                                                 std::string(ta8.name));
-                        if (tSyn8 && !arr250)
+                        // § pkgVirtIfaceTd479 — a virtual-interface import
+                        // clone keeps the builder's span, the interface name
+                        // (and modport) without `virtual` or the parameters,
+                        // as golden's home listing and its importers' copies.
+                        if (tSyn8 && !arr250 &&
+                            !(cl8->UhdmType() == UHDM::uhdminterface_typespec &&
+                              tSyn8->kind == syntax::SyntaxKind::VirtualInterfaceType &&
+                              lawOn(479, "R11U479_PKGVIFTD_OFF") &&
+                              (lawTrace(479, "pkgVirtIfaceTd479",
+                                        "importSpan " + std::string(pkg.name) + " " +
+                                            std::string(ta8.name)),
+                               true)))
                             setLoc(cl8, tSyn8->sourceRange());
+                        // § pkgVirtIfaceTd479 — an importer's net binding the
+                        // clone takes the net half's copy too, aliased back
+                        // to the home definition listing object.
+                        if (cl8->UhdmType() == UHDM::uhdminterface_typespec &&
+                            lawOn(479, "R11U479_PKGVIFTD_OFF"))
+                            if (auto h479 = typedefTs.find(tdSym); h479 != typedefTs.end())
+                                pkgVifTd479()[cl8] = h479->second;
                         // An AGGREGATE clone (packed union) built here comes
                         // out with FRESH scalar member typespecs; a member
                         // typed by another typedef of the same home package
@@ -45491,6 +45644,34 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                 its7->VpiParent(up);
                 typedefClone[&ta] = nullptr;
                 ts = its7;
+            }
+        }
+        // § pkgVirtIfaceTd479 (R11U479_PKGVIFTD_OFF; cases
+        // tools/probe/r11u479repro/cases/PV, the r11u470 cases VB) — the
+        // package twin of § virtIfaceTd402 and § modVirtIfaceTd410: a package
+        // typedef of a virtual interface (`typedef virtual I vi_t;`) had no
+        // branch here (ts stayed null, so the typedef was listed in neither
+        // package view nor in an importer's listing, and a use bound a fresh
+        // logic_typespec).  Golden lists the interface_typespec the typespec
+        // builder makes, named pkg::vi_t at the interface name, parented and
+        // Instanced at the package in each view.
+        else if (ct.kind == SymbolKind::VirtualInterfaceType && typeSyn &&
+                 typeSyn->kind == syntax::SyntaxKind::VirtualInterfaceType &&
+                 lawOn(479, "R11U479_PKGVIFTD_OFF")) {
+            bool savedBy479 = bypassTypedefShare;
+            bypassTypedefShare = true;
+            auto* vts479 = makeTypespec(ta, typeSyn);
+            bypassTypedefShare = savedBy479;
+            if (vts479 && vts479->UhdmType() == UHDM::uhdminterface_typespec) {
+                vts479->VpiParent(up);
+                // the net half is design-final (pkgVifNetCopy479)
+                pkgVifTd479()[vts479] = topView ? nullptr : vts479;
+                if (topView)
+                    if (auto d479 = typedefTs.find(&ta); d479 != typedefTs.end())
+                        pkgVifTd479()[vts479] = d479->second;
+                ts = vts479;
+                lawTrace(479, "pkgVirtIfaceTd479",
+                         prefix + std::string(ta.name) + (topView ? " top" : " def"));
             }
         }
         // A CLASS-HANDLE typedef (`typedef uvm_callbacks#(A,B) uvm_reg_cb;`,

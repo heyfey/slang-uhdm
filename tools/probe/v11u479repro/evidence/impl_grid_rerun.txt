@@ -1,0 +1,195 @@
+LV/lv01 pristine rc=0 cmp=56 NOT_EQUAL stage1 dd=24 md5=628f93d5
+LV/lv02 pristine rc=0 cmp=56 NOT_EQUAL stage1 dd=10 md5=bd5d2fa1
+LV/lv03 pristine rc=0 cmp=143 NOT_EQUAL stage1 dd=52 md5=dac51a9f
+LV/lv04 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=42 md5=9a0deee0
+LV/lv05 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=56 md5=b70e5eeb
+LV/lv06 pristine rc=0 cmp=77 NOT_EQUAL stage1 dd=23 md5=a618fc54
+LV/lv07 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=47 md5=b4f2b525
+LV/lv08 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=38 md5=a542e7af
+LV/lv09 pristine rc=0 cmp=123 NOT_EQUAL stage1 dd=17 md5=83cee7cc
+LV/lv10 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=58 md5=3836b441
+LV/lv11 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=9ad4e256
+LV/lv12 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=38 md5=ba1319ce
+PC/pc01 pristine rc=0 cmp=0 STRICT_EQUAL 40 objects dd=2 md5=42aa850f
+PC/pc02 pristine rc=0 cmp=0 STRICT_EQUAL 38 objects dd=2 md5=9c1a509b
+PC/pc03 pristine rc=0 cmp=50 NOT_EQUAL stage1 dd=19 md5=7b9a0a16
+PC/pc04 pristine rc=0 cmp=112 NOT_EQUAL stage1 dd=46 md5=5af6d460
+PC/pc05 pristine rc=0 cmp=38 NOT_EQUAL stage1 dd=13 md5=e9ad87d7
+PC/pc06 pristine rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=eade50ca
+PC/pc07 pristine rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=2e434bf0
+PC/pc08 pristine rc=0 cmp=38 NOT_EQUAL stage1 dd=13 md5=a1fb6189
+PC/pc09 pristine rc=0 cmp=42 NOT_EQUAL stage1 dd=15 md5=de1fa317
+PC/pc10 pristine rc=0 cmp=60 NOT_EQUAL stage1 dd=16 md5=8409500b
+PC/pc11 pristine rc=0 cmp=56 NOT_EQUAL stage1 dd=47 md5=d52fba75
+PC/pc11u pristine rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=43 md5=628ea4f3
+PC/pc12 pristine rc=0 cmp=0 STRICT_EQUAL 58 objects dd=2 md5=c918f3da
+PC/pc13 pristine rc=0 cmp=84 NOT_EQUAL stage1 dd=64 md5=a365cfe6
+PC/pc14 pristine rc=0 cmp=38 NOT_EQUAL stage1 dd=13 md5=a09aa325
+PC/pc15 pristine rc=0 cmp=84 NOT_EQUAL stage1 dd=34 md5=5c7a3c6f
+PC/pc16 pristine rc=0 cmp=38 NOT_EQUAL stage1 dd=23 md5=c46cd76d
+PC/pc16u pristine rc=0 cmp=28 NOT_EQUAL stage1 dd=12 md5=4c195a13
+PC/pc17 pristine rc=0 cmp=80 NOT_EQUAL stage1 dd=40 md5=baef72ba
+PC/pc18 pristine rc=0 cmp=38 NOT_EQUAL stage1 dd=13 md5=4fe9c400
+PC/pc19 pristine rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=784809b4
+PC/pc20 pristine rc=0 cmp=0 STRICT_EQUAL 21 objects dd=2 md5=a445db6e
+PV/pv01 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=e67a00b2
+PV/pv02 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=089015f7
+PV/pv03 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=e133fde8
+PV/pv04 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=b478d88f
+PV/pv05 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=33 md5=2c7faf23
+PV/pv06 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=6cb675d2
+PV/pv07 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=19 md5=81a00380
+PV/pv08 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=20 md5=d087bd96
+PV/pv09 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=58 md5=9403eae4
+PV/pv10 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=34 md5=eae57dd6
+PV/pv11 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=52 md5=3639036f
+PV/pv12 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=86 md5=eaa663a3
+PV/pv13 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=85 md5=964411e5
+PV/pv14 pristine rc=0 cmp=78 NOT_EQUAL stage1 dd=20 md5=ef84f9bf
+PV/pv15 pristine rc=0 cmp=45 NOT_EQUAL stage1 dd=66 md5=2c95760c
+PV/pv16 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=35 md5=10ffd472
+PV/pv17 pristine rc=0 cmp=0 STRICT_EQUAL 20 objects dd=2 md5=44fca304
+PV/pv18 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=38 md5=3941b3d4
+PV/pv19 pristine rc=0 cmp=123 NOT_EQUAL stage1 dd=44 md5=f48073b8
+PV/pv20 pristine rc=0 cmp=56 NOT_EQUAL stage1 dd=8 md5=7af747b7
+PV/pv22 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=32 md5=11bd4e7c
+PV/pv23 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=62 md5=ee964ded
+PV/pv24 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=20 md5=14e25ea9
+PV/pv25 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=35 md5=0c163b49
+PV/pv26 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=22 md5=74e46d18
+PV/pv27 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=36 md5=72893eb5
+PV/pv28 pristine rc=0 cmp=57 NOT_EQUAL stage1 dd=58 md5=ae90a35e
+PV/pv29 pristine rc=0 cmp=105 NOT_EQUAL stage1 dd=42 md5=461c0b83
+PV/pv30 pristine rc=0 cmp=31 NOT_EQUAL stage1 dd=38 md5=fa56589d
+PV/pv31 pristine rc=0 cmp=104 NOT_EQUAL stage1 dd=6 md5=56e5bf13
+PV/pv32 pristine rc=0 cmp=104 NOT_EQUAL stage1 dd=10 md5=a5db1055
+LV/lv01 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=20 md5=994f6fcb
+LV/lv02 law rc=0 cmp=0 STRICT_EQUAL 26 objects dd=4 md5=4e828144
+LV/lv03 law rc=0 cmp=0 STRICT_EQUAL 72 objects dd=12 md5=bce8200c
+LV/lv04 law rc=0 cmp=0 STRICT_EQUAL 36 objects dd=4 md5=7ea2be7c
+LV/lv05 law rc=0 cmp=92 NOT_EQUAL stage1 dd=34 md5=9a9f925a
+LV/lv06 law rc=0 cmp=77 NOT_EQUAL stage1 dd=19 md5=9cc639c0
+LV/lv07 law rc=0 cmp=133 NOT_EQUAL stage1 dd=13 md5=35a563ff
+LV/lv08 law rc=0 cmp=0 STRICT_EQUAL 37 objects dd=6 md5=7cd421c8
+LV/lv09 law rc=0 cmp=123 NOT_EQUAL stage1 dd=13 md5=fd9f0a1c
+LV/lv10 law rc=0 cmp=0 STRICT_EQUAL 43 objects dd=6 md5=85ba1fb0
+LV/lv11 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=06517437
+LV/lv12 law rc=0 cmp=0 STRICT_EQUAL 34 objects dd=20 md5=4c202682
+PC/pc01 law rc=0 cmp=0 STRICT_EQUAL 40 objects dd=2 md5=42aa850f
+PC/pc02 law rc=0 cmp=0 STRICT_EQUAL 38 objects dd=2 md5=9c1a509b
+PC/pc03 law rc=0 cmp=0 STRICT_EQUAL 40 objects dd=2 md5=31ef67f0
+PC/pc04 law rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=64b98dce
+PC/pc05 law rc=0 cmp=0 STRICT_EQUAL 34 objects dd=2 md5=6225cc70
+PC/pc06 law rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=eade50ca
+PC/pc07 law rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=2e434bf0
+PC/pc08 law rc=0 cmp=0 STRICT_EQUAL 34 objects dd=2 md5=5d938779
+PC/pc09 law rc=0 cmp=0 STRICT_EQUAL 49 objects dd=2 md5=7dc08c10
+PC/pc10 law rc=0 cmp=0 STRICT_EQUAL 54 objects dd=2 md5=6389a21d
+PC/pc11 law rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=43 md5=c75cd907
+PC/pc11u law rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=43 md5=628ea4f3
+PC/pc12 law rc=0 cmp=0 STRICT_EQUAL 58 objects dd=2 md5=c918f3da
+PC/pc13 law rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=5efb612a
+PC/pc14 law rc=0 cmp=0 STRICT_EQUAL 21 objects dd=2 md5=a53032e8
+PC/pc15 law rc=0 cmp=0 STRICT_EQUAL 29 objects dd=2 md5=c17e9a1e
+PC/pc16 law rc=0 cmp=28 NOT_EQUAL stage1 dd=12 md5=6243f854
+PC/pc16u law rc=0 cmp=28 NOT_EQUAL stage1 dd=12 md5=4c195a13
+PC/pc17 law rc=0 cmp=0 STRICT_EQUAL 35 objects dd=10 md5=99d81c52
+PC/pc18 law rc=0 cmp=0 STRICT_EQUAL 37 objects dd=2 md5=a09565a7
+PC/pc19 law rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=784809b4
+PC/pc20 law rc=0 cmp=0 STRICT_EQUAL 21 objects dd=2 md5=a445db6e
+PV/pv01 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=7ce9b1c4
+PV/pv02 law rc=0 cmp=0 STRICT_EQUAL 28 objects dd=4 md5=9296cb15
+PV/pv03 law rc=0 cmp=0 STRICT_EQUAL 27 objects dd=2 md5=bb58b49b
+PV/pv04 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=9f134522
+PV/pv05 law rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=9d788fe4
+PV/pv06 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=aad1aaaa
+PV/pv07 law rc=0 cmp=0 STRICT_EQUAL 17 objects dd=2 md5=d6b44bde
+PV/pv08 law rc=0 cmp=0 STRICT_EQUAL 28 objects dd=2 md5=57484069
+PV/pv09 law rc=0 cmp=56 NOT_EQUAL stage1 dd=10 md5=b82ce628
+PV/pv10 law rc=0 cmp=0 STRICT_EQUAL 37 objects dd=2 md5=7e7fda8b
+PV/pv11 law rc=0 cmp=92 NOT_EQUAL stage1 dd=34 md5=b1e3823c
+PV/pv12 law rc=0 cmp=135 NOT_EQUAL stage1 dd=57 md5=eeafd2b9
+PV/pv13 law rc=0 cmp=130 NOT_EQUAL stage1 dd=63 md5=ecd19921
+PV/pv14 law rc=0 cmp=0 STRICT_EQUAL 32 objects dd=2 md5=31d4f3db
+PV/pv15 law rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=5a18b572
+PV/pv16 law rc=0 cmp=42 NOT_EQUAL stage1 dd=15 md5=41453ad1
+PV/pv17 law rc=0 cmp=0 STRICT_EQUAL 20 objects dd=2 md5=44fca304
+PV/pv18 law rc=0 cmp=0 STRICT_EQUAL 34 objects dd=4 md5=d7f0de35
+PV/pv19 law rc=0 cmp=42 NOT_EQUAL stage1 dd=28 md5=33245c72
+PV/pv20 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=4 md5=c1878f02
+PV/pv22 law rc=0 cmp=102 NOT_EQUAL stage1 dd=17 md5=a42424fb
+PV/pv23 law rc=0 cmp=0 STRICT_EQUAL 35 objects dd=2 md5=8b16cade
+PV/pv24 law rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=e576903d
+PV/pv25 law rc=0 cmp=102 NOT_EQUAL stage1 dd=19 md5=36edb66b
+PV/pv26 law rc=0 cmp=0 STRICT_EQUAL 29 objects dd=4 md5=03611cf4
+PV/pv27 law rc=0 cmp=0 STRICT_EQUAL 33 objects dd=4 md5=a7cf2bdf
+PV/pv28 law rc=0 cmp=0 STRICT_EQUAL 35 objects dd=4 md5=0698105c
+PV/pv29 law rc=0 cmp=0 STRICT_EQUAL 68 objects dd=22 md5=928fa5f5
+PV/pv30 law rc=0 cmp=0 STRICT_EQUAL 23 objects dd=2 md5=01ef274f
+PV/pv31 law rc=0 cmp=104 NOT_EQUAL stage1 dd=6 md5=56e5bf13
+PV/pv32 law rc=0 cmp=104 NOT_EQUAL stage1 dd=10 md5=a5db1055
+LV/lv01 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=20 md5=994f6fcb
+LV/lv02 ver rc=0 cmp=0 STRICT_EQUAL 26 objects dd=4 md5=4e828144
+LV/lv03 ver rc=0 cmp=0 STRICT_EQUAL 72 objects dd=12 md5=bce8200c
+LV/lv04 ver rc=0 cmp=0 STRICT_EQUAL 36 objects dd=4 md5=7ea2be7c
+LV/lv05 ver rc=0 cmp=92 NOT_EQUAL stage1 dd=34 md5=9a9f925a
+LV/lv06 ver rc=0 cmp=77 NOT_EQUAL stage1 dd=19 md5=9cc639c0
+LV/lv07 ver rc=0 cmp=133 NOT_EQUAL stage1 dd=13 md5=35a563ff
+LV/lv08 ver rc=0 cmp=0 STRICT_EQUAL 37 objects dd=6 md5=7cd421c8
+LV/lv09 ver rc=0 cmp=123 NOT_EQUAL stage1 dd=13 md5=fd9f0a1c
+LV/lv10 ver rc=0 cmp=0 STRICT_EQUAL 43 objects dd=6 md5=85ba1fb0
+LV/lv11 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=06517437
+LV/lv12 ver rc=0 cmp=0 STRICT_EQUAL 34 objects dd=20 md5=4c202682
+PC/pc01 ver rc=0 cmp=0 STRICT_EQUAL 40 objects dd=2 md5=42aa850f
+PC/pc02 ver rc=0 cmp=0 STRICT_EQUAL 38 objects dd=2 md5=9c1a509b
+PC/pc03 ver rc=0 cmp=0 STRICT_EQUAL 40 objects dd=2 md5=31ef67f0
+PC/pc04 ver rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=64b98dce
+PC/pc05 ver rc=0 cmp=0 STRICT_EQUAL 34 objects dd=2 md5=6225cc70
+PC/pc06 ver rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=eade50ca
+PC/pc07 ver rc=0 cmp=0 STRICT_EQUAL 24 objects dd=2 md5=2e434bf0
+PC/pc08 ver rc=0 cmp=0 STRICT_EQUAL 34 objects dd=2 md5=5d938779
+PC/pc09 ver rc=0 cmp=0 STRICT_EQUAL 49 objects dd=2 md5=7dc08c10
+PC/pc10 ver rc=0 cmp=0 STRICT_EQUAL 54 objects dd=2 md5=6389a21d
+PC/pc11 ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=43 md5=c75cd907
+PC/pc11u ver rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=43 md5=628ea4f3
+PC/pc12 ver rc=0 cmp=0 STRICT_EQUAL 58 objects dd=2 md5=c918f3da
+PC/pc13 ver rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=5efb612a
+PC/pc14 ver rc=0 cmp=0 STRICT_EQUAL 21 objects dd=2 md5=a53032e8
+PC/pc15 ver rc=0 cmp=0 STRICT_EQUAL 29 objects dd=2 md5=c17e9a1e
+PC/pc16 ver rc=0 cmp=28 NOT_EQUAL stage1 dd=12 md5=6243f854
+PC/pc16u ver rc=0 cmp=28 NOT_EQUAL stage1 dd=12 md5=4c195a13
+PC/pc17 ver rc=0 cmp=0 STRICT_EQUAL 35 objects dd=10 md5=99d81c52
+PC/pc18 ver rc=0 cmp=0 STRICT_EQUAL 37 objects dd=2 md5=a09565a7
+PC/pc19 ver rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=784809b4
+PC/pc20 ver rc=0 cmp=0 STRICT_EQUAL 21 objects dd=2 md5=a445db6e
+PV/pv01 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=7ce9b1c4
+PV/pv02 ver rc=0 cmp=0 STRICT_EQUAL 28 objects dd=4 md5=9296cb15
+PV/pv03 ver rc=0 cmp=0 STRICT_EQUAL 27 objects dd=2 md5=bb58b49b
+PV/pv04 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=9f134522
+PV/pv05 ver rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=9d788fe4
+PV/pv06 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=aad1aaaa
+PV/pv07 ver rc=0 cmp=0 STRICT_EQUAL 17 objects dd=2 md5=d6b44bde
+PV/pv08 ver rc=0 cmp=0 STRICT_EQUAL 28 objects dd=2 md5=57484069
+PV/pv09 ver rc=0 cmp=56 NOT_EQUAL stage1 dd=10 md5=b82ce628
+PV/pv10 ver rc=0 cmp=0 STRICT_EQUAL 37 objects dd=2 md5=7e7fda8b
+PV/pv11 ver rc=0 cmp=92 NOT_EQUAL stage1 dd=34 md5=b1e3823c
+PV/pv12 ver rc=0 cmp=135 NOT_EQUAL stage1 dd=57 md5=eeafd2b9
+PV/pv13 ver rc=0 cmp=130 NOT_EQUAL stage1 dd=63 md5=ecd19921
+PV/pv14 ver rc=0 cmp=0 STRICT_EQUAL 32 objects dd=2 md5=31d4f3db
+PV/pv15 ver rc=0 cmp=0 STRICT_EQUAL 41 objects dd=2 md5=5a18b572
+PV/pv16 ver rc=0 cmp=42 NOT_EQUAL stage1 dd=15 md5=41453ad1
+PV/pv17 ver rc=0 cmp=0 STRICT_EQUAL 20 objects dd=2 md5=44fca304
+PV/pv18 ver rc=0 cmp=0 STRICT_EQUAL 34 objects dd=4 md5=d7f0de35
+PV/pv19 ver rc=0 cmp=42 NOT_EQUAL stage1 dd=28 md5=33245c72
+PV/pv20 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=4 md5=c1878f02
+PV/pv22 ver rc=0 cmp=102 NOT_EQUAL stage1 dd=17 md5=a42424fb
+PV/pv23 ver rc=0 cmp=0 STRICT_EQUAL 35 objects dd=2 md5=8b16cade
+PV/pv24 ver rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 md5=e576903d
+PV/pv25 ver rc=0 cmp=102 NOT_EQUAL stage1 dd=19 md5=36edb66b
+PV/pv26 ver rc=0 cmp=0 STRICT_EQUAL 29 objects dd=4 md5=03611cf4
+PV/pv27 ver rc=0 cmp=0 STRICT_EQUAL 33 objects dd=4 md5=a7cf2bdf
+PV/pv28 ver rc=0 cmp=0 STRICT_EQUAL 35 objects dd=4 md5=0698105c
+PV/pv29 ver rc=0 cmp=0 STRICT_EQUAL 68 objects dd=22 md5=928fa5f5
+PV/pv30 ver rc=0 cmp=0 STRICT_EQUAL 23 objects dd=2 md5=01ef274f
+PV/pv31 ver rc=0 cmp=104 NOT_EQUAL stage1 dd=6 md5=56e5bf13
+PV/pv32 ver rc=0 cmp=104 NOT_EQUAL stage1 dd=10 md5=a5db1055

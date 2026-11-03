@@ -1,0 +1,14 @@
+v11u479 prediction, written BEFORE either sweep (2026-11-03).
+§ vifTdClsScopedAbstain479v is evaluated only inside § vifTdLocalIsRefVar479's condition
+(a block-item local whose declared type is a TypeAlias of a virtual interface).  The
+implementer's traced census over 10616 fence-filtered row-modes (r11u479repro
+evidence/census.tsv) reads that law firing on NO corpus row, probe case or sv-tests row,
+so the fix cannot fire there: PREDICTION: the verified binary writes the law binary's
+bytes and exit code on every corpus row-mode, probe case, downstream row and sv-tests
+row; the verified sweep's csvs equal the law sweep's row for row.  Positive control: the
+fix fires on v11u479 VL/vl17, vl19, vl21 (law bytes -> pristine bytes), and on no other
+of the 143 grid dirs (evidence/sw3.txt).
+Law sweep PREDICTION (from the implementer's census, to be reproduced): every csv equal to
+the master's control /tmp/intr11u477 row for row; sv-tests 0 regressions, 0 conversions,
+0 changes; byte movers against the control only generated/uvm-examples/uvm_param_vif_config_db
+(+ the two pristine coins uvm_id_register and uvm_use_models_pipelined_get_put).

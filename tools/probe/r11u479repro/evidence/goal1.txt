@@ -1,0 +1,13 @@
+goal 1 re-measured at the base (law9 = law11 on these: no pass-479 law fires on them)
+probe faces (upstream slang 12.0.0+545f88b2e rc / pristine rc / law rc / Surelog v1.87 rc):
+  r11u423repro/evidence/residue_cases/g1a  C::mk().arr[1]    upstream 0  pristine 4  law 4  Surelog 3 (syntax error)  "element select base"
+  r11u423repro/evidence/residue_cases/g1b  u.mk(x).a[2]      upstream 0  pristine 4  law 4  Surelog 3
+  r11u423repro/evidence/residue_cases/g1c  this.mk().inner.s upstream 0  pristine 0  law 0  Surelog 3
+  v11u415repro/cases/VT/vt03               this.mk().inner.s upstream 0  pristine 0  law 0  Surelog 3
+  v11u413repro/cases/VC/vc04, VI/vi06      upstream 0  pristine 4  law 4
+  Surelog rejects every shape, so golden has none to follow: not forced.
+black-parrot: bp_unicore alone, the runner's recorded slang command with law9, guard on:
+  rc 3 in 17.2 s, max RSS 827 MB ("basic_string::substr" after the guard abstains); the guard stays.
+SURELOG_ONLY details: 75 rows, every detail an upstream slang front-end diagnostic
+  ("error: ..."; the one row naming the exporter path, uvm-examples/biquad_example, carries
+  slang's "design element does not have a time scale" error); none is the exporter's message.

@@ -1,0 +1,64 @@
+VA/va01   rc=0 cmp=  31 NOT_EQUAL              dd= 40 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 10 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 10
+VA/va02   rc=0 cmp=  31 NOT_EQUAL              dd= 36 -> law rc=0 cmp=   0 STRICT_EQUAL           dd= 20 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd= 20
+VA/va03   rc=0 cmp=  31 NOT_EQUAL              dd= 38 -> law rc=0 cmp=  52 NOT_EQUAL              dd=  8 -> ver rc=0 cmp=  52 NOT_EQUAL              dd=  8
+VA/va04   rc=0 cmp=  95 NOT_EQUAL              dd= 52 -> law rc=0 cmp=  52 NOT_EQUAL              dd= 12 -> ver rc=0 cmp=  52 NOT_EQUAL              dd= 12
+VA/va05   rc=0 cmp=  31 NOT_EQUAL              dd= 19 -> law rc=0 cmp=   0 STRICT_NOTEQUAL endline dd=  6 -> ver rc=0 cmp=   0 STRICT_NOTEQUAL endline dd=  6
+VA/va06   rc=0 cmp=  31 NOT_EQUAL              dd= 38 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  8 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  8
+VA/va07   rc=0 cmp=  31 NOT_EQUAL              dd= 34 -> law rc=0 cmp=   0 STRICT_NOTEQUAL endcol dd= 18 -> ver rc=0 cmp=   0 STRICT_NOTEQUAL endcol dd= 18
+VA/va08   rc=0 cmp= 330 NOT_EQUAL              dd= 81 -> law rc=0 cmp=   0 STRICT_EQUAL           dd= 67 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd= 67
+VA/va09   rc=0 cmp=  31 NOT_EQUAL              dd= 43 -> law rc=0 cmp= 366 NOT_EQUAL              dd= 13 -> ver rc=0 cmp= 366 NOT_EQUAL              dd= 13
+VA/va10   rc=0 cmp=  31 NOT_EQUAL              dd= 57 -> law rc=0 cmp=  42 NOT_EQUAL              dd= 32 -> ver rc=0 cmp=  42 NOT_EQUAL              dd= 32
+VA/va11   rc=0 cmp=  31 NOT_EQUAL              dd= 34 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VA/va12   rc=0 cmp=  31 NOT_EQUAL              dd=142 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  6 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  6
+VA/va13   rc=0 cmp=  31 NOT_EQUAL              dd= 34 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  6 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  6
+VA/va14   rc=0 cmp=  31 NOT_EQUAL              dd= 34 -> law rc=0 cmp=   0 STRICT_EQUAL           dd= 24 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd= 24
+VA/va15   rc=0 cmp=  31 NOT_EQUAL              dd= 61 -> law rc=0 cmp= 330 NOT_EQUAL              dd= 33 -> ver rc=0 cmp= 330 NOT_EQUAL              dd= 33
+VA/va16   rc=0 cmp=  45 NOT_EQUAL              dd= 66 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VA/va17   rc=0 cmp=  31 NOT_EQUAL              dd= 34 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VA/va18   rc=0 cmp=  31 NOT_EQUAL              dd= 56 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VA/va19   rc=0 cmp= 146 NOT_EQUAL              dd= 72 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  6 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  6
+VC/vc01   rc=0 cmp=  80 NOT_EQUAL              dd= 32 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc02   rc=0 cmp=  38 NOT_EQUAL              dd= 13 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc03   rc=0 cmp=  46 NOT_EQUAL              dd= 17 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc04   rc=0 cmp=  38 NOT_EQUAL              dd= 24 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc05   rc=0 cmp=  26 NOT_EQUAL              dd=  7 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc06   rc=0 cmp=  56 NOT_EQUAL              dd= 22 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc07   rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc08   rc=0 cmp=  38 NOT_EQUAL              dd= 28 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc09   rc=0 cmp=  80 NOT_EQUAL              dd= 32 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc10   rc=0 cmp=  42 NOT_EQUAL              dd= 15 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc11   rc=0 cmp=   0 STRICT_NOTEQUAL endcol dd=  8 -> law rc=0 cmp=   0 STRICT_NOTEQUAL endcol dd=  8 -> ver rc=0 cmp=   0 STRICT_NOTEQUAL endcol dd=  8
+VC/vc12   rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc13   rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc14   rc=0 cmp=  80 NOT_EQUAL              dd= 32 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc15   rc=0 cmp=  38 NOT_EQUAL              dd= 13 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc16   rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc17   rc=0 cmp=  38 NOT_EQUAL              dd= 13 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc18   rc=0 cmp=  88 NOT_EQUAL              dd= 36 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc19   rc=0 cmp=  38 NOT_EQUAL              dd= 31 -> law rc=0 cmp=   0 STRICT_NOTEQUAL type   dd= 20 -> ver rc=0 cmp=   0 STRICT_NOTEQUAL type   dd= 20
+VC/vc20   rc=0 cmp=  80 NOT_EQUAL              dd= 40 -> law rc=0 cmp=   0 STRICT_EQUAL           dd= 10 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd= 10
+VC/vc21   rc=0 cmp=  46 NOT_EQUAL              dd= 17 -> law rc=0 cmp=  15 NOT_EQUAL              dd=  8 -> ver rc=0 cmp=  15 NOT_EQUAL              dd=  8
+VC/vc21u  rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VC/vc22   rc=0 cmp=  42 NOT_EQUAL              dd= 15 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VL/vl01   rc=0 cmp=  31 NOT_EQUAL              dd= 40 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 10 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 10
+VL/vl02   rc=0 cmp=  31 NOT_EQUAL              dd= 60 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 36 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 36
+VL/vl03   rc=0 cmp=  31 NOT_EQUAL              dd= 40 -> law rc=0 cmp=  42 NOT_EQUAL              dd= 15 -> ver rc=0 cmp=  42 NOT_EQUAL              dd= 15
+VL/vl04   rc=0 cmp=  31 NOT_EQUAL              dd= 42 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  4 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  4
+VL/vl05   rc=4 cmp=  56 NOT_EQUAL              dd= 32 -> law rc=4 cmp=  36 NOT_EQUAL              dd= 28 -> ver rc=4 cmp=  36 NOT_EQUAL              dd= 28
+VL/vl06   rc=0 cmp=  56 NOT_EQUAL              dd= 16 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  4 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  4
+VL/vl07   rc=0 cmp=  56 NOT_EQUAL              dd= 12 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 12 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 12
+VL/vl08   rc=0 cmp=  31 NOT_EQUAL              dd= 47 -> law rc=0 cmp=  34 NOT_EQUAL              dd= 17 -> ver rc=0 cmp=  34 NOT_EQUAL              dd= 17
+VL/vl09   rc=0 cmp=  81 NOT_EQUAL              dd= 56 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 16 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 16
+VL/vl10   rc=0 cmp=  31 NOT_EQUAL              dd= 40 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  6 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  6
+VL/vl11   rc=0 cmp=  31 NOT_EQUAL              dd= 50 -> law rc=0 cmp= 190 NOT_EQUAL              dd= 19 -> ver rc=0 cmp= 190 NOT_EQUAL              dd= 19
+VL/vl12   rc=0 cmp=  56 NOT_EQUAL              dd=  8 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  4 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  4
+VL/vl13   rc=0 cmp=  31 NOT_EQUAL              dd= 56 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  4 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  4
+VL/vl14   rc=0 cmp=  31 NOT_EQUAL              dd= 63 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 32 -> ver rc=0 cmp=  56 NOT_EQUAL              dd= 32
+VL/vl15   rc=0 cmp=  56 NOT_EQUAL              dd= 24 -> law rc=0 cmp=   0 STRICT_EQUAL           dd= 20 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd= 20
+VL/vl16   rc=0 cmp=  31 NOT_EQUAL              dd= 20 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  2 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  2
+VL/vl17   rc=0 cmp=  25 NOT_EQUAL              dd= 12 -> law rc=0 cmp=  25 NOT_EQUAL              dd= 16 -> ver rc=0 cmp=  25 NOT_EQUAL              dd= 12
+VL/vl18   rc=0 cmp= 109 NOT_EQUAL              dd= 22 -> law rc=0 cmp= 109 NOT_EQUAL              dd= 18 -> ver rc=0 cmp= 109 NOT_EQUAL              dd= 18
+VL/vl19   rc=0 cmp=  14 NOT_EQUAL              dd= 12 -> law rc=0 cmp=  56 NOT_EQUAL              dd= 16 -> ver rc=0 cmp=  14 NOT_EQUAL              dd= 12
+VL/vl20   rc=4 cmp=  25 NOT_EQUAL              dd= 28 -> law rc=4 cmp=  25 NOT_EQUAL              dd= 24 -> ver rc=4 cmp=  25 NOT_EQUAL              dd= 24
+VL/vl21   rc=0 cmp=  27 NOT_EQUAL              dd= 12 -> law rc=0 cmp=  27 NOT_EQUAL              dd= 16 -> ver rc=0 cmp=  27 NOT_EQUAL              dd= 12
+VL/vl22   rc=0 cmp=  56 NOT_EQUAL              dd= 10 -> law rc=0 cmp=   0 STRICT_EQUAL           dd=  4 -> ver rc=0 cmp=   0 STRICT_EQUAL           dd=  4

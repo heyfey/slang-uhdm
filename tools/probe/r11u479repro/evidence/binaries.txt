@@ -1,0 +1,5 @@
+5ba4752987885570af816df43e96f9e0  pristine
+6179073bad95337e0d3e88d55298ed2d  law11
+5ba4752987885570af816df43e96f9e0  /home/heyfey/git-repos/slang-uhdm/build/slang-uhdm
+slang-uhdm using slang version 12.0.0+545f88b2e
+slang-uhdm using UHDM version 1.87 (18837c10ed3d1a20171d5c02bf2397e10fccb424)

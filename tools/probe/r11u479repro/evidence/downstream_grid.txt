@@ -1,0 +1,30 @@
+PV/pv01 pristine IDENTICAL 
+PV/pv02 pristine STATUS_DIFF 
+PV/pv10 pristine IDENTICAL 
+PV/pv23 pristine IDENTICAL 
+PV/pv27 pristine STATUS_DIFF 
+PV/pv28 pristine IDENTICAL 
+LV/lv08 pristine IDENTICAL 
+PC/pc03 pristine EQUIVALENT nohier il synth
+PC/pc04 pristine IDENTICAL 
+PC/pc05 pristine EQUIVALENT nohier il synth
+PC/pc09 pristine EQUIVALENT nohier il synth
+PC/pc10 pristine IDENTICAL 
+PC/pc13 pristine IDENTICAL 
+PC/pc14 pristine IDENTICAL 
+PC/pc17 pristine IDENTICAL 
+PV/pv01 law11 IDENTICAL 
+PV/pv02 law11 IDENTICAL 
+PV/pv10 law11 IDENTICAL 
+PV/pv23 law11 IDENTICAL 
+PV/pv27 law11 IDENTICAL 
+PV/pv28 law11 IDENTICAL 
+LV/lv08 law11 IDENTICAL 
+PC/pc03 law11 IDENTICAL 
+PC/pc04 law11 IDENTICAL 
+PC/pc05 law11 IDENTICAL 
+PC/pc09 law11 IDENTICAL 
+PC/pc10 law11 IDENTICAL 
+PC/pc13 law11 IDENTICAL 
+PC/pc14 law11 IDENTICAL 
+PC/pc17 law11 IDENTICAL 

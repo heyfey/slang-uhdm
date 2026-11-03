@@ -1,0 +1,19 @@
+# PREDICTION (written 2026-11-03T13:25:26Z, before the law sweep) from census.tsv: pristine vs law11 over every fence-filtered row-mode
+# row-modes: 10616 (    870 downstream    4087 probe     789 surelog.d     784 surelog.t    2346 svtests     870 uhdm2rtlil.d     870 uhdm2rtlil.t )
+# exit-code movers: 0
+# byte movers: 3
+svtests	generated/uvm-examples/uvm_id_register.sv
+svtests	generated/uvm-examples/uvm_param_vif_config_db.sv
+svtests	generated/uvm-examples/uvm_use_models_pipelined_get_put.sv
+# rows where a law of pass 479 fires (trace), by lane
+downstream 4
+probe 8
+surelog.d 11
+surelog.t 10
+svtests 158
+uhdm2rtlil.d 4
+uhdm2rtlil.t 4
+# firing by law over all rows:
+   6318 parenCallCallee479
+      4 pkgVirtIfaceTd479
+PREDICTED: no exit code moves; probe, surelog, uhdm2rtlil and downstream databases byte-identical to pristine except the known coins (Scoreboard default, the UVM svunit order); sv-tests: uvm_param_vif_config_db moves bytes by pkgVirtIfaceTd479 (status DIFFERENT kept, uhdm-cmp 172 lines on both); uvm_id_register and uvm_use_models_pipelined_get_put differ in the census by a pristine coin (two hashes on pristine itself, both STRICT_EQUAL); no sv-tests status or detail change; probe 4024 EQUAL + 63 STRICT_NOTEQUAL unchanged (the parenthesized-call unwrap fires on 8 probe cases with identical bytes)

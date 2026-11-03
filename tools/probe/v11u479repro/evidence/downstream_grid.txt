@@ -1,0 +1,38 @@
+VA/va02 pristine IDENTICAL 
+VA/va05 pristine IDENTICAL 
+VA/va06 pristine STATUS_DIFF 
+VA/va08 pristine IDENTICAL 
+VA/va09 pristine IDENTICAL 
+VA/va10 pristine IDENTICAL 
+VA/va13 pristine STATUS_DIFF 
+VA/va18 pristine STATUS_DIFF 
+VA/va19 pristine IDENTICAL 
+VC/vc04 pristine EQUIVALENT nohier il synth
+VC/vc08 pristine EQUIVALENT nohier il synth
+VC/vc17 pristine EQUIVALENT nohier il
+VC/vc19 pristine EQUIVALENT nohier il synth
+VC/vc15 pristine DIVERGENT nohier il synth
+VL/vl10 pristine IDENTICAL 
+VL/vl12 pristine IDENTICAL 
+VL/vl13 pristine IDENTICAL 
+VL/vl17 pristine IDENTICAL 
+VL/vl03 pristine IDENTICAL 
+VA/va02 ver1 IDENTICAL 
+VA/va05 ver1 IDENTICAL 
+VA/va06 ver1 IDENTICAL 
+VA/va08 ver1 IDENTICAL 
+VA/va09 ver1 IDENTICAL 
+VA/va10 ver1 IDENTICAL 
+VA/va13 ver1 IDENTICAL 
+VA/va18 ver1 IDENTICAL 
+VA/va19 ver1 IDENTICAL 
+VC/vc04 ver1 IDENTICAL 
+VC/vc08 ver1 IDENTICAL 
+VC/vc17 ver1 IDENTICAL 
+VC/vc19 ver1 EQUIVALENT nohier il synth
+VC/vc15 ver1 IDENTICAL 
+VL/vl10 ver1 IDENTICAL 
+VL/vl12 ver1 IDENTICAL 
+VL/vl13 ver1 IDENTICAL 
+VL/vl17 ver1 IDENTICAL 
+VL/vl03 ver1 IDENTICAL 

@@ -2612,6 +2612,36 @@ bool UhdmExporter::foreachSelfSelAssign19(const Symbol* arrSym) const {
 }
 
 
+// § vifTdClsScopedAbstain479v (R11V479_CLSSCOPED_OFF; cases
+// tools/probe/v11u479repro/cases/VL vl17, vl19, vl21) — THE VERIFIER'S BREAK
+// FIX for § vifTdLocalIsRefVar479: a block-item local whose type is written
+// as a CLASS-SCOPED name (`K::v_t g;`, `p::K::v_t g;`) with K's typedef of a
+// virtual interface is a class_var over an unsupported_typespec K::v_t in
+// golden (Surelog does not resolve the class-scoped type name, so
+// compileVariable takes its unresolved-name branch), which pristine wrote; the
+// ref_var branch holds only for an unqualified name (an own or inherited class
+// typedef, LV/lv06 and v11u479 VL/vl18, stay ref_var).
+static bool vifTdClsScopedName479v(const slang::ast::Symbol& v) {
+    auto* dt = v.getDeclaredType();
+    if (!dt)
+        return false;
+    auto* tsy = dt->getTypeSyntax();
+    if (!tsy || tsy->kind != slang::syntax::SyntaxKind::NamedType ||
+        tsy->as<slang::syntax::NamedTypeSyntax>().name->kind != slang::syntax::SyntaxKind::ScopedName)
+        return false;
+    auto& ty = dt->getType();
+    if (ty.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* sc = ty.getParentScope();
+    if (!sc || (sc->asSymbol().kind != SymbolKind::ClassType &&
+                sc->asSymbol().kind != SymbolKind::GenericClassDef))
+        return false;
+    if (!fixOn(479, "R11V479_CLSSCOPED_OFF"))
+        return false;
+    lawTrace(479, "vifTdClsScopedAbstain479v", std::string(v.name));
+    return true;
+}
+
 UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent,
                                   const std::string& prefix,
                                   NetMap& netMap) {
@@ -3617,6 +3647,25 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                     // corpus head `__tmp_int_val__`.
                     else if (stmtScopeTdDegrades155(bm)) {
                         v = s.MakeRef_var();
+                    }
+                    // § vifTdLocalIsRefVar479 (R11U479_VIFLOCALREFVAR_OFF;
+                    // cases tools/probe/r11u479repro/cases/PV pv18, pv20) — a
+                    // block-item local declared through a TYPEDEF of a
+                    // virtual interface (`vt_t g;`, $unit or package) is a
+                    // ref_var in golden: Surelog's compileVariable resolves
+                    // the name to the typedef's interface_typespec, which
+                    // getSimpleVarFromTypespec does not map, so it falls to
+                    // ref_var; a local written `virtual ifc g;` takes the
+                    // interface-name branch and stays logic_var (pv17).
+                    else if (bm.getDeclaredType() &&
+                             bm.getDeclaredType()->getType().kind ==
+                                 SymbolKind::TypeAlias &&
+                             bm.getDeclaredType()->getType().getCanonicalType().kind ==
+                                 SymbolKind::VirtualInterfaceType &&
+                             lawOn(479, "R11U479_VIFLOCALREFVAR_OFF") &&
+                             !vifTdClsScopedName479v(bm)) {
+                        v = s.MakeRef_var();
+                        lawTrace(479, "vifTdLocalIsRefVar479", bfull);
                     }
                     else {
                         v = makeEnumArrayVar(ts, bfull, b);
