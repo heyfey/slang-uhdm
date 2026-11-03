@@ -1,0 +1,12 @@
+PREDICTION (written before the law sweep, from the traced census /tmp/r11u481_census of pristine
+7347b341 and law3 7cc4f372 over 10616 fence-filtered row-modes: probe 4087, surelog 789 default +
+784 testflags, uhdm2rtlil 870 + 870, downstream 870, sv-tests 2346, each run from the row's own
+directory):
+- exit-code movers: NONE (every row-mode's exit code equal on both binaries).
+- law firings: NONE (no R11U481_TRACE file written for any row-mode; positive control RN/rn01
+  writes 'vifTdRefVarLocalImplicitNet481 work@top.g').
+- byte movers: one, generated/uvm-examples/uvm_test_init.sv (sv-tests), with no law firing: a
+  pristine coin (pristine itself reads three hashes in three runs, 2b870d0759, 1cd9a658ee,
+  4cbeca06c2; law3 reads two of them).
+- so the sweep must read every corpus csv and the probe csv equal to the control
+  (/tmp/intr11u479) row for row, sv-tests 0/0/0, and byteverify 0 movers in every corpus.

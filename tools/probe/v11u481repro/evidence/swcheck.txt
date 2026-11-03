@@ -1,0 +1,16 @@
+R11U481_OFF=1 vs P: equal 156 differ 0
+R11V481_OFF=1 vs L: equal 156 differ 0
+fix movers (verified differs from law): VA/va09 VA/va34 VA/va37 VA/va47 VA/va48 VA/va49 VA/va51 VA/va52 VA/va54 VA/va57 VA/va60 
+  differs VA/va37
+  differs VA/va51
+  differs VA/va52
+  differs VA/va54
+R11V481_STMTMETHOD_OFF=1 vs L: equal 7 differ 4
+  differs VA/va09
+  differs VA/va34
+  differs VA/va47
+  differs VA/va48
+  differs VA/va49
+  differs VA/va57
+  differs VA/va60
+R11V481_VISPARAM_OFF=1 vs L: equal 4 differ 7

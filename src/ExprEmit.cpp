@@ -8888,6 +8888,42 @@ bool UhdmExporter::uninstIfaceWindowBind218(
 //       parent scope is the subroutine, so (2) would otherwise catch it, and
 //       its binding is § makeReturnVar's, not this one's.
 //   (4) BIND only inside a window at the matching control-body depth.
+// § vifTdRefVarLocalImplicitNet481 — the call-argument half of the binding
+// window in a module process: only the arguments of a user call written as a
+// STATEMENT (`tk(g);`, `tk3(g == null);`, RN/rn26, rn63) are bound at compile
+// time; an argument of a call inside an expression (`x = f(g);`, RN/rn27)
+// goes to the late binder.  Raised beside § classArgBind12's window at the
+// user-call site when the call is in statement position (callStmtCtx0); a
+// side counter, read only by the law.
+static int stmtCallArgDepth481 = 0;
+struct StmtCallArg481 {
+    bool on;
+    explicit StmtCallArg481(bool o) : on(o) {
+        if (on)
+            ++stmtCallArgDepth481;
+    }
+    ~StmtCallArg481() {
+        if (on)
+            --stmtCallArgDepth481;
+    }
+};
+
+// § stmtMethodCallArgWindow481v — raised for a statement call of an
+// instance-body subroutine (see the user-call site); a side counter read only
+// by § vifTdRefVarLocalImplicitNet481.
+static int stmtInstCallArgDepth481v = 0;
+struct StmtCallArg481v {
+    bool on;
+    explicit StmtCallArg481v(bool o) : on(o) {
+        if (on)
+            ++stmtInstCallArgDepth481v;
+    }
+    ~StmtCallArg481v() {
+        if (on)
+            --stmtInstCallArgDepth481v;
+    }
+};
+
 bool UhdmExporter::refVarLocalNoBind5(const slang::ast::Symbol& sym,
                                       const UHDM::any* declObj) const {
     if (!declObj || declObj->UhdmType() != UHDM::uhdmref_var)
@@ -36600,6 +36636,157 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                            hoistHomePkg117()});
                         bind5 = false;
                     }
+                    // § vifTdRefVarLocalImplicitNet481 (R11U481_REFVARNET_OFF;
+                    // cases tools/probe/r11u481repro/cases/RN, the r11u479
+                    // cases LV/lv07, lv09 and the v11u479 case VA/va15) — a
+                    // reference, in a module or interface process, to a
+                    // statement-block local that is a ref_var (the
+                    // virtual-interface typedef local of
+                    // § vifTdLocalIsRefVar479) binds the implicit wire.
+                    // Surelog's compile-time bindVariable binds it only in
+                    // § refVarLocalWindowBinds5's window (an if or assert
+                    // condition, a statement call's argument) at the
+                    // declaring unnamed block's own control depth (RN rn03,
+                    // rn26, rn29, rn34); everywhere else the reference goes
+                    // to UhdmWriter::lateBinding, whose every scope branch skips
+                    // a ref_var declaration, and the walk ends at the
+                    // module-level mint: a logic_net named like the local,
+                    // vpiNetType from the default net type, at the FIRST such
+                    // reference's span, every later reference binding it by
+                    // name (rn01, rn02, rn04 to rn06, rn11, rn14, rn16, rn23,
+                    // rn24, rn27, rn28, rn30 to rn33; the interface instance
+                    // rn09).  Under `default_nettype none the reference stays
+                    // bare (rn12).  Abstains in a program, where pass 444's
+                    // hoist lists the local and golden binds it (rn10), in a
+                    // subroutine (the locals there are TaskFuncEmit's), and
+                    // when the module declares a member of the same name,
+                    // which the late binder meets first (rn35, rn36), and on
+                    // the left side of a written `= new` (§ 107's fence:
+                    // compileExpression binds it; `mailbox m; m = new();`,
+                    // rn38, rn40).
+                    // In a MODULE or INTERFACE task or function (not a class
+                    // method, not a package subroutine) a block local's
+                    // reference outside § refVarLocalWindowBinds5's window,
+                    // the references § refVarLocalNoBind5 leaves bare, takes
+                    // the same wire (rn41: the late binder walks the task to
+                    // the module).
+                    const bool modSub481 =
+                        currentSubSym && !bind5 && !hoistHomePkg117() &&
+                        currentSubSym->getParentScope() &&
+                        currentSubSym->getParentScope()->asSymbol().kind ==
+                            SymbolKind::InstanceBody &&
+                        refVarLocalNoBind5(nv.symbol, it->second);
+                    if ((bind5 || modSub481) && it->second &&
+                        !lhsOfWrittenNewAsg107(expr.syntax) &&
+                        it->second->UhdmType() == UHDM::uhdmref_var &&
+                        (!currentSubSym || modSub481) && implicitNetModule &&
+                        (implicitNetModule->UhdmType() == UHDM::uhdmmodule_inst ||
+                         implicitNetModule->UhdmType() == UHDM::uhdminterface_inst) &&
+                        nv.symbol.kind == SymbolKind::Variable &&
+                        nv.symbol.getParentScope() &&
+                        nv.symbol.getParentScope()->asSymbol().kind ==
+                            SymbolKind::StatementBlock &&
+                        (modSub481 ||
+                         !((condBindDepth5 > 0 ||
+                            ((classArgBindDepth12 > 0 ||
+                              stmtInstCallArgDepth481v > 0) &&
+                             stmtCallArgDepth481 > 0)) &&
+                           blkLocalSameCtrlDepth57(nv.symbol))) &&
+                        lawOn(481, "R11U481_REFVARNET_OFF")) {
+                        const Scope* body481 = nv.symbol.getParentScope();
+                        while (body481 &&
+                               body481->asSymbol().kind != SymbolKind::InstanceBody)
+                            body481 = body481->asSymbol().getParentScope();
+                        // § visibleParamAbstain481v (R11V481_VISPARAM_OFF;
+                        // cases tools/probe/v11u481repro/cases/VA va37, va51,
+                        // va52, va54) — a PARAMETER of the same name visible
+                        // in the instance body through a wildcard or explicit
+                        // package import or from $unit is met by Surelog's
+                        // late binder, which writes the parameter's constant
+                        // where the law minted a wire; abstain (pristine's
+                        // bytes).  A visible package or $unit VARIABLE of
+                        // that name is not met and the wire is golden's (va50,
+                        // va53), so only a non-variable symbol abstains.
+                        const Symbol* vis481v =
+                            (body481 && fixOn(481, "R11V481_VISPARAM_OFF"))
+                                ? body481->lookupName(nv.symbol.name)
+                                : nullptr;
+                        if (vis481v && vis481v->kind != SymbolKind::Variable) {
+                            lawTrace(481, "visibleParamAbstain481v",
+                                     std::string(nv.symbol.name));
+                            body481 = nullptr;
+                        }
+                        if (body481 && !body481->find(nv.symbol.name)) {
+                            bind5 = false;
+                            if (body481->asSymbol()
+                                    .as<InstanceBodySymbol>()
+                                    .getDefinition()
+                                    .defaultNetType.isError()) {
+                                lawTrace(481, "vifTdRefVarLocalImplicitNet481",
+                                         "noneBare " + std::string(nv.symbol.name));
+                            }
+                            else {
+                                size_t before481 = implicitNetModule->Nets()
+                                                       ? implicitNetModule->Nets()->size()
+                                                       : 0;
+                                if (auto* n481 = mintImplicitNet403(
+                                        s, implicitNetModule, implicitNetPrefix,
+                                        nv.symbol.name, expr.sourceRange,
+                                        [&](UHDM::BaseClass* o, SourceRange r) {
+                                            setLoc(o, r);
+                                        })) {
+                                    ref->Actual_group(n481);
+                                    lawTrace(481, "vifTdRefVarLocalImplicitNet481",
+                                             std::string(n481->VpiFullName()));
+                                    // Surelog lists every implicit wire in
+                                    // SOURCE ORDER of its first reference
+                                    // (§ undeclaredReadImplicitNet447's
+                                    // order rule; the v11u447 case VN/vn20,
+                                    // `d` at 4:55 before `DA` 4:59 and `DB`
+                                    // 5:14): a fresh wire moves in front of
+                                    // the first implicit net that starts
+                                    // after it.
+                                    auto* nets481 = implicitNetModule->Nets();
+                                    if (nets481 && nets481->size() == before481 + 1 &&
+                                        nets481->back() == n481) {
+                                        std::set<std::string_view> imp481;
+                                        for (auto& mem481 : body481->members())
+                                            if (mem481.kind == SymbolKind::Net &&
+                                                mem481.as<NetSymbol>().isImplicit)
+                                                imp481.insert(mem481.name);
+                                        for (auto* m481 : implicitNetMints131())
+                                            if (auto* a481 = dynamic_cast<UHDM::any*>(m481);
+                                                a481 && a481 != n481 &&
+                                                a481->VpiParent() == implicitNetModule)
+                                                imp481.insert(a481->VpiName());
+                                        int ln481 = n481->VpiLineNo(),
+                                            cl481 = n481->VpiColumnNo();
+                                        for (size_t i481 = 0; i481 + 1 < nets481->size();
+                                             ++i481) {
+                                            auto* o481 = (*nets481)[i481];
+                                            if (!imp481.count(o481->VpiName()))
+                                                continue;
+                                            int ol481 = o481->VpiLineNo(),
+                                                oc481 = o481->VpiColumnNo();
+                                            if (ol481 > ln481 ||
+                                                (ol481 == ln481 && oc481 > cl481)) {
+                                                nets481->pop_back();
+                                                nets481->insert(nets481->begin() + i481, n481);
+                                                lawTrace(481, "vifTdRefVarLocalImplicitNet481",
+                                                         "order " + std::string(nv.symbol.name) +
+                                                             " before " +
+                                                             std::string(o481->VpiName()));
+                                                break;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                            lawTrace(481, "vifTdRefVarLocalImplicitNet481",
+                                     "abstainMember " + std::string(nv.symbol.name));
+                    }
                     if (bind5)
                         ref->Actual_group(it->second);
                     // Whole ref: may be re-pointed to a select object if this
@@ -42318,7 +42505,29 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (!call.isSystemCall()) {
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
+                // § stmtMethodCallArgWindow481v (R11V481_STMTMETHOD_OFF; cases
+                // tools/probe/v11u481repro/cases/VA va09, va34, va47, va48) —
+                // the statement-call half of the binding window that
+                // § vifTdRefVarLocalImplicitNet481 reads holds for EVERY
+                // subroutine call written as a statement, not only a plain
+                // user call: a class method `c.m(g == null);`, an interface
+                // task `u.tk(g == null);` and `void'(c.f(g == null));` keep
+                // golden's compile-time ref_var binding (pristine's bytes),
+                // where the law, raising the counter at the user-call site
+                // only, minted the wire.  Read only by that law.
+                StmtCallArg481 scaAll481v(callStmtCtx0 &&
+                                          fixOn(481, "R11V481_STMTMETHOD_OFF"));
                 auto& sub = *std::get<const SubroutineSymbol*>(call.subroutine);
+                // § stmtMethodCallArgWindow481v, its instance-subroutine half
+                // (va34) — a statement call of a task or function declared
+                // in an interface or module body through an instance,
+                // `u.tk(g == null);`, opens no § classArgBind12 window, yet
+                // golden keeps the compile-time binding of its arguments;
+                // counted apart, read only by the law.
+                StmtCallArg481v sci481v(
+                    callStmtCtx0 && sub.getParentScope() &&
+                    sub.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody &&
+                    fixOn(481, "R11V481_STMTMETHOD_OFF"));
                 // § pkgRetCallFoldSharesCalleeRet300 (r11u300) — A PACKAGE
                 // FUNCTION CALL THAT SURELOG'S EVALFUNC LEAVES UNREDUCED IS
                 // REPLACED BY THE CALLEE'S OWN RETURN EXPRESSION OBJECT, in
@@ -46497,6 +46706,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     classArgBindDepth12,
                     callStmtCtx0 || !((curSubClassScope9 && !curSubOob9) ||
                                       uninstIfaceSubBody218));
+                StmtCallArg481 sca481(callStmtCtx0);  // § vifTdRefVarLocalImplicitNet481
                 // NOTE § namedTfArgsFormalSlots4 (emit half — the ONLY arm it
                 // fires in).  GATE, both halves required:
                 //   (1) `linked4` — this call gets a vpiFunction / vpiTask.

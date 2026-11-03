@@ -1,0 +1,6 @@
+pristine  7347b3417a262cd8ca085f3e8a13ed5c  /tmp/r11u481_bin/pristine (the worktree's first build at 24db9b73b, byte-identical to the main tree's build/slang-uhdm)
+law1      0d45ed454a89da58b17e2e4b78c098aa  span law + implicit-net law (first draft; broke RN/rn38, rn40)
+law2      121d625b82e26adf83fcf71705cf4ae9  + the `= new` fence
+law3      7cc4f372231769c10f0ba6cf46beb497  + module-subroutine reach + initializer copy law; the five-stage sweep's binary
+law4      05570b23f1c81872b26234dbfeac70c0  + source-order placement of the minted wire (v11u447 VN/vn20); FINAL; byte-identical to law3 on all 10616 census row-modes
+slang 12.0.0+545f88b2e (~/.local) linked by every binary

@@ -1,0 +1,82 @@
+LI/li01 W rc=0 cmp=0 STRICT_EQUAL 38 objects dd=4 roles= md5=a331935d
+LI/li02 W rc=0 cmp=0 STRICT_EQUAL 25 objects dd=2 roles= md5=531fe5fd
+LI/li03 W rc=0 cmp=56 NOT_EQUAL stage1 dd=26 roles= md5=9e4ada22
+LI/li04 W rc=0 cmp=0 STRICT_EQUAL 38 objects dd=4 roles= md5=a59486e4
+LI/li05 W rc=0 cmp=0 STRICT_EQUAL 64 objects dd=24 roles= md5=3e7bb6de
+LI/li06 W rc=0 cmp=0 STRICT_EQUAL 46 objects dd=4 roles= md5=b34ecf41
+LI/li08 W rc=0 cmp=60 NOT_EQUAL stage1 dd=16 roles= md5=8f63bcc7
+RN/rn01 W rc=0 cmp=0 STRICT_EQUAL 42 objects dd=4 roles= md5=c657bae5
+RN/rn02 W rc=0 cmp=0 STRICT_EQUAL 42 objects dd=4 roles= md5=a3310782
+RN/rn03 W rc=0 cmp=0 STRICT_EQUAL 57 objects dd=12 roles= md5=40c1a981
+RN/rn04 W rc=0 cmp=0 STRICT_EQUAL 52 objects dd=24 roles= md5=279315c4
+RN/rn05 W rc=0 cmp=0 STRICT_EQUAL 40 objects dd=4 roles= md5=804dfa1f
+RN/rn06 W rc=0 cmp=0 STRICT_EQUAL 44 objects dd=4 roles= md5=30809c57
+RN/rn07 W rc=0 cmp=56 NOT_EQUAL stage1 dd=19 roles= md5=66da3ebf
+RN/rn08 W rc=0 cmp=60 NOT_EQUAL stage1 dd=17 roles= md5=d07f3de7
+RN/rn09 W rc=0 cmp=44 NOT_EQUAL stage1 dd=13 roles= md5=cd985a4e
+RN/rn10 W rc=0 cmp=262 NOT_EQUAL stage1 dd=19 roles= md5=08f8e13b
+RN/rn11 W rc=0 cmp=0 STRICT_EQUAL 64 objects dd=24 roles= md5=0b694e01
+RN/rn12 W rc=0 cmp=0 STRICT_EQUAL 40 objects dd=4 roles= md5=2a93a4fb
+RN/rn13 W rc=0 cmp=0 STRICT_EQUAL 53 objects dd=12 roles= md5=f75aeee2
+RN/rn14 W rc=0 cmp=0 STRICT_EQUAL 60 objects dd=4 roles= md5=5646ef45
+RN/rn15 W rc=0 cmp=0 STRICT_EQUAL 44 objects dd=4 roles= md5=2dd8c796
+RN/rn16 W rc=0 cmp=0 STRICT_EQUAL 68 objects dd=12 roles= md5=29272a08
+RN/rn17 W rc=0 cmp=0 STRICT_EQUAL 74 objects dd=4 roles= md5=5a5577a4
+RN/rn18 W rc=0 cmp=0 STRICT_EQUAL 38 objects dd=4 roles= md5=1887ab98
+RN/rn19 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=6 roles= md5=5266dd74
+RN/rn20 W rc=0 cmp=0 STRICT_EQUAL 33 objects dd=4 roles= md5=bfb94bf6
+RN/rn21 W rc=0 cmp=0 STRICT_EQUAL 34 objects dd=4 roles= md5=438299ec
+RN/rn22 W rc=0 cmp=0 STRICT_EQUAL 26 objects dd=2 roles= md5=365b4293
+RN/rn23 W rc=0 cmp=0 STRICT_EQUAL 59 objects dd=12 roles= md5=052e172b
+RN/rn24 W rc=0 cmp=0 STRICT_EQUAL 59 objects dd=12 roles= md5=99f30704
+RN/rn26 W rc=0 cmp=42 NOT_EQUAL stage1 dd=17 roles= md5=5e7b0bf1
+RN/rn27 W rc=0 cmp=42 NOT_EQUAL stage1 dd=25 roles= md5=f7676e02
+RN/rn28 W rc=0 cmp=0 STRICT_EQUAL 52 objects dd=24 roles= md5=a04b1ef6
+RN/rn29 W rc=0 cmp=0 STRICT_EQUAL 59 objects dd=12 roles= md5=eb5ae524
+RN/rn30 W rc=0 cmp=0 STRICT_EQUAL 63 objects dd=12 roles= md5=14c6b14c
+RN/rn31 W rc=0 cmp=0 STRICT_EQUAL 65 objects dd=12 roles= md5=9c8acbc0
+RN/rn32 W rc=0 cmp=0 STRICT_EQUAL 55 objects dd=12 roles= md5=4d367581
+RN/rn33 W rc=0 cmp=0 STRICT_EQUAL 55 objects dd=12 roles= md5=73c23033
+RN/rn34 W rc=0 cmp=0 STRICT_EQUAL 48 objects dd=12 roles= md5=2de584da
+RN/rn35 W rc=0 cmp=0 STRICT_NOTEQUAL count dd=14 roles= md5=5551f727
+RN/rn36 W rc=0 cmp=29 NOT_EQUAL stage1 dd=14 roles= md5=4aded9aa
+RN/rn37 W rc=0 cmp=0 STRICT_EQUAL 28 objects dd=4 roles= md5=2fe1146a
+RN/rn38 W rc=0 cmp=0 STRICT_EQUAL 42 objects dd=2 roles= md5=cdfc6080
+RN/rn39 W rc=0 cmp=0 STRICT_EQUAL 38 objects dd=2 roles= md5=14ccf864
+RN/rn40 W rc=0 cmp=0 STRICT_EQUAL 44 objects dd=2 roles= md5=722b7db4
+RN/rn41 W rc=0 cmp=0 STRICT_EQUAL 42 objects dd=4 roles= md5=370ff88f
+RN/rn42 W rc=0 cmp=34 NOT_EQUAL stage1 dd=19 roles= md5=d038c29f
+RN/rn43 W rc=0 cmp=56 NOT_EQUAL stage1 dd=12 roles= md5=7ccdf799
+RN/rn44 W rc=0 cmp=0 STRICT_EQUAL 70 objects dd=16 roles= md5=d1f42033
+RN/rn45 W rc=0 cmp=0 STRICT_EQUAL 71 objects dd=12 roles= md5=87dcbad2
+RN/rn46 W rc=0 cmp=0 STRICT_EQUAL 67 objects dd=12 roles= md5=a2695fcd
+RN/rn47 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=6 roles= md5=7aafde93
+RN/rn48 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=12 roles= md5=2f833f60
+RN/rn49 W rc=0 cmp=0 STRICT_EQUAL 38 objects dd=2 roles= md5=882af55f
+RN/rn50 W rc=0 cmp=0 STRICT_EQUAL 64 objects dd=2 roles= md5=4cb9980d
+RN/rn51 W rc=0 cmp=0 STRICT_EQUAL 57 objects dd=12 roles= md5=941ff594
+RN/rn52 W rc=0 cmp=0 STRICT_EQUAL 67 objects dd=26 roles= md5=10ab70b8
+RN/rn53 W rc=0 cmp=0 STRICT_EQUAL 53 objects dd=12 roles= md5=13fa5aa1
+RN/rn54 W rc=0 cmp=0 STRICT_EQUAL 61 objects dd=12 roles= md5=23f95786
+RN/rn55 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=12 roles= md5=f090edad
+RN/rn56 W rc=0 cmp=0 STRICT_EQUAL 73 objects dd=2 roles= md5=358cc1b8
+RN/rn57 W rc=0 cmp=52 NOT_EQUAL stage1 dd=8 roles= md5=f2bd9968
+RN/rn58 W rc=0 cmp=17 NOT_EQUAL stage1 dd=13 roles= md5=3807be2b
+RN/rn59 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=16 roles= md5=0360c94c
+RN/rn60 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=16 roles= md5=563fc8d1
+RN/rn61 W rc=0 cmp=0 STRICT_EQUAL 47 objects dd=6 roles= md5=327e468e
+RN/rn62 W rc=0 cmp=608 NOT_EQUAL stage1 dd=52 roles= md5=d2174ba7
+RN/rn63 W rc=0 cmp=0 STRICT_EQUAL 50 objects dd=4 roles= md5=7837d5c6
+RN/rn64 W rc=0 cmp=42 NOT_EQUAL stage1 dd=25 roles= md5=6b7ee2ce
+RN/rn65 W rc=0 cmp=42 NOT_EQUAL stage1 dd=25 roles= md5=a58401f5
+RN/rn66 W rc=0 cmp=42 NOT_EQUAL stage1 dd=25 roles= md5=3a572456
+VS/vs01 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=b58b37a3
+VS/vs02 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=54149ff2
+VS/vs03 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=622ff2e7
+VS/vs04 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=e757af67
+VS/vs05 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=46038099
+VS/vs06 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=d1da55da
+VS/vs07 W rc=0 cmp=0 STRICT_EQUAL 48 objects dd=24 roles= md5=c12df0e8
+VS/vs08 W rc=0 cmp=0 STRICT_NOTEQUAL depth dd=13 roles= md5=849e8aaf
+VS/vs09 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=d1b71e70
+VS/vs10 W rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 roles= md5=adebc667

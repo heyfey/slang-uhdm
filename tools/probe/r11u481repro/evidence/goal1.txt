@@ -1,0 +1,7 @@
+goal 1 re-measured on law4 (05570b23):
+  v11u413 VC/vc04 (C::mk().arr[1])   law4 exit 4, pristine 4, upstream slang 0 (Surelog rejects: no golden shape)
+  v11u413 VI/vi06 (u.mk(x).a[2])     law4 exit 4, pristine 4, upstream slang 0 (Surelog rejects)
+  v11u415 VT/vt03 (this.mk().inner.s) law4 exit 0, pristine 0, upstream slang 0
+  generated/black-parrot/bp_unicore.sv alone, size guard on: exit 3 in 14.1 s, max RSS 838 MB -> guard stays
+  results/golden_svtests.csv: SURELOG_ONLY 75 + SLANG_CRASH 0, none with the exporter's 'unsupported' message
+  (all upstream slang diagnostics, unchanged from the base)

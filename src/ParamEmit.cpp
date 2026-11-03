@@ -31339,14 +31339,26 @@ static void pkgVifNetCopy479(UHDM::Serializer& s) {
         // listing's span and vpiInstance, aliased back to the definition
         // listing object (Surelog clones the typedef's typespec per
         // declaration in a statement scope).
+        // § pkgVifLocalInitCopy481 (R11U481_VIFLOCALINIT_OFF; cases
+        // tools/probe/r11u481repro/cases/RN rn18, LI) — a local written with
+        // an initializer (`vt_t g = null;`) is parented at its initializing
+        // assignment, in golden too; it takes the same bare copy.
+        const UHDM::any* vpar481 = par->VpiParent();
+        if (vpar481 && vpar481->UhdmType() == UHDM::uhdmassignment &&
+            vpar481->VpiParent() &&
+            (par->UhdmType() == UHDM::uhdmref_var || par->UhdmType() == UHDM::uhdmlogic_var) &&
+            lawOn(481, "R11U481_VIFLOCALINIT_OFF")) {
+            lawTrace(481, "pkgVifLocalInitCopy481", std::string(rt->VpiFullName()));
+            vpar481 = vpar481->VpiParent();
+        }
         if ((par->UhdmType() == UHDM::uhdmref_var || par->UhdmType() == UHDM::uhdmlogic_var) &&
-            par->VpiParent() &&
-            (par->VpiParent()->UhdmType() == UHDM::uhdmbegin ||
-             par->VpiParent()->UhdmType() == UHDM::uhdmnamed_begin ||
-             par->VpiParent()->UhdmType() == UHDM::uhdmfork_stmt ||
-             par->VpiParent()->UhdmType() == UHDM::uhdmnamed_fork ||
-             par->VpiParent()->UhdmType() == UHDM::uhdmfunction ||
-             par->VpiParent()->UhdmType() == UHDM::uhdmtask) &&
+            vpar481 &&
+            (vpar481->UhdmType() == UHDM::uhdmbegin ||
+             vpar481->UhdmType() == UHDM::uhdmnamed_begin ||
+             vpar481->UhdmType() == UHDM::uhdmfork_stmt ||
+             vpar481->UhdmType() == UHDM::uhdmnamed_fork ||
+             vpar481->UhdmType() == UHDM::uhdmfunction ||
+             vpar481->UhdmType() == UHDM::uhdmtask) &&
             lawOn(479, "R11U479_VIFLOCALCOPY_OFF")) {
             std::string qn(at->VpiName());
             auto* cp = s.MakeInterface_typespec();
@@ -43665,6 +43677,21 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
                                             std::string(ta8.name)),
                                true)))
                             setLoc(cl8, tSyn8->sourceRange());
+                        // § pkgVifTdParamNameSpan481 — the import clone of a
+                        // typedef written with parameters and a modport keeps
+                        // the home listing's span, the interface name alone.
+                        if (tSyn8 && !arr250 &&
+                            cl8->UhdmType() == UHDM::uhdminterface_typespec &&
+                            tSyn8->kind == syntax::SyntaxKind::VirtualInterfaceType &&
+                            tSyn8->as<syntax::VirtualInterfaceTypeSyntax>().parameters &&
+                            tSyn8->as<syntax::VirtualInterfaceTypeSyntax>().modport &&
+                            lawOn(479, "R11U479_PKGVIFTD_OFF") &&
+                            lawOn(481, "R11U481_VIFPARAMSPAN_OFF")) {
+                            setLoc(cl8, tSyn8->as<syntax::VirtualInterfaceTypeSyntax>().name.range());
+                            lawTrace(481, "pkgVifTdParamNameSpan481",
+                                     "importSpan " + std::string(pkg.name) + " " +
+                                         std::string(ta8.name));
+                        }
                         // § pkgVirtIfaceTd479 — an importer's net binding the
                         // clone takes the net half's copy too, aliased back
                         // to the home definition listing object.
@@ -45664,6 +45691,23 @@ UHDM::package* UhdmExporter::emitPackage(const PackageSymbol& pkg, bool topView)
             bypassTypedefShare = savedBy479;
             if (vts479 && vts479->UhdmType() == UHDM::uhdminterface_typespec) {
                 vts479->VpiParent(up);
+                // § pkgVifTdParamNameSpan481 (R11U481_VIFPARAMSPAN_OFF; cases
+                // tools/probe/r11u481repro/cases/VS, the v11u479 case VA/va07)
+                // — a package typedef written with BOTH parameters and a
+                // modport (`typedef virtual ifc #(8).mp vt_t;`) spans the
+                // interface name alone in golden (4:19-4:22), where the
+                // builder ends it at the modport; with parameters only, or a
+                // modport only (`ifc.mp`, 4:19-4:25), the builder's span is
+                // golden's already (VS vs02, vs03, vs05).  Every copy of the
+                // listing (the importer clone below, the net and local
+                // copies) reads its span from here or from the same builder.
+                if (auto& vs481 = typeSyn->as<syntax::VirtualInterfaceTypeSyntax>();
+                    vs481.parameters && vs481.modport &&
+                    lawOn(481, "R11U481_VIFPARAMSPAN_OFF")) {
+                    setLoc(vts479, vs481.name.range());
+                    lawTrace(481, "pkgVifTdParamNameSpan481",
+                             prefix + std::string(ta.name) + (topView ? " top" : " def"));
+                }
                 // the net half is design-final (pkgVifNetCopy479)
                 pkgVifTd479()[vts479] = topView ? nullptr : vts479;
                 if (topView)

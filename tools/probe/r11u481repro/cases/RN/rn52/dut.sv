@@ -1,0 +1,8 @@
+// § vifTdRefVarLocalImplicitNet481
+interface ifc (input logic clk); logic a; endinterface
+package t;
+  typedef virtual ifc vt_t;
+endpackage
+module top; import t::*; vt_t h; logic c;
+  initial begin vt_t g; h = c ? g : null; end
+endmodule
