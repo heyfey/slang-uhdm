@@ -1,0 +1,42 @@
+IU/iu01 rc=0 cmp=0 STRICT_EQUAL 142 objects md5=f46efe8d
+IU/iu02 rc=0 cmp=0 STRICT_EQUAL 142 objects md5=d15d0afa
+IU/iu03 rc=0 cmp=0 STRICT_EQUAL 143 objects md5=17a757f1
+IU/iu04 rc=0 cmp=0 STRICT_EQUAL 217 objects md5=64422b7d
+IU/iu05 rc=0 cmp=0 STRICT_EQUAL 141 objects md5=7dfe4a31
+IU/iu06 rc=0 cmp=945 NOT_EQUAL stage1 md5=9aad90c9
+IU/iu07 rc=0 cmp=361 NOT_EQUAL stage1 md5=bed01bd4
+IU/iu08 rc=0 cmp=0 STRICT_EQUAL 144 objects md5=539d2773
+OU/ou01 rc=0 cmp=572 NOT_EQUAL stage1 md5=0448f60d
+OU/ou02 rc=0 cmp=572 NOT_EQUAL stage1 md5=cb0b9b91
+OU/ou03 rc=0 cmp=572 NOT_EQUAL stage1 md5=46e57d0d
+OU/ou04 rc=0 cmp=572 NOT_EQUAL stage1 md5=056fec6f
+OU/ou05 rc=0 cmp=0 STRICT_EQUAL 54 objects md5=a5d35020
+OU/ou06 rc=0 cmp=0 STRICT_EQUAL 54 objects md5=507f8e04
+OU/ou07 rc=0 cmp=0 STRICT_EQUAL 54 objects md5=e2f7a8a9
+OU/ou08 rc=0 cmp=536 NOT_EQUAL stage1 md5=4d128625
+OU/ou09 rc=0 cmp=572 NOT_EQUAL stage1 md5=5cd06d5d
+OU/ou10 rc=0 cmp=572 NOT_EQUAL stage1 md5=3289f5d8
+OU/ou11 rc=0 cmp=0 STRICT_EQUAL 86 objects md5=15863c22
+OU/ou12 rc=0 cmp=0 STRICT_EQUAL 96 objects md5=63a389a0
+OU/ou13 rc=0 cmp=0 STRICT_EQUAL 86 objects md5=1dc575ee
+OU/ou14 rc=0 cmp=0 STRICT_EQUAL 87 objects md5=b9d6ab01
+OU/ou15 rc=0 cmp=0 STRICT_EQUAL 54 objects md5=64854ac9
+OU/ou16 rc=0 cmp=0 STRICT_EQUAL 94 objects md5=c05cb08a
+OU/ou17 rc=0 cmp=0 STRICT_EQUAL 96 objects md5=df4f8d67
+SP/sp01 rc=0 cmp=1014 NOT_EQUAL stage1 md5=d0211ba9
+SP/sp02 rc=0 cmp=0 STRICT_EQUAL 238 objects md5=2b355416
+SP/sp03 rc=0 cmp=0 STRICT_EQUAL 133 objects md5=13fef671
+SP/sp04 rc=0 cmp=94 NOT_EQUAL stage1 md5=fc141c5c
+SP/sp05 rc=0 cmp=0 STRICT_EQUAL 303 objects md5=5d2a3453
+SP/sp06 rc=0 cmp=198 NOT_EQUAL stage1 md5=b0851e2e
+SP/sp07 rc=0 cmp=0 STRICT_NOTEQUAL depth md5=3f369c66
+SP/sp08 rc=0 cmp=0 STRICT_EQUAL 219 objects md5=3666b765
+SP/sp09 rc=0 cmp=0 STRICT_EQUAL 32 objects md5=bcc44a85
+TA/ta01 rc=0 cmp=0 STRICT_EQUAL 37 objects md5=0020b997
+TA/ta02 rc=0 cmp=224 NOT_EQUAL stage1 md5=53efc468
+TA/ta03 rc=0 cmp=0 STRICT_EQUAL 37 objects md5=f93c8ec6
+TA/ta04 rc=0 cmp=0 STRICT_EQUAL 42 objects md5=04025b96
+OV/ov01 rc=0 cmp=0 STRICT_EQUAL 338135 objects md5=5ef152e3
+OV/ov02 rc=0 cmp=0 STRICT_EQUAL 338134 objects md5=67387de3
+OV/ov03 rc=0 cmp=0 STRICT_EQUAL 338129 objects md5=f61bd943
+OV/ov04 rc=0 cmp=0 STRICT_EQUAL 340519 objects md5=857e541b

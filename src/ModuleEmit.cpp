@@ -16354,6 +16354,34 @@ void UhdmExporter::classInheritsContainerImports23() {
         return;
     // (package, the ONE symbol an explicit import names — null for wildcard).
     using Item23 = std::pair<const PackageSymbol*, const Symbol*>;
+    // § unitInclClassImports468 (r11u468, R11U468_UNITINCLCLS_OFF; cases
+    // tools/probe/r11u468repro/cases/IU; generated/easyUVM/top.sv, whose
+    // $unit classes live in files top.sv includes) -- Surelog's preprocessor
+    // folds every `include into the including file's text, so a class (or a
+    // module holding a class) written in an included file belongs to the
+    // FileContent of the root file, and that file's compilation-unit imports
+    // reach it exactly as they reach a class written in the root file itself
+    // (golden easyUVM work@sequencer: 82 parameters, 129 typedefs, 984
+    // subroutines from `import uvm_pkg::*;` in top.sv, ours none).  The
+    // buffer test compares the ROOT file of the include chain (macro
+    // expansions mapped to their original text first) instead of the raw
+    // buffer.
+    const bool incl468 = lawOn(468, "R11U468_UNITINCLCLS_OFF");
+    slang::BufferID rawBuf468;
+    auto rootBuf468 = [&](SourceLocation l) {
+        if (l == SourceLocation::NoLocation)
+            return l.buffer();
+        if (sm->isMacroLoc(l))
+            l = sm->getFullyOriginalLoc(l);
+        slang::BufferID b = l.buffer();
+        for (int guard = 0; guard < 64; guard++) {
+            auto up = sm->getIncludedFrom(b);
+            if (!up.valid())
+                break;
+            b = up.buffer();
+        }
+        return b;
+    };
     auto scopeItems = [&](const Scope& sc, int copies, std::vector<Item23>& out,
                           const slang::BufferID* onlyBuf) {
         for (auto& m : sc.members()) {
@@ -16371,7 +16399,15 @@ void UhdmExporter::classInheritsContainerImports23() {
                 continue;
             if (!p)
                 continue;
-            if (onlyBuf && m.location.buffer() != *onlyBuf)
+            if (onlyBuf && incl468) {
+                // § unitInclClassImports468 — see rootBuf468 above.
+                if (rootBuf468(m.location) != *onlyBuf)
+                    continue;
+                if (m.location.buffer() != rawBuf468)
+                    lawTrace(468, "unitInclClassImports468",
+                             std::string(p->name) + " x" + std::to_string(copies));
+            }
+            else if (onlyBuf && m.location.buffer() != *onlyBuf)
                 continue;
             for (int i = 0; i < copies; i++)
                 out.push_back({p, only});
@@ -16417,6 +16453,10 @@ void UhdmExporter::classInheritsContainerImports23() {
             cont = cont->asSymbol().getParentScope();
         std::vector<Item23> items;
         slang::BufferID cbuf = cls.location.buffer();
+        if (incl468) {
+            rawBuf468 = cbuf;
+            cbuf = rootBuf468(cls.location);
+        }
         for (auto* cu : comp.getCompilationUnits())
             scopeItems(*cu, 2, items, &cbuf);
         if (cont) {
@@ -16426,6 +16466,10 @@ void UhdmExporter::classInheritsContainerImports23() {
             else if (cs.kind == SymbolKind::InstanceBody) {
                 auto& body = cs.as<InstanceBodySymbol>();
                 slang::BufferID mbuf = body.getDefinition().location.buffer();
+                if (incl468) {
+                    rawBuf468 = mbuf;
+                    mbuf = rootBuf468(body.getDefinition().location);
+                }
                 for (auto* cu : comp.getCompilationUnits())
                     scopeItems(*cu, 2, items, &mbuf);
                 scopeItems(body, 1, items, nullptr);

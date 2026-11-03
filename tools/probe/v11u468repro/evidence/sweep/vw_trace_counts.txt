@@ -1,0 +1,7 @@
+      4 clsPropSpecTpFullName468
+      4 oobClassTdImporterClass468
+  39692 oobTdCandClassOnly468v
+    169 OUT
+     12 specArgPairsImportedFormal468
+      5 specArgTypedefNameShares468
+     14 unitInclClassImports468

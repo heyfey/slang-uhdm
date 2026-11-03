@@ -1,0 +1,51 @@
+VF/vf01  P: 0 cmp=0 STRICT_EQUAL 22 objects     L: 0 cmp=0 STRICT_EQUAL 22 objects     V: 0 cmp=0 STRICT_EQUAL 22 objects
+VF/vf02  P: 0 cmp=0 STRICT_NOTEQUAL fullname    L: 0 cmp=0 STRICT_EQUAL 31 objects     V: 0 cmp=0 STRICT_EQUAL 31 objects
+VF/vf03  P: 0 cmp=224 NOT_EQUAL stage1          L: 0 cmp=224 NOT_EQUAL stage1          V: 0 cmp=224 NOT_EQUAL stage1
+VF/vf04  P: 0 cmp=0 STRICT_EQUAL 20 objects     L: 0 cmp=0 STRICT_EQUAL 20 objects     V: 0 cmp=0 STRICT_EQUAL 20 objects
+VF/vf05  P: 0 cmp=0 STRICT_NOTEQUAL fullname    L: 0 cmp=0 STRICT_EQUAL 34 objects     V: 0 cmp=0 STRICT_EQUAL 34 objects
+VF/vf06  P: 0 cmp=0 STRICT_NOTEQUAL fullname    L: 0 cmp=0 STRICT_NOTEQUAL fullname    V: 0 cmp=0 STRICT_NOTEQUAL fullname
+VI/vi01  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 219 objects    V: 0 cmp=0 STRICT_EQUAL 219 objects
+VI/vi02  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 219 objects    V: 0 cmp=0 STRICT_EQUAL 219 objects
+VI/vi03  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 220 objects    V: 0 cmp=0 STRICT_EQUAL 220 objects
+VI/vi04  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 221 objects    V: 0 cmp=0 STRICT_EQUAL 221 objects
+VI/vi05  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=565 NOT_EQUAL stage1          V: 0 cmp=565 NOT_EQUAL stage1
+VI/vi06  P: 0 cmp=0 STRICT_EQUAL 88 objects     L: 0 cmp=0 STRICT_EQUAL 88 objects     V: 0 cmp=0 STRICT_EQUAL 88 objects
+VI/vi07  P: 0 cmp=624 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 221 objects    V: 0 cmp=0 STRICT_EQUAL 221 objects
+VI/vi08  P: 0 cmp=956 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 306 objects    V: 0 cmp=0 STRICT_EQUAL 306 objects
+VI/vi09  P: 0 cmp=1636 NOT_EQUAL stage1         L: 0 cmp=0 STRICT_EQUAL 266 objects    V: 0 cmp=0 STRICT_EQUAL 266 objects
+VO/vo01  P: 0 cmp=599 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 87 objects     V: 0 cmp=0 STRICT_EQUAL 87 objects
+VO/vo02  P: 0 cmp=572 NOT_EQUAL stage1          L: 0 cmp=572 NOT_EQUAL stage1          V: 0 cmp=572 NOT_EQUAL stage1
+VO/vo03  P: 0 cmp=233 NOT_EQUAL stage1          L: 0 cmp=233 NOT_EQUAL stage1          V: 0 cmp=233 NOT_EQUAL stage1
+VO/vo04  P: 0 cmp=36 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 125 objects    V: 0 cmp=0 STRICT_EQUAL 125 objects
+VO/vo05  P: 0 cmp=657 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 106 objects    V: 0 cmp=0 STRICT_EQUAL 106 objects
+VO/vo06  P: 0 cmp=0 STRICT_EQUAL 86 objects     L: 0 cmp=0 STRICT_NOTEQUAL type        V: 0 cmp=0 STRICT_EQUAL 86 objects
+VO/vo07  P: 0 cmp=573 NOT_EQUAL stage1          L: 0 cmp=573 NOT_EQUAL stage1          V: 0 cmp=573 NOT_EQUAL stage1
+VO/vo08  P: 0 cmp=625 NOT_EQUAL stage1          L: 0 cmp=625 NOT_EQUAL stage1          V: 0 cmp=625 NOT_EQUAL stage1
+VO/vo09  P: 0 cmp=689 NOT_EQUAL stage1          L: 0 cmp=30 NOT_EQUAL stage1           V: 0 cmp=0 STRICT_EQUAL 96 objects
+VO/vo10  P: 0 cmp=0 STRICT_EQUAL 89 objects     L: 0 cmp=0 STRICT_NOTEQUAL type        V: 0 cmp=0 STRICT_EQUAL 89 objects
+VO/vo11  P: 0 cmp=17 NOT_EQUAL stage1           L: 0 cmp=17 NOT_EQUAL stage1           V: 0 cmp=17 NOT_EQUAL stage1
+VO/vo12  P: 0 cmp=366 NOT_EQUAL stage1          L: 0 cmp=366 NOT_EQUAL stage1          V: 0 cmp=366 NOT_EQUAL stage1
+VO/vo13  P: 0 cmp=689 NOT_EQUAL stage1          L: 0 cmp=30 NOT_EQUAL stage1           V: 0 cmp=0 STRICT_EQUAL 96 objects
+VO/vo14  P: 0 cmp=655 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_EQUAL 92 objects     V: 0 cmp=0 STRICT_EQUAL 92 objects
+VS/vs01  P: 0 cmp=145 NOT_EQUAL stage1          L: 0 cmp=157 NOT_EQUAL stage1          V: 0 cmp=145 NOT_EQUAL stage1
+VS/vs02  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 339 objects    V: 0 cmp=0 STRICT_EQUAL 339 objects
+VS/vs03  P: 0 cmp=32 NOT_EQUAL stage1           L: 0 cmp=32 NOT_EQUAL stage1           V: 0 cmp=32 NOT_EQUAL stage1
+VS/vs04  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 467 objects    V: 0 cmp=0 STRICT_EQUAL 467 objects
+VS/vs05  P: 0 cmp=0 STRICT_NOTEQUAL fullname    L: 0 cmp=0 STRICT_EQUAL 41 objects     V: 0 cmp=0 STRICT_EQUAL 41 objects
+VS/vs06  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 165 objects    V: 0 cmp=0 STRICT_EQUAL 165 objects
+VS/vs07  P: 0 cmp=230 NOT_EQUAL stage1          L: 0 cmp=242 NOT_EQUAL stage1          V: 0 cmp=242 NOT_EQUAL stage1
+VS/vs08  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 180 objects    V: 0 cmp=0 STRICT_EQUAL 180 objects
+VS/vs09  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=1318 NOT_EQUAL stage1         V: 0 cmp=1318 NOT_EQUAL stage1
+VS/vs10  P: 0 cmp=0 STRICT_EQUAL 325 objects    L: 0 cmp=0 STRICT_EQUAL 325 objects    V: 0 cmp=0 STRICT_EQUAL 325 objects
+VS/vs11  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 331 objects    V: 0 cmp=0 STRICT_EQUAL 331 objects
+VS/vs12  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 327 objects    V: 0 cmp=0 STRICT_EQUAL 327 objects
+VS/vs13  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 333 objects    V: 0 cmp=0 STRICT_EQUAL 333 objects
+VS/vs14  P: 0 cmp=0 STRICT_EQUAL 197 objects    L: 0 cmp=0 STRICT_EQUAL 197 objects    V: 0 cmp=0 STRICT_EQUAL 197 objects
+VS/vs15  P: 0 cmp=56 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 437 objects    V: 0 cmp=0 STRICT_EQUAL 437 objects
+VT/vt01  P: 0 cmp=130 NOT_EQUAL stage1          L: 0 cmp=130 NOT_EQUAL stage1          V: 0 cmp=130 NOT_EQUAL stage1
+VT/vt02  P: 0 cmp=0 STRICT_NOTEQUAL fullname    L: 0 cmp=0 STRICT_NOTEQUAL name        V: 0 cmp=0 STRICT_NOTEQUAL name
+VT/vt03  P: 0 cmp=46 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 43 objects     V: 0 cmp=0 STRICT_EQUAL 43 objects
+VT/vt04  P: 0 cmp=224 NOT_EQUAL stage1          L: 0 cmp=0 STRICT_NOTEQUAL file        V: 0 cmp=0 STRICT_NOTEQUAL file
+VT/vt05  P: 0 cmp=0 STRICT_EQUAL 26 objects     L: 0 cmp=0 STRICT_EQUAL 26 objects     V: 0 cmp=0 STRICT_EQUAL 26 objects
+VT/vt06  P: 0 cmp=28 NOT_EQUAL stage1           L: 0 cmp=28 NOT_EQUAL stage1           V: 0 cmp=28 NOT_EQUAL stage1
+VT/vt07  P: 0 cmp=36 NOT_EQUAL stage1           L: 0 cmp=0 STRICT_EQUAL 38 objects     V: 0 cmp=0 STRICT_EQUAL 38 objects

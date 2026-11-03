@@ -1,0 +1,6 @@
+databases: patched=3401 pristine=3404
+PATH_SETS_DIFFER -- a 'no movers' reading here would be meaningless
+1793a1794,1796
+> ./svtests/work/testbenches/uvm_scoreboard_env/slang.uhdm
+> ./svtests/work/testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm
+> ./svtests/work/testbenches/uvm_scoreboard_monitor_env/slang.uhdm

@@ -1,0 +1,19 @@
+Prediction written before the sweep (law binary /tmp/r11u468_bin/law13, md5 0581ecaad93bf3cf6f1039f47e53b733),
+from the traced census (evidence/census): verify_golden over the uhdm2rtlil corpus (1742 row-modes) and the
+fence-filtered surelog corpus (1588 row-modes), check_probe over 4087 probe cases, and the runner over the 247
+sv-tests candidate rows (every uvm-tier row plus every row whose sources hold a class and an import, an include or
+a second file), all with R11U468_TRACE; plus the law-B predicate (evidence/tools/ctsparams.cpp) over 7480
+fence-filtered control databases of /tmp/intr11u466.
+
+* No law fires on any surelog or uhdm2rtlil corpus row or probe case (no trace file written); both corpus csvs
+  equal results/golden_*.csv row for row, the probe csv equals results/golden_probe.csv.
+  => byteverify surelog 0 movers, uhdm2rtlil 0, downstream 0 (same sources as the uhdm2rtlil corpus), probe 0
+     databases moving except by path (the worktree's tests/probe path in VpiFile).
+* The law-B predicate holds on exactly 3 control databases: the three testbenches uvm_scoreboard rows.
+* sv-tests: the laws fire on exactly 4 rows:
+    testbenches/uvm_scoreboard_env.sv               DIFFERENT -> EQUAL   (conversion)
+    testbenches/uvm_scoreboard_monitor_env.sv       DIFFERENT -> EQUAL   (conversion)
+    testbenches/uvm_scoreboard_monitor_agent_env.sv DIFFERENT -> EQUAL   (conversion)
+    generated/easyUVM/top.sv                        DIFFERENT, bytes move, stays DIFFERENT
+  every other row keeps its status; the re-kept sv-tests databases other than these four may differ in raw
+  bytes only by the serialization-order variance (STRICT_EQUAL to the control under --no-canon).

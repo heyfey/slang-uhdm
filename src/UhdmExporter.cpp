@@ -14041,6 +14041,46 @@ void respanSpecArgs202(
     }
 }
 
+// § specArgTypedefNameShares468 — the (reference, typedef symbol) pairs
+// recorded by emitClassTsParams, drained design-final (UhdmExporter, after
+// § oobClassTdImporterClass468).
+static std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>>& g468SpecArgTd() {
+    static std::vector<std::pair<UHDM::ref_typespec*, const slang::ast::Symbol*>> v;
+    return v;
+}
+
+// § specNamedArgsAbstain468v (v11u468, R11V468_NAMEDSPEC_OFF; cases
+// tools/probe/v11u468repro/cases/VS vs01) -- a specialization written with
+// NAMED arguments (`C #(.U(item))`) is not paired by Surelog at all: the
+// ClassDefinition branch of compileDatastructureTypespec walks only an
+// Ordered_parameter_assignment list, so golden lists no parameter there, and
+// § specArgPairsImportedFormal468's positional re-pairing must not touch the
+// formal-order listing emitClassTsParams wrote for it (the law renamed C.T to
+// PA, uhdm-cmp 145 -> 157 lines, where pristine and golden differ at the
+// same head).  The class_typespecs whose written spelling carries a named
+// argument are recorded where they are built (membership only, never
+// iterated) and the re-pairing skips them.
+std::set<const UHDM::class_typespec*>& g468vNamedSpec() {
+    static std::set<const UHDM::class_typespec*> v;
+    return v;
+}
+void markNamedSpec468v(const UHDM::class_typespec* cts, const slang::syntax::SyntaxNode* syn) {
+    if (!cts || !syn || !fixOn(468, "R11V468_NAMEDSPEC_OFF"))
+        return;
+    auto* nt = syn->as_if<slang::syntax::NamedTypeSyntax>();
+    const slang::syntax::NameSyntax* nm = nt ? nt->name.get() : nullptr;
+    while (nm && nm->kind == slang::syntax::SyntaxKind::ScopedName)
+        nm = nm->as<slang::syntax::ScopedNameSyntax>().right.get();
+    auto* cn = nm ? nm->as_if<slang::syntax::ClassNameSyntax>() : nullptr;
+    if (!cn || !cn->parameters)
+        return;
+    for (auto* pa : cn->parameters->parameters)
+        if (pa && pa->kind == slang::syntax::SyntaxKind::NamedParamAssignment) {
+            g468vNamedSpec().insert(cts);
+            return;
+        }
+}
+
 // The specialization carried by a class_typespec (see the header note).
 void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType& cls,
                                      const std::string& prefix) {
@@ -14089,6 +14129,15 @@ void UhdmExporter::emitClassTsParams(UHDM::class_typespec* cts, const ClassType&
             emitClassTsParams(nts, dct.as<ClassType>(),
                               fn + "." + std::string(dct.name));
             its = nts;
+            // § specArgTypedefNameShares468 — an argument written as a
+            // typedef's name: recorded for the design-final drain.
+            if (auto& rawT468 = tps.targetType.getType();
+                rawT468.kind == SymbolKind::TypeAlias && dsyn &&
+                dsyn->kind == syntax::SyntaxKind::NamedType &&
+                dsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::IdentifierName &&
+                lawOn(468, "R11U468_SPECARGTD_OFF"))
+                g468SpecArgTd().push_back({rt, &rawT468});
         }
         else {
             its = makeTypespec(mem, dsyn);
@@ -14247,6 +14296,12 @@ void UhdmExporter::emitClassPropSpecParams163(
                 pendingClassTsLink.push_back({nts163, &dct163});
             setLoc(nts163, cn163->parameters->sourceRange());
             its163 = nts163;
+            // § specArgTypedefNameShares468 — an argument written as a
+            // typedef's name: recorded for the design-final drain.
+            if (a163 && a163->kind == syntax::SyntaxKind::IdentifierName &&
+                tps163.targetType.getType().kind == SymbolKind::TypeAlias &&
+                lawOn(468, "R11U468_SPECARGTD_OFF"))
+                g468SpecArgTd().push_back({rt163, &tps163.targetType.getType()});
         }
         else {
             // § clsSpecArgTsFileAtArg434 — a data-type argument's typespec is
@@ -16220,6 +16275,220 @@ extern std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing
 extern std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458; // § cloneDeclOnlyTwinOwnObject458
 extern std::vector<std::pair<UHDM::ref_typespec*, std::vector<UHDM::ref_typespec*>>>
     g_lvHomeDeclTs259;  // § cloneLoopVarHomeDeclTs259
+// § specArgPairsImportedFormal468 (r11u468, R11U468_SPECIMPFORMAL_OFF;
+// cases tools/probe/r11u468repro/cases/SP; the three testbenches
+// uvm_scoreboard rows, `comparator #(packet_out) comp;`, and
+// uvm_param_vif_config_db's `this_t`) -- a class specialization pairs its
+// ORDERED arguments with the target class's ordered parameter list, and that
+// list starts with the parameters the class's imports brought in.
+// CompileHelper::compileDatastructureTypespec (CompileType.cpp, the
+// ClassDefinition branch) reads `classDefn->getOrderedParameters().at(index)`
+// for the index-th written argument, names the type_parameter after that
+// formal and points the param_assign's Lhs at its object; and
+// CompileHelper::importPackage (CompileHelper.cpp, "Type parameters") calls
+// `scope->insertParameter(clone)` for every parameter of the imported
+// package (its name-sorted getParameterMap) BEFORE the class's own formals
+// are inserted, once per import item (the multiplicity
+// § classInheritsContainerImports23 lists: a $unit import in the class's
+// own file twice).  So under `import uvm_pkg::*;` the first argument pairs
+// with UVM_ALL_ON and the second with UVM_CHECK_FIELDS (golden
+// `type_parameter UVM_ALL_ON`, its param_assign's Lhs the class's own copy of
+// `parameter UVM_ALL_ON`), exactly the class_defn's vpiParameter listing
+// read by position.  Design-final, after § 23 has written that listing:
+// every specialization pair whose Lhs is the target class's own formal at
+// own position j (the written argument's position, since the builders pair
+// argument j with own formal j) is re-paired with the listing's entry j when
+// the listing starts with imported entries -- the type_parameter takes that
+// entry's name, the param_assign's Lhs that object, and a located
+// type_parameter (a data-type argument: Surelog locates it at the formal's
+// declaration) that entry's span and file, its param_assign the entry's
+// line and column.
+// § specArgPairsImportedFormal468's second half -- the re-paired formal is
+// the class's own import copy, and Surelog's copy is a clone_tree, so the
+// range objects under its typespec chain (the copy and its alias target) are
+// its own.  Ours share them with the other classes' copies, and the strict
+// walk, which now reaches this copy through the specialization first, would
+// list them there and not at the next class's own listing
+// (uvm_scoreboard_env: work@env::UVM_ALL_ON's uvm_field_flag_t ranges).
+// Run last (the chain's ranges are filled after the pairing pass): fresh
+// range objects for a typespec parented inside the copy's own chain.
+static std::vector<UHDM::parameter*>& g468Repaired() {
+    static std::vector<UHDM::parameter*> v;
+    return v;
+}
+static void freshRangesRepaired468(UHDM::Serializer& s) {
+    std::set<UHDM::parameter*> done;
+    for (auto* nf : g468Repaired()) {
+        if (!nf || !done.insert(nf).second)
+            continue;
+        auto freshRanges = [&](UHDM::typespec* t) {
+            UHDM::VectorOfrange* rv = nullptr;
+            if (t->UhdmType() == UHDM::uhdmbit_typespec)
+                rv = ((UHDM::bit_typespec*)t)->Ranges();
+            else if (t->UhdmType() == UHDM::uhdmlogic_typespec)
+                rv = ((UHDM::logic_typespec*)t)->Ranges();
+            if (!rv || rv->empty())
+                return;
+            auto* nv = s.MakeRangeVec();
+            UHDM::ElaboratorContext ctx468(&s, false, /*muteErrors=*/true);
+            for (auto* r : *rv) {
+                auto* c = r ? (UHDM::range*)UHDM::clone_tree((UHDM::any*)r, &ctx468) : nullptr;
+                if (!c)
+                    return;
+                c->VpiParent(t);
+                nv->push_back(c);
+            }
+            if (t->UhdmType() == UHDM::uhdmbit_typespec)
+                ((UHDM::bit_typespec*)t)->Ranges(nv);
+            else
+                ((UHDM::logic_typespec*)t)->Ranges(nv);
+            lawTrace(468, "specArgPairsImportedFormal468",
+                     "fresh ranges " + std::string(nf->VpiFullName()));
+        };
+        auto* rt0 = nf->Typespec();
+        auto* t1 = rt0 ? (UHDM::typespec*)rt0->Actual_typespec() : nullptr;
+        if (t1 && t1->VpiParent() == rt0) {
+            freshRanges(t1);
+            if (auto* al = t1->Typedef_alias())
+                if (auto* t2 = (UHDM::typespec*)al->Actual_typespec(); t2 && t2->VpiParent() == al)
+                    freshRanges(t2);
+        }
+    }
+    g468Repaired().clear();
+}
+
+// § clsPropSpecTpFullName468 (r11u468, R11U468_PROPSPECFULL_OFF; cases
+// tools/probe/r11u468repro/cases/SP sp05, sp09; the uvm_scoreboard rows'
+// `comparator #(packet_out) comp;` in class env, which read
+// STRICT_NOTEQUAL differ:fullname(3) once the pairing above is golden's) --
+// the type_parameter of a specialization written as a CLASS PROPERTY's type,
+// and its ref_typespec, carry the full name of their parent chain, golden
+// `work@env::comp::C::T` (class, property, class name, formal, `::`-joined),
+// where emitClassTsParams' variable site stored `C.T` (right for a module
+// variable, whose elaborated chain reads that way).  Design-final: a
+// type_parameter under a class_typespec whose parent is a class_var of a
+// class_defn, still holding `<class name>.<formal>`, takes the chain name.
+static void clsPropSpecTpFullName468(UHDM::Serializer& s,
+                                     const std::vector<UHDM::class_typespec*>& all) {
+    if (!lawOn(468, "R11U468_PROPSPECFULL_OFF"))
+        return;
+    for (auto* cts : all) {
+        auto* cv = cts->VpiParent();
+        if (!cv || cv->UhdmType() != UHDM::uhdmclass_var || !cts->Parameters())
+            continue;
+        auto* cd = cv->VpiParent();
+        if (!cd || cd->UhdmType() != UHDM::uhdmclass_defn)
+            continue;
+        const std::string cdFull(((UHDM::class_defn*)cd)->VpiFullName().empty()
+                                     ? cd->VpiName()
+                                     : ((UHDM::class_defn*)cd)->VpiFullName());
+        for (auto* p : *cts->Parameters()) {
+            if (!p || p->UhdmType() != UHDM::uhdmtype_parameter || p->VpiParent() != cts)
+                continue;
+            auto* tp = (UHDM::type_parameter*)p;
+            const std::string was = std::string(cts->VpiName()) + "." +
+                                    std::string(tp->VpiName());
+            if (tp->VpiFullName() != was)
+                continue;
+            const std::string full = cdFull + "::" + std::string(cv->VpiName()) + "::" +
+                                     std::string(cts->VpiName()) + "::" +
+                                     std::string(tp->VpiName());
+            tp->VpiFullName(full);
+            if (auto* rt = tp->Typespec(); rt && rt->VpiFullName() == was)
+                rt->VpiFullName(full);
+            lawTrace(468, "clsPropSpecTpFullName468", full);
+        }
+    }
+}
+
+static void specArgPairsImportedFormal468(UHDM::Serializer& s) {
+    std::vector<UHDM::class_typespec*> all;
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::BaseClass*)kv.first;
+        if (o && o->UhdmType() == UHDM::uhdmclass_typespec)
+            all.push_back((UHDM::class_typespec*)o);
+    }
+    std::sort(all.begin(), all.end(), [](const UHDM::class_typespec* a,
+                                         const UHDM::class_typespec* b) {
+        return a->UhdmId() < b->UhdmId();
+    });
+    if (!lawOn(468, "R11U468_SPECIMPFORMAL_OFF")) {
+        clsPropSpecTpFullName468(s, all);
+        return;
+    }
+    for (auto* cts : all) {
+        auto* cd = cts->Class_defn();
+        auto* pas = cts->Param_assigns();
+        if (!cd || !pas || pas->empty() || !cd->Parameters())
+            continue;
+        auto& lst = *cd->Parameters();
+        size_t n = 0;
+        while (n < lst.size() && lst[n] &&
+               (lst[n]->VpiParent() != cd ||
+                (lst[n]->UhdmType() == UHDM::uhdmparameter &&
+                 !((UHDM::parameter*)lst[n])->VpiImported().empty()) ||
+                (lst[n]->UhdmType() == UHDM::uhdmtype_parameter &&
+                 !((UHDM::type_parameter*)lst[n])->VpiImported().empty())))
+            n++;
+        if (n == 0 || n == lst.size())
+            continue;
+        // § specNamedArgsAbstain468v — named arguments: Surelog pairs none.
+        if (g468vNamedSpec().count(cts)) {
+            lawTrace(468, "specNamedArgsAbstain468v", std::string(cts->VpiName()));
+            continue;
+        }
+        for (auto* pa : *pas) {
+            if (!pa || !pa->Lhs() || !pa->Rhs() ||
+                pa->Rhs()->UhdmType() != UHDM::uhdmtype_parameter)
+                continue;
+            auto* tp = (UHDM::type_parameter*)pa->Rhs();
+            size_t pos = 0;
+            while (pos < lst.size() && lst[pos] != pa->Lhs())
+                pos++;
+            if (pos >= lst.size() || pos < n)
+                continue;
+            size_t j = pos - n;
+            auto* nf = lst[j];
+            if (!nf || nf == pa->Lhs())
+                continue;
+            const std::string oldName(tp->VpiName());
+            const std::string newName(nf->VpiName());
+            tp->VpiName(newName);
+            auto refull = [&](auto* o) {
+                if (!o)
+                    return;
+                std::string f(o->VpiFullName());
+                const std::string suf = "." + oldName;
+                if (f.size() > suf.size() &&
+                    f.compare(f.size() - suf.size(), suf.size(), suf) == 0)
+                    o->VpiFullName(f.substr(0, f.size() - oldName.size()) + newName);
+            };
+            refull(tp);
+            refull(tp->Typespec());
+            pa->Lhs(nf);
+            // (its range objects made its own design-final:
+            // freshRangesRepaired468)
+            if (nf->UhdmType() == UHDM::uhdmparameter)
+                g468Repaired().push_back((UHDM::parameter*)nf);
+            if (tp->VpiLineNo() != 0) {
+                tp->VpiFile(std::string(nf->VpiFile()));
+                tp->VpiLineNo(nf->VpiLineNo());
+                tp->VpiColumnNo(nf->VpiColumnNo());
+                tp->VpiEndLineNo(nf->VpiEndLineNo());
+                tp->VpiEndColumnNo(nf->VpiEndColumnNo());
+                pa->VpiLineNo(nf->VpiLineNo());
+                pa->VpiColumnNo(nf->VpiColumnNo());
+                pa->VpiEndLineNo(tp->VpiEndLineNo());
+                pa->VpiEndColumnNo(tp->VpiEndColumnNo());
+            }
+            lawTrace(468, "specArgPairsImportedFormal468",
+                     std::string(cd->VpiName()) + " " + oldName + " -> " + newName +
+                         " @" + std::to_string(j));
+        }
+    }
+    clsPropSpecTpFullName468(s, all);
+}
+
 UHDM::design* UhdmExporter::exportDesign() {
     // § compoundLitWriteBackSat2 — decide the constant-evaluated function
     // bodies' literal values BEFORE anything is emitted, so the def view and
@@ -19987,6 +20256,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     else
                         pendingClassTsLink.push_back({cts, &ct});
                     emitClassTsParams(cts, ct.as<ClassType>(), std::string(ta.name));
+                    markNamedSpec468v(cts, typeSyn);  // § specNamedArgsAbstain468v
                     cts->VpiParent(d);
                     if (typeSyn) {
                         auto r = typeSyn->sourceRange();
@@ -24308,6 +24578,9 @@ UHDM::design* UhdmExporter::exportDesign() {
     // listings are the very objects its container's imports already
     // materialized, so every package view has to be complete first.
     classInheritsContainerImports23();
+    // § specArgPairsImportedFormal468 — after § 23 has written each class's
+    // vpiParameter listing with its imported entries first.
+    specArgPairsImportedFormal468(s);
     // § modulePublishesPackageClasses45 — the MODULE arm of § 24, AFTER both of
     // the passes above.  After § 24 because it inherits the names § 24
     // requalifies (SeqDriver's module reads `adpcm_pkg::this_type`), and after
@@ -25577,6 +25850,249 @@ UHDM::design* UhdmExporter::exportDesign() {
                 lawTrace(231, "oobClassTdFirstClassKey231", tname + " -> " + wk);
             }
         }
+        // § oobClassTdImporterClass468 (r11u468, R11U468_OOBIMPCLS_OFF; cases
+        // tools/probe/r11u468repro/cases/OU and OV; the three testbenches
+        // uvm_scoreboard rows and easyUVM, `function bit
+        // uvm_sequence_library::m_check(uvm_object_wrapper seq_type,
+        // this_type lib);`, golden's DEFINITION object -- the one the method's
+        // class, the $unit classes and the design list, not the package
+        // listing's copy -- binding `this_type` to the user class's
+        // `typedef comparator #(T) this_type;` at the sv file's 52:13, ours to
+        // uvm_abstract_component_registry's 292:11, § 231's first-key winner)
+        // -- when a class outside the method's package that IMPORTS that package
+        // (a $unit class under a file-scope import, a module-local class, a
+        // class of another package whose body imports it) and lives in ANOTHER
+        // FILE than the package declares a class-scoped typedef of the formal's
+        // name, the definition object's formal binds that class's typedef.
+        // Surelog leaves the out-of-body formal unresolved on the package's
+        // late-typedef-binding list, importPackage hands that list to every
+        // importer (CompileHelper::importPackage, `scope->needLateTypedefBinding
+        // (var)`), and the importer that resolves it first in its own scope
+        // finds its own typedef; the package listing's copy is a clone bound by
+        // § 231's rule.  Measured: one file holding package and class keeps
+        // § 231's winner (OU ou01 to ou04), a second file binds the importing
+        // class (ou11, ou13, ou14; UVM OV ov01, ov03, ov04), a class that does
+        // not import the package is no candidate (ou15, ou16), and of two
+        // $unit candidates the smaller name wins in either source order (ou12,
+        // ou17).  Abstains on candidates of mixed kinds.
+        if (lawOn(468, "R11U468_OOBIMPCLS_OFF") && !r231OobClassTdRefs().empty()) {
+            auto rootBuf468 = [&](SourceLocation l) {
+                if (sm->isMacroLoc(l))
+                    l = sm->getFullyOriginalLoc(l);
+                slang::BufferID b = l.buffer();
+                for (int g = 0; g < 64; g++) {
+                    auto up = sm->getIncludedFrom(b);
+                    if (!up.valid())
+                        break;
+                    b = up.buffer();
+                }
+                return b;
+            };
+            // Does scope `sc` (with the CU imports of root file `rb`) import `pk`?
+            auto importsPkg468 = [&](const Scope& sc, const PackageSymbol* pk) {
+                for (auto& m : sc.members()) {
+                    if (m.kind == SymbolKind::WildcardImport &&
+                        m.as<WildcardImportSymbol>().getPackage() == pk)
+                        return true;
+                    if (m.kind == SymbolKind::ExplicitImport &&
+                        m.as<ExplicitImportSymbol>().package() == pk)
+                        return true;
+                }
+                return false;
+            };
+            auto cuImports468 = [&](slang::BufferID rb, const PackageSymbol* pk) {
+                for (auto* cu : comp.getCompilationUnits())
+                    for (auto& m : cu->members()) {
+                        const PackageSymbol* q = nullptr;
+                        if (m.kind == SymbolKind::WildcardImport)
+                            q = m.as<WildcardImportSymbol>().getPackage();
+                        else if (m.kind == SymbolKind::ExplicitImport)
+                            q = m.as<ExplicitImportSymbol>().package();
+                        if (q == pk && rootBuf468(m.location) == rb)
+                            return true;
+                    }
+                return false;
+            };
+            for (auto& [rtv, tname] : r231OobClassTdRefs()) {
+                auto* rt = (UHDM::ref_typespec*)rtv;
+                auto* io = rt ? rt->VpiParent() : nullptr;
+                auto* tf = io ? io->VpiParent() : nullptr;
+                auto* mcd = tf ? tf->VpiParent() : nullptr;
+                if (!io || io->UhdmType() != UHDM::uhdmio_decl || !mcd ||
+                    mcd->UhdmType() != UHDM::uhdmclass_defn)
+                    continue;
+                auto* pkv = mcd->VpiParent();
+                if (!pkv || pkv->UhdmType() != UHDM::uhdmpackage)
+                    continue;
+                std::string pkName(pkv->VpiName());
+                if (auto c = pkName.find("::"); c != std::string::npos)
+                    pkName = pkName.substr(0, c);
+                auto* pk = comp.getPackage(pkName);
+                if (!pk)
+                    continue;
+                const slang::BufferID pkRoot = rootBuf468(pk->location);
+                // kind: 0 $unit, 1 module, 2 other package
+                std::map<std::string, std::pair<int, std::vector<const TypeAliasType*>>> cands;
+                for (auto& [sym, ts] : typedefTs) {
+                    if (!sym || !ts || sym->kind != SymbolKind::TypeAlias || sym->name != tname)
+                        continue;
+                    auto& ta = sym->as<TypeAliasType>();
+                    // § oobTdCandClassOnly468v (v11u468, R11V468_CANDCLASS_OFF;
+                    // cases tools/probe/v11u468repro/cases/VO vo06, vo09, vo10,
+                    // vo13) -- only a typedef naming a CLASS is a candidate:
+                    // golden keeps § 231's winner when the importing class's
+                    // typedef of that name is an int or a struct (vo06, vo10,
+                    // pristine STRICT_EQUAL, the law STRICT_NOTEQUAL type) and
+                    // passes over such a class to the importer whose typedef
+                    // names a class (vo09, vo13: work@cmp2's, not work@cmp's
+                    // int).  A typedef of another class counts (vo14).
+                    if (fixOn(468, "R11V468_CANDCLASS_OFF") &&
+                        ta.targetType.getType().getCanonicalType().kind != SymbolKind::ClassType) {
+                        lawTrace(468, "oobTdCandClassOnly468v", tname + " skip non-class");
+                        continue;
+                    }
+                    const Scope* sc = ta.getParentScope();
+                    const Symbol* outer = nullptr;
+                    for (; sc; sc = sc->asSymbol().getParentScope()) {
+                        auto& sy = sc->asSymbol();
+                        if (sy.kind == SymbolKind::ClassType)
+                            outer = &sy;
+                        else
+                            break;
+                    }
+                    if (!outer || !sc)
+                        continue;
+                    auto& up = sc->asSymbol();
+                    const slang::BufferID cb = rootBuf468(outer->location);
+                    if (cb == pkRoot)
+                        continue;
+                    int kind = -1;
+                    bool imp = importsPkg468(outer->as<ClassType>(), pk);
+                    if (up.kind == SymbolKind::CompilationUnit) {
+                        kind = 0;
+                        imp = imp || cuImports468(cb, pk);
+                    }
+                    else if (up.kind == SymbolKind::InstanceBody) {
+                        kind = 1;
+                        auto& body = up.as<InstanceBodySymbol>();
+                        imp = imp || importsPkg468(body, pk) ||
+                              cuImports468(rootBuf468(body.getDefinition().location), pk);
+                    }
+                    else if (up.kind == SymbolKind::Package && &up != pk) {
+                        kind = 2;
+                        imp = imp || importsPkg468(up.as<PackageSymbol>(), pk);
+                    }
+                    if (kind < 0 || !imp)
+                        continue;
+                    std::string key = std::to_string(kind) + ":" +
+                                      (kind == 2 ? std::string(up.name) + "::" : std::string()) +
+                                      std::string(outer->name);
+                    cands[key].first = kind;
+                    cands[key].second.push_back(&ta);
+                }
+                if (cands.empty())
+                    continue;
+                std::set<int> kinds;
+                for (auto& [k, v] : cands)
+                    kinds.insert(v.first);
+                if (kinds.size() != 1) {
+                    lawTrace(468, "oobClassTdImporterClass468", tname + " abstain mixed");
+                    continue;
+                }
+                // The winning class's typedef object: the one its class_defn
+                // lists (same kind, name, file and span as a symbol's own
+                // object; the listing also holds imported typedefs of that
+                // name), else the symbols' object with the smallest id.
+                UHDM::typespec* wts = nullptr;
+                for (auto* win : cands.begin()->second.second) {
+                    auto wi = typedefTs.find((const Symbol*)win);
+                    if (wi == typedefTs.end() || !wi->second)
+                        continue;
+                    auto* base = wi->second;
+                    const Scope* wsc = win->getParentScope();
+                    if (wsc && wsc->asSymbol().kind == SymbolKind::ClassType)
+                        if (auto* wcd = classDefnFor(wsc->asSymbol().as<ClassType>());
+                            wcd && wcd->Typespecs())
+                            for (auto* t : *wcd->Typespecs())
+                                if (t && t->UhdmType() == base->UhdmType() &&
+                                    t->VpiName() == tname && t->VpiFile() == base->VpiFile() &&
+                                    t->VpiLineNo() == base->VpiLineNo() &&
+                                    t->VpiColumnNo() == base->VpiColumnNo()) {
+                                    wts = t;
+                                    break;
+                                }
+                    if (wts)
+                        break;
+                }
+                if (!wts)
+                    for (auto* win : cands.begin()->second.second)
+                        if (auto wi = typedefTs.find((const Symbol*)win);
+                            wi != typedefTs.end() && wi->second &&
+                            (!wts || wi->second->UhdmId() < wts->UhdmId()))
+                            wts = wi->second;
+                if (!wts || rt->Actual_typespec() == wts)
+                    continue;
+                rt->Actual_typespec(wts);
+                lawTrace(468, "oobClassTdImporterClass468",
+                         tname + " -> " + cands.begin()->first);
+            }
+        }
+        // § specArgTypedefNameShares468 (r11u468, R11U468_SPECARGTD_OFF;
+        // cases tools/probe/r11u468repro/cases/TA; the uvm_scoreboard rows'
+        // `uvm_analysis_imp #(T, this_type) from_dut;` in class comparator,
+        // golden's type_parameter IMP reaching the class's own
+        // `typedef comparator #(T) this_type;` object at 52:13, ours a fresh
+        // class_typespec named `comparator` at the argument) -- a
+        // specialization argument written as a TYPEDEF's name is a ref_obj in
+        // Surelog's ordered-argument loop (CompileType.cpp, the ClassDefinition
+        // branch), and compileDatastructureTypespec returns that typedef's own
+        // typespec object (the scope's DataType -> TypeDef -> getTypespec()),
+        // shared, not a new class_typespec of the target class.  Design-final:
+        // the reference takes the typedef's object -- the one its class_defn
+        // lists when the typedef is class-scoped (same kind, name, file and
+        // span), else the typedef's own object.
+        for (auto& [rt468, sym468] : g468SpecArgTd()) {
+            if (!rt468)
+                continue;
+            auto ti = typedefTs.find(sym468);
+            UHDM::typespec* w468 = ti != typedefTs.end() ? ti->second : nullptr;
+            const Scope* sc468 = sym468->getParentScope();
+            // A specialization's own typedef symbol has no object of its
+            // own: take the class_defn's listed typedef of that name
+            // declared on that line of that file.
+            if (!w468 && sc468 && sc468->asSymbol().kind == SymbolKind::ClassType)
+                if (auto* cd468 = classDefnFor(sc468->asSymbol().as<ClassType>());
+                    cd468 && cd468->Typespecs()) {
+                    const std::string f468 = fullFilePath(sym468->location);
+                    const auto l468 = sm->getLineNumber(sym468->location);
+                    for (auto* t : *cd468->Typespecs())
+                        if (t && t->VpiParent() == cd468 &&
+                            t->UhdmType() == UHDM::uhdmclass_typespec &&
+                            t->VpiName() == sym468->name && t->VpiFile() == f468 &&
+                            t->VpiLineNo() == l468) {
+                            w468 = t;
+                            break;
+                        }
+                }
+            if (!w468 || w468->UhdmType() != UHDM::uhdmclass_typespec)
+                continue;
+            if (sc468 && sc468->asSymbol().kind == SymbolKind::ClassType)
+                if (auto* cd468 = classDefnFor(sc468->asSymbol().as<ClassType>());
+                    cd468 && cd468->Typespecs())
+                    for (auto* t : *cd468->Typespecs())
+                        if (t && t->UhdmType() == w468->UhdmType() &&
+                            t->VpiName() == w468->VpiName() && t->VpiFile() == w468->VpiFile() &&
+                            t->VpiLineNo() == w468->VpiLineNo() &&
+                            t->VpiColumnNo() == w468->VpiColumnNo()) {
+                            w468 = t;
+                            break;
+                        }
+            if (rt468->Actual_typespec() == w468)
+                continue;
+            rt468->Actual_typespec(w468);
+            lawTrace(468, "specArgTypedefNameShares468", std::string(sym468->name));
+        }
+        g468SpecArgTd().clear();
         r231OobClassTdRefs().clear();
         // § fwWinnerListedObject255 (r11u255, BuildUVMPkg d/t #185844: the
         // eight TLM socket classes' `connect(this_type provider)`, golden's
@@ -29672,6 +30188,9 @@ UHDM::design* UhdmExporter::exportDesign() {
                              " base#" + std::to_string(b->UhdmId()));
             }
         }
+        // § specArgPairsImportedFormal468 — the re-paired formals' own
+        // ranges, on every exit.
+        freshRangesRepaired468(s);
         return d420;
     };
     if (!lawOn(146, "R11U146_TFARGTD_OFF"))

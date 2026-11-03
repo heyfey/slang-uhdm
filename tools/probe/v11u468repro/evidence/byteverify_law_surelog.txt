@@ -1,0 +1,5 @@
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/Scoreboard-72aa0ba8/slang.uhdm  patched=10e9737f187d pristine=aba237436221
+MOVERS: 1 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged

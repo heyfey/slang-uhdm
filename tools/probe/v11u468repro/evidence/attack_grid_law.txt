@@ -1,0 +1,42 @@
+VF/vf01 rc=0 cmp=0 STRICT_EQUAL 22 objects md5=1461f6b5
+VF/vf02 rc=0 cmp=0 STRICT_EQUAL 31 objects md5=1d3f6aac
+VF/vf03 rc=0 cmp=224 NOT_EQUAL stage1 md5=334a5583
+VF/vf04 rc=0 cmp=0 STRICT_EQUAL 20 objects md5=cdc267a0
+VF/vf05 rc=0 cmp=0 STRICT_EQUAL 34 objects md5=414a419c
+VF/vf06 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=ba6daf78
+VI/vi01 rc=0 cmp=0 STRICT_EQUAL 219 objects md5=d51edc61
+VI/vi02 rc=0 cmp=0 STRICT_EQUAL 219 objects md5=f716ccfe
+VI/vi03 rc=0 cmp=0 STRICT_EQUAL 220 objects md5=6c63a101
+VI/vi04 rc=0 cmp=0 STRICT_EQUAL 221 objects md5=cf2b67f2
+VI/vi05 rc=0 cmp=565 NOT_EQUAL stage1 md5=b16363f8
+VI/vi06 rc=0 cmp=0 STRICT_EQUAL 88 objects md5=8f444a1e
+VI/vi07 rc=0 cmp=0 STRICT_EQUAL 221 objects md5=54a7b7d2
+VI/vi08 rc=0 cmp=0 STRICT_EQUAL 306 objects md5=09892848
+VI/vi09 rc=0 cmp=0 STRICT_EQUAL 266 objects md5=91e2648c
+VO/vo01 rc=0 cmp=0 STRICT_EQUAL 87 objects md5=c76562c1
+VO/vo02 rc=0 cmp=572 NOT_EQUAL stage1 md5=480bef80
+VO/vo03 rc=0 cmp=233 NOT_EQUAL stage1 md5=cd8ad9f6
+VO/vo04 rc=0 cmp=0 STRICT_EQUAL 125 objects md5=5af56f52
+VO/vo05 rc=0 cmp=0 STRICT_EQUAL 106 objects md5=1cf7caed
+VO/vo06 rc=0 cmp=0 STRICT_NOTEQUAL type md5=79b43ed3
+VO/vo07 rc=0 cmp=573 NOT_EQUAL stage1 md5=7442e596
+VO/vo08 rc=0 cmp=625 NOT_EQUAL stage1 md5=20842a12
+VS/vs01 rc=0 cmp=157 NOT_EQUAL stage1 md5=9022b93c
+VS/vs02 rc=0 cmp=0 STRICT_EQUAL 339 objects md5=8fe33d15
+VS/vs03 rc=0 cmp=32 NOT_EQUAL stage1 md5=ff64d4b1
+VS/vs04 rc=0 cmp=0 STRICT_EQUAL 467 objects md5=2dd05c2d
+VS/vs05 rc=0 cmp=0 STRICT_EQUAL 41 objects md5=5b133425
+VS/vs06 rc=0 cmp=0 STRICT_EQUAL 165 objects md5=13d6417d
+VS/vs07 rc=0 cmp=242 NOT_EQUAL stage1 md5=d84d8760
+VS/vs08 rc=0 cmp=0 STRICT_EQUAL 180 objects md5=e86ec94e
+VS/vs09 rc=0 cmp=1318 NOT_EQUAL stage1 md5=a9349fff
+VS/vs10 rc=0 cmp=0 STRICT_EQUAL 325 objects md5=93a55300
+VS/vs11 rc=0 cmp=0 STRICT_EQUAL 331 objects md5=4ca2cbba
+VS/vs12 rc=0 cmp=0 STRICT_EQUAL 327 objects md5=c98d3985
+VT/vt01 rc=0 cmp=130 NOT_EQUAL stage1 md5=7407778e
+VT/vt02 rc=0 cmp=0 STRICT_NOTEQUAL name md5=8eb725aa
+VT/vt03 rc=0 cmp=0 STRICT_EQUAL 43 objects md5=e2bd315d
+VT/vt04 rc=0 cmp=0 STRICT_NOTEQUAL file md5=1d9ea694
+VT/vt05 rc=0 cmp=0 STRICT_EQUAL 26 objects md5=2ee151dc
+VT/vt06 rc=0 cmp=28 NOT_EQUAL stage1 md5=996958b0
+VT/vt07 rc=0 cmp=0 STRICT_EQUAL 38 objects md5=72b42270

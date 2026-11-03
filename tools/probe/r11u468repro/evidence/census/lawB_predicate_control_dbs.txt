@@ -1,0 +1,3 @@
+/tmp/intr11u466/svtests/work/testbenches/uvm_scoreboard_monitor_env/slang.uhdm 1 work@comparator.T->UVM_ALL_ON
+/tmp/intr11u466/svtests/work/testbenches/uvm_scoreboard_monitor_agent_env/slang.uhdm 1 work@comparator.T->UVM_ALL_ON
+/tmp/intr11u466/svtests/work/testbenches/uvm_scoreboard_env/slang.uhdm 1 work@comparator.T->UVM_ALL_ON

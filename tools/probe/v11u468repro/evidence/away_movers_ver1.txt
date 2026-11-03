@@ -1,0 +1,31 @@
+I/i10_copy rc=0 cmp=0 STRICT_EQUAL 153 objects md5=f053eaae
+F/f11 rc=0 cmp=0 STRICT_NOTEQUAL name md5=f031dcbb
+CS/c07_type_arg rc=0 cmp=0 STRICT_EQUAL 37 objects md5=8d99c683
+CS/c17_unit_prop_type_arg_only rc=0 cmp=0 STRICT_EQUAL 30 objects md5=e9014f1b
+CS/c24_string_type_arg rc=0 cmp=77 NOT_EQUAL stage1 md5=58a5ac9e
+SF/sf04 rc=0 cmp=0 STRICT_EQUAL 38 objects md5=cb084733
+SF/sf05 rc=0 cmp=0 STRICT_EQUAL 35 objects md5=70637982
+SF/sf06 rc=0 cmp=0 STRICT_EQUAL 42 objects md5=7a97c8a2
+SF/sf07 rc=0 cmp=0 STRICT_EQUAL 53 objects md5=9ed309ea
+CS/cs12 rc=0 cmp=56 NOT_EQUAL stage1 md5=d3696330
+KV/v13_spec_in_class_member rc=0 cmp=0 STRICT_EQUAL 29 objects md5=59e40b77
+KY/y07_nested_spec_in_class rc=0 cmp=81 NOT_EQUAL stage1 md5=2ce9a5aa
+VC/vc07_nested_spec_type_arg rc=0 cmp=0 STRICT_EQUAL 46 objects md5=7ef80dec
+VH/vh02_inc_nested rc=0 cmp=1296 NOT_EQUAL stage1 md5=9603dd70
+VK/vk21 rc=0 cmp=0 STRICT_EQUAL 34 objects md5=4d8c4258
+VR/vr03 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=b5f51db2
+VS/vs01 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=8f4a83b0
+VS/vs02 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=0eefcee8
+VS/vs03 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=7281bfb5
+VS/vs04 rc=0 cmp=0 STRICT_EQUAL 49 objects md5=4f8160b5
+VS/vs05 rc=0 cmp=0 STRICT_EQUAL 66 objects md5=d3d4745d
+VS/vs06 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=2cd5a145
+VS/vs07 rc=0 cmp=0 STRICT_EQUAL 61 objects md5=c60df2b1
+VS/vs08 rc=0 cmp=0 STRICT_EQUAL 56 objects md5=6ff1a6f0
+VS/vs10 rc=0 cmp=0 STRICT_EQUAL 55 objects md5=4f0fdc35
+VS/vs09 rc=0 cmp=0 STRICT_EQUAL 49 objects md5=8784ebab
+VS/vs11 rc=0 cmp=33 NOT_EQUAL stage1 md5=2a046e5f
+VS/vs13 rc=0 cmp=48 NOT_EQUAL stage1 md5=73802c19
+VS/vs12 rc=0 cmp=0 STRICT_EQUAL 64 objects md5=f50bf1a3
+VS/vs15 rc=0 cmp=0 STRICT_EQUAL 157 objects md5=a4aa8b0c
+VS/vs16 rc=0 cmp=0 STRICT_EQUAL 168 objects md5=7a564aa4

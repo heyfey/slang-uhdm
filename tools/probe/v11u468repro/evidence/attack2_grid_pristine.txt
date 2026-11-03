@@ -1,0 +1,9 @@
+VO/vo09 rc=0 cmp=689 NOT_EQUAL stage1 md5=3be84114
+VO/vo10 rc=0 cmp=0 STRICT_EQUAL 89 objects md5=a2c89c6a
+VO/vo11 rc=0 cmp=17 NOT_EQUAL stage1 md5=1f9c86f2
+VO/vo12 rc=0 cmp=366 NOT_EQUAL stage1 md5=e3f39e8c
+VO/vo13 rc=0 cmp=689 NOT_EQUAL stage1 md5=3337c736
+VO/vo14 rc=0 cmp=655 NOT_EQUAL stage1 md5=125bde6b
+VS/vs13 rc=0 cmp=56 NOT_EQUAL stage1 md5=68dd9616
+VS/vs14 rc=0 cmp=0 STRICT_EQUAL 197 objects md5=597721b3
+VS/vs15 rc=0 cmp=56 NOT_EQUAL stage1 md5=10b9e57a

@@ -19,6 +19,9 @@
 #include "slang/ast/ASTVisitor.h"
 
 namespace slang_uhdm {
+// § specNamedArgsAbstain468v (UhdmExporter.cpp): records a class_typespec
+// whose written specialization carries a named argument.
+void markNamedSpec468v(const UHDM::class_typespec* cts, const slang::syntax::SyntaxNode* syn);
 // § clsArrPatBasedLitElemW460 — defined in UhdmExporter.cpp (law text there).
 bool basedLitTakesElemW460(const UHDM::any* o);
 // § elemBitsByExprEvalSize460v — defined in UhdmExporter.cpp (fix text there).
@@ -4723,6 +4726,7 @@ UHDM::typespec* UhdmExporter::makeTypespec(const Symbol& declSymbol,
                     else {
                         emitClassTsParams(cts, ct0.as<ClassType>(),
                                           std::string(ct0.name));
+                        markNamedSpec468v(cts, declared->getTypeSyntax());  // § specNamedArgsAbstain468v
                         // § classSpecExprArgUnlocated202 — a MODULE variable
                         // written as a specialization takes its arguments'
                         // arms from its OWN `#(...)` (golden ClassTypeParam
@@ -25165,6 +25169,7 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
             // the specialization parameters are named under the module typedef
             // (golden r11u202 CT/c11 `work@top.m_misc.T`, the $unit form bare)
             emitClassTsParams(cts442, ct.as<ClassType>(), prefix + "." + std::string(ta.name));
+            markNamedSpec468v(cts442, typeSyn);  // § specNamedArgsAbstain468v
             cts442->VpiParent(m);
             if (typeSyn) {
                 auto r442 = typeSyn->sourceRange();

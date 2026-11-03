@@ -1,0 +1,2347 @@
+case,status,detail,strict
+chapter-10/10.3--proc-assignment--bad.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-10/10.3--proc-assignment--bad.sv:23:9: error: cannot assign to a net within a procedural context,
+chapter-10/10.3.1--net-decl-assignment.sv,EQUAL,,equal
+chapter-10/10.3.1--one-net.sv,EQUAL,,equal
+chapter-10/10.3.2--cont-assignment.sv,EQUAL,,equal
+chapter-10/10.3.3--cont-assignment-delay.sv,EQUAL,,equal
+chapter-10/10.3.3--cont-assignment-net-delay.sv,EQUAL,,equal
+chapter-10/10.4.1--blocking-assignment.sv,EQUAL,,equal
+chapter-10/10.4.2--non-blocking-assignment.sv,EQUAL,,equal
+chapter-10/10.6.1--assign-deassign.sv,EQUAL,,equal
+chapter-10/10.6.2--force-release.sv,EQUAL,,equal
+chapter-11/11.10--string_bit_array-sim.sv,EQUAL,,equal
+chapter-11/11.10--string_bit_array.sv,EQUAL,,equal
+chapter-11/11.10.1--string_compare.sv,EQUAL,,equal
+chapter-11/11.10.1--string_concat.sv,EQUAL,,equal
+chapter-11/11.10.1--string_copy.sv,EQUAL,,equal
+chapter-11/11.10.3--empty_string-sim.sv,EQUAL,,equal
+chapter-11/11.10.3--empty_string.sv,EQUAL,,equal
+chapter-11/11.11--min_max_avg_delay.sv,EQUAL,,equal
+chapter-11/11.12--let_construct.sv,EQUAL,,equal
+chapter-11/11.3.5--expr_short_circuit.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_exp-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_exp.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_expr-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_expr.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_expr_inv.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-11/11.3.6--assign_in_expr_inv.sv:23:9: error: assignment expressions must be parenthesized,
+chapter-11/11.3.6--assign_in_expression-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--assign_in_expression.sv,EQUAL,,equal
+chapter-11/11.3.6--assignment_in_expression-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--assignment_in_expression.sv,EQUAL,,equal
+chapter-11/11.3.6--two_assign_in_expr-sim.sv,EQUAL,,equal
+chapter-11/11.3.6--two_assign_in_expr.sv,EQUAL,,equal
+chapter-11/11.4.1--assignment-sim.sv,EQUAL,,equal
+chapter-11/11.4.10--arith-shift-assignment-signed.sv,EQUAL,,equal
+chapter-11/11.4.10--arith-shift-assignment-unsigned.sv,EQUAL,,equal
+chapter-11/11.4.10--arith-shift-signed.sv,EQUAL,,equal
+chapter-11/11.4.10--arith-shift-unsigned.sv,EQUAL,,equal
+chapter-11/11.4.11--cond_op-sim.sv,EQUAL,,equal
+chapter-11/11.4.11--cond_op.sv,EQUAL,,equal
+chapter-11/11.4.12--concat_op-bit_select.sv,EQUAL,,equal
+chapter-11/11.4.12--concat_op-sim.sv,EQUAL,,equal
+chapter-11/11.4.12--concat_op.sv,EQUAL,,equal
+chapter-11/11.4.12.1--nested_repl_op-sim.sv,EQUAL,,equal
+chapter-11/11.4.12.1--nested_repl_op.sv,EQUAL,,equal
+chapter-11/11.4.12.1--repl_op-sim.sv,EQUAL,,equal
+chapter-11/11.4.12.1--repl_op.sv,EQUAL,,equal
+chapter-11/11.4.12.2--string_concat_op.sv,EQUAL,,equal
+chapter-11/11.4.12.2--string_repl_op.sv,EQUAL,,equal
+chapter-11/11.4.13--set_member-sim.sv,EQUAL,,equal
+chapter-11/11.4.13--set_member.sv,EQUAL,,equal
+chapter-11/11.4.14.1--stream_concat-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.1--stream_concat.sv,EQUAL,,equal
+chapter-11/11.4.14.2--reorder_stream-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.2--reorder_stream.sv,EQUAL,,equal
+chapter-11/11.4.14.2--reorder_stream_byte-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.2--reorder_stream_byte.sv,EQUAL,,equal
+chapter-11/11.4.14.3--unpack_stream-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.3--unpack_stream.sv,EQUAL,,equal
+chapter-11/11.4.14.3--unpack_stream_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-11/11.4.14.3--unpack_stream_inv.sv:25:17: error: streaming operator target size 32 does not fit source size 96,
+chapter-11/11.4.14.3--unpack_stream_pad-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.3--unpack_stream_pad.sv,EQUAL,,equal
+chapter-11/11.4.14.4--dynamic_array_stream-sim.sv,EQUAL,,equal
+chapter-11/11.4.14.4--dynamic_array_stream.sv,EQUAL,,equal
+chapter-11/11.4.14.4--dynamic_array_stream_with.sv,EQUAL,,equal
+chapter-11/11.4.2--unary_op_dec-sim.sv,EQUAL,,equal
+chapter-11/11.4.2--unary_op_dec.sv,EQUAL,,equal
+chapter-11/11.4.2--unary_op_inc-sim.sv,EQUAL,,equal
+chapter-11/11.4.2--unary_op_inc.sv,EQUAL,,equal
+chapter-11/11.4.5--equality-op.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_neg_part_select-sim.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_neg_part_select.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_pos_part_select-sim.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_pos_part_select.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_select-sim.sv,EQUAL,,equal
+chapter-11/11.5.1--idx_select.sv,EQUAL,,equal
+chapter-11/11.5.1--non_idx_part_select-sim.sv,EQUAL,,equal
+chapter-11/11.5.1--non_idx_part_select.sv,EQUAL,,equal
+chapter-11/11.5.2--array_addressing-sim.sv,EQUAL,,equal
+chapter-11/11.5.2--array_addressing.sv,EQUAL,,equal
+chapter-11/11.5.2--multi_dim_array_addressing-sim.sv,EQUAL,,equal
+chapter-11/11.5.2--multi_dim_array_addressing.sv,EQUAL,,equal
+chapter-11/11.7--signed_func-sim.sv,EQUAL,,equal
+chapter-11/11.7--signed_func.sv,EQUAL,,equal
+chapter-11/11.7--unsigned_func-sim.sv,EQUAL,,equal
+chapter-11/11.7--unsigned_func.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access-sim.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access.sv,EQUAL,,equal
+chapter-11/11.9--tagged_union_member_access_inv.sv,EQUAL,,equal
+chapter-11/simple/11.4.11--simple_cond_op-sim.sv,EQUAL,,equal
+chapter-11/simple/11.4.12--simple_concat_op-sim.sv,EQUAL,,equal
+chapter-11/simple/11.4.12.1--simple_repl_op-sim.sv,EQUAL,,equal
+chapter-11/simple/11.4.13--simple_set_member-sim.sv,EQUAL,,equal
+chapter-11/simple/11.4.14.3--simple_unpack_stream-sim.sv,EQUAL,,equal
+chapter-11/simple/11.5.1--simple_idx_neg_part_select-sim.sv,EQUAL,,equal
+chapter-11/simple/11.5.1--simple_idx_pos_part_select-sim.sv,EQUAL,,equal
+chapter-11/simple/11.5.1--simple_idx_select-sim.sv,EQUAL,,equal
+chapter-11/simple/11.5.1--simple_non_idx_part_select-sim.sv,EQUAL,,equal
+chapter-11/simple/11.5.2--simple_array_addressing-sim.sv,EQUAL,,equal
+chapter-12/12.4--if.sv,EQUAL,,equal
+chapter-12/12.4--if_else.sv,EQUAL,,equal
+chapter-12/12.4.1--if_else_if.sv,EQUAL,,equal
+chapter-12/12.4.2--priority_if.sv,EQUAL,,equal
+chapter-12/12.4.2--unique0_if.sv,EQUAL,,equal
+chapter-12/12.4.2--unique_if.sv,EQUAL,,equal
+chapter-12/12.5--case.sv,EQUAL,,equal
+chapter-12/12.5.1--casex.sv,EQUAL,,equal
+chapter-12/12.5.1--casez.sv,EQUAL,,equal
+chapter-12/12.5.2--case_const.sv,EQUAL,,equal
+chapter-12/12.5.4--case_set.sv,EQUAL,,equal
+chapter-12/12.6.1--case_pattern.sv,EQUAL,,equal
+chapter-12/12.6.1--casex_pattern.sv,EQUAL,,equal
+chapter-12/12.6.1--casez_pattern.sv,EQUAL,,equal
+chapter-12/12.6.2--if_pattern.sv,EQUAL,,equal
+chapter-12/12.6.3--conditional_pattern.sv,EQUAL,,equal
+chapter-12/12.7.1--for.sv,EQUAL,,equal
+chapter-12/12.7.2--repeat.sv,EQUAL,,equal
+chapter-12/12.7.3--foreach-synth.sv,EQUAL,,equal
+chapter-12/12.7.3--foreach.sv,EQUAL,,equal
+chapter-12/12.7.4--while.sv,EQUAL,,equal
+chapter-12/12.7.5--dowhile.sv,EQUAL,,equal
+chapter-12/12.7.6--forever.sv,EQUAL,,equal
+chapter-12/12.8--break.sv,EQUAL,,equal
+chapter-12/12.8--continue.sv,EQUAL,,equal
+chapter-12/12.8--return.sv,EQUAL,,equal
+chapter-12/12.8--return_val.sv,EQUAL,,equal
+chapter-13/13.3--task-label.sv,EQUAL,,equal
+chapter-13/13.3--task.sv,EQUAL,,equal
+chapter-13/13.3.1--task-automatic.sv,EQUAL,,equal
+chapter-13/13.3.1--task-static.sv,EQUAL,,equal
+chapter-13/13.4--function-label.sv,EQUAL,,equal
+chapter-13/13.4--function.sv,EQUAL,,equal
+chapter-13/13.4.1--function-return-assignment.sv,EQUAL,,equal
+chapter-13/13.4.1--function-return.sv,EQUAL,,equal
+chapter-13/13.4.1--function-void-return.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-13/13.4.1--function-void-return.sv:21:9: error: value of type 'int' cannot be assigned to type 'void',
+chapter-13/13.4.2--function-automatic.sv,EQUAL,,equal
+chapter-13/13.4.2--function-recursive.sv,EQUAL,,equal
+chapter-13/13.4.2--function-static.sv,EQUAL,,equal
+chapter-13/13.4.3--const-function.sv,EQUAL,,equal
+chapter-13/13.4.4--fork-invalid.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-13/13.4.4--fork-invalid.sv:24:9: error: statements that pass time are not allowed in this context,
+chapter-13/13.4.4--fork-valid.sv,EQUAL,,equal
+chapter-14/14.3--clocking-block-signals-error.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-14/14.3--clocking-block-signals-error.sv:28:9: error: cannot assign to a net within a procedural context,
+chapter-14/14.3--clocking-block-signals.sv,EQUAL,,equal
+chapter-14/14.3--clocking-block.sv,EQUAL,,equal
+chapter-14/14.3--default-clocking-block.sv,EQUAL,,equal
+chapter-14/14.3--global-clocking-block.sv,EQUAL,,equal
+chapter-15/15.4--mailbox-blocking.sv,EQUAL,,equal
+chapter-15/15.4--mailbox-non-blocking.sv,EQUAL,,equal
+chapter-15/15.5.1--named-event-trigger-blocking.sv,EQUAL,,equal
+chapter-15/15.5.1--named-event-trigger-non-blocking.sv,EQUAL,,equal
+chapter-15/15.5.2--named-event-wait.sv,EQUAL,,equal
+chapter-16/16.10--property-local-var-fail.sv,EQUAL,,equal
+chapter-16/16.10--property-local-var-uvm.sv,EQUAL,,equal
+chapter-16/16.10--property-local-var.sv,EQUAL,,equal
+chapter-16/16.10--sequence-local-var-fail.sv,EQUAL,,equal
+chapter-16/16.10--sequence-local-var-uvm.sv,EQUAL,,equal
+chapter-16/16.10--sequence-local-var.sv,EQUAL,,equal
+chapter-16/16.11--sequence-subroutine-uvm.sv,EQUAL,,equal
+chapter-16/16.12--property-disable-iff.sv,EQUAL,,equal
+chapter-16/16.12--property-disj.sv,EQUAL,,equal
+chapter-16/16.12--property-iff.sv,EQUAL,,equal
+chapter-16/16.12--property-interface-prec-uvm.sv,EQUAL,,equal
+chapter-16/16.12--property-interface-uvm.sv,EQUAL,,equal
+chapter-16/16.12--property-prec-uvm.sv,EQUAL,,equal
+chapter-16/16.12--property-prec.sv,EQUAL,,equal
+chapter-16/16.12--property-uvm.sv,EQUAL,,equal
+chapter-16/16.12--property.sv,EQUAL,,equal
+chapter-16/16.13--sequence-multiclock-uvm.sv,EQUAL,,equal
+chapter-16/16.14--assume-property-uvm.sv,EQUAL,,equal
+chapter-16/16.14--assume-property.sv,EQUAL,,equal
+chapter-16/16.15--property-disable-iff-fail.sv,SLANG_ONLY,[  ERROR] : 1,
+chapter-16/16.15--property-disable-iff.sv,SLANG_ONLY,[  ERROR] : 1,
+chapter-16/16.15--property-iff-uvm.sv,EQUAL,,equal
+chapter-16/16.17--expect-uvm.sv,EQUAL,,equal
+chapter-16/16.17--expect.sv,EQUAL,,equal
+chapter-16/16.2--assert-final-uvm.sv,EQUAL,,equal
+chapter-16/16.2--assert-final.sv,EQUAL,,equal
+chapter-16/16.2--assert-uvm.sv,EQUAL,,equal
+chapter-16/16.2--assert.sv,EQUAL,,equal
+chapter-16/16.2--assert0-uvm.sv,EQUAL,,equal
+chapter-16/16.2--assert0.sv,EQUAL,,equal
+chapter-16/16.2--assume-final.sv,EQUAL,,equal
+chapter-16/16.2--assume-uvm.sv,EQUAL,,equal
+chapter-16/16.2--assume.sv,EQUAL,,equal
+chapter-16/16.2--assume0.sv,EQUAL,,equal
+chapter-16/16.2--cover-final.sv,EQUAL,,equal
+chapter-16/16.2--cover.sv,EQUAL,,equal
+chapter-16/16.2--cover0.sv,EQUAL,,equal
+chapter-16/16.7--sequence-and-range-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-and-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-intersect-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-or-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-throughout-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence-uvm.sv,EQUAL,,equal
+chapter-16/16.7--sequence.sv,EQUAL,,equal
+chapter-16/16.9--sequence-changed-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-cons-repetition.sv,EQUAL,,equal
+chapter-16/16.9--sequence-fell-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-goto-repetition.sv,EQUAL,,equal
+chapter-16/16.9--sequence-noncons-repetition.sv,EQUAL,,equal
+chapter-16/16.9--sequence-past-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-rose-uvm.sv,EQUAL,,equal
+chapter-16/16.9--sequence-stable-uvm.sv,EQUAL,,equal
+chapter-18/18.10--dynamic-constraint-modification_0.sv,EQUAL,,equal
+chapter-18/18.11--in-line-random-variable-control_0.sv,EQUAL,,equal
+chapter-18/18.11--in-line-random-variable-control_1.sv,EQUAL,,equal
+chapter-18/18.11.1--in-line-constraint-checker_0.sv,EQUAL,,equal
+chapter-18/18.11.1--in-line-constraint-checker_1.sv,EQUAL,,equal
+chapter-18/18.12--randomization-of-scope-variables_0.sv,EQUAL,,equal
+chapter-18/18.12--randomization-of-scope-variables_1.sv,EQUAL,,equal
+chapter-18/18.12.1--adding-constraints-to-scope-variables_0.sv,EQUAL,,equal
+chapter-18/18.12.1--adding-constraints-to-scope-variables_1.sv,EQUAL,,equal
+chapter-18/18.13.1--urandom_0.sv,EQUAL,,equal
+chapter-18/18.13.1--urandom_1.sv,EQUAL,,equal
+chapter-18/18.13.1--urandom_2.sv,EQUAL,,equal
+chapter-18/18.13.1--urandom_3.sv,EQUAL,,equal
+chapter-18/18.13.2--urandom_range_0.sv,EQUAL,,equal
+chapter-18/18.13.2--urandom_range_1.sv,EQUAL,,equal
+chapter-18/18.13.2--urandom_range_2.sv,EQUAL,,equal
+chapter-18/18.13.2--urandom_range_3.sv,EQUAL,,equal
+chapter-18/18.13.3--srandom_0.sv,EQUAL,,equal
+chapter-18/18.13.4--get_randstate_0.sv,EQUAL,,equal
+chapter-18/18.13.5--set_randstate_0.sv,EQUAL,,equal
+chapter-18/18.14--random-stability_0.sv,EQUAL,,equal
+chapter-18/18.14--random-stability_1.sv,EQUAL,,equal
+chapter-18/18.14--random-stability_2.sv,EQUAL,,equal
+chapter-18/18.14--random-stability_3.sv,EQUAL,,equal
+chapter-18/18.14.2--thread-stability_0.sv,EQUAL,,equal
+chapter-18/18.14.2--thread-stability_1.sv,EQUAL,,equal
+chapter-18/18.14.3--object-stability_0.sv,EQUAL,,equal
+chapter-18/18.14.3--object-stability_1.sv,EQUAL,,equal
+chapter-18/18.15--manually-seeding-randomize_0.sv,EQUAL,,equal
+chapter-18/18.15--manually-seeding-randomize_1.sv,EQUAL,,equal
+chapter-18/18.16--random-weighted-case-randcase_0.sv,EQUAL,,equal
+chapter-18/18.16--random-weighted-case-randcase_2.sv,EQUAL,,equal
+chapter-18/18.17--random-sequence-generation-randsequence_0.sv,EQUAL,,equal
+chapter-18/18.17--random-sequence-generation-randsequence_2.sv,EQUAL,,equal
+chapter-18/18.17.1--random-production-weights_0.sv,EQUAL,,equal
+chapter-18/18.17.2--if-else-production-statements_0.sv,EQUAL,,equal
+chapter-18/18.17.2--if-else-production-statements_0_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.2--if-else-production-statements_0_fail.sv:23:20: error: use of undeclared identifier 'switch',
+chapter-18/18.17.2--if-else-production-statements_2.sv,EQUAL,,equal
+chapter-18/18.17.2--if-else-production-statements_2_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.2--if-else-production-statements_2_fail.sv:23:18: error: use of undeclared identifier 'switch',
+chapter-18/18.17.3--case-production-statements_0.sv,SLANG_ONLY,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.3--case-production-statements_0.sv:23:18: Syntax error: extraneous input ';' expecting {''b0,
+chapter-18/18.17.3--case-production-statements_0_fail.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.3--case-production-statements_0_fail.sv:22:20: error: use of undeclared identifier 'switch',
+chapter-18/18.17.4--repeat-production-statements_0.sv,EQUAL,,equal
+chapter-18/18.17.5--interleaving-productions-rand-join_0.sv,EQUAL,,equal
+chapter-18/18.17.5--interleaving-productions-rand-join_2.sv,EQUAL,,equal
+chapter-18/18.17.6--aborting-productions-break-and-return_0.sv,EQUAL,,equal
+chapter-18/18.17.6--aborting-productions-break-and-return_2.sv,EQUAL,,equal
+chapter-18/18.17.6--aborting-productions-break-and-return_2_fail.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.17.6--aborting-productions-break-and-return_2_fail.sv:23:20: error: use of undeclared identifier 'secondi',
+chapter-18/18.17.7--value-passing-between-productions_0.sv,EQUAL,,equal
+chapter-18/18.4.1--rand-modifier.sv,EQUAL,,equal
+chapter-18/18.4.2--randc-modifier.sv,EQUAL,,equal
+chapter-18/18.5--constraint-blocks_0.sv,EQUAL,,equal
+chapter-18/18.5--constraint-blocks_1.sv,EQUAL,,equal
+chapter-18/18.5.1--explicit-external-constraint_0.sv,EQUAL,,equal
+chapter-18/18.5.1--explicit-external-constraint_1.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.1--explicit-external-constraint_1.sv:20:23: error: implementation not found in parent scope for 'c' [-Wmem,
+chapter-18/18.5.1--explicit-external-constraint_2.sv,EQUAL,,equal
+chapter-18/18.5.1--implicit-external-constraint_0.sv,EQUAL,,equal
+chapter-18/18.5.1--implicit-external-constraint_1.sv,EQUAL,,equal
+chapter-18/18.5.1--implicit-external-constraint_2.sv,EQUAL,,equal
+chapter-18/18.5.10--variable-ordering_0.sv,EQUAL,,equal
+chapter-18/18.5.10--variable-ordering_1.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.10--variable-ordering_1.sv:23:37: error: 'randc' variables cannot be used in 'solve before' constraints,
+chapter-18/18.5.11--static-constraint-blocks_0.sv,EQUAL,,equal
+chapter-18/18.5.11--static-constraint-blocks_1.sv,SLANG_ONLY,[  ERROR] : 1,
+chapter-18/18.5.12--functions-in-constraint_0.sv,EQUAL,,equal
+chapter-18/18.5.12--functions-in-constraint_1.sv,EQUAL,,equal
+chapter-18/18.5.13--constraint-guards_0.sv,EQUAL,,equal
+chapter-18/18.5.13--constraint-guards_1.sv,EQUAL,,equal
+chapter-18/18.5.14--soft-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.14--soft-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.14--soft-constraints_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.14--soft-constraints_2.sv:23:14: error: 'randc' variables cannot be used in 'soft' constraints,
+chapter-18/18.5.14.1--soft-constraint-priorities_0.sv,EQUAL,,equal
+chapter-18/18.5.14.1--soft-constraint-priorities_1.sv,EQUAL,,equal
+chapter-18/18.5.14.1--soft-constraint-priorities_2.sv,EQUAL,,equal
+chapter-18/18.5.14.1--soft-constraint-priorities_3.sv,EQUAL,,equal
+chapter-18/18.5.14.1--soft-constraint-priorities_4.sv,EQUAL,,equal
+chapter-18/18.5.14.2--discarding-soft-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.14.2--discarding-soft-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.14.2--discarding-soft-constraints_2.sv,EQUAL,,equal
+chapter-18/18.5.14.2--discarding-soft-constraints_3.sv,EQUAL,,equal
+chapter-18/18.5.14.2--discarding-soft-constraints_5.sv,EQUAL,,equal
+chapter-18/18.5.2--constraint-inheritance_0.sv,EQUAL,,equal
+chapter-18/18.5.2--constraint-inheritance_1.sv,EQUAL,,equal
+chapter-18/18.5.2--pure-constraint_0.sv,EQUAL,,equal
+chapter-18/18.5.2--pure-constraint_1.sv,EQUAL,,equal
+chapter-18/18.5.2--pure-constraint_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.2--pure-constraint_2.sv:22:10: error: 'a2' cannot inherit from virtual class 'a' without providing an impl,
+chapter-18/18.5.2--pure-constraint_3.sv,EQUAL,,equal
+chapter-18/18.5.3--set-membership_0.sv,EQUAL,,equal
+chapter-18/18.5.3--set-membership_1.sv,EQUAL,,equal
+chapter-18/18.5.4--distribution_0.sv,EQUAL,,equal
+chapter-18/18.5.4--distribution_1.sv,EQUAL,,equal
+chapter-18/18.5.4--distribution_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.5.4--distribution_2.sv:20:20: error: 'randc' variables cannot be used in 'dist' constraints,
+chapter-18/18.5.5--uniqueness-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.5--uniqueness-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.6--implication_0.sv,EQUAL,,equal
+chapter-18/18.5.6--implication_1.sv,EQUAL,,equal
+chapter-18/18.5.7--if-else-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.7--if-else-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.7--if-else-constraints_2.sv,EQUAL,,equal
+chapter-18/18.5.7--if-else-constraints_3.sv,EQUAL,,equal
+chapter-18/18.5.7--if-else-constraints_4.sv,EQUAL,,equal
+chapter-18/18.5.8.1--foreach-iterative-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.8.1--foreach-iterative-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.8.2--array-reduction-iterative-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.8.2--array-reduction-iterative-constraints_1.sv,EQUAL,,equal
+chapter-18/18.5.9--global-constraints_0.sv,EQUAL,,equal
+chapter-18/18.5.9--global-constraints_1.sv,EQUAL,,equal
+chapter-18/18.6.1--randomize-method_0.sv,EQUAL,,equal
+chapter-18/18.6.2--post-randomize_method_0.sv,EQUAL,,equal
+chapter-18/18.6.2--post-randomize_method_1.sv,EQUAL,,equal
+chapter-18/18.6.2--pre-randomize-method_0.sv,EQUAL,,equal
+chapter-18/18.6.2--pre-randomize-method_1.sv,EQUAL,,equal
+chapter-18/18.6.3--behavior-of-randomization-methods_0.sv,EQUAL,,equal
+chapter-18/18.6.3--behavior-of-randomization-methods_1.sv,EQUAL,,equal
+chapter-18/18.6.3--behavior-of-randomization-methods_2.sv,EQUAL,,equal
+chapter-18/18.6.3--behavior-of-randomization-methods_3.sv,EQUAL,,equal
+chapter-18/18.6.3--behavior-of-randomization-methods_4.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.6.3--behavior-of-randomization-methods_4.sv:22:19: error: cannot override built-in method 'randomize',
+chapter-18/18.6.3--behavior-of-randomization-methods_5.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.6.3--behavior-of-randomization-methods_5.sv:27:19: error: cannot override built-in method 'randomize',
+chapter-18/18.7--in-line-constraints--randomize_0.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_1.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_2.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_3.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_4.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_5.sv,EQUAL,,equal
+chapter-18/18.7--in-line-constraints--randomize_6.sv,EQUAL,,equal
+chapter-18/18.7.1--local-scope-resolution_0.sv,EQUAL,,equal
+chapter-18/18.7.1--local-scope-resolution_1.sv,EQUAL,,equal
+chapter-18/18.8--disabling-random-variables-with-rand_mode_0.sv,EQUAL,,equal
+chapter-18/18.8--disabling-random-variables-with-rand_mode_1.sv,EQUAL,,equal
+chapter-18/18.8--disabling-random-variables-with-rand_mode_2.sv,EQUAL,,equal
+chapter-18/18.8--disabling-random-variables-with-rand_mode_3.sv,EQUAL,,equal
+chapter-18/18.8--disabling-random-variables-with-rand_mode_4.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.8--disabling-random-variables-with-rand_mode_4.sv:20:18: error: cannot override built-in method 'rand_mode',
+chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.8--disabling-random-variables-with-rand_mode_5.sv:25:18: error: cannot override built-in method 'rand_mode',
+chapter-18/18.9--controlling-constraints-with-constraint_mode_0.sv,EQUAL,,equal
+chapter-18/18.9--controlling-constraints-with-constraint_mode_1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.9--controlling-constraints-with-constraint_mode_1.sv:20:18: error: cannot override built-in method 'constrai,
+chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-18/18.9--controlling-constraints-with-constraint_mode_2.sv:25:18: error: cannot override built-in method 'constrai,
+chapter-20/20.10--error.sv,EQUAL,,equal
+chapter-20/20.10--fatal.sv,EQUAL,,equal
+chapter-20/20.10--info.sv,EQUAL,,equal
+chapter-20/20.10--warning.sv,EQUAL,,equal
+chapter-20/20.14--coverage.sv,SLANG_ONLY,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/chapter-20/20.14--coverage.sv:28:46: Syntax error: no viable alternative at input 'module top();\n    int uns,
+chapter-20/20.15--dist_chi_square.sv,EQUAL,,equal
+chapter-20/20.15--dist_erlang.sv,EQUAL,,equal
+chapter-20/20.15--dist_exponential.sv,EQUAL,,equal
+chapter-20/20.15--dist_normal.sv,EQUAL,,equal
+chapter-20/20.15--dist_poisson.sv,EQUAL,,equal
+chapter-20/20.15--dist_t.sv,EQUAL,,equal
+chapter-20/20.15--dist_uniform.sv,EQUAL,,equal
+chapter-20/20.15--random.sv,EQUAL,,equal
+chapter-20/20.2--exit.sv,EQUAL,,equal
+chapter-20/20.2--finish.sv,EQUAL,,equal
+chapter-20/20.2--stop.sv,EQUAL,,equal
+chapter-20/20.3--realtime.sv,EQUAL,,equal
+chapter-20/20.3--stime.sv,EQUAL,,equal
+chapter-20/20.3--time.sv,EQUAL,,equal
+chapter-20/20.4--printtimescale-hier.sv,EQUAL,,equal
+chapter-20/20.4--printtimescale.sv,EQUAL,,equal
+chapter-20/20.4--timeformat.sv,EQUAL,,equal
+chapter-20/20.5--itor.sv,EQUAL,,equal
+chapter-20/20.5--real-bits-conv.sv,EQUAL,,equal
+chapter-20/20.5--rtoi.sv,EQUAL,,equal
+chapter-20/20.5--shortreal-bits-conv.sv,EQUAL,,equal
+chapter-20/20.6--bits.sv,EQUAL,,equal
+chapter-20/20.6--bits_type.sv,EQUAL,,equal
+chapter-20/20.6--isunbounded.sv,EQUAL,,equal
+chapter-20/20.6--typename.sv,EQUAL,,equal
+chapter-20/20.6--typename_type.sv,EQUAL,,equal
+chapter-20/20.7--array-queries-multi-dim.sv,EQUAL,,equal
+chapter-20/20.7--array-queries.sv,EQUAL,,equal
+chapter-20/20.8--atan2.sv,EQUAL,,equal
+chapter-20/20.8--ceil.sv,EQUAL,,equal
+chapter-20/20.8--clog2.sv,EQUAL,,equal
+chapter-20/20.8--exp.sv,EQUAL,,equal
+chapter-20/20.8--floor.sv,EQUAL,,equal
+chapter-20/20.8--hypot.sv,EQUAL,,equal
+chapter-20/20.8--ln.sv,EQUAL,,equal
+chapter-20/20.8--log10.sv,EQUAL,,equal
+chapter-20/20.8--pow.sv,EQUAL,,equal
+chapter-20/20.8--sqrt.sv,EQUAL,,equal
+chapter-20/20.9--countbits.sv,EQUAL,,equal
+chapter-20/20.9--isunknown.sv,EQUAL,,equal
+chapter-20/20.9--onehot.sv,EQUAL,,equal
+chapter-20/20.9--onehot0.sv,EQUAL,,equal
+chapter-21/21.2--display-boh.sv,EQUAL,,equal
+chapter-21/21.2--display.sv,EQUAL,,equal
+chapter-21/21.2--monitor.sv,EQUAL,,equal
+chapter-21/21.2--strobe.sv,EQUAL,,equal
+chapter-21/21.2--write-boh.sv,EQUAL,,equal
+chapter-21/21.2--write.sv,EQUAL,,equal
+chapter-21/21.3--fdisplay-boh.sv,EQUAL,,equal
+chapter-21/21.3--fdisplay.sv,EQUAL,,equal
+chapter-21/21.3--feof.sv,EQUAL,,equal
+chapter-21/21.3--ferror.sv,EQUAL,,equal
+chapter-21/21.3--fflush.sv,EQUAL,,equal
+chapter-21/21.3--fgetc.sv,EQUAL,,equal
+chapter-21/21.3--fgets.sv,EQUAL,,equal
+chapter-21/21.3--file.sv,EQUAL,,equal
+chapter-21/21.3--fmonitor.sv,EQUAL,,equal
+chapter-21/21.3--fpos.sv,EQUAL,,equal
+chapter-21/21.3--fread.sv,EQUAL,,equal
+chapter-21/21.3--fscanf.sv,EQUAL,,equal
+chapter-21/21.3--fstrobe.sv,EQUAL,,equal
+chapter-21/21.3--fwrite-boh.sv,EQUAL,,equal
+chapter-21/21.3--fwrite.sv,EQUAL,,equal
+chapter-21/21.3--sscanf.sv,EQUAL,,equal
+chapter-21/21.3--ungetc.sv,EQUAL,,equal
+chapter-21/21.4--readmemb.sv,EQUAL,,equal
+chapter-21/21.4--readmemh.sv,EQUAL,,equal
+chapter-21/21.6--test.sv,EQUAL,,equal
+chapter-21/21.6--value.sv,EQUAL,,equal
+chapter-21/21.7--dumpfile.sv,EQUAL,,equal
+chapter-21/21.7--dumpports.sv,EQUAL,,equal
+chapter-22/22.10--celldefine-basic-1.sv,EQUAL,,equal
+chapter-22/22.10--celldefine-basic-2.sv,EQUAL,,equal
+chapter-22/22.11--pragma-basic.sv,EQUAL,,equal
+chapter-22/22.11--pragma-complex.sv,EQUAL,,equal
+chapter-22/22.11--pragma-invalid.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.11--pragma-invalid.sv:17:8: error: expected pragma name,
+chapter-22/22.11--pragma-nested.sv,EQUAL,,equal
+chapter-22/22.11--pragma-number-multi.sv,EQUAL,,equal
+chapter-22/22.11--pragma-number.sv,EQUAL,,equal
+chapter-22/22.12--line-basic.sv,EQUAL,,equal
+chapter-22/22.12--line-complex.sv,EQUAL,,equal
+chapter-22/22.12--line-illegal-1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.12--line-illegal-1.sv:17:20: error: invalid level for `line directive; must be 0; 1; or 2,
+chapter-22/22.12--line-illegal-2.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.12--line-illegal-2.sv:17:8: error: expected string literal,
+chapter-22/22.12--line-illegal-3.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.12--line-illegal-3.sv:17:6: error: expected integer literal,
+chapter-22/22.12--line-illegal-4.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.12--line-illegal-4.sv:17:19: error: expected integer literal,
+chapter-22/22.12--line-illegal-5.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.12--line-illegal-5.sv:17:8: error: expected string literal,
+chapter-22/22.3--resetall_basic.sv,EQUAL,,equal
+chapter-22/22.3--resetall_illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.3--resetall_illegal.sv:19:1: error: directive is not allowed inside a design element,
+chapter-22/22.3--resetall_multiple.sv,EQUAL,,equal
+chapter-22/22.4--check_included_definitions.sv,EQUAL,,equal
+chapter-22/22.4--include_basic.sv,EQUAL,,equal
+chapter-22/22.4--include_basic_rpath.sv,EQUAL,,equal
+chapter-22/22.4--include_from_other_directory.sv,EQUAL,,equal
+chapter-22/22.4--include_via_define.sv,EQUAL,,equal
+chapter-22/22.4--include_with_comment.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_1.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_10.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_11.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_12.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_12.sv:19:13: error: not enough arguments provided to function-like macro,
+chapter-22/22.5.1--define-expansion_13.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_14.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_15.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_16.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_17.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_18.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_18.sv:19:8: error: expected macro arguments for function-like macro,
+chapter-22/22.5.1--define-expansion_19.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_2.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_20.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_21.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_21.sv:17:36: error: missing closing quote,
+chapter-22/22.5.1--define-expansion_22.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_23.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_23.sv:17:9: error: can't redefine compiler directive as a macro,
+chapter-22/22.5.1--define-expansion_24.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_25.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_26.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_26.sv:18:26: error: use of undeclared identifier 'clock_master',
+chapter-22/22.5.1--define-expansion_3.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_4.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_5.sv,EQUAL,,equal
+chapter-22/22.5.1--define-expansion_6.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_6.sv:19:10: error: not enough arguments provided to function-like macro,
+chapter-22/22.5.1--define-expansion_7.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_7.sv:18:4: error: not enough arguments provided to function-like macro,
+chapter-22/22.5.1--define-expansion_8.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.5.1--define-expansion_8.sv:18:3: error: too many arguments provided to function-like macro,
+chapter-22/22.5.1--define-expansion_9.sv,EQUAL,,equal
+chapter-22/22.5.1--define.sv,EQUAL,,equal
+chapter-22/22.5.1--define_and_resetall.sv,EQUAL,,equal
+chapter-22/22.5.1--include-define-expansion.sv,EQUAL,,equal
+chapter-22/22.5.2--undef-basic.sv,EQUAL,,equal
+chapter-22/22.5.2--undef-nonexisting.sv,EQUAL,,equal
+chapter-22/22.5.3--undefineall-and-redefine.sv,EQUAL,,equal
+chapter-22/22.5.3--undefineall-basic.sv,EQUAL,,equal
+chapter-22/22.6--ifdef-behavioral.sv,EQUAL,,equal
+chapter-22/22.6--ifdef-chained-nested.sv,EQUAL,,equal
+chapter-22/22.6--ifdef-nested.sv,EQUAL,,equal
+chapter-22/22.7--timescale-basic-1.sv,EQUAL,,equal
+chapter-22/22.7--timescale-basic-2.sv,EQUAL,,equal
+chapter-22/22.7--timescale-basic-3.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.7--timescale-basic-3.sv:17:12: error: time scale must have a value of 1; 10; or 100,
+chapter-22/22.7--timescale-basic-4.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.7--timescale-basic-4.sv:17:19: error: time precision must be at least as precise as the time unit (i.e. it c,
+chapter-22/22.7--timescale-module.sv,EQUAL,,equal
+chapter-22/22.7--timescale-reset.sv,EQUAL,,equal
+chapter-22/22.8--default_nettype-redefinition.sv,EQUAL,,equal
+chapter-22/22.8--default_nettype.sv,EQUAL,,equal
+chapter-22/22.9--unconnected_drive-basic-2.sv,EQUAL,,equal
+chapter-22/22.9--unconnected_drive-basic.sv,EQUAL,,equal
+chapter-22/22.9--unconnected_drive-invalid-1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.9--unconnected_drive-invalid-1.sv:17:19: error: expected pull1 or pull0 strength,
+chapter-22/22.9--unconnected_drive-invalid-2.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.9--unconnected_drive-invalid-2.sv:17:19: error: expected pull1 or pull0 strength,
+chapter-22/22.9--unconnected_drive-invalid-3.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-22/22.9--unconnected_drive-invalid-3.sv:18:22: error: expected member,
+chapter-22/dummy_include.sv,EQUAL,,equal
+chapter-22/include_directory/defs.sv,EQUAL,,equal
+chapter-23/23.2--macromodule-definition.sv,EQUAL,,equal
+chapter-23/23.2--module-definition.sv,EQUAL,,equal
+chapter-23/23.2--module-label.sv,EQUAL,,equal
+chapter-24/24.3--program.sv,EQUAL,,equal
+chapter-25/25.3-interface.sv,EQUAL,,equal
+chapter-26/26.2--package-decl.sv,EQUAL,,equal
+chapter-26/26.3--package-ref.sv,EQUAL,,equal
+chapter-5/5.10-structure-arrays-illegal.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.10-structure-arrays-illegal.sv:24:20: error: value of type 'int' cannot be assigned to type 'ms_t',
+chapter-5/5.10-structure-arrays.sv,EQUAL,,equal
+chapter-5/5.10-structure-replication.sv,EQUAL,,equal
+chapter-5/5.10-structures.sv,EQUAL,,equal
+chapter-5/5.11-arrays-key-index.sv,EQUAL,,equal
+chapter-5/5.11-arrays-replication.sv,EQUAL,,equal
+chapter-5/5.11-arrays.sv,EQUAL,,equal
+chapter-5/5.12-attributes-case.sv,EQUAL,,equal
+chapter-5/5.12-attributes-conditional.sv,EQUAL,,equal
+chapter-5/5.12-attributes-module.sv,EQUAL,,equal
+chapter-5/5.12-attributes-operator.sv,EQUAL,,equal
+chapter-5/5.12-attributes-variable.sv,EQUAL,,equal
+chapter-5/5.13-builtin-methods-strings.sv,EQUAL,,equal
+chapter-5/5.4--coments.sv,EQUAL,,equal
+chapter-5/5.6--identifiers.sv,EQUAL,,equal
+chapter-5/5.6--wrong-identifiers.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.6--wrong-identifiers.sv:17:7: error: expected a declaration name,
+chapter-5/5.6.1--escaped-identifiers.sv,EQUAL,,equal
+chapter-5/5.6.1--nonescaped-access.sv,EQUAL,,equal
+chapter-5/5.6.3--system-functions.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-begin-keywords.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-celldefine.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-debug-line.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-debug.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-default-nettype.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-define.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-include.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-pragma.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-preprocessor-macro_0.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-preprocessor-macro_1.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-resetall.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-timescale.sv,EQUAL,,equal
+chapter-5/5.6.4--compiler-directives-unconnected-drive.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-left-padding-bit.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-left-padding.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-signed-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.1--integers-signed-illegal.sv:20:12: error: expected vector literal digits,
+chapter-5/5.7.1--integers-signed.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-sized.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-token.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-underscores.sv,EQUAL,,equal
+chapter-5/5.7.1--integers-unsized-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.1--integers-unsized-illegal.sv:20:10: error: expected ';',
+chapter-5/5.7.1--integers-unsized.sv,EQUAL,,equal
+chapter-5/5.7.2-real-constants-illegal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-5/5.7.2-real-constants-illegal.sv:20:8: error: expected identifier,
+chapter-5/5.7.2-real-constants.sv,EQUAL,,equal
+chapter-5/5.7.2-real-token.sv,EQUAL,,equal
+chapter-5/5.8-time-literals.sv,EQUAL,,equal
+chapter-5/5.9-string-assignment.sv,EQUAL,,equal
+chapter-5/5.9-string-basics.sv,EQUAL,,equal
+chapter-5/5.9-string-broken-line.sv,EQUAL,,equal
+chapter-5/5.9-string-word-assignment.sv,EQUAL,,equal
+chapter-5/5.9.1-string-special-chars.sv,EQUAL,,equal
+chapter-6/6.10--implicit_continuous_assignment.sv,EQUAL,,equal
+chapter-6/6.10--implicit_port.sv,EQUAL,,equal
+chapter-6/6.10--implicit_port_connection.sv,EQUAL,,equal
+chapter-6/6.12--real.sv,EQUAL,,equal
+chapter-6/6.12--real_bit_select.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_bit_select.sv:22:22: error: value of type 'real' cannot be indexed,
+chapter-6/6.12--real_bit_select_idx.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_bit_select_idx.sv:23:22: error: expression type 'real' is not integral,
+chapter-6/6.12--real_edge.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.12--real_edge.sv:20:26: error: expression type 'real' is not integral,
+chapter-6/6.12--realtime.sv,EQUAL,,equal
+chapter-6/6.12--shortreal.sv,EQUAL,,equal
+chapter-6/6.13--void.sv,EQUAL,,equal
+chapter-6/6.14--chandle.sv,EQUAL,,equal
+chapter-6/6.16--string.sv,EQUAL,,equal
+chapter-6/6.16.1--string_len.sv,EQUAL,,equal
+chapter-6/6.16.10--string_atoreal.sv,EQUAL,,equal
+chapter-6/6.16.11--string_itoa.sv,EQUAL,,equal
+chapter-6/6.16.12--string_hextoa.sv,EQUAL,,equal
+chapter-6/6.16.13--string_octtoa.sv,EQUAL,,equal
+chapter-6/6.16.14--string_bintoa.sv,EQUAL,,equal
+chapter-6/6.16.15--string_realtoa.sv,EQUAL,,equal
+chapter-6/6.16.2--string_putc.sv,EQUAL,,equal
+chapter-6/6.16.3--string_getc.sv,EQUAL,,equal
+chapter-6/6.16.4--string_toupper.sv,EQUAL,,equal
+chapter-6/6.16.5--string_tolower.sv,EQUAL,,equal
+chapter-6/6.16.6--string_compare.sv,EQUAL,,equal
+chapter-6/6.16.7--string_icompare.sv,EQUAL,,equal
+chapter-6/6.16.8--string_substr.sv,EQUAL,,equal
+chapter-6/6.16.9--string_atobin.sv,EQUAL,,equal
+chapter-6/6.16.9--string_atohex.sv,EQUAL,,equal
+chapter-6/6.16.9--string_atoi.sv,EQUAL,,equal
+chapter-6/6.16.9--string_atooct.sv,EQUAL,,equal
+chapter-6/6.17--event.sv,EQUAL,,equal
+chapter-6/6.18--typedef.sv,EQUAL,,equal
+chapter-6/6.19--enum_anon.sv,EQUAL,,equal
+chapter-6/6.19--enum_value_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_value_inv.sv:24:20: error: expression width of 4 does not exactly match declared enum type width of 3,
+chapter-6/6.19--enum_xx.sv,EQUAL,,equal
+chapter-6/6.19--enum_xx_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_xx_inv.sv:18:32: error: value of 2'bxx is invalid for enum with base type 'bit[1:0]',
+chapter-6/6.19--enum_xx_inv_order.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19--enum_xx_inv_order.sv:18:42: error: cannot increment previous value 32'sdx because it has unknown bits,
+chapter-6/6.19.1--enum_typedef.sv,EQUAL,,equal
+chapter-6/6.19.2--enum_sequence.sv,EQUAL,,equal
+chapter-6/6.19.2--enum_sequence_range.sv,EQUAL,,equal
+chapter-6/6.19.3--enum_type_checking.sv,EQUAL,,equal
+chapter-6/6.19.3--enum_type_checking_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19.3--enum_type_checking_inv.sv:22:21: error: no implicit conversion from 'int' to 'e'; explicit conversion ex,
+chapter-6/6.19.4--enum_numerical_expr.sv,EQUAL,,equal
+chapter-6/6.19.4--enum_numerical_expr_cast.sv,EQUAL,,equal
+chapter-6/6.19.4--enum_numerical_expr_no_cast.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.19.4--enum_numerical_expr_no_cast.sv:23:21: error: no implicit conversion from 'int' to 'e'; explicit conversi,
+chapter-6/6.19.5.1--enum_first.sv,EQUAL,,equal
+chapter-6/6.19.5.2--enum_last.sv,EQUAL,,equal
+chapter-6/6.19.5.3--enum_next.sv,EQUAL,,equal
+chapter-6/6.19.5.4--enum_prev.sv,EQUAL,,equal
+chapter-6/6.19.5.5--enum_num.sv,EQUAL,,equal
+chapter-6/6.19.5.6--enum_name.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter_aggregate.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter_dep.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter_port_list.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter_range.sv,EQUAL,,equal
+chapter-6/6.20.2--parameter_real.sv,EQUAL,,equal
+chapter-6/6.20.3--parameter_type.sv,EQUAL,,equal
+chapter-6/6.20.4--localparam.sv,EQUAL,,equal
+chapter-6/6.20.4--localparam_int.sv,EQUAL,,equal
+chapter-6/6.20.4--localparam_logic.sv,EQUAL,,equal
+chapter-6/6.20.4--localparam_string.sv,EQUAL,,equal
+chapter-6/6.20.4--localparam_unsigned_int.sv,EQUAL,,equal
+chapter-6/6.20.5--specparam.sv,EQUAL,,equal
+chapter-6/6.20.5--specparam_inv.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.20.5--specparam_inv.sv:19:23: error: specparams cannot be used in general constant expressions,
+chapter-6/6.20.6--const.sv,EQUAL,,equal
+chapter-6/6.23--localparam_type_decl.sv,EQUAL,,equal
+chapter-6/6.23--type_op.sv,EQUAL,,equal
+chapter-6/6.23--type_op_compare.sv,SLANG_ONLY,[SNT:PA0207] /home/heyfey/git-repos/sv-tests/tests/chapter-6/6.23--type_op_compare.sv:18:19: Syntax error: no viable alternative at input 'module top #( paramet,
+chapter-6/6.24.1--cast_op.sv,EQUAL,,equal
+chapter-6/6.24.2--cast_fn.sv,EQUAL,,equal
+chapter-6/6.24.2--cast_task.sv,EQUAL,,equal
+chapter-6/6.24.3--bitstream_cast.sv,EQUAL,,equal
+chapter-6/6.5--variable_assignment.sv,EQUAL,,equal
+chapter-6/6.5--variable_mixed_assignments.sv,EQUAL,,equal
+chapter-6/6.5--variable_multiple_assignments.sv,EQUAL,,equal
+chapter-6/6.5--variable_redeclare.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.5--variable_redeclare.sv:19:14: error: redefinition of 'v' [-Wredefinition],
+chapter-6/6.6.7--nettype.sv,EQUAL,,equal
+chapter-6/6.6.7--nettype_resolution_fn.sv,EQUAL,,equal
+chapter-6/6.6.8--interconnect.sv,EQUAL,,equal
+chapter-6/6.9.1--logic_vector.sv,EQUAL,,equal
+chapter-6/6.9.2--vector_scalared.sv,EQUAL,,equal
+chapter-6/6.9.2--vector_vectored.sv,EQUAL,,equal
+chapter-6/6.9.2--vector_vectored_inv.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-6/6.9.2--vector_vectored_inv.sv:17:15: error: expected a declaration name,
+chapter-7/arrays/associative/alloc.sv,EQUAL,,equal
+chapter-7/arrays/associative/arguments.sv,EQUAL,,equal
+chapter-7/arrays/associative/assignment.sv,EQUAL,,equal
+chapter-7/arrays/associative/class.sv,EQUAL,,equal
+chapter-7/arrays/associative/integral.sv,EQUAL,,equal
+chapter-7/arrays/associative/literals.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find-first-index.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find-first.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find-index.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find-last-index.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find-last.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/find.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/max.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/min.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/unique-index.sv,EQUAL,,equal
+chapter-7/arrays/associative/locator-methods/unique.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/delete.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/exists.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/first.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/last.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/next.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/num.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/prev.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/size.sv,EQUAL,,equal
+chapter-7/arrays/associative/methods/traversal.sv,EQUAL,,equal
+chapter-7/arrays/associative/nonexistent.sv,EQUAL,,equal
+chapter-7/arrays/associative/other.sv,EQUAL,,equal
+chapter-7/arrays/associative/string.sv,EQUAL,,equal
+chapter-7/arrays/associative/wildcard.sv,EQUAL,,equal
+chapter-7/arrays/dynamic/basic.sv,EQUAL,,equal
+chapter-7/arrays/dynamic/op-delete.sv,EQUAL,,equal
+chapter-7/arrays/dynamic/op-new.sv,EQUAL,,equal
+chapter-7/arrays/dynamic/op-size.sv,EQUAL,,equal
+chapter-7/arrays/multidimensional/basic.sv,EQUAL,,equal
+chapter-7/arrays/multidimensional/copy.sv,EQUAL,,equal
+chapter-7/arrays/multidimensional/multi.sv,EQUAL,,equal
+chapter-7/arrays/multidimensional/subarrays.sv,EQUAL,,equal
+chapter-7/arrays/packed/basic.sv,EQUAL,,equal
+chapter-7/arrays/packed/equality.sv,EQUAL,,equal
+chapter-7/arrays/packed/onebit.sv,EQUAL,,equal
+chapter-7/arrays/packed/operations.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/dimensions.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/high.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/increment.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/left.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/low.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/right.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/size.sv,EQUAL,,equal
+chapter-7/arrays/packed/querying-functions/unpacked-dimensions.sv,EQUAL,,equal
+chapter-7/arrays/packed/slice-equality.sv,EQUAL,,equal
+chapter-7/arrays/packed/slice.sv,EQUAL,,equal
+chapter-7/arrays/packed/treat-as-integer.sv,EQUAL,,equal
+chapter-7/arrays/packed/variable-slice-zero.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-7/arrays/packed/variable-slice-zero.sv:37:18: error: value must be positive,
+chapter-7/arrays/packed/variable-slice.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/assignments.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/basic.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/equality.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/index.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/onebit.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/operations.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/ordering-methods/reverse.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/ordering-methods/rsort.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/ordering-methods/shuffle.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/ordering-methods/sort.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/and.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/or.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/product.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/sum.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/reduction-methods/xor.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/slice-equality.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/slice.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/subroutines.sv,EQUAL,,equal
+chapter-7/arrays/unpacked/variable-slice.sv,EQUAL,,equal
+chapter-7/memories/basic.sv,EQUAL,,equal
+chapter-7/memories/read-write.sv,EQUAL,,equal
+chapter-7/queues/basic.sv,EQUAL,,equal
+chapter-7/queues/bounded.sv,EQUAL,,equal
+chapter-7/queues/delete.sv,EQUAL,,equal
+chapter-7/queues/delete_assign.sv,EQUAL,,equal
+chapter-7/queues/insert.sv,EQUAL,,equal
+chapter-7/queues/insert_assign.sv,EQUAL,,equal
+chapter-7/queues/max-size.sv,EQUAL,,equal
+chapter-7/queues/persistence.sv,EQUAL,,equal
+chapter-7/queues/pop_back.sv,EQUAL,,equal
+chapter-7/queues/pop_back_assing.sv,EQUAL,,equal
+chapter-7/queues/pop_front.sv,EQUAL,,equal
+chapter-7/queues/pop_front_assign.sv,EQUAL,,equal
+chapter-7/queues/push_back.sv,EQUAL,,equal
+chapter-7/queues/push_back_assign.sv,EQUAL,,equal
+chapter-7/queues/push_front.sv,EQUAL,,equal
+chapter-7/queues/push_front_assign.sv,EQUAL,,equal
+chapter-7/queues/size.sv,EQUAL,,equal
+chapter-7/queues/slice.sv,EQUAL,,equal
+chapter-7/structures/packed/basic.sv,EQUAL,,equal
+chapter-7/structures/packed/default-value.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-7/structures/packed/default-value.sv:26:22: error: packed members can not have initializers,
+chapter-7/structures/packed/signed.sv,EQUAL,,equal
+chapter-7/structures/packed/unsigned.sv,EQUAL,,equal
+chapter-7/structures/unpacked/basic.sv,EQUAL,,equal
+chapter-7/structures/unpacked/default-value.sv,EQUAL,,equal
+chapter-7/unions/packed/basic.sv,EQUAL,,equal
+chapter-7/unions/tagged/basic.sv,EQUAL,,equal
+chapter-7/unions/tagged/packed.sv,EQUAL,,equal
+chapter-7/unions/unpacked/basic.sv,EQUAL,,equal
+chapter-8/8.10--static_methods.sv,EQUAL,,equal
+chapter-8/8.11--this.sv,EQUAL,,equal
+chapter-8/8.12--assignment.sv,EQUAL,,equal
+chapter-8/8.12--shallow_copy.sv,EQUAL,,equal
+chapter-8/8.13--inheritance.sv,EQUAL,,equal
+chapter-8/8.14--override_member.sv,EQUAL,,equal
+chapter-8/8.15--super-default-new.sv,EQUAL,,equal
+chapter-8/8.15--super.sv,EQUAL,,equal
+chapter-8/8.16--cast_func.sv,EQUAL,,equal
+chapter-8/8.17--constructor_const_arg.sv,EQUAL,,equal
+chapter-8/8.18--var_local.sv,EQUAL,,equal
+chapter-8/8.18--var_protected.sv,EQUAL,,equal
+chapter-8/8.19--global_constant.sv,EQUAL,,equal
+chapter-8/8.19--instance_constant.sv,EQUAL,,equal
+chapter-8/8.20--virtual_method.sv,EQUAL,,equal
+chapter-8/8.21--abstract_class.sv,EQUAL,,equal
+chapter-8/8.21--abstract_class_inst.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.21--abstract_class_inst.sv:33:28: error: cannot create instance of virtual class 'base_cls',
+chapter-8/8.22--dynamic_method_lookup.sv,EQUAL,,equal
+chapter-8/8.23--scope_resolution.sv,EQUAL,,equal
+chapter-8/8.24--out_of_block_methods.sv,EQUAL,,equal
+chapter-8/8.25--parametrized_class_extend.sv,EQUAL,,equal
+chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.25.1--parametrized_class_invalid_scope_resolution.sv:29:26: error: cannot refer to generic class with '::' wit,
+chapter-8/8.25.1--parametrized_class_scope_resolution.sv,EQUAL,,equal
+chapter-8/8.26.2--implements.sv,EQUAL,,equal
+chapter-8/8.26.2--implements_extends.sv,EQUAL,,equal
+chapter-8/8.26.2--implements_multiple.sv,EQUAL,,equal
+chapter-8/8.26.3--type_access_extends.sv,EQUAL,,equal
+chapter-8/8.26.3--type_access_implements.sv,EQUAL,,equal
+chapter-8/8.26.3--type_access_implements_invalid.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.3--type_access_implements_invalid.sv:25:45: error: use of undeclared identifier 'int_t',
+chapter-8/8.26.4--illegal_forward_def_implements.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.4--illegal_forward_def_implements.sv:21:32: error: cannot extend or implement an incomplete forward typedef,
+chapter-8/8.26.4--illegal_implements_parameter.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.4--illegal_implements_parameter.sv:24:51: error: cannot extend or implement a type parameter,
+chapter-8/8.26.5--cast_between_interface_classes.sv,SLANG_ONLY,[  ERROR] : 2,
+chapter-8/8.26.5--implemented_class_handle.sv,SLANG_ONLY,[  ERROR] : 1,
+chapter-8/8.26.5--invalid_interface_instantiation.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.5--invalid_interface_instantiation.sv:26:23: error: cannot create instance of interface class 'ihello',
+chapter-8/8.26.6.1--name_conflict_resolved.sv,EQUAL,,equal
+chapter-8/8.26.6.1--name_conflict_unresolved.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.1--name_conflict_unresolved.sv:28:39: error: return type 'void' of virtual method 'hello' does not match ,
+chapter-8/8.26.6.2--parameter_type_conflict.sv,EQUAL,,equal
+chapter-8/8.26.6.2--parameter_type_conflict_unresolved.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.2--parameter_type_conflict_unresolved.sv:26:69: error: 'T' in 'ic2' conflicts with another member already,
+chapter-8/8.26.6.3--diamond_relationship.sv,EQUAL,,equal
+chapter-8/8.26.6.3--diamond_relationship_parametrized.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-8/8.26.6.3--diamond_relationship_parametrized.sv:30:42: error: 'fn' in 'ic2' conflicts with another member already,
+chapter-8/8.26.7--partial_implementation.sv,EQUAL,,equal
+chapter-8/8.27--forward_declaration.sv,EQUAL,,equal
+chapter-8/8.4--instantiation.sv,EQUAL,,equal
+chapter-8/8.5--parameters.sv,EQUAL,,equal
+chapter-8/8.5--properties.sv,EQUAL,,equal
+chapter-8/8.5--properties_enum.sv,EQUAL,,equal
+chapter-8/8.6--methods.sv,EQUAL,,equal
+chapter-8/8.7--constructor.sv,EQUAL,,equal
+chapter-8/8.7--constructor_param.sv,EQUAL,,equal
+chapter-8/8.7--constructor_super.sv,EQUAL,,equal
+chapter-8/8.8--typed_constructor.sv,EQUAL,,equal
+chapter-8/8.8--typed_constructor_param.sv,EQUAL,,equal
+chapter-8/8.9--static_properties.sv,EQUAL,,equal
+chapter-9/9.2.1--initial.sv,EQUAL,,equal
+chapter-9/9.2.2.1--always.sv,EQUAL,,equal
+chapter-9/9.2.2.2--always_comb.sv,EQUAL,,equal
+chapter-9/9.2.2.3--always_latch.sv,EQUAL,,equal
+chapter-9/9.2.2.4--always_ff.sv,EQUAL,,equal
+chapter-9/9.2.3--final.sv,EQUAL,,equal
+chapter-9/9.3.1--sequential_block.sv,EQUAL,,equal
+chapter-9/9.3.2--parallel_block_join.sv,EQUAL,,equal
+chapter-9/9.3.2--parallel_block_join_any.sv,EQUAL,,equal
+chapter-9/9.3.2--parallel_block_join_none.sv,EQUAL,,equal
+chapter-9/9.3.3--block_start_finish.sv,EQUAL,,equal
+chapter-9/9.3.3--event.sv,EQUAL,,equal
+chapter-9/9.3.3--fork_return.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/chapter-9/9.3.3--fork_return.sv:22:25: error: return statement is not allowed in fork-join block,
+chapter-9/9.3.4--block_names_par.sv,EQUAL,,equal
+chapter-9/9.3.4--block_names_seq.sv,EQUAL,,equal
+chapter-9/9.3.5--statement_labels_par.sv,EQUAL,,equal
+chapter-9/9.3.5--statement_labels_seq.sv,EQUAL,,equal
+chapter-9/9.4.1--delay_control-sim.sv,EQUAL,,equal
+chapter-9/9.4.1--delay_control-two-blocks-sim.sv,EQUAL,,equal
+chapter-9/9.4.1--delay_control.sv,EQUAL,,equal
+chapter-9/9.4.2--event_control_edge.sv,EQUAL,,equal
+chapter-9/9.4.2--event_control_negedge.sv,EQUAL,,equal
+chapter-9/9.4.2--event_control_posedge.sv,EQUAL,,equal
+chapter-9/9.4.2--event_control_sim.sv,EQUAL,,equal
+chapter-9/9.4.2--event_control_sim_minimal.sv,EQUAL,,equal
+chapter-9/9.4.2.1--event_comma_op.sv,EQUAL,,equal
+chapter-9/9.4.2.1--event_or_op.sv,EQUAL,,equal
+chapter-9/9.4.2.2--event_implicit.sv,EQUAL,,equal
+chapter-9/9.4.2.3--event_conditional.sv,EQUAL,,equal
+chapter-9/9.4.2.4--event_sequence.sv,EQUAL,,equal
+chapter-9/9.4.3--event_sequence_controls.sv,EQUAL,,equal
+chapter-9/9.4.5--event_blocking_assignment_delay.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_delay.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_event.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_int_neg.sv,EQUAL,,equal
+chapter-9/9.4.5--event_nonblocking_assignment_repeat_neg.sv,EQUAL,,equal
+chapter-9/9.6.1--wait_fork.sv,EQUAL,,equal
+chapter-9/9.6.2--disable.sv,EQUAL,,equal
+chapter-9/9.6.2--disable_other.sv,EQUAL,,equal
+chapter-9/9.6.3--disable_fork.sv,EQUAL,,equal
+chapter-9/9.7--process_cls_await.sv,EQUAL,,equal
+chapter-9/9.7--process_cls_kill.sv,EQUAL,,equal
+chapter-9/9.7--process_cls_self.sv,EQUAL,,equal
+chapter-9/9.7--process_cls_suspend_resume.sv,EQUAL,,equal
+generated/ariane/cva6_cv32a6_imac_sv32.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/cores/ariane/core/cache_subsystem/cva6_hpdcache_subsystem.sv:179:12: error: 'hpdcache_typedef.svh': No such file or ,
+generated/ariane/cva6_cv64a6_imafdc_sv39.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/cores/ariane/core/fpu_wrap.sv:59:25: error: unknown class or package 'fpnew_pkg',
+generated/ariane/cva6_cv64a6_imafdc_sv39_hpdcache.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/cores/ariane/core/fpu_wrap.sv:59:25: error: unknown class or package 'fpnew_pkg',
+generated/ariane/cva6_cv64a6_imafdch_sv39.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/cores/ariane/core/fpu_wrap.sv:59:25: error: unknown class or package 'fpnew_pkg',
+generated/ariane/cva6_tb_cv64a6_imafdc_sv39.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/cores/ariane/core/fpu_wrap.sv:59:25: error: unknown class or package 'fpnew_pkg',
+generated/assignment-strengths/10.3.4--assignment_highz1_pull0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_highz1_strong0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_highz1_supply0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_highz1_weak0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_pull1_highz0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_pull1_pull0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_pull1_strong0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_pull1_supply0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_pull1_weak0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_strong1_highz0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_strong1_pull0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_strong1_strong0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_strong1_supply0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_strong1_weak0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_supply1_highz0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_supply1_pull0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_supply1_strong0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_supply1_supply0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_supply1_weak0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_weak1_highz0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_weak1_pull0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_weak1_strong0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_weak1_supply0.sv,EQUAL,,equal
+generated/assignment-strengths/10.3.4--assignment_weak1_weak0.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--and_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--arith_shl_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--arith_shr_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--div_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--log_shl_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--log_shr_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--minus_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--mod_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--mul_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--normal_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--or_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--plus_assignment.sv,EQUAL,,equal
+generated/assignment_op/11.4.1--xor_assignment.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--and_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--and_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--div_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--div_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--log_shl_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--log_shl_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--log_shr_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--log_shr_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--minus_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--minus_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--mod_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--mod_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--mul_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--mul_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--or_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--or_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--plus_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--plus_assignment-sim-1.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--xor_assignment-sim-0.sv,EQUAL,,equal
+generated/assignment_sim/11.4.1--xor_assignment-sim-1.sv,EQUAL,,equal
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_credit_counter.sv,EQUAL,,equal
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_async_BaseJumpSTL_bsg_async_ptr_gray.sv,EQUAL,,equal
+generated/basejump/bsg_async_BaseJumpSTL_bsg_launch_sync_sync.sv,EQUAL,,equal
+generated/basejump/bsg_async_BaseJumpSTL_bsg_sync_sync.sv,EQUAL,,equal
+generated/basejump/bsg_axi_BaseJumpSTL_bsg_axi_pkg.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_buffer_queue.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_decode.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_dma_to_wormhole.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_miss.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_data_mem.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_decode.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_dma.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_mhu.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_miss_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_stat_mem.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_tag_mem.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_non_blocking_tl_stage.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_sbuf.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_tbuf.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_ordering.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_rx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_axi_tx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_rx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_dram_ctrl_tx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_rx_reorder.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_cache_to_test_dram_tx.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_nonsynth_cache_axe_tracer.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_fanout.sv,EQUAL,,equal
+generated/basejump/bsg_cache_BaseJumpSTL_bsg_wormhole_to_cache_dma_inorder.sv,EQUAL,,equal
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen.sv,EQUAL,,equal
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc.sv:10:8: error: design element does not have a time scale defin,
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_osc_v3.sv:10:8: error: design element does not have a time scale de,
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_clk_gen_v3.sv,EQUAL,,equal
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dly_line.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dly_line.sv:10:8: error: design element does not have a time scale defined ,
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_dram_clk_gen.sv,EQUAL,,equal
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_edge_balanced_mux4.sv,EQUAL,,equal
+generated/basejump/bsg_clk_gen_BaseJumpSTL_bsg_nonsynth_clk_watcher.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_assembler_in.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_assembler_out.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_comm_link.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_master_master.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_channel_control_slave.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_input.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_bsg_source_sync_output.sv,EQUAL,,equal
+generated/basejump/bsg_comm_link_BaseJumpSTL_test_bsg_comm_link_checker.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_1_to_n_tagged_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_decode_comb.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_encode_comb.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_8b10b_shift_decoder.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_narrow.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_in.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_out.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_channel_tunnel_wormhole.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_compare_and_swap.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_credit_to_token.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_large.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_large_banked.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_multi.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_narrowed.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_pseudo_large.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_credit_on_input.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_hardened.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_hardened_multi.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1r1w_small_unhardened.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_1rw_large.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_bypass.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_reorder.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_shift_datapath.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_fifo_tracker.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flatten_2D_array.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flow_convert.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_flow_counter.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_make_2D_array.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_one_fifo_bypass.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_dynamic.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_parallel_in_serial_out_passthrough.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_permute_box.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_pipeline_stall_collapse.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_ready_to_credit_flow_converter.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_relay_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_1_to_n.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_2_to_2.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_fifo_to_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_round_robin_n_to_1.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sbox.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_scatter_gather.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_dynamic.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_full.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_serial_in_parallel_out_passthrough.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_shift_reg.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sort_4.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_sort_stable.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_two_buncher.sv,EQUAL,,equal
+generated/basejump/bsg_dataflow_BaseJumpSTL_bsg_two_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc.sv,EQUAL,,equal
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_clk_rst_gen.sv,EQUAL,,equal
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_controller.sv,EQUAL,,equal
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_dly_line_v3.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_dly_line_v3.sv:10:8: error: design element does not have a time scale defin,
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_phy.sv,EQUAL,,equal
+generated/basejump/bsg_dmc_BaseJumpSTL_bsg_dmc_sys_cfg_gen.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_add_sub.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_classify.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_clz.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_cmp.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_f2i.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_i2f.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_mul.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_preprocess.sv,EQUAL,,equal
+generated/basejump/bsg_fpu_BaseJumpSTL_bsg_fpu_sticky.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_downstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_ddr_upstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_iddr_phy.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_isdr_phy.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_oddr_phy.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_osdr_phy.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_osdr_phy_phase_align.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_pkg.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr_downstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_sdr_upstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_downstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream.sv,EQUAL,,equal
+generated/basejump/bsg_link_BaseJumpSTL_bsg_link_source_sync_upstream_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_replacement.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_sync_unmanaged.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_tag_array.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_cam_1r1w_unmanaged.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_banked.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_from_1rw_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_bit.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_bit_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_byte.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_byte_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_mask_write_var.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_sync_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1r1w_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_banked.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_banked.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_from_1r1w.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_bit_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_banked.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_byte_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_mask_write_var.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_1rw_sync_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_sync_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2r1w_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_bit.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_bit_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_byte.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_mask_write_byte_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_2rw_sync_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_sync.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_sync_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_3r1w_synth.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_mem_multiport_latch.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_dma.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1r1w_sync_mask_write_byte_dma.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_assoc.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_assoc.sv,EQUAL,,equal
+generated/basejump/bsg_mem_BaseJumpSTL_bsg_nonsynth_mem_1rw_sync_mask_write_byte_dma.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_abs.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_cin.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_adder_ripple_carry.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_and.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_arb_fixed.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_arb_round_robin.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_array_concentrate_static.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_array_reverse.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_binary_plus_one_to_gray.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_buf.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_buf_ctrl.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_circular_ptr.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_clkbuf.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_clkgate_optional.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_concentrate_static.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_multi.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clear_up_saturating.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_clock_downsample.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_dynamic_limit.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_dynamic_limit_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_max_clear_up.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_overflow_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_overflow_set_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_down.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_set_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_up_down.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counter_up_down_variable.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_counting_leading_zeros.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_basic_o_by_i.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_control_locking_o_by_i.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_crossbar_o_by_i.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_cycle_counter.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_thermometer.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_decode_with_v.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_defines.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_async_reset.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_chain.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_bypass.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_en_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_gatestack.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_negedge_reset.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_en_bypass.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_set_clear.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dff_reset_var_en.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_dlatch.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_edge_detect.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_encode_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_expand_bitmask.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_gray_to_binary.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hash_bank_reverse.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_hashing_ipoly.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_neg.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_icg_pos.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool_dealloc_alloc_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_id_pool_with_reserve.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_iterative_controller.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_idiv_unsigned_recip.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imod_range.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_imul_iterative.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_inv.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_less_than.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_level_shift_up_down_sink.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_level_shift_up_down_source.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lfsr.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_locking_arb_fixed.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_backup.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_decode.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_lru_pseudo_tree_encode.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_add_unsigned.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_array_row.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_pipelined.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mul_synth.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux2_gatestack.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_bitwise.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_butterfly.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_one_hot.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_mux_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_muxi2_gatestack.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nand.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nor2.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_nor3.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_popcount.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_priority_encode.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_priority_encode_one_hot_out.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_reduce.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_reduce_segmented.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_left.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_rotate_right.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_round_robin_arb.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scan.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_dataflow.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scheduler_resource.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_scoreboard_dealloc_alloc.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_strobe.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_swap.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_thermometer_count.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_tiehi.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_tielo.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_transpose.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_transpose_reduce.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_unconcentrate_static.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_wait_after_reset.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_wait_cycles.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_xnor.sv,EQUAL,,equal
+generated/basejump/bsg_misc_BaseJumpSTL_bsg_xor.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_barrier.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_buffered.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_router_decoder_dor.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_stitch.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_mesh_to_ring_stitch.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_pkg.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_noc_repeater_node.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_ready_and_link_async_to_wormhole.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_router_crossbar_o_by_i.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_broadcast.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_in.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_concentrator_out.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_in.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_adapter_out.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_decoder_dor.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_input_control.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_output_control.sv,EQUAL,,equal
+generated/basejump/bsg_noc_BaseJumpSTL_bsg_wormhole_router_packet_parser.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_bitbang.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_client.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_client_unsync.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_master_decentralized.sv,EQUAL,,equal
+generated/basejump/bsg_tag_BaseJumpSTL_bsg_tag_trace_replay.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ascii_writer.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_axi_mem.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen.sv:10:8: error: design element does not have a time scale d,
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_clock_gen_plusarg.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_delay_line.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_clock_gen.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_cycle_counter.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_from_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_gpio.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_rom.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dpi_to_fifo.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_map.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_dramsim3_unmap.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_modular_inverse.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_ramulator_hbm.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_random_gen.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_reset_gen.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_sha256.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_test_rom.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_triwire.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_nonsynth_val_watcher_1p.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_bsg_trace_replay.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_test_assembler_defines.sv,EQUAL,,equal
+generated/basejump/bsg_test_BaseJumpSTL_test_bsg_data_gen.sv,EQUAL,,equal
+generated/binary_op/11.4.10--binary_op_arith_shl.sv,EQUAL,,equal
+generated/binary_op/11.4.10--binary_op_arith_shr.sv,EQUAL,,equal
+generated/binary_op/11.4.10--binary_op_log_shl.sv,EQUAL,,equal
+generated/binary_op/11.4.10--binary_op_log_shr.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_div.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_minus.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_mod.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_mul.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_plus.sv,EQUAL,,equal
+generated/binary_op/11.4.3--binary_op_pow.sv,EQUAL,,equal
+generated/binary_op/11.4.4--binary_op_ge.sv,EQUAL,,equal
+generated/binary_op/11.4.4--binary_op_gt.sv,EQUAL,,equal
+generated/binary_op/11.4.4--binary_op_le.sv,EQUAL,,equal
+generated/binary_op/11.4.4--binary_op_lt.sv,EQUAL,,equal
+generated/binary_op/11.4.5--binary_op_case_eq.sv,EQUAL,,equal
+generated/binary_op/11.4.5--binary_op_case_neq.sv,EQUAL,,equal
+generated/binary_op/11.4.5--binary_op_log_eq.sv,EQUAL,,equal
+generated/binary_op/11.4.5--binary_op_log_neq.sv,EQUAL,,equal
+generated/binary_op/11.4.6--binary_op_wild_eq.sv,EQUAL,,equal
+generated/binary_op/11.4.6--binary_op_wild_neq.sv,EQUAL,,equal
+generated/binary_op/11.4.7--binary_op_log_and.sv,EQUAL,,equal
+generated/binary_op/11.4.7--binary_op_log_equiv.sv,EQUAL,,equal
+generated/binary_op/11.4.7--binary_op_log_imp.sv,EQUAL,,equal
+generated/binary_op/11.4.7--binary_op_log_or.sv,EQUAL,,equal
+generated/binary_op/11.4.8--binary_op_bit_and.sv,EQUAL,,equal
+generated/binary_op/11.4.8--binary_op_bit_or.sv,EQUAL,,equal
+generated/binary_op/11.4.8--binary_op_bit_xnor.sv,EQUAL,,equal
+generated/binary_op/11.4.8--binary_op_bit_xor.sv,EQUAL,,equal
+generated/black-parrot/bp_default.sv,SURELOG_CRASH,,
+generated/black-parrot/bp_multicore_1.sv,SURELOG_CRASH,,
+generated/black-parrot/bp_multicore_1_cce_ucode.sv,SURELOG_CRASH,,
+generated/black-parrot/bp_multicore_4.sv,SURELOG_CRASH,,
+generated/black-parrot/bp_multicore_4_cce_ucode_cfg.sv,SURELOG_CRASH,,
+generated/black-parrot/bp_unicore.sv,SURELOG_CRASH,,
+generated/easyUVM/top.sv,DIFFERENT,decompile:,
+generated/encapsulation/8.18--inherited_local_from_inside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_inside.sv:19:18: error: 'a_loc' is a local member of 'a_cls',
+generated/encapsulation/8.18--inherited_local_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_outside.sv:25:20: error: 'a_loc' is a local member of 'a_cls',
+generated/encapsulation/8.18--inherited_prot_from_inside.sv,EQUAL,,equal
+generated/encapsulation/8.18--inherited_prot_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_prot_from_outside.sv:25:20: error: 'a_prot' is a protected member of 'a_cls',
+generated/encapsulation/8.18--local_from_inside.sv,EQUAL,,equal
+generated/encapsulation/8.18--local_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--local_from_outside.sv:25:20: error: 'b_loc' is a local member of 'b_cls',
+generated/encapsulation/8.18--prot_from_inside.sv,EQUAL,,equal
+generated/encapsulation/8.18--prot_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--prot_from_outside.sv:25:20: error: 'b_prot' is a protected member of 'b_cls',
+generated/equality_operators_sim/11.4.5--equality_operator_0.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_1.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_10.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_11.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_12.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_13.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_14.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_15.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_16.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_17.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_18.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_19.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_2.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_20.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_21.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_22.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_23.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_24.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_25.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_3.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_4.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_5.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_6.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_7.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_8.sv,EQUAL,,equal
+generated/equality_operators_sim/11.4.5--equality_operator_9.sv,EQUAL,,equal
+generated/fusesoc/ibex-sim.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/build/lowrisc_ibex_ibex_simple_system_0/src/lowrisc_lint_common_0.1/tools/verilator/common.vlt:7:1: error: unknown macro or comp,
+generated/fx68k/fx68k.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_arbiter_tb.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_cam.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_decoder_using_case.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_define.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_dff_async_reset.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_dlatch_reset.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_function_non_ansi.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_generate_for.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_macro.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_pri_encoder_using_assign.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_pri_encoder_using_if.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_ram_sp_ar_sw.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_ram_sp_sr_sw.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_rom_using_file.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_test_verilog_primitives.sv,EQUAL,,equal
+generated/hdlconv/expected_hdlconvertor_uart.sv,EQUAL,,equal
+generated/hdlconv/hdlconvertor_crc_functions.sv,EQUAL,,equal
+generated/hdlconv/hdlconvertor_mem_base_object.sv,EQUAL,,equal
+generated/hdlconv/hdlconvertor_operator_type.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p102.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p134.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p139.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p141.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p142.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p147.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p148.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p154_1.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p154_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p154_2.sv:8:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
+generated/hdlconv_std2012/hdlconvertor_std2012_p158.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p160_1.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p49.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p58.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/hdlconv_std2012/hdlconvertor_std2012_p753_1.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p753_2.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p84.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p88.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p90.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p91.sv,EQUAL,,equal
+generated/hdlconv_std2012/hdlconvertor_std2012_p94.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2012/p94.sv:28:15: error: no implicit conversion from 'sub.t_5' to 'sub.t_5'; ex,
+generated/hdlconv_std2017/hdlconvertor_std2017_p124.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p125.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p126.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p127.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p130.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p137_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p140.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p168.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p170.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p174.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p175.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p177.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p178.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p181.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p181_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p183.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p184.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p184_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p185.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p185_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p186.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p188.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p188_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p189.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p190.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p190_2.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p190_2.sv:6:22: error: method argument 'x' is of type 'C::T' (aka 'real') w,
+generated/hdlconv_std2017/hdlconvertor_std2017_p193.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p193_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p194.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p196.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p198.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p198.sv:23:25: error: cannot extend or implement an incomplete forward type,
+generated/hdlconv_std2017/hdlconvertor_std2017_p199.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p200.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p200.sv:10:20: error: return type 'bit' of virtual method 'funcBase' does n,
+generated/hdlconv_std2017/hdlconvertor_std2017_p200_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p202.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p203.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p230.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p234.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p238.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p239.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p240.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p242.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p243.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p248.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p249.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p252.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p269.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p278.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p284.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p289.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p292.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p322.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p327.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p328.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p330.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p331.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p332.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p334.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p347.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p347.sv:26:32: error: could not resolve hierarchical path name 'p',
+generated/hdlconv_std2017/hdlconvertor_std2017_p348.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p371.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p371.sv:31:12: error: implicit named port 'clk' of type 'logic' connects to,
+generated/hdlconv_std2017/hdlconvertor_std2017_p372.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p372.sv:5:8: error: duplicate definition of 'm' [-Wduplicate-definition],
+generated/hdlconv_std2017/hdlconvertor_std2017_p454.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p454.sv:48:17: error: checker ports with an explicit direction declared mus,
+generated/hdlconv_std2017/hdlconvertor_std2017_p469.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p475.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p482.sv,SLANG_ONLY,[  ERROR] : 3,
+generated/hdlconv_std2017/hdlconvertor_std2017_p488.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p489.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p490.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p490.sv:7:51: error: use of undeclared identifier 'p',
+generated/hdlconv_std2017/hdlconvertor_std2017_p491.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p493.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p503.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p506.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/hdlconv_std2017/hdlconvertor_std2017_p508.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p511.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p516.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p517.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p517_2.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p518.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p519.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p521.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p525.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p526.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p527.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p530.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p531.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p537.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p541.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p556.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p577.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p597.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p599.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p600.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p608.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p612.sv,SURELOG_CRASH,,
+generated/hdlconv_std2017/hdlconvertor_std2017_p623.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p627.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p628.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p629.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p633.sv,SLANG_ONLY,[  ERROR] : 1,
+generated/hdlconv_std2017/hdlconvertor_std2017_p703.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p703.sv:5:2: error: top-level module 'mymod' has unconnected 'ref' port 'Y',
+generated/hdlconv_std2017/hdlconvertor_std2017_p705.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p705.sv:16:23: error: top-level module 'mh20' has unconnected 'ref' port 'x,
+generated/hdlconv_std2017/hdlconvertor_std2017_p707.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p718.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p719.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p723.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p728.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p729.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p737.sv,DIFFERENT,decompile:,
+generated/hdlconv_std2017/hdlconvertor_std2017_p738.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p738.sv:6:10: error: defparam target resolves differently post-elaboration;,
+generated/hdlconv_std2017/hdlconvertor_std2017_p745.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p751.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p751.sv:40:8: error: duplicate definition of 'memMod' [-Wduplicate-definiti,
+generated/hdlconv_std2017/hdlconvertor_std2017_p752.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p752.sv:16:8: error: duplicate definition of 'memMod' [-Wduplicate-definiti,
+generated/hdlconv_std2017/hdlconvertor_std2017_p754.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p756.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p757.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p757.sv:29:11: error: duplicate definition of 'simple_bus' [-Wduplicate-def,
+generated/hdlconv_std2017/hdlconvertor_std2017_p758.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p759.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p759.sv:8:14: error: cannot read from output clocking signal 'req',
+generated/hdlconv_std2017/hdlconvertor_std2017_p760.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p760.sv:6:24: error: top-level module 'dtype' has unconnected interface por,
+generated/hdlconv_std2017/hdlconvertor_std2017_p761.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p762.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p765.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p766.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p770.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv,SLANG_ONLY,[  ERROR] : 6,
+generated/hdlconv_std2017/hdlconvertor_std2017_p774.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p774.sv:18:12: error: no implicit conversion from 'logic signed[31:0]' to ',
+generated/hdlconv_std2017/hdlconvertor_std2017_p776.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p779.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p779.sv:14:9: error: duplicate definition of 'p' [-Wduplicate-definition],
+generated/hdlconv_std2017/hdlconvertor_std2017_p780.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p781.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p783.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/hdlconvertor/tests/sv_test/std2017/p783.sv:34:5: error: redefinition of 'x' [-Wredefinition],
+generated/hdlconv_std2017/hdlconvertor_std2017_p790.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p791.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p801.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p827.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p835.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p844.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p845.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p847.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p85.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p884.sv,EQUAL,,equal
+generated/hdlconv_std2017/hdlconvertor_std2017_p94.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/integers/6.11--integer_bit.sv,EQUAL,,equal
+generated/integers/6.11--integer_byte.sv,EQUAL,,equal
+generated/integers/6.11--integer_int.sv,EQUAL,,equal
+generated/integers/6.11--integer_integer.sv,EQUAL,,equal
+generated/integers/6.11--integer_logic.sv,EQUAL,,equal
+generated/integers/6.11--integer_longint.sv,EQUAL,,equal
+generated/integers/6.11--integer_reg.sv,EQUAL,,equal
+generated/integers/6.11--integer_shortint.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_bit.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_byte.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_int.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_integer.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_logic.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_longint.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_reg.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_shortint.sv,EQUAL,,equal
+generated/integers/6.11--integer_signed_time.sv,EQUAL,,equal
+generated/integers/6.11--integer_time.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_bit.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_byte.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_int.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_integer.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_logic.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_longint.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_reg.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_shortint.sv,EQUAL,,equal
+generated/integers/6.11--integer_unsigned_time.sv,EQUAL,,equal
+generated/keywords/5.6.2--keyword_accept_on.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_accept_on.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_alias.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_alias.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_always.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_always.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_always_comb.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_always_comb.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_always_ff.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_always_ff.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_always_latch.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_always_latch.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_and.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_and.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_assert.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_assert.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_assign.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_assign.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_assume.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_assume.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_automatic.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_automatic.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_before.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_before.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_begin.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_begin.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_bind.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_bind.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_bins.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_bins.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_binsof.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_binsof.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_bit.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_bit.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_break.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_break.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_buf.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_buf.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_bufif0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_bufif0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_bufif1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_bufif1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_byte.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_byte.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_case.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_case.sv:8:9: error: case generate has no items,
+generated/keywords/5.6.2--keyword_casex.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_casex.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_casez.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_casez.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_cell.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_cell.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_chandle.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_chandle.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_checker.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_checker.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_class.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_class.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_clocking.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_clocking.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_cmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_cmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_config.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_config.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_const.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_const.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_constraint.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_constraint.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_context.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_context.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_continue.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_continue.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_cover.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_cover.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_covergroup.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_covergroup.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_coverpoint.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_coverpoint.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_cross.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_cross.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_deassign.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_deassign.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_default.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_default.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_defparam.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_defparam.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_design.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_design.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_disable.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_disable.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_dist.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_dist.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_do.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_do.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_edge.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_edge.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_else.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_else.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_end.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_end.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endcase.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endcase.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endchecker.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endchecker.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endclass.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endclass.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endclocking.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endclocking.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endconfig.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endconfig.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endfunction.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endfunction.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endgenerate.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endgenerate.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endgroup.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endgroup.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endinterface.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endinterface.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endmodule.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endmodule.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endpackage.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endpackage.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endprimitive.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endprimitive.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endprogram.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endprogram.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endproperty.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endproperty.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endsequence.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endsequence.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endspecify.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endspecify.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endtable.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endtable.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_endtask.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_endtask.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_enum.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_enum.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_event.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_event.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_eventually.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_eventually.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_expect.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_expect.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_export.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_export.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_extends.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_extends.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_extern.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_extern.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_final.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_final.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_first_match.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_first_match.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_for.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_for.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_force.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_force.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_foreach.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_foreach.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_forever.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_forever.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_fork.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_fork.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_forkjoin.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_forkjoin.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_function.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_function.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_generate.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_generate.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_genvar.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_genvar.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_global.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_global.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_highz0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_highz0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_highz1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_highz1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_if.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_if.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_iff.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_iff.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_ifnone.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_ifnone.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_ignore_bins.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_ignore_bins.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_illegal_bins.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_illegal_bins.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_implements.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_implements.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_implies.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_implies.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_import.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_import.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_incdir.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_incdir.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_include.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_include.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_initial.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_initial.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_inout.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_inout.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_input.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_input.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_inside.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_inside.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_instance.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_instance.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_int.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_int.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_integer.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_integer.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_interconnect.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_interconnect.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_interface.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_interface.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_intersect.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_intersect.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_join.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_join.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_join_any.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_join_any.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_join_none.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_join_none.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_large.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_large.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_let.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_let.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_liblist.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_liblist.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_library.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_library.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_local.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_local.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_localparam.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_localparam.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_logic.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_logic.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_longint.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_longint.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_macromodule.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_macromodule.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_matches.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_matches.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_medium.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_medium.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_modport.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_modport.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_module.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_module.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_nand.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_nand.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_negedge.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_negedge.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_nettype.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_nettype.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_new.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_new.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_nexttime.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_nexttime.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_nmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_nmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_nor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_nor.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_noshowcancelled.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_noshowcancelled.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_not.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_not.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_notif0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_notif0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_notif1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_notif1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_null.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_null.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_or.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_or.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_output.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_output.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_package.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_package.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_packed.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_packed.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_parameter.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_parameter.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_posedge.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_posedge.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_primitive.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_primitive.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_priority.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_priority.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_program.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_program.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_property.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_property.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_protected.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_protected.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pull0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pull0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pull1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pull1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pulldown.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pulldown.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pullup.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pullup.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pulsestyle_ondetect.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pulsestyle_ondetect.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pulsestyle_onevent.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pulsestyle_onevent.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_pure.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_pure.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rand.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rand.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_randc.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_randc.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_randcase.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_randcase.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_randsequence.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_randsequence.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rcmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rcmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_real.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_real.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_realtime.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_realtime.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_ref.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_ref.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_reg.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_reg.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_reject_on.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_reject_on.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_release.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_release.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_repeat.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_repeat.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_restrict.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_restrict.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_return.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_return.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rnmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rnmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rpmos.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rpmos.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rtran.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rtran.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rtranif0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rtranif0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_rtranif1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_rtranif1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_s_always.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_s_always.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_s_eventually.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_s_eventually.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_s_nexttime.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_s_nexttime.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_s_until.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_s_until.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_s_until_with.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_s_until_with.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_scalared.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_scalared.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_sequence.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_sequence.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_shortint.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_shortint.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_shortreal.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_shortreal.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_showcancelled.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_showcancelled.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_signed.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_signed.sv:8:15: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_small.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_small.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_soft.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_soft.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_solve.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_solve.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_specify.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_specify.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_specparam.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_specparam.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_static.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_static.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_string.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_string.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_strong.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_strong.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_strong0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_strong0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_strong1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_strong1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_struct.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_struct.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_super.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_super.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_supply0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_supply0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_supply1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_supply1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_sync_accept_on.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_sync_accept_on.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_sync_reject_on.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_sync_reject_on.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_table.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_table.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tagged.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tagged.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_task.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_task.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_this.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_this.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_throughout.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_throughout.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_time.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_time.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_timeprecision.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_timeprecision.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_timeunit.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_timeunit.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tran.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tran.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tranif0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tranif0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tranif1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tranif1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tri.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tri.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tri0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tri0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_tri1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_tri1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_triand.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_triand.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_trior.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_trior.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_trireg.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_trireg.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_type.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_type.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_typedef.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_typedef.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_union.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_union.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_unique.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_unique.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_unique0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_unique0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_unsigned.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_unsigned.sv:8:17: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_until.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_until.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_until_with.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_until_with.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_untyped.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_untyped.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_use.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_use.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_uwire.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_uwire.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_var.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_var.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_vectored.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_vectored.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_virtual.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_virtual.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_void.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_void.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wait.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wait.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wait_order.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wait_order.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wand.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wand.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_weak.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_weak.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_weak0.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_weak0.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_weak1.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_weak1.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_while.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_while.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wildcard.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wildcard.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wire.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wire.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_with.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_with.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_within.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_within.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_wor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_wor.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_xnor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_xnor.sv:8:9: error: expected a declaration name,
+generated/keywords/5.6.2--keyword_xor.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generated/keywords/5.6.2--keyword_xor.sv:8:9: error: expected a declaration name,
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_0.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_1.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_2.sv,EQUAL,,equal
+generated/logical_equivalence_operator_sim/11.4.7--logical_equiv_operator_3.sv,EQUAL,,equal
+generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_0.sv,EQUAL,,equal
+generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_1.sv,EQUAL,,equal
+generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_2.sv,EQUAL,,equal
+generated/logical_implication_operator_sim/11.4.7--logical_impl_operator_3.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_0.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_1.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_2.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_3.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_4.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_5.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_6.sv,EQUAL,,equal
+generated/logical_operators_sim/11.4.7--logical_operator_7.sv,EQUAL,,equal
+generated/nets/6.6.1--net_tri.sv,EQUAL,,equal
+generated/nets/6.6.1--net_wire.sv,EQUAL,,equal
+generated/nets/6.6.2--net_uwire.sv,EQUAL,,equal
+generated/nets/6.6.3--net_triand.sv,EQUAL,,equal
+generated/nets/6.6.3--net_trior.sv,EQUAL,,equal
+generated/nets/6.6.3--net_wand.sv,EQUAL,,equal
+generated/nets/6.6.3--net_wor.sv,EQUAL,,equal
+generated/nets/6.6.4--net_trireg.sv,EQUAL,,equal
+generated/nets/6.6.5--net_tri0.sv,EQUAL,,equal
+generated/nets/6.6.5--net_tri1.sv,EQUAL,,equal
+generated/nets/6.6.6--net_supply0.sv,EQUAL,,equal
+generated/nets/6.6.6--net_supply1.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--log_shl_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--log_shl_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--log_shr_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--log_shr_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--simple_log_shl_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.10--simple_log_shr_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--div_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--div_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--exp_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--exp_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--minus_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--minus_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--mod_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--mod_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--mul_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--mul_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--plus_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--plus_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_div_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_exp_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_minus_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_mod_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_mul_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.3--simple_plus_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--ge_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--ge_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--gt_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--gt_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--le_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--le_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--lt_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--lt_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--simple_ge_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--simple_gt_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--simple_le_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.4--simple_lt_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--log_eq_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--log_eq_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--log_neq_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--log_neq_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--simple_eq_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--simple_eq_xz_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--simple_neq_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.5--simple_neq_xz_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_and_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_and_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_or_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_or_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_xor_operator_sim_0.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--bit_xor_operator_sim_1.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--simple_bit_and_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--simple_bit_or_operator_sim.sv,EQUAL,,equal
+generated/operators_sim/11.4.8--simple_bit_xor_operator_sim.sv,EQUAL,,equal
+generated/projf-explore/hello_hello-arty_I_projf_pwm.sv,EQUAL,,equal
+generated/projf-explore/hello_hello-arty_J_projf_pwm.sv,EQUAL,,equal
+generated/projf-explore/hello_hello-arty_K_projf_debounce.sv,EQUAL,,equal
+generated/projf-explore/hello_hello-arty_L_projf_pwm.sv,EQUAL,,equal
+generated/projf-explore/hello_hello-nexys_I_projf_pwm.sv,EQUAL,,equal
+generated/projf-explore/lib_display_xc7_projf_bitmap_addr_tb.sv,EQUAL,,equal
+generated/projf-explore/lib_essential_xc7_projf_async_reset.sv,EQUAL,,equal
+generated/projf-explore/lib_maths_xc7_projf_clog2_tb.sv,EQUAL,,equal
+generated/projf-explore/lib_null_ice40_projf_SB_SPRAM256KA.sv,EQUAL,,equal
+generated/projf-explore/lib_null_xc7_projf_BUFG.sv,EQUAL,,equal
+generated/rggen/rggen.sv,SLANG_ONLY,[  ERROR] : 3,
+generated/rsd/rsd.sv,SURELOG_CRASH,,
+generated/sampled_functions/20.13--changed.sv,EQUAL,,equal
+generated/sampled_functions/20.13--changed_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--changing_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--falling_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--fell.sv,EQUAL,,equal
+generated/sampled_functions/20.13--fell_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--future_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--past.sv,EQUAL,,equal
+generated/sampled_functions/20.13--past_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--rising_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--rose.sv,EQUAL,,equal
+generated/sampled_functions/20.13--rose_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--sampled.sv,EQUAL,,equal
+generated/sampled_functions/20.13--stable.sv,EQUAL,,equal
+generated/sampled_functions/20.13--stable_gclk.sv,EQUAL,,equal
+generated/sampled_functions/20.13--steady_gclk.sv,EQUAL,,equal
+generated/scr1/scr1.sv,EQUAL,,equal
+generated/simple_logical_operators_sim/11.4.7--simple_and_logical_operator.sv,EQUAL,,equal
+generated/simple_logical_operators_sim/11.4.7--simple_equiv_logical_operator.sv,EQUAL,,equal
+generated/simple_logical_operators_sim/11.4.7--simple_impl_logical_operator.sv,EQUAL,,equal
+generated/simple_logical_operators_sim/11.4.7--simple_or_logical_operator.sv,EQUAL,,equal
+generated/tnoc/tnoc.sv,DIFFERENT,decompile:,
+generated/trig_functions/20.8--acos.sv,EQUAL,,equal
+generated/trig_functions/20.8--acosh.sv,EQUAL,,equal
+generated/trig_functions/20.8--asin.sv,EQUAL,,equal
+generated/trig_functions/20.8--asinh.sv,EQUAL,,equal
+generated/trig_functions/20.8--atan.sv,EQUAL,,equal
+generated/trig_functions/20.8--atanh.sv,EQUAL,,equal
+generated/trig_functions/20.8--cos.sv,EQUAL,,equal
+generated/trig_functions/20.8--cosh.sv,EQUAL,,equal
+generated/trig_functions/20.8--sin.sv,EQUAL,,equal
+generated/trig_functions/20.8--sinh.sv,EQUAL,,equal
+generated/trig_functions/20.8--tan.sv,EQUAL,,equal
+generated/trig_functions/20.8--tanh.sv,EQUAL,,equal
+generated/unary_op/11.3--simple_unary_op_minus.sv,EQUAL,,equal
+generated/unary_op/11.3--simple_unary_op_not_log.sv,EQUAL,,equal
+generated/unary_op/11.3--simple_unary_op_plus.sv,EQUAL,,equal
+generated/unary_op/11.3--unary_op_minus.sv,EQUAL,,equal
+generated/unary_op/11.3--unary_op_not_log.sv,EQUAL,,equal
+generated/unary_op/11.3--unary_op_plus.sv,EQUAL,,equal
+generated/unary_op/11.4.8--simple_unary_op_not_bit.sv,EQUAL,,equal
+generated/unary_op/11.4.8--unary_op_not_bit.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_and.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_nand.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_nor.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_or.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_xnor_1.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_xnor_2.sv,EQUAL,,equal
+generated/unary_op/11.4.9--simple_unary_op_xor.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_and.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_nand.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_nor.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_or.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_xnor_1.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_xnor_2.sv,EQUAL,,equal
+generated/unary_op/11.4.9--unary_op_xor.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--priority_case.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--priority_casex.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--priority_casez.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique0_case.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique0_casex.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique0_casez.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique_case.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique_casex.sv,EQUAL,,equal
+generated/uniquecase/12.5.3--unique_casez.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_bw_ctu_pad_cluster.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_bw_r_l2d_rep_bot.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_bw_r_l2d_rep_top.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_bw_temp_diode.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_bw_zckgatedcap_h.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ccx_global_int_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ccx_iob_rptr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ccx_spc_rpt.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_io.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p0_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p4.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_p4_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_pdl_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_pdr_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_pm.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_buf_pm_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_databuf_ca.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_databuf_ca2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_fpbuf_p0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_fpbuf_p1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_cpx_spc_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ctu_jtag_id.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ctu_level_mon.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ctu_mask_id.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ctu_test_stub_scan.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_cnt_lead0_53b.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/fpu_cnt_lead0_53b.v:136:1: error: unknown module 'fpu_cnt_lead0_lvl1',
+generated/utd-sv/utd-sv_fpu_cnt_lead0_64b.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/fpu_cnt_lead0_64b.v:152:1: error: unknown module 'fpu_cnt_lead0_lvl1',
+generated/utd-sv/utd-sv_fpu_cnt_lead0_lvl1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_cnt_lead0_lvl2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_cnt_lead0_lvl3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_cnt_lead0_lvl4.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_denorm_3b.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_denorm_3to1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_denorm_frac.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/fpu_denorm_frac.v:105:1: error: unknown module 'fpu_denorm_3b',
+generated/utd-sv/utd-sv_fpu_in2_gt_in1_2b.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_in2_gt_in1_3b.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_in2_gt_in1_3to1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_in2_gt_in1_frac.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/fpu_in2_gt_in1_frac.v:110:1: error: unknown module 'fpu_in2_gt_in1_3b',
+generated/utd-sv/utd-sv_fpu_rptr_macros.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_fpu_rptr_min_global.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_functions.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_ifdef-1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_inc-2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_iob_ccx_rptr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_iob_jbi_rptr_0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_iob_jbi_rptr_1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_loops.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_mod-param-dec.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_net_type_directive.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pad_efc.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_fpio.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p0_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p0_odd.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p4.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p4_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_p4_odd.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdl.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdl_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdl_odd.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdr_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pdr_odd.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pm.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pm_even.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_pm_odd.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_buf_scache.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_pcx_databuf_pa.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_primitives.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/primitives.v:8:5: error: redefinition of 'a' [-Wredefinition],
+generated/utd-sv/utd-sv_rep_jbi_sc0_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_rep_jbi_sc1_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_rep_jbi_sc2_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_rep_jbi_sc3_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_scbuf_sig_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_scbuf_slowsig_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_scdata_rep.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_cpx_rptr_0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_cpx_rptr_1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_cpx_rptr_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_cpx_rptr_3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_dirg_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_dirl_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_min_rptr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_pcx_rptr_0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_pcx_rptr_1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_pcx_rptr_2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_pcx_rptr_3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_retbuf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_scbuf_rptr0.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_scbuf_rptr1.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_scbuf_rptr2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_scbuf_rptr3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_sig_rptr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_slow_rptr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_stdatarep.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sctag_tagctlrep.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_simple_task.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_alu_16eql.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_aluadder64.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_aluor32.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_aluspr.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_aluzcmp64.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/sparc_exu_aluzcmp64.v:47:4: error: unknown module 'sparc_exu_aluor32',
+generated/utd-sv/utd-sv_sparc_exu_div_32eql.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/third_party/tests/utd-sv/sparc_exu_div_32eql.v:68:4: error: unknown module 'sparc_exu_aluor32',
+generated/utd-sv/utd-sv_sparc_exu_ecc_dec.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_eclcomp7.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_exu_rml_inc3.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_ffu_part_add32.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_ifu_par16.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_ifu_par32.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_sparc_ifu_par34.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_spc_pcx_buf.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_spu_lsurpt.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_spu_ma_mon.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_std-6.1.2-contassign.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_std-6.1.2-contassign2.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_std-7.1.6-primitives.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_terminator.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_test_stub_scan.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_tlu_addern_32.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_tlu_incr64.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_tlu_prencoder16.sv,EQUAL,,equal
+generated/utd-sv/utd-sv_unconnected_drive.sv,EQUAL,,equal
+generated/uvm-examples/apb_protocol_monitor.sv,EQUAL,,equal
+generated/uvm-examples/biquad_example.sv,SURELOG_ONLY,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
+generated/uvm-examples/uart_example.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uart_example/agents/apb_agent/apb_seq_item.svh:109:14: error: 'knobs' is a local member of 'uvm_p,
+generated/uvm-examples/uvm_ac_config_db.sv,EQUAL,,equal
+generated/uvm-examples/uvm_alu_config_analysis.sv,BOTH_REJECT,error: '/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_alu_config_analysis/a': No such file or directory,
+generated/uvm-examples/uvm_c_stimulus_bl_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
+generated/uvm-examples/uvm_ef_vif_config_db.sv,EQUAL,,equal
+generated/uvm-examples/uvm_generation_seq_persistence.sv,EQUAL,,equal
+generated/uvm-examples/uvm_generation_seq_poly.sv,EQUAL,,equal
+generated/uvm-examples/uvm_generation_seq_randomization.sv,EQUAL,,equal
+generated/uvm-examples/uvm_id_register.sv,EQUAL,,equal
+generated/uvm-examples/uvm_interrupts_parallel_processing.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_parallel_processing/parallel_processing/dsp_con_driver_bfm.sv:47:15: error: use of,
+generated/uvm-examples/uvm_interrupts_prioritized.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_prioritized/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are requi,
+generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_interrupts_simple/utils/interrupt/interrupt_util.svh:75:12: error: parentheses are required w,
+generated/uvm-examples/uvm_many_to_one.sv,EQUAL,,equal
+generated/uvm-examples/uvm_messaging_example.sv,EQUAL,,equal
+generated/uvm-examples/uvm_overriding.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/uvm-examples/uvm_param_vif_config_db.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_priority_arbitration.sv,EQUAL,,equal
+generated/uvm-examples/uvm_priority_grab_lock.sv,EQUAL,,equal
+generated/uvm-examples/uvm_register_mem_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
+generated/uvm-examples/uvm_register_spi_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
+generated/uvm-examples/uvm_slave_agent.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/uvm-examples/uvm_slave_agent_multi_seq_item.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/uvm-examples/uvm_tb_build_bl_tb.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
+generated/uvm-examples/uvm_tb_build_ss_tb.sv,TIMEOUT,[ERR:EL0514] /home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_tb_build_ss_tb/agents/modem_agent/modem_coverage_monitor.svh:43:4: Undefined var,
+generated/uvm-examples/uvm_test_init.sv,EQUAL,,equal
+generated/uvm-examples/uvm_use_models_bidir_get_put.sv,EQUAL,,equal
+generated/uvm-examples/uvm_use_models_bidir_item_done.sv,EQUAL,,equal
+generated/uvm-examples/uvm_use_models_pipelined_get_put.sv,EQUAL,,equal
+generated/uvm-examples/uvm_use_models_pipelined_item_done.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_use_models_pipelined_item_done/pipelined_item_done/top.sv:66:3: error: use of undeclared iden,
+generated/uvm-examples/uvm_use_models_unidirectional.sv,EQUAL,,equal
+generated/uvm-examples/uvm_vif_config_db.sv,EQUAL,,equal
+generated/uvm-examples/uvm_virt_seq_find_all.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/third_party/tests/uvm-examples/uvm_virt_seq_find_all/top.sv:175:5: error: use of undeclared identifier 'uvm_top',
+generated/uvm-examples/uvm_wait_for_signal.sv,SLANG_ONLY,[  ERROR] : 2,
+generated/uvm_classes_0/uvm_agent_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_component_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_driver_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_env_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_monitor_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_scoreboard_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_sequencer_class_0.sv,EQUAL,,equal
+generated/uvm_classes_0/uvm_test_class_0.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_agent_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_component_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_driver_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_env_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_monitor_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_scoreboard_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_sequencer_class_1.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_test_class_1.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_agent_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_component_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_driver_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_env_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_monitor_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_scoreboard_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_sequencer_class_2.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_test_class_2.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_agent_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_component_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_driver_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_env_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_monitor_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_scoreboard_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_sequencer_class_3.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_test_class_3.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_0.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_1.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_2.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_3.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_4.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_5.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_6.sv,EQUAL,,equal
+generated/wildcard_const_operators_sim/11.4.6--wildcard_const_operator_7.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_0.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_1.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_2.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_3.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_4.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_5.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_6.sv,EQUAL,,equal
+generated/wildcard_operators_sim/11.4.6--wildcard_operator_7.sv,EQUAL,,equal
+generic/class/class_test_0.sv,EQUAL,,equal
+generic/class/class_test_1.sv,EQUAL,,equal
+generic/class/class_test_11.sv,EQUAL,,equal
+generic/class/class_test_12.sv,EQUAL,,equal
+generic/class/class_test_13.sv,EQUAL,,equal
+generic/class/class_test_17.sv,EQUAL,,equal
+generic/class/class_test_18.sv,EQUAL,,equal
+generic/class/class_test_19.sv,EQUAL,,equal
+generic/class/class_test_21.sv,EQUAL,,equal
+generic/class/class_test_25.sv,EQUAL,,equal
+generic/class/class_test_26.sv,EQUAL,,equal
+generic/class/class_test_27.sv,EQUAL,,equal
+generic/class/class_test_28.sv,EQUAL,,equal
+generic/class/class_test_29.sv,EQUAL,,equal
+generic/class/class_test_30.sv,EQUAL,,equal
+generic/class/class_test_4.sv,EQUAL,,equal
+generic/class/class_test_48.sv,EQUAL,,equal
+generic/class/class_test_49.sv,EQUAL,,equal
+generic/class/class_test_51.sv,EQUAL,,equal
+generic/class/class_test_52.sv,EQUAL,,equal
+generic/class/class_test_53.sv,EQUAL,,equal
+generic/class/class_test_54.sv,EQUAL,,equal
+generic/class/class_test_55.sv,EQUAL,,equal
+generic/class/class_test_56.sv,EQUAL,,equal
+generic/class/class_test_57.sv,EQUAL,,equal
+generic/class/class_test_58.sv,EQUAL,,equal
+generic/class/class_test_59.sv,EQUAL,,equal
+generic/class/class_test_6.sv,EQUAL,,equal
+generic/class/class_test_60.sv,EQUAL,,equal
+generic/class/class_test_61.sv,EQUAL,,equal
+generic/class/class_test_62.sv,EQUAL,,equal
+generic/class/class_test_63.sv,EQUAL,,equal
+generic/class/class_test_64.sv,EQUAL,,equal
+generic/class/class_test_65.sv,EQUAL,,equal
+generic/class/class_test_66.sv,EQUAL,,equal
+generic/class/class_test_67.sv,EQUAL,,equal
+generic/class/class_test_68.sv,EQUAL,,equal
+generic/class/class_test_69.sv,EQUAL,,equal
+generic/class/class_test_7.sv,EQUAL,,equal
+generic/class/class_test_8.sv,EQUAL,,equal
+generic/class/class_test_9.sv,EQUAL,,equal
+generic/desc/desc_test_0.sv,EQUAL,,equal
+generic/desc/desc_test_1.sv,EQUAL,,equal
+generic/desc/desc_test_10.sv,EQUAL,,equal
+generic/desc/desc_test_15.sv,EQUAL,,equal
+generic/desc/desc_test_16.sv,EQUAL,,equal
+generic/desc/desc_test_17.sv,EQUAL,,equal
+generic/desc/desc_test_18.sv,EQUAL,,equal
+generic/desc/desc_test_2.sv,EQUAL,,equal
+generic/desc/desc_test_3.sv,EQUAL,,equal
+generic/desc/desc_test_4.sv,EQUAL,,equal
+generic/desc/desc_test_5.sv,EQUAL,,equal
+generic/desc/desc_test_6.sv,EQUAL,,equal
+generic/desc/desc_test_7.sv,EQUAL,,equal
+generic/desc/desc_test_8.sv,EQUAL,,equal
+generic/desc/desc_test_9.sv,EQUAL,,equal
+generic/empty/empty_test_0.sv,EQUAL,,equal
+generic/empty/empty_test_1.sv,EQUAL,,equal
+generic/empty/empty_test_2.sv,EQUAL,,equal
+generic/empty/empty_test_3.sv,EQUAL,,equal
+generic/empty/empty_test_4.sv,EQUAL,,equal
+generic/empty/empty_test_5.sv,EQUAL,,equal
+generic/iface/iface_class_test_0.sv,EQUAL,,equal
+generic/iface/iface_class_test_1.sv,EQUAL,,equal
+generic/iface/iface_class_test_10.sv,EQUAL,,equal
+generic/iface/iface_class_test_2.sv,EQUAL,,equal
+generic/iface/iface_class_test_9.sv,EQUAL,,equal
+generic/member/class_member_test_0.sv,EQUAL,,equal
+generic/member/class_member_test_10.sv,EQUAL,,equal
+generic/member/class_member_test_11.sv,EQUAL,,equal
+generic/member/class_member_test_12.sv,EQUAL,,equal
+generic/member/class_member_test_14.sv,EQUAL,,equal
+generic/member/class_member_test_15.sv,EQUAL,,equal
+generic/member/class_member_test_18.sv,EQUAL,,equal
+generic/member/class_member_test_19.sv,EQUAL,,equal
+generic/member/class_member_test_2.sv,EQUAL,,equal
+generic/member/class_member_test_25.sv,EQUAL,,equal
+generic/member/class_member_test_26.sv,EQUAL,,equal
+generic/member/class_member_test_27.sv,EQUAL,,equal
+generic/member/class_member_test_3.sv,EQUAL,,equal
+generic/member/class_member_test_31.sv,EQUAL,,equal
+generic/member/class_member_test_32.sv,EQUAL,,equal
+generic/member/class_member_test_39.sv,EQUAL,,equal
+generic/member/class_member_test_4.sv,EQUAL,,equal
+generic/member/class_member_test_40.sv,EQUAL,,equal
+generic/member/class_member_test_41.sv,EQUAL,,equal
+generic/member/class_member_test_5.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generic/member/class_member_test_5.sv:19:19: error: pure virtual methods can only be declared in virtual classes,
+generic/member/class_member_test_6.sv,EQUAL,,equal
+generic/member/class_member_test_7.sv,EQUAL,,equal
+generic/member/class_member_test_8.sv,EQUAL,,equal
+generic/member/class_member_test_9.sv,EQUAL,,equal
+generic/number/number_test_0.sv,EQUAL,,equal
+generic/number/number_test_1.sv,EQUAL,,equal
+generic/number/number_test_10.sv,EQUAL,,equal
+generic/number/number_test_11.sv,EQUAL,,equal
+generic/number/number_test_12.sv,EQUAL,,equal
+generic/number/number_test_13.sv,EQUAL,,equal
+generic/number/number_test_14.sv,EQUAL,,equal
+generic/number/number_test_15.sv,EQUAL,,equal
+generic/number/number_test_16.sv,EQUAL,,equal
+generic/number/number_test_2.sv,EQUAL,,equal
+generic/number/number_test_24.sv,EQUAL,,equal
+generic/number/number_test_25.sv,EQUAL,,equal
+generic/number/number_test_26.sv,EQUAL,,equal
+generic/number/number_test_27.sv,EQUAL,,equal
+generic/number/number_test_28.sv,EQUAL,,equal
+generic/number/number_test_29.sv,EQUAL,,equal
+generic/number/number_test_3.sv,EQUAL,,equal
+generic/number/number_test_30.sv,EQUAL,,equal
+generic/number/number_test_31.sv,EQUAL,,equal
+generic/number/number_test_32.sv,EQUAL,,equal
+generic/number/number_test_33.sv,EQUAL,,equal
+generic/number/number_test_34.sv,EQUAL,,equal
+generic/number/number_test_35.sv,EQUAL,,equal
+generic/number/number_test_36.sv,EQUAL,,equal
+generic/number/number_test_4.sv,EQUAL,,equal
+generic/number/number_test_42.sv,EQUAL,,equal
+generic/number/number_test_43.sv,EQUAL,,equal
+generic/number/number_test_44.sv,EQUAL,,equal
+generic/number/number_test_45.sv,EQUAL,,equal
+generic/number/number_test_46.sv,EQUAL,,equal
+generic/number/number_test_47.sv,EQUAL,,equal
+generic/number/number_test_48.sv,EQUAL,,equal
+generic/number/number_test_49.sv,EQUAL,,equal
+generic/number/number_test_5.sv,EQUAL,,equal
+generic/number/number_test_50.sv,EQUAL,,equal
+generic/number/number_test_51.sv,EQUAL,,equal
+generic/number/number_test_52.sv,EQUAL,,equal
+generic/number/number_test_53.sv,EQUAL,,equal
+generic/number/number_test_59.sv,EQUAL,,equal
+generic/number/number_test_6.sv,EQUAL,,equal
+generic/number/number_test_60.sv,EQUAL,,equal
+generic/number/number_test_61.sv,EQUAL,,equal
+generic/number/number_test_62.sv,EQUAL,,equal
+generic/number/number_test_64.sv,EQUAL,,equal
+generic/number/number_test_65.sv,EQUAL,,equal
+generic/number/number_test_66.sv,EQUAL,,equal
+generic/number/number_test_67.sv,EQUAL,,equal
+generic/number/number_test_68.sv,EQUAL,,equal
+generic/number/number_test_69.sv,EQUAL,,equal
+generic/number/number_test_7.sv,EQUAL,,equal
+generic/number/number_test_70.sv,EQUAL,,equal
+generic/number/number_test_71.sv,EQUAL,,equal
+generic/number/number_test_72.sv,EQUAL,,equal
+generic/number/number_test_8.sv,EQUAL,,equal
+generic/number/number_test_9.sv,EQUAL,,equal
+generic/preproc/preproc_test_0.sv,EQUAL,,equal
+generic/preproc/preproc_test_2.sv,EQUAL,,equal
+generic/preproc/preproc_test_4.sv,EQUAL,,equal
+generic/preproc/preproc_test_5.sv,EQUAL,,equal
+generic/preproc/preproc_test_6.sv,EQUAL,,equal
+generic/preproc/preproc_test_7.sv,EQUAL,,equal
+generic/preproc/preproc_test_8.sv,EQUAL,,equal
+generic/struct/struct_test_0.sv,EQUAL,,equal
+generic/typedef/typedef_test_0.sv,EQUAL,,equal
+generic/typedef/typedef_test_1.sv,EQUAL,,equal
+generic/typedef/typedef_test_10.sv,EQUAL,,equal
+generic/typedef/typedef_test_11.sv,EQUAL,,equal
+generic/typedef/typedef_test_12.sv,EQUAL,,equal
+generic/typedef/typedef_test_13.sv,EQUAL,,equal
+generic/typedef/typedef_test_14.sv,EQUAL,,equal
+generic/typedef/typedef_test_16.sv,EQUAL,,equal
+generic/typedef/typedef_test_18.sv,EQUAL,,equal
+generic/typedef/typedef_test_19.sv,EQUAL,,equal
+generic/typedef/typedef_test_2.sv,EQUAL,,equal
+generic/typedef/typedef_test_20.sv,EQUAL,,equal
+generic/typedef/typedef_test_21.sv,EQUAL,,equal
+generic/typedef/typedef_test_22.sv,EQUAL,,equal
+generic/typedef/typedef_test_23.sv,EQUAL,,equal
+generic/typedef/typedef_test_24.sv,EQUAL,,equal
+generic/typedef/typedef_test_25.sv,EQUAL,,equal
+generic/typedef/typedef_test_25__bad.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generic/typedef/typedef_test_25__bad.sv:21:9: error: use of undeclared identifier 'A',
+generic/typedef/typedef_test_26.sv,EQUAL,,equal
+generic/typedef/typedef_test_27.sv,EQUAL,,equal
+generic/typedef/typedef_test_28__bad.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generic/typedef/typedef_test_28__bad.sv:23:9: error: forward typedef 'missing_forward_typedef' does not resolve to a data ,
+generic/typedef/typedef_test_3.sv,EQUAL,,equal
+generic/typedef/typedef_test_4.sv,EQUAL,,equal
+generic/typedef/typedef_test_5.sv,EQUAL,,equal
+generic/typedef/typedef_test_6.sv,EQUAL,,equal
+generic/typedef/typedef_test_7.sv,EQUAL,,equal
+generic/typedef/typedef_test_8.sv,EQUAL,,equal
+generic/typedef/typedef_test_8__bad.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/generic/typedef/typedef_test_8__bad.sv:18:9: error: use of undeclared identifier 'some_other_type',
+generic/typedef/typedef_test_9.sv,EQUAL,,equal
+generic/union/union_test_0.sv,EQUAL,,equal
+sanity.sv,BOTH_REJECT,/home/heyfey/git-repos/sv-tests/tests/sanity.sv:23:9: error: expected a declaration name,
+testbenches/uvm_agent_active.sv,EQUAL,,equal
+testbenches/uvm_agent_env.sv,EQUAL,,equal
+testbenches/uvm_agent_passive.sv,EQUAL,,equal
+testbenches/uvm_driver_sequencer_env.sv,EQUAL,,equal
+testbenches/uvm_monitor_env.sv,EQUAL,,equal
+testbenches/uvm_resource_db_read_by_name.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_env.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_monitor_agent_env.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_monitor_env.sv,EQUAL,,equal
+testbenches/uvm_sequence.sv,EQUAL,,equal
+testbenches/uvm_test_run_test.sv,EQUAL,,equal
+uvm/uvm_files.sv,EQUAL,,equal

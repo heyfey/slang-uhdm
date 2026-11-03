@@ -1,0 +1,9 @@
+generated/easyUVM/top.sv,DIFFERENT,decompile:,
+generated/uvm-examples/uvm_param_vif_config_db.sv,DIFFERENT,decompile:,
+generated/uvm_classes_0/uvm_scoreboard_class_0.sv,EQUAL,,equal
+generated/uvm_classes_1/uvm_scoreboard_class_1.sv,EQUAL,,equal
+generated/uvm_classes_2/uvm_scoreboard_class_2.sv,EQUAL,,equal
+generated/uvm_classes_3/uvm_scoreboard_class_3.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_env.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_monitor_agent_env.sv,EQUAL,,equal
+testbenches/uvm_scoreboard_monitor_env.sv,EQUAL,,equal
