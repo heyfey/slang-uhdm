@@ -1,0 +1,97 @@
+# pristine (/tmp/v11u472_bin/pristine md5 68485a77) vs law (/tmp/v11u472_bin/law md5 21cd25b1); probe arguments; Surelog golden per case
+pris CL/cl01 rc=0 cmp=0 STRICT_EQUAL 234 objects md5=98b69779
+pris CL/cl02 rc=0 cmp=146 NOT_EQUAL stage1 md5=2bae890b
+pris CL/cl03 rc=0 cmp=0 STRICT_EQUAL 41 objects md5=5674d651
+pris CL/cl04 rc=0 cmp=0 STRICT_EQUAL 82 objects md5=498bf9c1
+pris CL/cl05 rc=0 cmp=726 NOT_EQUAL stage1 md5=42899aac
+pris CL/cl06 rc=0 cmp=0 STRICT_NOTEQUAL name md5=dc37b358
+pris CL/cl07 rc=0 cmp=146 NOT_EQUAL stage1 md5=3e0258b9
+pris CL/cl08 rc=0 cmp=164 NOT_EQUAL stage1 md5=babf5aa3
+pris TI/ti01 rc=0 cmp=40 NOT_EQUAL stage1 md5=f372b9f4
+pris TI/ti02 rc=0 cmp=17 NOT_EQUAL stage1 md5=15cdccc3
+pris TI/ti03 rc=0 cmp=82 NOT_EQUAL stage1 md5=8428caf0
+pris TI/ti04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=128435ac
+pris TI/ti05 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e9b4608e
+pris TI/ti06 rc=0 cmp=40 NOT_EQUAL stage1 md5=82f92458
+pris TI/ti07 rc=0 cmp=17 NOT_EQUAL stage1 md5=9d4900fd
+pris TI/ti09 rc=0 cmp=40 NOT_EQUAL stage1 md5=daa44aa4
+pris TI/ti10 rc=0 cmp=90 NOT_EQUAL stage1 md5=d39239d6
+pris VG/vg01 rc=0 cmp=302 NOT_EQUAL stage1 md5=40b5ec12
+pris VG/vg02 rc=0 cmp=378 NOT_EQUAL stage1 md5=277d6696
+pris VG/vg03 rc=0 cmp=308 NOT_EQUAL stage1 md5=536fb1d7
+pris VG/vg04 rc=0 cmp=164 NOT_EQUAL stage1 md5=e4fe0888
+pris VG/vg05 rc=0 cmp=142 NOT_EQUAL stage1 md5=701f3421
+pris VG/vg06 rc=0 cmp=0 STRICT_EQUAL 34 objects md5=a699b5e7
+pris VG/vg07 rc=0 cmp=208 NOT_EQUAL stage1 md5=14d48c0f
+pris VG/vg08 rc=0 cmp=164 NOT_EQUAL stage1 md5=514654ea
+pris VG/vg09 rc=0 cmp=142 NOT_EQUAL stage1 md5=dec35a9a
+pris VG/vg10 rc=0 cmp=73 NOT_EQUAL stage1 md5=45ec16ba
+pris VG/vg11 rc=0 cmp=81 NOT_EQUAL stage1 md5=2946b1df
+pris VG/vg12 rc=0 cmp=182 NOT_EQUAL stage1 md5=9a72ae9b
+pris VM/vm01 rc=0 cmp=428 NOT_EQUAL stage1 md5=1033ed1c
+pris VM/vm02 rc=0 cmp=294 NOT_EQUAL stage1 md5=ba3e103e
+pris VM/vm03 rc=0 cmp=220 NOT_EQUAL stage1 md5=05bfedde
+pris VO/vo01 rc=0 cmp=353 NOT_EQUAL stage1 md5=5b9ba3a4
+pris VO/vo02 rc=0 cmp=387 NOT_EQUAL stage1 md5=1a95c8c9
+pris VO/vo03 rc=0 cmp=0 STRICT_NOTEQUAL name md5=3647f21d
+pris VO/vo04 rc=0 cmp=0 STRICT_EQUAL 276 objects md5=85271689
+pris VO/vo05 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=f044f593
+pris VO/vo06 rc=0 cmp=0 STRICT_NOTEQUAL name md5=88b3ec01
+pris VO/vo07 rc=0 cmp=0 STRICT_NOTEQUAL name md5=7e2f64b0
+pris VO/vo08 rc=0 cmp=0 STRICT_EQUAL 250 objects md5=c803f446
+pris VO/vo09 rc=0 cmp=0 STRICT_EQUAL 234 objects md5=c143dfe5
+pris VO/vo10 rc=0 cmp=0 STRICT_NOTEQUAL name md5=2b470609
+law  CL/cl01 rc=0 cmp=0 STRICT_EQUAL 234 objects md5=12f9afce
+law  CL/cl02 rc=0 cmp=0 STRICT_EQUAL 48 objects md5=9f5c3a00
+law  CL/cl03 rc=0 cmp=0 STRICT_EQUAL 41 objects md5=5674d651
+law  CL/cl04 rc=0 cmp=0 STRICT_EQUAL 82 objects md5=9b6a84ae
+law  CL/cl05 rc=0 cmp=0 STRICT_EQUAL 249 objects md5=68cb2a99
+law  CL/cl06 rc=0 cmp=0 STRICT_EQUAL 180 objects md5=dc20c7e2
+law  CL/cl07 rc=0 cmp=0 STRICT_EQUAL 38 objects md5=210b54dc
+law  CL/cl08 rc=0 cmp=0 STRICT_EQUAL 59 objects md5=d227be4b
+law  TI/ti01 rc=0 cmp=40 NOT_EQUAL stage1 md5=f372b9f4
+law  TI/ti02 rc=0 cmp=17 NOT_EQUAL stage1 md5=15cdccc3
+law  TI/ti03 rc=0 cmp=82 NOT_EQUAL stage1 md5=8428caf0
+law  TI/ti04 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=128435ac
+law  TI/ti05 rc=0 cmp=0 STRICT_NOTEQUAL fullname md5=e9b4608e
+law  TI/ti06 rc=0 cmp=40 NOT_EQUAL stage1 md5=82f92458
+law  TI/ti07 rc=0 cmp=17 NOT_EQUAL stage1 md5=9d4900fd
+law  TI/ti09 rc=0 cmp=40 NOT_EQUAL stage1 md5=daa44aa4
+law  TI/ti10 rc=0 cmp=90 NOT_EQUAL stage1 md5=d39239d6
+law  VG/vg01 rc=0 cmp=0 STRICT_EQUAL 68 objects md5=38aef5d0
+law  VG/vg02 rc=0 cmp=0 STRICT_EQUAL 156 objects md5=0d30706e
+law  VG/vg03 rc=0 cmp=0 STRICT_EQUAL 149 objects md5=6dbc230f
+law  VG/vg04 rc=0 cmp=0 STRICT_EQUAL 56 objects md5=22ee28d8
+law  VG/vg05 rc=0 cmp=0 STRICT_EQUAL 40 objects md5=4b12daba
+law  VG/vg06 rc=0 cmp=0 STRICT_EQUAL 34 objects md5=a699b5e7
+law  VG/vg07 rc=0 cmp=0 STRICT_EQUAL 62 objects md5=02ad835a
+law  VG/vg08 rc=0 cmp=0 STRICT_EQUAL 75 objects md5=c7ef5ecf
+law  VG/vg09 rc=0 cmp=0 STRICT_EQUAL 54 objects md5=0ab6f0c3
+law  VG/vg10 rc=0 cmp=73 NOT_EQUAL stage1 md5=365c2daa
+law  VG/vg11 rc=0 cmp=81 NOT_EQUAL stage1 md5=2946b1df
+law  VG/vg12 rc=0 cmp=0 STRICT_EQUAL 84 objects md5=91896363
+law  VM/vm01 rc=0 cmp=0 STRICT_EQUAL 201 objects md5=ce05a2ba
+law  VM/vm02 rc=0 cmp=0 STRICT_EQUAL 93 objects md5=886b591f
+law  VM/vm03 rc=0 cmp=0 STRICT_EQUAL 66 objects md5=3a7882df
+law  VO/vo01 rc=0 cmp=353 NOT_EQUAL stage1 md5=09513dce
+law  VO/vo02 rc=0 cmp=387 NOT_EQUAL stage1 md5=1a95c8c9
+law  VO/vo03 rc=0 cmp=0 STRICT_EQUAL 182 objects md5=ade00192
+law  VO/vo04 rc=0 cmp=0 STRICT_EQUAL 276 objects md5=2ab573dc
+law  VO/vo05 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=ac01a6c6
+law  VO/vo06 rc=0 cmp=0 STRICT_NOTEQUAL name md5=c067169e
+law  VO/vo07 rc=0 cmp=0 STRICT_NOTEQUAL name md5=0e2549e0
+law  VO/vo08 rc=0 cmp=0 STRICT_EQUAL 250 objects md5=0cc0ebac
+law  VO/vo09 rc=0 cmp=0 STRICT_EQUAL 234 objects md5=d13a9f20
+law  VO/vo10 rc=0 cmp=0 STRICT_EQUAL 247 objects md5=fdc6351a
+pris VG/vg13 md5=418de1fd cmp=94 NOT_EQUAL stage1
+pris VG/vg14 md5=5b4489bf cmp=332 NOT_EQUAL stage1
+pris VG/vg15 md5=abcf5798 cmp=294 NOT_EQUAL stage1
+pris VG/vg16 md5=6681a2bb cmp=160 NOT_EQUAL stage1
+pris VO/vo11 md5=bad8e2f8 cmp=0 STRICT_NOTEQUAL name
+pris VO/vo12 md5=a5340e37 cmp=0 STRICT_NOTEQUAL name
+law VG/vg13 md5=418de1fd cmp=94 NOT_EQUAL stage1
+law VG/vg14 md5=e60ca274 cmp=0 STRICT_EQUAL 112 objects
+law VG/vg15 md5=86fc4052 cmp=0 STRICT_EQUAL 73 objects
+law VG/vg16 md5=1c6408e5 cmp=0 STRICT_EQUAL 43 objects
+law VO/vo11 md5=58449c06 cmp=0 STRICT_EQUAL 280 objects
+law VO/vo12 md5=e68444a0 cmp=0 STRICT_EQUAL 292 objects

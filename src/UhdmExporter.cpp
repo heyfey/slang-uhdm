@@ -29980,6 +29980,49 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 d->Task_funcs()->begin()))
                     lawTrace(466, "unitGroupKeepsHomeOrder466", "design");
             }
+            // § clsImpGroupHomeOrder472 (r11u472, R11U472_CLSGRPORDER_OFF;
+            // cases tools/probe/r11u472repro/cases/CL) -- the same reorder for
+            // a CLASS's own subroutine listing.  § classInheritsContainerImports23
+            // copies the importer's group into the class before the package and
+            // module views are re-ordered above, so a class whose container
+            // imports a package that itself imports kept the clone order the
+            // collection walk gave: golden's sv-tests uvm_param_vif_config_db
+            // tb_params_pkg::SFR lists uvm_packer's six macro-written
+            // get/set_packed_* clones at positions 227 to 232 as sfr_agent_pkg
+            // does, ours at 947 to 952; CL/cl06's class in module top lists
+            // [C::a1, C::get_bytes, C::get_ints, C::z9] in golden, ours
+            // [C::a1, C::z9, C::get_bytes, C::get_ints].
+            if (lawOn(446, "R11U446_IMPGRPORDER_OFF") &&
+                lawOn(472, "R11U472_CLSGRPORDER_OFF")) {
+                std::set<const UHDM::class_defn*> seen472;
+                auto cls472 = [&](const UHDM::VectorOfclass_defn* v) {
+                    if (!v)
+                        return;
+                    // (VpiName only: VpiFullName's getter stores what it computes)
+                    for (auto* c472 : *v) {
+                        if (!c472 || !c472->Task_funcs() || !seen472.insert(c472).second)
+                            continue;
+                        std::vector<UHDM::task_func*> before472(c472->Task_funcs()->begin(),
+                                                                c472->Task_funcs()->end());
+                        reorder446(c472->Task_funcs(), std::string(c472->VpiName()));
+                        if (!std::equal(before472.begin(), before472.end(),
+                                        c472->Task_funcs()->begin()))
+                            lawTrace(472, "clsImpGroupHomeOrder472",
+                                     std::string(c472->VpiName()));
+                    }
+                };
+                for (int k472 = 0; k472 < 2; k472++) {
+                    if (auto* l472 = k472 ? d->TopPackages() : d->AllPackages())
+                        for (auto* p472 : *l472)
+                            if (p472)
+                                cls472(p472->Class_defns());
+                    if (auto* m472 = k472 ? d->TopModules() : d->AllModules())
+                        for (auto* x472 : *m472)
+                            if (x472)
+                                cls472(x472->Class_defns());
+                }
+                cls472(d->AllClasses());
+            }
             // § cloneBodyCallBindsHomeTopTf446 — the twin of
             // § clsBodyCallBindsHomeTopTf446 for the BODIES OF THE IMPORT
             // GROUP itself: a call written in a subroutine the group

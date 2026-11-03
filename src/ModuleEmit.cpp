@@ -14327,7 +14327,8 @@ void UhdmExporter::foldVectorTsBounds(UHDM::typespec* t,
 static std::vector<UHDM::task_func*> withOwnOob452(
     const PackageSymbol& pk452, std::vector<UHDM::task_func*> grp452,
     const std::map<const Symbol*, std::vector<UHDM::task_func*>>& classOobTfs,
-    const std::map<const void*, UHDM::package*>& pkgDefMap) {
+    const std::map<const void*, UHDM::package*>& pkgDefMap,
+    const std::map<const void*, UHDM::package*>& pkgTopMap) {
     if (!lawOn(452, "R11U452_GRPOOBDEF_OFF"))
         return grp452;
     std::map<std::string, UHDM::task_func*> oob452;
@@ -14342,6 +14343,53 @@ static std::vector<UHDM::task_func*> withOwnOob452(
                 oob452.emplace(std::string(t->VpiParent()->VpiName()) + "::" +
                                    std::string(t->VpiName()),
                                t);
+    }
+    // § grpOwnOobGenericCls472 (r11u472, R11U472_GRPOOBGEN_OFF; cases
+    // tools/probe/r11u472repro/cases/CL) -- the walk above reads only
+    // ClassType members, so a PARAMETERIZED class (a GenericClassDef member,
+    // whose class_defn the exporter writes from a specialization) contributed
+    // nothing and the group kept the package's `C::m` clones out: golden's
+    // group lists the class_defn-parented definition for a parameterized
+    // class exactly as for a plain one (sv-tests uvm_param_vif_config_db:
+    // sfr_agent_pkg's sfr_driver #(..)::run_phase and its four siblings in
+    // tb_params_pkg::SFR's 984-entry listing and at positions 980 to 984 of
+    // every sfr_test_pkg class, ours 979 entries and tb_params_pkg's clones;
+    // CL/cl02).  The definition is taken only from a class_defn a view
+    // of the package lists, and a name two specializations both carry
+    // abstains.
+    if (lawOn(472, "R11U472_GRPOOBGEN_OFF")) {
+        std::set<const UHDM::BaseClass*> listed472;
+        for (auto* pv472 : {pkgDefMap.find((const void*)&pk452) != pkgDefMap.end()
+                                ? pkgDefMap.at((const void*)&pk452)
+                                : nullptr,
+                            pkgTopMap.find((const void*)&pk452) != pkgTopMap.end()
+                                ? pkgTopMap.at((const void*)&pk452)
+                                : nullptr})
+            if (pv472 && pv472->Class_defns())
+                for (auto* c472 : *pv472->Class_defns())
+                    listed472.insert(c472);
+        std::map<std::string, UHDM::task_func*> gen472;
+        bool clash472 = false;
+        for (auto& [sym472, tfs472] : classOobTfs) {
+            if (!sym472 || sym472->kind != SymbolKind::ClassType)
+                continue;
+            auto* gc472 = sym472->as<ClassType>().genericClass;
+            if (!gc472 || gc472->getParentScope() != static_cast<const Scope*>(&pk452))
+                continue;
+            for (auto* t : tfs472) {
+                if (!t || !t->VpiParent() || !listed472.count(t->VpiParent()))
+                    continue;
+                auto [it472, ins472] = gen472.emplace(
+                    std::string(t->VpiParent()->VpiName()) + "::" + std::string(t->VpiName()), t);
+                if (!ins472 && it472->second != t)
+                    clash472 = true;
+            }
+        }
+        if (!clash472)
+            for (auto& kv472 : gen472)
+                if (oob452.emplace(kv472).second)
+                    lawTrace(472, "grpOwnOobGenericCls472",
+                             std::string(pk452.name) + " " + kv472.first);
     }
     if (oob452.empty())
         return grp452;
@@ -14393,7 +14441,7 @@ std::vector<UHDM::task_func*> UhdmExporter::materializedPkgTfGroup(
                 pit8->second->Task_funcs()) {
                 for (auto* t8 : *pit8->second->Task_funcs())
                     grp.push_back(t8);
-                return withOwnOob452(pkg, std::move(grp), classOobTfs, pkgDefMap);
+                return withOwnOob452(pkg, std::move(grp), classOobTfs, pkgDefMap, pkgTopMap);
             }
         }
     }

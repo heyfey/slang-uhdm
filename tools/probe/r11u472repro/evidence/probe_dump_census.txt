@@ -1,0 +1,3 @@
+# path-normalized uhdm-dump compare, law2 sweep probe dbs vs the control's
+   4087 same
+# negative control (200 files vs one fixed control file): 199 DIFF, 1 same (the fixed file itself)

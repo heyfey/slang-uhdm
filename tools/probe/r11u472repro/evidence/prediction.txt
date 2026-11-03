@@ -1,0 +1,5 @@
+# pred472 over the master's control databases /tmp/intr11u470 (fence-filtered: 4087 probe, 954 surelog, 1606 uhdm2rtlil, 804 downstream, 26 kept sv-tests); rows with a nonzero prediction:
+svtests/work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm F1=1 F2=5 F2:sfr_agent_pkg/sfr_driver::run_phase F2:sfr_agent_pkg/sfr_monitor::build_phase F2:sfr_agent_pkg/sfr_monitor::run_phase F2:sfr_agent_pkg/sfr_agent::build_phase F2:sfr_agent_pkg/sfr_agent::connect_phase F1:SFR
+svtests/work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm F1=0 F2=4 F2:apb_slave_agent_pkg/apb_slave_agent_config::get_config F2:apb_slave_agent_pkg/apb_slave_agent_config::new F2:env_pkg/env_config::get_config F2:env_pkg/env_config::new
+svtests/work/generated/uvm-examples/uvm_slave_agent/slang.uhdm F1=0 F2=4 F2:apb_slave_agent_pkg/apb_slave_agent_config::get_config F2:apb_slave_agent_pkg/apb_slave_agent_config::new F2:env_pkg/env_config::get_config F2:env_pkg/env_config::new
+# total databases scanned: 7477, ERR 0
