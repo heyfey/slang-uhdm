@@ -1,0 +1,9 @@
+uvm_param_vif_config_db, golden 1002258 objects (cached golden of the master's control), our database run by evidence/row_run.sh
+pristine: STRICT_NOTEQUAL fullname | objects 1002258 vs 1002253
+law1: NOT_EQUAL stage1 | 
+law2: STRICT_NOTEQUAL fullname | objects 1002258 vs 1002275
+law4: STRICT_NOTEQUAL fullname | objects 1002258 vs 1002275
+law6: STRICT_NOTEQUAL depth | objects 1002258 vs 1002275
+law8: STRICT_NOTEQUAL depth | objects 1002258 vs 1002267
+law9: STRICT_EQUAL 1002258 objects | 
+law10: STRICT_EQUAL 1002258 objects | 

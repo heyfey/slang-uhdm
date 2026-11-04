@@ -7136,8 +7136,75 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // shared object.
                 if (importCopyTsInst && ts &&
                     pkgImportCloneOwner32.count((UHDM::typespec*)ts))
-                    if (auto* acp32 =
-                            aggImportCloneCopy32((UHDM::typespec*)ts)) {
+                    if (auto* acp32 = [&]() -> UHDM::typespec* {
+                            auto* src478 = (UHDM::typespec*)ts;
+                            auto* cp478 = aggImportCloneCopy32(src478);
+                            // § aliasFormalCopyPerClone478 (r11u478,
+                            // R11U478_ALIASCOPY_OFF; cases
+                            // tools/probe/r11u478repro/cases/AF; the face
+                            // (d) of uvm_param_vif_config_db) — the bare
+                            // alias-of-alias enum copy § cloneAliasFormalOwnChain214
+                            // gives a clone's formal is the formal's OWN
+                            // typespec (compileTfPortList compiles it per
+                            // subroutine), so every importing package's
+                            // clones hold their own copy whose alias ref is
+                            // named by its own parent chain (golden
+                            // sfr_agent_pkg:: / tb_params_pkg:: /
+                            // sfr_test_pkg::uvm_sequencer_base::
+                            // set_arbitration::val::UVM_SEQ_ARB_TYPE, three
+                            // objects).  The memo of § importCopyAggFormalOwnCopy32
+                            // handed every importer the ONE copy keyed by the
+                            // shared listing clone, re-parented to the last
+                            // io_decl, so all names read the last importer's.
+                            // One copy per IMPORTING PACKAGE object: within
+                            // one importer the formals of two subroutines
+                            // share it, its span the last writer's type token
+                            // (r11u231 AL/a04, golden q's pf `v` and
+                            // set_arbitration's `val` both at 11:39; cases
+                            // AF/af09); a copy another package's io_decl has
+                            // claimed is replaced by a fresh one.
+                            auto pkg478 = [](const UHDM::any* x) -> const UHDM::any* {
+                                for (; x; x = x->VpiParent())
+                                    if (x->UhdmType() == UHDM::uhdmpackage)
+                                        return x;
+                                return nullptr;
+                            };
+                            if (!cp478 || cp478->UhdmType() != UHDM::uhdmenum_typespec)
+                                return cp478;
+                            auto adt478 = arg->getDeclaredType();
+                            if (!adt478 || adt478->getType().kind != SymbolKind::TypeAlias ||
+                                adt478->getType().as<TypeAliasType>().targetType.getType().kind !=
+                                    SymbolKind::TypeAlias ||
+                                !lawOn(478, "R11U478_ALIASCOPY_OFF"))
+                                return cp478;
+                            const UHDM::any* ip478 = pkg478(io);
+                            if (!ip478)
+                                return cp478;
+                            // the copy of each (shared listing clone,
+                            // importing package object), a side map read
+                            // only here
+                            static std::map<std::pair<const UHDM::typespec*, const UHDM::any*>,
+                                            UHDM::typespec*>
+                                per478;
+                            const auto key478 = std::make_pair((const UHDM::typespec*)src478, ip478);
+                            if (auto f478 = per478.find(key478); f478 != per478.end())
+                                return f478->second;
+                            if (!cp478->VpiParent() ||
+                                cp478->VpiParent()->UhdmType() != UHDM::uhdmio_decl ||
+                                pkg478(cp478->VpiParent()) == ip478) {
+                                per478[key478] = cp478;
+                                return cp478;
+                            }
+                            aggImportCloneCopy32Map.erase(src478);
+                            auto* fresh478 = aggImportCloneCopy32(src478);
+                            if (!fresh478)
+                                return cp478;
+                            per478[key478] = fresh478;
+                            lawTrace(478, "aliasFormalCopyPerClone478",
+                                     std::string(arg->name) + " " +
+                                         std::string(src478->VpiName()));
+                            return fresh478;
+                        }()) {
                         ts = acp32;
                         // § importCloneAliasEnumBareName36 — inside a clone
                         // body that private copy is BARE-named when the

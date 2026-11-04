@@ -25079,8 +25079,104 @@ UHDM::design* UhdmExporter::exportDesign() {
     // § cloneViaProviderTopClone476's late half (TypeEmit): after
     // § cloneForIncBindsHomeVar238's design-final home binding, a clone that
     // reaches the home through a provider package binds the provider's twin.
+    // § providerBodyCopyBind478 reads the provider pairing, which the late
+    // drain below clears: a side map taken first (read only by that law)
+    std::map<const UHDM::task_func*, const UHDM::task_func*> prov478;
+    if (lawOn(476, "R11U476_CLONEPROVIDER_OFF") && lawOn(478, "R11U478_PROVCOPYBIND_OFF"))
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (const UHDM::any*)kv.first;
+            if (o && (o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask))
+                if (auto* pv = cloneProvider476((const UHDM::task_func*)o))
+                    prov478[(const UHDM::task_func*)o] = pv;
+        }
     if (lawOn(476, "R11U476_CLONEPROVIDER_OFF"))
         reHomeLateDrain476(s);
+    // § providerBodyCopyBind478 (r11u478, R11U478_PROVCOPYBIND_OFF; cases
+    // tools/probe/r11u478repro/cases/PB; r11u476 CC/cc13; uvm_param_vif_
+    // config_db's `p = process::self();` in tb_params_pkg's two views of
+    // uvm_process_report_message) — § cloneViaProviderTopClone476 binds a
+    // reference in a package that reaches the home through a provider M to
+    // M's top-view clone's body local, read when that clone was emitted; the
+    // provider clone's wrapper begin then takes its own copies of its locals
+    // (§ importCloneBodyLocalCopies175, design-final in drainPaNameCopySrc38,
+    // Surelog's clone_tree copying each LIST) and its subroutine listing an
+    // unbound twin (§ cloneTfOwnVarListingIsUnbound195), so the object the
+    // reference holds is listed nowhere.  Golden's t::f `p` binds a::f's
+    // BEGIN entry (the copy), and a walk that meets the unlisted original a
+    // second time reads it as a new object (strict `depth`).  Design-final,
+    // after every drain that re-points a provider reference: in each
+    // provider-paired clone, a reference whose actual is a variable of the
+    // provider clone that its parent scope no longer lists, while that scope
+    // lists one of the same kind, name and declaration site, binds that one.
+    if (!prov478.empty()) {
+        auto tfOf478 = [](const UHDM::any* x) -> const UHDM::task_func* {
+            for (; x; x = x->VpiParent())
+                if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask)
+                    return (const UHDM::task_func*)x;
+            return nullptr;
+        };
+        std::vector<UHDM::any*> refs478;
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::any*)kv.first;
+            if (o && (dynamic_cast<UHDM::ref_obj*>(o) || o->UhdmType() == UHDM::uhdmref_var))
+                refs478.push_back(o);
+        }
+        std::sort(refs478.begin(), refs478.end(),
+                  [](const UHDM::any* a, const UHDM::any* b) { return a->UhdmId() < b->UhdmId(); });
+        for (auto* o : refs478) {
+            const UHDM::any* act = nullptr;
+            if (auto* r = dynamic_cast<UHDM::ref_obj*>(o))
+                act = r->Actual_group();
+            else
+                act = ((UHDM::ref_var*)o)->Actual_group();
+            auto* v = dynamic_cast<const UHDM::variables*>(act);
+            if (!v || !v->VpiParent())
+                continue;
+            auto* ctf = tfOf478(o);
+            if (!ctf)
+                continue;
+            auto pit = prov478.find(ctf);
+            if (pit == prov478.end() || tfOf478(v) != pit->second)
+                continue;
+            // the lists that can hold it: its parent scope's, and the
+            // provider subroutine's wrapper begin's (a declaration whose
+            // original was re-parented at its declaration assignment,
+            // `uvm_coreservice_t cs;` in uvm_component::new)
+            std::vector<const std::vector<const UHDM::BaseClass*>*> lsts;
+            if (const auto* l1 = std::get<2>(v->VpiParent()->GetByVpiType(vpiVariables)))
+                lsts.push_back(l1);
+            if (auto* st = pit->second->Stmt(); st && st != v->VpiParent())
+                if (const auto* l2 = std::get<2>(st->GetByVpiType(vpiVariables)))
+                    lsts.push_back(l2);
+            bool listed = lsts.empty();
+            for (auto* l : lsts)
+                if (std::find(l->begin(), l->end(), v) != l->end())
+                    listed = true;
+            if (listed)
+                continue;
+            UHDM::variables* w = nullptr;
+            int n = 0;
+            for (auto* l : lsts)
+                for (auto* e : *l) {
+                    auto* ev = (UHDM::variables*)dynamic_cast<const UHDM::variables*>(e);
+                    if (ev && ev->UhdmType() == v->UhdmType() && ev->VpiName() == v->VpiName() &&
+                        ev->VpiLineNo() == v->VpiLineNo() && ev->VpiColumnNo() == v->VpiColumnNo()) {
+                        if (ev != w)
+                            ++n;
+                        w = ev;
+                    }
+                }
+            if (n != 1)
+                continue;
+            if (auto* r = dynamic_cast<UHDM::ref_obj*>(o))
+                r->Actual_group(w);
+            else
+                ((UHDM::ref_var*)o)->Actual_group(w);
+            lawTrace(478, "providerBodyCopyBind478",
+                     std::string(ctf->VpiFullName()) + " " + std::string(o->VpiName()) + "@" +
+                         std::to_string(o->VpiLineNo()) + ":" + std::to_string(o->VpiColumnNo()));
+        }
+    }
     // § instTypeParamSharesDef120 needs the same named-override census
     // (filled inside the block below, read after § 107).
     std::map<std::string, std::set<std::string>> ovr120;
@@ -27077,6 +27173,7 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // The r11u241 drains run on EVERY exit of this function (the writer
     // pass below returns early when no typedef has a writer).
+    std::vector<UHDM::task_func*> cloneTfs478;  // § cloneHierArrElemMember478
     auto finish241 = [&]() -> UHDM::design* {
         // § cloneLoopVarHomeDeclTs259 (law at TypeEmit importCloneBareTdAlias16)
         // — first of the drains (finish241 runs on every exit): the shared home loop variable takes the
@@ -28014,6 +28111,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
         // § cloneFormalTsParented253 reads the copies after § 241's drain.
         const std::vector<UHDM::task_func*> cloneTfs253 = g_cloneTf241;
+        cloneTfs478 = g_cloneTf241;  // § cloneHierArrElemMember478 (final287)
         g_cloneTf241.clear();
         auto* d241 = finish231();
         // § cloneLocalArrayTsParented241 (r11u241, law at TaskFuncEmit.cpp
@@ -28303,6 +28401,140 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // r11u287's design-final steps, after every drain above.
     auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+    // § cloneHierArrElemMember478 (r11u478, R11U478_ARRMEMBER_OFF; cases
+    // tools/probe/r11u478repro/cases/AM; uvm_param_vif_config_db's
+    // uvm_reg_map.svh 2034 face `p.push_back(accesses[i0].data[i1*8+:8])`) —
+    // an import clone's dotted path is made by UHDM's hier_path::DeepClone
+    // (clone_tree.cpp), which walks the path elements and, when the element
+    // before holds an ARRAY variable (array_var or packed_array_var) whose
+    // element typespec is a struct or union, binds the next element to the
+    // member of that name (`cro->Actual_group(member)`, the array_var case of
+    // its first switch).  The element before is the CLONE's, so the member is
+    // the one of the struct the clone's array variable reaches: the home's for
+    // a direct importer (golden sfr_agent_pkg's `data` -> uvm_pkg's listing
+    // member), the provider clone's own copy for a package that reaches the
+    // home through § cloneViaProviderTopClone476 (golden tb_params_pkg's
+    // `data` -> sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::
+    // uvm_pkg::uvm_reg_bus_op::data).  Our clone bodies are emitted, not
+    // cloned, and left that element unbound.  Design-final, after every
+    // pool that binds a path element (final287, after finish241's
+    // § cloneAggLocalOwnCopy241 gives a clone's local array its own struct
+    // copy, which golden's provider binding reaches): in each import clone (g_cloneTf241),
+    // each hier_path element after the first that is a ref_obj kind with no
+    // actual, following a ref_obj kind bound to an array variable whose
+    // element typespec is a struct or union with a member of that name, binds
+    // that member.  An element after a bound member is not resolved further
+    // (DeepClone's next lookup reads a ref_obj there, and a member is not).
+    // § cloneHierArrElemMember478 (r11u478, R11U478_ARRMEMBER_OFF; cases
+    // tools/probe/r11u478repro/cases/AM; uvm_param_vif_config_db's
+    // uvm_reg_map.svh 2034 face `p.push_back(accesses[i0].data[i1*8+:8])`) —
+    // an import clone's dotted path is made by UHDM's hier_path::DeepClone
+    // (clone_tree.cpp), which walks the path elements and, when the element
+    // before holds an ARRAY variable (array_var or packed_array_var) whose
+    // element typespec is a struct or union, binds the next element to the
+    // member of that name (`cro->Actual_group(member)`, the array_var case of
+    // its first switch).  The element before is the CLONE's, so the member is
+    // the one of the struct the clone's array variable reaches: the home's for
+    // a direct importer (golden sfr_agent_pkg's `data` -> uvm_pkg's listing
+    // member), the provider clone's own copy for a package that reaches the
+    // home through § cloneViaProviderTopClone476 (golden tb_params_pkg's
+    // `data` -> sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::
+    // uvm_pkg::uvm_reg_bus_op::data).  Our clone bodies are emitted, not
+    // cloned, and left that element unbound.  Design-final, after every
+    // pool that binds a path element (final287, after finish241's
+    // § cloneAggLocalOwnCopy241 gives a clone's local array its own struct
+    // copy, which golden's provider binding reaches): in each import clone (g_cloneTf241),
+    // each hier_path element after the first that is a ref_obj kind with no
+    // actual, following a ref_obj kind bound to an array variable whose
+    // element typespec is a struct or union with a member of that name, binds
+    // that member.  An element after a bound member is not resolved further
+    // (DeepClone's next lookup reads a ref_obj there, and a member is not).
+    if (lawOn(478, "R11U478_ARRMEMBER_OFF") && !cloneTfs478.empty()) {
+        std::set<const UHDM::any*> clones478(cloneTfs478.begin(), cloneTfs478.end());
+        auto elemTs478 = [](const UHDM::any* a) -> const UHDM::typespec* {
+            const UHDM::typespec* t = nullptr;
+            if (a->UhdmType() == UHDM::uhdmarray_var) {
+                auto* rt = ((const UHDM::array_var*)a)->Typespec();
+                t = rt ? rt->Actual_typespec() : nullptr;
+                if (t && t->UhdmType() == UHDM::uhdmarray_typespec) {
+                    auto* ert = ((const UHDM::array_typespec*)t)->Elem_typespec();
+                    t = ert ? ert->Actual_typespec() : nullptr;
+                }
+            }
+            else if (a->UhdmType() == UHDM::uhdmpacked_array_var) {
+                auto* rt = ((const UHDM::packed_array_var*)a)->Typespec();
+                t = rt ? rt->Actual_typespec() : nullptr;
+                if (t && t->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                    auto* ert = ((const UHDM::packed_array_typespec*)t)->Elem_typespec();
+                    t = ert ? ert->Actual_typespec() : nullptr;
+                }
+            }
+            else
+                return nullptr;
+            // DeepClone's second unwrap of the element typespec
+            if (t && t->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                auto* ert = ((const UHDM::packed_array_typespec*)t)->Elem_typespec();
+                t = ert ? ert->Actual_typespec() : nullptr;
+            }
+            else if (t && t->UhdmType() == UHDM::uhdmarray_typespec) {
+                auto* ert = ((const UHDM::array_typespec*)t)->Elem_typespec();
+                t = ert ? ert->Actual_typespec() : nullptr;
+            }
+            return t;
+        };
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (const UHDM::any*)kv.first;
+            if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+                continue;
+            auto* pe = ((const UHDM::hier_path*)o)->Path_elems();
+            if (!pe || pe->size() < 2)
+                continue;
+            const UHDM::any* tf = nullptr;
+            for (const UHDM::any* x = o->VpiParent(); x; x = x->VpiParent())
+                if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask) {
+                    tf = x;
+                    break;
+                }
+            if (!tf || !clones478.count(tf))
+                continue;
+            for (size_t i = 1; i < pe->size(); ++i) {
+                auto* prev = dynamic_cast<const UHDM::ref_obj*>((*pe)[i - 1]);
+                auto* cur = dynamic_cast<UHDM::ref_obj*>((*pe)[i]);
+                if (!prev || !cur || cur->Actual_group() || !prev->Actual_group())
+                    continue;
+                std::string_view nm = cur->VpiName();
+                if (nm.empty() || nm.front() == '[')
+                    continue;
+                const UHDM::typespec* et = elemTs478(prev->Actual_group());
+                if (!et)
+                    continue;
+                // A struct typedef declared in a CLASS is left unbound in
+                // golden (cases AM/am03 to am06: `typedef struct {...} op_t;`
+                // inside class C, read as acc[0].data in an out-of-body
+                // method; uvm_default_factory's m_inst_typename_alias_t in
+                // `type_alias_inst[0].orig.m_type`), while a package, $unit,
+                // imported or anonymous struct binds (am01, am02, am07 to
+                // am10).  Read from cases, not stepped through in Surelog.
+                if (et->VpiParent() && et->VpiParent()->UhdmType() == UHDM::uhdmclass_defn)
+                    continue;
+                const UHDM::VectorOftypespec_member* mems = nullptr;
+                if (et->UhdmType() == UHDM::uhdmstruct_typespec)
+                    mems = ((const UHDM::struct_typespec*)et)->Members();
+                else if (et->UhdmType() == UHDM::uhdmunion_typespec)
+                    mems = ((const UHDM::union_typespec*)et)->Members();
+                if (!mems)
+                    continue;
+                for (auto* m : *mems)
+                    if (m && m->VpiName() == nm) {
+                        cur->Actual_group(m);
+                        lawTrace(478, "cloneHierArrElemMember478",
+                                 std::string(o->VpiName()) + "@" +
+                                     std::to_string(o->VpiLineNo()));
+                        break;
+                    }
+            }
+        }
+    }
         // § implicitNetFirstRefLoc448 (r11u448, R11U448_FIRSTREFLOC_OFF;
         // cases tools/probe/r11u448repro/cases/OR; the v11u447 residue
         // VP/vp09) — in a never-elaborated definition admitted by
@@ -30733,6 +30965,56 @@ UHDM::design* UhdmExporter::exportDesign() {
             lawTrace(470, "tdSpecArgTypedefShares470",
                      "deep copies " + std::to_string(g470DeferredClones().size()));
         g470DeferredClones().clear();
+        // § aliasCopyParamUnnamed478 (r11u478, R11U478_ALIASPARNAME_OFF; cases
+        // tools/probe/r11u478repro/cases/AP; uvm_param_vif_config_db's 36
+        // `<class>::type_id::T::this_t::SFR_agent_t::UVM_ALL_ON` and
+        // `...::SFR_cfg_t::...` parameters) — the next level of
+        // § cloneValFormalUnnamed474: a class_typespec owned by a ref_typespec
+        // (the typedef-alias target a copy of `this_t` carries, UHDM's clone of
+        // the written specialization) is a copy too, and its param_assign's
+        // value formal is named by its own parent chain in golden
+        // (sfr_agent_pkg::sfr_driver::type_id::T::this_t::SFR_agent_t::
+        // UVM_ALL_ON), where ours kept the generic class's stored
+        // sfr_agent_pkg::sfr_agent::UVM_ALL_ON (its type_parameter Rhs was
+        // already chain-named).  Design-final, last in final287 (after
+        // § tdSpecArgTypedefShares470's deferred deep copies, which make these
+        // copies): in such a copy, a `parameter` Lhs
+        // parented by its own param_assign or the copy whose stored full name
+        // does not end with the copy's name and its own name drops the stored
+        // name (and its typespec reference's), so it is named by its chain.
+        if (lawOn(478, "R11U478_ALIASPARNAME_OFF")) {
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (UHDM::any*)kv.first;
+                if (!o || o->UhdmType() != UHDM::uhdmclass_typespec || !o->VpiParent() ||
+                    o->VpiParent()->UhdmType() != UHDM::uhdmref_typespec)
+                    continue;
+                auto* c = (UHDM::class_typespec*)o;
+                if (!c->Param_assigns() || c->VpiName().empty())
+                    continue;
+                const std::string cn(c->VpiName());
+                for (auto* pa : *c->Param_assigns()) {
+                    auto* l = pa ? (UHDM::any*)pa->Lhs() : nullptr;
+                    if (!l || l->UhdmType() != UHDM::uhdmparameter ||
+                        (l->VpiParent() != pa && l->VpiParent() != c))
+                        continue;
+                    auto* vp = (UHDM::parameter*)l;
+                    const std::string fn(vp->VpiFullName());
+                    if (fn.empty())
+                        continue;
+                    const std::string nm(vp->VpiName());
+                    auto ends = [&](const std::string& t) {
+                        return fn.size() >= t.size() &&
+                               fn.compare(fn.size() - t.size(), t.size(), t) == 0;
+                    };
+                    if (ends(cn + "." + nm) || ends(cn + "::" + nm))
+                        continue;
+                    lawTrace(478, "aliasCopyParamUnnamed478", cn + "." + nm + " was " + fn);
+                    vp->VpiFullName("");
+                    if (vp->Typespec())
+                        vp->Typespec()->VpiFullName("");
+                }
+            }
+        }
         // § specArgPairsImportedFormal468 — the re-paired formals' own
         // ranges, on every exit.
         freshRangesRepaired468(s);

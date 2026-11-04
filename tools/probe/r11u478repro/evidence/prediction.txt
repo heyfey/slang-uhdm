@@ -1,0 +1,17 @@
+r11u478 prediction, written BEFORE the law sweep (law10, md5 d9083f9a10966f02da90e7bba6b1d14b), from
+evidence/tools/predict478.cpp run over the master's control databases /tmp/intr11u476 (7476 fence-filtered
+slang databases: probe 4087, surelog 954, uhdm2rtlil 1606, downstream 804, the 25 kept sv-tests rows) and
+from the case grid.  Candidate counts per law (AF aliasFormalCopyPerClone478, AM cloneHierArrElemMember478,
+AP aliasCopyParamUnnamed478, PB providerBodyCopyBind478); every other control database reads 0 on all four.
+
+probe/r10uvm227repro__grid227__a9_class_holder          PB=4      byte mover, stays EQUAL (provider pairing)
+surelog/default/MiniAmiq                                AF=2      byte mover, stays CMP_EQUAL / STRICT_EQUAL
+surelog/testflags/MiniAmiq                              AF=2      byte mover, stays CMP_EQUAL / STRICT_EQUAL
+surelog/default/SeqDriver                               AF=2      byte mover, stays CMP_EQUAL / STRICT_EQUAL
+surelog/testflags/SeqDriver                             AF=2      byte mover, stays CMP_EQUAL / STRICT_EQUAL
+svtests generated/uvm-examples/uvm_param_vif_config_db  AF=6 AM=6 AP=332 PB=3958  CONVERSION STRICT_NOTEQUAL -> EQUAL
+svtests generated/rsd/rsd                               PB=148    SURELOG_CRASH, no golden: status unchanged
+svtests uvm_overriding, uvm_slave_agent, uvm_slave_agent_multi_seq_item, uvm_wait_for_signal  AF/AM  byte movers, verdict kept
+uhdm2rtlil, downstream: no candidate (0 movers expected)
+sv-tests rows the control did not keep: every row whose user package imports uvm_pkg is an AF/AM candidate
+(the uvm_pkg clones of set_arbitration and do_bus_access); verdicts predicted unchanged.

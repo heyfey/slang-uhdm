@@ -1,0 +1,11 @@
+probe/r10uvm227repro__grid227__a9_class_holder.uhdm AF=0 AM=0 AP=0 PB=4
+surelog/testflags/SeqDriver-65178d3a/slang.uhdm AF=2 AM=0 AP=0 PB=0
+surelog/default/SeqDriver-65178d3a/slang.uhdm AF=2 AM=0 AP=0 PB=0
+surelog/testflags/MiniAmiq-055eab74/slang.uhdm AF=2 AM=0 AP=0 PB=0
+surelog/default/MiniAmiq-055eab74/slang.uhdm AF=2 AM=0 AP=0 PB=0
+svtests/work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm AF=6 AM=6 AP=332 PB=3958
+svtests/work/generated/uvm-examples/uvm_overriding/slang.uhdm AF=4 AM=4 AP=0 PB=0
+svtests/work/generated/uvm-examples/uvm_slave_agent/slang.uhdm AF=4 AM=4 AP=0 PB=0
+svtests/work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm AF=2 AM=2 AP=0 PB=0
+svtests/work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm AF=4 AM=4 AP=0 PB=0
+svtests/work/generated/rsd/rsd/slang.uhdm AF=0 AM=0 AP=0 PB=148
