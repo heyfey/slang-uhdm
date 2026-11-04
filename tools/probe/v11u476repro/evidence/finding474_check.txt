@@ -1,0 +1,3 @@
+# pass 474's finding: r11u474repro + v11u474repro case dirs (106, NC/nc01 the negative control at rc 3 on both)
+dirs 105 law!=pristine 0
+with R11U474_CLONEPARNAME_OFF on both binaries: law == pristine on 105 of 105, and the switch moves 31 dirs on each binary

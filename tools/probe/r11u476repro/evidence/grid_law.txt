@@ -1,0 +1,37 @@
+CC/cc01 law27 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=76 md5=fdf4b33d
+CC/cc02 law27 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 md5=18fce81a
+CC/cc03 law27 rc=0 cmp=0 STRICT_EQUAL 487 objects dd=234 md5=2e1d657f
+CC/cc04 law27 rc=0 cmp=0 STRICT_EQUAL 482 objects dd=234 md5=ff132d9c
+CC/cc05 law27 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=86 md5=b9209b21
+CC/cc06 law27 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 md5=05d95b09
+CC/cc07 law27 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=158 md5=0d8c48ca
+CC/cc08 law27 rc=0 cmp=0 STRICT_EQUAL 384 objects dd=154 md5=8b17dbdd
+CC/cc09 law27 rc=0 cmp=0 STRICT_EQUAL 312 objects dd=106 md5=1f53f93f
+CC/cc10 law27 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=98 md5=c5eedccf
+CC/cc11 law27 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=110 md5=00f00d82
+CC/cc12 law27 rc=0 cmp=0 STRICT_EQUAL 252 objects dd=87 md5=5087ca1c
+CC/cc13 law27 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=104 md5=fce99e3c
+FN/fn01 law27 rc=0 cmp=0 STRICT_EQUAL 13 objects dd=4 md5=7014c372
+FN/fn02 law27 rc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=fc5faf47
+FN/fn03 law27 rc=0 cmp=0 STRICT_EQUAL 13 objects dd=4 md5=f7b12b2b
+FN/fn04 law27 rc=0 cmp=0 STRICT_EQUAL 19 objects dd=4 md5=422d10e8
+FN/fn05 law27 rc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=a793fbe7
+FN/fn06 law27 rc=0 cmp=0 STRICT_EQUAL 27 objects dd=4 md5=efe2945a
+FN/fn07 law27 rc=0 cmp=0 STRICT_EQUAL 13 objects dd=2 md5=0aa8ccc8
+IU/iu01 law27 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=3 md5=7fdf4a16
+IU/iu02 law27 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=3 md5=a657a5ae
+IU/iu03 law27 rc=0 cmp=0 STRICT_EQUAL 51 objects dd=2 md5=97f55158
+IU/iu04 law27 rc=0 cmp=0 STRICT_EQUAL 68 objects dd=2 md5=0e085c3d
+IU/iu05 law27 rc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=ea6020c6
+IU/iu06 law27 rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=a120cbe5
+IU/iu07 law27 rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=81645d8b
+IU/iu08 law27 rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=19962660
+IU/iu09 law27 rc=0 cmp=0 STRICT_EQUAL 69 objects dd=3 md5=ff727685
+IU/iu10 law27 rc=0 cmp=0 STRICT_EQUAL 43 objects dd=2 md5=e9015f52
+IU/iu11 law27 rc=0 cmp=0 STRICT_EQUAL 76 objects dd=3 md5=26c028b6
+IU/iu12 law27 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=3 md5=beec70a6
+IU/iu13 law27 rc=0 cmp=0 STRICT_EQUAL 58 objects dd=3 md5=354cee70
+IU/iu14 law27 rc=0 cmp=36 NOT_EQUAL stage1 dd=20 md5=14a4fa01
+IU/iu15 law27 rc=0 cmp=0 STRICT_EQUAL 63 objects dd=4 md5=2c3f0c29
+IU/iu16 law27 rc=0 cmp=0 STRICT_EQUAL 102 objects dd=41 md5=3452993c
+IU/iu17 law27 rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 md5=79ebbac8

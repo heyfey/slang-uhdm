@@ -1,0 +1,19 @@
+r11u476 prediction, written before the law sweep (binary law27, md5 8b59c2a66cda09cfb5aac611789ea29d)
+
+Byte movers by law, from the laws' shapes and the corpus status at the base:
+- § ifaceUdpShapedNoRefMod476 / § ifaceUdpShapedLowConnDecl476: an interface instance with an ordered
+  list of 2+ terminals whose first is a net_lvalue, not under bind.  Every judge-equal corpus row
+  with that shape would read uhdm-cmp NOT_EQUAL on pristine (golden has no ref_module), so no
+  CMP_EQUAL / EQUAL row of surelog, uhdm2rtlil or probe is predicted to move; downstream rows
+  that are SLANG_REJECT or non-judge-equal may move bytes (src attributes of the interface's
+  port connections).
+- § fileMacroLenNormal476: a `__FILE__ in a file reached by a non-normal include path
+  (./, ../).  A STRICT_EQUAL row with that shape would read endcol differ on pristine: no corpus
+  mover predicted.
+- § cloneViaProviderTopClone476 / § cloneForInitHomeVar476: a package importing, before any
+  direct import of the home, another package whose TOP view holds clones.  Strict-equal corpus
+  rows with that shape would diverge in the strict walk on pristine: no verdict change predicted;
+  bytes may move where only a binding moves (a fenced row could only be named as such).
+- sv-tests: generated/easyUVM/top.sv DIFFERENT -> EQUAL (conversion);
+  generated/uvm-examples/uvm_param_vif_config_db.sv bytes move, stays DIFFERENT (sister face);
+  no other row changes status.

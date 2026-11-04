@@ -1,0 +1,26 @@
+# sv-tests kept databases against the master's control: raw bytes differing (cmp -l); 10 is the workdir name /tmp/v11u476_lw vs /tmp/intr11u474 alone
+work/chapter-16/16.15--property-disable-iff-fail/slang.uhdm 10
+work/chapter-16/16.15--property-disable-iff/slang.uhdm 10
+work/chapter-18/18.17.3--case-production-statements_0/slang.uhdm 10
+work/chapter-18/18.5.11--static-constraint-blocks_1/slang.uhdm 10
+work/chapter-20/20.14--coverage/slang.uhdm 10
+work/chapter-6/6.23--type_op_compare/slang.uhdm 10
+work/chapter-8/8.26.5--cast_between_interface_classes/slang.uhdm 10
+work/chapter-8/8.26.5--implemented_class_handle/slang.uhdm 10
+work/generated/hdlconv_std2012/hdlconvertor_std2012_p58/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p482/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p506/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p612/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p633/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p733/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p737/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p771/slang.uhdm 10
+work/generated/hdlconv_std2017/hdlconvertor_std2017_p94/slang.uhdm 10
+work/generated/rggen/rggen/slang.uhdm 10
+work/generated/rsd/rsd/slang.uhdm 437616204
+work/generated/tnoc/tnoc/slang.uhdm 10
+work/generated/uvm-examples/uvm_overriding/slang.uhdm 10
+work/generated/uvm-examples/uvm_param_vif_config_db/slang.uhdm 21829395
+work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm 10
+work/generated/uvm-examples/uvm_slave_agent/slang.uhdm 10
+work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm 10

@@ -16110,6 +16110,228 @@ void UhdmExporter::importCloneBareTdAlias16(UHDM::design* d) {
 // home's come from the SAME declaration, so those three agree exactly, while a
 // name alone would collide across shadowing blocks (uvm_reg::do_check declares
 // `acc` twice, once per foreach block).  An ambiguous key binds nothing.
+// § cloneViaProviderTopClone476's late half: the per-clone map from the
+// original home's variable to the provider clone's twin, read again by
+// reHomeLateDrain476 after the design-final drains that re-point a clone
+// reference at the home (§ cloneForIncBindsHomeVar238).
+static std::map<const UHDM::task_func*, std::map<const UHDM::any*, UHDM::variables*>>&
+reHomeMap476() {
+    static std::map<const UHDM::task_func*, std::map<const UHDM::any*, UHDM::variables*>> m;
+    return m;
+}
+
+// § cloneViaProviderTopClone476, the hier_path half: a clone's formal read as
+// a dotted prefix (`s.len()`) -> the provider clone's formal of that name.
+static std::map<const UHDM::task_func*, const UHDM::task_func*>& providerOf476() {
+    static std::map<const UHDM::task_func*, const UHDM::task_func*> m;
+    return m;
+}
+// § cloneViaProviderTopClone476 for the other clone-pairing drains (the
+// § cloneMintParentHomeCall253 home call): the provider clone of `ctf`, or null.
+const UHDM::task_func* cloneProvider476(const UHDM::task_func* ctf) {
+    auto& m = providerOf476();
+    auto it = m.find(ctf);
+    return it == m.end() ? nullptr : it->second;
+}
+static std::map<const UHDM::task_func*, std::map<const UHDM::any*, UHDM::any*>>&
+ioHomeMap476() {
+    static std::map<const UHDM::task_func*, std::map<const UHDM::any*, UHDM::any*>> m;
+    return m;
+}
+
+void reHomeLateDrain476(UHDM::Serializer& s) {
+    auto& m = reHomeMap476();
+    auto& io = ioHomeMap476();
+    if (m.empty() && io.empty() && providerOf476().empty())
+        return;
+    // § cloneViaProviderTopClone476 (hier_path half): the clone binds a
+    // dotted read's BASE when it is compiled (§ pkgCloneHierBind9: its own
+    // formal), and Surelog's clone of a clone keeps that pointer, so a
+    // package reaching the home through a provider holds the PROVIDER
+    // clone's formal there (golden t::f's `s.len()` base -> a::f's `s`),
+    // while a plain reference to the formal is the clone's own (CC/cc10).
+    if (!io.empty())
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (UHDM::any*)kv.first;
+            // the array a foreach walks, when it is a formal (golden
+            // `foreach (stream[i])` in uvm_packer::get_packed_bytes ->
+            // sfr_agent_pkg's `stream`): the same keep-the-source binding
+            if (o && o->UhdmType() == UHDM::uhdmforeach_stmt) {
+                auto* fv = ((UHDM::foreach_stmt*)o)->Variable();
+                if (!fv || fv->UhdmType() != UHDM::uhdmref_var)
+                    continue;
+                auto* rv = (UHDM::ref_var*)fv;
+                const UHDM::any* act = rv->Actual_group();
+                if (!act)
+                    continue;
+                const UHDM::task_func* tf = nullptr;
+                for (const UHDM::any* x = o; x; x = x->VpiParent())
+                    if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask) {
+                        tf = (const UHDM::task_func*)x;
+                        break;
+                    }
+                auto t = io.find(tf);
+                if (t == io.end())
+                    continue;
+                auto v = t->second.find(act);
+                if (v == t->second.end())
+                    continue;
+                rv->Actual_group(v->second);
+                lawTrace(476, "cloneViaProviderTopClone476_fearr",
+                         std::string(rv->VpiName()) + "@" + std::to_string(o->VpiLineNo()));
+                continue;
+            }
+            if (!o || o->UhdmType() != UHDM::uhdmhier_path)
+                continue;
+            auto* pe = ((UHDM::hier_path*)o)->Path_elems();
+            if (!pe || pe->empty())
+                continue;
+            const UHDM::task_func* tf = nullptr;
+            for (const UHDM::any* x = o; x; x = x->VpiParent())
+                if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask) {
+                    tf = (const UHDM::task_func*)x;
+                    break;
+                }
+            auto t = io.find(tf);
+            if (t == io.end())
+                continue;
+            // every element bound to a formal: the base, and a member name
+            // the clone resolved to a formal of that name (golden
+            // `m_type_overrides[index].replace` -> sfr_agent_pkg's `replace`)
+            for (auto* e : *pe) {
+                if (!e || e->UhdmType() != UHDM::uhdmref_obj)
+                    continue;
+                auto* r = (UHDM::ref_obj*)e;
+                const UHDM::any* act = r->Actual_group();
+                if (!act)
+                    continue;
+                auto v = t->second.find(act);
+                if (v == t->second.end())
+                    continue;
+                r->Actual_group(v->second);
+                lawTrace(476, "cloneViaProviderTopClone476_hpio",
+                         std::string(r->VpiName()) + "@" + std::to_string(o->VpiLineNo()) +
+                             ":" + std::to_string(o->VpiColumnNo()));
+            }
+        }
+    // § cloneViaProviderTopClone476, the foreach half: a body reference to
+    // a foreach loop variable keeps the source clone's binding too, the
+    // PROVIDER clone's own loop-variable declaration at the same site
+    // (golden t::f's `s[i]` index -> a::f's `i`, a's -> u::f's; CC/cc12;
+    // uvm_misc.svh 376's foreach(arg[i]) in uvm_has_wildcard).
+    {
+        auto& pv = providerOf476();
+        if (!pv.empty()) {
+            std::map<const UHDM::task_func*, std::map<std::string, UHDM::any*>> lv;
+            auto tfOf = [](const UHDM::any* x) -> const UHDM::task_func* {
+                for (; x; x = x->VpiParent())
+                    if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask)
+                        return (const UHDM::task_func*)x;
+                return nullptr;
+            };
+            std::set<const UHDM::task_func*> provs;
+            for (auto& [c, p] : pv)
+                provs.insert(p);
+            std::set<const UHDM::any*> anyLv;
+            for (auto& kv : s.AllObjects()) {
+                auto* o = (const UHDM::any*)kv.first;
+                if (!o || o->UhdmType() != UHDM::uhdmforeach_stmt)
+                    continue;
+                auto* vs = ((const UHDM::foreach_stmt*)o)->VpiLoopVars();
+                if (!vs)
+                    continue;
+                const UHDM::task_func* tf = tfOf(o);
+                for (auto* v : *vs) {
+                    if (!v || v->VpiName().empty())
+                        continue;
+                    anyLv.insert(v);
+                    if (auto* rv = dynamic_cast<const UHDM::ref_var*>(v); rv && rv->Actual_group())
+                        anyLv.insert(rv->Actual_group());
+                    if (tf && provs.count(tf))
+                        lv[tf].emplace(std::string(v->VpiName()) + "@" +
+                                           std::to_string(v->VpiLineNo()) + ":" +
+                                           std::to_string(v->VpiColumnNo()),
+                                       (UHDM::any*)v);
+                }
+            }
+            if (!lv.empty())
+                for (auto& kv : s.AllObjects()) {
+                    auto* o = (UHDM::any*)kv.first;
+                    if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+                        continue;
+                    auto* r = (UHDM::ref_obj*)o;
+                    const UHDM::any* act = r->Actual_group();
+                    if (!act || !anyLv.count(act) || act->VpiName().empty())
+                        continue;
+                    // only a reference named like its loop variable (a call
+                    // argument handed the receiver's binding,
+                    // § hierCallArgTakesBase39, follows the receiver)
+                    if (r->VpiName() != act->VpiName())
+                        continue;
+                    // a dotted read's base keeps its binding here too
+                    // (golden `pred.m_successors[...]` in uvm_phase::add)
+                    if (auto* hp = o->VpiParent(); hp && hp->UhdmType() == UHDM::uhdmhier_path)
+                        if (auto* pe = ((const UHDM::hier_path*)hp)->Path_elems();
+                            pe && pe->size() >= 2 && pe->front() == o)
+                            continue;
+                    auto c = pv.find(tfOf(o));
+                    if (c == pv.end())
+                        continue;
+                    auto l = lv.find(c->second);
+                    if (l == lv.end())
+                        continue;
+                    auto f = l->second.find(std::string(act->VpiName()) + "@" +
+                                            std::to_string(act->VpiLineNo()) + ":" +
+                                            std::to_string(act->VpiColumnNo()));
+                    if (f == l->second.end() || f->second == act)
+                        continue;
+                    r->Actual_group(f->second);
+                    lawTrace(476, "cloneViaProviderTopClone476_lv",
+                             std::string(r->VpiName()) + "@" + std::to_string(r->VpiLineNo()) +
+                                 ":" + std::to_string(r->VpiColumnNo()));
+                }
+        }
+        pv.clear();
+    }
+    io.clear();
+    for (auto& kv : s.AllObjects()) {
+        auto* o = (UHDM::any*)kv.first;
+        if (!o || o->UhdmType() != UHDM::uhdmref_obj)
+            continue;
+        auto* r = (UHDM::ref_obj*)o;
+        const UHDM::any* act = r->Actual_group();
+        if (!act)
+            continue;
+        // only a reference NAMED like its variable: a builtin method's
+        // argument handed the receiver's binding (§ cloneBuiltinMethodArgBindsReceiver184,
+        // `dash.substr(1, max1)` -> dash) follows its receiver, which stays
+        if (r->VpiName() != act->VpiName())
+            continue;
+        // a dotted read's elements keep the original home (cloneStmtHomeVarRef17)
+        if (auto* hp = o->VpiParent(); hp && hp->UhdmType() == UHDM::uhdmhier_path)
+            if (auto* pe = ((const UHDM::hier_path*)hp)->Path_elems();
+                pe && pe->size() >= 2 && std::find(pe->begin(), pe->end(), o) != pe->end())
+                continue;
+        const UHDM::task_func* tf = nullptr;
+        for (const UHDM::any* x = o; x; x = x->VpiParent())
+            if (x->UhdmType() == UHDM::uhdmfunction || x->UhdmType() == UHDM::uhdmtask) {
+                tf = (const UHDM::task_func*)x;
+                break;
+            }
+        auto t = m.find(tf);
+        if (t == m.end())
+            continue;
+        auto v = t->second.find(act);
+        if (v == t->second.end())
+            continue;
+        r->Actual_group(v->second);
+        lawTrace(476, "cloneViaProviderTopClone476_late",
+                 std::string(r->VpiName()) + "@" + std::to_string(r->VpiLineNo()) + ":" +
+                     std::to_string(r->VpiColumnNo()));
+    }
+    m.clear();
+}
+
 void UhdmExporter::cloneStmtHomeVarRef17() {
     if (pkgCloneHomeSub17.empty())
         return;
@@ -16124,6 +16346,7 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
         std::map<std::string, std::vector<UHDM::variables*>> all247;
     };
     std::map<const UHDM::task_func*, Owned17> owned;
+    std::set<const UHDM::any*> forInit476;  // § cloneForInitHomeVar476's trace
     auto ownerTf = [](const UHDM::any* o) -> const UHDM::task_func* {
         for (int g = 0; o && g < 60; g++, o = (const UHDM::any*)o->VpiParent())
             if (o->UhdmType() == UHDM::uhdmfunction ||
@@ -16173,6 +16396,37 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
             case UHDM::uhdmnamed_fork:
                 addVars(ownerTf(o), ((const UHDM::named_fork*)o)->Variables());
                 break;
+            // § cloneForInitHomeVar476 (r11u476, R11U476_FORINITHOME_OFF;
+            // cases CC/cc09; uvm_misc.svh 139's `for (int _byte=0; ...)` in
+            // uvm_oneway_hash) -- a `for` loop's DECLARED init variable,
+            // listed nowhere (§ cloneForInitVarBind204), pairs like a body
+            // local: clone_tree copies the init's Lhs variable but a body
+            // reference keeps the source's binding, so a clone's references
+            // bind the HOME's (the provider's, § cloneViaProviderTopClone476)
+            // loop variable, golden a::f's `k` -> u::f::k, ours a::f::k.  Only
+            // the declaration form (a variable with a typespec), as § 204.
+            case UHDM::uhdmfor_stmt:
+                if (lawOn(476, "R11U476_FORINITHOME_OFF")) {
+                    auto* fs476 = (const UHDM::for_stmt*)o;
+                    UHDM::VectorOfvariables fv476;
+                    auto take476 = [&](const UHDM::any* st) {
+                        if (!st || st->UhdmType() != UHDM::uhdmassignment)
+                            return;
+                        auto* l476 = ((const UHDM::assignment*)st)->Lhs();
+                        auto* v476 = dynamic_cast<const UHDM::variables*>(l476);
+                        if (v476 && v476->Typespec()) {
+                            fv476.push_back((UHDM::variables*)v476);
+                            forInit476.insert(v476);
+                        }
+                    };
+                    if (fs476->VpiForInitStmts())
+                        for (auto* st : *fs476->VpiForInitStmts())
+                            take476(st);
+                    take476(fs476->VpiForInitStmt());
+                    if (!fv476.empty())
+                        addVars(ownerTf(o), &fv476);
+                }
+                break;
             default:
                 break;
         }
@@ -16180,6 +16434,84 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
     // clone variable -> home variable, over every clone with a resolvable home.
     std::map<const UHDM::any*, UHDM::variables*> remap;
     const bool dbg17 = getenv("SLANG_UHDM_DBG17") != nullptr;
+    // § cloneViaProviderTopClone476 (r11u476, R11U476_CLONEPROVIDER_OFF;
+    // cases CC; generated/uvm-examples/uvm_param_vif_config_db.sv, whose
+    // tb_params_pkg reaches uvm_pkg only through `import sfr_agent_pkg::*;`)
+    // -- Surelog's importPackage clones a subroutine from the IMPORTED
+    // package's elaborated view: a package P that reaches the home H only
+    // through another package M (P imports M, M imports H, P does not import
+    // H itself) copies M's TOP-view clone, and clone_tree leaves a body
+    // reference to a body local pointing where the source's pointed, M's
+    // clone's own variable (golden t::f's `y` -> a::f::y, ours u::f::y).  So
+    // the "home" this remap pairs with is M's TOP-view clone of the same
+    // subroutine when M is the first of P's body imports, in written order,
+    // that offers it (H itself, or a package whose TOP view holds a clone);
+    // H first keeps H.
+    std::map<const slang::ast::Symbol*, std::vector<const UHDM::task_func*>> bySym476;
+    auto& reHome476 = reHomeMap476();
+    reHome476.clear();
+    ioHomeMap476().clear();
+    providerOf476().clear();
+    const bool on476 = lawOn(476, "R11U476_CLONEPROVIDER_OFF");
+    if (on476)
+        for (auto& [ctf476, sym476] : pkgCloneHomeSub17)
+            if (ctf476 && sym476)
+                bySym476[sym476].push_back(ctf476);
+    auto provider476 = [&](const UHDM::task_func* ctf,
+                           const slang::ast::Symbol* sym) -> const UHDM::task_func* {
+        if (!on476)
+            return nullptr;
+        const UHDM::any* pk = ctf->VpiParent();
+        if (!pk || pk->UhdmType() != UHDM::uhdmpackage)
+            return nullptr;
+        const UHDM::any* dz = pk->VpiParent();
+        if (!dz || dz->UhdmType() != UHDM::uhdmdesign)
+            return nullptr;
+        auto* tops = ((const UHDM::design*)dz)->TopPackages();
+        // the home package: the subroutine's own scope, or for a class
+        // method copied as a package listing entry (the out-of-body group,
+        // § pkgGroupOwnOobDef452) the package around its class
+        auto* hs = sym->getParentScope();
+        for (int g476 = 0; hs && g476 < 8 &&
+                           hs->asSymbol().kind != slang::ast::SymbolKind::Package;
+             g476++)
+            hs = hs->asSymbol().getParentScope();
+        if (!tops || !hs || hs->asSymbol().kind != slang::ast::SymbolKind::Package)
+            return nullptr;
+        std::string_view hname = hs->asSymbol().name;
+        auto* pks = comp.getPackage(pk->VpiName());
+        if (!pks)
+            return nullptr;
+        std::vector<std::string_view> imps;
+        for (auto& m : pks->members())
+            if (m.kind == slang::ast::SymbolKind::WildcardImport)
+                imps.push_back(m.as<slang::ast::WildcardImportSymbol>().packageName);
+            else if (m.kind == slang::ast::SymbolKind::ExplicitImport)
+                imps.push_back(m.as<slang::ast::ExplicitImportSymbol>().packageName);
+        auto bit = bySym476.find(sym);
+        if (bit == bySym476.end())
+            return nullptr;
+        // first-wins in written order: the home itself, or the first
+        // imported package whose TOP view holds a clone (Surelog's
+        // importPackage keeps the first subroutine of a name; CC/cc02, cc06
+        // import u::* after a::* and golden still binds a's clone)
+        for (auto im : imps) {
+            if (im == hname)
+                return nullptr;
+            if (im == pk->VpiName())
+                continue;
+            for (auto* c : bit->second) {
+                const UHDM::any* cp = c->VpiParent();
+                if (c == ctf || !cp || cp->UhdmType() != UHDM::uhdmpackage ||
+                    cp->VpiName() != im ||
+                    std::find(tops->begin(), tops->end(), (UHDM::package*)cp) ==
+                        tops->end())
+                    continue;
+                return c;
+            }
+        }
+        return nullptr;
+    };
     for (auto& [ctf, sym] : pkgCloneHomeSub17) {
         if (!ctf || !sym)
             continue;
@@ -16189,6 +16521,74 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
             home = eit->second;
         else if (auto sit = subMap.find(sym); sit != subMap.end())
             home = sit->second.tf;
+        if (home && home != ctf)
+            if (auto* pv476 = provider476(ctf, sym)) {
+                lawTrace(476, "cloneViaProviderTopClone476",
+                         std::string(ctf->VpiParent()->VpiName()) + "::" +
+                             std::string(ctf->VpiName()) + " -> " +
+                             std::string(pv476->VpiParent()->VpiName()));
+                // a clone reference ALREADY bound to the original home's
+                // variable (a for-init variable, § cloneForInitVarBind204's
+                // climb lands there) moves to the provider's twin
+                auto ho476 = owned.find(home);
+                auto po476 = owned.find(pv476);
+                // a key a multi-line macro declares several times pairs by
+                // creation order, as § cloneStmtHomeVarDupKeyByOrder247 does
+                if (ho476 != owned.end() && po476 != owned.end())
+                    for (auto& [k476, hl476] : ho476->second.all247) {
+                        if (!ho476->second.dup.count(k476) && !po476->second.dup.count(k476))
+                            continue;
+                        auto pl476 = po476->second.all247.find(k476);
+                        if (pl476 == po476->second.all247.end() ||
+                            pl476->second.size() != hl476.size() || hl476.size() < 2)
+                            continue;
+                        auto h2 = hl476, p2 = pl476->second;
+                        auto byId476 = [](const UHDM::variables* a, const UHDM::variables* b) {
+                            return a->UhdmId() < b->UhdmId();
+                        };
+                        std::sort(h2.begin(), h2.end(), byId476);
+                        std::sort(p2.begin(), p2.end(), byId476);
+                        for (size_t i476 = 0; i476 < h2.size(); i476++)
+                            if (h2[i476] != p2[i476] &&
+                                h2[i476]->UhdmType() == p2[i476]->UhdmType())
+                                reHome476[ctf][(const UHDM::any*)h2[i476]] = p2[i476];
+                    }
+                if (ho476 != owned.end() && po476 != owned.end())
+                    for (auto& [k476, hv476] : ho476->second.byKey) {
+                        if (ho476->second.dup.count(k476) || po476->second.dup.count(k476))
+                            continue;
+                        auto pq476 = po476->second.byKey.find(k476);
+                        if (pq476 == po476->second.byKey.end() || pq476->second == hv476 ||
+                            pq476->second->UhdmType() != hv476->UhdmType())
+                            continue;
+                        reHome476[ctf][(const UHDM::any*)hv476] = pq476->second;
+                        if (forInit476.count(hv476))
+                            lawTrace(476, "cloneForInitHomeVar476",
+                                     std::string(ctf->VpiName()) + " " + k476);
+                    }
+                // ... and a clone's OWN variable a dotted read still binds
+                // (the TF-ITEM production's locals, § cloneTfItemLocalOwnVar253:
+                // golden `p_.get_randstate()` in the paren-less
+                // uvm_component::m_set_cl_msg_args -> sfr_agent_pkg's `p_`)
+                if (auto co476 = owned.find(ctf); co476 != owned.end() && po476 != owned.end())
+                    for (auto& [k476, cv476] : co476->second.byKey) {
+                        if (co476->second.dup.count(k476) || po476->second.dup.count(k476))
+                            continue;
+                        auto pq476 = po476->second.byKey.find(k476);
+                        if (pq476 != po476->second.byKey.end() && pq476->second != cv476 &&
+                            pq476->second->UhdmType() == cv476->UhdmType())
+                            ioHomeMap476()[ctf][cv476] = pq476->second;
+                    }
+                if (ctf->Io_decls() && pv476->Io_decls())
+                    for (auto* ci476 : *ctf->Io_decls())
+                        for (auto* pi476 : *pv476->Io_decls())
+                            if (ci476 && pi476 && ci476->VpiName() == pi476->VpiName()) {
+                                ioHomeMap476()[ctf][ci476] = pi476;
+                                break;
+                            }
+                providerOf476()[ctf] = pv476;
+                home = pv476;
+            }
         if (!home || home == ctf)
             continue;
         auto hoit = owned.find(home);
@@ -16287,6 +16687,8 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
                 for (size_t i = 0; i < c247.size(); i++) {
                     if (tfOwn253(c247[i]))
                         continue;
+                    if (forInit476.count(c247[i]))  // § cloneForInitHomeVar476
+                        continue;
                     remap[(const UHDM::any*)c247[i]] = h247[i];
                     lawTrace(247, "cloneStmtHomeVarDupKeyByOrder247",
                           k + " clone#" + std::to_string(c247[i]->UhdmId()) +
@@ -16307,10 +16709,15 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
                 continue;
             if (tfOwn253(v))
                 continue;
+            // § cloneForInitHomeVar476: a for-init variable only joins the
+            // provider pairing (reHome476 above); its home binding is
+            // § cloneForIncBindsHomeVar238's, design-final
+            if (forInit476.count(v))
+                continue;
             remap[(const UHDM::any*)v] = hit->second;
         }
     }
-    if (remap.empty())
+    if (remap.empty() && reHome476.empty())
         return;
     size_t nhit17 = 0;
     // § pkgCloneLocalRefBind37 widened § pkgCloneHierBind9 from hier_path
@@ -16356,27 +16763,77 @@ void UhdmExporter::cloneStmtHomeVarRef17() {
         if (!act)
             continue;
         auto it = remap.find(act);
-        if (it == remap.end())
-            continue;
+        UHDM::variables* to476 = nullptr;
+        if (it == remap.end()) {
+            if (reHome476.empty())
+                continue;
+            auto rt476 = reHome476.find(ownerTf(o));
+            if (rt476 == reHome476.end())
+                continue;
+            auto rv476 = rt476->second.find(act);
+            if (rv476 == rt476->second.end())
+                continue;
+            to476 = rv476->second;
+            lawTrace(476, "cloneViaProviderTopClone476_rehome",
+                     std::string(o->VpiName()) + "@" + std::to_string(o->VpiLineNo()) +
+                         ":" + std::to_string(o->VpiColumnNo()));
+        }
+        UHDM::variables* tgt476 = to476 ? to476 : it->second;
+        // § cloneViaProviderTopClone476: a REF_VAR (a clone's own variable
+        // entry, § cloneTfOwnVarListingIsUnbound195's kind, or the bare
+        // plain-assignment for-init Lhs § cloneForInitVarBind204 describes)
+        // keeps the ORIGINAL home's variable, which the declaration compile
+        // binds; only references move to the provider's twin (golden
+        // t::f's `process p` entry -> u::f::p while `p = ...` reads a::f::p,
+        // CC/cc13; t::f's init `pos` -> u::f::pos, CC/cc11)
+        // ... and so does the BASE of a dotted read bound to a body local
+        // (golden tb_params_pkg's hier_path bases: 847 locals -> uvm_pkg[top]
+        // where its formals' -> sfr_agent_pkg[top], the hier_path half in
+        // reHomeLateDrain476)
+        auto hpBase476 = [&]() {
+            auto* hp = o->VpiParent();
+            if (o->UhdmType() != UHDM::uhdmref_obj || !hp ||
+                hp->UhdmType() != UHDM::uhdmhier_path)
+                return false;
+            auto* pe = ((const UHDM::hier_path*)hp)->Path_elems();
+            // a real dotted read (two or more elements; a one-element
+            // hier_path is a constructor call's wrapper around its Lhs); a
+            // member name bound by name to a body local stays too (golden
+            // `t.args = args;` in uvm_component::m_set_cl_action: `.args`
+            // -> uvm_pkg[top]'s local, the right side -> sfr_agent_pkg's)
+            return pe && pe->size() >= 2 &&
+                   std::find(pe->begin(), pe->end(), o) != pe->end();
+        };
+        if (!to476 && (o->UhdmType() == UHDM::uhdmref_var || hpBase476()) &&
+            !reHome476.empty())
+            if (auto rt476 = reHome476.find(ownerTf(o)); rt476 != reHome476.end())
+                for (auto& [hv476, pv476] : rt476->second)
+                    if (pv476 == tgt476) {
+                        tgt476 = (UHDM::variables*)hv476;
+                        lawTrace(476, "cloneViaProviderTopClone476_refvar",
+                                 std::string(o->VpiName()) + "@" +
+                                     std::to_string(o->VpiLineNo()));
+                        break;
+                    }
         switch (o->UhdmType()) {
             case UHDM::uhdmref_obj:
-                ((UHDM::ref_obj*)o)->Actual_group(it->second);
+                ((UHDM::ref_obj*)o)->Actual_group(tgt476);
                 break;
             case UHDM::uhdmref_var:
-                ((UHDM::ref_var*)o)->Actual_group(it->second);
+                ((UHDM::ref_var*)o)->Actual_group(tgt476);
                 break;
             case UHDM::uhdmbit_select:
-                ((UHDM::bit_select*)o)->Actual_group(it->second);
+                ((UHDM::bit_select*)o)->Actual_group(tgt476);
                 break;
             case UHDM::uhdmvar_select:
-                ((UHDM::var_select*)o)->Actual_group(it->second);
+                ((UHDM::var_select*)o)->Actual_group(tgt476);
                 lawTrace(450, "cloneVarSelBind450_home",
                          std::string(o->VpiName()) + "@" +
                              std::to_string(o->VpiLineNo()) + ":" +
                              std::to_string(o->VpiColumnNo()));
                 break;
             case UHDM::uhdmindexed_part_select:
-                ((UHDM::indexed_part_select*)o)->Actual_group(it->second);
+                ((UHDM::indexed_part_select*)o)->Actual_group(tgt476);
                 lawTrace(450, "cloneLhsIdxPartSelBind450_home",
                          std::string(o->VpiName()) + "@" +
                              std::to_string(o->VpiLineNo()) + ":" +

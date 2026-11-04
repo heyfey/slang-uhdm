@@ -1,0 +1,6 @@
+dirs 37 R11U476_OFF==pristine 37 law!=pristine 26
+R11U476_IFUDPREF_OFF moves off the law: IU/iu01 IU/iu02 IU/iu03 IU/iu04 IU/iu05 IU/iu12 IU/iu14 IU/iu15 IU/iu16 | of them back to pristine: 
+R11U476_IFUDPLOW_OFF moves off the law: IU/iu01 IU/iu02 IU/iu03 IU/iu04 IU/iu05 IU/iu12 IU/iu13 IU/iu14 IU/iu15 IU/iu16 | of them back to pristine: IU/iu13
+R11U476_FILELEN_OFF moves off the law: FN/fn01 FN/fn02 FN/fn03 FN/fn04 FN/fn06 | of them back to pristine: FN/fn01 FN/fn02 FN/fn03 FN/fn04 FN/fn06
+R11U476_CLONEPROVIDER_OFF moves off the law: CC/cc01 CC/cc02 CC/cc03 CC/cc04 CC/cc06 CC/cc08 CC/cc09 CC/cc10 CC/cc11 CC/cc12 CC/cc13 | of them back to pristine: CC/cc01 CC/cc02 CC/cc03 CC/cc04 CC/cc06 CC/cc08 CC/cc09 CC/cc10 CC/cc11 CC/cc12 CC/cc13
+R11U476_FORINITHOME_OFF moves off the law: CC/cc09 CC/cc10 | of them back to pristine: 

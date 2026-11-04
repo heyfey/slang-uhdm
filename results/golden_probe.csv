@@ -883,7 +883,7 @@ r10uvm227repro/grid227/a1_iface_uninst,EQUAL,,equal
 r10uvm227repro/grid227/a3_module,EQUAL,,equal
 r10uvm227repro/grid227/a5_order_p1first,EQUAL,,equal
 r10uvm227repro/grid227/a7_only_p1,EQUAL,,equal
-r10uvm227repro/grid227/a9_class_holder,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+r10uvm227repro/grid227/a9_class_holder,EQUAL,,equal
 r10uvm22repro/t33e_t,EQUAL,,equal
 r10uvm23repro/t34e_t,EQUAL,,equal
 r10uvm23repro/t34f_t,EQUAL,,equal

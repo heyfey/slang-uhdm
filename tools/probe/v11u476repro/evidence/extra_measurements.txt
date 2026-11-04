@@ -1,0 +1,7 @@
+# single measurements outside the case grid (scratch dirs under /tmp/v11u476_scratch, not kept)
+FILE law on the top file given as ./dut.sv and as ../f1/dut.sv (`__FILE__ in plain code and in a
+macro body, both tools given the same path): STRICT_EQUAL 44 objects and uhdm-cmp 0 on pristine
+and law in both spellings.
+Module twin of VI/vi16 (a non-ANSI module header, sub u(clk, rst)): golden puts the elaborated
+LowConn at the header port name 1:12, as ours does; for the INTERFACE twin (VI/vi16) golden puts
+it at the body declaration `input clk;` 3:9 and § ifaceUdpShapedLowConnDecl476 at the header 2:16.

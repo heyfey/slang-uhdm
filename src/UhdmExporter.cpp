@@ -1,3 +1,4 @@
+#include <filesystem>
 #include <unistd.h>
 //------------------------------------------------------------------------------
 //! @file UhdmExporter.cpp
@@ -23,6 +24,8 @@
 #include <uhdm/UhdmListener.h>
 
 namespace slang_uhdm {
+void reHomeLateDrain476(UHDM::Serializer& s);  // TypeEmit.cpp
+const UHDM::task_func* cloneProvider476(const UHDM::task_func* ctf);  // TypeEmit.cpp
 void clsScopedRangeNames474();  // § clsScopedRangeKept474 (TypeEmit.cpp)
 // § clsMethodLocalForeignPkgSpec428 (TypeEmit.cpp) — the class-method local site.
 extern bool g428ClsLocalSpec;
@@ -7749,6 +7752,19 @@ inline void build(const SourceManager* sm, const slang::ast::Compilation& comp) 
                     Ctx cx;
                     cx.table = &table;
                     cx.topFile = r.file;
+                    // § fileMacroLenNormal476 -- the model's `__FILE__ text
+                    // is Surelog's FileSystem::toPath, a lexically normal
+                    // path (the record's own file is left as it is)
+                    if (lawOn(476, "R11U476_FILELEN_OFF")) {
+                        std::string n476 = std::filesystem::path(r.file)
+                                               .lexically_normal()
+                                               .string();
+                        if (!n476.empty() && n476 != r.file) {
+                            lawTrace(476, "fileMacroLenNormal476",
+                                     "pp166 " + r.file + " -> " + n476);
+                            cx.topFile = n476;
+                        }
+                    }
                     cx.topLine = r.line;
                     int32_t openIdx = -1;
                     if (d.records) {
@@ -25060,6 +25076,11 @@ UHDM::design* UhdmExporter::exportDesign() {
     // nothing.  ParamEmit.cpp carries the law, the Surelog decode, the golden
     // grid and the four abstentions.
     drainPaNameCopySrc38();
+    // § cloneViaProviderTopClone476's late half (TypeEmit): after
+    // § cloneForIncBindsHomeVar238's design-final home binding, a clone that
+    // reaches the home through a provider package binds the provider's twin.
+    if (lawOn(476, "R11U476_CLONEPROVIDER_OFF"))
+        reHomeLateDrain476(s);
     // § instTypeParamSharesDef120 needs the same named-override census
     // (filled inside the block below, read after § 107).
     std::map<std::string, std::set<std::string>> ovr120;
@@ -30495,9 +30516,12 @@ UHDM::design* UhdmExporter::exportDesign() {
                                                               UHDM::uhdmparam_assign &&
                                                           yp->VpiParent() == c));
                             };
+                            // r11u476: the switch is read BEFORE the
+                            // full-name getter, which stores a computed
+                            // name when none is stored (pass 474's finding)
                             if (x && x->UhdmType() == UHDM::uhdmparameter && fresh474(x) &&
-                                !((UHDM::parameter*)x)->VpiFullName().empty() &&
-                                lawOn(474, "R11U474_CLONEPARNAME_OFF")) {
+                                lawOn(474, "R11U474_CLONEPARNAME_OFF") &&
+                                !((UHDM::parameter*)x)->VpiFullName().empty()) {
                                 auto* vp = (UHDM::parameter*)x;
                                 lawTrace(474, "cloneValFormalUnnamed474",
                                          std::string(c->VpiName()) + "." +
@@ -32223,6 +32247,14 @@ void UhdmExporter::drainCloneArrayRecvArgMint193() {
             home = eit->second;
         else if (auto sit = subMap.find(hs->second); sit != subMap.end())
             home = sit->second.tf;
+        // § cloneViaProviderTopClone476: a clone of the provider's clone is
+        // cloned from the PROVIDER's call (golden t's mint under a's call)
+        if (home && lawOn(476, "R11U476_CLONEPROVIDER_OFF"))
+            if (auto* pv476 = cloneProvider476(ctf)) {
+                lawTrace(476, "cloneViaProviderTopClone476_mint",
+                         std::string(ctf->VpiName()) + "@" + std::to_string(chp->VpiLineNo()));
+                home = pv476;
+            }
         if (!home || home == ctf)
             return nullptr;
         auto hit = tfHp253.find(home);
@@ -32508,6 +32540,7 @@ void UhdmExporter::buildMacroExpansions() {
     // macro argument its own buffer, so record both the token extent and the
     // whitespace that preceded it (the gap the next token pastes over).
     std::map<uint32_t, uint32_t> argLen, argLead;
+    std::map<uint32_t, std::string> argStr476;
     std::function<void(const slang::syntax::SyntaxNode&)> walk =
         [&](const slang::syntax::SyntaxNode& node) {
             for (size_t i = 0, n = node.getChildCount(); i < n; i++) {
@@ -32549,6 +32582,10 @@ void UhdmExporter::buildMacroExpansions() {
                 if (loc == SourceLocation::NoLocation || !sm->isMacroArgLoc(loc))
                     continue;
                 uint32_t end = (uint32_t)(loc.offset() + tok.rawText().size());
+                // § fileMacroLenNormal476 -- the literal of an intrinsic's
+                // argument-kind buffer (read only for `__FILE__ buffers)
+                if (tok.kind == parsing::TokenKind::StringLiteral && loc.offset() == 0)
+                    argStr476[loc.buffer().getId()] = std::string(tok.rawText());
                 auto it = argLen.find(loc.buffer().getId());
                 if (it == argLen.end() || end > it->second)
                     argLen[loc.buffer().getId()] = end;
@@ -32609,6 +32646,39 @@ void UhdmExporter::buildMacroExpansions() {
             if (it == argLen.end())
                 continue;
             bi.rawLen = (int32_t)it->second;
+            // § fileMacroLenNormal476 (r11u476; generated/easyUVM/top.sv,
+            // env.sv `include "./env.sv" -> uvm_message_defines.svh 119's
+            // `uvm_file) -- the layout twin of the sister's
+            // § fileMacroPathNormal477: Surelog splices FileSystem::toPath of
+            // the file id, a lexically normal path, so the tokens after a
+            // `__FILE__ expansion shift by the NORMAL literal's length, not by
+            // slang's buffer name as the include resolved it (golden 119:172
+            // for the `uvm_line after .../easyUVM/env.sv, ours 119:174 with
+            // ./env.sv).
+            if (ppIntrinsic160.count(buf.getId())) {
+                auto ls476 = argStr476.find(buf.getId());
+                std::string_view lt476 =
+                    ls476 != argStr476.end() ? std::string_view(ls476->second)
+                                             : std::string_view();
+                if (lt476.size() >= 2 && (int32_t)lt476.size() == bi.rawLen &&
+                    lt476.front() == '"' && lt476.back() == '"') {
+                    SourceLocation o476 = sm->getFullyOriginalLoc(b0);
+                    auto t476 = o476 != SourceLocation::NoLocation
+                                    ? sm->getSourceText(o476.buffer())
+                                    : std::string_view();
+                    bool file476 = o476 != SourceLocation::NoLocation &&
+                                   o476.offset() + 9 <= t476.size() &&
+                                   t476.substr(o476.offset(), 9) == "`__FILE__";
+                    std::string in476(lt476.substr(1, lt476.size() - 2));
+                    std::string n476 =
+                        std::filesystem::path(in476).lexically_normal().string();
+                    if (file476 && !n476.empty() && n476 != in476 &&
+                        lawOn(476, "R11U476_FILELEN_OFF")) {
+                        lawTrace(476, "fileMacroLenNormal476", in476 + " -> " + n476);
+                        bi.rawLen = (int32_t)(n476.size() + 2);
+                    }
+                }
+            }
         }
         else {
             SourceLocation bodyStart = sm->getFullyOriginalLoc(b0);

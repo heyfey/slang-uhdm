@@ -1,0 +1,37 @@
+CC/cc01 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 204 
+CC/cc02 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 394 
+CC/cc03 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 487 
+CC/cc04 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 482 
+CC/cc05 rc=0 cmp=0 STRICT_EQUAL 201 -> rc=0 cmp=0 STRICT_EQUAL 201 
+CC/cc06 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 394 
+CC/cc07 rc=0 cmp=0 STRICT_EQUAL 385 -> rc=0 cmp=0 STRICT_EQUAL 385 
+CC/cc08 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 384 
+CC/cc09 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 312 
+CC/cc10 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 353 
+CC/cc11 rc=0 cmp=0 STRICT_NOTEQUAL depth -> rc=0 cmp=0 STRICT_EQUAL 385 
+CC/cc12 rc=0 cmp=22 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 252 
+CC/cc13 rc=0 cmp=29 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_NOTEQUAL depth dd=104
+FN/fn01 rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 13 
+FN/fn02 rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 17 
+FN/fn03 rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 13 
+FN/fn04 rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 19 
+FN/fn05 rc=0 cmp=0 STRICT_EQUAL 17 -> rc=0 cmp=0 STRICT_EQUAL 17 
+FN/fn06 rc=0 cmp=0 STRICT_NOTEQUAL endcol -> rc=0 cmp=0 STRICT_EQUAL 27 
+FN/fn07 rc=0 cmp=0 STRICT_EQUAL 13 -> rc=0 cmp=0 STRICT_EQUAL 13 
+IU/iu01 rc=0 cmp=135 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 51 
+IU/iu02 rc=0 cmp=135 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 51 
+IU/iu03 rc=0 cmp=135 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 51 
+IU/iu04 rc=0 cmp=187 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 68 
+IU/iu05 rc=0 cmp=135 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 39 
+IU/iu06 rc=0 cmp=0 STRICT_EQUAL 47 -> rc=0 cmp=0 STRICT_EQUAL 47 
+IU/iu07 rc=0 cmp=0 STRICT_EQUAL 47 -> rc=0 cmp=0 STRICT_EQUAL 47 
+IU/iu08 rc=0 cmp=0 STRICT_EQUAL 47 -> rc=0 cmp=0 STRICT_EQUAL 47 
+IU/iu09 rc=0 cmp=0 STRICT_EQUAL 69 -> rc=0 cmp=0 STRICT_EQUAL 69 
+IU/iu10 rc=0 cmp=0 STRICT_EQUAL 43 -> rc=0 cmp=0 STRICT_EQUAL 43 
+IU/iu11 rc=0 cmp=0 STRICT_EQUAL 76 -> rc=0 cmp=0 STRICT_EQUAL 76 
+IU/iu12 rc=0 cmp=135 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 67 
+IU/iu13 rc=0 cmp=0 STRICT_NOTEQUAL line -> rc=0 cmp=0 STRICT_EQUAL 58 
+IU/iu14 rc=0 cmp=199 NOT_EQUAL stage1 -> rc=0 cmp=36 NOT_EQUAL stage1 dd=20
+IU/iu15 rc=0 cmp=191 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 63 
+IU/iu16 rc=0 cmp=312 NOT_EQUAL stage1 -> rc=0 cmp=0 STRICT_EQUAL 102 
+IU/iu17 rc=0 cmp=0 STRICT_EQUAL 94 -> rc=0 cmp=0 STRICT_EQUAL 94 

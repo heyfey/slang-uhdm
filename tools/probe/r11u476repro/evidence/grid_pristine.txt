@@ -1,0 +1,37 @@
+CC/cc01 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=84 md5=ef3af89b
+CC/cc02 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=178 md5=ad9259d8
+CC/cc03 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=274 md5=a8de2a7a
+CC/cc04 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=254 md5=d806dd47
+CC/cc05 pristine rc=0 cmp=0 STRICT_EQUAL 201 objects dd=86 md5=b9209b21
+CC/cc06 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=178 md5=b7079b2a
+CC/cc07 pristine rc=0 cmp=0 STRICT_EQUAL 385 objects dd=158 md5=0d8c48ca
+CC/cc08 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=174 md5=0ad176ef
+CC/cc09 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=130 md5=879b9b35
+CC/cc10 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=122 md5=81f55cfc
+CC/cc11 pristine rc=0 cmp=0 STRICT_NOTEQUAL depth dd=134 md5=be689e46
+CC/cc12 pristine rc=0 cmp=22 NOT_EQUAL stage1 dd=91 md5=8289a8a3
+CC/cc13 pristine rc=0 cmp=29 NOT_EQUAL stage1 dd=112 md5=149408b1
+FN/fn01 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=14 md5=500a43da
+FN/fn02 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=20 md5=88329ce4
+FN/fn03 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=14 md5=5769e589
+FN/fn04 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=16 md5=3bcdaa6a
+FN/fn05 pristine rc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=a793fbe7
+FN/fn06 pristine rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=38 md5=d233ade0
+FN/fn07 pristine rc=0 cmp=0 STRICT_EQUAL 13 objects dd=2 md5=0aa8ccc8
+IU/iu01 pristine rc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=53b17de6
+IU/iu02 pristine rc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=1a705e23
+IU/iu03 pristine rc=0 cmp=135 NOT_EQUAL stage1 dd=38 md5=b83dca00
+IU/iu04 pristine rc=0 cmp=187 NOT_EQUAL stage1 dd=52 md5=a22c356b
+IU/iu05 pristine rc=0 cmp=135 NOT_EQUAL stage1 dd=38 md5=26c19436
+IU/iu06 pristine rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=a120cbe5
+IU/iu07 pristine rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=81645d8b
+IU/iu08 pristine rc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=19962660
+IU/iu09 pristine rc=0 cmp=0 STRICT_EQUAL 69 objects dd=3 md5=ff727685
+IU/iu10 pristine rc=0 cmp=0 STRICT_EQUAL 43 objects dd=2 md5=e9015f52
+IU/iu11 pristine rc=0 cmp=0 STRICT_EQUAL 76 objects dd=3 md5=26c028b6
+IU/iu12 pristine rc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=dea8843b
+IU/iu13 pristine rc=0 cmp=0 STRICT_NOTEQUAL line dd=7 md5=777b44e7
+IU/iu14 pristine rc=0 cmp=199 NOT_EQUAL stage1 dd=92 md5=f6d522d5
+IU/iu15 pristine rc=0 cmp=191 NOT_EQUAL stage1 dd=40 md5=e9262a81
+IU/iu16 pristine rc=0 cmp=312 NOT_EQUAL stage1 dd=77 md5=220148e9
+IU/iu17 pristine rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 md5=79ebbac8

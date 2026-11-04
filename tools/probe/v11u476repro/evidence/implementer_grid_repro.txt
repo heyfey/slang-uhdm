@@ -1,0 +1,40 @@
+# the implementer's 37 grid dirs on this verifier's frozen binaries (rc, uhdm-cmp, strict, dump distance; md5 differs only by the worktree path the sources carry)
+CC/cc01 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=84 md5=c337b754|CC/cc01 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 204 objects dd=76 md5=95484f15
+CC/cc02 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=178 md5=0f49d470|CC/cc02 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 md5=61107b8d
+CC/cc03 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=274 md5=0d8787fc|CC/cc03 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 487 objects dd=234 md5=0fb7ace8
+CC/cc04 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=254 md5=e8c26ce3|CC/cc04 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 482 objects dd=234 md5=099b0ec6
+CC/cc05 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 201 objects dd=86 md5=9a6e2491|CC/cc05 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 201 objects dd=86 md5=9a6e2491
+CC/cc06 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=178 md5=4b4124af|CC/cc06 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 md5=800bed90
+CC/cc07 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 385 objects dd=158 md5=abdf6a47|CC/cc07 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 385 objects dd=158 md5=abdf6a47
+CC/cc08 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=174 md5=ebcb0785|CC/cc08 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 384 objects dd=154 md5=fec1249d
+CC/cc09 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=130 md5=5dc4d0d0|CC/cc09 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 312 objects dd=106 md5=a21f477a
+CC/cc10 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=122 md5=0e75931f|CC/cc10 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 353 objects dd=98 md5=51a68273
+CC/cc11 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=134 md5=8ad98bc4|CC/cc11 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 385 objects dd=110 md5=5dc1aa36
+CC/cc12 pris rc=0 slrc=0 cmp=22 NOT_EQUAL stage1 dd=91 md5=20379713|CC/cc12 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 252 objects dd=87 md5=a8fb59fe
+CC/cc13 pris rc=0 slrc=4 cmp=29 NOT_EQUAL stage1 dd=112 md5=35fbe730|CC/cc13 law rc=0 slrc=4 cmp=0 STRICT_NOTEQUAL depth dd=104 md5=ae888fc8
+FN/fn01 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=14 md5=2fbe8f5a|FN/fn01 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 13 objects dd=4 md5=711c8904
+FN/fn02 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=20 md5=2dd72d66|FN/fn02 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=f0c5f87d
+FN/fn03 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=14 md5=a27c54b2|FN/fn03 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 13 objects dd=4 md5=daf41530
+FN/fn04 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=16 md5=ca69189f|FN/fn04 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 19 objects dd=4 md5=64c41121
+FN/fn05 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=f9274259|FN/fn05 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 17 objects dd=4 md5=f9274259
+FN/fn06 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=38 md5=6edbd640|FN/fn06 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 27 objects dd=4 md5=8a2494f4
+FN/fn07 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 13 objects dd=2 md5=5b33e7a3|FN/fn07 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 13 objects dd=2 md5=5b33e7a3
+IU/iu01 pris rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=37fde6cf|IU/iu01 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 51 objects dd=3 md5=4dee4914
+IU/iu02 pris rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=14e0bc74|IU/iu02 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 51 objects dd=3 md5=8d0624dc
+IU/iu03 pris rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=38 md5=89ed1171|IU/iu03 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 51 objects dd=2 md5=21511e6d
+IU/iu04 pris rc=0 slrc=0 cmp=187 NOT_EQUAL stage1 dd=52 md5=274ae42a|IU/iu04 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 68 objects dd=2 md5=b61efe22
+IU/iu05 pris rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=38 md5=78cf6669|IU/iu05 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 39 objects dd=2 md5=d7ff3ba6
+IU/iu06 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=3ad9ca15|IU/iu06 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=3ad9ca15
+IU/iu07 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=bd2c105c|IU/iu07 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=bd2c105c
+IU/iu08 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=9aa1175b|IU/iu08 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 47 objects dd=2 md5=9aa1175b
+IU/iu09 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 69 objects dd=3 md5=e3ba4161|IU/iu09 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 69 objects dd=3 md5=e3ba4161
+IU/iu10 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 43 objects dd=2 md5=b5aec387|IU/iu10 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 43 objects dd=2 md5=b5aec387
+IU/iu11 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 76 objects dd=3 md5=402ba181|IU/iu11 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 76 objects dd=3 md5=402ba181
+IU/iu12 pris rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=39 md5=e81a9966|IU/iu12 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 67 objects dd=3 md5=ebe10582
+IU/iu13 pris rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=7 md5=bf193a79|IU/iu13 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 58 objects dd=3 md5=60874115
+IU/iu14 pris rc=0 slrc=0 cmp=199 NOT_EQUAL stage1 dd=92 md5=93f4bd1b|IU/iu14 law rc=0 slrc=0 cmp=36 NOT_EQUAL stage1 dd=20 md5=b4b7521b
+IU/iu15 pris rc=0 slrc=0 cmp=191 NOT_EQUAL stage1 dd=40 md5=18c73543|IU/iu15 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 63 objects dd=4 md5=b3952136
+IU/iu16 pris rc=0 slrc=0 cmp=312 NOT_EQUAL stage1 dd=77 md5=50816d13|IU/iu16 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 102 objects dd=41 md5=70f04b07
+IU/iu17 pris rc=0 slrc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 md5=d3bb9c89|IU/iu17 law rc=0 slrc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 md5=d3bb9c89
+dirs 37 law!=pristine 26
+R11U476_OFF: ==pristine 37/37; moves off the law: CC/cc01 CC/cc02 CC/cc03 CC/cc04 CC/cc06 CC/cc08 CC/cc09 CC/cc10 CC/cc11 CC/cc12 CC/cc13 FN/fn01 FN/fn02 FN/fn03 FN/fn04 FN/fn06 IU/iu01 IU/iu02 IU/iu03 IU/iu04 IU/iu05 IU/iu12 IU/iu13 IU/iu14 IU/iu15 IU/iu16 | of them back to pristine: CC/cc01 CC/cc02 CC/cc03 CC/cc04 CC/cc06 CC/cc08 CC/cc09 CC/cc10 CC/cc11 CC/cc12 CC/cc13 FN/fn01 FN/fn02 FN/fn03 FN/fn04 FN/fn06 IU/iu01 IU/iu02 IU/iu03 IU/iu04 IU/iu05 IU/iu12 IU/iu13 IU/iu14 IU/iu15 IU/iu16

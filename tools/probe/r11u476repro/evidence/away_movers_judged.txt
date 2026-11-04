@@ -1,0 +1,65 @@
+VF/vf06 rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=16 -> rc=0 cmp=0 STRICT_EQUAL 15 
+NA/na01 rc=0 cmp=0 STRICT_EQUAL 2652  -> rc=0 cmp=0 STRICT_EQUAL 2652 
+VC/vc03_three_level_import rc=0 cmp=0 STRICT_NOTEQUAL depth dd=211 -> rc=0 cmp=0 STRICT_NOTEQUAL depth dd=218
+FC/fc05 rc=0 cmp=14 NOT_EQUAL stage1 dd=144 -> rc=0 cmp=14 NOT_EQUAL stage1 dd=108
+CI/ci13_chain_import rc=0 cmp=0 STRICT_NOTEQUAL depth dd=516 -> rc=0 cmp=0 STRICT_EQUAL 771 
+DA/da16 rc=0 cmp=0 STRICT_EQUAL 2652  -> rc=0 cmp=0 STRICT_EQUAL 2652 
+NA/na02 rc=0 cmp=36 NOT_EQUAL stage1 dd=1429 -> rc=0 cmp=36 NOT_EQUAL stage1 dd=1429
+A/a06_two_importers rc=0 cmp=0 STRICT_NOTEQUAL depth dd=222 -> rc=0 cmp=0 STRICT_EQUAL 432 
+A/a01_twoclones rc=0 cmp=162 NOT_EQUAL stage1 dd=788 -> rc=0 cmp=162 NOT_EQUAL stage1 dd=756
+FT/ft04 rc=0 cmp=18 NOT_EQUAL stage1 dd=282 -> rc=0 cmp=20 NOT_EQUAL stage1 dd=250
+MP/mp06 rc=0 cmp=368 NOT_EQUAL stage1 dd=76 -> rc=0 cmp=0 STRICT_EQUAL 206 
+VF/vf14 rc=0 cmp=18 NOT_EQUAL stage1 dd=126 -> rc=0 cmp=20 NOT_EQUAL stage1 dd=110
+VF/vf12 rc=0 cmp=24 NOT_EQUAL stage1 dd=178 -> rc=0 cmp=760 NOT_EQUAL stage1 dd=174
+VF/vf07 rc=0 cmp=18 NOT_EQUAL stage1 dd=248 -> rc=0 cmp=20 NOT_EQUAL stage1 dd=200
+VM/vm39_positional_multi rc=0 cmp=417 NOT_EQUAL stage1 dd=61 -> rc=0 cmp=0 STRICT_NOTEQUAL depth dd=4
+VC/vc14 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=98 -> rc=0 cmp=0 STRICT_EQUAL 275 
+LV/lv08 rc=0 cmp=18 NOT_EQUAL stage1 dd=42 -> rc=0 cmp=0 STRICT_EQUAL 130 
+M/vm04_export_chain rc=0 cmp=522 NOT_EQUAL stage1 dd=316 -> rc=0 cmp=522 NOT_EQUAL stage1 dd=314
+BP/b07_positional rc=0 cmp=0 STRICT_EQUAL 94  -> rc=0 cmp=0 STRICT_EQUAL 94 
+VI/vi19_positional rc=0 cmp=163 NOT_EQUAL stage1 dd=86 -> rc=0 cmp=0 STRICT_NOTEQUAL line dd=54
+PD/p01 rc=0 cmp=271 NOT_EQUAL stage1 dd=121 -> rc=0 cmp=0 STRICT_NOTEQUAL line dd=77
+LV/lv11 rc=0 cmp=191 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 192 
+IA/ia01 rc=0 cmp=185 NOT_EQUAL stage1 dd=53 -> rc=0 cmp=0 STRICT_EQUAL 71 
+IA/ia03 rc=0 cmp=185 NOT_EQUAL stage1 dd=53 -> rc=0 cmp=0 STRICT_EQUAL 92 
+VA/va14 rc=0 cmp=187 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 73 
+VC/vc09 rc=0 cmp=187 NOT_EQUAL stage1 dd=123 -> rc=0 cmp=311 NOT_EQUAL stage1 dd=87
+PD/p09 rc=0 cmp=60 NOT_EQUAL stage1 dd=380 -> rc=0 cmp=60 NOT_EQUAL stage1 dd=324
+PD/p11 rc=0 cmp=36 NOT_EQUAL stage1 dd=123 -> rc=0 cmp=36 NOT_EQUAL stage1 dd=79
+PD/p08 rc=0 cmp=62 NOT_EQUAL stage1 dd=175 -> rc=0 cmp=62 NOT_EQUAL stage1 dd=119
+OB/ob04 rc=0 cmp=78 NOT_EQUAL stage1 dd=201 -> rc=0 cmp=78 NOT_EQUAL stage1 dd=193
+VM/vm04 rc=0 cmp=159 NOT_EQUAL stage1 dd=108 -> rc=0 cmp=0 STRICT_EQUAL 152 
+R5/p1 rc=0 cmp=191 NOT_EQUAL stage1 dd=86 -> rc=0 cmp=0 STRICT_NOTEQUAL line dd=54
+mo/b12 rc=0 cmp=64 NOT_EQUAL stage1 dd=353 -> rc=0 cmp=64 NOT_EQUAL stage1 dd=353
+IA/i06 rc=0 cmp=255 NOT_EQUAL stage1 dd=411 -> rc=0 cmp=255 NOT_EQUAL stage1 dd=399
+ic/i04_chain_import rc=0 cmp=122 NOT_EQUAL stage1 dd=1318 -> rc=0 cmp=122 NOT_EQUAL stage1 dd=1302
+F/f08 rc=0 cmp=43 NOT_EQUAL stage1 dd=340 -> rc=0 cmp=43 NOT_EQUAL stage1 dd=340
+F/f06 rc=0 cmp=82 NOT_EQUAL stage1 dd=1388 -> rc=0 cmp=82 NOT_EQUAL stage1 dd=1388
+LT/lt02 rc=0 cmp=24 NOT_EQUAL stage1 dd=134 -> rc=0 cmp=0 STRICT_EQUAL 284 
+CF/e09 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=1041 -> rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1041
+VG/vg03 rc=0 cmp=44 NOT_EQUAL stage1 dd=205 -> rc=0 cmp=44 NOT_EQUAL stage1 dd=177
+VL/vl04 rc=0 cmp=24 NOT_EQUAL stage1 dd=126 -> rc=0 cmp=0 STRICT_EQUAL 321 
+VL/vl02 rc=0 cmp=343 NOT_EQUAL stage1 dd=150 -> rc=0 cmp=343 NOT_EQUAL stage1 dd=86
+VG/vg01_iface_pos_gen rc=0 cmp=0 STRICT_NOTEQUAL line dd=8 -> rc=0 cmp=0 STRICT_EQUAL 132 
+VO/vo14 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=98 -> rc=0 cmp=0 STRICT_EQUAL 214 
+VO/vo08 rc=0 cmp=78 NOT_EQUAL stage1 dd=269 -> rc=0 cmp=78 NOT_EQUAL stage1 dd=253
+VO/vo13 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=98 -> rc=0 cmp=0 STRICT_EQUAL 218 
+r11u421repro/evidence/residue_cases/ra01 rc=0 cmp=185 NOT_EQUAL stage1 dd=53 -> rc=0 cmp=0 STRICT_EQUAL 71 
+RF/rf08 rc=0 cmp=403 NOT_EQUAL stage1 dd=266 -> rc=0 cmp=0 STRICT_EQUAL 364 
+FN/fn02 rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=20 -> rc=0 cmp=0 STRICT_EQUAL 17 
+VI/vi01_homes rc=0 cmp=535 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 274 
+VI/vi16 rc=0 cmp=177 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 61 
+VI/vi11 rc=0 cmp=133 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 63 
+VI/vi13 rc=0 cmp=225 NOT_EQUAL stage1 dd=74 -> rc=0 cmp=0 STRICT_EQUAL 89 
+VI/vi04 rc=0 cmp=285 NOT_EQUAL stage1 dd=116 -> rc=0 cmp=285 NOT_EQUAL stage1 dd=66
+VI/vi09 rc=0 cmp=159 NOT_EQUAL stage1 dd=85 -> rc=0 cmp=159 NOT_EQUAL stage1 dd=77
+VI/vi07 rc=0 cmp=189 NOT_EQUAL stage1 dd=42 -> rc=0 cmp=0 STRICT_EQUAL 118 
+VI/vi03 rc=0 cmp=185 NOT_EQUAL stage1 dd=52 -> rc=0 cmp=0 STRICT_EQUAL 87 
+VI/vi02 rc=0 cmp=0 STRICT_NOTEQUAL line dd=10 -> rc=0 cmp=0 STRICT_EQUAL 97 
+VI/vi01 rc=0 cmp=329 NOT_EQUAL stage1 dd=102 -> rc=0 cmp=0 STRICT_EQUAL 127 
+VI/vi10 rc=0 cmp=133 NOT_EQUAL stage1 dd=38 -> rc=0 cmp=0 STRICT_EQUAL 59 
+VI/vi14 rc=0 cmp=1628 NOT_EQUAL stage1 dd=190 -> rc=0 cmp=1564 NOT_EQUAL stage1 dd=162
+VI/vi08 rc=0 cmp=49 NOT_EQUAL stage1 dd=82 -> rc=0 cmp=49 NOT_EQUAL stage1 dd=46
+VF/vf03 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=122 -> rc=0 cmp=0 STRICT_EQUAL 193 
+VM/vm03 rc=0 cmp=22 NOT_EQUAL stage1 dd=180 -> rc=0 cmp=0 STRICT_EQUAL 436 
+VL/vl10 rc=0 cmp=24 NOT_EQUAL stage1 dd=132 -> rc=0 cmp=0 STRICT_EQUAL 220 

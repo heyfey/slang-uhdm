@@ -1,0 +1,65 @@
+# the 64 byte movers of the away census judged against golden: pristine | law
+r10uvm223repro/grid223/a10_ports rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=56|rc=0 slrc=0 cmp=0 STRICT_EQUAL 81 objects dd=20
+r10uvm224repro/grid224/a11_ansiports rc=0 slrc=0 cmp=17 NOT_EQUAL stage1 dd=163|rc=0 slrc=0 cmp=17 NOT_EQUAL stage1 dd=127
+r10uvm227repro/grid227/a4_pkg_holder rc=0 slrc=0 cmp=60 NOT_EQUAL stage1 dd=142|rc=0 slrc=0 cmp=60 NOT_EQUAL stage1 dd=134
+r10v225repro/vgrid225/v7_ports rc=0 slrc=0 cmp=58 NOT_EQUAL stage1 dd=434|rc=0 slrc=0 cmp=58 NOT_EQUAL stage1 dd=402
+IA/i06 rc=0 slrc=0 cmp=255 NOT_EQUAL stage1 dd=411|rc=0 slrc=0 cmp=255 NOT_EQUAL stage1 dd=399
+R5/p1 rc=0 slrc=0 cmp=191 NOT_EQUAL stage1 dd=86|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=54
+PD/p01 rc=0 slrc=0 cmp=271 NOT_EQUAL stage1 dd=121|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=77
+PD/p08 rc=0 slrc=0 cmp=62 NOT_EQUAL stage1 dd=175|rc=0 slrc=0 cmp=62 NOT_EQUAL stage1 dd=119
+PD/p09 rc=0 slrc=0 cmp=60 NOT_EQUAL stage1 dd=380|rc=0 slrc=0 cmp=60 NOT_EQUAL stage1 dd=324
+PD/p11 rc=0 slrc=0 cmp=36 NOT_EQUAL stage1 dd=123|rc=0 slrc=0 cmp=36 NOT_EQUAL stage1 dd=79
+LV/lv11 rc=0 slrc=0 cmp=191 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 192 objects dd=2
+CF/e09 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=1041|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1041
+CI/ci13_chain_import rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=516|rc=0 slrc=0 cmp=0 STRICT_EQUAL 771 objects dd=488
+MP/mp06 rc=0 slrc=0 cmp=368 NOT_EQUAL stage1 dd=76|rc=0 slrc=0 cmp=0 STRICT_EQUAL 206 objects dd=40
+r11u421repro/evidence/residue_cases/ra01 rc=0 slrc=0 cmp=185 NOT_EQUAL stage1 dd=53|rc=0 slrc=0 cmp=0 STRICT_EQUAL 71 objects dd=3
+IA/ia01 rc=0 slrc=0 cmp=185 NOT_EQUAL stage1 dd=53|rc=0 slrc=0 cmp=0 STRICT_EQUAL 71 objects dd=3
+IA/ia03 rc=0 slrc=0 cmp=185 NOT_EQUAL stage1 dd=53|rc=0 slrc=0 cmp=0 STRICT_EQUAL 92 objects dd=3
+FC/fc05 rc=0 slrc=4 cmp=14 NOT_EQUAL stage1 dd=144|rc=0 slrc=4 cmp=14 NOT_EQUAL stage1 dd=108
+LT/lt02 rc=0 slrc=0 cmp=24 NOT_EQUAL stage1 dd=134|rc=0 slrc=0 cmp=0 STRICT_EQUAL 284 objects dd=130
+FT/ft04 rc=0 slrc=0 cmp=18 NOT_EQUAL stage1 dd=282|rc=0 slrc=0 cmp=20 NOT_EQUAL stage1 dd=250
+OB/ob04 rc=0 slrc=0 cmp=78 NOT_EQUAL stage1 dd=201|rc=0 slrc=0 cmp=78 NOT_EQUAL stage1 dd=193
+LV/lv08 rc=0 slrc=0 cmp=18 NOT_EQUAL stage1 dd=42|rc=0 slrc=0 cmp=0 STRICT_EQUAL 130 objects dd=38
+FN/fn02 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=20|rc=0 slrc=0 cmp=0 STRICT_EQUAL 17 objects dd=4
+RF/rf08 rc=0 slrc=0 cmp=403 NOT_EQUAL stage1 dd=266|rc=0 slrc=0 cmp=0 STRICT_EQUAL 364 objects dd=194
+r11u477repro/evidence/sister/rm2port rc=0 slrc=0 cmp=135 NOT_EQUAL stage1 dd=39|rc=0 slrc=0 cmp=0 STRICT_EQUAL 51 objects dd=3
+r11v147repro/brk/pos/w5_iface_ordered rc=0 slrc=0 cmp=323 NOT_EQUAL stage1 dd=50|rc=0 slrc=0 cmp=0 STRICT_EQUAL 100 objects dd=2
+ic/i04_chain_import rc=0 slrc=0 cmp=122 NOT_EQUAL stage1 dd=1318|rc=0 slrc=0 cmp=122 NOT_EQUAL stage1 dd=1302
+A/a01_twoclones rc=0 slrc=0 cmp=162 NOT_EQUAL stage1 dd=788|rc=0 slrc=0 cmp=162 NOT_EQUAL stage1 dd=756
+A/a06_two_importers rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=222|rc=0 slrc=0 cmp=0 STRICT_EQUAL 432 objects dd=198
+M/vm04_export_chain rc=0 slrc=0 cmp=522 NOT_EQUAL stage1 dd=316|rc=0 slrc=0 cmp=522 NOT_EQUAL stage1 dd=314
+VC/vc03_three_level_import rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=211|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=218
+VI/vi01_homes rc=0 slrc=0 cmp=535 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 274 objects dd=2
+VI/vi19_positional rc=0 slrc=0 cmp=163 NOT_EQUAL stage1 dd=86|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=54
+VG/vg01_iface_pos_gen rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=8|rc=0 slrc=0 cmp=0 STRICT_EQUAL 132 objects dd=4
+VM/vm39_positional_multi rc=0 slrc=0 cmp=417 NOT_EQUAL stage1 dd=61|rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=4
+VL/vl02 rc=0 slrc=4 cmp=343 NOT_EQUAL stage1 dd=150|rc=0 slrc=4 cmp=343 NOT_EQUAL stage1 dd=86
+VM/vm04 rc=0 slrc=0 cmp=159 NOT_EQUAL stage1 dd=108|rc=0 slrc=0 cmp=0 STRICT_EQUAL 152 objects dd=60
+VI/vi01 rc=0 slrc=0 cmp=329 NOT_EQUAL stage1 dd=102|rc=0 slrc=0 cmp=0 STRICT_EQUAL 127 objects dd=2
+VI/vi02 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL line dd=10|rc=0 slrc=0 cmp=0 STRICT_EQUAL 97 objects dd=2
+VI/vi03 rc=0 slrc=0 cmp=185 NOT_EQUAL stage1 dd=52|rc=0 slrc=0 cmp=0 STRICT_EQUAL 87 objects dd=2
+VI/vi04 rc=0 slrc=0 cmp=285 NOT_EQUAL stage1 dd=116|rc=0 slrc=0 cmp=285 NOT_EQUAL stage1 dd=66
+VI/vi07 rc=0 slrc=0 cmp=189 NOT_EQUAL stage1 dd=42|rc=0 slrc=0 cmp=0 STRICT_EQUAL 118 objects dd=2
+VI/vi08 rc=0 slrc=4 cmp=49 NOT_EQUAL stage1 dd=82|rc=0 slrc=4 cmp=49 NOT_EQUAL stage1 dd=46
+VI/vi09 rc=0 slrc=0 cmp=159 NOT_EQUAL stage1 dd=85|rc=0 slrc=0 cmp=159 NOT_EQUAL stage1 dd=77
+VI/vi10 rc=0 slrc=0 cmp=133 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 59 objects dd=2
+VI/vi11 rc=0 slrc=0 cmp=133 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 63 objects dd=2
+VI/vi13 rc=0 slrc=0 cmp=225 NOT_EQUAL stage1 dd=74|rc=0 slrc=0 cmp=0 STRICT_EQUAL 89 objects dd=2
+VI/vi14 rc=0 slrc=0 cmp=1628 NOT_EQUAL stage1 dd=190|rc=0 slrc=0 cmp=1564 NOT_EQUAL stage1 dd=162
+VI/vi16 rc=0 slrc=0 cmp=177 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 61 objects dd=2
+VA/va14 rc=0 slrc=0 cmp=187 NOT_EQUAL stage1 dd=38|rc=0 slrc=0 cmp=0 STRICT_EQUAL 73 objects dd=2
+VC/vc09 rc=0 slrc=4 cmp=187 NOT_EQUAL stage1 dd=123|rc=0 slrc=4 cmp=311 NOT_EQUAL stage1 dd=87
+VC/vc14 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=98|rc=0 slrc=0 cmp=0 STRICT_EQUAL 275 objects dd=90
+VF/vf03 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=122|rc=0 slrc=0 cmp=0 STRICT_EQUAL 193 objects dd=118
+VM/vm03 rc=0 slrc=0 cmp=22 NOT_EQUAL stage1 dd=180|rc=0 slrc=0 cmp=0 STRICT_EQUAL 436 objects dd=172
+VG/vg03 rc=0 slrc=0 cmp=44 NOT_EQUAL stage1 dd=205|rc=0 slrc=0 cmp=44 NOT_EQUAL stage1 dd=177
+VL/vl04 rc=0 slrc=0 cmp=24 NOT_EQUAL stage1 dd=126|rc=0 slrc=0 cmp=0 STRICT_EQUAL 321 objects dd=122
+VF/vf07 rc=0 slrc=0 cmp=18 NOT_EQUAL stage1 dd=248|rc=0 slrc=0 cmp=20 NOT_EQUAL stage1 dd=200
+VF/vf12 rc=0 slrc=0 cmp=24 NOT_EQUAL stage1 dd=178|rc=0 slrc=0 cmp=760 NOT_EQUAL stage1 dd=174
+VF/vf14 rc=0 slrc=0 cmp=18 NOT_EQUAL stage1 dd=126|rc=0 slrc=0 cmp=20 NOT_EQUAL stage1 dd=110
+VO/vo08 rc=0 slrc=0 cmp=78 NOT_EQUAL stage1 dd=269|rc=0 slrc=0 cmp=78 NOT_EQUAL stage1 dd=253
+VO/vo13 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=98|rc=0 slrc=0 cmp=0 STRICT_EQUAL 218 objects dd=90
+VO/vo14 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL depth dd=98|rc=0 slrc=0 cmp=0 STRICT_EQUAL 214 objects dd=90
+VL/vl10 rc=0 slrc=0 cmp=24 NOT_EQUAL stage1 dd=132|rc=0 slrc=0 cmp=0 STRICT_EQUAL 220 objects dd=124
+VF/vf06 rc=0 slrc=0 cmp=0 STRICT_NOTEQUAL endcol dd=16|rc=0 slrc=0 cmp=0 STRICT_EQUAL 15 objects dd=4

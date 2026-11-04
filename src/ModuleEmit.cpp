@@ -13429,6 +13429,22 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
         }
         if (fromBind)
             continue;
+        // § ifaceUdpShapedNoRefMod476 (r11u476; easyUVM's `input_if in(clk,
+        // rst)`) -- Surelog's parser takes the udp_instantiation alternative
+        // for an ordered list of two or more terminals whose first is a
+        // net_lvalue WHATEVER the child is (udpShapedInstantiation), so an
+        // INTERFACE child of that shape gets no ref_module either:
+        // CompileModule's paUdp_instantiation case reaches
+        // compileUdpInstantiation, never compileInstantiation (golden
+        // `a_if in(clk, rst)`: no ref_module; `a_if u(clk)`: one).  The module
+        // branch below already skips udp-shaped children.
+        if (ifaceDefMap.find(&child.getDefinition()) != ifaceDefMap.end() &&
+            udpShapedInstantiation(child) &&
+            lawOn(476, "R11U476_IFUDPREF_OFF")) {
+            lawTrace(476, "ifaceUdpShapedNoRefMod476",
+                     prefix + "." + std::string(child.name));
+            continue;
+        }
         // A MODULE child with an OPERATION among its positional conns
         // (uut(clk, a && b, ...)) emits NO def ref_module at all
         // (interfaces keep theirs — Surelog).
@@ -60433,6 +60449,16 @@ static void ifaceConnLeftmostLeafElab315(
     walk(h);
 }
 
+// § ifaceUdpShapedLowConnDecl476's abstention: a `bind` instantiation is a
+// bind_instantiation to Surelog's grammar, never a udp_instantiation, so its
+// connections were compiled (r11u251 BP/b07_positional keeps the actuals).
+static bool boundInst476(const InstanceSymbol& inst) {
+    for (auto p = inst.getSyntax(); p; p = p->parent)
+        if (p->kind == syntax::SyntaxKind::BindDirective)
+            return true;
+    return false;
+}
+
 UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& inst,
                                                           const std::string& path,
                                                           UHDM::instance* parentM,
@@ -64950,8 +64976,19 @@ ifaceProcsDone283:
         else if (auto npc = findConnSyntax(inst, ps.name))
             setLoc(lc, ESC_NAME_SPAN295(npc->name.location(), ps.name,
                                         "lowconn_portview"));
-        else if (hasOrderedConns(inst) && conn && connectionExpr(*conn))
+        else if (hasOrderedConns(inst) && conn && connectionExpr(*conn) &&
+                 !(udpShapedInstantiation(inst) && !boundInst476(inst) &&
+                   lawOn(476, "R11U476_IFUDPLOW_OFF") &&
+                   (lawTrace(476, "ifaceUdpShapedLowConnDecl476",
+                             prefix + "." + std::string(ps.name)),
+                    true)))
             setLoc(lc, connectionExpr(*conn)->sourceRange);
+        // § ifaceUdpShapedLowConnDecl476 (r11u476) -- the elaborated twin
+        // of the module rule above (emitInstance's low conn): a udp-shaped
+        // instantiation never ran compileHighConn, so UhdmWriter::writeNets
+        // builds the LowConn ref_obj from the definition's net node, i.e. at
+        // the interface's port declaration (golden 2:22 for `a_if in(clk,
+        // rst)`, ours the actual at 8:11).
         else
             setLocNamed(lc, ps);
         // § caIfacePortDeclNetMint93 face B — the ELABORATED port binds the

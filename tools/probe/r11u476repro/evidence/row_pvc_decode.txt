@@ -1,0 +1,23 @@
+uvm_param_vif_config_db strict walk behind the sister's param_assign face (pass 474's addpa.cpp
+simulation on a COPY of each database; measurement only), golden 1002258 objects:
+binary   first walk divergence                                                      objects
+pristine #138364 uvm_misc.svh 103   tb_params_pkg uvm_instance_scope `pos`            994575
+law5     #138470 uvm_misc.svh 139   for (int _byte...) in uvm_oneway_hash             994753
+law8     #138477 uvm_misc.svh 130   `string_in.len()` base (formal)                   994765
+law9     #138764 uvm_misc.svh 224   `for (pos = ...)` plain init Lhs                  994792
+law10    #139426 uvm_misc.svh 376   foreach(arg[i]) loop variable                     994792
+law11    #139986 uvm_globals.svh 219 `process p` ref_var entry                        994801
+law12    #140493 uvm_object.svh 871  out-of-body class method group (home via class)  994801
+law13    #140473 uvm_object.svh 864  `cs.get_uvm_seeding()` dotted base -> local      1001736
+law15    #140233 uvm_globals.svh 322 (EARLIER: a one-element constructor hier_path read as a dotted base; narrowed in law16) 1001245
+law16    #141539 uvm_factory.svh 1086 `.replace` member bound to a formal             1001245
+law17    #143371 uvm_factory.svh 1812 `dash.substr(1,max1)` receiver-copied argument  1002249
+law18    #147918 uvm_packer.svh 551  foreach (stream[i]) array formal                 1002222
+law19    #151029 uvm_phase.svh 887   `pred.m_successors` dotted base -> loop var      1002319
+law20    #151837 uvm_phase.svh 1176  call arguments handed the receiver's binding     1002289
+law21    #152319 uvm_callback_defines.svh 170 multi-line macro duplicate keys         1002277
+law23    #161733 uvm_component.svh 3037 `p_.get_randstate()` TF-ITEM local            1002244
+law24    #162393 uvm_component.svh 3188 `t.args = args` member bound to a local       1002259
+law25/27 #201344 uvm_reg_map.svh 2034 accesses[i0].data typespec_member (not decoded) 1002253
+Face (d), the set_arbitration `val` enum alias copy named per clone, is at #93329 and #165115.
+uhdm-cmp on the unsimulated row: 46 lines on every binary (the sister's face).

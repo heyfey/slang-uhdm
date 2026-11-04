@@ -1,0 +1,22 @@
+# the csvs of this sweep against the master's control /tmp/intr11u474 (sorted diff)
+== probe
+886c886
+< r10uvm227repro/grid227/a9_class_holder,STRICT_NOTEQUAL,differ:depth(1),differ:depth(1)
+---
+> r10uvm227repro/grid227/a9_class_holder,EQUAL,,equal
+== surelog
+844c844
+< LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/intr11u474/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+---
+> LowMemLib,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u476_lw/surelog/testflags/LowMemLib-c27f6133/slpp_all/surelog.log".,,
+846c846
+< LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/intr11u474/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+---
+> LowMemPkg,testflags,SURELOG_FAIL,[INF:CM0023] Creating log file "/tmp/v11u476_lw/surelog/testflags/LowMemPkg-508b3015/slpp_all/surelog.log".,,
+== uhdm2rtlil
+== downstream
+== svtests
+1288c1288
+< generated/easyUVM/top.sv,DIFFERENT,decompile:,
+---
+> generated/easyUVM/top.sv,EQUAL,,equal

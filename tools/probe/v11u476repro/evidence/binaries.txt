@@ -1,0 +1,3 @@
+8b59c2a66cda09cfb5aac611789ea29d  /tmp/v11u476_bin/slang-uhdm.law
+1f099603e0eb6704a58436e2fa7da0ac  /tmp/v11u476_bin/slang-uhdm.pris
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/v11u476_bin/uhdm-strictcmp

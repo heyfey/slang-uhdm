@@ -1,0 +1,5 @@
+done
+CONVERSION generated/easyUVM/top.sv: DIFFERENT -> EQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=4 EQUAL=1936 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+rc=0

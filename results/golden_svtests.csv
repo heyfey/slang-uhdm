@@ -1285,7 +1285,7 @@ generated/black-parrot/bp_multicore_1_cce_ucode.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_multicore_4.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_multicore_4_cce_ucode_cfg.sv,SURELOG_CRASH,,
 generated/black-parrot/bp_unicore.sv,SURELOG_CRASH,,
-generated/easyUVM/top.sv,DIFFERENT,decompile:,
+generated/easyUVM/top.sv,EQUAL,,equal
 generated/encapsulation/8.18--inherited_local_from_inside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_inside.sv:19:18: error: 'a_loc' is a local member of 'a_cls',
 generated/encapsulation/8.18--inherited_local_from_outside.sv,SURELOG_ONLY,/home/heyfey/git-repos/sv-tests/tests/generated/encapsulation/8.18--inherited_local_from_outside.sv:25:20: error: 'a_loc' is a local member of 'a_cls',
 generated/encapsulation/8.18--inherited_prot_from_inside.sv,EQUAL,,equal
@@ -2082,7 +2082,7 @@ generated/uvm-examples/uvm_interrupts_simple.sv,BOTH_REJECT,/home/heyfey/git-rep
 generated/uvm-examples/uvm_many_to_one.sv,EQUAL,,equal
 generated/uvm-examples/uvm_messaging_example.sv,EQUAL,,equal
 generated/uvm-examples/uvm_overriding.sv,SLANG_ONLY,[  ERROR] : 2,
-generated/uvm-examples/uvm_param_vif_config_db.sv,STRICT_NOTEQUAL,differ:fullname(2),differ:fullname(2)
+generated/uvm-examples/uvm_param_vif_config_db.sv,STRICT_NOTEQUAL,differ:fullname(3),differ:fullname(3)
 generated/uvm-examples/uvm_priority_arbitration.sv,EQUAL,,equal
 generated/uvm-examples/uvm_priority_grab_lock.sv,EQUAL,,equal
 generated/uvm-examples/uvm_register_mem_example.sv,BOTH_REJECT,/home/heyfey/git-repos/slang-uhdm/third_party/Surelog/third_party/UVM/1800.2-2017-1.0/src/uvm_pkg.sv:28:9: error: design element does not have a time scale defi,
