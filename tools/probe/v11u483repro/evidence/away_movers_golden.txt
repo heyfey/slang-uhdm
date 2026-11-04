@@ -1,0 +1,31 @@
+/home/heyfey/git-repos/slang-uhdm/tools/probe/r11u123canon/arms/t04_virtual_interface rc=0 cmp=462 dist=9 md5=9b96493b NOT_EQUAL stage1|/home/heyfey/git-repos/slang-uhdm/tools/probe/r11u123canon/arms/t04_virtual_interface rc=0 cmp=0 dist=0 md5=037cbbf1 STRICT_EQUAL 120 objects
+CS/cs02 rc=0 cmp=46 dist=17 md5=526b9380 NOT_EQUAL stage1|CS/cs02 rc=0 cmp=0 dist=2 md5=18aff1df STRICT_EQUAL 66 objects
+CS/cs03 rc=0 cmp=46 dist=17 md5=630af70e NOT_EQUAL stage1|CS/cs03 rc=0 cmp=0 dist=2 md5=3134ff53 STRICT_EQUAL 50 objects
+CS/cs10 rc=0 cmp=36 dist=133 md5=6efa5c10 NOT_EQUAL stage1|CS/cs10 rc=0 cmp=36 dist=130 md5=99a4c678 NOT_EQUAL stage1
+CS/cs11 rc=0 cmp=46 dist=17 md5=fa6bbdd5 NOT_EQUAL stage1|CS/cs11 rc=0 cmp=0 dist=2 md5=446894ea STRICT_EQUAL 88 objects
+CS/cs12 rc=0 cmp=46 dist=17 md5=13694922 NOT_EQUAL stage1|CS/cs12 rc=0 cmp=0 dist=2 md5=f04d4312 STRICT_EQUAL 106 objects
+CS/cs13 rc=0 cmp=46 dist=17 md5=7586adc7 NOT_EQUAL stage1|CS/cs13 rc=0 cmp=0 dist=2 md5=c48d7888 STRICT_EQUAL 50 objects
+M/vm07_class_vif rc=0 cmp=169 dist=9 md5=c98e7654 NOT_EQUAL stage1|M/vm07_class_vif rc=0 cmp=0 dist=0 md5=a5b6b711 STRICT_EQUAL 78 objects
+VA/va12_virtual_iface_ctl rc=0 cmp=250 dist=66 md5=53f9cc25 NOT_EQUAL stage1|VA/va12_virtual_iface_ctl rc=0 cmp=231 dist=57 md5=825eda1a NOT_EQUAL stage1
+VV/vv02_vif_assigned rc=0 cmp=354 dist=9 md5=0a29f305 NOT_EQUAL stage1|VV/vv02_vif_assigned rc=0 cmp=0 dist=0 md5=7d2cda1c STRICT_EQUAL 44 objects
+VV/vv01 rc=0 cmp=254 dist=9 md5=5c232090 NOT_EQUAL stage1|VV/vv01 rc=0 cmp=0 dist=0 md5=f8d4f82a STRICT_EQUAL 44 objects
+VP/vp01 rc=0 cmp=46 dist=17 md5=d8a756c3 NOT_EQUAL stage1|VP/vp01 rc=0 cmp=0 dist=2 md5=64c893ac STRICT_EQUAL 92 objects
+VP/vp02 rc=0 cmp=46 dist=17 md5=598e3858 NOT_EQUAL stage1|VP/vp02 rc=0 cmp=0 dist=2 md5=621cf23f STRICT_EQUAL 80 objects
+VP/vp03 rc=0 cmp=32 dist=25 md5=54f658fd NOT_EQUAL stage1|VP/vp03 rc=0 cmp=32 dist=10 md5=ed9762dc NOT_EQUAL stage1
+VP/vp04 rc=0 cmp=46 dist=66 md5=d0870a09 NOT_EQUAL stage1|VP/vp04 rc=0 cmp=72 dist=42 md5=a831c8f2 NOT_EQUAL stage1
+VP/vp05 rc=0 cmp=46 dist=17 md5=d4de29e8 NOT_EQUAL stage1|VP/vp05 rc=0 cmp=0 dist=2 md5=cc82b5bb STRICT_EQUAL 52 objects
+VP/vp06 rc=0 cmp=36 dist=26 md5=5a7f3e7f NOT_EQUAL stage1|VP/vp06 rc=0 cmp=36 dist=19 md5=32c1a34a NOT_EQUAL stage1
+VP/vp07 rc=0 cmp=46 dist=24 md5=c69e6f4a NOT_EQUAL stage1|VP/vp07 rc=0 cmp=17 dist=9 md5=1189ae73 NOT_EQUAL stage1
+VP/vp08 rc=0 cmp=46 dist=15 md5=055ea5d1 NOT_EQUAL stage1|VP/vp08 rc=0 cmp=0 dist=0 md5=0caf8cf3 STRICT_EQUAL 44 objects
+VP/vp09 rc=0 cmp=46 dist=128 md5=687f8ecd NOT_EQUAL stage1|VP/vp09 rc=0 cmp=58 dist=106 md5=b32fe102 NOT_EQUAL stage1
+VP/vp10 rc=0 cmp=46 dist=68 md5=84cee663 NOT_EQUAL stage1|VP/vp10 rc=0 cmp=72 dist=44 md5=ebe7119f NOT_EQUAL stage1
+VP/vp11 rc=0 cmp=46 dist=57 md5=1c5c7b97 NOT_EQUAL stage1|VP/vp11 rc=0 cmp=17 dist=42 md5=79e158ad NOT_EQUAL stage1
+VP/vp12 rc=0 cmp=72 dist=45 md5=95a49b41 NOT_EQUAL stage1|VP/vp12 rc=0 cmp=72 dist=30 md5=4977670e NOT_EQUAL stage1
+VP/vp13 rc=0 cmp=46 dist=17 md5=884f4b00 NOT_EQUAL stage1|VP/vp13 rc=0 cmp=0 dist=2 md5=bb69bc3c STRICT_EQUAL 62 objects
+VP/vp14 rc=0 cmp=46 dist=15 md5=112e7e9d NOT_EQUAL stage1|VP/vp14 rc=0 cmp=0 dist=0 md5=131cb872 STRICT_EQUAL 44 objects
+VA/va09 rc=0 cmp=366 dist=11 md5=53ca393e NOT_EQUAL stage1|VA/va09 rc=0 cmp=0 dist=2 md5=c12b7312 STRICT_EQUAL 74 objects
+VA/va10 rc=0 cmp=42 dist=30 md5=c9e0c4ee NOT_EQUAL stage1|VA/va10 rc=0 cmp=42 dist=21 md5=ca307f8e NOT_EQUAL stage1
+VA/va01 rc=0 cmp=522 dist=31 md5=5cda6c8c NOT_EQUAL stage1|VA/va01 rc=0 cmp=0 dist=22 md5=b61dc6fc STRICT_EQUAL 82 objects
+VA/va30 rc=0 cmp=514 dist=31 md5=9fcef435 NOT_EQUAL stage1|VA/va30 rc=0 cmp=0 dist=22 md5=10b250dc STRICT_EQUAL 82 objects
+VA/va59 rc=0 cmp=490 dist=31 md5=e4063bb2 NOT_EQUAL stage1|VA/va59 rc=0 cmp=0 dist=22 md5=9b31a221 STRICT_EQUAL 117 objects
+VC/vc01 rc=0 cmp=362 dist=31 md5=0c9ff8ee NOT_EQUAL stage1|VC/vc01 rc=0 cmp=0 dist=22 md5=39ec5325 STRICT_EQUAL 68 objects

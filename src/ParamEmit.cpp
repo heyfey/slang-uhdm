@@ -19,6 +19,75 @@
 #include "LawState.h"
 namespace slang_uhdm {
 
+// § clsScopedOvRhsRefObj483 (r11u483, R11U483_CLSOVRHS_OFF; cases
+// tools/probe/r11u483repro/cases/OV; sv-tests generated/uvm-examples/
+// uvm_param_vif_config_db.sv, hdl_top's `.ADDR_WIDTH(SFR::sfr_addr_width)`) --
+// an instance parameter overridden by a NAMED actual that is a class-scoped
+// name `K::w` cannot be valued by Surelog (its reducer resolves a scoped name
+// through a package only), so NetlistElaboration::elab_parameters_ takes the
+// instance's complex value, the unreduced actual, as the elaborated
+// param_assign Rhs: a ref_obj named `K::w` (a `p::K::w` actual is named `p::w`),
+// located from the scope's first token to the start of the member name (the
+// span of the `K::` class scope), with the full name <instance>.<name> and no
+// actual and no typespec; ours wrote the formal's folded default.  An ordered
+// override `#(K::w)` is dropped by Surelog (golden keeps the default: OV/ov14)
+// and a parameterized class `C#(4)::w` is valued by it (ov11): both abstain,
+// as does an actual that is not a bare scoped name (ov16).  Fills `name` and
+// `range`; the caller replaces the Rhs once the listing is complete.
+static bool clsScopedOvActual483(const slang::ast::ParameterSymbol& ps,
+                                 const slang::ast::Scope* ovScope, std::string& name,
+                                 slang::SourceRange& range) {
+    using namespace slang;
+    using namespace slang::ast;
+    if (!ovScope)
+        return false;
+    auto dt = ps.getDeclaredType();
+    const syntax::SyntaxNode* ini = dt ? dt->getInitializerSyntax() : nullptr;
+    const syntax::SyntaxNode* up = ini ? ini->parent : nullptr;
+    while (ini && ini->kind == syntax::SyntaxKind::ParenthesizedExpression) {
+        auto& pe = ini->as<syntax::ParenthesizedExpressionSyntax>();
+        ini = pe.expression.get();
+    }
+    while (up && up->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        up = up->parent;
+    if (!ini || ini->kind != syntax::SyntaxKind::ScopedName || !up ||
+        up->kind != syntax::SyntaxKind::NamedParamAssignment)
+        return false;
+    auto& sc = ini->as<syntax::ScopedNameSyntax>();
+    if (sc.separator.kind != parsing::TokenKind::DoubleColon || !sc.left || !sc.right ||
+        sc.right->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    std::string_view member = sc.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    std::string_view pkg, cls;
+    const Symbol* ls = nullptr;
+    if (sc.left->kind == syntax::SyntaxKind::IdentifierName) {
+        cls = sc.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        ls = cls.empty() ? nullptr : ovScope->lookupName(cls);
+    }
+    else if (sc.left->kind == syntax::SyntaxKind::ScopedName) {
+        // `p::K::w` -- golden names it `p::w` (OV/ov22)
+        auto& sc2 = sc.left->as<syntax::ScopedNameSyntax>();
+        if (sc2.separator.kind != parsing::TokenKind::DoubleColon || !sc2.left || !sc2.right ||
+            sc2.left->kind != syntax::SyntaxKind::IdentifierName ||
+            sc2.right->kind != syntax::SyntaxKind::IdentifierName)
+            return false;
+        pkg = sc2.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        cls = sc2.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        auto* pk = pkg.empty() ? nullptr : ovScope->getCompilation().getPackage(pkg);
+        ls = (pk && !cls.empty()) ? pk->find(cls) : nullptr;
+    }
+    else
+        return false;
+    if (ls && ls->kind == SymbolKind::TypeAlias)
+        ls = &ls->as<TypeAliasType>().targetType.getType().getCanonicalType();
+    if (!ls || ls->kind != SymbolKind::ClassType || member.empty())
+        return false;
+    name = std::string(pkg.empty() ? cls : pkg) + "::" + std::string(member);
+    range = SourceRange(ini->getFirstToken().location(),
+                        sc.right->getFirstToken().location());
+    return true;
+}
+
 // § oobInheritedCallBindsOwnPkgClone455 (r11u455) — the top-view wildcard-
 // import TASK clone of each (importing package, home task).  A side map, not
 // an exporter member: it is written once per clone and read only by the
@@ -11226,6 +11295,9 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
     std::map<const UHDM::any*, size_t> paramRank9;
+    // § clsScopedOvRhsRefObj483 — the records, a side list (see
+    // clsScopedOvActual483).
+    std::vector<std::tuple<UHDM::param_assign*, std::string, SourceRange>> clsOv483;
     std::vector<const ParameterSymbol*> paramSyms;
     for (auto& member0 : body.members())
         if (member0.kind == SymbolKind::Parameter)
@@ -13713,6 +13785,41 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             (overridden || derivedOv9 || impNameOv87 ||
              (!hasDefault && boundInit)))
             pa->VpiOverriden(true);
+        // § clsScopedOvRhsRefObj483 — THE RECORD (the law is at
+        // clsScopedOvActual483; the Rhs is replaced after the loop).
+        if (topView && !inPackage && !funcScope && !isImported && overridden && !cliOv &&
+            hasDefault && m &&
+            (m->UhdmType() == UHDM::uhdmmodule_inst ||
+             m->UhdmType() == UHDM::uhdminterface_inst) &&
+            body.asSymbol().kind == SymbolKind::InstanceBody) {
+            auto* pi483 = body.asSymbol().as<InstanceBodySymbol>().parentInstance;
+            std::string nm483;
+            SourceRange rg483;
+            if (pi483 && clsScopedOvActual483(ps, pi483->getParentScope(), nm483, rg483)) {
+                // § clsOvDefparamAbstain483v (v11u483, R11V483_DEFPARAM_OFF;
+                // cases tools/probe/v11u483repro/cases/VO/vo13, vo18 to vo20)
+                // -- a defparam on this instance's parameter overrides the
+                // named actual, so golden's Rhs is the defparam's value
+                // constant (6 in vo13) and never the ref_obj: abstain when
+                // the instance body's hierarchyOverrideNode (the map slang's
+                // ParameterBuilder reads for a defparam) holds this
+                // parameter's declarator, leaving pristine's bytes; a
+                // defparam on another instance (vo19) or on another
+                // parameter (vo18) keeps the law.
+                const auto* hon483 =
+                    body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode;
+                if (hon483 && ps.getSyntax() &&
+                    hon483->paramOverrides.find(ps.getSyntax()) !=
+                        hon483->paramOverrides.end() &&
+                    lawOn(483, "R11U483_CLSOVRHS_OFF") &&
+                    fixOn(483, "R11V483_DEFPARAM_OFF"))
+                    lawTrace(483, "clsOvDefparamAbstain483v", prefix + " " + nm483);
+                else if (lawOn(483, "R11U483_CLSOVRHS_OFF"))
+                    clsOv483.push_back({pa, nm483, rg483});
+                else
+                    lawTrace(483, "clsScopedOvRhsRefObj483", "OFF " + prefix + " " + nm483);
+            }
+        }
         // The ELAB Rhs of a -P'd parameter is fromString's constant, built from
         // the raw command-line STRING with no reference to the declared type.
         // The DEF view keeps the declaration default untouched. Applied after
@@ -30584,6 +30691,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 return pa ? pa->Lhs() : nullptr;
             }))
             lawTrace(419, "implicitPortParamListedFirst419", prefix + " def param_assigns");
+    }
+    // § clsScopedOvRhsRefObj483 — THE REPLACEMENT: the unreduced actual as
+    // the elaborated Rhs (see clsScopedOvActual483).
+    for (auto& [pa483, nm483, rg483] : clsOv483) {
+        std::string pfx483 = prefix;
+        if (pfx483.size() >= 2 && pfx483.compare(pfx483.size() - 2, 2, "::") == 0)
+            pfx483.resize(pfx483.size() - 2);
+        auto* ro483 = s.MakeRef_obj();
+        ro483->VpiName(nm483);
+        ro483->VpiFullName(pfx483 + "." + nm483);
+        setLoc(ro483, rg483);
+        ro483->VpiParent(pa483);
+        pa483->Rhs(ro483);
+        lawTrace(483, "clsScopedOvRhsRefObj483", pfx483 + " " + nm483);
     }
     if (!params->empty())
         m->Parameters(params);

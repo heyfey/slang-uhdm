@@ -1,0 +1,9 @@
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/r11u483swp/svtests.csv
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+CONVERSION generated/uvm-examples/uvm_param_vif_config_db.sv: DIFFERENT -> STRICT_NOTEQUAL
+sv-tests: BOTH_REJECT=303 DIFFERENT=4 EQUAL=1935 SLANG_ONLY=19 STRICT_NOTEQUAL=1 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=1 changes=0
+golden cache: 5288 of 5669 runs served from the cache
+rc=1

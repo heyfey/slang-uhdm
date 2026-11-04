@@ -1,0 +1,13 @@
+Prediction for the verified binary's sweep, written before it ran (2026-11-03).
+The two refinements fire only inside a firing of the implementer's laws:
+- § clsOvDefparamAbstain483v needs § clsScopedOvRhsRefObj483's record on a parameter
+  whose declarator a defparam targets. The law fires on one sv-tests row,
+  generated/uvm-examples/uvm_param_vif_config_db.sv (hdl_top's .ADDR_WIDTH and .DATA_WIDTH
+  overrides), whose sources hold no defparam; it fires on no corpus row and no probe case.
+- § ifaceValNestedModAbstain483v needs § ifaceInstValueImplicitNet483 inside a module
+  defined in another module. The law fires on one sv-tests row,
+  generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv (SLANG_ONLY), whose module top
+  is not nested; it fires on no corpus row and no probe case.
+So: every csv of the verified sweep equals the law sweep's row for row, every database
+byte-identical to the law's (byteverify verified vs law 0 movers in every corpus), the
+verified trace equal to the law trace, no line naming either refinement.

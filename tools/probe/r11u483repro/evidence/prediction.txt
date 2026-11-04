@@ -1,0 +1,20 @@
+r11u483 prediction, written BEFORE the law sweep (binary law2 = the final binary, md5 db70b390505c7fdbef10fa1c0805c3a6)
+from a traced census of law2 (R11U483_TRACE) over:
+  - probe: all 4087 cases (check_probe.py), workdir /tmp/r11u483cen/probe: trace EMPTY; all 4087 dumps equal to the
+    master's control /tmp/intr11u481/probe after path normalisation (negative control: two different cases read DIFF);
+    csv equal to results/golden_probe.csv (EQUAL 4024 + STRICT_NOTEQUAL 63)
+  - surelog both modes (verify_golden.py): trace EMPTY; byteverify vs /tmp/intr11u481/surelog 0 of 962 (SELFCHECK 961/962)
+  - uhdm2rtlil both modes: trace EMPTY; byteverify vs /tmp/intr11u481/uhdm2rtlil 0 of 1608 (SELFCHECK 1607/1608)
+  - sv-tests: the 286 rows whose sources (own file, :files:, third_party test dir) match the text census
+    (a named override actual `.X(K::w)` / a `virtual <type>` declaration), fence-filtered; positive control:
+    tools/probe/r11u483repro/cases/IV/iv01 traced writes `ifaceInstValueImplicitNet483 work@top.u`
+PREDICTED MOVERS, by name:
+  probe        none
+  surelog      none (0 byte movers of 962)
+  uhdm2rtlil   none (0 byte movers of 1608)
+  downstream   none (803 / 66 / 2 / 0 unchanged; the u2r corpus has no firing in either mode)
+  sv-tests     generated/uvm-examples/uvm_param_vif_config_db.sv  DIFFERENT -> STRICT_NOTEQUAL differ:fullname(2)
+                 (§ clsScopedOvRhsRefObj483, 4 firings: SFR_MASTER / SFR_MONITOR x sfr_addr_width / sfr_data_width)
+               generated/hdlconv_std2017/hdlconvertor_std2017_p771.sv  SLANG_ONLY, bytes only (§ ifaceInstValueImplicitNet483,
+                 work@top.p16, work@top.p32), status unchanged (Surelog rejects it)
+  no exit-code mover anywhere (the census csvs read every status as the control)

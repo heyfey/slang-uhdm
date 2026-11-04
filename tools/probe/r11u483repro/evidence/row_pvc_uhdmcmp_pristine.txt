@@ -1,0 +1,46 @@
+LHS:
+decompile:
+ref_obj: (work@hdl_top.SFR_MASTER.SFR::sfr_addr_width), id:623489, line:56:30, endln:56:35
+|vpiParent:
+\_param_assign: , id:623614, line:39:29, endln:39:43
+|vpiName:SFR::sfr_addr_width
+|vpiFullName:work@hdl_top.SFR_MASTER.SFR::sfr_addr_width
+
+decompile:
+ref_obj: (work@hdl_top.SFR_MASTER.SFR::sfr_addr_width), id:623489, line:56:30, endln:56:35
+|vpiParent:
+\_param_assign: , id:623614, line:39:29, endln:39:43
+|vpiName:SFR::sfr_addr_width
+|vpiFullName:work@hdl_top.SFR_MASTER.SFR::sfr_addr_width
+RHS:
+decompile:
+constant: , id:525498, line:39:42, endln:39:43
+|vpiParent:
+\_param_assign: , id:525497, line:39:29, endln:39:43
+|vpiDecompile:16
+|vpiSize:32
+|UINT:16
+|vpiTypespec:
+\_ref_typespec: (work@hdl_top.SFR_MASTER), id:525499
+  |vpiParent:
+  \_constant: , id:525498, line:39:42, endln:39:43
+  |vpiFullName:work@hdl_top.SFR_MASTER
+  |vpiActual:
+  \_int_typespec: , id:530433, line:39:29, endln:40:43
+|vpiConstType:9
+
+decompile:
+constant: , id:525498, line:39:42, endln:39:43
+|vpiParent:
+\_param_assign: , id:525497, line:39:29, endln:39:43
+|vpiDecompile:16
+|vpiSize:32
+|UINT:16
+|vpiTypespec:
+\_ref_typespec: (work@hdl_top.SFR_MASTER), id:525499
+  |vpiParent:
+  \_constant: , id:525498, line:39:42, endln:39:43
+  |vpiFullName:work@hdl_top.SFR_MASTER
+  |vpiActual:
+  \_int_typespec: , id:530433, line:39:29, endln:40:43
+|vpiConstType:9

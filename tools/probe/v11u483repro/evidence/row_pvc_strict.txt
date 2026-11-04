@@ -1,0 +1,26 @@
+== pristine
+46
+|UINT:16
+|vpiTypespec:
+\_ref_typespec: (work@hdl_top.SFR_MASTER), id:525499
+  |vpiParent:
+  \_constant: , id:525498, line:39:42, endln:39:43
+  |vpiFullName:work@hdl_top.SFR_MASTER
+  |vpiActual:
+  \_int_typespec: , id:530433, line:39:29, endln:40:43
+|vpiConstType:9
+lhsPath: design(work@hdl_top) > module_inst(work@hdl_top) > interface_inst(SFR_MASTER) > param_assign > ref_obj(SFR::sfr_addr_width)
+rhsPath: design(work@hdl_top) > module_inst(work@hdl_top) > interface_inst(SFR_MASTER) > param_assign > constant
+NOT_EQUAL stage1
+== ver
+0
+#93329 fullname
+  A: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  B: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  raw fullname A: sfr_agent_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE | B: sfr_test_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE
+#138364 depth
+  A: 6	int_var	pos		sfr_agent_pkg::uvm_instance_scope::pos	uvm_misc.svh	103	7	103	10		0		
+  B: 4	assignment				uvm_misc.svh	113	3	113	30				
+objects 1002258 vs 994575
+fields: depth=1 type=1 name=1 fullname=2 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=2 (walk diverged)
+STRICT_NOTEQUAL fullname

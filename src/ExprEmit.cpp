@@ -60093,6 +60093,101 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     r->Actual_group(inet);
                 }
+                // § ifaceInstValueImplicitNet483 (R11U483_IFACEVALNET_OFF;
+                // cases tools/probe/r11u483repro/cases/IV; the v11u481 cases
+                // VA/va01, va30, va59, VC/vc01) — an interface INSTANCE
+                // named as a value (`g = u;`, `f(u)`, `c.set(u)`,
+                // `c = new(u)`, `virtual ifc g = u;`) in a module process or
+                // a module task or function is a name Surelog's
+                // UhdmWriter::lateBinding cannot resolve (an instance is
+                // neither a net nor a variable), so the walk ends at the
+                // module-level mint: a logic_net named like the instance,
+                // vpiNetType 1, at the FIRST such reference's span, every
+                // later reference binding it by name (iv10), listed among the
+                // implicit nets in source order of first reference (iv18),
+                // in the definition (iv17).  Abstains under
+                // `default_nettype none, where golden binds the interface
+                // instance itself (iv08, not written), for an instance in a
+                // generate block, where golden mints nothing (iv12), outside
+                // a process (a module variable initializer, iv21: no mint),
+                // in a class method and in an interface.  A static class
+                // call's arguments are never written (§ staticScopedCall12),
+                // so `C::set(u)` stays unbound as golden's (iv15).
+                else if (implicitNetModule && parent &&
+                         implicitNetModule->UhdmType() == UHDM::uhdmmodule_inst &&
+                         sy9.kind == SymbolKind::Instance &&
+                         sy9.as<InstanceSymbol>().isInterface() &&
+                         sy9.getParentScope() &&
+                         sy9.getParentScope()->asSymbol().kind == SymbolKind::InstanceBody &&
+                         ((inProcessEmit && !currentSubSym) ||
+                          (currentSubSym && currentSubSym->getParentScope() &&
+                           currentSubSym->getParentScope()->asSymbol().kind ==
+                               SymbolKind::InstanceBody)) &&
+                         lawOn(483, "R11U483_IFACEVALNET_OFF")) {
+                    auto& ib483 = sy9.getParentScope()->asSymbol().as<InstanceBodySymbol>();
+                    if (ib483.getDefinition().defaultNetType.isError()) {
+                        lawTrace(483, "ifaceInstValueImplicitNet483", "noneAbstain " + dotted);
+                    }
+                    // § ifaceValNestedModAbstain483v (v11u483,
+                    // R11V483_NESTMOD_OFF; case tools/probe/v11u483repro/
+                    // cases/VI/vi25) -- in a module DEFINED INSIDE another
+                    // module golden mints no wire: its read binds the
+                    // elaborated interface_inst (work@top.i1.u), where the
+                    // law minted a net named work@top.work@top::inner.u
+                    // under the nested definition (uhdm-cmp 139 -> 274
+                    // lines, dump distance 13 -> 20); abstain, keeping
+                    // pristine's unbound ref_obj.
+                    else if (ib483.getDefinition().getParentScope() &&
+                             ib483.getDefinition().getParentScope()->asSymbol().kind ==
+                                 SymbolKind::InstanceBody &&
+                             fixOn(483, "R11V483_NESTMOD_OFF")) {
+                        lawTrace(483, "ifaceValNestedModAbstain483v", dotted);
+                    }
+                    else {
+                        size_t before483 = implicitNetModule->Nets()
+                                               ? implicitNetModule->Nets()->size()
+                                               : 0;
+                        if (auto* n483 = mintImplicitNet403(
+                                s, implicitNetModule, implicitNetPrefix, dotted,
+                                expr.sourceRange,
+                                [&](UHDM::BaseClass* o, SourceRange r0) { setLoc(o, r0); })) {
+                            r->Actual_group(n483);
+                            lawTrace(483, "ifaceInstValueImplicitNet483",
+                                     std::string(n483->VpiFullName()));
+                            // source order among the implicit nets
+                            // (§ vifTdRefVarLocalImplicitNet481's rule)
+                            auto* nets483 = implicitNetModule->Nets();
+                            if (nets483 && nets483->size() == before483 + 1 &&
+                                nets483->back() == n483) {
+                                std::set<std::string_view> imp483;
+                                for (auto& mem483 : ib483.members())
+                                    if (mem483.kind == SymbolKind::Net &&
+                                        mem483.as<NetSymbol>().isImplicit)
+                                        imp483.insert(mem483.name);
+                                for (auto* m483 : implicitNetMints131())
+                                    if (auto* a483 = dynamic_cast<UHDM::any*>(m483);
+                                        a483 && a483 != n483 &&
+                                        a483->VpiParent() == implicitNetModule)
+                                        imp483.insert(a483->VpiName());
+                                int ln483 = n483->VpiLineNo(), cl483 = n483->VpiColumnNo();
+                                for (size_t i483 = 0; i483 + 1 < nets483->size(); ++i483) {
+                                    auto* o483 = (*nets483)[i483];
+                                    if (!imp483.count(o483->VpiName()))
+                                        continue;
+                                    int ol483 = o483->VpiLineNo(), oc483 = o483->VpiColumnNo();
+                                    if (ol483 > ln483 || (ol483 == ln483 && oc483 > cl483)) {
+                                        nets483->pop_back();
+                                        nets483->insert(nets483->begin() + i483, n483);
+                                        lawTrace(483, "ifaceInstValueImplicitNet483",
+                                                 "order " + dotted + " before " +
+                                                     std::string(o483->VpiName()));
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 return r;
             }
             // Interface-port member access (sub.sig): a hier_path with one

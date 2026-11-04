@@ -1,0 +1,8 @@
+VI/vi24 IDENTICAL  
+VI/vi25 IDENTICAL  both READ_FAIL
+VI/vi26 IDENTICAL  
+VO/vo13 EQUIVALENT nohier il ℹ️  No common assign statements to compare — skipping
+VO/vo20 EQUIVALENT nohier il ℹ️  No common assign statements to compare — skipping
+VO/vo21 IDENTICAL  both READ_FAIL
+VO/vo22 IDENTICAL  
+VO/vo23 EQUIVALENT nohier il ℹ️  No common assign statements to compare — skipping
