@@ -1,3 +1,7 @@
+> **2026-11-04: historical log.** The anchor versions and observations below are from the
+> first phases (UHDM v1.86 era); the pinned matrix is in SUPPORT_MATRIX.md and the
+> current laws are the `§` comments in `src/` indexed by `tests/LAWS.md`. START WITH `RESUME.md`.
+
 # slang-uhdm development notes
 
 Running log of Surelog-shape observations, replicated quirks, and decisions.

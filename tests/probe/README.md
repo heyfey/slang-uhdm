@@ -9,10 +9,10 @@ equal subset of the campaign's evidence grids, moved here from
 path, so a failing case names its pass, and `tests/LAWS.md` names its laws.
 
 Goldens are not committed. The first check builds each one with the pinned
-Surelog (about 8 minutes at three jobs) and stores it in the golden cache
+Surelog (a few hours at three jobs for the whole set) and stores it in the golden cache
 the corpus sweep uses (`~/.cache/slang-uhdm-goldens`, `GOLDEN_CACHE=`
 relocates), keyed by Surelog's version line, the case's path and a hash of
-the case's text; later checks take about 15 seconds. An edited case
+the case's text; later checks take about ten minutes. An edited case
 rebuilds its golden, and a Surelog or UHDM pin bump changes the key, so
 the goldens rebuild themselves on the next check.
 
@@ -43,8 +43,10 @@ and `.log` measurements stay beside the pass README). `scripts/law_index.py
 them on a law's row or under a law's heading, or whose pass has one law; the
 1067 others are listed in `tests/LAWS.md` under each of their pass's laws
 with a trailing `?` (section 2) or in section 3, for their pass's author to
-name. The source comments that named a moved case's old `tools/probe/` path
-now name its `tests/probe/` path (or both, where a grid moved in part).
+name. A test exists in one place: a source comment that cites only moved
+cases names their `tests/probe/` path, and a comment that names a grid, its
+README or cases that stay names the grid's home under `tools/probe/`
+(tools/probe/README.md).
 
 Check (part of `tests/sweep.sh`):
 

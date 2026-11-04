@@ -1,3 +1,7 @@
+> **2026-11-04: historical document.** The plan below is the 2026-07-17 design; the
+> exporter was built, converged on the strict gate and stopped for the release cut
+> (README.md, SUPPORT_MATRIX.md). START WITH `RESUME.md`.
+
 # slang → UHDM Exporter: Implementation Plan
 
 Status: PLANNED (research complete, implementation not started)

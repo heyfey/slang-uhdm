@@ -1,3 +1,9 @@
+> **2026-11-04:** the target below is reached on the strict gate and the campaign
+> is stopped at `9889dcaad` (SUPPORT_MATRIX.md has the measured baseline; RESUME.md
+> the operator manual). Since this file was written the gate gained the strict
+> comparator (2026-09-24), the probe stage (31943 cases) and the sv-tests stage
+> (2026-10-15); the corpora are submodules (871 and 798 tests).
+
 # GOLDEN EQUIVALENCE — phase 2 of the convergence campaign
 
 PLAYBOOK.md governs **how** to run a convergence campaign (gates, revert-and-
@@ -16,8 +22,8 @@ Both corpora, both modes, all cmp-equal:
 
 | Corpus | Tests | Source |
 |---|---|---|
-| uhdm2rtlil | 731 | `~/git-repos/uhdm2rtlil/test` |
-| Surelog suite | 794 | `~/git-repos/Surelog/{tests,third_party/tests}` |
+| uhdm2rtlil | 871 | `third_party/uhdm2rtlil/test` (731 when this file was written) |
+| Surelog suite | 798 | `third_party/Surelog/{tests,third_party/tests}` (794 then) |
 
 and two modes per test:
 
@@ -283,11 +289,9 @@ error handler. It cannot change the database.
 
 ### 3.3 Measured baseline — GENERATED, do not hand-edit numbers
 
-> Regenerated 2026-09-24 (the strict flip: `CMP_EQUAL` is strict-equal, the
-> judge-equal rows the strict comparator does not read equal are
-> `STRICT_NOTEQUAL`; no row changed its uhdm-cmp verdict). For the live state
-> and how to carry the campaign on, read **RESUME.md** and run
-> `scripts/resume_survey.sh`.
+> Regenerated 2026-11-04 at `9889dcaad` (the convergence stop) by
+> `python3 scripts/accounting.py --md`. For the probe and sv-tests stages see
+> SUPPORT_MATRIX.md.
 
 The authoritative numbers come from the committed per-test CSVs via
 `python3 scripts/accounting.py` (`--md` for this table). Prose and commit
@@ -297,10 +301,10 @@ exists.
 
 | Corpus | Mode | Total | Status breakdown | Comparable | Judge-equal | Strict-equal (`CMP_EQUAL`) |
 |---|---|---|---|---|---|---|
-| Surelog suite | default | 798 | CMP_EQUAL=327 SLANG_REJECT=285 STRICT_NOTEQUAL=153 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=3 | 483 | 480 (99.4%) | 327 (67.7%) |
-| Surelog suite | testflags | 798 | CMP_EQUAL=305 SLANG_REJECT=286 STRICT_NOTEQUAL=169 SURELOG_FAIL=23 DEFERRED=5 NO_DATABASE=3 CMP_NOTEQUAL=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 477 | 474 (99.4%) | 305 (63.9%) |
-| uhdm2rtlil | default | 871 | CMP_EQUAL=626 STRICT_NOTEQUAL=177 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 626 (77.9%) |
-| uhdm2rtlil | testflags | 871 | CMP_EQUAL=626 STRICT_NOTEQUAL=177 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 626 (77.9%) |
+| Surelog suite | default | 798 | CMP_EQUAL=480 SLANG_REJECT=284 SURELOG_FAIL=25 DEFERRED=5 CMP_NOTEQUAL=4 | 484 | 480 (99.2%) | 480 (99.2%) |
+| Surelog suite | testflags | 798 | CMP_EQUAL=474 SLANG_REJECT=285 SURELOG_FAIL=23 DEFERRED=5 CMP_NOTEQUAL=4 NO_DATABASE=3 UNTRANSLATABLE=2 TIMEOUT=1 NO_UHDM=1 | 478 | 474 (99.2%) | 474 (99.2%) |
+| uhdm2rtlil | default | 871 | CMP_EQUAL=803 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 803 (99.9%) |
+| uhdm2rtlil | testflags | 871 | CMP_EQUAL=803 SLANG_REJECT=67 CMP_NOTEQUAL=1 | 804 | 803 (99.9%) | 803 (99.9%) |
 
 Comparable = `CMP_EQUAL` + `STRICT_NOTEQUAL` + `CMP_NOTEQUAL`; judge-equal =
 `CMP_EQUAL` + `STRICT_NOTEQUAL` (uhdm-cmp equal); strict-equal = `CMP_EQUAL`.
@@ -396,7 +400,7 @@ the other said "failing", for the same test. The division of labour now:
 |---|---|
 | `scripts/verify_golden.py` | THE harness: classification, both corpora, all modes, the `strict` column (uhdm-strictcmp; the `dump` column until 2026-09-24) |
 | `tools/uhdm-strictcmp` | uhdm-cmp's own Compare first (so nothing it rejects can pass), then every judge-blind field per object in walk order: name, def name, full name, file basename, spans, decompile, size, value, const type, child order |
-| `tests/sweep.sh` | the gate: the probe cases and both corpora in both modes, every row's status against the committed baselines `results/golden_{probe,surelog,uhdm2rtlil}.csv` (`scripts/compare_results.py`), then the downstream gate |
+| `tests/sweep.sh` | the gate: the probe cases, both corpora in both modes, the downstream uhdm2rtlil flow and the sv-tests suite, every row's status against the committed baselines `results/golden_{probe,surelog,uhdm2rtlil,svtests}.csv` and `results/downstream_uhdm2rtlil.csv` (`scripts/compare_results.py`), then the downstream gate |
 | `scripts/converge.sh` | single-test dev microscope; produces `dump.diff` for inspection; same artifact policy |
 | `scripts/run_corpus.sh` | **deprecated** — kept only to reproduce phase-1 CSVs |
 

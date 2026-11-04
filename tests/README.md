@@ -13,6 +13,8 @@ after the first run.
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
 | `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 31943 rows |
+| `results/golden_svtests.csv` | the committed sv-tests baseline: one row per test of the chipsalliance sv-tests suite (`case,status,detail,strict`; see the sv-tests stage below) | 2346 rows |
+| `results/downstream_uhdm2rtlil.csv` | the downstream verdicts (see the downstream gate below) | 871 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
 | `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 31943 cases |
 | `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the cases that still judge NOT_EQUAL) | |
@@ -97,8 +99,9 @@ the other locations the same way.
 
 ## Running
 
-    tests/sweep.sh                     # probe cases, both corpora in both modes, then the downstream gate
-    tests/sweep.sh --corpus probe      # the 4087 probe cases alone (under a minute once their goldens are cached)
+    tests/sweep.sh                     # probe cases, both corpora in both modes, the downstream gate, then sv-tests
+    tests/sweep.sh --corpus probe      # the 31943 probe cases alone (about ten minutes at three jobs once their goldens are cached)
+    tests/sweep.sh --corpus svtests    # the sv-tests stage alone
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 
 `tests/sweep.sh` exits 1 on a regression in any stage, or when any downstream
@@ -141,6 +144,7 @@ Direct harness use:
     python3 scripts/compare_results.py out.csv results/golden_surelog.csv
     python3 scripts/check_probe.py --jobs 3 --out probe.csv --workdir /tmp/pw
     python3 scripts/compare_results.py probe.csv results/golden_probe.csv
+    python3 scripts/check_svtests.py --jobs 3 --out svtests.csv --workdir /tmp/sw   # compares against results/golden_svtests.csv itself
     # a filtered run: give the compare the same REGEX, or every other baseline row fails as not run
     python3 scripts/verify_golden.py --corpus uhdm2rtlil --mode both --out f.csv --filter '^ibex'
     python3 scripts/compare_results.py f.csv results/golden_uhdm2rtlil.csv --filter '^ibex'
@@ -175,6 +179,41 @@ tcl, readline, libffi or zlib headers configure its build with the matching
 
     tests/sweep.sh --corpus downstream
     python3 scripts/downstream_uhdm2rtlil.py --out out.csv --baseline results/downstream_uhdm2rtlil.csv
+
+## The sv-tests stage
+
+Since 2026-10-15 the fifth stage runs the chipsalliance
+[sv-tests](https://github.com/chipsalliance/sv-tests) suite: every test
+listed in `results/golden_svtests.csv` (2346 tests, every `tests/**/*.sv` of
+the checkout at `579f6484`) is run by `scripts/check_svtests.py` through
+`scripts/svtests/svtests_matrix.py`: the test header is parsed as sv-tests'
+own runner parses it; Surelog runs with sv-tests' Surelog recipe minus
+`-noelab` (an unelaborated database is never comparable), its golden served
+from the shared cache after the first build; slang-uhdm runs on the same
+sources with the same include paths, defines and top; both tools read
+Surelog's bundled UVM (`third_party/Surelog/third_party/UVM/1800.2-2017-1.0`)
+for the `uvm` tag; then `uhdm-cmp` and `uhdm-strictcmp` judge the pair. The
+checkout is not a submodule: it lives next to this repository
+(`../sv-tests`, or `SVTESTS_ROOT=`), is read-only to the campaign, and when it
+is absent the stage is skipped.
+
+The statuses: `EQUAL` (both accept, uhdm-cmp equal and strict-equal),
+`STRICT_NOTEQUAL` (both accept, uhdm-cmp equal, the strict verdict in `strict`),
+`DIFFERENT` (both accept, uhdm-cmp not equal), `SLANG_ONLY`, `SURELOG_ONLY`,
+`BOTH_REJECT`, `SLANG_CRASH`, `SURELOG_CRASH`, `TIMEOUT`. The two goals of the
+campaign (user 2026-10-15) order them: what slang accepts, slang-uhdm must
+accept (a row leaving an accepting status for `SURELOG_ONLY`, `BOTH_REJECT` or
+`SLANG_CRASH` is a REGRESSION); both-accepted pairs converge (`EQUAL` >
+`STRICT_NOTEQUAL` > `DIFFERENT`, a step down a REGRESSION, a step up a
+CONVERSION). Any other move is a CHANGE and is printed. The baseline at the
+convergence stop (2026-11-04) reads EQUAL 1937, DIFFERENT 3, SURELOG_ONLY 75,
+BOTH_REJECT 303, SLANG_ONLY 19, SURELOG_CRASH 8, TIMEOUT 1: every
+both-accepted row is EQUAL except the three known exceptions
+`generated/hdlconv_std2017/hdlconvertor_std2017_p733.sv`, `..._p737.sv` and
+`generated/tnoc/tnoc.sv`, Surelog artefacts the exporter does not copy (user
+decision 2026-11-02). A landing promotes a conversion with
+`check_svtests.py --write` or by copying the sweep's `svtests.csv` over the
+baseline after a gate that read only the intended conversions.
 
 ## The golden cache
 

@@ -1,3 +1,12 @@
+> **STATUS 2026-11-04 (last doc review): the convergence campaign is STOPPED**
+> by user directive at `9889dcaad` on `matrix-1.87`, after passes 401 to 491 of the
+> sv-tests campaign and the second probe census landed: the sv-tests gate ALL CLEAN (EQUAL 1937 of 2346, STRICT_NOTEQUAL 0, DIFFERENT 3 = the known exceptions p733, p737, tnoc), surelog 954 of 954 comparable row-modes CMP_EQUAL (Tnoc d/t CMP_NOTEQUAL and the four fenced tests by decision), uhdm2rtlil 1606 of 1606 (stamped_gen_param d/t CMP_NOTEQUAL by decision), probe 29901 EQUAL + 2042 STRICT_NOTEQUAL of 31943, downstream 803 IDENTICAL / 66 SLANG_REJECT / 2 EQUIVALENT / 0 DIVERGENT of 871. No agent is live and no
+> slot is refilled; the next work is the release cut (SUPPORT_MATRIX.md). The
+> procedures below remain the manual for resuming a campaign; the control and
+> worktree names in §2, §3 and §6 are those of the 2026-08 block (the later
+> passes used `/tmp/intr11u<pass>` sweep workdirs, `/tmp/wt_r11u<pass>` and
+> `/tmp/wt_v11u<pass>` worktrees, and `scripts/check_svtests.py` as the fifth gate stage).
+
 # RESUME — how to carry on the slang-uhdm convergence campaign
 
 *First written 2026-08-17 (HEAD `89bfd8f`, 88 landings in the current block);
@@ -42,8 +51,10 @@ Surelog's golden database, for **both corpora × both modes**:
 - modes: `default` (sources + where-to-find-them args only) and `testflags`
   (the test's own command line, UHDM-irrelevant parts removed).
 - **Done = 0 `CMP_NOTEQUAL` rows** among comparable rows in both corpora, both
-  modes. `SLANG_REJECT` (slang refuses the source) is OUT OF SCOPE by decision;
-  `SURELOG_FAIL`/`NO_DATABASE`/`DEFERRED` are non-comparable.
+  modes, 0 `STRICT_NOTEQUAL` probe cases, and (since 2026-10-15) every
+  both-accepted sv-tests row EQUAL. `SLANG_REJECT` (slang refuses the source)
+  is OUT OF SCOPE by decision; `SURELOG_FAIL`/`NO_DATABASE`/`DEFERRED` are
+  non-comparable.
 
 **Golden is the spec, bugs included.** When Surelog mis-evaluates (Rggen's
 corrupted packed-array evaluation, generate-if conditions it cannot value,
@@ -60,14 +71,16 @@ and never in the gate; report its cost when run.
 **Standing user directives** (verbatim spirit):
 - "keep converging non stop" — autonomous, continuous; the session ends when
   the user ends it, never at a self-declared milestone; never ask "shall I
-  continue".
+  continue". (Superseded 2026-11-04: the user stopped the campaign after the
+  sv-tests gate read ALL CLEAN and the probe census-2 landed.)
 - Answer "how far are we" with MEASUREMENTS, never guesses (§10).
 - Master = coordinator only (dispatch, integrate, gate, commit). Subagents =
-  implement + adversarial-verify pairs or single measurement passes, three
-  concurrent subagents in total (user 2026-09-24), refilled the moment a slot
-  lands. Pin the strongest available model + high effort for subagents
-  and CHECK the pin on each dispatch (with Claude: `model:'claude-opus-5-5'`,
-  `effort:'high'` in EVERY agent() call, user 2026-09-22 — session-model inheritance once killed 9 agents).
+  implement + adversarial-verify pairs or single measurement passes, two
+  concurrent subagent workflows in total (user 2026-10-04; three from
+  2026-09-24), refilled the moment a slot lands. Pin the model and the
+  effort for subagents and CHECK the pin on each dispatch (with Claude:
+  `model:'claude-opus-5-5'`, `effort:'medium'` in EVERY agent() call, user
+  2026-10-04, high before — session-model inheritance once killed 9 agents).
 - ONE PATCH AT A TIME through the integration gate; the master promotes
   baseline CSV rows itself, with the rows quoted, only for real
   conversions/unmaskings.
@@ -133,15 +146,19 @@ and never in the gate; report its cost when run.
 ## 2. Repo and environment map
 
 ```
-~/git-repos/slang-uhdm            this repo (branch auto5h; main = PR target)
+~/git-repos/slang-uhdm            this repo (branch matrix-1.87; main = PR target)
   src/{ExprEmit,ModuleEmit,ParamEmit,StmtEmit,TaskFuncEmit,TypeEmit,UhdmExporter}.cpp
   include/UhdmExporter.h          the emitter (~200k lines; laws are § comments)
   build/slang-uhdm                the binary (cmake --build build -j 2)
   scripts/verify_golden.py        THE harness (one classification engine)
   scripts/accounting.py --md      regenerates the baseline table from results/*.csv
   tests/sweep.sh                  THE gate: both corpora x both modes vs results/golden_*.csv
-  results/golden_surelog.csv      surelog baseline (1588 rows) — READ-ONLY
-  results/gate_uhdm2rtlil.csv     u2r testflags baseline (731 rows) — READ-ONLY
+  results/golden_surelog.csv      surelog baseline (1596 rows) — READ-ONLY
+  results/golden_uhdm2rtlil.csv   uhdm2rtlil baseline (1742 rows) — READ-ONLY
+  results/golden_probe.csv        probe baseline (31943 rows) — READ-ONLY
+  results/golden_svtests.csv      sv-tests baseline (2346 rows, scripts/check_svtests.py) — READ-ONLY
+  results/downstream_uhdm2rtlil.csv  the downstream verdicts (871 rows)
+  results/gate_uhdm2rtlil.csv     u2r testflags baseline (871 rows; the older gate) — READ-ONLY
   tools/probe/r10<pass>repro/     one dir per landed pass: README (the decoded law),
                                   CENSUS/PREDICT/GATES/LADDERS, cases (*.sv), instruments
   tools/probe/r10ladder1repro/    ctladder.cpp (+ctfields.inc), cluster.py, CLUSTERS*.md
@@ -169,7 +186,7 @@ third_party/Surelog/ (= ~/git-repos/Surelog)      Surelog SOURCE (decode laws fr
 ~/git-repos/Surelog/build/bin/surelog             the golden Surelog the harness runs (scripts/verify_golden.py) — NOT the sv-tests
                                                   copy: goldens built with ~/git-repos/sv-tests/third_party/tools/Surelog/build/bin/surelog
                                                   restore into a corrupt database under this UHDM (uhdm-dump segfaults), so a grid scores nothing
-~/.cache/slang-uhdm-goldens/<hash>/golden.uhdm    golden cache (3727 entries, 12 GB) — KEEP IT
+~/.cache/slang-uhdm-goldens/<surelog commit>/<key>/golden.uhdm   golden cache (35486 entries, 27 GB at 2026-11-04) — KEEP IT
 ```
 
 Controls (rotated on every landing by the master, live in `/tmp`):
@@ -207,10 +224,11 @@ Then decide, in this order:
    missing role (an implementer's finished patch still needs a fresh
    adversarial verifier; a dead verifier's partial cases are in `wt_v<pass>`)
    or, if nothing usable, drop the worktrees and re-dispatch the head.
-4. **Empty slots** ⇒ dispatch a new pass per family from the R0 line of that
-   family's last landing (the survey prints them). Four families in parallel:
-   UVM chain (SeqDriver/SimpleUVM/Scoreboard/MiniAmiq), BuildUVMPkg,
-   Earlgrey (both modes), Rggen.
+4. **Empty slots** ⇒ dispatch a new pass per ground from the R0 line of that
+   ground's last landing (the survey prints them). The later campaign ran two
+   grounds (the expression/parameter ground: ExprEmit, EmitHelpers.h, StmtEmit,
+   ParamEmit; the module/type ground: TypeEmit, ModuleEmit, UhdmExporter,
+   TaskFuncEmit), one pass each, at most two workflows live.
 5. **Controls missing** (`/tmp/ctl_wd_sl_<HEAD>` etc.) ⇒ build HEAD, run the
    two sweeps of §6 into new dirs, and `mv` them into place before judging
    anything.
@@ -872,14 +890,16 @@ only shrinks from Windows.
 
 ## 11. Docs: what is current, what is stale
 
-- `RESUME.md` (this) — current at 2026-08-17.
+- `RESUME.md` (this) — procedures current; reviewed 2026-11-04 (status banner,
+  §1 directives, §2 map, §3 slots); the §3b snapshot is the 2026-09-24 example.
+- `SUPPORT_MATRIX.md` — the pins and the measured baseline at the stop (2026-11-04).
+- `tests/README.md`, `tests/probe/README.md`, `tools/probe/README.md` — the
+  five-stage gate, the probe set after the second census, the evidence tree.
+- `tests/FENCED.md` — the fenced tests; `tests/LAWS.md` — generated law index.
 - `PLAYBOOK.md` — method current; its counts (405/158/98 etc.) are phase-1
   history. Read for posture and the survey→decode→gate loop.
-- `GOLDEN_EQUIVALENCE.md` — §1–2, §4 current; §3.3 table regenerated
-  2026-08-17; §3.3's "three suite tests documented-unreachable
-  (BuildUVMPkg/SeqDriver/SimpleUVM)" is OBSOLETE — all three are on active
-  head chains (uvm83 brought the UVM container wall from 1.45M cmp lines to
-  54); §5 open questions 3–4 still open.
+- `GOLDEN_EQUIVALENCE.md` — §1–2, §4 current (the target definition); §3.3
+  table regenerated 2026-11-04 from the committed baselines.
 - `HANDOFF.md`, `NOTES.md`, `PLAN.md` — historical logs (waves 1–4, phase 1);
   useful only for archaeology of a specific law.
 - The per-pass `tools/probe/r10*repro/README.md` files are the real spec of

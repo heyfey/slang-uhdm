@@ -138,8 +138,8 @@ tests/sweep.sh --filter '^Assign' | tail -3      # regressions=0
 # uhdm-strictcmp equal; STRICT_NOTEQUAL cases are the recorded residue)
 python3 scripts/check_probe.py --jobs 3 --workdir /tmp/pw --out /tmp/pw/probe.csv
 python3 scripts/compare_results.py /tmp/pw/probe.csv results/golden_probe.csv   # regressions=0
-# the full gate (all four stages, ~12 min): probe, surelog, uhdm2rtlil, downstream
-tests/sweep.sh --jobs 3 --workdir /tmp/<sweepdir>   # rc 0; regressions=0 on all three compare lines; downstream unchanged
+# the full gate (all five stages, about an hour): probe, surelog, uhdm2rtlil, downstream, sv-tests
+tests/sweep.sh --jobs 3 --workdir /tmp/<sweepdir>   # rc 0; regressions=0 on every compare line; downstream unchanged
 ```
 A regression (a row leaving CMP_EQUAL/EQUAL, or a downstream row leaving
 IDENTICAL) means refine or revert+refine. A conversion (STRICT_NOTEQUAL ->

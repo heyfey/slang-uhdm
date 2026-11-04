@@ -1,3 +1,8 @@
+> **2026-11-04: the convergence campaign is STOPPED** (user directive) at
+> `9889dcaad` on `matrix-1.87`, with every gate clean except the rows excluded by
+> decision (SUPPORT_MATRIX.md). The next work is the release cut, not another
+> pass. This prompt stays as the manual for resuming a convergence campaign.
+
 # RESUME_PROMPT — paste this to the model that takes over (any model, any time)
 
 > This prompt is deliberately timeless: it does not describe the state of the
@@ -17,15 +22,18 @@ on slang. The goal is that for every test in two corpora (`uhdm2rtlil`, 871
 tests; the Surelog suite, 798 tests), in two modes each (`default`,
 `testflags`), the gate (`tests/sweep.sh`) judges our database equal to
 Surelog's golden database: `uhdm-cmp` equal AND `uhdm-strictcmp` equal (the
-strict gate since c9e2923c), and every probe case under `tests/probe/` equal.
+strict gate since c9e2923c), every probe case under `tests/probe/` equal, and,
+since 2026-10-15, every chipsalliance sv-tests test that slang and Surelog
+both accept EQUAL (`results/golden_svtests.csv`, the fifth sweep stage).
 **Done = 0 `STRICT_NOTEQUAL` and 0 `CMP_NOTEQUAL` rows among comparable rows,
-both corpora, both modes, and 0 `STRICT_NOTEQUAL` probe cases.** Golden
+both corpora, both modes, 0 `STRICT_NOTEQUAL` probe cases, and every
+both-accepted sv-tests row EQUAL, minus the rows excluded by decision.** Golden
 is the spec, Surelog's bugs included: we model Surelog's behaviour (decoded
 from its source under `~/git-repos/Surelog`), we never patch Surelog, UHDM or
 slang. `SLANG_REJECT` rows and the four slang-fenced tests are out of scope by
 decision. The user's standing instruction is "keep converging non stop":
-autonomous, continuous, three concurrent subagents (implement+verify pairs
-or single measurement passes), ONE patch at
+autonomous, continuous, two concurrent subagent workflows (implement+verify
+pairs; user 2026-10-04, three before), ONE patch at
 a time through the integration gate, measurements never guesses.
 
 ## First 30 minutes (do not skip)
@@ -47,10 +55,12 @@ a time through the integration gate, measurements never guesses.
    §4.1–4.2 (target/harness/gates). Then the last ~10 commit bodies
    (`git log --format='%h%n%B' -10`) — each is a decoded law with numbers,
    residues and the next head — and the most recent
-   `tools/probe/r10*repro/README.md` per family, to see what an acceptable
-   pass looks like.
-4. Verify the environment: `~/git-repos/UHDM/build/bin/{uhdm-cmp,uhdm-dump}`
-   exist; `~/.cache/slang-uhdm-goldens` exists (never delete it);
+   `tools/probe/r11u*repro/README.md` per ground (with its verifier's
+   `v11u*repro`), to see what an acceptable pass looks like.
+4. Verify the environment: the judge and the dumper resolve as tests/README.md
+   says (the Surelog submodule's build, then the in-tree build, then PATH) and
+   `build/uhdm-strictcmp` exists; `~/.cache/slang-uhdm-goldens` exists (never
+   delete it);
    `cmake --build build -j 2` builds; `tests/sweep.sh --corpus uhdm2rtlil
    --filter '^Assign'` reads 0 regressions; `python3
    scripts/verify_golden.py --corpus uhdm2rtlil --mode testflags --jobs 2
