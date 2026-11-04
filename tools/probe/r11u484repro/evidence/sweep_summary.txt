@@ -1,0 +1,28 @@
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/r11u484swp/probe.csv
+probe cases: EQUAL=4026 STRICT_NOTEQUAL=61 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4026 differ:fullname=28 differ:line=8 differ:depth=6 differ:endcol=5 differ:file=5 differ:name=5 differ:type=2 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+[probe] EQUAL=4026 STRICT_NOTEQUAL=61
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/r11u484swp/surelog.csv
+[default] 798 tests
+[testflags] 798 tests
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/r11u484swp/uhdm2rtlil.csv
+[default] 871 tests
+[testflags] 871 tests
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+== svtests: no sv-tests checkout at /tmp/wt_r11u484/../sv-tests (SVTESTS_ROOT), stage skipped
+golden cache: 3273 of 3323 runs served from the cache
+sweep-rc=1
+sv-tests: BOTH_REJECT=303 DIFFERENT=3 EQUAL=1937 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0
+law16 698201aa341467c8ee0da6553f483da4 sweep workdir /tmp/r11u484swp; svtests stage run alone through the main tree's scripts/check_svtests.py with --baseline the worktree's results/golden_svtests.csv (the worktree's UVM folder is empty)

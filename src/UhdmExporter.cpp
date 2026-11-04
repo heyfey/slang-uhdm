@@ -28476,6 +28476,123 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // r11u287's design-final steps, after every drain above.
     auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+    // § aliasTdMembTsInstAtAlias484 (r11u484, R11U484_ALIASMEMBINST_OFF;
+    // cases tools/probe/r11u484repro/cases/RV) -- a package typedef whose
+    // written base is another typedef (`typedef op_t op2_t;`) is Surelog's
+    // clone_tree of the base's typespec, re-instanced at the package
+    // (compileTypedef's DummyType branch, CompileHelper.cpp): the clone's own
+    // member types are the clone's, and in golden they read the package's
+    // TOP view like the alias object itself (RV/rv01, rv15: int_typespec 3:20
+    // under struct_typespec u::op2_t, inst u(top)), where ours kept the
+    // definition view the base typedef's members carry (AL/al13: an alias in
+    // package a of u's struct, its member types u(all) where golden reads
+    // u(top)).  Only a member type the alias object owns (parented at its
+    // member's ref_typespec) and that reads a package's definition view
+    // moves, to that package's top view.
+    std::map<const UHDM::any*, UHDM::package*> defToTop484;
+    for (auto& [k484, d484] : pkgDefMap) {
+        auto t484 = pkgTopMap.find(k484);
+        if (d484 && t484 != pkgTopMap.end() && t484->second)
+            defToTop484[d484] = t484->second;
+    }
+    if (lawOn(484, "R11U484_ALIASMEMBINST_OFF"))
+        for (auto& [sym484, ts484] : typedefTs) {
+            if (!sym484 || !ts484 || !ts484->Typedef_alias())
+                continue;
+            const UHDM::VectorOftypespec_member* mm484 = nullptr;
+            if (ts484->UhdmType() == UHDM::uhdmstruct_typespec)
+                mm484 = ((const UHDM::struct_typespec*)ts484)->Members();
+            else if (ts484->UhdmType() == UHDM::uhdmunion_typespec)
+                mm484 = ((const UHDM::union_typespec*)ts484)->Members();
+            if (!mm484)
+                continue;
+            auto* ps484 = sym484->getParentScope();
+            if (!ps484 || ps484->asSymbol().kind != SymbolKind::Package)
+                continue;
+            auto ti484 = pkgTopMap.find((const void*)&ps484->asSymbol());
+            auto di484 = pkgDefMap.find((const void*)&ps484->asSymbol());
+            if (ti484 == pkgTopMap.end() || di484 == pkgDefMap.end() || !ti484->second ||
+                !di484->second || ts484->Instance() != ti484->second)
+                continue;
+            for (auto* m484 : *mm484) {
+                auto* rt484 = m484 ? m484->Typespec() : nullptr;
+                auto* t484 = rt484 ? (UHDM::typespec*)rt484->Actual_typespec() : nullptr;
+                if (!t484 || t484->VpiParent() != (const UHDM::any*)rt484 || !t484->Instance())
+                    continue;
+                // the member type reads the definition view of its own
+                // package (the alias's, or the base's when the alias names
+                // another package's typedef: AL/al13 u(all) -> u(top))
+                auto mt484 = defToTop484.find(t484->Instance());
+                if (mt484 == defToTop484.end())
+                    continue;
+                t484->Instance(mt484->second);
+                lawTrace(484, "aliasTdMembTsInstAtAlias484",
+                         std::string(ts484->VpiName()) + " " + std::string(m484->VpiName()));
+            }
+        }
+    // § aliasTdTargetTopView484 (r11u484, R11U484_ALIASTGTTOP_OFF; cases
+    // tools/probe/r11u484repro/cases/RV) -- the same clone's vpiTypedefAlias
+    // binds the base typedef's ELABORATED (top) object: golden RV/rv01, rv14
+    // `struct_typespec u::op2_t -> u::op_t inst=u(top)`, rv10 `u::op_t2 ->
+    // s::op_t inst=s(top)` (another package's base); ours
+    // bound the definition listing's object (inst u(all)); the unparented
+    // vector / int base copies (rv06, rv07 `w_t`, `i_t`) are not touched.
+    // Exposed by
+    // § ownNamedAliasLocalIsRefVar484: once the package's definition view
+    // differs from its top view (the ref_var), uhdm-cmp walks the alias'
+    // vpiInstance chain into the wrong view (rv01 56 -> 710 lines with
+    // identical dumps).  A package alias object at its package's top view
+    // whose alias target is the definition listing object of a package
+    // typedef rebinds the top listing object of that typedef.
+    if (lawOn(484, "R11U484_ALIASTGTTOP_OFF")) {
+        std::map<const UHDM::typespec*, const Symbol*> defOwner484;
+        for (auto& [sym484, ts484] : typedefTs)
+            if (sym484 && ts484)
+                defOwner484[ts484] = sym484;
+        std::set<const UHDM::typespec*> seen484;
+        auto visit484 = [&](const Symbol* sym484, UHDM::typespec* ts484) {
+            if (!sym484 || !ts484 || !seen484.insert(ts484).second)
+                return;
+            auto* ps484 = sym484->getParentScope();
+            if (!ps484 || ps484->asSymbol().kind != SymbolKind::Package)
+                return;
+            auto ti484 = pkgTopMap.find((const void*)&ps484->asSymbol());
+            if (ti484 == pkgTopMap.end() || !ti484->second || ts484->Instance() != ti484->second)
+                return;
+            UHDM::ref_typespec* al484 = nullptr;
+            switch (ts484->UhdmType()) {
+                case UHDM::uhdmstruct_typespec: al484 = (UHDM::ref_typespec*)((UHDM::struct_typespec*)ts484)->Typedef_alias(); break;
+                case UHDM::uhdmunion_typespec: al484 = (UHDM::ref_typespec*)((UHDM::union_typespec*)ts484)->Typedef_alias(); break;
+                case UHDM::uhdmenum_typespec: al484 = (UHDM::ref_typespec*)((UHDM::enum_typespec*)ts484)->Typedef_alias(); break;
+                case UHDM::uhdmlogic_typespec: al484 = (UHDM::ref_typespec*)((UHDM::logic_typespec*)ts484)->Typedef_alias(); break;
+                case UHDM::uhdmbit_typespec: al484 = (UHDM::ref_typespec*)((UHDM::bit_typespec*)ts484)->Typedef_alias(); break;
+                case UHDM::uhdmint_typespec: al484 = (UHDM::ref_typespec*)((UHDM::int_typespec*)ts484)->Typedef_alias(); break;
+                default: break;
+            }
+            auto* x484 = al484 ? (UHDM::typespec*)al484->Actual_typespec() : nullptr;
+            if (!x484 || !x484->Instance() || defToTop484.count(x484->Instance()) == 0)
+                return;
+            auto io484 = defOwner484.find(x484);
+            if (io484 != defOwner484.end()) {
+                auto tt484 = pkgTopTypedefTs.find((const void*)io484->second);
+                if (tt484 == pkgTopTypedefTs.end() || !tt484->second || tt484->second == x484 ||
+                    tt484->second->UhdmType() != x484->UhdmType() ||
+                    tt484->second->Instance() != defToTop484[x484->Instance()])
+                    return;
+                al484->Actual_typespec(tt484->second);
+                lawTrace(484, "aliasTdTargetTopView484",
+                         std::string(ts484->VpiName()) + " -> " + std::string(x484->VpiName()));
+                return;
+            }
+            // an unparented base copy (the vector / int alias's `w_t`) is
+            // left as it stands: golden reads u(top) on RV/rv06 and rv07 but
+            // p(all) on v11u250 D/d05_alias_param_func, not decoded
+        };
+        for (auto& [sym484, ts484] : typedefTs)
+            visit484(sym484, ts484);
+        for (auto& [k484, ts484] : pkgTopTypedefTs)
+            visit484((const Symbol*)k484, ts484);
+    }
     // § cloneOwnCopyInstHomeTop482 (r11u482, R11U482_COPYINST_OFF; cases
     // tools/probe/r11u482repro/cases/CI; the v11u478 queue case VM/vm03) --
     // an import clone is UHDM's DeepClone of the home subroutine with
@@ -28592,6 +28709,214 @@ UHDM::design* UhdmExporter::exportDesign() {
             lawTrace(482, "cloneOwnCopyInstHomeTop482",
                      std::string(tf->VpiFullName()) + " " + std::string(t->VpiName()));
         }
+        // § cloneAliasCopyBareName484 (r11u484, R11U484_ALIASCOPYNAME_OFF;
+        // cases tools/probe/r11u484repro/cases/AL; v11u482 VF/vf02, vf03,
+        // v11u478 VM/vm11) -- a clone-owned copy of a package typedef whose
+        // written base is another typedef (`typedef op_t op2_t;`) is UHDM's
+        // deep clone of compileTypedef's alias object, which Surelog names
+        // with the BARE alias name when it makes it (CompileHelper.cpp, the
+        // DummyType branch: `tpclone->VpiName(name)`) and qualifies only on the
+        // package's own listing later, and whose vpiTypedefAlias is a
+        // reference of the clone's own (full name the copy's reference chain
+        // plus the alias name) to a private copy of the base: golden AL/al01
+        // to al08 `struct_typespec (op2_t)` under every clone reference with
+        // `vpiTypedefAlias (a::f::acc::op2_t) -> u::op_t inst=u(top)`, an
+        // alias of an alias reaching the bare-named middle copy `op2_t`
+        // (al06), the members of every copy and of every base copy reading
+        // the top view of the CANONICAL struct's package (v11u482 VF/vf03:
+        // s(top), where the copy itself reads its alias's package u(top)).
+        // Ours named the copy `u::op2_t`, shared the alias object's reference
+        // (bound to the definition listing, inst u(all)) and gave its members
+        // the alias's package.  The copy is renamed, given its own reference
+        // bound to the base's top listing object (a bare-named copy of it for
+        // a middle alias), and its member types take the canonical package's
+        // top view in the member loop below.  Gated by
+        // R11U482_COPYINST_OFF too (this block).
+        std::map<const UHDM::any*, UHDM::package*> membPkg484;
+        if (lawOn(484, "R11U484_ALIASCOPYNAME_OFF")) {
+            std::map<std::string, const Symbol*> symOf484;
+            for (auto& [sym484, ts484] : typedefTs) {
+                if (!sym484 || !ts484 || sym484->kind != SymbolKind::TypeAlias)
+                    continue;
+                std::string nm484(ts484->VpiName());
+                if (nm484.find("::") == std::string::npos)
+                    continue;
+                auto [it484, fresh484] = symOf484.emplace(nm484, sym484);
+                if (!fresh484 && it484->second != sym484)
+                    it484->second = nullptr;
+            }
+            auto namedBase484 = [](const Symbol* a) -> const TypeAliasType* {
+                if (!a || a->kind != SymbolKind::TypeAlias)
+                    return nullptr;
+                auto& ta = a->as<TypeAliasType>();
+                auto* syn = ta.getSyntax();
+                if (!syn || syn->kind != syntax::SyntaxKind::TypedefDeclaration)
+                    return nullptr;
+                auto& tds = syn->as<syntax::TypedefDeclarationSyntax>();
+                if (!tds.type || tds.type->kind != syntax::SyntaxKind::NamedType ||
+                    !tds.dimensions.empty())
+                    return nullptr;
+                const Type& b = ta.targetType.getType();
+                if (b.kind != SymbolKind::TypeAlias)
+                    return nullptr;
+                auto* bs = b.as<TypeAliasType>().getSyntax();
+                if (!bs || bs->kind != syntax::SyntaxKind::TypedefDeclaration)
+                    return nullptr;
+                return &b.as<TypeAliasType>();
+            };
+            auto topOf484 = [&](const Symbol& a) -> UHDM::package* {
+                auto* ps = a.getParentScope();
+                if (!ps || ps->asSymbol().kind != SymbolKind::Package)
+                    return nullptr;
+                auto t = pkgTopMap.find((const void*)&ps->asSymbol());
+                return t == pkgTopMap.end() ? nullptr : t->second;
+            };
+            // the canonical (non-alias) typedef at the end of the chain
+            auto canon484 = [&](const TypeAliasType* a) -> const TypeAliasType* {
+                for (int k = 0; a && k < 16; ++k) {
+                    auto* b = namedBase484(a);
+                    if (!b)
+                        return a;
+                    a = b;
+                }
+                return nullptr;
+            };
+            auto ownMembers484 = [&](UHDM::typespec* cp, const UHDM::typespec* src) {
+                const UHDM::VectorOftypespec_member* om = nullptr;
+                if (src->UhdmType() == UHDM::uhdmstruct_typespec)
+                    om = ((const UHDM::struct_typespec*)src)->Members();
+                else if (src->UhdmType() == UHDM::uhdmunion_typespec)
+                    om = ((const UHDM::union_typespec*)src)->Members();
+                if (!om)
+                    return;
+                auto* nm = s.MakeTypespec_memberVec();
+                for (auto* m0 : *om) {
+                    auto* m1 = s.MakeTypespec_member();
+                    m1->VpiName(m0->VpiName());
+                    m1->VpiParent(cp);
+                    m1->VpiFile(m0->VpiFile());
+                    m1->VpiLineNo(m0->VpiLineNo());
+                    m1->VpiColumnNo(m0->VpiColumnNo());
+                    m1->VpiEndLineNo(m0->VpiEndLineNo());
+                    m1->VpiEndColumnNo(m0->VpiEndColumnNo());
+                    m1->VpiRandType(m0->VpiRandType());
+                    m1->VpiRefFile(m0->VpiRefFile());
+                    m1->VpiRefLineNo(m0->VpiRefLineNo());
+                    m1->VpiRefColumnNo(m0->VpiRefColumnNo());
+                    m1->VpiRefEndLineNo(m0->VpiRefEndLineNo());
+                    m1->VpiRefEndColumnNo(m0->VpiRefEndColumnNo());
+                    m1->Default_value(m0->Default_value());
+                    m1->Actual_value(m0->Actual_value());
+                    if (auto* t0 = m0->Typespec()) {
+                        auto* t1 = s.MakeRef_typespec();
+                        t1->VpiParent(m1);
+                        t1->VpiFullName(t0->VpiFullName());
+                        t1->Actual_typespec((UHDM::typespec*)t0->Actual_typespec());
+                        m1->Typespec(t1);
+                    }
+                    nm->push_back(m1);
+                }
+                if (cp->UhdmType() == UHDM::uhdmstruct_typespec)
+                    ((UHDM::struct_typespec*)cp)->Members(nm);
+                else
+                    ((UHDM::union_typespec*)cp)->Members(nm);
+            };
+            // the reference `owner` holds to the base of alias `a`
+            std::function<void(UHDM::typespec*, const TypeAliasType*, const std::string&)> aliasRef484 =
+                [&](UHDM::typespec* owner, const TypeAliasType* a, const std::string& full) {
+                    auto* b = namedBase484(a);
+                    if (!b)
+                        return;
+                    UHDM::typespec* tgt = nullptr;
+                    auto* bb = namedBase484(b);
+                    auto tb = pkgTopTypedefTs.find((const void*)(const Symbol*)b);
+                    const UHDM::typespec* blist =
+                        tb != pkgTopTypedefTs.end() ? tb->second : nullptr;
+                    if (!blist) {
+                        auto db = typedefTs.find((const Symbol*)b);
+                        blist = db != typedefTs.end() ? db->second : nullptr;
+                    }
+                    if (!blist || blist->UhdmType() != owner->UhdmType())
+                        return;
+                    if (bb) {
+                        // a middle alias: its own bare-named copy
+                        UHDM::typespec* c = nullptr;
+                        if (blist->UhdmType() == UHDM::uhdmstruct_typespec) {
+                            auto* cs = s.MakeStruct_typespec();
+                            cs->VpiPacked(((const UHDM::struct_typespec*)blist)->VpiPacked());
+                            c = cs;
+                        }
+                        else {
+                            auto* cu = s.MakeUnion_typespec();
+                            cu->VpiPacked(((const UHDM::union_typespec*)blist)->VpiPacked());
+                            c = cu;
+                        }
+                        c->VpiName(b->name);
+                        c->VpiFile(blist->VpiFile());
+                        c->VpiLineNo(blist->VpiLineNo());
+                        c->VpiColumnNo(blist->VpiColumnNo());
+                        c->VpiEndLineNo(blist->VpiEndLineNo());
+                        c->VpiEndColumnNo(blist->VpiEndColumnNo());
+                        c->Instance(topOf484(*b));
+                        ownMembers484(c, blist);
+                        if (auto* cn = canon484(b))
+                            membPkg484[c] = topOf484(*cn);
+                        tgt = c;
+                    }
+                    else
+                        tgt = (UHDM::typespec*)blist;
+                    auto* r = s.MakeRef_typespec();
+                    r->VpiParent(owner);
+                    r->VpiFullName(full + "::" + std::string(a->name));
+                    r->Actual_typespec(tgt);
+                    if (owner->UhdmType() == UHDM::uhdmstruct_typespec)
+                        ((UHDM::struct_typespec*)owner)->Typedef_alias(r);
+                    else
+                        ((UHDM::union_typespec*)owner)->Typedef_alias(r);
+                    if (bb) {
+                        tgt->VpiParent(r);
+                        aliasRef484(tgt, b, full + "::" + std::string(a->name));
+                    }
+                };
+            // in creation (UhdmId) order, so the minted references and copies
+            // are deterministic (copyRoots482 is keyed by pointer)
+            std::vector<const UHDM::any*> roots484;
+            for (auto& [o484, pk484] : copyRoots482)
+                roots484.push_back(o484);
+            std::sort(roots484.begin(), roots484.end(),
+                      [](const UHDM::any* x, const UHDM::any* y) {
+                          return x->UhdmId() < y->UhdmId();
+                      });
+            for (auto* o484 : roots484) {
+                auto k484 = o484->UhdmType();
+                // an enum alias's copies (golden `e2_t`, AL/al09) are left as
+                // they stand: renaming them lets uhdm-cmp reach an older
+                // instance face of the middle copy of an enum chain (r11u231
+                // AL/a06 156 -> 612 lines, r11u478 AF/af07 124 -> 514)
+                if (k484 != UHDM::uhdmstruct_typespec && k484 != UHDM::uhdmunion_typespec)
+                    continue;
+                auto is484 = symOf484.find(std::string(o484->VpiName()));
+                if (is484 == symOf484.end() || !is484->second)
+                    continue;
+                auto* a484 = &is484->second->as<TypeAliasType>();
+                if (!namedBase484(a484))
+                    continue;
+
+                auto* cn484 = canon484(a484);
+                auto* t484 = (UHDM::typespec*)o484;
+                std::string full484;
+                if (auto* pr484 = t484->VpiParent();
+                    pr484 && pr484->UhdmType() == UHDM::uhdmref_typespec)
+                    full484 = std::string(((const UHDM::ref_typespec*)pr484)->VpiFullName());
+                t484->VpiName(a484->name);
+                aliasRef484(t484, a484, full484);
+                if (cn484)
+                    if (auto* cp484 = topOf484(*cn484))
+                        membPkg484[o484] = cp484;
+                lawTrace(484, "cloneAliasCopyBareName484",
+                         full484 + " " + std::string(a484->name));
+            }
+        }
         // the copy's own member types (a typespec parented at the
         // ref_typespec of a member of such a copy): the same deep clone
         for (auto& kv : s.AllObjects()) {
@@ -28608,7 +28933,15 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (!pm || pm->UhdmType() != UHDM::uhdmtypespec_member)
                 continue;
             auto ir = copyRoots482.find(pm->VpiParent());
-            if (ir == copyRoots482.end() || t->Instance() == ir->second)
+            UHDM::package* want484 = nullptr;
+            if (ir != copyRoots482.end()) {
+                want484 = ir->second;
+                if (auto im484 = membPkg484.find(pm->VpiParent()); im484 != membPkg484.end())
+                    want484 = im484->second;
+            }
+            else if (auto im484 = membPkg484.find(pm->VpiParent()); im484 != membPkg484.end())
+                want484 = im484->second;
+            if (!want484 || t->Instance() == want484)
                 continue;
             // § copyInstMemberOwnRoot482v (v11u482, R11V482_MEMBROOT_OFF;
             // cases tools/probe/v11u482repro/cases/VM/vm05, VC/vc06) -- a
@@ -28623,7 +28956,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                          std::string(pm->VpiName()) + " " + std::string(t->VpiName()));
                 continue;
             }
-            t->Instance(ir->second);
+            if (ir == copyRoots482.end() || want484 != ir->second)
+                lawTrace(484, "cloneAliasCopyBareName484_member",
+                         std::string(pm->VpiName()) + " " + std::string(want484->VpiName()));
+            t->Instance(want484);
             lawTrace(482, "cloneOwnCopyInstHomeTop482_member",
                      std::string(pm->VpiName()) + " " + std::string(UHDM::UhdmName(t->UhdmType())));
         }

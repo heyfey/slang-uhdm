@@ -25909,6 +25909,153 @@ void UhdmExporter::emitTypedefs(const InstanceBodySymbol& body, UHDM::instance* 
         }
         ts->VpiName(ta.name);
         ((UHDM::typespec*)ts)->Instance(m);
+        // § modAliasTdAtBaseClone484 (r11u484, R11U484_MODALIASTD_OFF; cases
+        // tools/probe/r11u484repro/cases/RV rv02, rv08, rv09, rv13) -- a
+        // module-body typedef whose written base is another typedef of an
+        // aggregate (`typedef op_t op2_t;`) is Surelog's clone of the base's
+        // typespec (compileTypedef's DummyType branch, bound by bindTypedefs_):
+        // golden's listing object spans the BASE struct or union (3:11-3:38,
+        // where ours spanned the written name `op_t` 4:11-4:15) and carries a
+        // vpiTypedefAlias reference (full name the module's plus the alias
+        // name) bound to the base's listing object, which ours lacked.  Every
+        // module object bound to the alias reads that span (the net, the
+        // elaborated variable, the function local).  Only a struct or union
+        // whose base typedef is listed with the same kind takes it.
+        if ((ts->UhdmType() == UHDM::uhdmstruct_typespec ||
+             ts->UhdmType() == UHDM::uhdmunion_typespec) &&
+            ta.targetType.getType().kind == SymbolKind::TypeAlias && typeSyn &&
+            typeSyn->kind == syntax::SyntaxKind::NamedType &&
+            lawOn(484, "R11U484_MODALIASTD_OFF") &&
+            // § modAliasShadowAbstain484v (v11u484, R11V484_MODALIASSHADOW_OFF;
+            // case tools/probe/v11u484repro/cases/VL/vl11) -- an alias whose
+            // name an import also offers (`import p::*;` with p::op2_t, and the
+            // module's own `typedef op_t op2_t;`) is resolved by Surelog to the
+            // imported object (§ ownNamedAliasNameIsNotShadowing177v's reading):
+            // golden lists no clone of the module's alias at all, and the law's
+            // span, alias reference and member references on the module object
+            // grew every distance (vl11 uhdm-cmp 978 -> 992, dump 55 -> 62,
+            // object census 11 -> 12).  The law abstains there.
+            (ownNamedAliasNameIsNotShadowing177v(ta) ||
+             !fixOn(484, "R11V484_MODALIASSHADOW_OFF"))) {
+            // the alias reference binds the END of an alias chain (Surelog's
+            // bindTypedefs_ resolves through getActual: golden RV/rv24 `c_t`
+            // -> `a_t`, not the middle `b_t`)
+            const TypeAliasType* end484 = &ta.targetType.getType().as<TypeAliasType>();
+            for (int k484 = 0; k484 < 16; ++k484) {
+                auto* es484 = end484->getSyntax();
+                if (!es484 || es484->kind != syntax::SyntaxKind::TypedefDeclaration ||
+                    es484->as<syntax::TypedefDeclarationSyntax>().type->kind !=
+                        syntax::SyntaxKind::NamedType ||
+                    end484->targetType.getType().kind != SymbolKind::TypeAlias)
+                    break;
+                end484 = &end484->targetType.getType().as<TypeAliasType>();
+            }
+            auto& bta484 = *end484;
+            auto* bsyn484 = bta484.getSyntax();
+            auto bi484 = typedefTs.find((const Symbol*)end484);
+            UHDM::ref_typespec* hasAl484 =
+                ts->UhdmType() == UHDM::uhdmstruct_typespec
+                    ? (UHDM::ref_typespec*)((UHDM::struct_typespec*)ts)->Typedef_alias()
+                    : (UHDM::ref_typespec*)((UHDM::union_typespec*)ts)->Typedef_alias();
+            // the base declared in a package or in this same module (an
+            // interface-port typedef `typedef types.hdr_t hdr_t;` is
+            // § ifacePortTdCastLogicTs405's logic_typespec, v11u405 VC/vc10)
+            auto* bps484 = bta484.getParentScope();
+            bool bscope484 =
+                bps484 && (bps484->asSymbol().kind == SymbolKind::Package ||
+                           &bps484->asSymbol() == (const Symbol*)&body);
+            if (bscope484 && bsyn484 && bsyn484->kind == syntax::SyntaxKind::TypedefDeclaration &&
+                bi484 != typedefTs.end() && bi484->second && !hasAl484 &&
+                bi484->second->UhdmType() == ts->UhdmType()) {
+                auto* b484 = bi484->second;
+                ts->VpiFile(b484->VpiFile());
+                ts->VpiLineNo(b484->VpiLineNo());
+                ts->VpiColumnNo(b484->VpiColumnNo());
+                ts->VpiEndLineNo(b484->VpiEndLineNo());
+                ts->VpiEndColumnNo(b484->VpiEndColumnNo());
+                auto* al484 = s.MakeRef_typespec();
+                al484->VpiParent(ts);
+                al484->VpiFullName(prefix + "." + std::string(ta.name));
+                al484->Actual_typespec(b484);
+                if (ts->UhdmType() == UHDM::uhdmstruct_typespec)
+                    ((UHDM::struct_typespec*)ts)->Typedef_alias(al484);
+                else
+                    ((UHDM::union_typespec*)ts)->Typedef_alias(al484);
+                // The clone keeps the base's vpiInstance (clone_tree copies
+                // it): a package base reads its package (golden
+                // r11u161gen e14_mod_alias_struct_ctl, v11u480 VA/va22: lp, p),
+                // a module base the module; and so do its member types, which
+                // hang off the clone's own member references (golden
+                // `int_typespec` parented at `ref_typespec (work@top.op2_t.k)`,
+                // ours at the typespec_member).  A member type shared with the
+                // base is left alone.
+                if (b484->Instance())
+                    ((UHDM::typespec*)ts)->Instance((UHDM::instance*)b484->Instance());
+                // § modAliasPkgBaseTopView484v (v11u484, R11V484_MODALIASTOP_OFF;
+                // cases tools/probe/v11u484repro/cases/VL/vl08, VM/vm02, vm03,
+                // vm05, vm07, r11u484 RV/rv18, r11u161gen e14_mod_alias_struct_ctl)
+                // -- a module alias of a PACKAGE struct or union reads that
+                // package's TOP view, and so do the member types the clone owns:
+                // golden `struct_typespec my_s ... inst=lp(top)` with its member
+                // `logic_typespec` under the clone's member references also
+                // `lp(top)` on e14, `p(top)` on vl08, vm02, vm03, vm05, vm07 and
+                // rv18; the law copied the definition-listing base's instance
+                // (`p(all)`), where pristine wrote none, the instance-census
+                // distance growing 4 -> 6 (e14, rv18, vl08), 10 -> 12 (vm02, vm07),
+                // 14 -> 18 (vm05).  Both views are built before any module
+                // (exportDesign), so the top view is looked up here.
+                auto topView484v = [&](const UHDM::any* in) -> UHDM::package* {
+                    if (!in)
+                        return nullptr;
+                    for (auto& [k484v, pd484v] : pkgDefMap)
+                        if (pd484v == in) {
+                            auto it484v = pkgTopMap.find(k484v);
+                            return it484v != pkgTopMap.end() ? it484v->second : nullptr;
+                        }
+                    return nullptr;
+                };
+                const bool top484v = fixOn(484, "R11V484_MODALIASTOP_OFF");
+                if (top484v)
+                    if (auto* tp484v = topView484v(ts->Instance())) {
+                        ((UHDM::typespec*)ts)->Instance(tp484v);
+                        lawTrace(484, "modAliasPkgBaseTopView484v",
+                                 prefix + "." + std::string(ta.name));
+                    }
+                auto* mm484 = ts->UhdmType() == UHDM::uhdmstruct_typespec
+                                  ? ((UHDM::struct_typespec*)ts)->Members()
+                                  : ((UHDM::union_typespec*)ts)->Members();
+                auto* bm484 = b484->UhdmType() == UHDM::uhdmstruct_typespec
+                                  ? ((const UHDM::struct_typespec*)b484)->Members()
+                                  : ((const UHDM::union_typespec*)b484)->Members();
+                if (mm484)
+                    for (size_t i484 = 0; i484 < mm484->size(); ++i484) {
+                        auto* m484 = (*mm484)[i484];
+                        auto* rt484 = m484 ? m484->Typespec() : nullptr;
+                        auto* t484 = rt484 ? (UHDM::typespec*)rt484->Actual_typespec() : nullptr;
+                        if (!t484)
+                            continue;
+                        const UHDM::typespec* bt484 = nullptr;
+                        if (bm484 && i484 < bm484->size() && (*bm484)[i484] &&
+                            (*bm484)[i484]->Typespec())
+                            bt484 = (*bm484)[i484]->Typespec()->Actual_typespec();
+                        if (bt484 == t484)
+                            continue;
+                        if (t484->VpiParent() == (const UHDM::any*)m484)
+                            t484->VpiParent((UHDM::ref_typespec*)rt484);
+                        if (!t484->Instance() && bt484 && bt484->Instance())
+                            t484->Instance((UHDM::instance*)bt484->Instance());
+                        // § modAliasPkgBaseTopView484v: an owned member type
+                        if (top484v && t484->VpiParent() == (const UHDM::any*)rt484)
+                            if (auto* tp484v = topView484v(t484->Instance())) {
+                                t484->Instance(tp484v);
+                                lawTrace(484, "modAliasPkgBaseTopView484v_member",
+                                         prefix + "." + std::string(ta.name) + "." +
+                                             std::string(m484->VpiName()));
+                            }
+                    }
+                lawTrace(484, "modAliasTdAtBaseClone484", prefix + "." + std::string(ta.name));
+            }
+        }
         // § enumAliasClone161 — the clone keeps the target's Instance.
         if (aliasTgt161 && aliasTgt161->Instance())
             ((UHDM::typespec*)ts)->Instance((UHDM::instance*)aliasTgt161->Instance());

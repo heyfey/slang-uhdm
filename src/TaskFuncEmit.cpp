@@ -1771,6 +1771,92 @@ std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
 // arrays whose element took the shared typedef object (membership only, read
 // by § cloneArrElemAggOwnCopy482 in UhdmExporter, never iterated).
 std::set<const UHDM::typespec*> g_cloneFixArr482;
+// § ownNamedAliasLocalIsRefVar484 (r11u484, R11U484_ALIASLOCAL_OFF; cases
+// tools/probe/r11u484repro/cases/RV) -- the LOCAL-VARIABLE twin of
+// § ownNamedAliasRetIsRefVar177 (src/EmitHelpers.h, the return variable).
+// Surelog's compileVariable (CompileType.cpp, the slStringConst branch) asks
+// component->getDataType(name)->getActual()->getTypespec() and only then
+// reaches getSimpleVarFromTypespec (struct_var, enum_var, int_var, ...); a
+// typedef whose own written base is a NAMED type (`typedef op_t op2_t;`,
+// compileTypedef's DummyType branch) has no typespec yet while its OWN component
+// compiles (bindTypedefs_ binds it after every component), so a subroutine
+// local written as that bare alias name falls to the final branch: a bare
+// `ref_var` carrying the compiled typespec.  Golden RV/rv01 (package free
+// function, struct alias), rv05 (enum alias), rv06 (vector alias), rv07 (int
+// alias), rv10 (alias of another package's struct), rv14 (the element of a
+// fixed array), rv02 and rv09 (module function and task): `ref_var` in the
+// DEFINITION listing; the package's elaborated (top) listing and every import
+// clone compile after the bind and keep the resolved kind (rv01's top view,
+// v11u482 VF/vf02's clones), an alias imported from another package resolves
+// (rv03), and so does a package alias named from a class method (rv04).  The
+// predicate is § 177's, asked about the local's written type: a bare
+// identifier naming a typedef declared with a named base in the package (DEF
+// listing only) or the module / interface / program the subroutine belongs
+// to, not shadowed by an import, the base itself a typedef (never a class,
+// type parameter or interface).  Abstains inside a class (except the package
+// definition listing's own out-of-body copy of a method, which the package
+// compiles: rv22) or a generate block.
+static bool ownNamedAliasLocalIsRefVar484(const slang::ast::Symbol& fmv,
+                                          const slang::ast::Type& ty,
+                                          bool defPkgView, bool pkgClone) {
+    using namespace slang::ast;
+    auto* dt = fmv.getDeclaredType();
+    if (!dt || ty.kind != SymbolKind::TypeAlias)
+        return false;
+    const slang::syntax::SyntaxNode* tsyn = dt->getTypeSyntax();
+    if (!tsyn || tsyn->kind != slang::syntax::SyntaxKind::NamedType)
+        return false;
+    auto& nts = tsyn->as<slang::syntax::NamedTypeSyntax>();
+    if (!nts.name || nts.name->kind != slang::syntax::SyntaxKind::IdentifierName)
+        return false;
+    const auto& ta = ty.as<TypeAliasType>();
+    const slang::syntax::SyntaxNode* asyn = ta.getSyntax();
+    if (!asyn || asyn->kind != slang::syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto& tds = asyn->as<slang::syntax::TypedefDeclarationSyntax>();
+    if (!tds.type || tds.type->kind != slang::syntax::SyntaxKind::NamedType ||
+        !tds.dimensions.empty())
+        return false;
+    // the base is itself a typedef (not a class, a type parameter or an
+    // interface): only those reach getSimpleVarFromTypespec in golden's
+    // resolved listings, and only those were measured
+    const Type& tgt = ta.targetType.getType();
+    if (tgt.kind != SymbolKind::TypeAlias)
+        return false;
+    auto* tgs = tgt.as<TypeAliasType>().getSyntax();
+    if (!tgs || tgs->kind != slang::syntax::SyntaxKind::TypedefDeclaration)
+        return false;
+    auto ck = ta.getCanonicalType().kind;
+    if (ck == SymbolKind::ClassType || ck == SymbolKind::VirtualInterfaceType ||
+        ck == SymbolKind::TypeParameter)
+        return false;
+    if (!ownNamedAliasNameIsNotShadowing177v(ta))
+        return false;
+    const Scope* osc = ta.getParentScope();
+    if (!osc)
+        return false;
+    const Symbol& owner = osc->asSymbol();
+    bool viaCls = false;
+    for (const Scope* sc = fmv.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
+        const Symbol& ss = sc->asSymbol();
+        // the package definition listing's own out-of-body `C::m` copy is
+        // compiled by the PACKAGE (§ 177's pkgClone, emitted during the top
+        // pass; golden RV/rv22)
+        if (ss.kind == SymbolKind::ClassType && pkgClone) {
+            viaCls = true;
+            continue;
+        }
+        if (ss.kind == SymbolKind::ClassType || ss.kind == SymbolKind::GenerateBlock ||
+            ss.kind == SymbolKind::CompilationUnit)
+            return false;
+        if (ss.kind == SymbolKind::Package)
+            return (viaCls || defPkgView) && &ss == &owner;
+        if (ss.kind == SymbolKind::InstanceBody)
+            return !viaCls && &ss == &owner;
+    }
+    return false;
+}
+
 // § cloneDeclOnlyTwinOwnObject458 — (subroutine, variable list position) of
 // each repeated entry of an importer copy's declaration-only listing.
 std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458;
@@ -8137,8 +8223,25 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // § declArrayElemKindIsDeclKind12, SITE 3 of 4 — the
                     // FIXED-SIZE declarator array, tf-item form.  grid12 `h1`
                     // `a_fx` / `k_fx`.
+                    // § ownNamedAliasLocalIsRefVar484 (r11u484,
+                    // R11U484_ALIASLOCAL_OFF), the FIXED-SIZE array's element
+                    // (golden RV/rv14, v11u482 VF/vf02's home `op2_t acc[2]`):
+                    // the element variable is the `ref_var`, the array_var and
+                    // its array_typespec stay.
+                    const Type* et484 = declArrayElemDeclType12(fmv);
+                    const bool al484 =
+                        et484 && !pkgImportCloneEmit && !importCopyTsInst &&
+                        classTdLocalVarKind10(fmv, et484) == TdLocalVarKind10::Resolved &&
+                        ownNamedAliasLocalIsRefVar484(fmv, *et484,
+                                                      curPkgEmitSym && !pkgEmitTopView,
+                                                      pkgClassTfClone != nullptr &&
+                                                          !pkgImportCloneEmit) &&
+                        lawOn(484, "R11U484_ALIASLOCAL_OFF");
+                    if (al484)
+                        lawTrace(484, "ownNamedAliasLocalIsRefVar484_elem",
+                                 fullName + " " + std::string(fmv.name));
                     auto* reg = makeDeclArrayElemVar12(s, fmv, *leaf,
-                                        stmtScopeTdDegrades155(fmv));
+                                        stmtScopeTdDegrades155(fmv) || al484);
                     reg->VpiParent(av);
                     setLoc(reg, nameSpan(fmv.location, fmv.name));
                     auto* regRt = s.MakeRef_typespec();
@@ -8158,7 +8261,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         declArrayElemVarSigned129(fmv, *leaf) &&
                         !typeParamVarIsRefVar58(*leaf) &&
                         declArrayElemVarKind12(
-                            fmv, stmtScopeTdDegrades155(fmv)) ==
+                            fmv, stmtScopeTdDegrades155(fmv) || al484) ==
                             TdLocalVarKind10::Resolved);
                     auto* rv = s.MakeVariablesVec();
                     rv->push_back(reg);
@@ -8512,6 +8615,21 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         case TdLocalVarKind10::Resolved:
                             break;
                     }
+                // § ownNamedAliasLocalIsRefVar484 (r11u484,
+                // R11U484_ALIASLOCAL_OFF): the bare own-component alias local
+                // is a `ref_var` in the definition listing (law and cells at
+                // the predicate above).  Asked after r10sd10's class branch,
+                // which never answers for a package or module typedef.
+                if (!v && !pkgImportCloneEmit && !importCopyTsInst &&
+                    ownNamedAliasLocalIsRefVar484(fmv, fmv.getDeclaredType()->getType(),
+                                                  curPkgEmitSym && !pkgEmitTopView,
+                                                  pkgClassTfClone != nullptr &&
+                                                      !pkgImportCloneEmit) &&
+                    lawOn(484, "R11U484_ALIASLOCAL_OFF")) {
+                    v = s.MakeRef_var();
+                    lawTrace(484, "ownNamedAliasLocalIsRefVar484", fullName + " " +
+                                                                       std::string(fmv.name));
+                }
                 if (!v) {
                     const Type* lt9 = &fmv.getDeclaredType()->getType();
                     // A TF-ITEM body models an array local by its ELEMENT

@@ -1,0 +1,4 @@
+DB surelog/testflags/StructTypedef-577edfb3/slang.uhdm MEMBINST=2
+DB surelog/default/StructTypedef-577edfb3/slang.uhdm MEMBINST=2
+DB surelog/default/TypedefAlias-51a196a3/slang.uhdm MEMBINST=2 TGTTOP=2
+DB surelog/testflags/TypedefAlias-51a196a3/slang.uhdm MEMBINST=2 TGTTOP=2

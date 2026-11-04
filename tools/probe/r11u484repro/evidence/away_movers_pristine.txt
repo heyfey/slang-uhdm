@@ -1,0 +1,56 @@
+r11u152repro/cases/EA/e04_struct_alias pris slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=53 oc=17 ic=2 md5=8c315dde
+r11u161gen/cases/al/e14_mod_alias_struct_ctl pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=31 oc=24 ic=4 md5=64b043a8
+r11u212repro/cases/EA/e07 pris slrc=0 rc=0 cmp=470 NOT_EQUAL stage1 dd=2 oc=0 ic=2 md5=5ef8daff
+r11u231repro/cases/TI/t07 pris slrc=0 rc=0 cmp=444 NOT_EQUAL stage1 dd=2 oc=0 ic=4 md5=186b6525
+r11u250repro/cases/Q/q03_alias_contexts pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=54 oc=18 ic=16 md5=c1465c20
+r11u272repro/cases/L/l23_alias pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=743 oc=111 ic=37 md5=b23a99f5
+r11u279repro/cases/A/a19_expr_valued pris slrc=0 rc=0 cmp=76 NOT_EQUAL stage1 dd=386 oc=57 ic=13 md5=05d541a9
+r11u279repro/cases/A/a20_chain_to_pattern pris slrc=0 rc=0 cmp=72 NOT_EQUAL stage1 dd=323 oc=53 ic=13 md5=de10ca92
+r11u279repro/cases/A/a21_delay pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 435 objects dd=165 oc=28 ic=13 md5=2a2a6fd3
+r11u279repro/cases/A/a22_two_inst_default pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 532 objects dd=270 oc=55 ic=22 md5=8109fadc
+r11u279repro/cases/A/a23_paren_default pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=169 oc=44 ic=13 md5=03730f4d
+r11u279repro/cases/A/a25_cast_default pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 436 objects dd=109 oc=13 ic=7 md5=8466fff2
+r11u279repro/cases/A/a28_net_decl_assign pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 474 objects dd=256 oc=41 ic=16 md5=36b5d77d
+r11u279repro/cases/A/a29_program pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL value dd=23 oc=1 ic=4 md5=d60fc390
+r11u279repro/cases/A/a30_bind pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 506 objects dd=207 oc=28 ic=13 md5=c4cab8b5
+r11u279repro/cases/A/a31_positional_override pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 460 objects dd=109 oc=14 ic=7 md5=bcfa94c5
+r11u279repro/cases/A/a32_port_param_passdown pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 549 objects dd=256 oc=41 ic=16 md5=17d4e283
+r11u279repro/cases/A/a33_alias_typed pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 475 objects dd=263 oc=42 ic=16 md5=8a26bfad
+r11u279repro/cases/A/a34_xvalue pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=165 oc=28 ic=13 md5=24f6a897
+r11u279repro/cases/A/a35_member_read_ctl pris slrc=0 rc=0 cmp=66 NOT_EQUAL stage1 dd=293 oc=46 ic=16 md5=867d7dd9
+r11u279repro/cases/A/a36_macro_name pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=165 oc=28 ic=13 md5=b397bea2
+r11u279repro/cases/A/a37_pkg_two_files_hdr pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 521 objects dd=270 oc=56 ic=22 md5=6c58adbe
+r11u284repro/cases/A/a01_struct_nouse pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 108 objects dd=2 oc=0 ic=4 md5=14986086
+r11u284repro/cases/A/a02_struct_port pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 261 objects dd=2 oc=4 ic=4 md5=83a3fa6f
+r11u284repro/cases/A/a03_struct_var pris slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=22 oc=12 ic=6 md5=5b21a31f
+r11u284repro/cases/A/a04_struct_param pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 230 objects dd=191 oc=27 ic=10 md5=c51e14d7
+r11u284repro/cases/A/a06_struct_typeovr pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 191 objects dd=2 oc=0 ic=4 md5=b8089872
+r11u284repro/cases/A/a07_struct_pkgvar pris slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=12 oc=1 ic=5 md5=5d2c0fac
+r11u480repro/cases/FA/fa10 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=81 oc=17 ic=2 md5=1bec5b98
+r11u480repro/cases/FA/fa26 pris slrc=0 rc=0 cmp=52 NOT_EQUAL stage1 dd=8 oc=4 ic=0 md5=3163cece
+v11u186repro/cases/W/x03 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=16 oc=4 ic=8 md5=3f329753
+v11u232repro/cases/DX/dx10 pris slrc=0 rc=0 cmp=11 NOT_EQUAL stage1 dd=281 oc=143 ic=65 md5=968a5211
+v11u232repro/cases/DX/dx11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 520 objects dd=291 oc=58 ic=20 md5=083260c7
+v11u232repro/cases/DX/dx12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 251 objects dd=18 oc=12 ic=7 md5=ada23128
+v11u232repro/cases/DX/dx13 pris slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=182 oc=66 ic=22 md5=976d9014
+v11u232repro/cases/DX/dx14 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=344 oc=84 ic=32 md5=c48b94cb
+v11u232repro/cases/DX/dx15 pris slrc=0 rc=0 cmp=90 NOT_EQUAL stage1 dd=622 oc=122 ic=48 md5=28230a55
+v11u232repro/cases/DX/dx16 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=228 oc=46 ic=25 md5=d62f3e96
+v11u232repro/cases/DX/dx17 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=193 oc=38 ic=18 md5=fc6dea22
+v11u241repro/cases/AG/g10 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=655 oc=93 ic=45 md5=8a69f155
+v11u260repro/cases/VC/vc07_alias_chain pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=269 oc=53 ic=7 md5=e82d01eb
+v11u279repro/cases/VB/vb04_retypedef_other_pkg pris slrc=0 rc=0 cmp=138 NOT_EQUAL stage1 dd=277 oc=46 ic=12 md5=ed914c41
+v11u280repro/cases/VP/vp06_alias pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=10 oc=1 ic=3 md5=01b11c15
+v11u284repro/cases/VA/va20_struct_member_lhs pris slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=4 oc=0 ic=4 md5=2d370e7e
+v11u305repro/cases/VT/vt26_td_alias pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=54 oc=16 ic=5 md5=2215575c
+v11u305repro/cases/VW/vw06_tdchain pris slrc=0 rc=0 cmp=30 NOT_EQUAL stage1 dd=28 oc=12 ic=6 md5=05be8ad1
+v11u405repro/cases/VC/vc07 pris slrc=0 rc=0 cmp=102 NOT_EQUAL stage1 dd=133 oc=37 ic=4 md5=dedf6c53
+v11u405repro/cases/VC/vc09 pris slrc=0 rc=0 cmp=102 NOT_EQUAL stage1 dd=311 oc=79 ic=4 md5=4d6a2740
+v11u405repro/cases/VC/vc10 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=180 oc=44 ic=4 md5=8c5f9d20
+v11u442repro/cases/VM/vm02 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=36 oc=22 ic=4 md5=be852886
+v11u478repro/cases/VM/vm11 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=2623 oc=362 ic=185 md5=5631eb7e
+v11u478repro/cases/VM/vm14 pris slrc=4 rc=0 cmp=369 NOT_EQUAL stage1 dd=483 oc=151 ic=55 md5=f9152f21
+v11u480repro/cases/VA/va22 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=49 oc=15 ic=4 md5=97a8fb46
+v11u482repro/cases/VF/vf02 pris slrc=0 rc=0 cmp=1006 NOT_EQUAL stage1 dd=977 oc=124 ic=89 md5=22d93cba
+v11u482repro/cases/VF/vf03 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=1001 oc=124 ic=89 md5=dddd3a29
+v11u482repro/cases/VM/vm04 pris slrc=0 rc=0 cmp=1194 NOT_EQUAL stage1 dd=1225 oc=138 ic=91 md5=3f558c70

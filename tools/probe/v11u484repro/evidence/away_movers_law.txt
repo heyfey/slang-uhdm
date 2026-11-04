@@ -1,0 +1,56 @@
+r11u152repro/cases/EA/e04_struct_alias law slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=53 oc=17 ic=0 md5=e8d23e54
+r11u161gen/cases/al/e14_mod_alias_struct_ctl law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL name dd=4 oc=5 ic=6 md5=2d676895
+r11u212repro/cases/EA/e07 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 122 objects dd=2 oc=0 ic=0 md5=fc50dc74
+r11u231repro/cases/TI/t07 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 119 objects dd=2 oc=0 ic=0 md5=31f68b3b
+r11u250repro/cases/Q/q03_alias_contexts law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL name dd=44 oc=14 ic=16 md5=1a07cf57
+r11u272repro/cases/L/l23_alias law slrc=0 rc=0 cmp=59 NOT_EQUAL stage1 dd=718 oc=106 ic=36 md5=7bb3b279
+r11u279repro/cases/A/a19_expr_valued law slrc=0 rc=0 cmp=76 NOT_EQUAL stage1 dd=386 oc=57 ic=9 md5=f8c2edb8
+r11u279repro/cases/A/a20_chain_to_pattern law slrc=0 rc=0 cmp=72 NOT_EQUAL stage1 dd=323 oc=53 ic=9 md5=bf85e41a
+r11u279repro/cases/A/a21_delay law slrc=0 rc=0 cmp=0 STRICT_EQUAL 435 objects dd=165 oc=28 ic=9 md5=2ac300c0
+r11u279repro/cases/A/a22_two_inst_default law slrc=0 rc=0 cmp=0 STRICT_EQUAL 532 objects dd=270 oc=55 ic=18 md5=39846dd4
+r11u279repro/cases/A/a23_paren_default law slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=169 oc=44 ic=9 md5=4f46c9cf
+r11u279repro/cases/A/a25_cast_default law slrc=0 rc=0 cmp=0 STRICT_EQUAL 436 objects dd=109 oc=13 ic=3 md5=bc019e95
+r11u279repro/cases/A/a28_net_decl_assign law slrc=0 rc=0 cmp=0 STRICT_EQUAL 474 objects dd=256 oc=41 ic=12 md5=f4d458a8
+r11u279repro/cases/A/a29_program law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL value dd=23 oc=1 ic=0 md5=3a6f57be
+r11u279repro/cases/A/a30_bind law slrc=0 rc=0 cmp=0 STRICT_EQUAL 506 objects dd=207 oc=28 ic=9 md5=4d6b2f38
+r11u279repro/cases/A/a31_positional_override law slrc=0 rc=0 cmp=0 STRICT_EQUAL 460 objects dd=109 oc=14 ic=3 md5=ce0200be
+r11u279repro/cases/A/a32_port_param_passdown law slrc=0 rc=0 cmp=0 STRICT_EQUAL 549 objects dd=256 oc=41 ic=12 md5=d862b9fd
+r11u279repro/cases/A/a33_alias_typed law slrc=0 rc=0 cmp=0 STRICT_EQUAL 475 objects dd=263 oc=42 ic=12 md5=013997ef
+r11u279repro/cases/A/a34_xvalue law slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=165 oc=28 ic=9 md5=4d7e81b8
+r11u279repro/cases/A/a35_member_read_ctl law slrc=0 rc=0 cmp=66 NOT_EQUAL stage1 dd=293 oc=46 ic=12 md5=7005b0a5
+r11u279repro/cases/A/a36_macro_name law slrc=0 rc=0 cmp=0 STRICT_EQUAL 433 objects dd=165 oc=28 ic=9 md5=1b1a0ff6
+r11u279repro/cases/A/a37_pkg_two_files_hdr law slrc=0 rc=0 cmp=0 STRICT_EQUAL 521 objects dd=270 oc=56 ic=18 md5=26ea8f42
+r11u284repro/cases/A/a01_struct_nouse law slrc=0 rc=0 cmp=0 STRICT_EQUAL 108 objects dd=2 oc=0 ic=0 md5=95a4b0b4
+r11u284repro/cases/A/a02_struct_port law slrc=0 rc=0 cmp=0 STRICT_EQUAL 261 objects dd=2 oc=4 ic=0 md5=df1a3344
+r11u284repro/cases/A/a03_struct_var law slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=22 oc=12 ic=6 md5=7358b241
+r11u284repro/cases/A/a04_struct_param law slrc=0 rc=0 cmp=0 STRICT_EQUAL 230 objects dd=191 oc=27 ic=6 md5=c35e8779
+r11u284repro/cases/A/a06_struct_typeovr law slrc=0 rc=0 cmp=0 STRICT_EQUAL 191 objects dd=2 oc=0 ic=0 md5=04f048ac
+r11u284repro/cases/A/a07_struct_pkgvar law slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=12 oc=1 ic=1 md5=1878ed38
+r11u480repro/cases/FA/fa10 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 228 objects dd=56 oc=0 ic=0 md5=dd226a61
+r11u480repro/cases/FA/fa26 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 124 objects dd=2 oc=0 ic=0 md5=fed48d52
+v11u186repro/cases/W/x03 law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=16 oc=4 ic=6 md5=ab3b7324
+v11u232repro/cases/DX/dx10 law slrc=0 rc=0 cmp=11 NOT_EQUAL stage1 dd=281 oc=143 ic=61 md5=578b0ffe
+v11u232repro/cases/DX/dx11 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 520 objects dd=291 oc=58 ic=16 md5=98d591c3
+v11u232repro/cases/DX/dx12 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 251 objects dd=18 oc=12 ic=3 md5=bbed5611
+v11u232repro/cases/DX/dx13 law slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=182 oc=66 ic=18 md5=7e7bd09f
+v11u232repro/cases/DX/dx14 law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=344 oc=84 ic=28 md5=ac93df7c
+v11u232repro/cases/DX/dx15 law slrc=0 rc=0 cmp=90 NOT_EQUAL stage1 dd=622 oc=122 ic=44 md5=10a81f8f
+v11u232repro/cases/DX/dx16 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=228 oc=46 ic=21 md5=4ba259ce
+v11u232repro/cases/DX/dx17 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=193 oc=38 ic=14 md5=98cc307f
+v11u241repro/cases/AG/g10 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=573 oc=77 ic=33 md5=9f711bf1
+v11u260repro/cases/VC/vc07_alias_chain law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=242 oc=42 ic=7 md5=36b8f722
+v11u279repro/cases/VB/vb04_retypedef_other_pkg law slrc=0 rc=0 cmp=138 NOT_EQUAL stage1 dd=277 oc=46 ic=10 md5=d478e8e8
+v11u280repro/cases/VP/vp06_alias law slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=10 oc=1 ic=1 md5=2a8baa1b
+v11u284repro/cases/VA/va20_struct_member_lhs law slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=4 oc=0 ic=0 md5=70d1f4d0
+v11u305repro/cases/VT/vt26_td_alias law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=35 oc=9 ic=6 md5=c6dba796
+v11u305repro/cases/VW/vw06_tdchain law slrc=0 rc=0 cmp=30 NOT_EQUAL stage1 dd=28 oc=12 ic=6 md5=639be9b4
+v11u405repro/cases/VC/vc07 law slrc=0 rc=0 cmp=102 NOT_EQUAL stage1 dd=114 oc=18 ic=2 md5=43f4b93a
+v11u405repro/cases/VC/vc09 law slrc=0 rc=0 cmp=102 NOT_EQUAL stage1 dd=292 oc=60 ic=2 md5=04e58295
+v11u405repro/cases/VC/vc10 law slrc=0 rc=0 cmp=102 NOT_EQUAL stage1 dd=161 oc=25 ic=2 md5=ac822b49
+v11u442repro/cases/VM/vm02 law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL name dd=4 oc=0 ic=0 md5=835e4e28
+v11u478repro/cases/VM/vm11 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=2251 oc=298 ic=97 md5=51130bab
+v11u478repro/cases/VM/vm14 law slrc=4 rc=0 cmp=369 NOT_EQUAL stage1 dd=477 oc=147 ic=55 md5=8d6daa84
+v11u480repro/cases/VA/va22 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 206 objects dd=26 oc=4 ic=6 md5=1a4886d2
+v11u482repro/cases/VF/vf02 law slrc=0 rc=0 cmp=1006 NOT_EQUAL stage1 dd=899 oc=97 ic=41 md5=58d0d7a3
+v11u482repro/cases/VF/vf03 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=899 oc=97 ic=41 md5=385c4b40
+v11u482repro/cases/VM/vm04 law slrc=0 rc=0 cmp=1194 NOT_EQUAL stage1 dd=1206 oc=120 ic=49 md5=21ecab2d
