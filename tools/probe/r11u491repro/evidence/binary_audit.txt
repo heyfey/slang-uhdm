@@ -1,0 +1,3 @@
+surelog cmds=1573 naming-law10=1523 other-slang-binary-lines=0
+uhdm2rtlil cmds=1740 naming-law10=1740 other-slang-binary-lines=0
+svtests cmds=2346 naming-law10=2346

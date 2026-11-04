@@ -148,10 +148,20 @@ instOvActual487(const slang::ast::InstanceBodySymbol& body,
     return nullptr;
 }
 
-// A written integer literal as a value: an unsized decimal (32-bit signed),
-// or a based literal of base d, h, o or b, unsized (32-bit unsigned) or sized
-// up to 64 bits, digits only (no x, z or ?); anything else is not valued
-// here.
+// The constants § ovUnsizedBasedActualForm491 rewrote to HEX or BIN, and the
+// re-passed copies § ovRefUnszBasedFormCopy491v made of them.
+static std::set<const UHDM::constant*>& ovUnszForm491Src() {
+    static std::set<const UHDM::constant*> s;
+    return s;
+}
+
+// A written integer literal as a value: an unsized decimal (32-bit signed,
+// at most 2147483647), or a based literal of base d, h, o or b (no signed
+// base), unsized (32 bits) or with a size of 1 to 64 written in at most two
+// digits, its value fitting that width; digits only (no x, z or ?) and at
+// most 16 of them once underscores are removed, so a binary literal of more
+// than 16 digits or an octal of more than 16 digits is not valued even when
+// its size is 64 or less; anything else is not valued here.
 static std::optional<slang::SVInt> lit487(const slang::syntax::ExpressionSyntax* e) {
     using namespace slang;
     while (e && e->kind == syntax::SyntaxKind::ParenthesizedExpression)
@@ -31546,6 +31556,363 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
     }
+    // § ovSizedActualMoreBases491 (r11u491, R11U491_OVSIZEDMORE_OFF; cases
+    // tools/probe/r11u491repro/cases/OB, v11u489 VO/vo03, vo15) -- the
+    // shapes § ovSizedActualSize489 leaves: an untyped parameter with a
+    // sized default overridden by a sized binary, octal or signed literal.
+    // Surelog's elaborated param_assign constant is the actual as compiled:
+    // a binary 4'b1010, 4'B1010 or 4'sb1010 is BIN:<digits> with the
+    // decompile <size>'b<digits> (underscores dropped), an octal 4'o7 is
+    // UINT:7, a signed decimal 4'sd3 is INT:3 and a signed hex 4'sh3 is
+    // HEX:3 with the decompile 4'h3 (the s dropped), an uppercase 4'H3 as
+    // 4'h3, each at the literal's size, the written digits even where the
+    // signed value is negative (4'sd9 INT:9, 4'shF HEX:F); ours wrote
+    // slang's INT value (negative for 4'sb1010) at size -1.  Same gates as the 489 law (no
+    // defparam, a sized default, no typespec, size -1); x, z or ? digits, a
+    // size above 64 or more than 16 digits abstain.
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        lawOn(491, "R11U491_OVSIZEDMORE_OFF")) {
+        auto& ibM = body.asSymbol().as<InstanceBodySymbol>();
+        const auto* honM = ibM.hierarchyOverrideNode;
+        for (auto* paM : *passigns) {
+            if (!paM || !paM->VpiOverriden() || !paM->Lhs() ||
+                paM->Lhs()->UhdmType() != UHDM::uhdmparameter || !paM->Rhs() ||
+                paM->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* cM = (UHDM::constant*)paM->Rhs();
+            if (cM->VpiSize() != -1 || cM->Typespec())
+                continue;
+            const ParameterSymbol* psM = nullptr;
+            int nM = 0;
+            for (auto* p : paramSyms)
+                if (p && p->name == paM->Lhs()->VpiName() && p->getParentScope() == &body) {
+                    psM = p;
+                    nM++;
+                }
+            if (nM != 1 || !psM->getSyntax())
+                continue;
+            if (auto d = psM->getDeclaredType())
+                if (auto t = d->getTypeSyntax())
+                    if (t->kind != syntax::SyntaxKind::ImplicitType ||
+                        !t->as<syntax::ImplicitTypeSyntax>().dimensions.empty() ||
+                        t->as<syntax::ImplicitTypeSyntax>().signing)
+                        continue;
+            if (honM) {
+                auto itM = honM->paramOverrides.find(psM->getSyntax());
+                if (itM != honM->paramOverrides.end() && itM->second.defparam)
+                    continue;
+            }
+            const syntax::ExpressionSyntax* dM = paramDefaultSyn(*psM);
+            while (dM && dM->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                dM = dM->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!dM || dM->kind != syntax::SyntaxKind::IntegerVectorExpression ||
+                dM->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty())
+                continue;
+            const syntax::ExpressionSyntax* aM = instOvActual487(ibM, *psM);
+            while (aM && aM->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                aM = aM->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!aM || aM->kind != syntax::SyntaxKind::IntegerVectorExpression)
+                continue;
+            auto& ivM = aM->as<syntax::IntegerVectorExpressionSyntax>();
+            std::string szM(ivM.size.rawText()), bM(ivM.base.rawText()), dgM;
+            for (char ch : std::string(ivM.value.rawText()))
+                if (ch != '_')
+                    dgM += ch;
+            if (szM.empty() || szM.size() > 2 || szM.find_first_not_of("0123456789") != std::string::npos ||
+                bM.size() < 2 || bM.size() > 3 || bM[0] != '\'')
+                continue;
+            bool sgM = bM.size() == 3;
+            if (sgM && bM[1] != 's' && bM[1] != 'S')
+                continue;
+            char rM = (char)std::tolower((unsigned char)bM.back());
+            int wM = std::stoi(szM);
+            // which shapes: every binary, an octal, a signed d or h, an
+            // uppercase H (the 489 law takes 'd, 'D and 'h unsigned)
+            bool takeM = rM == 'b' || rM == 'o' || (sgM && (rM == 'd' || rM == 'h')) ||
+                         (!sgM && bM[1] == 'H');
+            const char* okM = rM == 'h' ? "0123456789abcdefABCDEF"
+                              : rM == 'o' ? "01234567"
+                              : rM == 'b' ? "01"
+                              : rM == 'd' ? "0123456789"
+                                          : nullptr;
+            if (!takeM || !okM || wM < 1 || wM > 64 || dgM.empty() || dgM.size() > 16 ||
+                dgM.find_first_not_of(okM) != std::string::npos)
+                continue;
+            int radM = rM == 'h' ? 16 : rM == 'o' ? 8 : rM == 'b' ? 2 : 10;
+            uint64_t vM = std::stoull(dgM, nullptr, radM);
+            if (wM < 64 && (vM >> wM) != 0)
+                continue;
+            // ours: slang's value of the actual, signed when the base is
+            int64_t sv = (int64_t)vM;
+            if (sgM && wM < 64 && ((vM >> (wM - 1)) & 1))
+                sv = (int64_t)(vM | (~(uint64_t)0 << wM));
+            std::string vS(cM->VpiValue());
+            if (vS != "INT:" + std::to_string(sv) && vS != "UINT:" + std::to_string(vM))
+                continue;
+            if (rM == 'b') {
+                cM->VpiValue("BIN:" + dgM);
+                cM->VpiDecompile(szM + "'b" + dgM);
+                cM->VpiConstType(vpiBinaryConst);
+            }
+            else if (rM == 'h') {
+                cM->VpiValue("HEX:" + dgM);
+                cM->VpiDecompile(szM + "'h" + dgM);
+                cM->VpiConstType(vpiHexConst);
+            }
+            else if (rM == 'o') {
+                cM->VpiValue("UINT:" + std::to_string(vM));
+                cM->VpiDecompile(std::to_string(vM));
+                cM->VpiConstType(vpiUIntConst);
+            }
+            else {
+                // the written digits, even where the signed value is
+                // negative (4'sd9 reads INT:9)
+                cM->VpiValue("INT:" + std::to_string(vM));
+                cM->VpiDecompile(std::to_string(vM));
+                cM->VpiConstType(vpiIntConst);
+            }
+            cM->VpiSize(wM);
+            lawTrace(491, "ovSizedActualMoreBases491", prefix + " " + std::string(psM->name) + " " +
+                                                          std::string(cM->VpiValue()) + " size " + szM);
+        }
+    }
+    // § ovUnsizedBasedActualForm491 (r11u491, R11U491_OVUNSZFORM_OFF; cases
+    // tools/probe/r11u491repro/cases/OA, r11u487 BR/br13, br14) -- a
+    // parameter overridden by its instantiation with an UNSIZED based
+    // literal, .A('h5), .A('b101), .A('o5) or .A('d5): Surelog's elaborated
+    // param_assign constant keeps the actual's own form, HEX:<digits as
+    // written> with the decompile 'h<digits> for a hex actual (either case
+    // of the base letter, underscores dropped: 'H5 reads 'h5, 'hAb HEX:Ab,
+    // 'h1_0 HEX:10), BIN:<digits> with 'b<digits> for a binary one, UINT for
+    // an octal one and INT for a decimal one, the decompile the value, where
+    // ours wrote slang's UINT (a typed A) or INT (an untyped A); the size is
+    // the declared width for a typed A (kept), 32 for an untyped A whose
+    // default is an unsized decimal (the implicit int typespec it carries;
+    // ours -1) and -1 for an untyped A with a sized default.  An untyped A
+    // with an unsized based default (another face: ours adds an int
+    // typespec golden lacks), a defparam on the parameter, more than 32 bits
+    // of value or any other actual shape abstains.
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        lawOn(491, "R11U491_OVUNSZFORM_OFF")) {
+        auto& ibF = body.asSymbol().as<InstanceBodySymbol>();
+        const auto* honF = ibF.hierarchyOverrideNode;
+        for (auto* paF : *passigns) {
+            if (!paF || !paF->VpiOverriden() || !paF->Lhs() ||
+                paF->Lhs()->UhdmType() != UHDM::uhdmparameter || !paF->Rhs() ||
+                paF->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* cF = (UHDM::constant*)paF->Rhs();
+            const ParameterSymbol* psF = nullptr;
+            int nF = 0;
+            for (auto* p : paramSyms)
+                if (p && p->name == paF->Lhs()->VpiName() && p->getParentScope() == &body) {
+                    psF = p;
+                    nF++;
+                }
+            if (nF != 1 || !psF->getSyntax())
+                continue;
+            if (honF) {
+                auto itF = honF->paramOverrides.find(psF->getSyntax());
+                if (itF != honF->paramOverrides.end() && itF->second.defparam)
+                    continue;
+            }
+            const syntax::ExpressionSyntax* aF = instOvActual487(ibF, *psF);
+            while (aF && aF->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                aF = aF->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!aF || aF->kind != syntax::SyntaxKind::IntegerVectorExpression)
+                continue;
+            auto& ivF = aF->as<syntax::IntegerVectorExpressionSyntax>();
+            std::string bF(ivF.base.rawText());
+            if (!ivF.size.rawText().empty() || bF.size() != 2)
+                continue;
+            auto lvF = lit487(aF);
+            auto uF = lvF ? lvF->as<uint64_t>() : std::nullopt;
+            if (!uF)
+                continue;
+            std::string dgF;
+            for (char ch : std::string(ivF.value.rawText()))
+                if (ch != '_')
+                    dgF += ch;
+            std::string vF(cF->VpiValue());
+            // ours holds the actual's value, or for a typed A slang's value
+            // truncated to the declared width, which golden does not apply
+            // to a hex, binary or decimal actual ('hFFF into logic [7:0]
+            // reads HEX:FFF, 'd4095 INT:4095; an octal one is masked,
+            // 'o7777 UINT:255, and abstains here)
+            std::string haveF = std::to_string(*uF);
+            if (psF->getDeclaredType() && psF->getType().isIntegral()) {
+                auto wF = psF->getType().getBitWidth();
+                char lb = (char)std::tolower((unsigned char)bF[1]);
+                if (wF < 64 && (*uF >> wF) != 0 && vF.rfind("UINT:", 0) == 0 && cF->VpiSize() == (int)wF)
+                    haveF = std::to_string(*uF & (((uint64_t)1 << wF) - 1));
+                if (lb == 'o' && haveF != std::to_string(*uF))
+                    continue;
+            }
+            if ((vF.rfind("INT:", 0) != 0 && vF.rfind("UINT:", 0) != 0) ||
+                vF.substr(vF.find(':') + 1) != haveF || std::string_view(cF->VpiDecompile()) != haveF)
+                continue;
+            // the size: typed keeps ours; untyped by how the default is written
+            int sizeF = cF->VpiSize();
+            bool untypedF = true;
+            if (auto d = psF->getDeclaredType())
+                if (auto t = d->getTypeSyntax())
+                    untypedF = t->kind == syntax::SyntaxKind::ImplicitType &&
+                               t->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                               !t->as<syntax::ImplicitTypeSyntax>().signing;
+            if (untypedF) {
+                const syntax::ExpressionSyntax* dF = paramDefaultSyn(*psF);
+                while (dF && dF->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    dF = dF->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                if (!dF || cF->VpiSize() != -1)
+                    continue;
+                if (dF->kind == syntax::SyntaxKind::IntegerLiteralExpression && cF->Typespec())
+                    sizeF = 32;
+                else if (dF->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                         !dF->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty() &&
+                         !cF->Typespec())
+                    sizeF = -1;
+                else {
+                    lawTrace(491, "ovUnsizedBasedActualForm491", "abstainDefault " + prefix + " " +
+                                                                    std::string(psF->name));
+                    continue;
+                }
+            }
+            switch (std::tolower((unsigned char)bF[1])) {
+                case 'h':
+                    cF->VpiValue("HEX:" + dgF);
+                    cF->VpiDecompile("'h" + dgF);
+                    cF->VpiConstType(vpiHexConst);
+                    break;
+                case 'b':
+                    cF->VpiValue("BIN:" + dgF);
+                    cF->VpiDecompile("'b" + dgF);
+                    cF->VpiConstType(vpiBinaryConst);
+                    break;
+                case 'o':
+                    cF->VpiValue("UINT:" + std::to_string(*uF));
+                    cF->VpiDecompile(std::to_string(*uF));
+                    cF->VpiConstType(vpiUIntConst);
+                    break;
+                default:
+                    cF->VpiValue("INT:" + std::to_string(*uF));
+                    cF->VpiDecompile(std::to_string(*uF));
+                    cF->VpiConstType(vpiIntConst);
+                    break;
+            }
+            cF->VpiSize(sizeF);
+            if (cF->VpiConstType() == vpiHexConst || cF->VpiConstType() == vpiBinaryConst)
+                ovUnszForm491Src().insert(cF);
+            lawTrace(491, "ovUnsizedBasedActualForm491", prefix + " " + std::string(psF->name) + " " +
+                                                            std::string(cF->VpiValue()) + " size " +
+                                                            std::to_string(sizeF));
+        }
+    }
+    // § ovRefUnszBasedFormCopy491v (v11u491, R11V491_REFFORM_OFF; cases
+    // tools/probe/v11u491repro/cases/VP, VC/vc02) -- a child override that
+    // is a bare reference to a parameter § ovUnsizedBasedActualForm491 wrote
+    // as HEX or BIN, `s #(.X(A))` or `s #(A)` inside an instance overridden by
+    // `.A('h5)`: Surelog copies the referenced parameter's Value as it is, so
+    // golden's elaborated X is HEX:5 with the decompile 'h5 (BIN:101 'b101,
+    // HEX:Ab 'hAb), sized by X's own declaration: a typed X its declared width
+    // (logic [7:0] 8, int 32), an untyped X with an unsized decimal default
+    // 32, an untyped X with a sized default -1.  Without this the copy fell
+    // to the bare-reference UINT branch (UINT:5 at size 32, no longer shared
+    // with a continuous assignment reading X), where before the law it took
+    // the INT branch and kept the sharing; the copy is recorded as a source
+    // too, so a further re-pass follows it.  A defparam on X, any other
+    // actual shape, a referenced constant the law did not write and an
+    // untyped X with any other default abstain.
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody && !ovUnszForm491Src().empty() &&
+        fixOn(491, "R11V491_REFFORM_OFF")) {
+        auto& ibR = body.asSymbol().as<InstanceBodySymbol>();
+        const auto* honR = ibR.hierarchyOverrideNode;
+        const Scope* scR = ibR.parentInstance ? ibR.parentInstance->getParentScope() : nullptr;
+        for (auto* paR : *passigns) {
+            if (!scR)
+                break;
+            if (!paR || !paR->VpiOverriden() || !paR->Lhs() ||
+                paR->Lhs()->UhdmType() != UHDM::uhdmparameter || !paR->Rhs() ||
+                paR->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* cR = (UHDM::constant*)paR->Rhs();
+            if (ovUnszForm491Src().count(cR))
+                continue;
+            const ParameterSymbol* psR = nullptr;
+            int nR = 0;
+            for (auto* p : paramSyms)
+                if (p && p->name == paR->Lhs()->VpiName() && p->getParentScope() == &body) {
+                    psR = p;
+                    nR++;
+                }
+            if (nR != 1 || !psR->getSyntax())
+                continue;
+            if (honR) {
+                auto itR = honR->paramOverrides.find(psR->getSyntax());
+                if (itR != honR->paramOverrides.end() && itR->second.defparam)
+                    continue;
+            }
+            const syntax::ExpressionSyntax* aR = instOvActual487(ibR, *psR);
+            while (aR && aR->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                aR = aR->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!aR || aR->kind != syntax::SyntaxKind::IdentifierName)
+                continue;
+            auto* symR = scR->find(aR->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+            if (!symR || symR->kind != SymbolKind::Parameter)
+                continue;
+            auto itP = elabParamPa.find(symR);
+            if (itP == elabParamPa.end() || !itP->second || !itP->second->Rhs() ||
+                itP->second->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* srcR = (const UHDM::constant*)itP->second->Rhs();
+            if (!ovUnszForm491Src().count(srcR))
+                continue;
+            int sizeR = 0;
+            bool untypedR = true;
+            if (auto d = psR->getDeclaredType())
+                if (auto t = d->getTypeSyntax())
+                    untypedR = t->kind == syntax::SyntaxKind::ImplicitType &&
+                               t->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                               !t->as<syntax::ImplicitTypeSyntax>().signing;
+            if (!untypedR) {
+                auto& tR = psR->getType();
+                if (!tR.isIntegral() || tR.getBitWidth() > 64)
+                    continue;
+                sizeR = (int)tR.getBitWidth();
+            }
+            else {
+                const syntax::ExpressionSyntax* dR = paramDefaultSyn(*psR);
+                while (dR && dR->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    dR = dR->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                if (dR && dR->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                    sizeR = 32;
+                else if (dR && dR->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                         !dR->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty())
+                    sizeR = -1;
+                else {
+                    lawTrace(491, "ovRefUnszBasedFormCopy491v", "abstainDefault " + prefix + " " +
+                                                                   std::string(psR->name));
+                    continue;
+                }
+            }
+            cR->VpiValue(std::string(srcR->VpiValue()));
+            cR->VpiDecompile(std::string(srcR->VpiDecompile()));
+            cR->VpiConstType(srcR->VpiConstType());
+            cR->VpiSize(sizeR);
+            ovUnszForm491Src().insert(cR);
+            lawTrace(491, "ovRefUnszBasedFormCopy491v", prefix + " " + std::string(psR->name) + " " +
+                                                           std::string(cR->VpiValue()) + " size " +
+                                                           std::to_string(sizeR));
+        }
+    }
     // § clsOvExprActualOpTree485 (r11u485, R11U485_EXPRACTUAL_OFF; cases
     // tools/probe/r11u485repro/cases/EA, pass 483's residue OV/ov16) -- a
     // NAMED override actual that is an operation tree over class-scoped
@@ -32066,8 +32433,8 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // re-values the dependent's elaborated constant: the defparam'd
     // parameter's pre-defparam value is the instantiation's written actual
     // or the declaration default, an integer literal as lit487 reads it (an
-    // unsized decimal, or a d, h, o or b based literal, unsized or sized up
-    // to 64 bits, digits only; any other form abstains), the dependent's
+    // unsized decimal, or a d, h, o or b based literal, unsized or sized 1
+    // to 64, at most 16 digits; any other form abstains), the dependent's
     // bound initializer is
     // re-evaluated over it (ev487: literals, names, implicit conversions,
     // unary, binary and conditional operators; anything else abstains) and
@@ -32222,11 +32589,44 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     return false;
             }
         };
+        // § unboundedSubSize64_491 (r11u491, R11U491_SUBSIZE64_OFF; cases
+        // tools/probe/r11u491repro/cases/SS, v11u489 VS/vs07) -- in the
+        // trees § unboundedAddSize489 sizes, Surelog's ExprEval vpiSubOp
+        // writes its INT result at size 64 whatever its operands' sizes (the
+        // add takes the larger operand's size), so a - anywhere in the + / -
+        // tree, or a dependent of such a parameter, makes the size 64:
+        // `localparam B = A - 4'd1` over 4'd3 is INT:2 size 64 where the 489
+        // law wrote 4 (read as an operand, `assign o = B + 1;`; a whole right
+        // side reading B shares the constant at the reader's width).
+        static const bool subSz491 = lawOn(491, "R11U491_SUBSIZE64_OFF");
+        std::set<const Symbol*> subDep491;
+        std::function<bool(const Expression&)> hasSub491 = [&](const Expression& x) -> bool {
+            switch (x.kind) {
+                case ExpressionKind::Conversion:
+                    return hasSub491(x.as<ConversionExpression>().operand());
+                case ExpressionKind::BinaryOp: {
+                    auto& b = x.as<BinaryExpression>();
+                    return b.op == BinaryOperator::Subtract || hasSub491(b.left()) || hasSub491(b.right());
+                }
+                case ExpressionKind::NamedValue:
+                    return subDep491.count(&x.as<NamedValueExpression>().symbol) > 0;
+                default:
+                    return false;
+            }
+        };
         auto applySize489 = [&](const ParameterSymbol& q, UHDM::constant* c) {
             if (!addSz489 || !c || c->Typespec() || !q.getInitializer() ||
                 !sized489(*q.getInitializer()))
                 return;
             sizedDep489.insert(&q);
+            if (subSz491 && hasSub491(*q.getInitializer())) {
+                subDep491.insert(&q);
+                if (c->VpiSize() != 64) {
+                    c->VpiSize(64);
+                    lawTrace(491, "unboundedSubSize64_491", prefix + " " + std::string(q.name) + " 64");
+                }
+                return;
+            }
             auto& t = q.getType();
             if (!t.isIntegral() || t.getBitWidth() > 64 || c->VpiSize() == (int)t.getBitWidth())
                 return;
@@ -32273,6 +32673,7 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
             if (!sub.empty() || !bad.empty()) {
                 dpRan489 = true;
+                std::set<const Symbol*> failB491;
                 for (auto* ps : paramSyms) {
                     if (!ps || sub.count(ps) || bad.count(ps) || isOverriddenParam(*ps) ||
                         !ps->getInitializer() || ps->getParentScope() != &body)
@@ -32287,6 +32688,71 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     }));
                     if (readsBad) {
                         bad.insert(ps);
+                        continue;
+                    }
+                    // § unboundedDepBesideDefparam491 (r11u491,
+                    // R11U491_DEPBESIDEDP_OFF; cases
+                    // tools/probe/r11u491repro/cases/UB, v11u489 VU/vu39) --
+                    // an untyped parameter that reads no defparam'd parameter
+                    // in an instance that has a defparam on another one is
+                    // valued by Surelog in its unmasked arithmetic all the
+                    // same (`parameter A = 4'd15, X = 1`, `localparam B = A +
+                    // 4'd1`, `defparam u.X = 2`: golden INT:16 where slang's
+                    // 4-bit sum wraps to 0), and a later dependent reading
+                    // both (`C = B + X`) sees that value (golden 18).  This
+                    // walk skipped it, and § untypedDepUnboundedValue489 runs
+                    // only where this walk did not; the same rule as that
+                    // law: ev489u's value, kept in subU for the dependents,
+                    // written when it differs from slang's and lies in
+                    // (-2^31, 2^31), a negative value in a UINT constant and
+                    // any shape ev489u cannot value abstaining.
+                    if (!reads && unb489 && untyped487(*ps) && lawOn(491, "R11U491_DEPBESIDEDP_OFF")) {
+                        // a parameter ev489u cannot value poisons every
+                        // dependent reading it, as in the 489 law
+                        bool poisonB = false;
+                        ps->getInitializer()->visit(makeVisitor([&](auto& vv, const NamedValueExpression& nv) {
+                            if (failB491.count(&nv.symbol))
+                                poisonB = true;
+                            vv.visitDefault(nv);
+                        }));
+                        auto uB = poisonB ? std::nullopt : ev489u(*ps->getInitializer(), subU);
+                        auto& cvB = ps->getValue();
+                        if (!uB) {
+                            failB491.insert(ps);
+                            continue;
+                        }
+                        if (!cvB.isInteger() || cvB.integer().hasUnknown())
+                            continue;
+                        subU[ps] = *uB;
+                        std::string duB = std::to_string(*uB);
+                        if (duB == cvB.integer().toString(LiteralBase::Decimal, false)) {
+                            // the value stands; only the size law reads it
+                            auto* paS = paOf487(ps->name);
+                            bool isUS = false;
+                            if (auto* cS = paS ? simpleConst487(paS->Rhs(), isUS) : nullptr)
+                                applySize489(*ps, cS);
+                            continue;
+                        }
+                        if (*uB <= -((int64_t)1 << 31) || *uB >= ((int64_t)1 << 31)) {
+                            lawTrace(491, "unboundedDepBesideDefparam491", "abstainRange " + prefix + " " +
+                                                                               std::string(ps->name));
+                            continue;
+                        }
+                        auto* paB = paOf487(ps->name);
+                        bool isUB = false;
+                        auto* cB = paB ? simpleConst487(paB->Rhs(), isUB) : nullptr;
+                        if (!cB || (isUB && *uB < 0)) {
+                            lawTrace(491, "unboundedDepBesideDefparam491", "abstainRhs " + prefix + " " +
+                                                                             std::string(ps->name));
+                            continue;
+                        }
+                        cB->VpiValue((isUB ? "UINT:" : "INT:") + duB);
+                        cB->VpiDecompile(duB);
+                        dpReval487().insert(cB);
+                        applySize489(*ps, cB);
+                        lawTrace(491, "unboundedDepBesideDefparam491", prefix + " " + std::string(ps->name) + " " +
+                                                                           cvB.integer().toString(LiteralBase::Decimal, false) +
+                                                                           "->" + duB);
                         continue;
                     }
                     if (!reads)
@@ -32472,11 +32938,27 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 // a typed A: its declared type's width for a default, 64 for
                 // an unsized decimal actual (nb08, nb21 to nb23)
                 int typedW = 0;
+                // § bitNegTypedOperandSize491's class of A's declared type:
+                // 1 for a signed int or a signed scalar or packed vector
+                // (typedefs read through), 2 for every other accepted kind
+                // (integer, shortint, byte, longint, int unsigned, unsigned
+                // vectors, an unsigned packed struct), 0 to abstain
+                int typedCls491 = 0;
                 if (!untyped487(psA)) {
                     auto& ta = psA.getType();
                     if (!ta.isIntegral() || ta.getBitWidth() > 64)
                         continue;
                     typedW = (int)ta.getBitWidth();
+                    auto& ct = ta.getCanonicalType();
+                    if (ct.kind == SymbolKind::PredefinedIntegerType)
+                        typedCls491 = (ct.as<PredefinedIntegerType>().integerKind == PredefinedIntegerType::Int &&
+                                       ct.isSigned())
+                                          ? 1
+                                          : 2;
+                    else if (ct.kind == SymbolKind::ScalarType || ct.kind == SymbolKind::PackedArrayType)
+                        typedCls491 = ct.isSigned() ? 1 : 2;
+                    else if (ct.kind == SymbolKind::PackedStructType && !ct.isSigned())
+                        typedCls491 = 2;
                 }
                 const syntax::ExpressionSyntax* src = instOvActual487(ib487, psA);
                 bool isAct = src != nullptr;
@@ -32486,12 +32968,172 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                 while (sx && sx->kind == syntax::SyntaxKind::ParenthesizedExpression)
                     sx = sx->as<syntax::ParenthesizedExpressionSyntax>().expression;
                 auto lv = lit487(sx);
+                // § bitNegBareNameActual491 (r11u491, R11U491_BITNEGBARENAME_OFF;
+                // cases tools/probe/r11u491repro/cases/NN, r11u489 NB/nb20) --
+                // an instance actual that is a bare parameter name, .A(P) or
+                // .A((P)): the operand ExprEval masks is P's own value as
+                // Surelog holds it in the instantiating scope, so B's size is
+                // P's: an untyped P sized by how its default is written (an
+                // unsized decimal 32, a sized literal its width, an unsized
+                // based one -1, a bare name the named parameter's, at most
+                // eight hops), a typed P its declared width when its default
+                // is an unsized decimal (localparam [7:0] P = 5: 8, int P = 5:
+                // 32), whatever A's own type.  P overridden or defparam'd, a
+                // negative value or any other default abstains.
+                int bareSize491 = 0;
+                uint64_t bareRaw491 = 0;
+                if (!lv && isAct && sx && sx->kind == syntax::SyntaxKind::IdentifierName &&
+                    ib487.parentInstance && ib487.parentInstance->getParentScope() &&
+                    lawOn(491, "R11U491_BITNEGBARENAME_OFF")) {
+                    const Scope* scP = ib487.parentInstance->getParentScope();
+                    std::string_view nmP = sx->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                    const ParameterSymbol* pP = nullptr;
+                    for (int hop = 0; hop < 8; hop++) {
+                        auto* sym = scP->find(nmP);
+                        if (!sym || sym->kind != SymbolKind::Parameter)
+                            break;
+                        auto& pq = sym->as<ParameterSymbol>();
+                        if (isOverriddenParam(pq))
+                            break;
+                        if (!pP) {
+                            auto& cvP = pq.getValue();
+                            if (!cvP.isInteger() || cvP.integer().hasUnknown() || cvP.integer().isNegative() ||
+                                cvP.integer().getActiveBits() > 64)
+                                break;
+                            auto rq = cvP.integer().as<uint64_t>();
+                            if (!rq)
+                                break;
+                            bareRaw491 = *rq;
+                        }
+                        pP = &pq;
+                        const syntax::ExpressionSyntax* dq = paramDefaultSyn(pq);
+                        while (dq && dq->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                            dq = dq->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                        if (!dq)
+                            break;
+                        if (!untyped487(pq)) {
+                            auto& tq = pq.getType();
+                            if (dq->kind == syntax::SyntaxKind::IntegerLiteralExpression && tq.isIntegral() &&
+                                tq.getBitWidth() <= 64 && lit487(dq))
+                                bareSize491 = (int)tq.getBitWidth();
+                            break;
+                        }
+                        if (dq->kind == syntax::SyntaxKind::IdentifierName) {
+                            nmP = dq->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+                            scP = pq.getParentScope();
+                            if (!scP)
+                                break;
+                            continue;
+                        }
+                        auto lq = lit487(dq);
+                        if (!lq)
+                            break;
+                        if (dq->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                            bareSize491 = 32;
+                        else if (!dq->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty())
+                            bareSize491 = (int)lq->getBitWidth();
+                        else
+                            bareSize491 = -1;
+                        break;
+                    }
+                    if (bareSize491 > 0 && bareSize491 < 64 && (bareRaw491 >> bareSize491) != 0)
+                        bareSize491 = 0;
+                    if (bareSize491)
+                        lawTrace(491, "bitNegBareNameActual491", prefix + " " + std::string(psB->name) + " size " +
+                                                                     std::to_string(bareSize491));
+                    else
+                        lawTrace(491, "bitNegBareNameActual491", "abstain " + prefix + " " + std::string(psB->name));
+                }
+                if (bareSize491) {
+                    uint64_t valN = ~bareRaw491;
+                    if (bareSize491 > 0 && bareSize491 < 64)
+                        valN &= ((uint64_t)1 << bareSize491) - 1;
+                    auto* paN = paOf487(psB->name);
+                    bool uN = false;
+                    auto* cN = paN ? simpleConst487(paN->Rhs(), uN) : nullptr;
+                    if (!cN || cN->Typespec()) {
+                        lawTrace(491, "bitNegBareNameActual491", "abstainRhs " + prefix + " " + std::string(psB->name));
+                        continue;
+                    }
+                    std::string dgN = std::to_string(valN);
+                    cN->VpiValue("UINT:" + dgN);
+                    cN->VpiDecompile(dgN);
+                    cN->VpiSize(bareSize491);
+                    cN->VpiConstType(vpiUIntConst);
+                    dpReval487().insert(cN);
+                    dpBitNeg489().insert(cN);
+                    continue;
+                }
                 if (!sx || !lv) {
                     lawTrace(489, "dpDepBitNegUint489", "abstainSrc " + prefix + " " + std::string(psB->name));
                     continue;
                 }
                 int size = 0;
-                if (typedW) {
+                // § bitNegTypedOperandSize491 (r11u491, R11U491_BITNEGTYPED_OFF;
+                // cases tools/probe/r11u491repro/cases/TN, v11u489 VN/vn21,
+                // vn27, vn30, vn32, vn34 to vn39) -- the operand constant
+                // ExprEval's vpiBitNegOp masks to is A's value as Surelog
+                // holds it for the instance, and its size depends on the
+                // declared type and on how the value is written, measured on
+                // Surelog's own databases: an instance actual is sized by the
+                // actual alone, whatever A's type (a sized literal its width,
+                // 4'd5 and 4'h5 and 4'b0101 all 4 into logic [7:0], an
+                // unsized decimal 64, an unsized based 'd5, 'h5 or 'b101 -1,
+                // no mask); for the declaration default, a signed int or a
+                // signed scalar or packed vector (logic signed [3:0] to
+                // [63:0], signed [7:0], a typedef of one) reads 32 for every
+                // literal form, and every other kind (integer, shortint, byte,
+                // longint, int unsigned, unsigned vectors, an unsigned packed
+                // struct) reads the literal's width for a sized decimal
+                // (bit [7:0] A = 4'd4: UINT:11 at size 4; logic [3:0] A =
+                // 8'd4: UINT:251 at size 8), -1 for an unsized decimal-based
+                // 'd4, the smaller of the literal's width and the declared
+                // width for a sized binary, and the declared width for an
+                // unsized decimal, a hex or octal literal (sized or not) and
+                // an unsized binary, the written value negated and masked to
+                // that size even when it does not fit the declared width
+                // (logic [3:0] A = 8'd20: UINT:235 at size 8; 8'b00010100:
+                // UINT:11 at size 4).  A signed-class default whose value does
+                // not fit the declared width (Surelog then negates the
+                // truncated value for an unsized decimal, the written one for
+                // a hex literal) or a type of another kind (an enum, a signed
+                // packed struct) abstains.
+                if (typedW && lawOn(491, "R11U491_BITNEGTYPED_OFF")) {
+                    std::string b491, sz491;
+                    if (sx->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                        auto& iv = sx->as<syntax::IntegerVectorExpressionSyntax>();
+                        b491 = std::string(iv.base.rawText());
+                        sz491 = std::string(iv.size.rawText());
+                    }
+                    char r491 = b491.size() == 2 ? (char)std::tolower((unsigned char)b491[1]) : 'n';
+                    auto raw491 = lv->as<uint64_t>();
+                    if (isAct) {
+                        if (sx->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                            size = 64;
+                        else if (!sz491.empty())
+                            size = (int)lv->getBitWidth();
+                        else
+                            size = -1;
+                    }
+                    else if (!typedCls491 || !raw491 ||
+                             (typedCls491 == 1 && typedW < 64 && (*raw491 >> typedW) != 0))
+                        size = 0;
+                    else if (typedCls491 == 1)
+                        size = 32;
+                    else if (r491 == 'd')
+                        size = sz491.empty() ? -1 : (int)lv->getBitWidth();
+                    else if (r491 == 'b' && !sz491.empty())
+                        size = std::min((int)lv->getBitWidth(), typedW);
+                    else
+                        size = typedW;
+                    if (!size) {
+                        lawTrace(491, "bitNegTypedOperandSize491", "abstain " + prefix + " " + std::string(psB->name));
+                        continue;
+                    }
+                    lawTrace(491, "bitNegTypedOperandSize491", prefix + " " + std::string(psB->name) + " size " +
+                                                                   std::to_string(size) + (isAct ? " act" : " def"));
+                }
+                else if (typedW) {
                     if (sx->kind == syntax::SyntaxKind::IntegerLiteralExpression && isAct)
                         size = 64;
                     else if (!isAct && (typedW == 64 || (lv->as<uint64_t>() &&
@@ -32512,6 +33154,16 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         size = (int)lv->getBitWidth();
                     else if (!isAct)
                         size = -1;
+                    // § bitNegUnsizedBasedActual491 (r11u491,
+                    // R11U491_BITNEGUNSZACT_OFF; cases cases/TU) -- an
+                    // untyped A overridden by an unsized based actual,
+                    // .A('h5) or .A('d5), is held at size -1 as the typed
+                    // case is (Surelog's databases: B = UINT:
+                    // 18446744073709551610 at size -1, no mask).
+                    else if (lawOn(491, "R11U491_BITNEGUNSZACT_OFF")) {
+                        size = -1;
+                        lawTrace(491, "bitNegUnsizedBasedActual491", prefix + " " + std::string(psB->name));
+                    }
                     else {
                         lawTrace(489, "dpDepBitNegUint489", "abstainUnsizedAct " + prefix + " " + std::string(psB->name));
                         continue;

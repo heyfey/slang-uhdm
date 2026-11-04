@@ -1,0 +1,4 @@
+// § bitNegBareNameActual491
+package pk; localparam P = 5; endpackage
+module m #(parameter A = 4) (output logic [7:0] o); localparam B = ~A; assign o = B; endmodule
+module top; import pk::*; logic [7:0] o; m #(.A(P)) u(o); endmodule

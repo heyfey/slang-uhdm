@@ -1,0 +1,13 @@
+prediction written before the sweep from evidence/prediction_replay.txt (law10, R11U491_TRACE on every gate row's slang side; pristine and law each run once per row):
+law-attributable byte movers predicted: 0 in every stage
+rows where a law of this pass traces (abstain only, bytes unchanged):
+uhdm2rtlil ParameterWithUnderscoreValue:default rcP=0 rcL=0 same trace=1
+uhdm2rtlil ParameterWithUnderscoreValue:testflags rcP=0 rcL=0 same trace=1
+downstream ParameterWithUnderscoreValue rcP=0 rcL=0 same trace=1
+uhdm2rtlil ParameterWithUnderscoreValueDivided:default rcP=0 rcL=0 same trace=2
+uhdm2rtlil ParameterWithUnderscoreValueDivided:testflags rcP=0 rcL=0 same trace=2
+downstream ParameterWithUnderscoreValueDivided rcP=0 rcL=0 same trace=2
+replay md5 differences with no trace line (pristine itself varies on concurrent draws, see determinism draws below):
+svtests generated/uvm-examples/uvm_id_register rcP=0 rcL=0 MOVED trace=0
+svtests generated/uvm-examples/uvm_test_init rcP=0 rcL=0 MOVED trace=0
+uvm_test_init 3 concurrent draws per binary: pristine 2 hashes in 3, law10 3 hashes in 3 (environment coin); uvm_id_register: one hash in 6 of 6

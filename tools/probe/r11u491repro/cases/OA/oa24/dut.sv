@@ -1,0 +1,7 @@
+// § ovUnsizedBasedActualForm491
+module m #(parameter   A = 4) (output logic [7:0] o);
+assign o = A + 1;
+endmodule
+module top; logic [7:0] o;
+m #(.A('b101)) u(o);
+endmodule

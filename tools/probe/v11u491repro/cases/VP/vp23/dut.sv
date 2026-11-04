@@ -1,0 +1,4 @@
+// § unboundedDepBesideDefparam491
+module s #(parameter X = 1) (output logic [7:0] o); assign o = X; endmodule
+module m #(parameter A = 4'd15, parameter Y = 1) (output logic [7:0] o); localparam B = A + 4'd1; s #(.X(B)) c(o); endmodule
+module top; logic [7:0] o; m u(o); defparam u.Y = 2; endmodule

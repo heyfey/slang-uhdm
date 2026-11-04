@@ -1,0 +1,1 @@
+bp_unicore alone, law10, guard on: rc 3 in 18.3 s, max RSS 825 MB (substr guard message); the guard stays

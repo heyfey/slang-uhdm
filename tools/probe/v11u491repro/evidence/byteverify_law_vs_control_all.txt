@@ -1,0 +1,29 @@
+databases: patched=3399 pristine=3399
+PATH_SETS_IDENTICAL (3399 paths)
+MOVER ./svtests/work/chapter-16/16.15--property-disable-iff-fail/slang.uhdm  patched=7cb99d2bc0db pristine=f1587c4b3875
+MOVER ./svtests/work/chapter-16/16.15--property-disable-iff/slang.uhdm  patched=6d5b84c687c6 pristine=54d78035995a
+MOVER ./svtests/work/chapter-18/18.17.3--case-production-statements_0/slang.uhdm  patched=d8e6d8e44bc5 pristine=dc0a1ff797f3
+MOVER ./svtests/work/chapter-18/18.5.11--static-constraint-blocks_1/slang.uhdm  patched=01319ec8bd56 pristine=586204e3d02b
+MOVER ./svtests/work/chapter-20/20.14--coverage/slang.uhdm  patched=9d9a12f8a6ac pristine=072abf91d18b
+MOVER ./svtests/work/chapter-6/6.23--type_op_compare/slang.uhdm  patched=e717631eff6a pristine=a33151356e02
+MOVER ./svtests/work/chapter-8/8.26.5--cast_between_interface_classes/slang.uhdm  patched=9322ac550b8a pristine=cecb1a814cb0
+MOVER ./svtests/work/chapter-8/8.26.5--implemented_class_handle/slang.uhdm  patched=1bc5a5194459 pristine=aaa98e14f540
+MOVER ./svtests/work/generated/hdlconv_std2012/hdlconvertor_std2012_p58/slang.uhdm  patched=304b1e51079c pristine=e1043cc1af11
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p482/slang.uhdm  patched=3a13f8f92011 pristine=0f8be98d74e4
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p506/slang.uhdm  patched=bfe33e8b4c57 pristine=4f8d5be24241
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p612/slang.uhdm  patched=a2ee290bce07 pristine=b8dc0140ca6b
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p633/slang.uhdm  patched=7ee29e77cb34 pristine=5c7710c21b81
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p733/slang.uhdm  patched=dfb99dc8cbe7 pristine=44ccf24ca83e
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p737/slang.uhdm  patched=148ee5e1817d pristine=aa9101c2bf2a
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p771/slang.uhdm  patched=b54c977e94d8 pristine=8c63473aef0f
+MOVER ./svtests/work/generated/hdlconv_std2017/hdlconvertor_std2017_p94/slang.uhdm  patched=43a7a834be11 pristine=2d9d894514d6
+MOVER ./svtests/work/generated/rggen/rggen/slang.uhdm  patched=f2dba4eff165 pristine=6c67f3200726
+MOVER ./svtests/work/generated/rsd/rsd/slang.uhdm  patched=af9e845752be pristine=9b86f7cc185b
+MOVER ./svtests/work/generated/tnoc/tnoc/slang.uhdm  patched=eb032cb0ccd5 pristine=86e1f40785e2
+MOVER ./svtests/work/generated/uvm-examples/uvm_overriding/slang.uhdm  patched=5aa3d5be1302 pristine=c0ec781a91f5
+MOVER ./svtests/work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm  patched=e261b223c20c pristine=f9513fd6de24
+MOVER ./svtests/work/generated/uvm-examples/uvm_slave_agent/slang.uhdm  patched=4692cea08e6d pristine=4d35317e59db
+MOVER ./svtests/work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm  patched=7ea7cdd289d8 pristine=0736ea50bf18
+MOVERS: 24 / 3399
+SELFCHECK (every file vs one fixed file): 3397 / 3399 flagged
+SELFCHECK_FAILED

@@ -1,0 +1,109 @@
+s/c1 module m #(parameter bit [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/bit_typespec B=4/UINT:11
+s/c2 module m #(parameter logic [7:0] A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/logic_typespec B=4/UINT:11
+s/c3 module m #(parameter logic [3:0] A = 8'b00000100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:00000100 A=4/BIN:0100/logic_typespec B=4/UINT:11
+s/c4 module m #(parameter logic [7:0] A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=8/HEX:F/logic_typespec B=8/UINT:240
+s/c5 module m #(parameter integer A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/integer_typespec B=8/UINT:251
+s/c6 module m #(parameter int A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/int_typespec B=32/UINT:4294967291
+s/c7 module m #(parameter logic signed [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=32/UINT:4294967291
+s/c8 module m #(parameter logic signed [7:0] A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=32/UINT:4294967291
+s/c9 module m #(parameter logic signed [7:0] A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=8/HEX:F/logic_typespec B=32/UINT:4294967280
+s/c10 module m #(parameter bit signed [7:0] A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/bit_typespec B=32/UINT:4294967291
+s/c11 module m #(parameter logic [7:0] A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=8/UINT:251
+s/c12 module m #(parameter logic [7:0] A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=8/UINT:4/logic_typespec B=8/UINT:251
+s/c13 module m #(parameter integer A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=32/UINT:4/integer_typespec B=32/UINT:4294967291
+s/c14 module m #(parameter logic [7:0] A = 'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=-1/UINT:18446744073709551611
+s/c15 module m #(parameter shortint A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=16/INT:4/short_int_typespec B=8/UINT:251
+s/c16 module m #(parameter byte A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/byte_typespec B=4/UINT:11
+s2/c1 module m #(parameter int A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=32/HEX:F/int_typespec B=32/UINT:4294967280
+s2/c2 module m #(parameter integer A = 8'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=32/HEX:F/integer_typespec B=32/UINT:4294967280
+s2/c3 module m #(parameter shortint A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=16/HEX:F/short_int_typespec B=16/UINT:65520
+s2/c4 module m #(parameter byte A = 'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/byte_typespec B=-1/UINT:18446744073709551611
+s2/c5 module m #(parameter longint A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=64/INT:4/long_int_typespec B=8/UINT:251
+s2/c6 module m #(parameter integer A = 40'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/integer_typespec B=40/UINT:1099511627771
+s2/c7 module m #(parameter int A = 40'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/int_typespec B=32/UINT:4294967291
+s2/c8 module m #(parameter logic [7:0] A = 4'o4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:4 A=8/UINT:4/logic_typespec B=8/UINT:251
+s2/c9 module m #(parameter logic [7:0] A = 12'hFF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:FF A=8/HEX:FF/logic_typespec B=8/UINT:0
+s2/c10 module m #(parameter logic [7:0] A = 12'o4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:4 A=8/UINT:4/logic_typespec B=8/UINT:251
+s2/c11 module m #(parameter logic [7:0] A = 12'b000000000100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:000000000100 A=8/BIN:00000100/logic_typespec B=8/UINT:251
+s2/c12 module m #(parameter logic [7:0] A = 'h4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:4 A=8/HEX:4/logic_typespec B=8/UINT:251
+s2/c13 module m #(parameter logic [7:0] A = 'b100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:100 A=8/BIN:100/logic_typespec B=8/UINT:251
+s2/c14 module m #(parameter logic [7:0] A = 'o4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:4 A=8/UINT:4/logic_typespec B=8/UINT:251
+s2/c15 module m #(parameter logic [7:0] A = 4'sd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/int_typespec B=32/UINT:4294967291
+s2/c16 module m #(parameter logic [63:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=64/INT:4/logic_typespec B=4/UINT:11
+s2/c17 module m #(parameter logic [0:7] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=4/UINT:11
+s2/c18 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=4/UINT:10
+s2/c19 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(5)) u(o); endmodule  :: Aval=DEC:4 A=8/UINT:5/logic_typespec B=64/UINT:18446744073709551610
+s2/c20 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(8'h5)) u(o); endmodule  :: Aval=DEC:4 A=8/HEX:5/logic_typespec B=8/UINT:250
+s2/c21 module m #(parameter logic [7:0] A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=UINT:4 A=8/INT:5/logic_typespec B=4/UINT:10
+s2/c22 module m #(parameter logic A = 1'd1)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:1 A=1/INT:1/logic_typespec B=1/UINT:0
+s2/c23 module m #(parameter logic [7:0] A = -4'sd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval= A=8/INT:-4/logic_typespec B=8/UINT:3
+s2/c24 module m #(parameter logic signed [7:0] A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=8/UINT:4/logic_typespec B=32/UINT:4294967291
+s2/c25 module m #(parameter integer A = -4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval= A=32/INT:-4/integer_typespec B=32/UINT:3
+s2/c26 module m #(parameter bit [7:0] A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/bit_typespec B=4/UINT:11
+s2/c27 module m #(parameter integer A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/integer_typespec B=4/UINT:11
+s2/c28 module m #(parameter int A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/int_typespec B=32/UINT:4294967291
+s3/c1 module m #(parameter int A = 'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/int_typespec B=32/UINT:4294967291
+s3/c2 module m #(parameter logic signed [7:0] A = 'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=32/UINT:4294967291
+s3/c3 module m #(parameter int A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=32/UINT:4/int_typespec B=32/UINT:4294967291
+s3/c4 module m #(parameter logic signed [63:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=64/INT:4/logic_typespec B=32/UINT:4294967291
+s3/c5 module m #(parameter logic signed [3:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=4/INT:4/logic_typespec B=32/UINT:4294967291
+s3/c6 module m #(parameter int unsigned A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/int_typespec B=8/UINT:251
+s3/c7 module m #(parameter bit [7:0] A = 4'sb0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/int_typespec B=4/UINT:11
+s3/c8 module m #(parameter logic [7:0] A = 8'sh4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:4 A=8/HEX:4/int_typespec B=32/UINT:4294967291
+s3/c9 module m #(parameter shortint A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=16/UINT:4/short_int_typespec B=16/UINT:65531
+s3/c10 module m #(parameter shortint A = 'h4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:4 A=16/HEX:4/short_int_typespec B=16/UINT:65531
+s3/c11 module m #(parameter byte A = 4'b0100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0100 A=4/BIN:0100/byte_typespec B=4/UINT:11
+s3/c12 module m #(parameter logic [3:0] A = 8'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=4/HEX:F/logic_typespec B=4/UINT:0
+s3/c13 module m #(parameter logic [3:0] A = 8'o4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:4 A=4/UINT:4/logic_typespec B=4/UINT:11
+s3/c14 module m #(parameter logic [3:0] A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=4/INT:4/logic_typespec B=8/UINT:251
+s3/c15 module m #(parameter logic [7:0] A = 'b100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:100 A=8/BIN:100/logic_typespec B=8/UINT:251
+s3/c16 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=4/UINT:10
+s3/c17 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(12'd5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=12/UINT:4090
+s3/c18 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'b0101)) u(o); endmodule  :: Aval=DEC:4 A=4/BIN:0101/logic_typespec B=4/UINT:10
+s3/c19 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('d5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=-1/UINT:18446744073709551610
+s3/c20 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('h5)) u(o); endmodule  :: Aval=DEC:4 A=8/HEX:5/logic_typespec B=-1/UINT:18446744073709551610
+s3/c21 module m #(parameter logic signed [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=4/UINT:10
+s3/c22 module m #(parameter int A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=DEC:4 A=32/INT:5/int_typespec B=4/UINT:10
+s3/c23 module m #(parameter integer A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'd5)) u(o); endmodule  :: Aval=DEC:4 A=32/INT:5/integer_typespec B=4/UINT:10
+s3/c24 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(12'b000000000101)) u(o); endmodule  :: Aval=DEC:4 A=8/BIN:00000101/logic_typespec B=12/UINT:4090
+s3/c25 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'h5)) u(o); endmodule  :: Aval=DEC:4 A=8/HEX:5/logic_typespec B=4/UINT:10
+s3/c26 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(4'o5)) u(o); endmodule  :: Aval=DEC:4 A=8/UINT:5/logic_typespec B=4/UINT:10
+s3/c27 module m #(parameter logic signed [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(5)) u(o); endmodule  :: Aval=DEC:4 A=8/UINT:5/logic_typespec B=64/UINT:18446744073709551610
+s3/c28 module m #(parameter int A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(5)) u(o); endmodule  :: Aval=DEC:4 A=32/UINT:5/int_typespec B=64/UINT:18446744073709551610
+s3/c29 module m #(parameter integer A = 8'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(5)) u(o); endmodule  :: Aval=DEC:4 A=32/UINT:5/integer_typespec B=64/UINT:18446744073709551610
+s3/c30 module m #(parameter bit A = 1'b1)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:1 A=1/BIN:1/bit_typespec B=1/UINT:0
+s3/c31 module m #(parameter logic [7:0] A = 4'd0)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:0 A=8/INT:0/logic_typespec B=4/UINT:15
+s3/c32 module m #(parameter logic [7:0] A = 4'b0)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:0 A=4/BIN:0/logic_typespec B=4/UINT:15
+s3/c33 module m #(parameter reg [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/logic_typespec B=4/UINT:11
+s3/c34 module m #(parameter logic signed [31:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/logic_typespec B=32/UINT:4294967291
+s3/c35 module m #(parameter logic signed [32:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=33/INT:4/logic_typespec B=32/UINT:4294967291
+s3/c36 module m #(parameter integer signed A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=32/INT:4/integer_typespec B=4/UINT:11
+s3/c37 module m #(parameter bit signed [7:0] A = 'h4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:4 A=8/HEX:4/bit_typespec B=32/UINT:4294967291
+s4/c1 module m #(parameter signed [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:4 A=8/INT:4/int_typespec B=32/UINT:4294967291
+s4/c2 module m #(parameter logic signed A = 1'd1)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:1 A=1/INT:1/logic_typespec B=32/UINT:4294967294
+s4/c3 module m #(parameter byte A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=8/UINT:4/byte_typespec B=8/UINT:251
+s4/c4 module m #(parameter shortint A = 'b100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:100 A=16/BIN:100/short_int_typespec B=16/UINT:65531
+s4/c5 module m #(parameter longint A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:4 A=64/UINT:4/long_int_typespec B=64/UINT:18446744073709551611
+s4/c6 module m #(parameter longint A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=64/HEX:F/long_int_typespec B=64/UINT:18446744073709551600
+s4/c7 module m #(parameter integer A = 'h4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:4 A=32/HEX:4/integer_typespec B=32/UINT:4294967291
+s4/c8 module m #(parameter integer A = 'b100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:100 A=32/BIN:100/integer_typespec B=32/UINT:4294967291
+s4/c9 module m #(parameter bit [7:0] A = 'o4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:4 A=8/UINT:4/bit_typespec B=8/UINT:251
+s4/c10 module m #(parameter logic [63:0] A = 4'hF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:F A=64/HEX:F/logic_typespec B=64/UINT:18446744073709551600
+s4/c11 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('b101)) u(o); endmodule  :: Aval=DEC:4 A=8/BIN:101/logic_typespec B=-1/UINT:18446744073709551610
+s4/c12 module m #(parameter logic [7:0] A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(8'd5)) u(o); endmodule  :: Aval=DEC:4 A=8/INT:5/logic_typespec B=8/UINT:250
+s4/c13 module m #(parameter int A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A(8'hF)) u(o); endmodule  :: Aval=DEC:4 A=32/HEX:F/int_typespec B=8/UINT:240
+s4/c14 module m #(parameter integer A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('d5)) u(o); endmodule  :: Aval=UINT:4 A=32/INT:5/integer_typespec B=-1/UINT:18446744073709551610
+s4/t1 typedef logic [7:0] t_t; module m #(parameter t_t A = 4'd4)  localparam B = ~A; assign o = B;   :: Aval=DEC:4 A=8/INT:4/logic_typespec B=4/UINT:11
+s4/t2 typedef logic signed [7:0] t_t; module m #(parameter t_t A = 4'd4)  localparam B = ~A; assign o = B;   :: Aval=DEC:4 A=8/INT:4/logic_typespec B=32/UINT:4294967291
+s4/t3 typedef struct packed { logic [3:0] a; logic [3:0] b; } s_t; module m #(parameter s_t A = 4'd4)  localparam B = ~A; assign o = B;   :: Aval=DEC:4 A=8/INT:4/struct_typespec B=4/UINT:11
+s4/t4 module m #(parameter A = 4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('h5)) u(o); endmodule  :: Aval=UINT:4 A=32/HEX:5/int_typespec B=-1/UINT:18446744073709551610
+s4/t5 module m #(parameter A = 4'd4)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m #(.A('d5)) u(o); endmodule  :: Aval=DEC:4 A=-1/INT:5 B=-1/UINT:18446744073709551610
+s5/c1 module m #(parameter logic [3:0] A = 8'hFF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:FF A=4/HEX:FF/logic_typespec B=4/UINT:0
+s5/c2 module m #(parameter logic [3:0] A = 8'd20)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=DEC:20 A=4/INT:20/logic_typespec B=8/UINT:235
+s5/c3 module m #(parameter logic [3:0] A = 8'o24)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=OCT:24 A=4/UINT:4/logic_typespec B=4/UINT:11
+s5/c4 module m #(parameter logic [3:0] A = 20)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:20 A=4/UINT:4/logic_typespec B=4/UINT:11
+s5/c5 module m #(parameter logic [3:0] A = 'b10100)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=BIN:10100 A=4/BIN:10100/logic_typespec B=4/UINT:11
+s5/c6 module m #(parameter integer A = 40'hFFFFFFFFF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:FFFFFFFFF A=32/HEX:FFFFFFFFF/integer_typespec B=32/UINT:0
+s6/c1 module m #(parameter logic signed [3:0] A = 8'hFF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:FF A=4/HEX:FF/logic_typespec B=32/UINT:4294967040
+s6/c2 module m #(parameter int A = 40'hFFFFFFFFF)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=HEX:FFFFFFFFF A=32/HEX:FFFFFFFFF/int_typespec B=32/UINT:0
+s6/c3 module m #(parameter logic signed [3:0] A = 20)  localparam B = ~A; assign o = B;  module top; logic [7:0] o; m u(o); endmodule  :: Aval=UINT:20 A=4/UINT:4/logic_typespec B=32/UINT:4294967291

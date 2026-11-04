@@ -1,0 +1,8 @@
+law index current
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/v11u491rsd/svtests.csv
+1 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+[1/1] SURELOG_CRASH=1
+done
+sv-tests: SURELOG_CRASH=1 (of 1)
+regressions=0 conversions=0 changes=0
+golden cache: 0 of 1 runs served from the cache
