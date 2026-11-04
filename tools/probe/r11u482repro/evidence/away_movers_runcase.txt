@@ -1,0 +1,1346 @@
+# law3 movers, runcase.sh lines (pristine then law3)
+r11u175uvm/cases/f2/c02_extern_import pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=118 oc=76 md5=fefea910
+r11u175uvm/cases/f2/g05_task_extern_import pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 333 objects dd=94 oc=60 md5=8b61ee78
+r11u175uvm/cases/f2/g06_init_decl_import pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 260 objects dd=80 oc=54 md5=c815a3fb
+r11u175uvm/cases/f2/g08_fwd_class_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 313 objects dd=104 oc=64 md5=e951a51c
+r11u175uvm/cases/f2/h06_pkg_free_pkgimport pris slrc=0 rc=0 cmp=654 NOT_EQUAL stage1 dd=104 oc=54 md5=28575b19
+r11u175uvm/cases/f2/h07_pkg_free_pkgimport_noinit pris slrc=0 rc=0 cmp=598 NOT_EQUAL stage1 dd=96 oc=50 md5=ed7748f9
+r11u182verify/cases/M/m05_exported_pkg_ref pris slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=2107 oc=583 md5=3fc9b17f
+r11u183dec/cases/g/k03 pris slrc=0 rc=0 cmp=666 NOT_EQUAL stage1 dd=132 oc=52 md5=69d232ad
+r11u183dec/cases/g/k04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 141 objects dd=86 oc=29 md5=77f61feb
+r11u183dec/cases/g/k06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 137 objects dd=83 oc=29 md5=4a10c181
+r11u183dec/cases/g/k07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 108 objects dd=102 oc=27 md5=0a1e843b
+r11u183dec/cases/g/k08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 138 objects dd=96 oc=27 md5=4e7af0f0
+r11u183dec/cases/g/k09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=128 oc=38 md5=7f2d14f1
+r11u185verify/cases/IC/i04_static_and_auto_locals pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 272 objects dd=124 oc=56 md5=d01e15ad
+r11u185verify/cases/IC/i05_task_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 594 objects dd=634 oc=154 md5=19cc7df1
+r11u185verify/cases/X/x03_extern_locals_import pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 774 objects dd=360 oc=138 md5=3ef53b6a
+r11u187repro/cases/G/g01 pris slrc=0 rc=0 cmp=670 NOT_EQUAL stage1 dd=126 oc=51 md5=ee52f8e2
+r11u187repro/cases/G/g02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=104 oc=33 md5=c697a99a
+r11u187repro/cases/G/g03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 157 objects dd=98 oc=37 md5=f28b9df2
+r11u187repro/cases/G/g04 pris slrc=0 rc=0 cmp=371 NOT_EQUAL stage1 dd=218 oc=45 md5=a63b370b
+r11u187repro/cases/G/g06 pris slrc=0 rc=0 cmp=389 NOT_EQUAL stage1 dd=225 oc=50 md5=c54c0bdc
+r11u187repro/cases/G/g07 pris slrc=0 rc=0 cmp=206 NOT_EQUAL stage1 dd=193 oc=50 md5=9d416cd3
+r11u214dec/cases/A/d01_clonefn pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=162 oc=38 md5=01564bec
+r11u218dec/cases/CR/c02_void_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=26 oc=20 md5=a2ddf9f8
+r11u218dec/cases/CR/c05_string_ret_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 135 objects dd=28 oc=22 md5=d5cf9c42
+r11u218dec/cases/CR/c10_task_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 126 objects dd=32 oc=16 md5=b03cbf2b
+r11u220repro/cases/R218/r01 pris slrc=0 rc=0 cmp=628 NOT_EQUAL stage1 dd=214 oc=48 md5=d817220e
+r11u221verify/cases/X/x01 pris slrc=0 rc=0 cmp=516 NOT_EQUAL stage1 dd=230 oc=60 md5=9e374e90
+r11u226verify/cases/C/c05_clone_alias_formal pris slrc=0 rc=0 cmp=646 NOT_EQUAL stage1 dd=118 oc=29 md5=71ac22fb
+r11u226verify/cases/E/e23_clone_ret_kinds pris slrc=0 rc=0 cmp=138 NOT_EQUAL stage1 dd=1360 oc=305 md5=c6a7e43b
+r11u231repro/cases/AL/a01 pris slrc=0 rc=0 cmp=748 NOT_EQUAL stage1 dd=102 oc=33 md5=68fa8f37
+r11u231repro/cases/AL/a02 pris slrc=0 rc=0 cmp=748 NOT_EQUAL stage1 dd=110 oc=33 md5=d6c1cae5
+r11u231repro/cases/AL/a03 pris slrc=0 rc=0 cmp=684 NOT_EQUAL stage1 dd=228 oc=47 md5=cc99d00c
+r11u231repro/cases/AL/a04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 192 objects dd=242 oc=57 md5=f4560450
+r11u231repro/cases/AL/a05 pris slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=110 oc=41 md5=79717d44
+r11u231repro/cases/AL/a06 pris slrc=0 rc=0 cmp=156 NOT_EQUAL stage1 dd=172 oc=44 md5=d43b09a8
+r11u231repro/cases/AL/a08 pris slrc=0 rc=0 cmp=836 NOT_EQUAL stage1 dd=110 oc=33 md5=a8ac7da0
+r11u231repro/cases/AL/a09 pris slrc=0 rc=0 cmp=748 NOT_EQUAL stage1 dd=102 oc=33 md5=3404a920
+r11u231repro/cases/AL/a12 pris slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=113 oc=36 md5=135326ac
+r11u231repro/cases/AL/a13 pris slrc=0 rc=0 cmp=748 NOT_EQUAL stage1 dd=206 oc=61 md5=98e0bb25
+r11u231repro/cases/AL/a14 pris slrc=0 rc=0 cmp=460 NOT_EQUAL stage1 dd=102 oc=29 md5=b2d669cb
+r11u231repro/cases/TI/t16 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=123 oc=26 md5=0abd00c1
+r11u238repro/cases/K/k01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 647 objects dd=184 oc=102 md5=393392f9
+r11u238repro/cases/K/k03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 239 objects dd=66 oc=22 md5=080028f2
+r11u241repro/cases/AA/a01 pris slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=118 oc=60 md5=fc61018b
+r11u241repro/cases/AA/a03 pris slrc=0 rc=0 cmp=892 NOT_EQUAL stage1 dd=214 oc=118 md5=73e4182d
+r11u241repro/cases/AA/a04 pris slrc=0 rc=0 cmp=1744 NOT_EQUAL stage1 dd=390 oc=156 md5=248d93eb
+r11u241repro/cases/AA/a05 pris slrc=0 rc=0 cmp=592 NOT_EQUAL stage1 dd=118 oc=56 md5=332f6fb5
+r11u241repro/cases/AA/a06 pris slrc=0 rc=0 cmp=588 NOT_EQUAL stage1 dd=114 oc=56 md5=960e1283
+r11u241repro/cases/AA/a07 pris slrc=0 rc=0 cmp=588 NOT_EQUAL stage1 dd=104 oc=50 md5=15bd0c4f
+r11u241repro/cases/AA/a08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=104 oc=50 md5=571d36c5
+r11u241repro/cases/AA/a09 pris slrc=0 rc=0 cmp=592 NOT_EQUAL stage1 dd=104 oc=50 md5=cdc812c9
+r11u241repro/cases/AA/a10 pris slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=112 oc=58 md5=a5619128
+r11u241repro/cases/AA/a11 pris slrc=0 rc=0 cmp=784 NOT_EQUAL stage1 dd=190 oc=68 md5=cc13fa76
+r11u241repro/cases/CF/e03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 428 objects dd=370 oc=82 md5=4c0d463d
+r11u241repro/cases/CF/e04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 520 objects dd=307 oc=70 md5=0c0d5690
+r11u241repro/cases/CF/e05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=158 oc=39 md5=1527a122
+r11u241repro/cases/CF/e06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=132 oc=37 md5=b75dd2cd
+r11u241repro/cases/CF/e07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 565 objects dd=442 oc=81 md5=f63f4a20
+r11u241repro/cases/CF/e08 pris slrc=0 rc=0 cmp=486 NOT_EQUAL stage1 dd=80 oc=24 md5=84035c6b
+r11u241repro/cases/CF/e09 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1041 oc=197 md5=f001a939
+r11u241repro/cases/CF/e10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 860 objects dd=761 oc=144 md5=22e54f33
+r11u241repro/cases/CF/e11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 436 objects dd=289 oc=62 md5=ddd5d28f
+r11u241repro/cases/CF/e12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 429 objects dd=376 oc=76 md5=8977a77f
+r11u241repro/cases/CF/e13 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=516 oc=114 md5=57894962
+r11u244repro/cases/H/h05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 156 objects dd=82 oc=32 md5=4698a312
+r11u244repro/cases/H/h07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 252 objects dd=90 oc=40 md5=16b1d922
+r11u244repro/cases/H/h08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 420 objects dd=126 oc=68 md5=cd0afad8
+r11u244repro/cases/H/h09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=90 oc=40 md5=3e5fd4ee
+r11u244repro/cases/H/h10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 266 objects dd=100 oc=43 md5=966fdd6c
+r11u244repro/cases/H/h11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 405 objects dd=132 oc=59 md5=fe3adf1c
+r11u244repro/cases/H/h12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 402 objects dd=126 oc=60 md5=b0b391e3
+r11u244repro/cases/N/n01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 327 objects dd=110 oc=44 md5=1c3a8a63
+r11u244repro/cases/N/n02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 339 objects dd=114 oc=36 md5=44612a1d
+r11u244repro/cases/N/n03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=114 oc=36 md5=0fa56702
+r11u244repro/cases/N/n04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=126 oc=48 md5=e766598a
+r11u244repro/cases/N/n05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=298 oc=56 md5=1abb32bb
+r11u244repro/cases/N/n06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=116 oc=48 md5=aa0df9a4
+r11u244repro/cases/N/n07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=118 oc=40 md5=890b73f1
+r11u244repro/cases/N/n08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 425 objects dd=214 oc=70 md5=beec33fc
+r11u244repro/cases/N/n09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 498 objects dd=174 oc=58 md5=7d2a72ff
+r11u244repro/cases/N/n10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=170 oc=54 md5=79cdb7e6
+r11u244repro/cases/N/n11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 371 objects dd=120 oc=48 md5=75182dd5
+r11u244repro/cases/N/n12 pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=162 oc=54 md5=8434f537
+r11u244repro/cases/N/n13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 597 objects dd=272 oc=104 md5=e7c05571
+r11u244repro/cases/W/w01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 269 objects dd=146 oc=50 md5=4e6b44d4
+r11u244repro/cases/W/w02 pris slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=128 oc=34 md5=ece6fd17
+r11u244repro/cases/W/w03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 281 objects dd=146 oc=50 md5=538690b5
+r11u244repro/cases/W/w04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=146 oc=50 md5=63e58e93
+r11u244repro/cases/W/w05 pris slrc=0 rc=0 cmp=936 NOT_EQUAL stage1 dd=182 oc=80 md5=33898493
+r11u244repro/cases/W/w06 pris slrc=0 rc=0 cmp=1044 NOT_EQUAL stage1 dd=182 oc=80 md5=17b2f5e7
+r11u244repro/cases/W/w07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=168 oc=82 md5=9711a0dd
+r11u244repro/cases/W/w08 pris slrc=0 rc=0 cmp=1044 NOT_EQUAL stage1 dd=316 oc=110 md5=e7b5ad6d
+r11u244repro/cases/W/w09 pris slrc=0 rc=0 cmp=960 NOT_EQUAL stage1 dd=164 oc=60 md5=1dd09c1c
+r11u244repro/cases/W/w10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 407 objects dd=180 oc=76 md5=cf305a0e
+r11u244repro/cases/W/w11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=146 oc=50 md5=bbbb7f65
+r11u244repro/cases/W/w12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 317 objects dd=158 oc=54 md5=51c2026c
+r11u244repro/cases/W/w13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 137 objects dd=68 oc=24 md5=61825410
+r11u244repro/cases/W/w14 pris slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=128 oc=34 md5=28329d2b
+r11u244repro/cases/W/w15 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=162 oc=54 md5=f911c0e4
+r11u244repro/cases/W/w16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 332 objects dd=150 oc=62 md5=5cd54fbd
+r11u244repro/cases/X/x07 pris slrc=0 rc=0 cmp=1034 NOT_EQUAL stage1 dd=104 oc=56 md5=fba3653d
+r11u244repro/cases/X/x08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 737 objects dd=204 oc=68 md5=3e70df47
+r11u246repro/cases/FE/f13_importer pris slrc=0 rc=0 cmp=572 NOT_EQUAL stage1 dd=382 oc=74 md5=99674def
+r11u247repro/cases/F/f01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 543 objects dd=248 oc=76 md5=f29f0b47
+r11u247repro/cases/I/i01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 415 objects dd=126 oc=60 md5=b819b1a6
+r11u248repro/cases/C/c01_outbit pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 867 objects dd=542 oc=138 md5=f974450c
+r11u248repro/cases/C/d01_decode247 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 554 objects dd=312 oc=78 md5=3a6989db
+r11u248repro/cases/S/s02_this_static pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 341 objects dd=136 oc=46 md5=284adc15
+r11u248repro/cases/S/s03_typedef_ctl pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=89 oc=34 md5=19a7f382
+r11u248repro/cases/S/s04_inherit_dot pris slrc=0 rc=0 cmp=50 NOT_EQUAL stage1 dd=225 oc=67 md5=03d05cc5
+r11u248repro/cases/S/s05_unitimp_ctl pris slrc=0 rc=0 cmp=636 NOT_EQUAL stage1 dd=80 oc=31 md5=34cf2b07
+r11u248repro/cases/W/w01_findidx pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 770 objects dd=246 oc=196 md5=57242850
+r11u248repro/cases/W/w02_shapes pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 779 objects dd=254 oc=210 md5=ff97cbb3
+r11u248repro/cases/W/w05_selrecv pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 389 objects dd=214 oc=78 md5=071b3474
+r11u248repro/cases/W/w06_thisrecv pris slrc=0 rc=0 cmp=148 NOT_EQUAL stage1 dd=385 oc=91 md5=9612120d
+r11u248repro/cases/W/w07_nested pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 395 objects dd=218 oc=98 md5=d94d975a
+r11u248repro/cases/W/w08_macro pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 359 objects dd=210 oc=66 md5=0fe1c476
+r11u248repro/cases/W/w09_slots pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=242 oc=110 md5=46ac8102
+r11u248repro/cases/W/w10_call pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=210 oc=82 md5=3efb5dbc
+r11u248repro/cases/W/w11_implicit pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=226 oc=72 md5=79d7a895
+r11u252repro/cases/L/l10_task pris slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=82 oc=42 md5=f8c3d8f3
+r11u252repro/cases/R/r01_empty_with pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=46 oc=32 md5=c9922aa1
+r11u252repro/cases/R/r02_constraint pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=46 oc=32 md5=25a9666a
+r11u252repro/cases/R/r03_scope_form_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=54 oc=28 md5=6cbb5b6f
+r11u252repro/cases/R/r05_assign pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 122 objects dd=50 oc=20 md5=2427825b
+r11u252repro/cases/R/r06_formal_recv pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=46 oc=32 md5=e7f25f00
+r11u252repro/cases/R/r07_no_with_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=46 oc=32 md5=4edeec3e
+r11u252repro/cases/R/r08_macro_like pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 166 objects dd=50 oc=44 md5=a54d49b6
+r11u252repro/cases/R/r09_const_slot pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=46 oc=32 md5=2940b263
+r11u252repro/cases/R/r10_function_return pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=38 oc=22 md5=f81fe8ed
+r11u252repro/cases/X/x01_call_arg pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 362 objects dd=144 oc=100 md5=9ede32fd
+r11u252repro/cases/X/x02_rvalue pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 349 objects dd=140 oc=84 md5=17bd7495
+r11u252repro/cases/X/x03_index_op pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 357 objects dd=148 oc=92 md5=4fa176ff
+r11u252repro/cases/X/x04_two_levels pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=160 oc=84 md5=d26f6317
+r11u252repro/cases/X/x05_lvalue pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 346 objects dd=144 oc=88 md5=2d61f674
+r11u252repro/cases/X/x06_const_index pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 349 objects dd=148 oc=92 md5=84b8b2c5
+r11u252repro/cases/X/x07_call_index pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=140 oc=84 md5=3087f9fd
+r11u252repro/cases/X/x08_member_sel pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=140 oc=84 md5=3b6e13e2
+r11u252repro/cases/X/x09_part_select_slot pris slrc=0 rc=0 cmp=180 NOT_EQUAL stage1 dd=432 oc=132 md5=d5ed38ca
+r11u252repro/cases/X/x11_ref_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=140 oc=84 md5=b28fadf4
+r11u252repro/cases/X/x12_inc_dec pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 326 objects dd=140 oc=84 md5=570a76aa
+r11u253repro/cases/A/a01_fn_queue pris slrc=0 rc=0 cmp=746 NOT_EQUAL stage1 dd=110 oc=68 md5=0094fbab
+r11u253repro/cases/A/a02_fn_dyn pris slrc=0 rc=0 cmp=770 NOT_EQUAL stage1 dd=110 oc=68 md5=664c7786
+r11u253repro/cases/A/a03_fn_assoc_int pris slrc=0 rc=0 cmp=782 NOT_EQUAL stage1 dd=146 oc=76 md5=034b5713
+r11u253repro/cases/A/a04_fn_fixed pris slrc=0 rc=0 cmp=782 NOT_EQUAL stage1 dd=114 oc=72 md5=f7bee85e
+r11u253repro/cases/A/a06_oob_method_queue_arg pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 463 objects dd=124 oc=68 md5=953ac410
+r11u253repro/cases/A/a09_argface_style_queue pris slrc=0 rc=0 cmp=642 NOT_EQUAL stage1 dd=130 oc=44 md5=8e574bd5
+r11u253repro/cases/F/f01_fixed_local pris slrc=0 rc=0 cmp=518 NOT_EQUAL stage1 dd=62 oc=40 md5=4ee097dd
+r11u253repro/cases/F/f02_fixed_param_foreach pris slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=290 oc=81 md5=ab32a03e
+r11u253repro/cases/F/f03_fixed_2d pris slrc=0 rc=0 cmp=582 NOT_EQUAL stage1 dd=66 oc=44 md5=479a634e
+r11u253repro/cases/F/f04_fixed_oob_method pris slrc=0 rc=0 cmp=584 NOT_EQUAL stage1 dd=48 oc=40 md5=e0ba490c
+r11u253repro/cases/F/f06_argface_style_fixed pris slrc=0 rc=0 cmp=518 NOT_EQUAL stage1 dd=92 oc=40 md5=0d64ba3a
+r11u253repro/cases/M/m01_fn_exists pris slrc=0 rc=0 cmp=626 NOT_EQUAL stage1 dd=136 oc=72 md5=c1e0768a
+r11u253repro/cases/M/m02_oob_class_sync pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 685 objects dd=202 oc=99 md5=41caa19f
+r11u253repro/cases/M/m03_two_importers pris slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=312 oc=132 md5=504ffed8
+r11u253repro/cases/M/m04_with_later_arg pris slrc=0 rc=0 cmp=930 NOT_EQUAL stage1 dd=126 oc=90 md5=cba1b117
+r11u253repro/cases/M/m06_two_calls_same_line pris slrc=0 rc=0 cmp=810 NOT_EQUAL stage1 dd=248 oc=114 md5=fe7f3a85
+r11u253repro/cases/M/m07_macro_body pris slrc=0 rc=0 cmp=670 NOT_EQUAL stage1 dd=174 oc=90 md5=677fd7d6
+r11u253repro/cases/M/m08_argface_c1 pris slrc=0 rc=0 cmp=878 NOT_EQUAL stage1 dd=176 oc=76 md5=319e57ce
+r11u253repro/cases/M/m09_argface_class_recv pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 392 objects dd=200 oc=72 md5=0800865e
+r11u253repro/cases/M/m10_argface_block pris slrc=0 rc=0 cmp=1490 NOT_EQUAL stage1 dd=316 oc=128 md5=4776463b
+r11u253repro/cases/T/t03_oob_parens_control pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 235 objects dd=66 oc=40 md5=a1deb390
+r11u253repro/cases/T/t05_task_parenless_control pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=60 oc=32 md5=f8be3bf1
+r11u258repro/cases/A/a01_dotted_ext pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 435 objects dd=396 oc=115 md5=00dfd722
+r11u258repro/cases/A/a07_pkg_func_local pris slrc=0 rc=0 cmp=794 NOT_EQUAL stage1 dd=564 oc=102 md5=23435f43
+r11u258repro/cases/A/a09_bare_ext pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 472 objects dd=458 oc=129 md5=97fab9d2
+r11u258repro/cases/A/a10_unpacked_ext pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 472 objects dd=434 oc=125 md5=44381147
+r11u258repro/cases/A/a12_two_importers_ext pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=434 oc=129 md5=71f2ed7f
+r11u258repro/cases/A/a14_local_assoc_ext pris slrc=0 rc=0 cmp=1630 NOT_EQUAL stage1 dd=1256 oc=278 md5=bb657675
+r11u258repro/cases/A/a15_queue_of_structs_ext pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 375 objects dd=446 oc=122 md5=7a8aeb99
+r11u258repro/cases/B/b01_bit_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=158 oc=47 md5=011002cf
+r11u258repro/cases/B/b02_logic_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=158 oc=47 md5=5a26d92e
+r11u258repro/cases/B/b03_enum_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=96 oc=47 md5=852e53e2
+r11u258repro/cases/B/b04_byte pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=100 oc=47 md5=d3634aff
+r11u258repro/cases/B/b05_bitvec_kw pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=138 oc=48 md5=08795727
+r11u258repro/cases/B/b06_bit_td_bare pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=170 oc=51 md5=cd346162
+r11u258repro/cases/B/b07_int_kw pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=100 oc=47 md5=f0c06610
+r11u258repro/cases/B/b08_string pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=98 oc=47 md5=eef4f012
+r11u259repro/cases/L/l03_queue_formal pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=173 oc=65 md5=3c7ea9e6
+r11u259repro/cases/L/l05_fixed_formal pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=177 oc=69 md5=e2e7cf28
+r11u259repro/cases/L/l08_local_array pris slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=706 oc=186 md5=446a7cfb
+r11u259repro/cases/M/m01_iface_last pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=72 oc=27 md5=7a270359
+r11u259repro/cases/M/m02_pkg_only pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 141 objects dd=72 oc=25 md5=2a2cce33
+r11u259repro/cases/M/m03_two_modules pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 219 objects dd=72 oc=33 md5=c90954d4
+r11u259repro/cases/M/m05_foreach_block pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=694 oc=149 md5=6148cccd
+r11u259repro/cases/M/m08_two_pkgs pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 288 objects dd=166 oc=52 md5=496abf37
+r11u259repro/cases/M/m10_packed pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 327 objects dd=155 oc=51 md5=e72bd998
+r11u259repro/cases/M/m11_union pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=155 oc=49 md5=9d7dc865
+r11u259repro/cases/M/m12_iface_then_module pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 247 objects dd=72 oc=31 md5=0c459bfb
+r11u259repro/cases/M/m13_task pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 218 objects dd=70 oc=11 md5=981a1aa0
+r11u259repro/cases/M/m14_member_lhs pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 261 objects dd=76 oc=31 md5=ed040b3c
+r11u264repro/cases/C/c08_oob_func_control pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 167 objects dd=74 oc=32 md5=807a1a8f
+r11u265repro/cases/B/b01_vd01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=264 oc=64 md5=1b4e1446
+r11u265repro/cases/B/b02_byte_en_local_name_clash pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 359 objects dd=158 oc=46 md5=1ebe30d7
+r11u265repro/cases/B/b03_part_select pris slrc=0 rc=0 cmp=512 NOT_EQUAL stage1 dd=84 oc=26 md5=b9319b21
+r11u265repro/cases/B/b04_rhs_bitsel pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 254 objects dd=100 oc=20 md5=16d95faf
+r11u265repro/cases/B/b06_union_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 335 objects dd=142 oc=30 md5=51a3be55
+r11u265repro/cases/B/b08_two_level pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=146 oc=24 md5=1c81b96b
+r11u265repro/cases/B/b09_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 341 objects dd=190 oc=30 md5=b6247e4c
+r11u265repro/cases/B/b10_macro_body pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 242 objects dd=96 oc=18 md5=7c5b0149
+r11u265repro/cases/E/e01_struct_enum_member_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=130 oc=27 md5=7283a455
+r11u265repro/cases/E/e02_struct_enum_member_queue pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 552 objects dd=406 oc=39 md5=b9aaf804
+r11u265repro/cases/E/e03_union_enum_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 605 objects dd=360 oc=67 md5=cf095937
+r11u265repro/cases/E/e04_no_formal_writer pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 256 objects dd=78 oc=22 md5=393f7002
+r11u265repro/cases/E/e05_nested_begin_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=190 oc=35 md5=6d768a8f
+r11u265repro/cases/E/e06_enum_from_third_pkg pris slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=206 oc=30 md5=4c12c181
+r11u265repro/cases/E/e07_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=258 oc=41 md5=687ba5df
+r11u265repro/cases/E/e08_free_function pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 331 objects dd=182 oc=34 md5=f33026b0
+r11u265repro/cases/E/e09_two_enum_members pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 540 objects dd=280 oc=46 md5=3632c1bf
+r11u265repro/cases/E/e10_macro_formal pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=126 oc=23 md5=fb4f70f6
+r11u265repro/cases/E/e11_header_crlf pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 334 objects dd=138 oc=35 md5=90fff6ec
+r11u265repro/cases/E/e12_task_level_local pris slrc=0 rc=0 cmp=1000 NOT_EQUAL stage1 dd=142 oc=39 md5=e7055572
+r11u285repro/cases/M/m01_tflocal pris slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=102 oc=33 md5=68f446d7
+r11u285repro/cases/M/m02_blocklocal pris slrc=0 rc=0 cmp=456 NOT_EQUAL stage1 dd=40 oc=8 md5=22df1cbe
+r11u285repro/cases/M/m03_union pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 308 objects dd=98 oc=33 md5=7a5f2b68
+r11u285repro/cases/M/m04_bittd pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 840 objects dd=382 oc=74 md5=0656eb25
+r11u285repro/cases/M/m05_logictd pris slrc=0 rc=0 cmp=357 NOT_EQUAL stage1 dd=132 oc=48 md5=d7efc072
+r11u285repro/cases/M/m06_inttd pris slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=274 oc=74 md5=0f3b4e5e
+r11u285repro/cases/M/m07_enumtd pris slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=138 oc=37 md5=d6467744
+r11u285repro/cases/M/m08_nested pris slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=374 oc=96 md5=cda9611f
+r11u285repro/cases/M/m09_twoimp pris slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=294 oc=90 md5=0b9bd873
+r11u285repro/cases/M/m10_formal pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 626 objects dd=202 oc=60 md5=99c16807
+r11u285repro/cases/M/m11_signedtd pris slrc=0 rc=0 cmp=359 NOT_EQUAL stage1 dd=380 oc=82 md5=2e639656
+r11u293repro/cases/CR/cr01_string_bitsel pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 220 objects dd=52 oc=34 md5=78620b9c
+r11u293repro/cases/CR/cr08_class_oob_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 257 objects dd=72 oc=34 md5=5d63135a
+r11u293repro/cases/CR/cr09_method_receiver pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 286 objects dd=48 oc=30 md5=c216bb79
+r11u296repro/cases/CI/ci01_local_idx_method pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 551 objects dd=250 oc=82 md5=78b19a8d
+r11u296repro/cases/CI/ci02_formal_idx pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 470 objects dd=192 oc=68 md5=2c9bace1
+r11u296repro/cases/CI/ci03_pkgvar_idx pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 482 objects dd=192 oc=68 md5=ba841b9b
+r11u296repro/cases/CI/ci04_op_idx pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 569 objects dd=208 oc=84 md5=3ac30e42
+r11u296repro/cases/CI/ci05_nested_sel_idx pris slrc=0 rc=0 cmp=1432 NOT_EQUAL stage1 dd=246 oc=110 md5=968a07de
+r11u296repro/cases/CI/ci06_struct_member pris slrc=0 rc=0 cmp=62 NOT_EQUAL stage1 dd=658 oc=142 md5=c587115a
+r11u296repro/cases/CI/ci07_struct_member_rhs pris slrc=0 rc=0 cmp=62 NOT_EQUAL stage1 dd=790 oc=144 md5=4caa97f3
+r11u296repro/cases/CI/ci08_prop_read pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 496 objects dd=174 oc=58 md5=d14b5d17
+r11u296repro/cases/CI/ci09_task_clone pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=341 oc=94 md5=7b11a532
+r11u296repro/cases/CI/ci10_two_sel_path pris slrc=0 rc=0 cmp=132 NOT_EQUAL stage1 dd=414 oc=122 md5=9fb53cc2
+r11u296repro/cases/CI/ci11_call_idx pris slrc=0 rc=0 cmp=174 NOT_EQUAL stage1 dd=349 oc=88 md5=664e9ec7
+r11u296repro/cases/CI/ci12_module_import_ctl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 443 objects dd=250 oc=82 md5=08f1cc6e
+r11u296repro/cases/CI/ci13_chain_import pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 771 objects dd=488 oc=158 md5=ddff4d9e
+r11u296repro/cases/CI/ci14_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 749 objects dd=454 oc=155 md5=5cb45db5
+r11u446repro/cases/CB/cb01 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=74 oc=21 md5=b4e25e30
+r11u446repro/cases/QU/qu01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 404 objects dd=88 oc=56 md5=7b41aaaf
+r11u446repro/cases/QU/qu02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 360 objects dd=84 oc=36 md5=eb0a619f
+r11u446repro/cases/SM/sm03 pris slrc=0 rc=0 cmp=858 NOT_EQUAL stage1 dd=148 oc=35 md5=8de85bb5
+r11u449repro/cases/FC/fc01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 134 objects dd=56 oc=28 md5=e8fc0166
+r11u449repro/cases/IT/it01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 621 objects dd=338 oc=66 md5=e971b4c1
+r11u449repro/cases/MC/mc04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 384 objects dd=150 oc=56 md5=466b76fa
+r11u450repro/cases/IX/ix01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 231 objects dd=80 oc=58 md5=cc9f1d37
+r11u450repro/cases/IX/ix02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=60 oc=42 md5=0f76229d
+r11u450repro/cases/IX/ix04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 287 objects dd=92 oc=58 md5=2090f7da
+r11u450repro/cases/IX/ix05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=60 oc=42 md5=4993db76
+r11u450repro/cases/IX/ix06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=100 oc=58 md5=f7ff38e4
+r11u450repro/cases/IX/ix07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=60 oc=58 md5=4b9dcf00
+r11u450repro/cases/IX/ix09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 366 objects dd=96 oc=96 md5=ae48d6f9
+r11u450repro/cases/IX/ix11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=60 oc=42 md5=264203f6
+r11u450repro/cases/IX/ix12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=122 oc=66 md5=03d54fd8
+r11u450repro/cases/IX/ix13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 246 objects dd=72 oc=62 md5=bf444e44
+r11u450repro/cases/IX/ix15 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 309 objects dd=72 oc=98 md5=a79acd96
+r11u450repro/cases/IX/ix16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 324 objects dd=72 oc=98 md5=5c5f3c9f
+r11u450repro/cases/IX/ix17 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 336 objects dd=80 oc=102 md5=41c48f20
+r11u450repro/cases/IX/ix18 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 336 objects dd=84 oc=106 md5=90e9dc25
+r11u450repro/cases/IX/ix19 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 354 objects dd=76 oc=98 md5=054379ff
+r11u450repro/cases/IX/ix22 pris slrc=0 rc=0 cmp=538 NOT_EQUAL stage1 dd=168 oc=66 md5=3371157c
+r11u450repro/cases/IX/ix23 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 378 objects dd=162 oc=78 md5=0197f701
+r11u450repro/cases/OC/oc01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1128 objects dd=782 oc=99 md5=572f4e85
+r11u450repro/cases/OC/oc02 pris slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=1450 oc=211 md5=b606e2d2
+r11u450repro/cases/OC/oc03 pris slrc=0 rc=0 cmp=928 NOT_EQUAL stage1 dd=464 oc=72 md5=4f088c7f
+r11u450repro/cases/OC/oc04 pris slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=1102 oc=149 md5=da5527a3
+r11u450repro/cases/OC/oc05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1170 objects dd=776 oc=96 md5=99c73fcf
+r11u457repro/cases/IC/ic03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=58 oc=24 md5=20e25233
+r11u458repro/cases/LT/lt02 pris slrc=0 rc=0 cmp=386 NOT_EQUAL stage1 dd=140 oc=30 md5=e56e20a3
+r11u458repro/cases/LT/lt06 pris slrc=0 rc=0 cmp=386 NOT_EQUAL stage1 dd=130 oc=24 md5=8f7b5110
+r11u458repro/cases/LT/lt07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 90 objects dd=44 oc=30 md5=ec2a25de
+r11u458repro/cases/MB/mb01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1324 objects dd=832 oc=96 md5=55ef2151
+r11u458repro/cases/MB/mb02 pris slrc=0 rc=0 cmp=1602 NOT_EQUAL stage1 dd=1660 oc=212 md5=b17950a0
+r11u458repro/cases/MB/mb06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1620 objects dd=2166 oc=261 md5=941a4bd9
+r11u458repro/cases/MB/mb07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1056 objects dd=1294 oc=160 md5=35f1d768
+r11u458repro/cases/MB/mb08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1214 objects dd=1294 oc=164 md5=c9922715
+r11u458repro/cases/MB/mb09 pris slrc=0 rc=0 cmp=1270 NOT_EQUAL stage1 dd=1576 oc=181 md5=fafdb962
+r11u460repro/cases/OB/ob02 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=193 oc=52 md5=0b1ad9f9
+r11u460repro/cases/OB/ob03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=90 oc=36 md5=c97b4fb8
+r11u460repro/cases/OB/ob04 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=193 oc=52 md5=dd9b74d9
+r11u460repro/cases/OB/ob05 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=153 oc=38 md5=eed2c3af
+r11u461repro/cases/UN/un19 pris slrc=0 rc=0 cmp=386 NOT_EQUAL stage1 dd=140 oc=30 md5=52d5972c
+r11u461repro/cases/UN/un20 pris slrc=0 rc=0 cmp=386 NOT_EQUAL stage1 dd=130 oc=24 md5=b9a359df
+r11u462repro/cases/RV/rv04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 344 objects dd=300 oc=48 md5=2f7492bb
+r11u465repro/cases/LV/lv04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 oc=22 md5=c2fce6a0
+r11u465repro/cases/LV/lv05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 168 objects dd=90 oc=22 md5=69156260
+r11u476repro/cases/CC/cc01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=76 oc=32 md5=2c163c45
+r11u476repro/cases/CC/cc02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 oc=64 md5=ab24bf51
+r11u476repro/cases/CC/cc03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 487 objects dd=234 oc=94 md5=45603ee3
+r11u476repro/cases/CC/cc04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 482 objects dd=234 oc=94 md5=89553192
+r11u476repro/cases/CC/cc05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=86 oc=34 md5=51e7d638
+r11u476repro/cases/CC/cc06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=158 oc=64 md5=916ed922
+r11u476repro/cases/CC/cc07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=158 oc=64 md5=15c34096
+r11u476repro/cases/CC/cc08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 384 objects dd=154 oc=70 md5=89f32f92
+r11u476repro/cases/CC/cc09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 312 objects dd=106 oc=48 md5=db5c182f
+r11u476repro/cases/CC/cc10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=98 oc=40 md5=c0d266dc
+r11u476repro/cases/CC/cc11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=110 oc=64 md5=a2492970
+r11u476repro/cases/CC/cc13 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=104 oc=62 md5=94f6f6f9
+r11u478repro/cases/AF/af01 pris slrc=0 rc=0 cmp=394 NOT_EQUAL stage1 dd=186 oc=52 md5=23b6222f
+r11u478repro/cases/AF/af02 pris slrc=0 rc=0 cmp=402 NOT_EQUAL stage1 dd=290 oc=68 md5=9a04686b
+r11u478repro/cases/AF/af03 pris slrc=0 rc=0 cmp=65 NOT_EQUAL stage1 dd=295 oc=81 md5=26244f50
+r11u478repro/cases/AF/af05 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=357 oc=88 md5=30d5a9c5
+r11u478repro/cases/AF/af06 pris slrc=0 rc=0 cmp=394 NOT_EQUAL stage1 dd=94 oc=28 md5=2a2e8564
+r11u478repro/cases/AF/af07 pris slrc=0 rc=0 cmp=124 NOT_EQUAL stage1 dd=318 oc=72 md5=c8c35a6b
+r11u478repro/cases/AF/af08 pris slrc=0 rc=0 cmp=472 NOT_EQUAL stage1 dd=386 oc=80 md5=bbff95c2
+r11u478repro/cases/AF/af09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 364 objects dd=420 oc=100 md5=9a3687e5
+r11u478repro/cases/AF/af10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 264 objects dd=214 oc=52 md5=e7560f8d
+r11u478repro/cases/AM/am01 pris slrc=0 rc=0 cmp=1120 NOT_EQUAL stage1 dd=592 oc=98 md5=da9976ac
+r11u478repro/cases/AM/am02 pris slrc=0 rc=0 cmp=1164 NOT_EQUAL stage1 dd=600 oc=106 md5=6b7503e7
+r11u478repro/cases/AM/am03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 542 objects dd=178 oc=74 md5=d62ae435
+r11u478repro/cases/AM/am04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 587 objects dd=186 oc=82 md5=d14c61f1
+r11u478repro/cases/AM/am05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 737 objects dd=222 oc=82 md5=9ff26721
+r11u478repro/cases/AM/am06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 509 objects dd=140 oc=74 md5=63493b7a
+r11u478repro/cases/AM/am07 pris slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=946 oc=196 md5=30956804
+r11u478repro/cases/AM/am08 pris slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=850 oc=154 md5=70b87df2
+r11u478repro/cases/AM/am09 pris slrc=0 rc=0 cmp=198 NOT_EQUAL stage1 dd=374 oc=82 md5=40c03c40
+r11u478repro/cases/AM/am10 pris slrc=0 rc=0 cmp=38 NOT_EQUAL stage1 dd=550 oc=140 md5=6438f3fc
+r11u478repro/cases/AM/am11 pris slrc=0 rc=0 cmp=1368 NOT_EQUAL stage1 dd=636 oc=106 md5=f22d6e6b
+r11u478repro/cases/AM/am12 pris slrc=4 rc=0 cmp=1194 NOT_EQUAL stage1 dd=1148 oc=198 md5=7998820d
+r11u478repro/cases/AM/am13 pris slrc=0 rc=0 cmp=926 NOT_EQUAL stage1 dd=614 oc=101 md5=a75249ec
+r11u478repro/cases/PB/pb01 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=104 oc=62 md5=2228d04e
+r11u478repro/cases/PB/pb03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 298 objects dd=104 oc=56 md5=ae99e7ce
+r11u478repro/cases/PB/pb04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 296 objects dd=98 oc=40 md5=81792777
+r11u478repro/cases/PB/pb05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 224 objects dd=58 oc=30 md5=b368ef4f
+r11u478repro/cases/PB/pb06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=76 oc=32 md5=a0b7a403
+r11u478repro/cases/PB/pb07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 479 objects dd=264 oc=74 md5=c7303267
+r11u478repro/cases/PB/pb08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 352 objects dd=148 oc=82 md5=1da53505
+r11u480repro/cases/FA/fa16 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 md5=701ea980
+r11v174repro/cases/dp/d02 pris slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=1364 oc=119 md5=48587adb
+r11v178repro/cases/ic/i01_local_kinds pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1325 objects dd=616 oc=207 md5=72319781
+r11v178repro/cases/ic/i04_chain_import pris slrc=0 rc=0 cmp=122 NOT_EQUAL stage1 dd=1302 oc=276 md5=c167320b
+v11u187repro/cases/G/g11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 167 objects dd=86 oc=25 md5=c66973b3
+v11u187repro/cases/G/g12 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=137 oc=34 md5=cbb49585
+v11u187repro/cases/G/g13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=116 oc=42 md5=00c4b5fb
+v11u187repro/cases/G/g14 pris slrc=0 rc=0 cmp=642 NOT_EQUAL stage1 dd=136 oc=56 md5=7fbf33c4
+v11u187repro/cases/G/g15 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=100 oc=33 md5=0b9c1fa9
+v11u187repro/cases/G/g16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=100 oc=33 md5=8520837e
+v11u187repro/cases/G/g18 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 324 objects dd=87 oc=29 md5=51c0617f
+v11u187repro/cases/G/g19 pris slrc=0 rc=0 cmp=194 NOT_EQUAL stage1 dd=412 oc=82 md5=3c801f87
+v11u187repro/cases/G/g20 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=94 oc=37 md5=e5f7ff33
+v11u187repro/cases/G/g21 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 227 objects dd=138 oc=40 md5=5f360175
+v11u216repro/cases/T/t08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 486 objects dd=234 oc=46 md5=cc678569
+v11u220repro/cases/R/r02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 154 objects dd=34 oc=28 md5=9aa89654
+v11u232repro/cases/CX/cx05 pris slrc=0 rc=0 cmp=868 NOT_EQUAL stage1 dd=352 oc=102 md5=38a76d90
+v11u238repro/cases/A/a02_shadow pris slrc=0 rc=0 cmp=32 NOT_EQUAL stage1 dd=198 oc=74 md5=9d7f6db5
+v11u238repro/cases/A/a04_synth pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=442 oc=94 md5=a3ef378e
+v11u238repro/cases/A/a05_inner_shadow pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 457 objects dd=168 oc=70 md5=cebc7834
+v11u238repro/cases/A/a06_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 432 objects dd=198 oc=74 md5=be39831e
+v11u238repro/cases/A/a08_synth pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=318 oc=69 md5=81e0f57a
+v11u238repro/cases/D/d01_tdqueue pris slrc=0 rc=0 cmp=1632 NOT_EQUAL stage1 dd=519 oc=102 md5=7f59b453
+v11u238repro/cases/D/d02_param_cls pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=209 oc=49 md5=25ed2cc6
+v11u238repro/cases/D/d03_tdq pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=197 oc=42 md5=f62167b1
+v11u238repro/cases/D/d04_twoidx pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=251 oc=60 md5=48b43683
+v11u238repro/cases/D/d05_static_scope pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 248 objects dd=175 oc=38 md5=ef592539
+v11u238repro/cases/E/e01_mixed pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=299 oc=72 md5=14a01c9a
+v11u238repro/cases/E/e02_this_paths pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=209 oc=54 md5=52777f8f
+v11u241repro/cases/AG/g02 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=1081 oc=154 md5=4329fc86
+v11u241repro/cases/AG/g03 pris slrc=0 rc=0 cmp=1122 NOT_EQUAL stage1 dd=328 oc=59 md5=01359647
+v11u241repro/cases/AG/g04 pris slrc=0 rc=0 cmp=652 NOT_EQUAL stage1 dd=264 oc=53 md5=018b62fe
+v11u241repro/cases/AG/g05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 501 objects dd=242 oc=63 md5=ed0400b0
+v11u241repro/cases/AG/g06 pris slrc=0 rc=0 cmp=360 NOT_EQUAL stage1 dd=736 oc=102 md5=1fe3c239
+v11u241repro/cases/AG/g07 pris slrc=0 rc=0 cmp=1164 NOT_EQUAL stage1 dd=376 oc=69 md5=544a3dff
+v11u241repro/cases/AG/g08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 428 objects dd=370 oc=82 md5=c51ee49a
+v11u241repro/cases/AG/g09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 379 objects dd=182 oc=44 md5=ce420e78
+v11u241repro/cases/AG/g10 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=865 oc=173 md5=bc1c2259
+v11u241repro/cases/AG/g12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 597 objects dd=254 oc=63 md5=03c989e0
+v11u241repro/cases/AG/g13 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=890 oc=152 md5=f43ca54a
+v11u241repro/cases/AG/g14 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=350 oc=63 md5=bb0d9b01
+v11u241repro/cases/AG/g15 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=440 oc=82 md5=71972498
+v11u241repro/cases/AG/g16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=158 oc=39 md5=6722f4b8
+v11u241repro/cases/AG/g17 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 392 objects dd=154 oc=35 md5=9b28fd63
+v11u241repro/cases/AG/g18 pris slrc=0 rc=0 cmp=1466 NOT_EQUAL stage1 dd=668 oc=118 md5=4087ca31
+v11u241repro/cases/AR/r01 pris slrc=0 rc=0 cmp=934 NOT_EQUAL stage1 dd=182 oc=94 md5=6722aa17
+v11u241repro/cases/AR/r02 pris slrc=0 rc=0 cmp=804 NOT_EQUAL stage1 dd=260 oc=82 md5=701a51a9
+v11u241repro/cases/AR/r03 pris slrc=0 rc=0 cmp=996 NOT_EQUAL stage1 dd=930 oc=144 md5=52e13cf7
+v11u241repro/cases/AR/r05 pris slrc=0 rc=0 cmp=448 NOT_EQUAL stage1 dd=104 oc=62 md5=ebd4d153
+v11u241repro/cases/AR/r06 pris slrc=0 rc=0 cmp=150 NOT_EQUAL stage1 dd=242 oc=102 md5=4bc3ca37
+v11u241repro/cases/AR/r08 pris slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=114 oc=56 md5=269d7794
+v11u241repro/cases/AR/r09 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 346 objects dd=154 oc=58 md5=3117394b
+v11u241repro/cases/AR/r10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 533 objects dd=296 oc=144 md5=1e4b7262
+v11u241repro/cases/AR/r11 pris slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=118 oc=56 md5=e953ec84
+v11u241repro/cases/AR/r12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=180 oc=56 md5=827e9e8b
+v11u241repro/cases/AR/r13 pris slrc=0 rc=0 cmp=856 NOT_EQUAL stage1 dd=390 oc=58 md5=c01f89d4
+v11u241repro/cases/AR/r14 pris slrc=0 rc=0 cmp=736 NOT_EQUAL stage1 dd=201 oc=59 md5=aaaba999
+v11u241repro/cases/AR/r15 pris slrc=0 rc=0 cmp=1122 NOT_EQUAL stage1 dd=458 oc=82 md5=fe15eb66
+v11u241repro/cases/AR/r16 pris slrc=0 rc=0 cmp=862 NOT_EQUAL stage1 dd=274 oc=66 md5=14718acd
+v11u244repro/cases/E/e07_x_2d_assoc pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=380 oc=102 md5=42e52a5e
+v11u244repro/cases/E/e08_x_nested_loop pris slrc=0 rc=0 cmp=1078 NOT_EQUAL stage1 dd=897 oc=155 md5=66ab9a93
+v11u244repro/cases/E/e09_x_param_dims pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=516 oc=112 md5=748a8809
+v11u244repro/cases/E/e10_x_struct_class pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 751 objects dd=644 oc=88 md5=b258ea71
+v11u244repro/cases/E/e11_x_tdarr_kinds pris slrc=0 rc=0 cmp=1500 NOT_EQUAL stage1 dd=2512 oc=454 md5=baf531ad
+v11u244repro/cases/W/w04_x_forms pris slrc=0 rc=0 cmp=1876 NOT_EQUAL stage1 dd=222 oc=80 md5=992df4ff
+v11u244repro/cases/W/w05_x_task pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=46 oc=20 md5=12a0c1c1
+v11u244repro/cases/W/w06_x_declinit pris slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=230 oc=72 md5=ba8e9af3
+v11u247repro/cases/A/a01_shadowq pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 553 objects dd=260 oc=74 md5=3546476d
+v11u247repro/cases/A/a02_siblingq pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 555 objects dd=190 oc=50 md5=e206d844
+v11u247repro/cases/A/a03_queue_taskq pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 562 objects dd=214 oc=84 md5=9d3fbb6f
+v11u247repro/cases/A/a04_inbodyq pris slrc=0 rc=0 cmp=990 NOT_EQUAL stage1 dd=298 oc=48 md5=e5d1e979
+v11u247repro/cases/A/a05_twoimpq pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 470 objects dd=234 oc=66 md5=e7ab9eeb
+v11u247repro/cases/H/h02_inbodyq pris slrc=0 rc=0 cmp=31 NOT_EQUAL stage1 dd=118 oc=54 md5=03442707
+v11u248repro/cases/A/a02_enum_elem pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 643 objects dd=336 oc=69 md5=53193ea3
+v11u248repro/cases/A/a04_string_elem pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 464 objects dd=284 oc=83 md5=d9f460a2
+v11u248repro/cases/A/a10_nested_with pris slrc=0 rc=0 cmp=1156 NOT_EQUAL stage1 dd=206 oc=78 md5=49135660
+v11u248repro/cases/B/b01_ws_recv pris slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=486 oc=100 md5=a862cee9
+v11u248repro/cases/B/b02_sum_cast pris slrc=0 rc=0 cmp=32 NOT_EQUAL stage1 dd=280 oc=98 md5=1d48a162
+v11u248repro/cases/B/b04_minmax_unique pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 651 objects dd=398 oc=104 md5=bc7d29e3
+v11u248repro/cases/B/b05_assoc_recv pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 717 objects dd=432 oc=118 md5=139ef81b
+v11u248repro/cases/B/b06_struct_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 855 objects dd=834 oc=144 md5=dd62d0a5
+v11u248repro/cases/B/b07_ctx_if_return pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 849 objects dd=596 oc=152 md5=e2b9399b
+v11u248repro/cases/B/b08_concat_repl pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 654 objects dd=414 oc=124 md5=4fd5d7ef
+v11u248repro/cases/B/b09_recv_select pris slrc=0 rc=0 cmp=276 NOT_EQUAL stage1 dd=490 oc=92 md5=7908fe5d
+v11u248repro/cases/B/b11_super_recv pris slrc=0 rc=0 cmp=166 NOT_EQUAL stage1 dd=455 oc=105 md5=de117ed7
+v11u248repro/cases/B/b12_param_class pris slrc=0 rc=0 cmp=1452 NOT_EQUAL stage1 dd=208 oc=98 md5=17f1653e
+v11u248repro/cases/B/b13_static_fn pris slrc=0 rc=0 cmp=844 NOT_EQUAL stage1 dd=92 oc=52 md5=e742d052
+v11u248repro/cases/K/k01_kitchen pris slrc=0 rc=0 cmp=152 NOT_EQUAL stage1 dd=675 oc=172 md5=eea8ebd8
+v11u252repro/cases/VL/vl02_enum_q pris slrc=0 rc=0 cmp=572 NOT_EQUAL stage1 dd=104 oc=23 md5=2e8cd874
+v11u252repro/cases/VL/vl04_dyn_struct pris slrc=0 rc=0 cmp=816 NOT_EQUAL stage1 dd=297 oc=49 md5=054e36dd
+v11u252repro/cases/VL/vl06_pkg_func_slots pris slrc=0 rc=0 cmp=846 NOT_EQUAL stage1 dd=204 oc=86 md5=53f9498f
+v11u252repro/cases/VR/vr01_this_randomize pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=78 oc=48 md5=fbdf9617
+v11u252repro/cases/VR/vr02_arg_list pris slrc=0 rc=0 cmp=29 NOT_EQUAL stage1 dd=82 oc=48 md5=1aa1710e
+v11u252repro/cases/VR/vr03_std_randomize pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=87 oc=41 md5=e88b3299
+v11u252repro/cases/VR/vr04_local_qual pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=78 oc=48 md5=a68687bc
+v11u252repro/cases/VR/vr05_prop_receiver pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=154 oc=52 md5=d66b7aee
+v11u252repro/cases/VX/vx01_three_level pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=180 oc=100 md5=9ecdc1e0
+v11u252repro/cases/VX/vx02_two_elems pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 642 objects dd=160 oc=100 md5=93ab1c87
+v11u252repro/cases/VX/vx03_partsel_inner pris slrc=0 rc=0 cmp=208 NOT_EQUAL stage1 dd=444 oc=156 md5=c8b149aa
+v11u252repro/cases/VX/vx04_incdec_lhs pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 644 objects dd=160 oc=100 md5=ad70bec7
+v11u252repro/cases/VX/vx05_this_path pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 591 objects dd=160 oc=100 md5=3b75e29d
+v11u252repro/cases/VX/vx06_prop_index pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=160 oc=100 md5=8e0146e1
+v11u252repro/cases/VX/vx07_named_call pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 666 objects dd=168 oc=108 md5=71776a3b
+v11u252repro/cases/VX/vx08_two_dim_idx pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 693 objects dd=160 oc=100 md5=e00d0a68
+v11u253repro/cases/D/vd03_fixed_local_synth pris slrc=0 rc=0 cmp=1350 NOT_EQUAL stage1 dd=478 oc=96 md5=ca91dfce
+v11u253repro/cases/F/vf01_fixed_struct_elem pris slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=1208 oc=304 md5=de4436d0
+v11u253repro/cases/F/vf02_fixed_task_static pris slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=346 oc=105 md5=6773f7b0
+v11u253repro/cases/F/vf05_fixed_two_importers pris slrc=0 rc=0 cmp=506 NOT_EQUAL stage1 dd=124 oc=80 md5=3be3dd18
+v11u253repro/cases/M/vm02_two_exists_same_line pris slrc=0 rc=0 cmp=758 NOT_EQUAL stage1 dd=240 oc=114 md5=59721c96
+v11u253repro/cases/M/vm03_delete_first pris slrc=0 rc=0 cmp=778 NOT_EQUAL stage1 dd=102 oc=54 md5=39c7d3d5
+v11u253repro/cases/M/vm04_export_chain pris slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=314 oc=136 md5=85253738
+v11u253repro/cases/M/vm06_exists_in_header pris slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=154 oc=68 md5=66cf5fd2
+v11u253repro/cases/M/vm07_exists_nested_loop pris slrc=0 rc=0 cmp=1374 NOT_EQUAL stage1 dd=294 oc=114 md5=da2058cb
+v11u253repro/cases/M/vm09_exists_task pris slrc=0 rc=0 cmp=482 NOT_EQUAL stage1 dd=120 oc=38 md5=ff237132
+v11u253repro/cases/T/vt08_parenless_task_locals_class pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=18 oc=16 md5=e7adcc2c
+v11u253repro/cases/T/vt19_parenless_proto_parens_def pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 121 objects dd=22 oc=18 md5=9943c585
+v11u257repro/cases/K/vk01_six_bodies pris slrc=0 rc=0 cmp=330 NOT_EQUAL stage1 dd=2799 oc=460 md5=69477b6f
+v11u257repro/cases/K/vk02_two_importers pris slrc=0 rc=0 cmp=148 NOT_EQUAL stage1 dd=2646 oc=536 md5=a27a28dc
+v11u258repro/cases/VA/va01_include_two_pkgs pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=308 oc=112 md5=211e789f
+v11u258repro/cases/VA/va02_macro_two_methods pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 721 objects dd=220 oc=66 md5=c7ac072d
+v11u258repro/cases/VA/va03_two_dim_assoc pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 483 objects dd=136 oc=40 md5=14207ad9
+v11u258repro/cases/VA/va04_class_scoped_enum pris slrc=0 rc=0 cmp=66 NOT_EQUAL stage1 dd=130 oc=48 md5=f2dbffd1
+v11u258repro/cases/VA/va05_index_from_other_pkg pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 415 objects dd=78 oc=35 md5=311e8bf7
+v11u258repro/cases/VA/va06_two_importer_pkgs pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 464 objects dd=134 oc=65 md5=a54662df
+v11u258repro/cases/VA/va07_extern_task pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 352 objects dd=94 oc=25 md5=001bf6bd
+v11u258repro/cases/VA/va08_param_class pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 398 objects dd=124 oc=35 md5=564a800f
+v11u258repro/cases/VA/va09_struct_enum_nested pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 803 objects dd=140 oc=39 md5=6478fc74
+v11u258repro/cases/VA/va10_two_foreach_same_array pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 508 objects dd=134 oc=40 md5=17ac6292
+v11u258repro/cases/VA/va11_union_index pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=100 oc=35 md5=34f1e073
+v11u258repro/cases/VA/va12_class_scoped_struct pris slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=177 oc=40 md5=e225d111
+v11u258repro/cases/VA/va13_longint_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 318 objects dd=174 oc=44 md5=1e1d79f3
+v11u258repro/cases/VA/va14_nested_in_fork pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 358 objects dd=88 oc=33 md5=9fbd3494
+v11u258repro/cases/VA/va15_integer_time_logic pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 466 objects dd=292 oc=56 md5=71eea12c
+v11u258repro/cases/VA/va16_type_param_index pris slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=119 oc=40 md5=21e9905a
+v11u258repro/cases/VA/va17_static_method_local_home pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=118 oc=27 md5=fd171103
+v11u258repro/cases/VD/vd01_copy_struct_bitsel_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=264 oc=64 md5=f49ba85c
+v11u259repro/cases/VL/vl10_fixed_local_synth pris slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=916 oc=212 md5=31be650f
+v11u259repro/cases/VL/vl12_local_and_formal_same_td pris slrc=0 rc=0 cmp=1058 NOT_EQUAL stage1 dd=547 oc=127 md5=f25c0f3a
+v11u259repro/cases/VM/vm02_local_shadow_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=110 oc=30 md5=574699e0
+v11u259repro/cases/VM/vm03_export_chain pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 351 objects dd=166 oc=52 md5=544f80e5
+v11u259repro/cases/VM/vm04_nested_anon pris slrc=0 rc=0 cmp=299 NOT_EQUAL stage1 dd=272 oc=55 md5=45374f8b
+v11u259repro/cases/VM/vm05_nested_named pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=166 oc=41 md5=8c31527f
+v11u259repro/cases/VM/vm07_two_importer_pkgs_iface pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 260 objects dd=166 oc=54 md5=6662b215
+v11u259repro/cases/VM/vm08_packed_synth pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 422 objects dd=391 oc=47 md5=5f33ea9a
+v11u259repro/cases/VM/vm09_member_in_foreach_body pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 419 objects dd=124 oc=63 md5=1288f91b
+v11u259repro/cases/VM/vm10_task_lhs_iface_prog pris slrc=0 rc=0 cmp=284 NOT_EQUAL stage1 dd=126 oc=53 md5=cf40fb52
+v11u259repro/cases/VM/vm11_module_imports_importer pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 252 objects dd=98 oc=35 md5=c26a4da1
+v11u259repro/cases/VM/vm12_two_pkgs_only pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 203 objects dd=166 oc=50 md5=2544ee85
+v11u259repro/cases/VM/vm13_td_from_third_pkg pris slrc=0 rc=0 cmp=354 NOT_EQUAL stage1 dd=112 oc=30 md5=db915867
+v11u259repro/cases/VM/vm14_array_elem_member pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=542 oc=114 md5=51f6ff28
+v11u259repro/cases/VM/vm15_packed_union pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 387 objects dd=199 oc=47 md5=df7dc6c4
+v11u259repro/cases/VM/vm16_two_members_two_types pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 376 objects dd=123 oc=66 md5=56b6dd46
+v11u259repro/cases/VM/vm17_crlf pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=72 oc=27 md5=b4b9c357
+v11u259repro/cases/VM/vm18_macro_body pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=72 oc=27 md5=3df2ef70
+v11u264repro/cases/VC/vc09_two_classes pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=192 oc=103 md5=5399b242
+v11u265repro/cases/VB/vb02_foreach_member pris slrc=0 rc=0 cmp=674 NOT_EQUAL stage1 dd=145 oc=39 md5=168271af
+v11u265repro/cases/VB/vb03_member_name_is_param pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 362 objects dd=184 oc=43 md5=444489aa
+v11u265repro/cases/VB/vb04_unpacked_array_member pris slrc=0 rc=0 cmp=337 NOT_EQUAL stage1 dd=172 oc=44 md5=81fa9d5d
+v11u265repro/cases/VB/vb05_indexed_part_select pris slrc=0 rc=0 cmp=784 NOT_EQUAL stage1 dd=116 oc=38 md5=d81499c5
+v11u265repro/cases/VB/vb06_shadow_typedef_in_q pris slrc=0 rc=0 cmp=600 NOT_EQUAL stage1 dd=164 oc=36 md5=1fb0609f
+v11u265repro/cases/VB/vb07_two_structs_same_member pris slrc=0 rc=0 cmp=930 NOT_EQUAL stage1 dd=170 oc=54 md5=dd1bc752
+v11u265repro/cases/VB/vb08_rhs_in_expr pris slrc=0 rc=0 cmp=1028 NOT_EQUAL stage1 dd=116 oc=64 md5=ef8220b3
+v11u265repro/cases/VB/vb10_packed_struct pris slrc=0 rc=0 cmp=604 NOT_EQUAL stage1 dd=142 oc=36 md5=e5868f29
+v11u265repro/cases/VB/vb11_third_pkg_struct pris slrc=0 rc=0 cmp=388 NOT_EQUAL stage1 dd=160 oc=36 md5=e882d7f6
+v11u265repro/cases/VB/vb12_module_task_bitsel pris slrc=0 rc=0 cmp=15 NOT_EQUAL stage1 dd=621 oc=57 md5=f4c975dd
+v11u265repro/cases/VB/vb13_two_dim_member pris slrc=0 rc=0 cmp=457 NOT_EQUAL stage1 dd=318 oc=64 md5=dc937cc3
+v11u265repro/cases/VB/vb14_array_elem_root pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1158 oc=198 md5=74dcfb97
+v11u265repro/cases/VE/ve01_formal_struct_root pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=138 oc=24 md5=96f9604c
+v11u265repro/cases/VE/ve02_return_writer pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 347 objects dd=96 oc=44 md5=984020e0
+v11u265repro/cases/VE/ve04_nested_struct pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=262 oc=41 md5=a31e360a
+v11u265repro/cases/VE/ve05_logic_base_enum pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 572 objects dd=402 oc=69 md5=39b636fd
+v11u265repro/cases/VE/ve06_fixed_array pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 465 objects dd=394 oc=37 md5=f7f754a2
+v11u265repro/cases/VE/ve07_dyn_assoc_array pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 740 objects dd=710 oc=55 md5=3b039056
+v11u265repro/cases/VE/ve08_function_copy pris slrc=0 rc=0 cmp=1390 NOT_EQUAL stage1 dd=296 oc=59 md5=3415c34a
+v11u265repro/cases/VE/ve09_initializer pris slrc=0 rc=0 cmp=28 NOT_EQUAL stage1 dd=238 oc=55 md5=a12b4aae
+v11u265repro/cases/VE/ve10_two_enum_types pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 502 objects dd=226 oc=56 md5=dae49e97
+v11u265repro/cases/VE/ve12_param_class pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 318 objects dd=134 oc=23 md5=db809a13
+v11u265repro/cases/VE/ve13_module_imports_q pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 372 objects dd=126 oc=23 md5=6eb841f7
+v11u265repro/cases/VE/ve14_two_methods_same_struct pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 613 objects dd=484 oc=85 md5=0383643f
+v11u265repro/cases/VE/ve15_enum_member_unused pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 323 objects dd=140 oc=23 md5=14f59781
+v11u265repro/cases/VE/ve16_alias_enum_member pris slrc=0 rc=0 cmp=124 NOT_EQUAL stage1 dd=349 oc=57 md5=064e392f
+v11u265repro/cases/VE/ve17_unpacked_union pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=126 oc=23 md5=88011757
+v11u265repro/cases/VE/ve18_header_two_pkgs pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=396 oc=54 md5=b0b11802
+v11u265repro/cases/VE/ve19_header_struct_writer pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 312 objects dd=126 oc=23 md5=b8591fdc
+v11u265repro/cases/VE/ve20_qualified_member_type pris slrc=0 rc=0 cmp=752 NOT_EQUAL stage1 dd=190 oc=29 md5=3e00de9a
+v11u265repro/cases/VE/ve21_two_locals_same_copy pris slrc=0 rc=0 cmp=1154 NOT_EQUAL stage1 dd=206 oc=41 md5=d68ab7b1
+v11u265repro/cases/VE/ve22_enum_array_member pris slrc=0 rc=0 cmp=449 NOT_EQUAL stage1 dd=248 oc=41 md5=6cf5ae1c
+v11u265repro/cases/VE/ve23_fork_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 317 objects dd=126 oc=23 md5=68050e0e
+v11u265repro/cases/VE/ve24_chain_importer pris slrc=0 rc=0 cmp=780 NOT_EQUAL stage1 dd=258 oc=43 md5=bcf25faf
+v11u265repro/cases/VE/ve25_crlf_macro_local pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=126 oc=23 md5=6289d8eb
+v11u269repro/cases/VR/vr06_task_and_func pris slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=382 oc=104 md5=42beb997
+v11u285repro/cases/VM/vm01_td_of_td pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=599 oc=96 md5=96cd68a2
+v11u285repro/cases/VM/vm02_packed2d pris slrc=0 rc=0 cmp=341 NOT_EQUAL stage1 dd=212 oc=36 md5=68b61e95
+v11u285repro/cases/VM/vm03_third_pkg_td pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=306 oc=56 md5=18511805
+v11u285repro/cases/VM/vm04_param_width pris slrc=0 rc=0 cmp=399 NOT_EQUAL stage1 dd=318 oc=49 md5=00359d89
+v11u285repro/cases/VM/vm05_str_real_int pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=344 oc=69 md5=87a46cba
+v11u285repro/cases/VM/vm06_unpacked_td pris slrc=0 rc=0 cmp=158 NOT_EQUAL stage1 dd=768 oc=146 md5=d5cfa2a0
+v11u285repro/cases/VM/vm07_two_locals pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 707 objects dd=264 oc=62 md5=bdb1881c
+v11u285repro/cases/VM/vm10_task_block pris slrc=0 rc=0 cmp=972 NOT_EQUAL stage1 dd=240 oc=40 md5=9248ce7a
+v11u285repro/cases/VM/vm11_signed_enum pris slrc=0 rc=0 cmp=429 NOT_EQUAL stage1 dd=340 oc=54 md5=0184be2c
+v11u285repro/cases/VM/vm12_union_td pris slrc=0 rc=0 cmp=802 NOT_EQUAL stage1 dd=240 oc=51 md5=cd49c90b
+v11u285repro/cases/VM/vm13_nested_td pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=382 oc=57 md5=58ed34bd
+v11u285repro/cases/VM/vm14_packed_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 845 objects dd=460 oc=69 md5=d63fcf08
+v11u285repro/cases/VM/vm15_two_importers pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 740 objects dd=500 oc=82 md5=703392c1
+v11u285repro/cases/VM/vm16_macro_td pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=284 oc=54 md5=5eed226d
+v11u285repro/cases/VM/vm17_crlf pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 716 objects dd=320 oc=66 md5=457134c9
+v11u285repro/cases/VM/vm18_hdr_td pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL file dd=310 oc=58 md5=db15c040
+v11u285repro/cases/VM/vm19_loop_block pris slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=317 oc=62 md5=c9799ff2
+v11u285repro/cases/VM/vm20_two_structs pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1056 objects dd=448 oc=99 md5=7805d26e
+v11u285repro/cases/VM/vm21_macro_member pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=280 oc=54 md5=bca25fad
+v11u296repro/cases/VC/vc01_param_idx pris slrc=0 rc=0 cmp=146 NOT_EQUAL stage1 dd=391 oc=81 md5=ef72807c
+v11u296repro/cases/VC/vc02_prop_select pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 522 objects dd=224 oc=71 md5=c4e867ec
+v11u296repro/cases/VC/vc03_lvalue pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 552 objects dd=224 oc=71 md5=0bb22a24
+v11u296repro/cases/VC/vc04_static_fn pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 534 objects dd=282 oc=73 md5=73afeb5a
+v11u296repro/cases/VC/vc05_foreach pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 744 objects dd=374 oc=93 md5=6b4f63fe
+v11u296repro/cases/VC/vc06_task_out pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 910 objects dd=558 oc=125 md5=cf45ce53
+v11u296repro/cases/VC/vc07_named_call pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 534 objects dd=286 oc=77 md5=cfa6028d
+v11u446repro/cases/VC/vc13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=112 oc=44 md5=ba2ed4b4
+v11u446repro/cases/VC/vc14 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=90 oc=44 md5=334340eb
+v11u446repro/cases/VQ/vq01 pris slrc=0 rc=0 cmp=50 NOT_EQUAL stage1 dd=93 oc=43 md5=efcf8e74
+v11u446repro/cases/VQ/vq02 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=140 oc=69 md5=d40641f5
+v11u446repro/cases/VQ/vq03 pris slrc=0 rc=0 cmp=62 NOT_EQUAL stage1 dd=272 oc=74 md5=2e385227
+v11u446repro/cases/VQ/vq04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 274 objects dd=78 oc=36 md5=158bf54a
+v11u446repro/cases/VQ/vq05 pris slrc=0 rc=0 cmp=36 NOT_EQUAL stage1 dd=534 oc=140 md5=81d2513c
+v11u446repro/cases/VQ/vq06 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=333 oc=65 md5=12a11c5b
+v11u446repro/cases/VQ/vq07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 610 objects dd=158 oc=76 md5=47ad0950
+v11u446repro/cases/VS/vs04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 402 objects dd=112 oc=33 md5=0f87fda6
+v11u449repro/cases/VF/vf01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=46 oc=22 md5=5abc26c2
+v11u449repro/cases/VF/vf03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 193 objects dd=118 oc=56 md5=d06f6a05
+v11u449repro/cases/VF/vf04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 185 objects dd=60 oc=38 md5=e8c45d33
+v11u449repro/cases/VF/vf05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 110 objects dd=52 oc=22 md5=37bb00eb
+v11u449repro/cases/VF/vf06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 148 objects dd=46 oc=24 md5=8b819f08
+v11u449repro/cases/VI/vi01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 452 objects dd=272 oc=51 md5=1399efb2
+v11u449repro/cases/VI/vi02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 249 objects dd=146 oc=41 md5=49996a36
+v11u449repro/cases/VP/vp03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=113 oc=52 md5=ec617559
+v11u449repro/cases/VP/vp11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=117 oc=51 md5=017bcc21
+v11u450repro/cases/VO/vo01 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1170 objects dd=776 oc=96 md5=23617f40
+v11u450repro/cases/VO/vo02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 637 objects dd=540 oc=98 md5=1e0032dd
+v11u450repro/cases/VO/vo04 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1444 oc=198 md5=2f816b32
+v11u450repro/cases/VO/vo05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1171 objects dd=776 oc=96 md5=538adedc
+v11u450repro/cases/VX/vx02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 372 objects dd=84 oc=94 md5=f2e962ab
+v11u450repro/cases/VX/vx03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 339 objects dd=180 oc=76 md5=70cdfe8c
+v11u450repro/cases/VX/vx04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 537 objects dd=286 oc=128 md5=d9013c3c
+v11u450repro/cases/VX/vx05 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=110 oc=90 md5=aa6f02c6
+v11u450repro/cases/VX/vx07 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 440 objects dd=148 oc=164 md5=d62daa41
+v11u450repro/cases/VX/vx08 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=421 oc=109 md5=57547814
+v11u455repro/cases/VG/vg05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 323 objects dd=108 oc=60 md5=c9907bd5
+v11u457repro/cases/VC/vc04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=58 oc=24 md5=a10e2c7c
+v11u457repro/cases/VC/vc08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=58 oc=24 md5=fc73d9f5
+v11u458repro/cases/VB/vb04 pris slrc=0 rc=0 cmp=656 NOT_EQUAL stage1 dd=877 oc=171 md5=2730cea7
+v11u458repro/cases/VB/vb08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 1969 objects dd=1192 oc=103 md5=70edb3c2
+v11u458repro/cases/VB/vb12 pris slrc=0 rc=0 cmp=606 NOT_EQUAL stage1 dd=467 oc=116 md5=ae610d74
+v11u458repro/cases/VB/vb13 pris slrc=0 rc=0 cmp=746 NOT_EQUAL stage1 dd=726 oc=121 md5=0d106aa3
+v11u458repro/cases/VB/vb14 pris slrc=0 rc=0 cmp=207 NOT_EQUAL stage1 dd=160 oc=70 md5=6d7e28f1
+v11u458repro/cases/VT/vt03 pris slrc=0 rc=0 cmp=382 NOT_EQUAL stage1 dd=102 oc=24 md5=dc74a5a1
+v11u460repro/cases/VO/vo01 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=255 oc=84 md5=304cc42e
+v11u460repro/cases/VO/vo02 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=199 oc=54 md5=ae83ab88
+v11u460repro/cases/VO/vo03 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=443 oc=70 md5=21b342b1
+v11u460repro/cases/VO/vo04 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=377 oc=134 md5=931f44fd
+v11u460repro/cases/VO/vo05 pris slrc=0 rc=0 cmp=1116 NOT_EQUAL stage1 dd=497 oc=126 md5=3b1d755c
+v11u460repro/cases/VO/vo06 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=125 oc=38 md5=09c51117
+v11u460repro/cases/VO/vo07 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=247 oc=89 md5=759ecfc4
+v11u460repro/cases/VO/vo08 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=253 oc=84 md5=d773dcbb
+v11u460repro/cases/VO/vo09 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=401 oc=138 md5=b15143d4
+v11u460repro/cases/VO/vo10 pris slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=259 oc=86 md5=36a690e5
+v11u460repro/cases/VO/vo11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=92 oc=36 md5=2bc8d052
+v11u460repro/cases/VO/vo12 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=284 oc=38 md5=4d9783b7
+v11u460repro/cases/VO/vo13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 218 objects dd=90 oc=36 md5=0256abb6
+v11u460repro/cases/VO/vo14 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 214 objects dd=90 oc=36 md5=f78ef4f5
+v11u460repro/cases/VO/vo15 pris slrc=0 rc=0 cmp=604 NOT_EQUAL stage1 dd=270 oc=64 md5=2d7a906f
+v11u460repro/cases/VO/vo16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 403 objects dd=156 oc=64 md5=e092e41c
+v11u465repro/cases/VL/vl02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=86 oc=22 md5=aacd2476
+v11u465repro/cases/VL/vl06 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 206 objects dd=84 oc=22 md5=2048bc8e
+v11u465repro/cases/VL/vl13 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 203 objects dd=70 oc=25 md5=3d0e72a0
+v11u465repro/cases/VL/vl14 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=67 oc=25 md5=93b9a546
+v11u465repro/cases/VL/vl16 pris slrc=0 rc=0 cmp=1042 NOT_EQUAL stage1 dd=100 oc=52 md5=beb16102
+v11u465repro/cases/VL/vl22 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=88 oc=22 md5=dfd3e024
+v11u476repro/cases/VP/vp01 pris slrc=0 rc=0 cmp=1242 NOT_EQUAL stage1 dd=494 oc=104 md5=457b543d
+v11u476repro/cases/VP/vp02 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 176 objects dd=50 oc=22 md5=601ab469
+v11u476repro/cases/VP/vp03 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 411 objects dd=138 oc=58 md5=d1b9c80b
+v11u476repro/cases/VP/vp04 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=146 oc=58 md5=afbd65f9
+v11u476repro/cases/VP/vp05 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=146 oc=58 md5=ee986135
+v11u476repro/cases/VP/vp06 pris slrc=0 rc=0 cmp=427 NOT_EQUAL stage1 dd=484 oc=92 md5=ea344e80
+v11u476repro/cases/VP/vp07 pris slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=490 oc=108 md5=93ab51e8
+v11u476repro/cases/VP/vp08 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 282 objects dd=102 oc=36 md5=381b8387
+v11u476repro/cases/VP/vp09 pris slrc=0 rc=0 cmp=1034 NOT_EQUAL stage1 dd=514 oc=110 md5=ccf947a9
+v11u476repro/cases/VP/vp11 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 351 objects dd=98 oc=44 md5=bc3997d1
+v11u476repro/cases/VP/vp12 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 396 objects dd=206 oc=80 md5=1e414ea2
+v11u476repro/cases/VP/vp14 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=98 oc=40 md5=36ab7494
+v11u476repro/cases/VP/vp15 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 361 objects dd=140 oc=60 md5=56a1174e
+v11u476repro/cases/VP/vp16 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 388 objects dd=114 oc=48 md5=c9e1d6be
+v11u476repro/cases/VP/vp19 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 605 objects dd=242 oc=100 md5=8442f7a5
+v11u476repro/cases/VP/vp20 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 494 objects dd=176 oc=76 md5=d3cbc521
+v11u476repro/cases/VP/vp21 pris slrc=0 rc=0 cmp=500 NOT_EQUAL stage1 dd=357 oc=99 md5=100f39e7
+v11u476repro/cases/VP/vp22 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 344 objects dd=110 oc=64 md5=f39d4a30
+v11u476repro/cases/VP/vp23 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 265 objects dd=50 oc=22 md5=ea667ff9
+v11u476repro/cases/VP/vp24 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 297 objects dd=106 oc=42 md5=1f8b6b4c
+v11u476repro/cases/VP/vp25 pris slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=94 oc=37 md5=825437a3
+v11u476repro/cases/VP/vp26 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=120 oc=46 md5=feed15ce
+v11u476repro/cases/VP/vp27 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 416 objects dd=140 oc=58 md5=73441ea2
+v11u476repro/cases/VP/vp28 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 418 objects dd=146 oc=58 md5=871af4cf
+v11u476repro/cases/VP/vp29 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1268 oc=260 md5=13f4890f
+v11u476repro/cases/VP/vp30 pris slrc=0 rc=0 cmp=281 NOT_EQUAL stage1 dd=279 oc=75 md5=f535d245
+v11u478repro/cases/VB/vb01 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 197 objects dd=86 oc=44 md5=f8f0907f
+v11u478repro/cases/VB/vb03 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=152 oc=90 md5=b397addc
+v11u478repro/cases/VB/vb05 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 205 objects dd=86 oc=44 md5=9e60bb25
+v11u478repro/cases/VB/vb06 pris slrc=4 rc=0 cmp=526 NOT_EQUAL stage1 dd=240 oc=104 md5=1422a9c7
+v11u478repro/cases/VB/vb07 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 199 objects dd=70 oc=52 md5=0774d7bc
+v11u478repro/cases/VB/vb08 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=152 oc=90 md5=21d4921a
+v11u478repro/cases/VB/vb09 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=78 oc=36 md5=eeffe6f4
+v11u478repro/cases/VB/vb10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 251 objects dd=118 oc=66 md5=6a1a4ec3
+v11u478repro/cases/VB/vb11 pris slrc=4 rc=0 cmp=0 STRICT_EQUAL 197 objects dd=94 oc=52 md5=8b086a5a
+v11u478repro/cases/VF/vf01 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=345 oc=106 md5=8c5e5d56
+v11u478repro/cases/VF/vf02 pris slrc=0 rc=0 cmp=63 NOT_EQUAL stage1 dd=361 oc=92 md5=7b3a4f78
+v11u478repro/cases/VF/vf04 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=135 oc=42 md5=6a9eacd6
+v11u478repro/cases/VF/vf05 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=496 oc=136 md5=b28ae0bd
+v11u478repro/cases/VF/vf06 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=353 oc=80 md5=9d91fcdc
+v11u478repro/cases/VF/vf07 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=341 oc=102 md5=6658a51e
+v11u478repro/cases/VF/vf08 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=241 oc=72 md5=354565eb
+v11u478repro/cases/VF/vf09 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=237 oc=72 md5=05f47c6a
+v11u478repro/cases/VF/vf10 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 378 objects dd=426 oc=100 md5=1212bd06
+v11u478repro/cases/VF/vf12 pris slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=481 oc=78 md5=da6285ac
+v11u478repro/cases/VM/vm01 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1678 oc=324 md5=54698cba
+v11u478repro/cases/VM/vm02 pris slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=3410 oc=672 md5=b7794682
+v11u478repro/cases/VM/vm03 pris slrc=0 rc=0 cmp=924 NOT_EQUAL stage1 dd=660 oc=120 md5=8f31a229
+v11u478repro/cases/VM/vm04 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1232 oc=248 md5=9a35a1f7
+v11u478repro/cases/VM/vm05 pris slrc=0 rc=0 cmp=269 NOT_EQUAL stage1 dd=320 oc=124 md5=201c8dcb
+v11u478repro/cases/VM/vm07 pris slrc=0 rc=0 cmp=884 NOT_EQUAL stage1 dd=276 oc=86 md5=ba686051
+v11u478repro/cases/VM/vm08 pris slrc=0 rc=0 cmp=475 NOT_EQUAL stage1 dd=3010 oc=516 md5=a3e623d5
+v11u478repro/cases/VM/vm09 pris slrc=0 rc=0 cmp=1028 NOT_EQUAL stage1 dd=860 oc=144 md5=bbbebdc4
+v11u478repro/cases/VM/vm10 pris slrc=0 rc=0 cmp=820 NOT_EQUAL stage1 dd=972 oc=156 md5=8d31f6d6
+v11u478repro/cases/VM/vm11 pris slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=3249 oc=546 md5=e5df065b
+v11u478repro/cases/VM/vm12 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1618 oc=308 md5=61ea0eac
+v11u478repro/cases/VM/vm13 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1720 oc=332 md5=76f106c6
+v11u478repro/cases/VM/vm14 pris slrc=4 rc=0 cmp=369 NOT_EQUAL stage1 dd=499 oc=183 md5=af1e612b
+v11u478repro/cases/VM/vm15 pris slrc=0 rc=0 cmp=854 NOT_EQUAL stage1 dd=1356 oc=251 md5=b4adb5fa
+v11u478repro/cases/VM/vm16 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1232 oc=248 md5=078bc54e
+v11u478repro/cases/VM/vm17 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1650 oc=308 md5=29acf218
+v11u478repro/cases/VM/vm18 pris slrc=0 rc=0 cmp=431 NOT_EQUAL stage1 dd=668 oc=128 md5=cad11abb
+v11u478repro/cases/VM/vm19 pris slrc=0 rc=0 cmp=0 STRICT_EQUAL 250 objects dd=62 oc=22 md5=9f8716ca
+v11u478repro/cases/VM/vm20 pris slrc=0 rc=0 cmp=890 NOT_EQUAL stage1 dd=850 oc=150 md5=b2efff47
+v11u480repro/cases/VA/va21 pris slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 md5=274c7a35
+
+r11u175uvm/cases/f2/c02_extern_import law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=102 oc=32 md5=16ce74e5
+r11u175uvm/cases/f2/g05_task_extern_import law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 333 objects dd=82 oc=24 md5=6c969e60
+r11u175uvm/cases/f2/g06_init_decl_import law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 260 objects dd=72 oc=38 md5=323e246c
+r11u175uvm/cases/f2/g08_fwd_class_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 313 objects dd=92 oc=28 md5=d240d688
+r11u175uvm/cases/f2/h06_pkg_free_pkgimport law3 slrc=0 rc=0 cmp=654 NOT_EQUAL stage1 dd=100 oc=34 md5=b1bc60f9
+r11u175uvm/cases/f2/h07_pkg_free_pkgimport_noinit law3 slrc=0 rc=0 cmp=598 NOT_EQUAL stage1 dd=88 oc=26 md5=f50430d2
+r11u182verify/cases/M/m05_exported_pkg_ref law3 slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=2101 oc=577 md5=36bcbfa9
+r11u183dec/cases/g/k03 law3 slrc=0 rc=0 cmp=666 NOT_EQUAL stage1 dd=124 oc=28 md5=ae0139a6
+r11u183dec/cases/g/k04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 141 objects dd=82 oc=25 md5=ba8bf0e8
+r11u183dec/cases/g/k06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 137 objects dd=79 oc=25 md5=804ed198
+r11u183dec/cases/g/k07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 108 objects dd=98 oc=19 md5=e1b287da
+r11u183dec/cases/g/k08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 138 objects dd=92 oc=23 md5=ecc6e58f
+r11u183dec/cases/g/k09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=124 oc=34 md5=3564e5bf
+r11u185verify/cases/IC/i04_static_and_auto_locals law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 272 objects dd=120 oc=48 md5=1f8fec47
+r11u185verify/cases/IC/i05_task_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 594 objects dd=624 oc=154 md5=9c2233e2
+r11u185verify/cases/X/x03_extern_locals_import law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 774 objects dd=352 oc=98 md5=329ef0f9
+r11u187repro/cases/G/g01 law3 slrc=0 rc=0 cmp=670 NOT_EQUAL stage1 dd=122 oc=31 md5=096603cb
+r11u187repro/cases/G/g02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=100 oc=29 md5=b618fbf9
+r11u187repro/cases/G/g03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 157 objects dd=94 oc=33 md5=c7e44dea
+r11u187repro/cases/G/g04 law3 slrc=0 rc=0 cmp=371 NOT_EQUAL stage1 dd=214 oc=41 md5=29ec501c
+r11u187repro/cases/G/g06 law3 slrc=0 rc=0 cmp=389 NOT_EQUAL stage1 dd=217 oc=40 md5=2ed7c790
+r11u187repro/cases/G/g07 law3 slrc=0 rc=0 cmp=206 NOT_EQUAL stage1 dd=189 oc=46 md5=1c350b65
+r11u214dec/cases/A/d01_clonefn law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=160 oc=38 md5=d1352304
+r11u218dec/cases/CR/c02_void_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=22 oc=12 md5=9fe71283
+r11u218dec/cases/CR/c05_string_ret_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 135 objects dd=24 oc=18 md5=b9c14d69
+r11u218dec/cases/CR/c10_task_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 126 objects dd=28 oc=8 md5=c03f8253
+r11u220repro/cases/R218/r01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 420 objects dd=190 oc=32 md5=0242f2d6
+r11u221verify/cases/X/x01 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=226 oc=60 md5=e6f48141
+r11u226verify/cases/C/c05_clone_alias_formal law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 158 objects dd=114 oc=29 md5=35cb475a
+r11u226verify/cases/E/e23_clone_ret_kinds law3 slrc=0 rc=0 cmp=138 NOT_EQUAL stage1 dd=1352 oc=289 md5=417eff56
+r11u231repro/cases/AL/a01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 191 objects dd=98 oc=33 md5=8fb7a02f
+r11u231repro/cases/AL/a02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 210 objects dd=106 oc=33 md5=35ea5f62
+r11u231repro/cases/AL/a03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 191 objects dd=224 oc=47 md5=8a8e009f
+r11u231repro/cases/AL/a04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 192 objects dd=238 oc=57 md5=bb5014fc
+r11u231repro/cases/AL/a05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 303 objects dd=106 oc=41 md5=328927bf
+r11u231repro/cases/AL/a06 law3 slrc=0 rc=0 cmp=156 NOT_EQUAL stage1 dd=168 oc=44 md5=836c1c76
+r11u231repro/cases/AL/a08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 211 objects dd=106 oc=33 md5=2c1a08c5
+r11u231repro/cases/AL/a09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 191 objects dd=98 oc=33 md5=30d37b5e
+r11u231repro/cases/AL/a12 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=109 oc=36 md5=6f581323
+r11u231repro/cases/AL/a13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 259 objects dd=200 oc=61 md5=9e0c5d5f
+r11u231repro/cases/AL/a14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 115 objects dd=98 oc=29 md5=11e5fe3d
+r11u231repro/cases/TI/t16 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=121 oc=26 md5=296d7154
+r11u238repro/cases/K/k01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 647 objects dd=176 oc=86 md5=6cf024c6
+r11u238repro/cases/K/k03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 239 objects dd=62 oc=18 md5=87899f61
+r11u241repro/cases/AA/a01 law3 slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=110 oc=32 md5=4736953a
+r11u241repro/cases/AA/a03 law3 slrc=0 rc=0 cmp=892 NOT_EQUAL stage1 dd=198 oc=50 md5=da268628
+r11u241repro/cases/AA/a04 law3 slrc=0 rc=0 cmp=1744 NOT_EQUAL stage1 dd=374 oc=100 md5=028496b4
+r11u241repro/cases/AA/a05 law3 slrc=0 rc=0 cmp=592 NOT_EQUAL stage1 dd=110 oc=28 md5=ad90ce13
+r11u241repro/cases/AA/a06 law3 slrc=0 rc=0 cmp=588 NOT_EQUAL stage1 dd=106 oc=28 md5=52941a81
+r11u241repro/cases/AA/a07 law3 slrc=0 rc=0 cmp=588 NOT_EQUAL stage1 dd=96 oc=22 md5=62427355
+r11u241repro/cases/AA/a08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=96 oc=22 md5=9f18b033
+r11u241repro/cases/AA/a09 law3 slrc=0 rc=0 cmp=592 NOT_EQUAL stage1 dd=96 oc=22 md5=8b24a7a0
+r11u241repro/cases/AA/a10 law3 slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=104 oc=30 md5=d53e8c5b
+r11u241repro/cases/AA/a11 law3 slrc=0 rc=0 cmp=784 NOT_EQUAL stage1 dd=178 oc=32 md5=51854906
+r11u241repro/cases/CF/e03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 428 objects dd=362 oc=72 md5=3de5c544
+r11u241repro/cases/CF/e04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 520 objects dd=299 oc=60 md5=a371e1ee
+r11u241repro/cases/CF/e05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=146 oc=27 md5=76bf6816
+r11u241repro/cases/CF/e06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=120 oc=25 md5=a196215e
+r11u241repro/cases/CF/e07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 565 objects dd=432 oc=73 md5=aab490f3
+r11u241repro/cases/CF/e08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=68 oc=12 md5=a348191f
+r11u241repro/cases/CF/e09 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=1017 oc=181 md5=9ef87cd3
+r11u241repro/cases/CF/e10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 860 objects dd=745 oc=124 md5=ae6a8752
+r11u241repro/cases/CF/e11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 436 objects dd=281 oc=52 md5=6f40af27
+r11u241repro/cases/CF/e12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 429 objects dd=368 oc=66 md5=30721606
+r11u241repro/cases/CF/e13 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=508 oc=106 md5=6f2186cb
+r11u244repro/cases/H/h05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 156 objects dd=78 oc=24 md5=1d2d93fe
+r11u244repro/cases/H/h07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 252 objects dd=86 oc=32 md5=695c8ee3
+r11u244repro/cases/H/h08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 420 objects dd=122 oc=60 md5=6d40ff13
+r11u244repro/cases/H/h09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=86 oc=32 md5=303c6278
+r11u244repro/cases/H/h10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 266 objects dd=96 oc=35 md5=fd04028b
+r11u244repro/cases/H/h11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 405 objects dd=128 oc=51 md5=f0de8d67
+r11u244repro/cases/H/h12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 402 objects dd=122 oc=52 md5=91968e14
+r11u244repro/cases/N/n01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 327 objects dd=106 oc=40 md5=ee8fdf1f
+r11u244repro/cases/N/n02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 339 objects dd=110 oc=32 md5=a3c0945d
+r11u244repro/cases/N/n03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=110 oc=32 md5=010621bf
+r11u244repro/cases/N/n04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=122 oc=44 md5=f42e3813
+r11u244repro/cases/N/n05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=304 oc=46 md5=0d7e63a2
+r11u244repro/cases/N/n06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=112 oc=44 md5=857c1293
+r11u244repro/cases/N/n07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=114 oc=36 md5=1ae564a1
+r11u244repro/cases/N/n08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 425 objects dd=210 oc=66 md5=e416a968
+r11u244repro/cases/N/n09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 498 objects dd=170 oc=54 md5=96d74f5d
+r11u244repro/cases/N/n10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=166 oc=50 md5=f91e6f66
+r11u244repro/cases/N/n11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 371 objects dd=116 oc=44 md5=7f2efb58
+r11u244repro/cases/N/n12 law3 slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=158 oc=50 md5=ae152725
+r11u244repro/cases/N/n13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 597 objects dd=260 oc=60 md5=9597e6d6
+r11u244repro/cases/W/w01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 269 objects dd=138 oc=22 md5=a15e2fe7
+r11u244repro/cases/W/w02 law3 slrc=0 rc=0 cmp=648 NOT_EQUAL stage1 dd=124 oc=14 md5=470ca1b5
+r11u244repro/cases/W/w03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 281 objects dd=138 oc=22 md5=c51d1295
+r11u244repro/cases/W/w04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=138 oc=22 md5=3c3d8355
+r11u244repro/cases/W/w05 law3 slrc=0 rc=0 cmp=936 NOT_EQUAL stage1 dd=170 oc=32 md5=436ce8d5
+r11u244repro/cases/W/w06 law3 slrc=0 rc=0 cmp=1044 NOT_EQUAL stage1 dd=170 oc=32 md5=44a0eaad
+r11u244repro/cases/W/w07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=156 oc=46 md5=0bf74464
+r11u244repro/cases/W/w08 law3 slrc=0 rc=0 cmp=1044 NOT_EQUAL stage1 dd=304 oc=62 md5=11f6a48b
+r11u244repro/cases/W/w09 law3 slrc=0 rc=0 cmp=960 NOT_EQUAL stage1 dd=156 oc=20 md5=889ff6a5
+r11u244repro/cases/W/w10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 407 objects dd=168 oc=28 md5=b8b46212
+r11u244repro/cases/W/w11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=138 oc=22 md5=6180bccf
+r11u244repro/cases/W/w12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 317 objects dd=150 oc=26 md5=a1f00915
+r11u244repro/cases/W/w13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 137 objects dd=64 oc=16 md5=4ab1dc95
+r11u244repro/cases/W/w14 law3 slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=124 oc=14 md5=5878098f
+r11u244repro/cases/W/w15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=154 oc=26 md5=0fd328b6
+r11u244repro/cases/W/w16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 332 objects dd=142 oc=34 md5=e71f0977
+r11u244repro/cases/X/x07 law3 slrc=0 rc=0 cmp=1034 NOT_EQUAL stage1 dd=96 oc=16 md5=901c4772
+r11u244repro/cases/X/x08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 737 objects dd=200 oc=64 md5=2cd2fc23
+r11u246repro/cases/FE/f13_importer law3 slrc=0 rc=0 cmp=572 NOT_EQUAL stage1 dd=378 oc=54 md5=acfb74f2
+r11u247repro/cases/F/f01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 543 objects dd=240 oc=48 md5=cbc2c3d4
+r11u247repro/cases/I/i01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 415 objects dd=122 oc=52 md5=9e59edda
+r11u248repro/cases/C/c01_outbit law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 867 objects dd=538 oc=130 md5=b185e6d2
+r11u248repro/cases/C/d01_decode247 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 554 objects dd=308 oc=58 md5=d3acbcf3
+r11u248repro/cases/S/s02_this_static law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 341 objects dd=132 oc=42 md5=5e2f1f6c
+r11u248repro/cases/S/s03_typedef_ctl law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=85 oc=30 md5=4b3ddad8
+r11u248repro/cases/S/s04_inherit_dot law3 slrc=0 rc=0 cmp=50 NOT_EQUAL stage1 dd=221 oc=63 md5=6e8389ad
+r11u248repro/cases/S/s05_unitimp_ctl law3 slrc=0 rc=0 cmp=636 NOT_EQUAL stage1 dd=76 oc=27 md5=3f47e4e5
+r11u248repro/cases/W/w01_findidx law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 770 objects dd=230 oc=128 md5=e3cf1157
+r11u248repro/cases/W/w02_shapes law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 779 objects dd=246 oc=186 md5=822160ee
+r11u248repro/cases/W/w05_selrecv law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 389 objects dd=206 oc=54 md5=2530114a
+r11u248repro/cases/W/w06_thisrecv law3 slrc=0 rc=0 cmp=148 NOT_EQUAL stage1 dd=377 oc=67 md5=ef96107b
+r11u248repro/cases/W/w07_nested law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 395 objects dd=210 oc=74 md5=f36f3394
+r11u248repro/cases/W/w08_macro law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 359 objects dd=202 oc=42 md5=1dfd99b0
+r11u248repro/cases/W/w09_slots law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=234 oc=86 md5=42415478
+r11u248repro/cases/W/w10_call law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=202 oc=58 md5=93b0b061
+r11u248repro/cases/W/w11_implicit law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=218 oc=48 md5=4c5ab9c0
+r11u252repro/cases/L/l10_task law3 slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=78 oc=22 md5=d62d9a34
+r11u252repro/cases/R/r01_empty_with law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=42 oc=24 md5=bc60f379
+r11u252repro/cases/R/r02_constraint law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=42 oc=24 md5=6ab8994b
+r11u252repro/cases/R/r03_scope_form_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 103 objects dd=50 oc=20 md5=45e48be4
+r11u252repro/cases/R/r05_assign law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 122 objects dd=46 oc=12 md5=3d90778a
+r11u252repro/cases/R/r06_formal_recv law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=42 oc=24 md5=90ffb8e0
+r11u252repro/cases/R/r07_no_with_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 107 objects dd=42 oc=24 md5=2687bee9
+r11u252repro/cases/R/r08_macro_like law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 166 objects dd=46 oc=36 md5=9b563105
+r11u252repro/cases/R/r09_const_slot law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 111 objects dd=42 oc=24 md5=73cecbdb
+r11u252repro/cases/R/r10_function_return law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 105 objects dd=34 oc=14 md5=6ad5377a
+r11u252repro/cases/X/x01_call_arg law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 362 objects dd=128 oc=48 md5=7a4c594c
+r11u252repro/cases/X/x02_rvalue law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 349 objects dd=124 oc=32 md5=01478b17
+r11u252repro/cases/X/x03_index_op law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 357 objects dd=132 oc=40 md5=ed1464e8
+r11u252repro/cases/X/x04_two_levels law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=144 oc=32 md5=075e6341
+r11u252repro/cases/X/x05_lvalue law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 346 objects dd=128 oc=36 md5=e3d24d6c
+r11u252repro/cases/X/x06_const_index law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 349 objects dd=132 oc=40 md5=0776cd25
+r11u252repro/cases/X/x07_call_index law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=124 oc=32 md5=965c04bf
+r11u252repro/cases/X/x08_member_sel law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=124 oc=32 md5=ca3936e7
+r11u252repro/cases/X/x09_part_select_slot law3 slrc=0 rc=0 cmp=180 NOT_EQUAL stage1 dd=416 oc=80 md5=0cd540d2
+r11u252repro/cases/X/x11_ref_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=124 oc=32 md5=00d3ed68
+r11u252repro/cases/X/x12_inc_dec law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 326 objects dd=124 oc=32 md5=7233b675
+r11u253repro/cases/A/a01_fn_queue law3 slrc=0 rc=0 cmp=746 NOT_EQUAL stage1 dd=106 oc=48 md5=5c944202
+r11u253repro/cases/A/a02_fn_dyn law3 slrc=0 rc=0 cmp=770 NOT_EQUAL stage1 dd=106 oc=48 md5=692d1026
+r11u253repro/cases/A/a03_fn_assoc_int law3 slrc=0 rc=0 cmp=782 NOT_EQUAL stage1 dd=142 oc=56 md5=4b1d8493
+r11u253repro/cases/A/a04_fn_fixed law3 slrc=0 rc=0 cmp=782 NOT_EQUAL stage1 dd=110 oc=52 md5=6b2b5675
+r11u253repro/cases/A/a06_oob_method_queue_arg law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 463 objects dd=120 oc=48 md5=b1c3d53a
+r11u253repro/cases/A/a09_argface_style_queue law3 slrc=0 rc=0 cmp=642 NOT_EQUAL stage1 dd=126 oc=24 md5=59f07bd1
+r11u253repro/cases/F/f01_fixed_local law3 slrc=0 rc=0 cmp=518 NOT_EQUAL stage1 dd=58 oc=20 md5=27f3a619
+r11u253repro/cases/F/f02_fixed_param_foreach law3 slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=286 oc=61 md5=5780897f
+r11u253repro/cases/F/f03_fixed_2d law3 slrc=0 rc=0 cmp=582 NOT_EQUAL stage1 dd=62 oc=24 md5=f6fc8538
+r11u253repro/cases/F/f04_fixed_oob_method law3 slrc=0 rc=0 cmp=584 NOT_EQUAL stage1 dd=44 oc=20 md5=91da1532
+r11u253repro/cases/F/f06_argface_style_fixed law3 slrc=0 rc=0 cmp=518 NOT_EQUAL stage1 dd=88 oc=20 md5=6547c5f6
+r11u253repro/cases/M/m01_fn_exists law3 slrc=0 rc=0 cmp=626 NOT_EQUAL stage1 dd=132 oc=52 md5=2a307051
+r11u253repro/cases/M/m02_oob_class_sync law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 685 objects dd=194 oc=59 md5=026da3ca
+r11u253repro/cases/M/m03_two_importers law3 slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=304 oc=92 md5=13b407bd
+r11u253repro/cases/M/m04_with_later_arg law3 slrc=0 rc=0 cmp=930 NOT_EQUAL stage1 dd=118 oc=66 md5=feeb098c
+r11u253repro/cases/M/m06_two_calls_same_line law3 slrc=0 rc=0 cmp=810 NOT_EQUAL stage1 dd=240 oc=74 md5=00f42d25
+r11u253repro/cases/M/m07_macro_body law3 slrc=0 rc=0 cmp=670 NOT_EQUAL stage1 dd=170 oc=70 md5=6306280e
+r11u253repro/cases/M/m08_argface_c1 law3 slrc=0 rc=0 cmp=878 NOT_EQUAL stage1 dd=168 oc=52 md5=976a9c4d
+r11u253repro/cases/M/m09_argface_class_recv law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 392 objects dd=188 oc=40 md5=17c8412b
+r11u253repro/cases/M/m10_argface_block law3 slrc=0 rc=0 cmp=1490 NOT_EQUAL stage1 dd=308 oc=88 md5=d97575b0
+r11u253repro/cases/T/t03_oob_parens_control law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 235 objects dd=58 oc=24 md5=4af87bc6
+r11u253repro/cases/T/t05_task_parenless_control law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=52 oc=16 md5=cd541d47
+r11u258repro/cases/A/a01_dotted_ext law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 435 objects dd=392 oc=107 md5=0bea40ba
+r11u258repro/cases/A/a07_pkg_func_local law3 slrc=0 rc=0 cmp=794 NOT_EQUAL stage1 dd=552 oc=78 md5=5609f804
+r11u258repro/cases/A/a09_bare_ext law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 472 objects dd=450 oc=117 md5=812d9128
+r11u258repro/cases/A/a10_unpacked_ext law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 472 objects dd=426 oc=113 md5=0dda0dea
+r11u258repro/cases/A/a12_two_importers_ext law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=426 oc=117 md5=c1702e4e
+r11u258repro/cases/A/a14_local_assoc_ext law3 slrc=0 rc=0 cmp=1630 NOT_EQUAL stage1 dd=1236 oc=246 md5=cc1b626d
+r11u258repro/cases/A/a15_queue_of_structs_ext law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 375 objects dd=438 oc=110 md5=728cb0f1
+r11u258repro/cases/B/b01_bit_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=150 oc=35 md5=4d030f27
+r11u258repro/cases/B/b02_logic_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=150 oc=35 md5=7ccfd10f
+r11u258repro/cases/B/b03_enum_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=88 oc=35 md5=b512b266
+r11u258repro/cases/B/b04_byte law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=92 oc=35 md5=a9e33a4a
+r11u258repro/cases/B/b05_bitvec_kw law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=130 oc=36 md5=5583feee
+r11u258repro/cases/B/b06_bit_td_bare law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=162 oc=39 md5=53cdc14c
+r11u258repro/cases/B/b07_int_kw law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=92 oc=35 md5=59acaaf2
+r11u258repro/cases/B/b08_string law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 325 objects dd=90 oc=35 md5=61939590
+r11u259repro/cases/L/l03_queue_formal law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=169 oc=61 md5=914652a0
+r11u259repro/cases/L/l05_fixed_formal law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=173 oc=65 md5=579dc66f
+r11u259repro/cases/L/l08_local_array law3 slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=698 oc=162 md5=46f54ca8
+r11u259repro/cases/M/m01_iface_last law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=64 oc=17 md5=4084d7bc
+r11u259repro/cases/M/m02_pkg_only law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 141 objects dd=64 oc=15 md5=e4aac407
+r11u259repro/cases/M/m03_two_modules law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 219 objects dd=64 oc=23 md5=3d4f413e
+r11u259repro/cases/M/m05_foreach_block law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 792 objects dd=442 oc=64 md5=b88ee725
+r11u259repro/cases/M/m08_two_pkgs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 288 objects dd=150 oc=32 md5=521fde0a
+r11u259repro/cases/M/m10_packed law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 327 objects dd=147 oc=41 md5=727cc9a5
+r11u259repro/cases/M/m11_union law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=147 oc=39 md5=a77f0b31
+r11u259repro/cases/M/m12_iface_then_module law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 247 objects dd=64 oc=21 md5=039ea4f4
+r11u259repro/cases/M/m13_task law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 218 objects dd=68 oc=11 md5=70a2db49
+r11u259repro/cases/M/m14_member_lhs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 261 objects dd=68 oc=21 md5=01e0df24
+r11u264repro/cases/C/c08_oob_func_control law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 167 objects dd=66 oc=16 md5=4280c458
+r11u265repro/cases/B/b01_vd01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=252 oc=52 md5=640983bf
+r11u265repro/cases/B/b02_byte_en_local_name_clash law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 359 objects dd=142 oc=26 md5=337c90dc
+r11u265repro/cases/B/b03_part_select law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=80 oc=26 md5=88b8e838
+r11u265repro/cases/B/b04_rhs_bitsel law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 254 objects dd=96 oc=20 md5=5621718f
+r11u265repro/cases/B/b06_union_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 335 objects dd=138 oc=30 md5=16c18218
+r11u265repro/cases/B/b08_two_level law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 347 objects dd=138 oc=24 md5=fa1b7db0
+r11u265repro/cases/B/b09_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 341 objects dd=182 oc=30 md5=4b47e00e
+r11u265repro/cases/B/b10_macro_body law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 242 objects dd=92 oc=18 md5=8f5786b9
+r11u265repro/cases/E/e01_struct_enum_member_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=122 oc=27 md5=0e69d0e0
+r11u265repro/cases/E/e02_struct_enum_member_queue law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 552 objects dd=374 oc=39 md5=af2946c1
+r11u265repro/cases/E/e03_union_enum_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 605 objects dd=352 oc=67 md5=d42e7caa
+r11u265repro/cases/E/e04_no_formal_writer law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 256 objects dd=74 oc=22 md5=369f5dde
+r11u265repro/cases/E/e05_nested_begin_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=182 oc=35 md5=9a340233
+r11u265repro/cases/E/e06_enum_from_third_pkg law3 slrc=0 rc=0 cmp=756 NOT_EQUAL stage1 dd=202 oc=30 md5=ea58a31d
+r11u265repro/cases/E/e07_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=242 oc=41 md5=29213d41
+r11u265repro/cases/E/e08_free_function law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 331 objects dd=180 oc=34 md5=21ba0c4f
+r11u265repro/cases/E/e09_two_enum_members law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 540 objects dd=268 oc=46 md5=71d24002
+r11u265repro/cases/E/e10_macro_formal law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=118 oc=23 md5=73b736c1
+r11u265repro/cases/E/e11_header_crlf law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 334 objects dd=118 oc=23 md5=08c960b5
+r11u265repro/cases/E/e12_task_level_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 375 objects dd=122 oc=27 md5=b3d37701
+r11u285repro/cases/M/m01_tflocal law3 slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=94 oc=23 md5=941ae409
+r11u285repro/cases/M/m02_blocklocal law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 136 objects dd=36 oc=8 md5=0f0cca95
+r11u285repro/cases/M/m03_union law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 308 objects dd=90 oc=23 md5=428b1308
+r11u285repro/cases/M/m04_bittd law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 840 objects dd=362 oc=62 md5=8e49aa3a
+r11u285repro/cases/M/m05_logictd law3 slrc=0 rc=0 cmp=357 NOT_EQUAL stage1 dd=124 oc=36 md5=db4209bd
+r11u285repro/cases/M/m06_inttd law3 slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=266 oc=62 md5=17c5ed8e
+r11u285repro/cases/M/m07_enumtd law3 slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=128 oc=27 md5=79dc8a6c
+r11u285repro/cases/M/m08_nested law3 slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=362 oc=84 md5=307cdd98
+r11u285repro/cases/M/m09_twoimp law3 slrc=0 rc=0 cmp=19 NOT_EQUAL stage1 dd=278 oc=66 md5=51f807a4
+r11u285repro/cases/M/m10_formal law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 626 objects dd=190 oc=54 md5=da3f438d
+r11u285repro/cases/M/m11_signedtd law3 slrc=0 rc=0 cmp=359 NOT_EQUAL stage1 dd=372 oc=70 md5=3fe453c1
+r11u293repro/cases/CR/cr01_string_bitsel law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 220 objects dd=48 oc=26 md5=562d16aa
+r11u293repro/cases/CR/cr08_class_oob_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 257 objects dd=68 oc=26 md5=5de9b3b6
+r11u293repro/cases/CR/cr09_method_receiver law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 286 objects dd=44 oc=22 md5=bf03d901
+r11u296repro/cases/CI/ci01_local_idx_method law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 551 objects dd=238 oc=50 md5=7614aa2e
+r11u296repro/cases/CI/ci02_formal_idx law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 470 objects dd=184 oc=40 md5=4d00766f
+r11u296repro/cases/CI/ci03_pkgvar_idx law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 482 objects dd=184 oc=40 md5=ec006deb
+r11u296repro/cases/CI/ci04_op_idx law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 569 objects dd=196 oc=52 md5=3b10e712
+r11u296repro/cases/CI/ci05_nested_sel_idx law3 slrc=0 rc=0 cmp=1432 NOT_EQUAL stage1 dd=230 oc=58 md5=90ab2cd1
+r11u296repro/cases/CI/ci06_struct_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 730 objects dd=436 oc=59 md5=cc2d4791
+r11u296repro/cases/CI/ci07_struct_member_rhs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 745 objects dd=540 oc=57 md5=551160f2
+r11u296repro/cases/CI/ci08_prop_read law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 496 objects dd=166 oc=34 md5=b9d90ff8
+r11u296repro/cases/CI/ci09_task_clone law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=325 oc=54 md5=eda00e0b
+r11u296repro/cases/CI/ci10_two_sel_path law3 slrc=0 rc=0 cmp=132 NOT_EQUAL stage1 dd=402 oc=90 md5=bc801e8f
+r11u296repro/cases/CI/ci11_call_idx law3 slrc=0 rc=0 cmp=174 NOT_EQUAL stage1 dd=341 oc=60 md5=48db14ec
+r11u296repro/cases/CI/ci12_module_import_ctl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 443 objects dd=238 oc=50 md5=cf96a30b
+r11u296repro/cases/CI/ci13_chain_import law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 771 objects dd=464 oc=94 md5=fb35a163
+r11u296repro/cases/CI/ci14_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 749 objects dd=430 oc=91 md5=6f361eed
+r11u446repro/cases/CB/cb01 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=70 oc=17 md5=ee0cc7ce
+r11u446repro/cases/QU/qu01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 404 objects dd=84 oc=36 md5=2883f7aa
+r11u446repro/cases/QU/qu02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 360 objects dd=80 oc=16 md5=3f972a46
+r11u446repro/cases/SM/sm03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 379 objects dd=136 oc=23 md5=20230f4e
+r11u449repro/cases/FC/fc01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 134 objects dd=52 oc=24 md5=16b9f00c
+r11u449repro/cases/IT/it01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 621 objects dd=318 oc=66 md5=d89efc2d
+r11u449repro/cases/MC/mc04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 384 objects dd=142 oc=40 md5=d8ec3865
+r11u450repro/cases/IX/ix01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 231 objects dd=76 oc=50 md5=ae48867a
+r11u450repro/cases/IX/ix02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 165 objects dd=56 oc=34 md5=a2c70a4a
+r11u450repro/cases/IX/ix04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 287 objects dd=88 oc=50 md5=2c0a26c0
+r11u450repro/cases/IX/ix05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=56 oc=34 md5=1d8d6dff
+r11u450repro/cases/IX/ix06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 258 objects dd=96 oc=50 md5=6c7131ee
+r11u450repro/cases/IX/ix07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=52 oc=42 md5=2c13456e
+r11u450repro/cases/IX/ix09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 366 objects dd=88 oc=80 md5=127882e6
+r11u450repro/cases/IX/ix11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=56 oc=34 md5=d20c759d
+r11u450repro/cases/IX/ix12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=118 oc=58 md5=b2c17b26
+r11u450repro/cases/IX/ix13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 246 objects dd=68 oc=54 md5=e6030b13
+r11u450repro/cases/IX/ix15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 309 objects dd=60 oc=74 md5=29f2b34f
+r11u450repro/cases/IX/ix16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 324 objects dd=60 oc=74 md5=8f4ad6f0
+r11u450repro/cases/IX/ix17 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 336 objects dd=68 oc=78 md5=f1704373
+r11u450repro/cases/IX/ix18 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 336 objects dd=72 oc=82 md5=88a4cbe3
+r11u450repro/cases/IX/ix19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 354 objects dd=64 oc=74 md5=1f9fe9bb
+r11u450repro/cases/IX/ix22 law3 slrc=0 rc=0 cmp=538 NOT_EQUAL stage1 dd=164 oc=46 md5=9c1e1942
+r11u450repro/cases/IX/ix23 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 378 objects dd=158 oc=70 md5=56510983
+r11u450repro/cases/OC/oc01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1128 objects dd=730 oc=79 md5=3891b441
+r11u450repro/cases/OC/oc02 law3 slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=1440 oc=211 md5=ea572778
+r11u450repro/cases/OC/oc03 law3 slrc=0 rc=0 cmp=928 NOT_EQUAL stage1 dd=428 oc=52 md5=25190b67
+r11u450repro/cases/OC/oc04 law3 slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=1090 oc=149 md5=06f13595
+r11u450repro/cases/OC/oc05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1170 objects dd=708 oc=76 md5=609b18f7
+r11u457repro/cases/IC/ic03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=54 oc=20 md5=34285f43
+r11u458repro/cases/LT/lt02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 237 objects dd=132 oc=30 md5=2ed8d29d
+r11u458repro/cases/LT/lt06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 227 objects dd=122 oc=24 md5=053d975a
+r11u458repro/cases/LT/lt07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 90 objects dd=40 oc=22 md5=d20a79c5
+r11u458repro/cases/MB/mb01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1324 objects dd=786 oc=52 md5=d7a84bc3
+r11u458repro/cases/MB/mb02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1657 objects dd=1608 oc=178 md5=d8582487
+r11u458repro/cases/MB/mb06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1620 objects dd=2106 oc=217 md5=b0359366
+r11u458repro/cases/MB/mb07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1056 objects dd=1268 oc=138 md5=8ecb6df0
+r11u458repro/cases/MB/mb08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1214 objects dd=1268 oc=142 md5=7cc25219
+r11u458repro/cases/MB/mb09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1515 objects dd=1504 oc=125 md5=2965d8c3
+r11u460repro/cases/OB/ob02 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=185 oc=44 md5=a9f1a277
+r11u460repro/cases/OB/ob03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=82 oc=20 md5=1e086cc9
+r11u460repro/cases/OB/ob04 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=185 oc=44 md5=37aefe9e
+r11u460repro/cases/OB/ob05 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=149 oc=34 md5=ee621891
+r11u461repro/cases/UN/un19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 237 objects dd=132 oc=30 md5=d22a3b2d
+r11u461repro/cases/UN/un20 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 227 objects dd=122 oc=24 md5=e85b2896
+r11u462repro/cases/RV/rv04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 344 objects dd=296 oc=44 md5=6ed5d8e0
+r11u465repro/cases/LV/lv04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=84 oc=18 md5=366c60f8
+r11u465repro/cases/LV/lv05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 168 objects dd=86 oc=18 md5=4b20d3ce
+r11u476repro/cases/CC/cc01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=68 oc=24 md5=456c2d3d
+r11u476repro/cases/CC/cc02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=142 oc=40 md5=bc5284b8
+r11u476repro/cases/CC/cc03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 487 objects dd=210 oc=58 md5=0eea16da
+r11u476repro/cases/CC/cc04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 482 objects dd=210 oc=58 md5=f7498310
+r11u476repro/cases/CC/cc05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 201 objects dd=78 oc=22 md5=ad74fad1
+r11u476repro/cases/CC/cc06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 394 objects dd=142 oc=40 md5=c2c10439
+r11u476repro/cases/CC/cc07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=142 oc=40 md5=bcd9bfa4
+r11u476repro/cases/CC/cc08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 384 objects dd=138 oc=46 md5=2fa65de8
+r11u476repro/cases/CC/cc09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 312 objects dd=98 oc=40 md5=dc5aa969
+r11u476repro/cases/CC/cc10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=90 oc=32 md5=1f7e575c
+r11u476repro/cases/CC/cc11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=94 oc=40 md5=2d78a656
+r11u476repro/cases/CC/cc13 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=96 oc=46 md5=c95d6f4a
+r11u478repro/cases/AF/af01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=186 oc=52 md5=3b244bb1
+r11u478repro/cases/AF/af02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 287 objects dd=280 oc=68 md5=7942e5f1
+r11u478repro/cases/AF/af03 law3 slrc=0 rc=0 cmp=65 NOT_EQUAL stage1 dd=295 oc=81 md5=a1521744
+r11u478repro/cases/AF/af05 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=357 oc=88 md5=0faff522
+r11u478repro/cases/AF/af06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 159 objects dd=94 oc=28 md5=4b4ed36e
+r11u478repro/cases/AF/af07 law3 slrc=0 rc=0 cmp=124 NOT_EQUAL stage1 dd=318 oc=72 md5=cff48214
+r11u478repro/cases/AF/af08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 310 objects dd=378 oc=80 md5=d8355629
+r11u478repro/cases/AF/af09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 364 objects dd=412 oc=100 md5=f284df07
+r11u478repro/cases/AF/af10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 264 objects dd=210 oc=52 md5=27295ce7
+r11u478repro/cases/AM/am01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 806 objects dd=566 oc=44 md5=87bf9caf
+r11u478repro/cases/AM/am02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 851 objects dd=574 oc=52 md5=d61d1c4b
+r11u478repro/cases/AM/am03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 542 objects dd=166 oc=30 md5=ebedfec2
+r11u478repro/cases/AM/am04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 587 objects dd=174 oc=38 md5=770bd267
+r11u478repro/cases/AM/am05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 737 objects dd=210 oc=38 md5=a0aa1a35
+r11u478repro/cases/AM/am06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 509 objects dd=128 oc=30 md5=4615434e
+r11u478repro/cases/AM/am07 law3 slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=938 oc=180 md5=5e6cccda
+r11u478repro/cases/AM/am08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 710 objects dd=514 oc=42 md5=dbf8245e
+r11u478repro/cases/AM/am09 law3 slrc=0 rc=0 cmp=198 NOT_EQUAL stage1 dd=360 oc=58 md5=b5a3a95d
+r11u478repro/cases/AM/am10 law3 slrc=0 rc=0 cmp=38 NOT_EQUAL stage1 dd=542 oc=116 md5=0bae663e
+r11u478repro/cases/AM/am11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1001 objects dd=614 oc=52 md5=e6890654
+r11u478repro/cases/AM/am12 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 1402 objects dd=1144 oc=98 md5=dab72b8a
+r11u478repro/cases/AM/am13 law3 slrc=0 rc=0 cmp=926 NOT_EQUAL stage1 dd=590 oc=77 md5=b366f940
+r11u478repro/cases/PB/pb01 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=96 oc=46 md5=fbfeeed9
+r11u478repro/cases/PB/pb03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 298 objects dd=88 oc=32 md5=f9056eaa
+r11u478repro/cases/PB/pb04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 296 objects dd=90 oc=32 md5=67008f43
+r11u478repro/cases/PB/pb05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 224 objects dd=50 oc=18 md5=47f2f316
+r11u478repro/cases/PB/pb06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=68 oc=24 md5=d7fd9445
+r11u478repro/cases/PB/pb07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 479 objects dd=240 oc=38 md5=93e9d149
+r11u478repro/cases/PB/pb08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 352 objects dd=124 oc=46 md5=e815af38
+r11u480repro/cases/FA/fa16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 604 objects dd=314 oc=35 md5=901dc673
+r11v174repro/cases/dp/d02 law3 slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=1364 oc=119 md5=62d83e10
+r11v178repro/cases/ic/i01_local_kinds law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1325 objects dd=602 oc=127 md5=abad2ec4
+r11v178repro/cases/ic/i04_chain_import law3 slrc=0 rc=0 cmp=122 NOT_EQUAL stage1 dd=1294 oc=260 md5=ecb25b43
+v11u187repro/cases/G/g11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 167 objects dd=82 oc=21 md5=da0d93fe
+v11u187repro/cases/G/g12 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL endcol dd=133 oc=30 md5=6bd04f14
+v11u187repro/cases/G/g13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=112 oc=38 md5=b6377f39
+v11u187repro/cases/G/g14 law3 slrc=0 rc=0 cmp=642 NOT_EQUAL stage1 dd=128 oc=32 md5=e23cb89a
+v11u187repro/cases/G/g15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=96 oc=29 md5=0d714b8a
+v11u187repro/cases/G/g16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 153 objects dd=96 oc=29 md5=7b045025
+v11u187repro/cases/G/g18 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 324 objects dd=83 oc=25 md5=5a0877d1
+v11u187repro/cases/G/g19 law3 slrc=0 rc=0 cmp=194 NOT_EQUAL stage1 dd=408 oc=78 md5=09078b46
+v11u187repro/cases/G/g20 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 177 objects dd=90 oc=33 md5=53febaab
+v11u187repro/cases/G/g21 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 227 objects dd=134 oc=36 md5=d0f1d61a
+v11u216repro/cases/T/t08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 486 objects dd=232 oc=46 md5=c7d2e17f
+v11u220repro/cases/R/r02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 154 objects dd=30 oc=24 md5=4d827f3f
+v11u232repro/cases/CX/cx05 law3 slrc=0 rc=0 cmp=868 NOT_EQUAL stage1 dd=344 oc=62 md5=3d46ce64
+v11u238repro/cases/A/a02_shadow law3 slrc=0 rc=0 cmp=32 NOT_EQUAL stage1 dd=194 oc=54 md5=c41b256e
+v11u238repro/cases/A/a04_synth law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=434 oc=86 md5=4e116bf8
+v11u238repro/cases/A/a05_inner_shadow law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 457 objects dd=160 oc=46 md5=34f2b8d2
+v11u238repro/cases/A/a06_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 432 objects dd=186 oc=62 md5=8a5e3413
+v11u238repro/cases/A/a08_synth law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=310 oc=61 md5=68b862d8
+v11u238repro/cases/D/d01_tdqueue law3 slrc=0 rc=0 cmp=1632 NOT_EQUAL stage1 dd=515 oc=98 md5=9a400586
+v11u238repro/cases/D/d02_param_cls law3 slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=205 oc=45 md5=360be704
+v11u238repro/cases/D/d03_tdq law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=193 oc=38 md5=02ff83b6
+v11u238repro/cases/D/d04_twoidx law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=247 oc=56 md5=8217da56
+v11u238repro/cases/D/d05_static_scope law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 248 objects dd=171 oc=34 md5=9f0da30a
+v11u238repro/cases/E/e01_mixed law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=291 oc=64 md5=f751c389
+v11u238repro/cases/E/e02_this_paths law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=205 oc=50 md5=639ee2cb
+v11u241repro/cases/AG/g02 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=1063 oc=144 md5=94c58b3e
+v11u241repro/cases/AG/g03 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=312 oc=47 md5=4d58423f
+v11u241repro/cases/AG/g04 law3 slrc=0 rc=0 cmp=652 NOT_EQUAL stage1 dd=256 oc=45 md5=531155ad
+v11u241repro/cases/AG/g05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 501 objects dd=226 oc=51 md5=2e148f9a
+v11u241repro/cases/AG/g06 law3 slrc=0 rc=0 cmp=360 NOT_EQUAL stage1 dd=730 oc=102 md5=20e25591
+v11u241repro/cases/AG/g07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 614 objects dd=364 oc=57 md5=6a17e110
+v11u241repro/cases/AG/g08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 428 objects dd=362 oc=72 md5=36782e6b
+v11u241repro/cases/AG/g09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 379 objects dd=174 oc=34 md5=dccac273
+v11u241repro/cases/AG/g10 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=655 oc=93 md5=bc549408
+v11u241repro/cases/AG/g12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 597 objects dd=230 oc=39 md5=e54a2242
+v11u241repro/cases/AG/g13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 855 objects dd=566 oc=59 md5=e51d1fa2
+v11u241repro/cases/AG/g14 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=334 oc=51 md5=c2050a3f
+v11u241repro/cases/AG/g15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=408 oc=82 md5=9a5e63d0
+v11u241repro/cases/AG/g16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 367 objects dd=146 oc=27 md5=18c9b20b
+v11u241repro/cases/AG/g17 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 392 objects dd=142 oc=23 md5=349796a0
+v11u241repro/cases/AG/g18 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 886 objects dd=656 oc=106 md5=d6217828
+v11u241repro/cases/AR/r01 law3 slrc=0 rc=0 cmp=934 NOT_EQUAL stage1 dd=170 oc=34 md5=0f00b079
+v11u241repro/cases/AR/r02 law3 slrc=0 rc=0 cmp=804 NOT_EQUAL stage1 dd=252 oc=42 md5=93108f6c
+v11u241repro/cases/AR/r03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 934 objects dd=894 oc=40 md5=a16485e0
+v11u241repro/cases/AR/r05 law3 slrc=0 rc=0 cmp=448 NOT_EQUAL stage1 dd=96 oc=22 md5=6c242192
+v11u241repro/cases/AR/r06 law3 slrc=0 rc=0 cmp=150 NOT_EQUAL stage1 dd=234 oc=74 md5=0f8e72c8
+v11u241repro/cases/AR/r08 law3 slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=106 oc=28 md5=8f6b5b5f
+v11u241repro/cases/AR/r09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 346 objects dd=146 oc=30 md5=aeab837e
+v11u241repro/cases/AR/r10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 533 objects dd=272 oc=48 md5=b65aeea0
+v11u241repro/cases/AR/r11 law3 slrc=0 rc=0 cmp=544 NOT_EQUAL stage1 dd=110 oc=28 md5=d2453f94
+v11u241repro/cases/AR/r12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 353 objects dd=172 oc=28 md5=a1d72853
+v11u241repro/cases/AR/r13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 545 objects dd=368 oc=20 md5=ed9482cd
+v11u241repro/cases/AR/r14 law3 slrc=0 rc=0 cmp=736 NOT_EQUAL stage1 dd=185 oc=31 md5=a03b1517
+v11u241repro/cases/AR/r15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 710 objects dd=402 oc=32 md5=154ddd6d
+v11u241repro/cases/AR/r16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 458 objects dd=246 oc=26 md5=98a003f3
+v11u244repro/cases/E/e07_x_2d_assoc law3 slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=376 oc=98 md5=544262bf
+v11u244repro/cases/E/e08_x_nested_loop law3 slrc=0 rc=0 cmp=1078 NOT_EQUAL stage1 dd=893 oc=151 md5=1148ecef
+v11u244repro/cases/E/e09_x_param_dims law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=512 oc=108 md5=87363521
+v11u244repro/cases/E/e10_x_struct_class law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 751 objects dd=696 oc=74 md5=f846615e
+v11u244repro/cases/E/e11_x_tdarr_kinds law3 slrc=0 rc=0 cmp=1500 NOT_EQUAL stage1 dd=2508 oc=450 md5=841b2af8
+v11u244repro/cases/W/w04_x_forms law3 slrc=0 rc=0 cmp=1876 NOT_EQUAL stage1 dd=214 oc=40 md5=dd4b8408
+v11u244repro/cases/W/w05_x_task law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 255 objects dd=42 oc=12 md5=017031ed
+v11u244repro/cases/W/w06_x_declinit law3 slrc=0 rc=0 cmp=58 NOT_EQUAL stage1 dd=222 oc=32 md5=3a4a2bdd
+v11u247repro/cases/A/a01_shadowq law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 553 objects dd=256 oc=54 md5=2fd64dda
+v11u247repro/cases/A/a02_siblingq law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 555 objects dd=186 oc=46 md5=2fdc6408
+v11u247repro/cases/A/a03_queue_taskq law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 562 objects dd=206 oc=44 md5=7b403fe6
+v11u247repro/cases/A/a04_inbodyq law3 slrc=0 rc=0 cmp=990 NOT_EQUAL stage1 dd=294 oc=28 md5=b59a4702
+v11u247repro/cases/A/a05_twoimpq law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 470 objects dd=230 oc=46 md5=3b9aac20
+v11u247repro/cases/H/h02_inbodyq law3 slrc=0 rc=0 cmp=31 NOT_EQUAL stage1 dd=114 oc=50 md5=75f23eb0
+v11u248repro/cases/A/a02_enum_elem law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 643 objects dd=332 oc=61 md5=44b34a3b
+v11u248repro/cases/A/a04_string_elem law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 464 objects dd=280 oc=75 md5=0495dba0
+v11u248repro/cases/A/a10_nested_with law3 slrc=0 rc=0 cmp=1156 NOT_EQUAL stage1 dd=202 oc=58 md5=66893fd9
+v11u248repro/cases/B/b01_ws_recv law3 slrc=0 rc=0 cmp=184 NOT_EQUAL stage1 dd=482 oc=80 md5=ff38f4dc
+v11u248repro/cases/B/b02_sum_cast law3 slrc=0 rc=0 cmp=32 NOT_EQUAL stage1 dd=276 oc=90 md5=da07587a
+v11u248repro/cases/B/b04_minmax_unique law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 651 objects dd=394 oc=84 md5=27328fb1
+v11u248repro/cases/B/b05_assoc_recv law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 717 objects dd=424 oc=78 md5=bba08329
+v11u248repro/cases/B/b06_struct_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 855 objects dd=844 oc=114 md5=9972044c
+v11u248repro/cases/B/b07_ctx_if_return law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 849 objects dd=588 oc=112 md5=f0f84977
+v11u248repro/cases/B/b08_concat_repl law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 654 objects dd=410 oc=104 md5=1dbeecbd
+v11u248repro/cases/B/b09_recv_select law3 slrc=0 rc=0 cmp=276 NOT_EQUAL stage1 dd=486 oc=72 md5=72d2aab5
+v11u248repro/cases/B/b11_super_recv law3 slrc=0 rc=0 cmp=166 NOT_EQUAL stage1 dd=451 oc=85 md5=99d8fb3e
+v11u248repro/cases/B/b12_param_class law3 slrc=0 rc=0 cmp=1452 NOT_EQUAL stage1 dd=204 oc=78 md5=8c65b59c
+v11u248repro/cases/B/b13_static_fn law3 slrc=0 rc=0 cmp=844 NOT_EQUAL stage1 dd=88 oc=32 md5=f05611cc
+v11u248repro/cases/K/k01_kitchen law3 slrc=0 rc=0 cmp=152 NOT_EQUAL stage1 dd=671 oc=152 md5=6e3f0c29
+v11u252repro/cases/VL/vl02_enum_q law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 212 objects dd=94 oc=23 md5=d540ef33
+v11u252repro/cases/VL/vl04_dyn_struct law3 slrc=0 rc=0 cmp=37 NOT_EQUAL stage1 dd=291 oc=49 md5=58e15608
+v11u252repro/cases/VL/vl06_pkg_func_slots law3 slrc=0 rc=0 cmp=846 NOT_EQUAL stage1 dd=196 oc=62 md5=5f8a0aaf
+v11u252repro/cases/VR/vr01_this_randomize law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=70 oc=32 md5=6af20603
+v11u252repro/cases/VR/vr02_arg_list law3 slrc=0 rc=0 cmp=29 NOT_EQUAL stage1 dd=74 oc=32 md5=d44a852e
+v11u252repro/cases/VR/vr03_std_randomize law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=79 oc=25 md5=8563af52
+v11u252repro/cases/VR/vr04_local_qual law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 204 objects dd=70 oc=32 md5=71aba15e
+v11u252repro/cases/VR/vr05_prop_receiver law3 slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=146 oc=36 md5=4b8cd247
+v11u252repro/cases/VX/vx01_three_level law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=160 oc=40 md5=80cfc211
+v11u252repro/cases/VX/vx02_two_elems law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 642 objects dd=140 oc=40 md5=c6c95d7f
+v11u252repro/cases/VX/vx03_partsel_inner law3 slrc=0 rc=0 cmp=208 NOT_EQUAL stage1 dd=424 oc=96 md5=28073f57
+v11u252repro/cases/VX/vx04_incdec_lhs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 644 objects dd=140 oc=40 md5=1333d500
+v11u252repro/cases/VX/vx05_this_path law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 591 objects dd=140 oc=40 md5=fd531f2c
+v11u252repro/cases/VX/vx06_prop_index law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=140 oc=40 md5=0dee41ce
+v11u252repro/cases/VX/vx07_named_call law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 666 objects dd=148 oc=48 md5=10d4e460
+v11u252repro/cases/VX/vx08_two_dim_idx law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 693 objects dd=140 oc=40 md5=adf727c4
+v11u253repro/cases/D/vd03_fixed_local_synth law3 slrc=0 rc=0 cmp=1350 NOT_EQUAL stage1 dd=470 oc=72 md5=52adf4a8
+v11u253repro/cases/F/vf01_fixed_struct_elem law3 slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=1066 oc=205 md5=2cda0589
+v11u253repro/cases/F/vf02_fixed_task_static law3 slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=338 oc=65 md5=08335616
+v11u253repro/cases/F/vf05_fixed_two_importers law3 slrc=0 rc=0 cmp=506 NOT_EQUAL stage1 dd=116 oc=40 md5=c4804487
+v11u253repro/cases/M/vm02_two_exists_same_line law3 slrc=0 rc=0 cmp=758 NOT_EQUAL stage1 dd=232 oc=74 md5=13a5cbd7
+v11u253repro/cases/M/vm03_delete_first law3 slrc=0 rc=0 cmp=778 NOT_EQUAL stage1 dd=94 oc=30 md5=e372c2f3
+v11u253repro/cases/M/vm04_export_chain law3 slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=306 oc=96 md5=9fb3849d
+v11u253repro/cases/M/vm06_exists_in_header law3 slrc=0 rc=0 cmp=522 NOT_EQUAL stage1 dd=150 oc=48 md5=33a80711
+v11u253repro/cases/M/vm07_exists_nested_loop law3 slrc=0 rc=0 cmp=1374 NOT_EQUAL stage1 dd=290 oc=94 md5=b4836a1f
+v11u253repro/cases/M/vm09_exists_task law3 slrc=0 rc=0 cmp=482 NOT_EQUAL stage1 dd=116 oc=18 md5=31a010f3
+v11u253repro/cases/T/vt08_parenless_task_locals_class law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=14 oc=8 md5=84de154d
+v11u253repro/cases/T/vt19_parenless_proto_parens_def law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 121 objects dd=18 oc=14 md5=be24c5f6
+v11u257repro/cases/K/vk01_six_bodies law3 slrc=0 rc=0 cmp=330 NOT_EQUAL stage1 dd=2775 oc=412 md5=649f05bd
+v11u257repro/cases/K/vk02_two_importers law3 slrc=0 rc=0 cmp=148 NOT_EQUAL stage1 dd=2622 oc=488 md5=b4d5e3d6
+v11u258repro/cases/VA/va01_include_two_pkgs law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=292 oc=88 md5=1adf5891
+v11u258repro/cases/VA/va02_macro_two_methods law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 721 objects dd=204 oc=42 md5=5bf1d96b
+v11u258repro/cases/VA/va03_two_dim_assoc law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 483 objects dd=128 oc=28 md5=810a5d68
+v11u258repro/cases/VA/va04_class_scoped_enum law3 slrc=0 rc=0 cmp=66 NOT_EQUAL stage1 dd=122 oc=36 md5=df120dc1
+v11u258repro/cases/VA/va05_index_from_other_pkg law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 415 objects dd=70 oc=23 md5=e3a4f7eb
+v11u258repro/cases/VA/va06_two_importer_pkgs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 464 objects dd=118 oc=41 md5=174ed5e3
+v11u258repro/cases/VA/va07_extern_task law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 352 objects dd=90 oc=17 md5=fcb5fc97
+v11u258repro/cases/VA/va08_param_class law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 398 objects dd=116 oc=23 md5=14f48b76
+v11u258repro/cases/VA/va09_struct_enum_nested law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 803 objects dd=132 oc=27 md5=df1d231c
+v11u258repro/cases/VA/va10_two_foreach_same_array law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 508 objects dd=126 oc=28 md5=f94f421a
+v11u258repro/cases/VA/va11_union_index law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 406 objects dd=92 oc=23 md5=2a2a306e
+v11u258repro/cases/VA/va12_class_scoped_struct law3 slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=169 oc=28 md5=e084e548
+v11u258repro/cases/VA/va13_longint_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 318 objects dd=166 oc=32 md5=7a6ac396
+v11u258repro/cases/VA/va14_nested_in_fork law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 358 objects dd=80 oc=17 md5=059bfed5
+v11u258repro/cases/VA/va15_integer_time_logic law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 466 objects dd=284 oc=44 md5=9ab3fe55
+v11u258repro/cases/VA/va16_type_param_index law3 slrc=0 rc=0 cmp=56 NOT_EQUAL stage1 dd=111 oc=28 md5=bd5e334b
+v11u258repro/cases/VA/va17_static_method_local_home law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 343 objects dd=114 oc=23 md5=bd95cbee
+v11u258repro/cases/VD/vd01_copy_struct_bitsel_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 492 objects dd=252 oc=52 md5=3c835660
+v11u259repro/cases/VL/vl10_fixed_local_synth law3 slrc=0 rc=0 cmp=116 NOT_EQUAL stage1 dd=908 oc=188 md5=33bf8568
+v11u259repro/cases/VL/vl12_local_and_formal_same_td law3 slrc=0 rc=0 cmp=1058 NOT_EQUAL stage1 dd=543 oc=107 md5=d49954e1
+v11u259repro/cases/VM/vm02_local_shadow_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=106 oc=22 md5=b2c1c27b
+v11u259repro/cases/VM/vm03_export_chain law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 351 objects dd=150 oc=32 md5=0b658e47
+v11u259repro/cases/VM/vm04_nested_anon law3 slrc=0 rc=0 cmp=299 NOT_EQUAL stage1 dd=264 oc=45 md5=f18c9f70
+v11u259repro/cases/VM/vm05_nested_named law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=156 oc=31 md5=19e8f925
+v11u259repro/cases/VM/vm07_two_importer_pkgs_iface law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 260 objects dd=150 oc=34 md5=954ff024
+v11u259repro/cases/VM/vm08_packed_synth law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 422 objects dd=383 oc=37 md5=f663c9c6
+v11u259repro/cases/VM/vm09_member_in_foreach_body law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 419 objects dd=116 oc=53 md5=fc676254
+v11u259repro/cases/VM/vm10_task_lhs_iface_prog law3 slrc=0 rc=0 cmp=284 NOT_EQUAL stage1 dd=118 oc=43 md5=fee755bd
+v11u259repro/cases/VM/vm11_module_imports_importer law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 252 objects dd=90 oc=25 md5=289fdf6f
+v11u259repro/cases/VM/vm12_two_pkgs_only law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 203 objects dd=150 oc=30 md5=1ff216aa
+v11u259repro/cases/VM/vm13_td_from_third_pkg law3 slrc=0 rc=0 cmp=354 NOT_EQUAL stage1 dd=104 oc=22 md5=159c98fe
+v11u259repro/cases/VM/vm14_array_elem_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 411 objects dd=286 oc=29 md5=c74fef56
+v11u259repro/cases/VM/vm15_packed_union law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 387 objects dd=191 oc=37 md5=85505fe1
+v11u259repro/cases/VM/vm16_two_members_two_types law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 376 objects dd=107 oc=46 md5=8a41bc69
+v11u259repro/cases/VM/vm17_crlf law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=64 oc=17 md5=4e39d191
+v11u259repro/cases/VM/vm18_macro_body law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 226 objects dd=64 oc=17 md5=deca8dd2
+v11u264repro/cases/VC/vc09_two_classes law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 373 objects dd=188 oc=99 md5=f0279bfe
+v11u265repro/cases/VB/vb02_foreach_member law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=133 oc=27 md5=bd841df1
+v11u265repro/cases/VB/vb03_member_name_is_param law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 362 objects dd=172 oc=31 md5=70088260
+v11u265repro/cases/VB/vb04_unpacked_array_member law3 slrc=0 rc=0 cmp=337 NOT_EQUAL stage1 dd=160 oc=32 md5=329aa477
+v11u265repro/cases/VB/vb05_indexed_part_select law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=104 oc=26 md5=41fb4cb9
+v11u265repro/cases/VB/vb06_shadow_typedef_in_q law3 slrc=0 rc=0 cmp=600 NOT_EQUAL stage1 dd=160 oc=28 md5=ce875c37
+v11u265repro/cases/VB/vb07_two_structs_same_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 437 objects dd=146 oc=30 md5=0a546e29
+v11u265repro/cases/VB/vb08_rhs_in_expr law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 380 objects dd=104 oc=52 md5=23cb7fed
+v11u265repro/cases/VB/vb10_packed_struct law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=130 oc=24 md5=d2664cc7
+v11u265repro/cases/VB/vb11_third_pkg_struct law3 slrc=0 rc=0 cmp=388 NOT_EQUAL stage1 dd=152 oc=28 md5=a56a02ba
+v11u265repro/cases/VB/vb12_module_task_bitsel law3 slrc=0 rc=0 cmp=15 NOT_EQUAL stage1 dd=613 oc=51 md5=ec709277
+v11u265repro/cases/VB/vb13_two_dim_member law3 slrc=0 rc=0 cmp=457 NOT_EQUAL stage1 dd=306 oc=52 md5=8813888a
+v11u265repro/cases/VB/vb14_array_elem_root law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 803 objects dd=876 oc=60 md5=395bf97a
+v11u265repro/cases/VE/ve01_formal_struct_root law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=134 oc=24 md5=b771640c
+v11u265repro/cases/VE/ve02_return_writer law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 347 objects dd=92 oc=44 md5=53f0091e
+v11u265repro/cases/VE/ve04_nested_struct law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=254 oc=41 md5=18b8db85
+v11u265repro/cases/VE/ve05_logic_base_enum law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 572 objects dd=394 oc=69 md5=eed2506a
+v11u265repro/cases/VE/ve06_fixed_array law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 465 objects dd=370 oc=37 md5=00b493cb
+v11u265repro/cases/VE/ve07_dyn_assoc_array law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 740 objects dd=662 oc=55 md5=629e02f9
+v11u265repro/cases/VE/ve08_function_copy law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 558 objects dd=264 oc=35 md5=5ee1a134
+v11u265repro/cases/VE/ve09_initializer law3 slrc=0 rc=0 cmp=28 NOT_EQUAL stage1 dd=222 oc=55 md5=b7d455fc
+v11u265repro/cases/VE/ve10_two_enum_types law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 502 objects dd=218 oc=56 md5=97ced7e2
+v11u265repro/cases/VE/ve12_param_class law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 318 objects dd=126 oc=23 md5=cc583401
+v11u265repro/cases/VE/ve13_module_imports_q law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 372 objects dd=118 oc=23 md5=9d779b00
+v11u265repro/cases/VE/ve14_two_methods_same_struct law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 613 objects dd=428 oc=61 md5=fa6657d0
+v11u265repro/cases/VE/ve15_enum_member_unused law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 323 objects dd=136 oc=23 md5=09e9dc82
+v11u265repro/cases/VE/ve16_alias_enum_member law3 slrc=0 rc=0 cmp=124 NOT_EQUAL stage1 dd=341 oc=57 md5=cab25894
+v11u265repro/cases/VE/ve17_unpacked_union law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=118 oc=23 md5=1d9db2cb
+v11u265repro/cases/VE/ve18_header_two_pkgs law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=388 oc=54 md5=b1147137
+v11u265repro/cases/VE/ve19_header_struct_writer law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 312 objects dd=118 oc=23 md5=2672389d
+v11u265repro/cases/VE/ve20_qualified_member_type law3 slrc=0 rc=0 cmp=752 NOT_EQUAL stage1 dd=186 oc=29 md5=35b0e243
+v11u265repro/cases/VE/ve21_two_locals_same_copy law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 473 objects dd=178 oc=29 md5=7bbf760f
+v11u265repro/cases/VE/ve22_enum_array_member law3 slrc=0 rc=0 cmp=449 NOT_EQUAL stage1 dd=240 oc=41 md5=30d910ea
+v11u265repro/cases/VE/ve23_fork_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 317 objects dd=118 oc=23 md5=ac066cdb
+v11u265repro/cases/VE/ve24_chain_importer law3 slrc=0 rc=0 cmp=780 NOT_EQUAL stage1 dd=242 oc=43 md5=d838b4e0
+v11u265repro/cases/VE/ve25_crlf_macro_local law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 311 objects dd=118 oc=23 md5=feaba4fe
+v11u269repro/cases/VR/vr06_task_and_func law3 slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=374 oc=96 md5=a5918dc3
+v11u285repro/cases/VM/vm01_td_of_td law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=583 oc=84 md5=47cda55a
+v11u285repro/cases/VM/vm02_packed2d law3 slrc=0 rc=0 cmp=341 NOT_EQUAL stage1 dd=200 oc=24 md5=8aef2d5e
+v11u285repro/cases/VM/vm03_third_pkg_td law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=306 oc=44 md5=1b8b806e
+v11u285repro/cases/VM/vm04_param_width law3 slrc=0 rc=0 cmp=399 NOT_EQUAL stage1 dd=306 oc=37 md5=6084a163
+v11u285repro/cases/VM/vm05_str_real_int law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=320 oc=57 md5=c4468f68
+v11u285repro/cases/VM/vm06_unpacked_td law3 slrc=0 rc=0 cmp=158 NOT_EQUAL stage1 dd=756 oc=134 md5=4137578a
+v11u285repro/cases/VM/vm07_two_locals law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 707 objects dd=240 oc=38 md5=e7a35db2
+v11u285repro/cases/VM/vm10_task_block law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 529 objects dd=232 oc=40 md5=f6770e18
+v11u285repro/cases/VM/vm11_signed_enum law3 slrc=0 rc=0 cmp=429 NOT_EQUAL stage1 dd=324 oc=42 md5=643e50e4
+v11u285repro/cases/VM/vm12_union_td law3 slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=220 oc=39 md5=6e28695a
+v11u285repro/cases/VM/vm13_nested_td law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=370 oc=45 md5=5245626c
+v11u285repro/cases/VM/vm14_packed_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 845 objects dd=440 oc=57 md5=e357289c
+v11u285repro/cases/VM/vm15_two_importers law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 740 objects dd=476 oc=58 md5=5d8f7287
+v11u285repro/cases/VM/vm16_macro_td law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=272 oc=42 md5=a05b5fbf
+v11u285repro/cases/VM/vm17_crlf law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 716 objects dd=300 oc=54 md5=eb41a99b
+v11u285repro/cases/VM/vm18_hdr_td law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL file dd=306 oc=46 md5=8256ba6d
+v11u285repro/cases/VM/vm19_loop_block law3 slrc=0 rc=0 cmp=46 NOT_EQUAL stage1 dd=309 oc=62 md5=f803d736
+v11u285repro/cases/VM/vm20_two_structs law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1056 objects dd=416 oc=75 md5=8ef3688b
+v11u285repro/cases/VM/vm21_macro_member law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 564 objects dd=268 oc=42 md5=15d8cb7b
+v11u296repro/cases/VC/vc01_param_idx law3 slrc=0 rc=0 cmp=146 NOT_EQUAL stage1 dd=387 oc=61 md5=7d9ece67
+v11u296repro/cases/VC/vc02_prop_select law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 522 objects dd=216 oc=47 md5=e0c3be45
+v11u296repro/cases/VC/vc03_lvalue law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 552 objects dd=216 oc=47 md5=19ce8179
+v11u296repro/cases/VC/vc04_static_fn law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 534 objects dd=274 oc=49 md5=6745b826
+v11u296repro/cases/VC/vc05_foreach law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 744 objects dd=366 oc=69 md5=8cfb9af9
+v11u296repro/cases/VC/vc06_task_out law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 910 objects dd=542 oc=73 md5=14887209
+v11u296repro/cases/VC/vc07_named_call law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 534 objects dd=278 oc=53 md5=130e42ab
+v11u446repro/cases/VC/vc13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=104 oc=36 md5=722d5773
+v11u446repro/cases/VC/vc14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 275 objects dd=82 oc=36 md5=f13fc793
+v11u446repro/cases/VQ/vq01 law3 slrc=0 rc=0 cmp=50 NOT_EQUAL stage1 dd=89 oc=23 md5=c3d18789
+v11u446repro/cases/VQ/vq02 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=132 oc=29 md5=1352c6ed
+v11u446repro/cases/VQ/vq03 law3 slrc=0 rc=0 cmp=62 NOT_EQUAL stage1 dd=268 oc=54 md5=e17b84e2
+v11u446repro/cases/VQ/vq04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 274 objects dd=74 oc=16 md5=12d11513
+v11u446repro/cases/VQ/vq05 law3 slrc=0 rc=0 cmp=36 NOT_EQUAL stage1 dd=526 oc=104 md5=2a21158a
+v11u446repro/cases/VQ/vq06 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=343 oc=19 md5=344d4ac0
+v11u446repro/cases/VQ/vq07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 610 objects dd=150 oc=36 md5=057d52b5
+v11u446repro/cases/VS/vs04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 402 objects dd=104 oc=27 md5=11049a79
+v11u449repro/cases/VF/vf01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 109 objects dd=42 oc=14 md5=68f39174
+v11u449repro/cases/VF/vf03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 193 objects dd=110 oc=48 md5=a86be2dc
+v11u449repro/cases/VF/vf04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 185 objects dd=56 oc=34 md5=fc6d9827
+v11u449repro/cases/VF/vf05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 110 objects dd=48 oc=14 md5=bd60f77b
+v11u449repro/cases/VF/vf06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 148 objects dd=42 oc=20 md5=2468fc63
+v11u449repro/cases/VI/vi01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 452 objects dd=264 oc=51 md5=30d9b84c
+v11u449repro/cases/VI/vi02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 249 objects dd=138 oc=41 md5=362311cb
+v11u449repro/cases/VP/vp03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=109 oc=44 md5=ea07ac73
+v11u449repro/cases/VP/vp11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 179 objects dd=113 oc=43 md5=988e41ba
+v11u450repro/cases/VO/vo01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1170 objects dd=708 oc=76 md5=43b1bd1a
+v11u450repro/cases/VO/vo02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 637 objects dd=500 oc=98 md5=74c8d70e
+v11u450repro/cases/VO/vo04 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL line dd=1178 oc=68 md5=d413b2ab
+v11u450repro/cases/VO/vo05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1171 objects dd=708 oc=76 md5=30e4a527
+v11u450repro/cases/VX/vx02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 372 objects dd=76 oc=78 md5=b7764e2e
+v11u450repro/cases/VX/vx03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 339 objects dd=176 oc=68 md5=41be2ede
+v11u450repro/cases/VX/vx04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 537 objects dd=278 oc=112 md5=b952b841
+v11u450repro/cases/VX/vx05 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=102 oc=74 md5=75bb0d44
+v11u450repro/cases/VX/vx07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 440 objects dd=132 oc=132 md5=e3513fac
+v11u450repro/cases/VX/vx08 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=409 oc=79 md5=8b2c02c2
+v11u455repro/cases/VG/vg05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 323 objects dd=104 oc=52 md5=5a5ef20c
+v11u457repro/cases/VC/vc04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=54 oc=20 md5=6280aa3c
+v11u457repro/cases/VC/vc08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 244 objects dd=54 oc=20 md5=343d4eb0
+v11u458repro/cases/VB/vb04 law3 slrc=0 rc=0 cmp=656 NOT_EQUAL stage1 dd=861 oc=159 md5=c83a362a
+v11u458repro/cases/VB/vb08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1969 objects dd=1124 oc=71 md5=e24ce905
+v11u458repro/cases/VB/vb12 law3 slrc=0 rc=0 cmp=606 NOT_EQUAL stage1 dd=451 oc=104 md5=7c34528e
+v11u458repro/cases/VB/vb13 law3 slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=670 oc=89 md5=d3b24afa
+v11u458repro/cases/VB/vb14 law3 slrc=0 rc=0 cmp=207 NOT_EQUAL stage1 dd=156 oc=50 md5=5f16ad60
+v11u458repro/cases/VT/vt03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 195 objects dd=94 oc=24 md5=26afd679
+v11u460repro/cases/VO/vo01 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=239 oc=60 md5=f8ee5b9c
+v11u460repro/cases/VO/vo02 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=191 oc=42 md5=f8dbcad2
+v11u460repro/cases/VO/vo03 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=435 oc=58 md5=9bf45bf2
+v11u460repro/cases/VO/vo04 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=353 oc=98 md5=da837a7f
+v11u460repro/cases/VO/vo05 law3 slrc=0 rc=0 cmp=1116 NOT_EQUAL stage1 dd=481 oc=102 md5=05b4036f
+v11u460repro/cases/VO/vo06 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=117 oc=26 md5=bec6d760
+v11u460repro/cases/VO/vo07 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=231 oc=65 md5=ac0dcd64
+v11u460repro/cases/VO/vo08 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=237 oc=60 md5=2d1bcfc6
+v11u460repro/cases/VO/vo09 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=377 oc=102 md5=d0d3c676
+v11u460repro/cases/VO/vo10 law3 slrc=0 rc=0 cmp=78 NOT_EQUAL stage1 dd=243 oc=62 md5=faaa1a63
+v11u460repro/cases/VO/vo11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=84 oc=20 md5=e69798e0
+v11u460repro/cases/VO/vo12 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=280 oc=30 md5=d466ed92
+v11u460repro/cases/VO/vo13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 218 objects dd=82 oc=20 md5=31057d2a
+v11u460repro/cases/VO/vo14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 214 objects dd=82 oc=20 md5=677bbc78
+v11u460repro/cases/VO/vo15 law3 slrc=0 rc=0 cmp=604 NOT_EQUAL stage1 dd=262 oc=48 md5=a78d8337
+v11u460repro/cases/VO/vo16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 403 objects dd=140 oc=40 md5=88c0eeb1
+v11u465repro/cases/VL/vl02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=82 oc=18 md5=4281fce1
+v11u465repro/cases/VL/vl06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 206 objects dd=80 oc=18 md5=1a420bcd
+v11u465repro/cases/VL/vl13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 203 objects dd=66 oc=21 md5=d612b531
+v11u465repro/cases/VL/vl14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 215 objects dd=63 oc=21 md5=057cb7b7
+v11u465repro/cases/VL/vl16 law3 slrc=0 rc=0 cmp=1042 NOT_EQUAL stage1 dd=92 oc=28 md5=98e58558
+v11u465repro/cases/VL/vl22 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 180 objects dd=84 oc=18 md5=40dd5a80
+v11u476repro/cases/VP/vp01 law3 slrc=0 rc=0 cmp=1242 NOT_EQUAL stage1 dd=488 oc=96 md5=8979be94
+v11u476repro/cases/VP/vp02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 176 objects dd=46 oc=18 md5=3f39c519
+v11u476repro/cases/VP/vp03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 411 objects dd=126 oc=46 md5=02c72f92
+v11u476repro/cases/VP/vp04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=134 oc=46 md5=c640348e
+v11u476repro/cases/VP/vp05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 413 objects dd=134 oc=46 md5=e3f2094e
+v11u476repro/cases/VP/vp06 law3 slrc=0 rc=0 cmp=427 NOT_EQUAL stage1 dd=480 oc=88 md5=2b70800a
+v11u476repro/cases/VP/vp07 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL fullname dd=466 oc=80 md5=6a2d39cb
+v11u476repro/cases/VP/vp08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 282 objects dd=94 oc=20 md5=7b5f05c7
+v11u476repro/cases/VP/vp09 law3 slrc=0 rc=0 cmp=1034 NOT_EQUAL stage1 dd=506 oc=102 md5=80271cfd
+v11u476repro/cases/VP/vp11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 351 objects dd=90 oc=36 md5=f11d4c1a
+v11u476repro/cases/VP/vp12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 396 objects dd=190 oc=56 md5=1ecf3bbd
+v11u476repro/cases/VP/vp14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 345 objects dd=90 oc=32 md5=57dc6a93
+v11u476repro/cases/VP/vp15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 361 objects dd=124 oc=44 md5=b3c4c46b
+v11u476repro/cases/VP/vp16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 388 objects dd=106 oc=40 md5=3056f3da
+v11u476repro/cases/VP/vp19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 605 objects dd=226 oc=52 md5=1ae15809
+v11u476repro/cases/VP/vp20 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 494 objects dd=160 oc=60 md5=afe739ee
+v11u476repro/cases/VP/vp21 law3 slrc=0 rc=0 cmp=500 NOT_EQUAL stage1 dd=349 oc=91 md5=1578bbc1
+v11u476repro/cases/VP/vp22 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 344 objects dd=94 oc=40 md5=074f83e5
+v11u476repro/cases/VP/vp23 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 265 objects dd=46 oc=18 md5=ba7c2f7d
+v11u476repro/cases/VP/vp24 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 297 objects dd=98 oc=34 md5=f1736449
+v11u476repro/cases/VP/vp25 law3 slrc=0 rc=0 cmp=64 NOT_EQUAL stage1 dd=86 oc=29 md5=488f63f4
+v11u476repro/cases/VP/vp26 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 385 objects dd=112 oc=38 md5=1e73c017
+v11u476repro/cases/VP/vp27 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 416 objects dd=128 oc=46 md5=02869733
+v11u476repro/cases/VP/vp28 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 418 objects dd=134 oc=46 md5=42de7fce
+v11u476repro/cases/VP/vp29 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1129 objects dd=778 oc=82 md5=56ddf486
+v11u476repro/cases/VP/vp30 law3 slrc=0 rc=0 cmp=281 NOT_EQUAL stage1 dd=263 oc=55 md5=2c3c4e22
+v11u478repro/cases/VB/vb01 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 197 objects dd=78 oc=28 md5=1a49b08f
+v11u478repro/cases/VB/vb03 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=140 oc=66 md5=696c69de
+v11u478repro/cases/VB/vb05 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 205 objects dd=78 oc=28 md5=0389cb54
+v11u478repro/cases/VB/vb06 law3 slrc=4 rc=0 cmp=526 NOT_EQUAL stage1 dd=224 oc=48 md5=76f47c79
+v11u478repro/cases/VB/vb07 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 199 objects dd=54 oc=20 md5=89f19d33
+v11u478repro/cases/VB/vb08 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 271 objects dd=140 oc=66 md5=afaf628d
+v11u478repro/cases/VB/vb09 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 229 objects dd=70 oc=20 md5=ecd61266
+v11u478repro/cases/VB/vb10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 251 objects dd=110 oc=58 md5=cc5072d4
+v11u478repro/cases/VB/vb11 law3 slrc=4 rc=0 cmp=0 STRICT_EQUAL 197 objects dd=86 oc=36 md5=e74da889
+v11u478repro/cases/VF/vf01 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=345 oc=106 md5=1134755c
+v11u478repro/cases/VF/vf02 law3 slrc=0 rc=0 cmp=63 NOT_EQUAL stage1 dd=361 oc=92 md5=3bba0b21
+v11u478repro/cases/VF/vf04 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=135 oc=42 md5=e697b515
+v11u478repro/cases/VF/vf05 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=496 oc=136 md5=3cbac3e5
+v11u478repro/cases/VF/vf06 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=345 oc=80 md5=3c24e2c3
+v11u478repro/cases/VF/vf07 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=341 oc=102 md5=4595e800
+v11u478repro/cases/VF/vf08 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=241 oc=72 md5=18dc030b
+v11u478repro/cases/VF/vf09 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=237 oc=72 md5=5d531853
+v11u478repro/cases/VF/vf10 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 378 objects dd=420 oc=100 md5=0267e699
+v11u478repro/cases/VF/vf12 law3 slrc=0 rc=0 cmp=49 NOT_EQUAL stage1 dd=481 oc=78 md5=418638c1
+v11u478repro/cases/VM/vm01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1080 objects dd=1046 oc=100 md5=126fd544
+v11u478repro/cases/VM/vm02 law3 slrc=0 rc=0 cmp=112 NOT_EQUAL stage1 dd=3392 oc=624 md5=3d8b39f1
+v11u478repro/cases/VM/vm03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 773 objects dd=668 oc=52 md5=b1e65fa7
+v11u478repro/cases/VM/vm04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 809 objects dd=716 oc=60 md5=42930df9
+v11u478repro/cases/VM/vm05 law3 slrc=0 rc=0 cmp=269 NOT_EQUAL stage1 dd=304 oc=76 md5=eee3e00d
+v11u478repro/cases/VM/vm07 law3 slrc=0 rc=0 cmp=884 NOT_EQUAL stage1 dd=268 oc=78 md5=c7c11827
+v11u478repro/cases/VM/vm08 law3 slrc=0 rc=0 cmp=475 NOT_EQUAL stage1 dd=1448 oc=172 md5=983a6599
+v11u478repro/cases/VM/vm09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 970 objects dd=860 oc=76 md5=7b3852ff
+v11u478repro/cases/VM/vm10 law3 slrc=0 rc=0 cmp=820 NOT_EQUAL stage1 dd=974 oc=88 md5=326b954b
+v11u478repro/cases/VM/vm11 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=2623 oc=362 md5=b731b60f
+v11u478repro/cases/VM/vm12 law3 slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1602 oc=260 md5=7b6874e4
+v11u478repro/cases/VM/vm13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1174 objects dd=1012 oc=108 md5=4e64c3a3
+v11u478repro/cases/VM/vm14 law3 slrc=4 rc=0 cmp=369 NOT_EQUAL stage1 dd=483 oc=151 md5=896d48d0
+v11u478repro/cases/VM/vm15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1188 objects dd=1298 oc=149 md5=85ccdadb
+v11u478repro/cases/VM/vm16 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 809 objects dd=716 oc=60 md5=2f82b14b
+v11u478repro/cases/VM/vm17 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 982 objects dd=920 oc=84 md5=769494d1
+v11u478repro/cases/VM/vm18 law3 slrc=0 rc=0 cmp=431 NOT_EQUAL stage1 dd=628 oc=96 md5=5f4ac9a2
+v11u478repro/cases/VM/vm19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 250 objects dd=58 oc=18 md5=92d1d000
+v11u478repro/cases/VM/vm20 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 911 objects dd=768 oc=90 md5=1b840837
+v11u480repro/cases/VA/va21 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 562 objects dd=318 oc=35 md5=e3adf805

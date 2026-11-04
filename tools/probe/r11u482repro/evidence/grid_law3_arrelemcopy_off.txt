@@ -1,0 +1,25 @@
+r11u482repro/cases/CI/ci01 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=734 NOT_EQUAL stage1 dd=320 oc=45 md5=6d487222
+r11u482repro/cases/CI/ci02 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=734 NOT_EQUAL stage1 dd=320 oc=45 md5=f5a53244
+r11u482repro/cases/CI/ci03 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=714 oc=120 md5=f621a633
+r11u482repro/cases/CI/ci04 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=738 NOT_EQUAL stage1 dd=483 oc=69 md5=14971b3f
+r11u482repro/cases/CI/ci05 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=778 NOT_EQUAL stage1 dd=320 oc=39 md5=582b51d8
+r11u482repro/cases/CI/ci06 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=904 NOT_EQUAL stage1 dd=368 oc=40 md5=abd1faa9
+r11u482repro/cases/CI/ci07 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=734 NOT_EQUAL stage1 dd=728 oc=90 md5=564998ca
+r11u482repro/cases/CI/ci08 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=346 oc=57 md5=988ab289
+r11u482repro/cases/CI/ci09 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=738 NOT_EQUAL stage1 dd=312 oc=37 md5=00e340ed
+r11u482repro/cases/CI/ci10 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=742 NOT_EQUAL stage1 dd=338 oc=43 md5=520a6e68
+r11u482repro/cases/CI/ci11 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=102 oc=19 md5=eeb9dbe5
+r11u482repro/cases/CI/ci12 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=830 NOT_EQUAL stage1 dd=340 oc=57 md5=943e2681
+r11u482repro/cases/CI/ci13 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=926 NOT_EQUAL stage1 dd=360 oc=69 md5=d4a54055
+r11u482repro/cases/CI/ci14 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=990 NOT_EQUAL stage1 dd=344 oc=57 md5=9d6275c8
+r11u482repro/cases/CI/ci15 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=878 NOT_EQUAL stage1 dd=386 oc=53 md5=fd05bde8
+r11u482repro/cases/CI/ci16 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=596 oc=100 md5=c53b8955
+r11u482repro/cases/CI/ci17 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=998 NOT_EQUAL stage1 dd=374 oc=53 md5=34f71f09
+r11u482repro/cases/CI/ci18 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=0 STRICT_EQUAL 232 objects dd=2 oc=4 md5=0f75364e
+r11u482repro/cases/CI/ci19 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=918 NOT_EQUAL stage1 dd=514 oc=69 md5=f9d2007c
+r11u482repro/cases/CI/ci20 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=1364 NOT_EQUAL stage1 dd=752 oc=88 md5=4b380394
+r11u482repro/cases/CI/ci21 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=734 NOT_EQUAL stage1 dd=478 oc=69 md5=a7128c2f
+r11u482repro/cases/CI/ci22 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=118 oc=23 md5=aca144c7
+r11u482repro/cases/CI/ci23 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=448 oc=50 md5=48f78e9b
+r11u482repro/cases/CI/ci24 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=904 NOT_EQUAL stage1 dd=652 oc=80 md5=17afda34
+r11u482repro/cases/CI/ci25 law3_ARRELEMCOPY_off slrc=0 rc=0 cmp=734 NOT_EQUAL stage1 dd=316 oc=41 md5=4b325def

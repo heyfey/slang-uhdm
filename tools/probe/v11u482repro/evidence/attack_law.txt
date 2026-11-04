@@ -1,0 +1,59 @@
+v11u482repro/cases/VA/va01 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 824 objects dd=478 oc=71 ic=11 md5=06375d11
+v11u482repro/cases/VA/va02 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 824 objects dd=492 oc=54 ic=18 md5=9c73879f
+v11u482repro/cases/VA/va03 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 510 objects dd=260 oc=21 ic=9 md5=60608467
+v11u482repro/cases/VA/va04 law slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=622 oc=64 ic=42 md5=5c957cf5
+v11u482repro/cases/VA/va05 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1012 objects dd=1060 oc=133 ic=33 md5=784bc510
+v11u482repro/cases/VA/va06 law slrc=0 rc=0 cmp=37 NOT_EQUAL stage1 dd=188 oc=30 ic=14 md5=435508c9
+v11u482repro/cases/VA/va07 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 596 objects dd=318 oc=47 ic=11 md5=3ba43220
+v11u482repro/cases/VA/va08 law slrc=4 rc=0 cmp=0 STRICT_EQUAL 270 objects dd=62 oc=16 ic=2 md5=9c8c0c3c
+v11u482repro/cases/VC/vc01 law slrc=0 rc=0 cmp=15 NOT_EQUAL stage1 dd=144 oc=22 ic=9 md5=a237673d
+v11u482repro/cases/VC/vc02 law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=54 oc=15 ic=7 md5=96559ca8
+v11u482repro/cases/VC/vc03 law slrc=0 rc=0 cmp=27 NOT_EQUAL stage1 dd=26 oc=8 ic=2 md5=be8cf168
+v11u482repro/cases/VC/vc04 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 669 objects dd=426 oc=75 ic=23 md5=f7462d0e
+v11u482repro/cases/VC/vc05 law slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=192 oc=31 ic=13 md5=a51ee081
+v11u482repro/cases/VC/vc06 law slrc=0 rc=0 cmp=420 NOT_EQUAL stage1 dd=162 oc=26 ic=16 md5=2a61579f
+v11u482repro/cases/VC/vc07 law slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=118 oc=19 ic=9 md5=43a9b006
+v11u482repro/cases/VC/vc08 law slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=134 oc=25 ic=9 md5=d42b46a4
+v11u482repro/cases/VC/vc09 law slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=253 oc=38 ic=18 md5=e72f27a1
+v11u482repro/cases/VD/vd01 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1075 objects dd=821 oc=73 ic=11 md5=da1ae800
+v11u482repro/cases/VD/vd02 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1762 objects dd=1265 oc=161 ic=19 md5=8b1b5988
+v11u482repro/cases/VD/vd03 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=514 oc=96 ic=20 md5=f806a954
+v11u482repro/cases/VF/vf01 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1004 objects dd=1060 oc=105 ic=33 md5=d0d1bb86
+v11u482repro/cases/VF/vf02 law slrc=0 rc=0 cmp=1006 NOT_EQUAL stage1 dd=977 oc=124 ic=89 md5=485a7ca4
+v11u482repro/cases/VF/vf03 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=1001 oc=124 ic=89 md5=08292f4b
+v11u482repro/cases/VF/vf04 law slrc=0 rc=0 cmp=271 NOT_EQUAL stage1 dd=186 oc=46 ic=24 md5=9862de78
+v11u482repro/cases/VF/vf05 law slrc=0 rc=0 cmp=465 NOT_EQUAL stage1 dd=519 oc=66 ic=14 md5=25e8d6dd
+v11u482repro/cases/VF/vf06 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 824 objects dd=470 oc=103 ic=13 md5=bd76ea2c
+v11u482repro/cases/VF/vf07 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 567 objects dd=286 oc=39 ic=17 md5=e0463424
+v11u482repro/cases/VF/vf08 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 628 objects dd=314 oc=35 ic=11 md5=a8ff5827
+v11u482repro/cases/VF/vf09 law slrc=0 rc=0 cmp=1410 NOT_EQUAL stage1 dd=341 oc=39 ic=11 md5=2d618a77
+v11u482repro/cases/VF/vf10 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1112 objects dd=653 oc=79 ic=27 md5=427a391c
+v11u482repro/cases/VF/vf11 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 764 objects dd=656 oc=66 ic=18 md5=23061829
+v11u482repro/cases/VF/vf12 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1193 objects dd=816 oc=72 ic=20 md5=8637346f
+v11u482repro/cases/VF/vf13 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 860 objects dd=690 oc=73 ic=25 md5=83d005dd
+v11u482repro/cases/VF/vf14 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 484 objects dd=314 oc=39 ic=11 md5=6f08aea6
+v11u482repro/cases/VF/vf15 law slrc=0 rc=0 cmp=914 NOT_EQUAL stage1 dd=844 oc=142 ic=42 md5=27c6d29c
+v11u482repro/cases/VF/vf16 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 604 objects dd=314 oc=35 ic=11 md5=bdfb4dfa
+v11u482repro/cases/VI/vi01 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1149 objects dd=1284 oc=141 ic=33 md5=a812e632
+v11u482repro/cases/VI/vi02 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 721 objects dd=388 oc=35 ic=11 md5=e997b33e
+v11u482repro/cases/VI/vi03 law slrc=0 rc=0 cmp=176 NOT_EQUAL stage1 dd=848 oc=156 ic=30 md5=51dad58e
+v11u482repro/cases/VI/vi04 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 993 objects dd=612 oc=71 ic=19 md5=759ff22d
+v11u482repro/cases/VI/vi05 law slrc=0 rc=0 cmp=182 NOT_EQUAL stage1 dd=696 oc=103 ic=11 md5=79a8ab33
+v11u482repro/cases/VI/vi06 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 268 objects dd=2 oc=4 ic=0 md5=24ac3d66
+v11u482repro/cases/VI/vi07 law slrc=0 rc=0 cmp=373 NOT_EQUAL stage1 dd=352 oc=59 ic=17 md5=d6f04405
+v11u482repro/cases/VI/vi08 law slrc=0 rc=0 cmp=441 NOT_EQUAL stage1 dd=762 oc=115 ic=27 md5=a55b9e23
+v11u482repro/cases/VM/vm01 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1264 objects dd=760 oc=83 ic=27 md5=398c0059
+v11u482repro/cases/VM/vm02 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1036 objects dd=632 oc=71 ic=19 md5=cfbd890f
+v11u482repro/cases/VM/vm03 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1210 objects dd=708 oc=83 ic=19 md5=e4b8badf
+v11u482repro/cases/VM/vm04 law slrc=0 rc=0 cmp=1194 NOT_EQUAL stage1 dd=1225 oc=138 ic=91 md5=0e2ab5f8
+v11u482repro/cases/VM/vm05 law slrc=0 rc=0 cmp=476 NOT_EQUAL stage1 dd=621 oc=66 ic=40 md5=040d68a2
+v11u482repro/cases/VM/vm06 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 1097 objects dd=744 oc=86 ic=32 md5=d6a94d1e
+v11u482repro/cases/VM/vm07 law slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=192 oc=31 ic=13 md5=42bd9290
+v11u482repro/cases/VM/vm08 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 222 objects dd=2 oc=4 ic=0 md5=e45d32fa
+v11u482repro/cases/VM/vm09 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 797 objects dd=430 oc=51 ic=15 md5=b210208b
+v11u482repro/cases/VP/vp01 law slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=71 oc=22 ic=10 md5=132657b3
+v11u482repro/cases/VP/vp02 law slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=64 oc=23 ic=10 md5=7369d132
+v11u482repro/cases/VP/vp03 law slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=262 oc=114 ic=30 md5=5c124da0
+v11u482repro/cases/VP/vp04 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 175 objects dd=28 oc=12 ic=8 md5=915cc8c6
+v11u482repro/cases/VP/vp05 law slrc=0 rc=0 cmp=0 STRICT_EQUAL 254 objects dd=62 oc=18 ic=6 md5=66a673c1
+v11u482repro/cases/VP/vp06 law slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=80 oc=22 ic=10 md5=3d946326

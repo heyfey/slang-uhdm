@@ -1,0 +1,19 @@
+== surelog (law2 sweep vs the master's control)
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVER ./default/MiniAmiq-055eab74/slang.uhdm
+MOVER ./default/SeqDriver-65178d3a/slang.uhdm
+MOVER ./testflags/MiniAmiq-055eab74/slang.uhdm
+MOVER ./testflags/SeqDriver-65178d3a/slang.uhdm
+MOVERS: 4 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil (law2 sweep vs the master's control)
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+== downstream (law2 sweep vs the master's control)
+databases: patched=805 pristine=805
+PATH_SETS_IDENTICAL (805 paths)
+MOVERS: 0 / 805
+SELFCHECK (every file vs one fixed file): 804 / 805 flagged

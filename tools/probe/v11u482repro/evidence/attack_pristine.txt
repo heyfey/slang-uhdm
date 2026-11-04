@@ -1,0 +1,59 @@
+v11u482repro/cases/VA/va01 pristine slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=512 oc=101 ic=51 md5=a8371566
+v11u482repro/cases/VA/va02 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 824 objects dd=550 oc=94 ic=64 md5=ae2cc19c
+v11u482repro/cases/VA/va03 pristine slrc=0 rc=0 cmp=678 NOT_EQUAL stage1 dd=296 oc=51 ic=49 md5=b59d80c1
+v11u482repro/cases/VA/va04 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=642 oc=94 ic=86 md5=fb811fa9
+v11u482repro/cases/VA/va05 pristine slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=1148 oc=223 ic=153 md5=1ed35fcb
+v11u482repro/cases/VA/va06 pristine slrc=0 rc=0 cmp=37 NOT_EQUAL stage1 dd=188 oc=30 ic=14 md5=435508c9
+v11u482repro/cases/VA/va07 pristine slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=352 oc=77 ic=51 md5=20a0c3ad
+v11u482repro/cases/VA/va08 pristine slrc=4 rc=0 cmp=0 STRICT_EQUAL 270 objects dd=66 oc=24 ic=2 md5=b85312ad
+v11u482repro/cases/VC/vc01 pristine slrc=0 rc=0 cmp=15 NOT_EQUAL stage1 dd=154 oc=32 ic=21 md5=fb040a0f
+v11u482repro/cases/VC/vc02 pristine slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=54 oc=15 ic=7 md5=96559ca8
+v11u482repro/cases/VC/vc03 pristine slrc=0 rc=0 cmp=27 NOT_EQUAL stage1 dd=26 oc=8 ic=2 md5=be8cf168
+v11u482repro/cases/VC/vc04 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 669 objects dd=450 oc=105 ic=59 md5=462cc7f1
+v11u482repro/cases/VC/vc05 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=202 oc=41 ic=33 md5=1a0c3944
+v11u482repro/cases/VC/vc06 pristine slrc=0 rc=0 cmp=420 NOT_EQUAL stage1 dd=170 oc=36 ic=24 md5=dfbc0f0a
+v11u482repro/cases/VC/vc07 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=126 oc=29 ic=21 md5=03e9cfa5
+v11u482repro/cases/VC/vc08 pristine slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=142 oc=35 ic=13 md5=e332492a
+v11u482repro/cases/VC/vc09 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=267 oc=58 ic=38 md5=03b22b91
+v11u482repro/cases/VD/vd01 pristine slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=1212 oc=194 ic=40 md5=4819a7ce
+v11u482repro/cases/VD/vd02 pristine slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=2030 oc=336 ic=60 md5=30c9ad88
+v11u482repro/cases/VD/vd03 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 687 objects dd=530 oc=120 ic=20 md5=2dc2858c
+v11u482repro/cases/VF/vf01 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1736 oc=360 ic=120 md5=87f3fd86
+v11u482repro/cases/VF/vf02 pristine slrc=0 rc=0 cmp=1006 NOT_EQUAL stage1 dd=1266 oc=215 ic=79 md5=91979842
+v11u482repro/cases/VF/vf03 pristine slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=1266 oc=215 ic=79 md5=e059c580
+v11u482repro/cases/VF/vf04 pristine slrc=0 rc=0 cmp=271 NOT_EQUAL stage1 dd=190 oc=66 ic=24 md5=93f64bac
+v11u482repro/cases/VF/vf05 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=765 oc=151 ic=43 md5=e8034c50
+v11u482repro/cases/VF/vf06 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=872 oc=200 ic=56 md5=aa93b4ac
+v11u482repro/cases/VF/vf07 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 567 objects dd=316 oc=53 ic=33 md5=838b3a7b
+v11u482repro/cases/VF/vf08 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 ic=40 md5=b2522f19
+v11u482repro/cases/VF/vf09 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=613 oc=124 ic=40 md5=7f1c09b8
+v11u482repro/cases/VF/vf10 pristine slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=1350 oc=230 ic=50 md5=9e4682ec
+v11u482repro/cases/VF/vf11 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1152 oc=236 ic=76 md5=8d8dc183
+v11u482repro/cases/VF/vf12 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1328 oc=260 ic=78 md5=a9771e65
+v11u482repro/cases/VF/vf13 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1188 oc=243 ic=83 md5=4786ce0e
+v11u482repro/cases/VF/vf14 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=124 ic=40 md5=8e0e6317
+v11u482repro/cases/VF/vf15 pristine slrc=0 rc=0 cmp=914 NOT_EQUAL stage1 dd=852 oc=144 ic=44 md5=6f67ca0b
+v11u482repro/cases/VF/vf16 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 ic=40 md5=78b40ca3
+v11u482repro/cases/VI/vi01 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1820 oc=396 ic=120 md5=ad213b4a
+v11u482repro/cases/VI/vi02 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=610 oc=120 ic=40 md5=3a83f21c
+v11u482repro/cases/VI/vi03 pristine slrc=0 rc=0 cmp=176 NOT_EQUAL stage1 dd=1120 oc=259 ic=89 md5=7654170b
+v11u482repro/cases/VI/vi04 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1078 oc=192 ic=60 md5=c64e6b8d
+v11u482repro/cases/VI/vi05 pristine slrc=0 rc=0 cmp=182 NOT_EQUAL stage1 dd=996 oc=206 ic=40 md5=2462d2b4
+v11u482repro/cases/VI/vi06 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 268 objects dd=2 oc=4 ic=0 md5=24ac3d66
+v11u482repro/cases/VI/vi07 pristine slrc=0 rc=0 cmp=373 NOT_EQUAL stage1 dd=360 oc=69 ic=25 md5=e6771f39
+v11u482repro/cases/VI/vi08 pristine slrc=0 rc=0 cmp=441 NOT_EQUAL stage1 dd=1078 oc=200 ic=44 md5=700f997a
+v11u482repro/cases/VM/vm01 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1514 oc=240 ic=80 md5=13d1db49
+v11u482repro/cases/VM/vm02 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1254 oc=210 ic=60 md5=0f94a6f4
+v11u482repro/cases/VM/vm03 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1444 oc=240 ic=60 md5=b3fdcbbf
+v11u482repro/cases/VM/vm04 pristine slrc=0 rc=0 cmp=1194 NOT_EQUAL stage1 dd=1726 oc=271 ic=99 md5=5ed6fb1c
+v11u482repro/cases/VM/vm05 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1107 oc=187 ic=69 md5=3aaa3ccf
+v11u482repro/cases/VM/vm06 pristine slrc=0 rc=0 cmp=37 NOT_EQUAL stage1 dd=774 oc=116 ic=108 md5=aaa8dd53
+v11u482repro/cases/VM/vm07 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=202 oc=41 ic=33 md5=1b2e3482
+v11u482repro/cases/VM/vm08 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 222 objects dd=2 oc=4 ic=0 md5=e45d32fa
+v11u482repro/cases/VM/vm09 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=762 oc=156 ic=44 md5=00c19158
+v11u482repro/cases/VP/vp01 pristine slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=75 oc=26 ic=10 md5=6c9702f8
+v11u482repro/cases/VP/vp02 pristine slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL depth dd=68 oc=27 ic=10 md5=e3b43e5f
+v11u482repro/cases/VP/vp03 pristine slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=262 oc=114 ic=30 md5=5c124da0
+v11u482repro/cases/VP/vp04 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 175 objects dd=32 oc=20 ic=8 md5=ba77a845
+v11u482repro/cases/VP/vp05 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 254 objects dd=70 oc=30 ic=6 md5=4bfe02e2
+v11u482repro/cases/VP/vp06 pristine slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=84 oc=26 ic=10 md5=a273d87a

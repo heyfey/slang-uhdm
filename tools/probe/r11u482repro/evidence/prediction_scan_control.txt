@@ -1,0 +1,52 @@
+DB probe/r10v169repro__v169_g_control.uhdm TFVARPARENT=2
+DB probe/r10uvm122repro__g122_f_clone.uhdm TFVARPARENT=4
+DB probe/r10uvm198repro__g198_a_homes.uhdm COPYINST=6 COPYINST_member=4 TFVARPARENT=4
+DB probe/r10v180repro__v180_i_inst.uhdm TFVARPARENT=2
+DB probe/r10uvm193repro__g193_c_argface.uhdm TFVARPARENT=40
+DB probe/r10uvm204repro__g204_c_shadow.uhdm TFVARPARENT=6
+DB probe/r10v181repro__v181_h_nofe.uhdm COPYINST=5 TFVARPARENT=2
+DB probe/r10uvm227repro__grid227__a5_order_p1first.uhdm TFVARPARENT=2
+DB probe/r10uvm202repro__g202_a_kinds.uhdm COPYINST=12 COPYINST_member=4 TFVARPARENT=8
+DB probe/r10uvm171repro__g171_c_shapes.uhdm TFVARPARENT=6
+DB probe/r10uvm37repro__t51a.uhdm TFVARPARENT=4
+DB probe/r10uvm194repro__g194_c_clone.uhdm TFVARPARENT=4
+DB probe/r10uvm204repro__g204_b_ctx.uhdm TFVARPARENT=4
+DB probe/r10uvm207repro__g207_c_share.uhdm COPYINST_member=20 TFVARPARENT=4
+DB probe/r10v180repro__v180_e_ret.uhdm COPYINST=1 TFVARPARENT=10
+DB probe/r10uvm207repro__g207_g_class.uhdm TFVARPARENT=2
+DB probe/r10v204repro__v204_s_shadow.uhdm TFVARPARENT=2
+DB probe/r10v184repro__gv184_i_minimal.uhdm TFVARPARENT=2
+DB probe/r10uvm207repro__g207_h_foreign.uhdm COPYINST_member=6 TFVARPARENT=4
+DB probe/r10v204repro__v204_c_clones.uhdm TFVARPARENT=4
+DB probe/r10v204repro__v204_m_module.uhdm TFVARPARENT=2
+DB probe/r10v194repro__v194_a_explicit.uhdm TFVARPARENT=4
+DB probe/r10v194repro__v194_e_explclone.uhdm TFVARPARENT=2
+DB probe/r10v195repro__v195_b_reads.uhdm TFVARPARENT=4
+DB probe/r10v180repro__v180_a_share.uhdm TFVARPARENT=6
+DB probe/r10uvm227repro__grid227__a9_class_holder.uhdm TFVARPARENT=4
+DB probe/r10v208repro__v208_f_io.uhdm TFVARPARENT=2
+DB probe/r10uvm171repro__g171_a_pos.uhdm TFVARPARENT=12
+DB probe/r10v122repro__q6clone.uhdm TFVARPARENT=4
+DB probe/r10uvm227repro__grid227__a1_iface_uninst.uhdm TFVARPARENT=2
+DB probe/r10uvm171repro__g171_b_homes.uhdm TFVARPARENT=4
+DB probe/r10uvm227repro__grid227__a7_only_p1.uhdm TFVARPARENT=2
+DB probe/r10uvm180repro__g180_a_kinds.uhdm COPYINST=6 COPYINST_member=4 TFVARPARENT=18
+DB probe/r10v200repro__v200_5_modmat.uhdm TFVARPARENT=2
+DB probe/r10uvm227repro__grid227__a3_module.uhdm TFVARPARENT=2
+DB probe/r10v204repro__v204_v_extra.uhdm TFVARPARENT=4
+DB probe/r10uvm193repro__g193_d_propfence.uhdm TFVARPARENT=6
+DB probe/r10uvm123repro__g123_c_otherpkg.uhdm TFVARPARENT=4
+DB probe/r10uvm195repro__g195_e_head.uhdm TFVARPARENT=2
+DB probe/r10v184repro__gv184_h_retpin.uhdm TFVARPARENT=12
+DB probe/r10v182repro__v182_g_names.uhdm TFVARPARENT=54
+DB probe/r10uvm207repro__g207_e_head.uhdm COPYINST_member=10 TFVARPARENT=2
+DB probe/r10v111repro__v111_b1.uhdm TFVARPARENT=2
+DB surelog/testflags/SeqDriver-65178d3a/slang.uhdm COPYINST=218 COPYINST_member=174 TFVARPARENT=1040
+DB surelog/default/SeqDriver-65178d3a/slang.uhdm COPYINST=218 COPYINST_member=174 TFVARPARENT=1040
+DB surelog/testflags/MiniAmiq-055eab74/slang.uhdm COPYINST=218 COPYINST_member=174 TFVARPARENT=1040
+DB surelog/default/MiniAmiq-055eab74/slang.uhdm COPYINST=218 COPYINST_member=174 TFVARPARENT=1040
+DB svtests/work/generated/uvm-examples/uvm_overriding/slang.uhdm COPYINST=314 COPYINST_member=104 TFVARPARENT=2080
+DB svtests/work/generated/uvm-examples/uvm_wait_for_signal/slang.uhdm COPYINST=157 COPYINST_member=52 TFVARPARENT=1040
+DB svtests/work/generated/uvm-examples/uvm_slave_agent/slang.uhdm COPYINST=314 COPYINST_member=104 TFVARPARENT=2098
+DB svtests/work/generated/uvm-examples/uvm_slave_agent_multi_seq_item/slang.uhdm COPYINST=314 COPYINST_member=104 TFVARPARENT=2106
+DB svtests/work/generated/rsd/rsd/slang.uhdm COPYINST=50 COPYINST_member=255 TFVARPARENT=88

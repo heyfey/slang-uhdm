@@ -1,0 +1,25 @@
+r11u482repro/cases/CI/ci01 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 ic=40 md5=d109ed5f
+r11u482repro/cases/CI/ci02 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 ic=40 md5=6d2777c0
+r11u482repro/cases/CI/ci03 pristine slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=718 oc=140 ic=34 md5=6f27682f
+r11u482repro/cases/CI/ci04 pristine slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=980 oc=180 ic=40 md5=0bd9f614
+r11u482repro/cases/CI/ci05 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=114 ic=38 md5=7d7fa37c
+r11u482repro/cases/CI/ci06 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=606 oc=120 ic=40 md5=76bafe09
+r11u482repro/cases/CI/ci07 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1170 oc=240 ic=80 md5=6266f489
+r11u482repro/cases/CI/ci08 pristine slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=354 oc=77 ic=51 md5=cf4e1c13
+r11u482repro/cases/CI/ci09 pristine slrc=0 rc=0 cmp=738 NOT_EQUAL stage1 dd=320 oc=57 ic=51 md5=3234e293
+r11u482repro/cases/CI/ci10 pristine slrc=0 rc=0 cmp=742 NOT_EQUAL stage1 dd=346 oc=63 ic=65 md5=130c83b3
+r11u482repro/cases/CI/ci11 pristine slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=110 oc=29 ic=21 md5=07772f95
+r11u482repro/cases/CI/ci12 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=614 oc=132 ic=40 md5=2032f380
+r11u482repro/cases/CI/ci13 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=634 oc=144 ic=40 md5=15199450
+r11u482repro/cases/CI/ci14 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=620 oc=136 ic=44 md5=1ce09103
+r11u482repro/cases/CI/ci15 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=746 oc=140 ic=40 md5=7a5daf07
+r11u482repro/cases/CI/ci16 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=600 oc=120 ic=40 md5=85ffd27b
+r11u482repro/cases/CI/ci17 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=636 oc=132 ic=48 md5=6711fd5a
+r11u482repro/cases/CI/ci18 pristine slrc=0 rc=0 cmp=0 STRICT_EQUAL 232 objects dd=2 oc=4 ic=0 md5=d134ccf2
+r11u482repro/cases/CI/ci19 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1050 oc=180 ic=60 md5=2021524c
+r11u482repro/cases/CI/ci20 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1260 oc=238 ic=82 md5=ba03db5a
+r11u482repro/cases/CI/ci21 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=970 oc=180 ic=40 md5=178bd180
+r11u482repro/cases/CI/ci22 pristine slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=124 oc=33 ic=13 md5=04ffadd9
+r11u482repro/cases/CI/ci23 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=674 oc=133 ic=59 md5=e070a7e9
+r11u482repro/cases/CI/ci24 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1220 oc=240 ic=80 md5=1436bc74
+r11u482repro/cases/CI/ci25 pristine slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=582 oc=116 ic=40 md5=654b66dc

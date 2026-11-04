@@ -1,0 +1,117 @@
+# law sweep (/tmp/v11u482swp, SLANG_UHDM=/tmp/v11u482_bin/law md5 9b2ac7c75b8d9e830b60ed561c389994, R11U482_TRACE on)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u482swp/probe.csv
+probe cases: EQUAL=4026 STRICT_NOTEQUAL=61 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4026 differ:fullname=28 differ:line=8 differ:depth=6 differ:endcol=5 differ:file=5 differ:name=5 differ:type=2 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+[probe] EQUAL=4026 STRICT_NOTEQUAL=61
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u482swp/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u482/build/uhdm-strictcmp
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u482swp/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u482/build/uhdm-strictcmp
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc_a=1
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/v11u482swp/svtests.csv
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+sv-tests: BOTH_REJECT=303 DIFFERENT=3 EQUAL=1937 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0
+golden cache: 5288 of 5669 runs served from the cache
+rc_b=1
+
+# verified sweep (/tmp/v11u482sw2, SLANG_UHDM=/tmp/v11u482_bin/verified md5 d078631cb04f4d365c50ab813eca1731, R11U482_TRACE on)
+law index STALE: tests/LAWS.md (run scripts/law_index.py)
+== probe cases (tests/probe, cached goldens), jobs=3, out=/tmp/v11u482sw2/probe.csv
+probe cases: EQUAL=4026 STRICT_NOTEQUAL=61 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4026 differ:fullname=28 differ:line=8 differ:depth=6 differ:endcol=5 differ:file=5 differ:name=5 differ:type=2 differ:col=1 differ:endline=1
+== probe vs golden_probe.csv
+[probe] EQUAL=4026 STRICT_NOTEQUAL=61
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== surelog: both modes, jobs=3, out=/tmp/v11u482sw2/surelog.csv
+798 tests in surelog; modes=default,testflags; strict comparator /tmp/wt_v11u482pris/build/uhdm-strictcmp
+[default] 798 tests
+  CMP_EQUAL: 480
+  SLANG_REJECT: 284
+  SURELOG_FAIL: 25
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+[testflags] 798 tests
+  CMP_EQUAL: 474
+  SLANG_REJECT: 285
+  SURELOG_FAIL: 23
+  DEFERRED: 5
+  CMP_NOTEQUAL: 4
+  NO_DATABASE: 3
+  UNTRANSLATABLE: 2
+  TIMEOUT: 1
+  NO_UHDM: 1
+== surelog vs golden_surelog.csv
+[default] CMP_EQUAL=480 CMP_NOTEQUAL=4 DEFERRED=5 SLANG_REJECT=284 SURELOG_FAIL=25
+[testflags] CMP_EQUAL=474 CMP_NOTEQUAL=4 DEFERRED=5 NO_DATABASE=3 NO_UHDM=1 SLANG_REJECT=285 SURELOG_FAIL=23 TIMEOUT=1 UNTRANSLATABLE=2
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== uhdm2rtlil: both modes, jobs=3, out=/tmp/v11u482sw2/uhdm2rtlil.csv
+871 tests in uhdm2rtlil; modes=default,testflags; strict comparator /tmp/wt_v11u482pris/build/uhdm-strictcmp
+[default] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+[testflags] 871 tests
+  CMP_EQUAL: 803
+  SLANG_REJECT: 67
+  CMP_NOTEQUAL: 1
+== uhdm2rtlil vs golden_uhdm2rtlil.csv
+[default] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+[testflags] CMP_EQUAL=803 CMP_NOTEQUAL=1 SLANG_REJECT=67
+regressions=0 conversions=0 changes=0 only-fresh=0 only-committed=0
+== downstream: uhdm2rtlil (Yosys plugin) on slang-uhdm's vs Surelog's databases, jobs=3
+871 uhdm2rtlil tests; yosys=/home/heyfey/git-repos/slang-uhdm/third_party/uhdm2rtlil/out/current/bin/yosys
+downstream: EQUIVALENT=2 IDENTICAL=803 SLANG_REJECT=66 (of 871); not identical and not excused=0
+golden cache: 3273 of 3323 runs served from the cache
+rc_a=1
+law index current
+== svtests: results/golden_svtests.csv rows through scripts/check_svtests.py, jobs=3, out=/tmp/v11u482sw2/svtests.csv
+2346 tests to run, 0 already in csv, 0 excluded by regex, jobs=3
+done
+sv-tests: BOTH_REJECT=303 DIFFERENT=3 EQUAL=1937 SLANG_ONLY=19 SURELOG_CRASH=8 SURELOG_ONLY=75 TIMEOUT=1 (of 2346)
+regressions=0 conversions=0 changes=0
+golden cache: 5288 of 5669 runs served from the cache
+rc_b=0
+
+# every csv against the master's control /tmp/intr11u480 after workdir normalisation: law sweep 0/0/0/0/0 differing lines, verified sweep 0/0/0/0/0 (probe, surelog, uhdm2rtlil, downstream, svtests)

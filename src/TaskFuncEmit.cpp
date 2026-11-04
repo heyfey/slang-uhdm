@@ -1767,6 +1767,10 @@ pureProtoNoDirKw247(const slang::ast::FormalArgumentSymbol& arg) {
 
 std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>> g_cloneArrTs241;
 std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+// § cloneFixArrAggElemShared482 -- the array_typespecs of import-clone fixed
+// arrays whose element took the shared typedef object (membership only, read
+// by § cloneArrElemAggOwnCopy482 in UhdmExporter, never iterated).
+std::set<const UHDM::typespec*> g_cloneFixArr482;
 // § cloneDeclOnlyTwinOwnObject458 — (subroutine, variable list position) of
 // each repeated entry of an importer copy's declaration-only listing.
 std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458;
@@ -7836,13 +7840,31 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // reaches through makeTypespec), never stamped here.
                     UHDM::typespec* sh480 = nullptr;
                     auto fixArrNamedAggElemTs480 = [&]() -> UHDM::typespec* {
-                        // An import clone's local abstains: golden's deep
-                        // clone hangs a private copy of the struct off the
-                        // clone's ref_typespec, which the shared object does
-                        // not model (the v11u478 VM cases, where taking it
-                        // re-homed the home listing's typedef).
-                        if (!lawOn(480, "R11U480_FIXARRAGG_OFF") ||
-                            importCopyTsInst || pkgImportCloneEmit)
+                        // An import clone's local abstained here in pass
+                        // 480: golden's deep clone hangs a private copy of
+                        // the struct off the clone's ref_typespec; pass 482
+                        // takes the shared object below and makes that copy
+                        // design-final (§ cloneFixArrAggElemShared482).
+                        if (!lawOn(480, "R11U480_FIXARRAGG_OFF"))
+                            return nullptr;
+                        // § cloneFixArrAggElemShared482 (r11u482,
+                        // R11U482_CLONEFIXAGG_OFF; cases
+                        // tools/probe/r11u482repro/cases/CI) -- the import
+                        // clone half: in an importer's copy the element takes
+                        // the shared typedef object too, and the design-final
+                        // drains give the copy its private struct or union
+                        // (§ cloneAggLocalOwnCopy241 on the element variable,
+                        // § cloneArrElemAggOwnCopy482 on the array_typespec's
+                        // element, § cloneOwnCopyInstHomeTop482 their
+                        // instance), golden's DeepClone copy under each
+                        // reference (r11u480 FA/fa16, v11u478 VM/vm04).
+                        // Abstains for an enum (its copy's base and
+                        // constants are not modelled by those drains: CI/ci03)
+                        // and for a typedef of another package than the
+                        // subroutine's (§ 241's drain does not copy those:
+                        // CI/ci16, v11u478 VM/vm12).
+                        bool clone482 = importCopyTsInst || pkgImportCloneEmit;
+                        if (clone482 && !lawOn(482, "R11U482_CLONEFIXAGG_OFF"))
                             return nullptr;
                         const Type& el480 =
                             arrayElemLeaf(fmv.getDeclaredType()->getType());
@@ -7855,7 +7877,35 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             k480 != SymbolKind::UnpackedUnionType &&
                             k480 != SymbolKind::EnumType)
                             return nullptr;
+                        if (clone482) {
+                            if (k480 == SymbolKind::EnumType)
+                                return nullptr;
+                            auto pkgOf482 = [](const Scope* sc) -> const Symbol* {
+                                for (; sc; sc = sc->asSymbol().getParentScope())
+                                    if (sc->asSymbol().kind == SymbolKind::Package)
+                                        return &sc->asSymbol();
+                                return nullptr;
+                            };
+                            auto* tp482 = pkgOf482(el480.getParentScope());
+                            if (!tp482 || tp482 != pkgOf482(fmv.getParentScope()))
+                                return nullptr;
+                            // a struct declared in a class (`typedef K::op_t
+                            // op2_t;`, v11u478 VM/vm14): golden's clone binds
+                            // its element differently (§ 478's class
+                            // abstention), so the element keeps pristine's
+                            for (auto* cs482 = el480.getCanonicalType().getParentScope(); cs482;
+                                 cs482 = cs482->asSymbol().getParentScope()) {
+                                if (cs482->asSymbol().kind == SymbolKind::ClassType)
+                                    return nullptr;
+                                if (cs482->asSymbol().kind == SymbolKind::Package)
+                                    break;
+                            }
+                        }
                         auto* t480 = sharedAliasTs(el480);
+                        if (t480 && clone482)
+                            lawTrace(482, "cloneFixArrAggElemShared482",
+                                     std::string(fmv.name) + " " +
+                                         std::string(el480.name));
                         if (t480)
                             lawTrace(480, "fixArrLocalNamedAggElemTs480",
                                      std::string(fmv.name) + " " +
@@ -8077,6 +8127,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     ert->VpiParent(ats);
                     ert->Actual_typespec(elemTs);
                     ats->Elem_typespec(ert);
+                    if (sh480 && (importCopyTsInst || pkgImportCloneEmit))
+                        g_cloneFixArr482.insert(ats);
                     auto* art = s.MakeRef_typespec();
                     art->VpiFullName(afull);
                     art->VpiParent(av);

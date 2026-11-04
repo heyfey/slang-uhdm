@@ -16566,6 +16566,7 @@ public:
 extern std::vector<std::pair<UHDM::typespec*, UHDM::ref_typespec*>>
     g_cloneArrTs241; // § cloneLocalArrayTsParented241 (TaskFuncEmit.cpp)
 extern std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
+extern std::set<const UHDM::typespec*> g_cloneFixArr482; // § cloneFixArrAggElemShared482
 extern std::vector<std::pair<UHDM::task_func*, size_t>> g_cloneTwin458; // § cloneDeclOnlyTwinOwnObject458
 extern std::vector<std::pair<UHDM::ref_typespec*, std::vector<UHDM::ref_typespec*>>>
     g_lvHomeDeclTs259;  // § cloneLoopVarHomeDeclTs259
@@ -27815,6 +27816,66 @@ UHDM::design* UhdmExporter::exportDesign() {
                                              pf450);
                             }
                         }
+                        // § cloneArrElemAggOwnCopy482 (r11u482,
+                        // R11U482_ARRELEMCOPY_OFF; cases
+                        // tools/probe/r11u482repro/cases) -- the element
+                        // reference of a clone local's array_typespec holds,
+                        // in golden, the deep clone's own struct or union
+                        // (ref_typespec::DeepCopy clones the actual under the
+                        // uniquifying context), whatever its members' types:
+                        // `op_t acc[$]` and `op_t acc[2]` in the copies of
+                        // u::f (v11u478 VM/vm03, vm04, r11u480 FA/fa16 list
+                        // one struct_typespec per array_typespec element under
+                        // its element ref_typespec).  § cloneSharedAggOwnCopy265
+                        // takes it only for a struct with a member typed by a
+                        // home enum and § cloneArrElemAggAtHomeListing450 only
+                        // when the spans differ; the rest kept the shared
+                        // object.  The array variable must be the copy's own.
+                        if (er265->Actual_typespec() == ea265 &&
+                            (ea265->UhdmType() == UHDM::uhdmstruct_typespec ||
+                             ea265->UhdmType() == UHDM::uhdmunion_typespec) &&
+                            lawOn(482, "R11U482_ARRELEMCOPY_OFF")) {
+                            const UHDM::any* pv482 = art265->VpiParent();
+                            std::string pf482 =
+                                pv482 && dynamic_cast<const UHDM::variables*>(pv482)
+                                    ? std::string(((const UHDM::variables*)pv482)->VpiFullName())
+                                    : std::string();
+                            std::string tff482(tf241->VpiFullName());
+                            const UHDM::VectorOftypespec_member* om482 =
+                                ea265->UhdmType() == UHDM::uhdmstruct_typespec
+                                    ? ((const UHDM::struct_typespec*)ea265)->Members()
+                                    : ((const UHDM::union_typespec*)ea265)->Members();
+                            // members typed by a named type (an enum, a
+                            // typedef alias, a struct): golden's deep clone
+                            // copies those types too, which the member copies
+                            // here do not (they share the member's type), so
+                            // the copy reads further from golden's objects
+                            // (r11u458 MB/mb01, a queue): abstains, except
+                            // for the fixed arrays § cloneFixArrAggElemShared482
+                            // typed on the shared object, which need their
+                            // copy whatever the members (cases CI/ci15, ci19).
+                            bool plain482 = om482 != nullptr;
+                            bool fix482 = g_cloneFixArr482.count(ats265) != 0;
+                            if (om482)
+                                for (auto* m0 : *om482) {
+                                    auto* mt0 = m0 && m0->Typespec()
+                                                    ? m0->Typespec()->Actual_typespec()
+                                                    : nullptr;
+                                    if (!mt0 || !mt0->VpiName().empty() ||
+                                        mt0->UhdmType() == UHDM::uhdmenum_typespec ||
+                                        mt0->UhdmType() == UHDM::uhdmstruct_typespec ||
+                                        mt0->UhdmType() == UHDM::uhdmunion_typespec ||
+                                        mt0->UhdmType() == UHDM::uhdmclass_typespec)
+                                        plain482 = false;
+                                }
+                            if ((plain482 || (fix482 && om482)) && pf482.size() > tff482.size() &&
+                                pf482.compare(0, tff482.size(), tff482) == 0) {
+                                ownCopy265(er265, ea265, om482, hp241, tf241, pf482);
+                                lawTrace(482, "cloneArrElemAggOwnCopy482",
+                                         tff482 + " " + std::string(ea265->VpiName()) + " " +
+                                             pf482);
+                            }
+                        }
                     }
                 // § cloneAggMemberOwn241 — a member path `v.m` in the copy whose
                 // root variable or formal holds a copied struct or union binds
@@ -28373,6 +28434,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 lawTrace(241, "cloneLocalArrayTsParented241", std::string(art241->VpiFullName()));
             }
         g_cloneArrTs241.clear();
+        g_cloneFixArr482.clear();
         // § cloneFormalTsParented253 (R11U253_FORMALTS_OFF): the FORMAL
         // twin of § cloneLocalArrayTsParented241.  An importer's copy is
         // UHDM's deep clone of the home subroutine, and the clone of a
@@ -28414,6 +28476,158 @@ UHDM::design* UhdmExporter::exportDesign() {
     };
     // r11u287's design-final steps, after every drain above.
     auto final287 = [&](UHDM::design* d287) -> UHDM::design* {
+    // § cloneOwnCopyInstHomeTop482 (r11u482, R11U482_COPYINST_OFF; cases
+    // tools/probe/r11u482repro/cases/CI; the v11u478 queue case VM/vm03) --
+    // an import clone is UHDM's DeepClone of the home subroutine with
+    // uniquified typespecs (ref_typespec::DeepCopy clones its actual, the
+    // `*clone = *this` copy keeping the source's vpiInstance), made when the
+    // importing package is elaborated.  So every private struct, union or
+    // enum copy the clone holds of a typedef of the subroutine's HOME package
+    // carries the instance the typedef had then: the ELABORATED (top) view
+    // of the typedef's package (golden: every copy under the copies of
+    // u::C::f in packages a and t, both views, reads package u's top view;
+    // for a typedef u imports from package s, s's top view, v11u478 VM/vm12),
+    // not the
+    // instance a later importer's listing writes on the shared object
+    // (Surelog's last writer, package t on vm03, which our design-final
+    // copies -- § importCloneBodyLocalCopies175's begin copies and
+    // § cloneAggLocalOwnCopy241's -- read from it).  Design-final, after
+    // every drain that makes such a copy: in each import clone, a typespec of
+    // those kinds parented at a ref_typespec inside the clone whose name is a
+    // package typedef takes that package's top view, and so does each type of
+    // such a copy's own members.  Abstains for an ambiguous name.
+    // § cloneTfVarParentAtTf482 (r11u482, R11U482_TFVARPARENT_OFF; cases
+    // tools/probe/r11u482repro/cases) -- in an import clone the subroutine's
+    // own Variables list is a DeepClone list of its own (§ 175's statement:
+    // the subroutine's Variables, the wrapper begin's Variables and the
+    // assignment's Lhs each get their own copy, parented at the clone that
+    // lists it), so a local the subroutine lists is parented at the
+    // subroutine (golden `array_var (a::f::acc)` under `function (a::f)` in
+    // the copies of u::f, r11u480 FA/fa16, v11u478 VM/vm03), where ours kept
+    // the home emission's parent, the body begin, after
+    // § importCloneBodyLocalCopies175 gave the begin its own copies.  Only a
+    // variable whose parent is a begin inside the clone that no longer lists
+    // it is re-parented.
+    if (lawOn(482, "R11U482_TFVARPARENT_OFF"))
+        for (auto* tf : cloneTfs478) {
+            if (!tf || !tf->Variables())
+                continue;
+            for (auto* v : *tf->Variables()) {
+                auto* pb = v ? v->VpiParent() : nullptr;
+                if (!pb || pb == (const UHDM::any*)tf || pb->UhdmType() != UHDM::uhdmbegin)
+                    continue;
+                bool inTf = false;
+                for (auto* u = pb->VpiParent(); u; u = u->VpiParent())
+                    if (u == (const UHDM::any*)tf) {
+                        inTf = true;
+                        break;
+                    }
+                if (!inTf)
+                    continue;
+                bool listed = false;
+                if (auto* bv = ((const UHDM::begin*)pb)->Variables())
+                    for (auto* w : *bv)
+                        if (w == v)
+                            listed = true;
+                if (listed)
+                    continue;
+                v->VpiParent(tf);
+                lawTrace(482, "cloneTfVarParentAtTf482",
+                         std::string(tf->VpiFullName()) + " " + std::string(v->VpiName()));
+            }
+        }
+    if (lawOn(482, "R11U482_COPYINST_OFF") && !cloneTfs478.empty()) {
+        std::map<std::string, const Symbol*> homeOf482;
+        for (auto& [sym482, ts482] : typedefTs) {
+            if (!sym482 || !ts482)
+                continue;
+            auto k482 = ts482->UhdmType();
+            if (k482 != UHDM::uhdmenum_typespec && k482 != UHDM::uhdmstruct_typespec &&
+                k482 != UHDM::uhdmunion_typespec)
+                continue;
+            auto* ps482 = sym482->getParentScope();
+            if (!ps482 || ps482->asSymbol().kind != SymbolKind::Package)
+                continue;
+            std::string nm482(ts482->VpiName());
+            if (nm482.find("::") == std::string::npos)
+                continue;
+            auto [it482, fresh482] = homeOf482.emplace(nm482, &ps482->asSymbol());
+            if (!fresh482 && it482->second != &ps482->asSymbol())
+                it482->second = nullptr;  // ambiguous: abstain
+        }
+        std::set<const UHDM::any*> tfs482(cloneTfs478.begin(), cloneTfs478.end());
+        std::map<const UHDM::any*, UHDM::package*> copyRoots482;
+        auto ownerClone482 = [&](const UHDM::any* o) -> const UHDM::task_func* {
+            for (int k = 0; o && k < 512; ++k, o = o->VpiParent())
+                if (o->UhdmType() == UHDM::uhdmfunction || o->UhdmType() == UHDM::uhdmtask)
+                    return tfs482.count(o) ? (const UHDM::task_func*)o : nullptr;
+            return nullptr;
+        };
+        for (auto& kv : s.AllObjects()) {
+            auto* o = (const UHDM::any*)kv.first;
+            if (!o)
+                continue;
+            auto k = o->UhdmType();
+            if (k != UHDM::uhdmenum_typespec && k != UHDM::uhdmstruct_typespec &&
+                k != UHDM::uhdmunion_typespec)
+                continue;
+            auto* pr = o->VpiParent();
+            if (!pr || pr->UhdmType() != UHDM::uhdmref_typespec ||
+                ((const UHDM::ref_typespec*)pr)->Actual_typespec() != o)
+                continue;
+            auto* tf = ownerClone482(pr);
+            if (!tf)
+                continue;
+            auto ih = homeOf482.find(std::string(o->VpiName()));
+            if (ih == homeOf482.end() || !ih->second)
+                continue;
+            auto tp = pkgTopMap.find((const void*)ih->second);
+            if (tp == pkgTopMap.end() || !tp->second)
+                continue;
+            auto* t = (UHDM::typespec*)o;
+            copyRoots482[o] = tp->second;
+            if (t->Instance() == tp->second)
+                continue;
+            t->Instance(tp->second);
+            lawTrace(482, "cloneOwnCopyInstHomeTop482",
+                     std::string(tf->VpiFullName()) + " " + std::string(t->VpiName()));
+        }
+        // the copy's own member types (a typespec parented at the
+        // ref_typespec of a member of such a copy): the same deep clone
+        for (auto& kv : s.AllObjects()) {
+            auto* t = dynamic_cast<UHDM::typespec*>((UHDM::BaseClass*)kv.first);
+            // an array member type carries no instance in golden (v11u478
+            // VM/vm08, an older face of its own): left as it stands
+            if (!t || !t->Instance() || t->UhdmType() == UHDM::uhdmarray_typespec)
+                continue;
+            auto* pr = t->VpiParent();
+            if (!pr || pr->UhdmType() != UHDM::uhdmref_typespec ||
+                ((const UHDM::ref_typespec*)pr)->Actual_typespec() != t)
+                continue;
+            auto* pm = pr->VpiParent();
+            if (!pm || pm->UhdmType() != UHDM::uhdmtypespec_member)
+                continue;
+            auto ir = copyRoots482.find(pm->VpiParent());
+            if (ir == copyRoots482.end() || t->Instance() == ir->second)
+                continue;
+            // § copyInstMemberOwnRoot482v (v11u482, R11V482_MEMBROOT_OFF;
+            // cases tools/probe/v11u482repro/cases/VM/vm05, VC/vc06) -- a
+            // member type that is itself a package typedef copy (a root the
+            // loop above gave its own package's top view) keeps that
+            // instance: golden's copy of `s::in_t i;` inside a copy of u's
+            // op_t reads package s's top view, not u's (the deep clone keeps
+            // the source's instance, and the source is s's typedef); the
+            // member loop gave it the outer root's package u.
+            if (copyRoots482.count(t) && fixOn(482, "R11V482_MEMBROOT_OFF")) {
+                lawTrace(482, "copyInstMemberOwnRoot482v",
+                         std::string(pm->VpiName()) + " " + std::string(t->VpiName()));
+                continue;
+            }
+            t->Instance(ir->second);
+            lawTrace(482, "cloneOwnCopyInstHomeTop482_member",
+                     std::string(pm->VpiName()) + " " + std::string(UHDM::UhdmName(t->UhdmType())));
+        }
+    }
     // § cloneHierArrElemMember478 (r11u478, R11U478_ARRMEMBER_OFF; cases
     // tools/probe/r11u478repro/cases/AM; uvm_param_vif_config_db's
     // uvm_reg_map.svh 2034 face `p.push_back(accesses[i0].data[i1*8+:8])`) —
@@ -28486,14 +28700,76 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
             if (!tf || !clones478.count(tf))
                 continue;
+            std::set<const UHDM::any*> idxBound482;  // § cloneHierIdxChainActual482
             for (size_t i = 1; i < pe->size(); ++i) {
                 auto* prev = dynamic_cast<const UHDM::ref_obj*>((*pe)[i - 1]);
                 auto* cur = dynamic_cast<UHDM::ref_obj*>((*pe)[i]);
                 if (!prev || !cur || cur->Actual_group() || !prev->Actual_group())
                     continue;
+                // § cloneHierIdxChainActual482 (r11u482,
+                // R11U482_IDXCHAIN_OFF; cases tools/probe/r11u482repro/cases;
+                // the v11u478 residue VM/vm01 `acc[0][1].data`) -- DeepClone's
+                // `a[i][j]` branch: an element with no name (or a name starting
+                // with '[') after a bit_select takes that bit_select's actual
+                // (golden binds the clone's `acc[0][1]` bit_select to the
+                // array variable `acc[0]` binds; the home body's stays
+                // unbound, ours left the clone's unbound too), so the member
+                // after it binds through the array's element struct below.
+                // DeepClone's `previous` is still that bit_select only when
+                // the walk did not resolve it to a member or variable: the
+                // first element, or one bound by this branch (v11u224 LX/lb02,
+                // `s.arr[i][1:0]`: `arr[i]` resolved to the member, golden's
+                // part_select stays unbound).
+                if ((cur->VpiName().empty() || cur->VpiName().front() == '[') &&
+                    prev->UhdmType() == UHDM::uhdmbit_select &&
+                    (i == 1 || idxBound482.count(prev)) &&
+                    lawOn(482, "R11U482_IDXCHAIN_OFF")) {
+                    cur->Actual_group((UHDM::any*)prev->Actual_group());
+                    idxBound482.insert(cur);
+                    lawTrace(482, "cloneHierIdxChainActual482",
+                             std::string(o->VpiName()) + "@" + std::to_string(o->VpiLineNo()));
+                    continue;
+                }
                 std::string_view nm = cur->VpiName();
                 if (nm.empty() || nm.front() == '[')
                     continue;
+                // § cloneHierMemberChain482 (r11u482, R11U482_MEMBCHAIN_OFF;
+                // cases tools/probe/r11u482repro/cases; the v11u478 residues
+                // VM/vm08 `acc[0].b[1].data` and vm18) -- DeepClone's
+                // typespec_member branch: after an element bound to a struct or
+                // union MEMBER, the next name binds the member of that
+                // member's type (one array or packed-array level unwrapped)
+                // of that name (golden `acc[1].i.data` binds `data` to the
+                // in_t member the copied op_t's member `i` reaches).
+                if (prev->Actual_group()->UhdmType() == UHDM::uhdmtypespec_member &&
+                    lawOn(482, "R11U482_MEMBCHAIN_OFF")) {
+                    auto* pm482 = (const UHDM::typespec_member*)prev->Actual_group();
+                    const UHDM::typespec* mt482 =
+                        pm482->Typespec() ? pm482->Typespec()->Actual_typespec() : nullptr;
+                    if (mt482 && mt482->UhdmType() == UHDM::uhdmpacked_array_typespec) {
+                        auto* er = ((const UHDM::packed_array_typespec*)mt482)->Elem_typespec();
+                        mt482 = er ? er->Actual_typespec() : nullptr;
+                    }
+                    else if (mt482 && mt482->UhdmType() == UHDM::uhdmarray_typespec) {
+                        auto* er = ((const UHDM::array_typespec*)mt482)->Elem_typespec();
+                        mt482 = er ? er->Actual_typespec() : nullptr;
+                    }
+                    const UHDM::VectorOftypespec_member* mm482 = nullptr;
+                    if (mt482 && mt482->UhdmType() == UHDM::uhdmstruct_typespec)
+                        mm482 = ((const UHDM::struct_typespec*)mt482)->Members();
+                    else if (mt482 && mt482->UhdmType() == UHDM::uhdmunion_typespec)
+                        mm482 = ((const UHDM::union_typespec*)mt482)->Members();
+                    if (mm482)
+                        for (auto* m : *mm482)
+                            if (m && m->VpiName() == nm) {
+                                cur->Actual_group(m);
+                                lawTrace(482, "cloneHierMemberChain482",
+                                         std::string(o->VpiName()) + "@" +
+                                             std::to_string(o->VpiLineNo()));
+                                break;
+                            }
+                    continue;
+                }
                 const UHDM::typespec* et = elemTs478(prev->Actual_group());
                 if (!et)
                     continue;

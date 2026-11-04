@@ -1,0 +1,25 @@
+r11u482repro/cases/CI/ci01 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 md5=d0f12465
+r11u482repro/cases/CI/ci02 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=120 md5=f035b6b1
+r11u482repro/cases/CI/ci03 law3off slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=718 oc=140 md5=bea2899d
+r11u482repro/cases/CI/ci04 law3off slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=980 oc=180 md5=5fa119d6
+r11u482repro/cases/CI/ci05 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 oc=114 md5=b64438b8
+r11u482repro/cases/CI/ci06 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=606 oc=120 md5=8a479f40
+r11u482repro/cases/CI/ci07 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1170 oc=240 md5=aab422b7
+r11u482repro/cases/CI/ci08 law3off slrc=0 rc=0 cmp=798 NOT_EQUAL stage1 dd=354 oc=77 md5=e33d4c8f
+r11u482repro/cases/CI/ci09 law3off slrc=0 rc=0 cmp=738 NOT_EQUAL stage1 dd=320 oc=57 md5=82dccd75
+r11u482repro/cases/CI/ci10 law3off slrc=0 rc=0 cmp=742 NOT_EQUAL stage1 dd=346 oc=63 md5=1ddf1437
+r11u482repro/cases/CI/ci11 law3off slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=110 oc=29 md5=6c09e4b0
+r11u482repro/cases/CI/ci12 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=614 oc=132 md5=accee3c0
+r11u482repro/cases/CI/ci13 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=634 oc=144 md5=0876df79
+r11u482repro/cases/CI/ci14 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=620 oc=136 md5=ab186023
+r11u482repro/cases/CI/ci15 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=746 oc=140 md5=24888229
+r11u482repro/cases/CI/ci16 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=600 oc=120 md5=396c8d8e
+r11u482repro/cases/CI/ci17 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=636 oc=132 md5=caf3247b
+r11u482repro/cases/CI/ci18 law3off slrc=0 rc=0 cmp=0 STRICT_EQUAL 232 objects dd=2 oc=4 md5=0f75364e
+r11u482repro/cases/CI/ci19 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1050 oc=180 md5=117a03a0
+r11u482repro/cases/CI/ci20 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1260 oc=238 md5=86a6eea7
+r11u482repro/cases/CI/ci21 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=970 oc=180 md5=fc0d2c72
+r11u482repro/cases/CI/ci22 law3off slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=124 oc=33 md5=72db63eb
+r11u482repro/cases/CI/ci23 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=674 oc=133 md5=95eeac6a
+r11u482repro/cases/CI/ci24 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1220 oc=240 md5=0236ab41
+r11u482repro/cases/CI/ci25 law3off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=582 oc=116 md5=2410b01f

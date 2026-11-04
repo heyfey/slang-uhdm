@@ -1,0 +1,25 @@
+r11u482repro/cases/CI/ci01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 604 objects dd=314 oc=35 md5=0b452c46
+r11u482repro/cases/CI/ci02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 604 objects dd=314 oc=35 md5=aad1db11
+r11u482repro/cases/CI/ci03 law3 slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=714 oc=120 md5=f621a633
+r11u482repro/cases/CI/ci04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 844 objects dd=487 oc=59 md5=70ccb653
+r11u482repro/cases/CI/ci05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 605 objects dd=312 oc=29 md5=1d11f61a
+r11u482repro/cases/CI/ci06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 578 objects dd=364 oc=30 md5=9e175697
+r11u482repro/cases/CI/ci07 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 804 objects dd=680 oc=70 md5=58c9aace
+r11u482repro/cases/CI/ci08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 596 objects dd=320 oc=47 md5=a5f04c2b
+r11u482repro/cases/CI/ci09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 566 objects dd=284 oc=27 md5=e45784af
+r11u482repro/cases/CI/ci10 law3 slrc=0 rc=0 cmp=742 NOT_EQUAL stage1 dd=336 oc=33 md5=090e21e9
+r11u482repro/cases/CI/ci11 law3 slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=102 oc=19 md5=eeb9dbe5
+r11u482repro/cases/CI/ci12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 693 objects dd=394 oc=47 md5=0c99eb9a
+r11u482repro/cases/CI/ci13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 782 objects dd=438 oc=59 md5=ed0decc4
+r11u482repro/cases/CI/ci14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 750 objects dd=402 oc=47 md5=ab722f96
+r11u482repro/cases/CI/ci15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 716 objects dd=408 oc=43 md5=bfaa4a8c
+r11u482repro/cases/CI/ci16 law3 slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=596 oc=100 md5=c53b8955
+r11u482repro/cases/CI/ci17 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 775 objects dd=370 oc=43 md5=68d6261e
+r11u482repro/cases/CI/ci18 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 232 objects dd=2 oc=4 md5=0f75364e
+r11u482repro/cases/CI/ci19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 904 objects dd=552 oc=59 md5=7e2338ac
+r11u482repro/cases/CI/ci20 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 1068 objects dd=726 oc=68 md5=bad706fd
+r11u482repro/cases/CI/ci21 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 844 objects dd=486 oc=59 md5=8efcf2a2
+r11u482repro/cases/CI/ci22 law3 slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=118 oc=23 md5=aca144c7
+r11u482repro/cases/CI/ci23 law3 slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=398 oc=40 md5=ba09b13f
+r11u482repro/cases/CI/ci24 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 788 objects dd=706 oc=60 md5=b8dcf62c
+r11u482repro/cases/CI/ci25 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 578 objects dd=290 oc=31 md5=ba0a8177

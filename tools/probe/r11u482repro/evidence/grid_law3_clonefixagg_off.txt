@@ -1,0 +1,25 @@
+r11u482repro/cases/CI/ci01 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=582 oc=100 md5=120e5e0d
+r11u482repro/cases/CI/ci02 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=582 oc=100 md5=99f90cae
+r11u482repro/cases/CI/ci03 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=88 NOT_EQUAL stage1 dd=714 oc=120 md5=f621a633
+r11u482repro/cases/CI/ci04 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=96 NOT_EQUAL stage1 dd=976 oc=160 md5=f978d681
+r11u482repro/cases/CI/ci05 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=582 oc=94 md5=2b3b38e2
+r11u482repro/cases/CI/ci06 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=602 oc=100 md5=e81d4d09
+r11u482repro/cases/CI/ci07 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1162 oc=200 md5=9efad74b
+r11u482repro/cases/CI/ci08 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=0 STRICT_EQUAL 596 objects dd=320 oc=47 md5=a5f04c2b
+r11u482repro/cases/CI/ci09 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=0 STRICT_EQUAL 566 objects dd=284 oc=27 md5=e45784af
+r11u482repro/cases/CI/ci10 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=742 NOT_EQUAL stage1 dd=336 oc=33 md5=090e21e9
+r11u482repro/cases/CI/ci11 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=33 NOT_EQUAL stage1 dd=102 oc=19 md5=eeb9dbe5
+r11u482repro/cases/CI/ci12 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=602 oc=112 md5=5e74224d
+r11u482repro/cases/CI/ci13 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=622 oc=124 md5=25a271ef
+r11u482repro/cases/CI/ci14 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=604 oc=112 md5=7ecf1d37
+r11u482repro/cases/CI/ci15 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=742 oc=120 md5=1b2d1f81
+r11u482repro/cases/CI/ci16 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=596 oc=100 md5=c53b8955
+r11u482repro/cases/CI/ci17 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=628 oc=108 md5=40946a17
+r11u482repro/cases/CI/ci18 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=0 STRICT_EQUAL 232 objects dd=2 oc=4 md5=0f75364e
+r11u482repro/cases/CI/ci19 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1042 oc=160 md5=03351860
+r11u482repro/cases/CI/ci20 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1252 oc=198 md5=b2e53db2
+r11u482repro/cases/CI/ci21 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=966 oc=160 md5=9802acc7
+r11u482repro/cases/CI/ci22 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=60 NOT_EQUAL stage1 dd=118 oc=23 md5=aca144c7
+r11u482repro/cases/CI/ci23 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=662 oc=105 md5=ebc06b58
+r11u482repro/cases/CI/ci24 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=1212 oc=200 md5=dc04cb12
+r11u482repro/cases/CI/ci25 law3_CLONEFIXAGG_off slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=578 oc=96 md5=8907e37d

@@ -1,0 +1,29 @@
+# The four corpus movers, predicted by name (evidence/prediction_scan_control.txt) and the only
+# byteverify movers (surelog 4 of 962): MiniAmiq d/t and SeqDriver d/t, each CMP_EQUAL with the
+# strict column 'equal' before and after.
+#
+# row                  law md5                           strict (law)                control md5
+default/MiniAmiq      15a2c8dae023174eba8e9f8c92f3ff1a  STRICT_EQUAL 435559 objects  3194d2fd521005ce25ad1aba9ca0de95
+testflags/MiniAmiq    15a2c8dae023174eba8e9f8c92f3ff1a  STRICT_EQUAL 435559 objects  3194d2fd521005ce25ad1aba9ca0de95
+default/SeqDriver     4aaaa70aadb8ae37c6a3504639e21686  STRICT_EQUAL 475526 objects  351a19044a4d1f929b6598488217dc2d
+testflags/SeqDriver   d9a59668e594cd070a3fa33fb31aa1d0  STRICT_EQUAL 475538 objects  49f5b92f4f2346fa8aefcf5c5428c34a
+#
+# Switch table on MiniAmiq default (its sweep command re-run, md5 of the database):
+#   R11U482_OFF                                   3194d2fd521005ce25ad1aba9ca0de95 (= control)
+#   R11U482_TFVARPARENT_OFF                       278cf621e477c76d83da4a0e0f75b6d3
+#   R11U482_COPYINST_OFF                          1d9005b4a293d87b905d94b9db99df8e
+#   R11U482_TFVARPARENT_OFF + R11U482_COPYINST_OFF 3194d2fd521005ce25ad1aba9ca0de95 (= control)
+#   law3 (no switch)                              15a2c8dae023174eba8e9f8c92f3ff1a (= law2's sweep)
+# The scan counts per database: COPYINST 218, COPYINST_member 174, TFVARPARENT 1040 (each of the
+# four); the sweep trace fired the same two laws there.
+#
+# Toward golden (MiniAmiq default, golden from the corpus golden cache):
+#   evidence/tools/tsinst.cpp instance census (kind, name, span, three parents, instance view),
+#   multiset distance to golden: control 9777, law 9139 (the law database is byte-identical to the
+#   sweep's; uvm_pkg(top) 8222 -> 8566 against golden's 10530, uvm_pkg(all) 3068 -> 2941
+#   against 2595, svaunit_pkg(all) 620 -> 443 against 164, svaunit_pkg(top) 355 -> 315 against 41)
+#   path-normalised uhdm-dump distance to golden: control 321278 lines, law 316434
+#
+# Determinism: three concurrent draws of MiniAmiq default and of SeqDriver testflags with law2
+# read 15a2c8dae023174eba8e9f8c92f3ff1a and d9a59668e594cd070a3fa33fb31aa1d0 in 3 of 3 each, the
+# sweep's hashes (4 of 4 with the sweep); law3 on MiniAmiq default reads the same hash.
