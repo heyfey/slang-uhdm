@@ -64,7 +64,7 @@ namespace slang_uhdm {
 // the name its own chain computes is left unstored (the definition view reads
 // the same name either way; the clone now computes its own).  A name that
 // differs from its chain is a modelled deviation and stays.  Grid
-// tools/probe/r11u137repro/grid/eb (the equal cases now under tests/probe/r11u137repro/grid/eb).  Switch: R11U137_ELABCLONE_OFF.
+// tools/probe/r11u137repro/grid/eb.  Switch: R11U137_ELABCLONE_OFF.
 namespace {
 struct FullNameAcc137 {
     std::string_view (*get)(UHDM::BaseClass*);
@@ -232,7 +232,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
         // class_defn-parented objects), and golden's elaborated clone under
         // the instance keeps the stored `p::seqb::set_arbitration` where the
         // unstored name read the instance path `work@top.set_arbitration`
-        // (grid tools/probe/r11u231repro/cases (the equal cases now under tests/probe/r11u231repro/cases) AL a02/a05/a07/a08, AO o05,
+        // (grid tests/probe/r11u231repro/cases AL a02/a05/a07/a08, AO o05,
         // the -elabuhdm view).  Only a class a PACKAGE declares: a class
         // declared in a module is cloned with its instance and golden reads
         // the instance path there (`work@top::u::C::f`, grids r11u181repro

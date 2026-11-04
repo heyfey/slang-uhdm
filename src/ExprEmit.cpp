@@ -206,7 +206,7 @@ static bool incDecProgSym439v(const slang::ast::Symbol& sym,
 // interface one of § uninstIfaceIncDecBinds441) a NAMED block stops the walk
 // only when the symbol is declared directly in it: a local of an UNNAMED block
 // nested anywhere under a named block still binds, golden on
-// tools/probe/v11u441repro (the equal cases now under tests/probe/v11u441repro) VJ/vj11, vj16, vj17 and vj22 (`begin : nb begin
+// tests/probe/v11u441repro VJ/vj11, vj16, vj17 and vj22 (`begin : nb begin
 // int inner; inner++; end end` bound to work@ifc.t.nb.inner), while a
 // named-block local stays bare, read from that block or from an unnamed block
 // inside it (vj14, vj15).  Pristine and the laws left these bare.
@@ -551,7 +551,7 @@ static const slang::syntax::SyntaxNode* withCallSyntax286(
 // file-scope import in another file give nothing.  Only the home package's
 // elaborated (TopPackages) copy is on the swapped list; its definition copy
 // and every importer clone keep the placeholder.  Measured on real v1.87
-// goldens (tools/probe/r11u246repro/cases/DT (the equal cases now under tests/probe/r11u246repro/cases/DT)): SimpleUVM and SeqDriver (the
+// goldens (tools/probe/r11u246repro/cases/DT): SimpleUVM and SeqDriver (the
 // testbench file imports uvm_pkg::* beside its top module) resolve; MiniAmiq
 // (svaunit_pkg imports, no module), BuildUVMPkg (no module) and Scoreboard
 // (the import sits in design.sv, which holds a class but no module) do not.
@@ -833,7 +833,7 @@ static void hpTrailIpsNames218(UHDM::indexed_part_select* ips,
 // and the all-bit-index path is named by the process/cont-assign path rules
 // (grid GX g06 g07 g09 EQUAL at the base); the trailing range's bounds are
 // already named through the doubled part_select name.  Grid
-// tools/probe/r11u220repro/cases/GX (the equal cases now under tests/probe/r11u220repro/cases/GX).  Switch R11U220_HPVSIDX_OFF.
+// tools/probe/r11u220repro/cases/GX.  Switch R11U220_HPVSIDX_OFF.
 static const std::string& hpVsRangeIdxPrefix220(
     const std::string& prefix, const std::string& vsFull,
     const std::vector<const Expression*>& esels) {
@@ -859,7 +859,7 @@ static const std::string& hpVsRangeIdxPrefix220(
 // (`...[8 * i+:8].value`, `.value.value`), and so, under
 // § hpVarSelRangeIdxNamesByPath220, the index references too.  The joint is
 // the one joinRef chose for the path itself.  Grid
-// tools/probe/r11u220repro/cases/GX (the equal cases now under tests/probe/r11u220repro/cases/GX) g35 g36.  Switch R11U220_HPVSCOL_OFF.
+// tools/probe/r11u220repro/cases/GX g35 g36.  Switch R11U220_HPVSCOL_OFF.
 static const char* hpVsJoin220(const std::string& prefix) {
     static const bool on = lawOn(220, "R11U220_HPVSCOL_OFF");
     if (!on)
@@ -977,7 +977,7 @@ static SourceLocation hpPsRightEnd453(const RangeSelectExpression& rs) {
 // select's doubled name (grid GX g13 `ix*1+1-:2`, already ours).  Ours
 // named the direct reference through the doubled name.  The simple
 // part_select twin is not skipped by ComputeFullName and keeps the doubled
-// name (grid GX g28).  Grid tools/probe/r11u220repro/cases/GX (the equal cases now under tests/probe/r11u220repro/cases/GX) (g12, g23).
+// name (grid GX g28).  Grid tests/probe/r11u220repro/cases/GX (g12, g23).
 // Switch R11U220_HPVSIPS_OFF.
 static void hpVsIpsDirectRefs220(UHDM::indexed_part_select* ips,
                                  const std::string& vsFull) {
@@ -1004,7 +1004,7 @@ static void hpVsIpsDirectRefs220(UHDM::indexed_part_select* ips,
 // source span in golden: `"Allocated memory regions:\n"` (BuildUVMPkg
 // uvm_pkg.sv:70758, golden 21-50, ours 21-52), `"a\\b"`, `"a\tb"`,
 // `"a\"b"`, `"a\101b"`, a backtick not followed by a blank (grid
-// tools/probe/r11u220repro/cases/SL (the equal cases now under tests/probe/r11u220repro/cases/SL) s01 s03-s07 s09-s11 s13-s25 s27-s29).
+// tests/probe/r11u220repro/cases/SL s01 s03-s07 s09-s11 s13-s25 s27-s29).
 // The backtick-blank literals keep the old rule (s08 s26 EQUAL; s30 s31
 // s34-s39 read another shift, a residue).  Switch R11U220_STRSHIFT_OFF.
 static bool strLitBackslashShift220(const std::string& inner, bool macroQuoted) {
@@ -1025,7 +1025,7 @@ static bool strLitBackslashShift220(const std::string& inner, bool macroQuoted) 
 // text length (the continuation backslashes and newlines counted): golden
 // BuildUVMPkg uvm_pkg.sv:76494 `$sformatf("this version of UVM does not
 // properly support memories with \<nl>a smaller word ...")` 76494:54-331,
-// ours 76494:54-76496:102 (grid tools/probe/r11u220repro/cases/SL (the equal cases now under tests/probe/r11u220repro/cases/SL) s02,
+// ours 76494:54-76496:102 (grid tests/probe/r11u220repro/cases/SL s02,
 // s40-s43).  Switch R11U220_STRCONT_OFF.
 static std::map<std::tuple<std::string, int, int>, std::array<int, 4>>&
 strLitContEnds220() {
@@ -1101,7 +1101,7 @@ void strLitContEndDrain220(UHDM::Serializer& s) {
 // A reference under an operation, a call or a var_select keeps the select's
 // name on the chain (`...s.arr[i+1][1:0].arr.i`); the separator is the one
 // joinRef chose for the path.  The read form is § hpVarSelRangeIdxNamesByPath220's.
-// Grid tools/probe/r11u224repro/cases/LV (the equal cases now under tests/probe/r11u224repro/cases/LV).  Switch R11U224_LVSELIDX_OFF.
+// Grid tools/probe/r11u224repro/cases/LV.  Switch R11U224_LVSELIDX_OFF.
 static std::string hpLvSelIdxPrefix224(const std::string& prefix,
                                        const std::string& selFull,
                                        const std::string& memName,
@@ -1127,7 +1127,7 @@ static std::string hpLvSelIdxPrefix224(const std::string& prefix,
 // whole span (grid hn04, EQUAL on both); the rule is read on member chains
 // of a named root only: `rw.parent = new;` `= new();` `= new(args)`,
 // `rw.mid.leaf = new;`, a module's class handle (grid
-// tools/probe/r11u224repro/cases/HN (the equal cases now under tests/probe/r11u224repro/cases/HN) hn01 hn02 hn05-hn07).  Switch
+// tests/probe/r11u224repro/cases/HN hn01 hn02 hn05-hn07).  Switch
 // R11U224_LVNEWSPAN_OFF.
 static void hpLvNewFirstSpan224(UHDM::any* lhs, const Expression& left,
                                 const slang::SourceManager* sm) {
@@ -1168,7 +1168,7 @@ static void hpLvNewFirstSpan224(UHDM::any* lhs, const Expression& left,
 // element `APB_protocol_cg[i] = new();`, sv-tests apb_protocol_monitor
 // 145:21-145:22 in golden where ours spanned 145:5-145:23) and CopyClass
 // (`c[1] = new c[0];`) bound kinds miss.  Grid
-// tools/probe/r11u437repro/cases/NS (the equal cases now under tests/probe/r11u437repro/cases/NS).  Switch R11U437_NEWLHSKIND_OFF.
+// tools/probe/r11u437repro/cases/NS.  Switch R11U437_NEWLHSKIND_OFF.
 static bool newLhsCgCopy437(const Expression& rhs) {
     static const bool on = lawOn(437, "R11U437_NEWLHSKIND_OFF");
     if (!on)
@@ -1254,7 +1254,7 @@ static void newLhsSelSpan437(UHDM::any* lhs, const Expression& left,
 // the whole chain with one separator, `::` once a package or class is on it:
 // golden `s.arr[i][1:0] = d;` in the class method `p::k::f` names the select
 // `p::k::f::s.arr[i][1:0]::arr`, ours `p::k::f::s.arr[i][1:0].arr`
-// (tools/probe/r11u224repro/cases/LV (the equal cases now under tests/probe/r11u224repro/cases/LV) lv14).  A module scope keeps `.`
+// (tests/probe/r11u224repro/cases/LV lv14).  A module scope keeps `.`
 // (joinRef).  Switch R11U224_LVSELCOL_OFF.
 static std::string hpLvSelFull224(const std::string& selFull, const std::string& memName) {
     static const bool on = lawOn(224, "R11U224_LVSELCOL_OFF");
@@ -1278,7 +1278,7 @@ static std::string hpLvSelFull224(const std::string& selFull, const std::string&
 // `p1::c::f.arr[i].v[k+:2]::k` (tests/probe/v11u220repro/cases/C/c23, the
 // home listing and every importer clone).  The joint is the one joinRef
 // chooses for the scope prefix, so a module or generate scope keeps `.`.
-// Grid tools/probe/r11u224repro/cases/IJ (the equal cases now under tests/probe/r11u224repro/cases/IJ).  Switch R11U224_IPSPFXJOIN_OFF.
+// Grid tools/probe/r11u224repro/cases/IJ.  Switch R11U224_IPSPFXJOIN_OFF.
 static void ipsBasePfxJoin224(std::string& pfx, const std::string& prefix,
                               const std::string& selText, const std::string& lastName,
                               bool viaOp) {
@@ -1299,7 +1299,7 @@ static void ipsBasePfxJoin224(std::string& pfx, const std::string& prefix,
 // `class c #(int W = 2)`) stays a reference, and golden names it like the
 // base, `p1::c::f::arr[i].v[k+:W]::W` (the writer skips the indexed part
 // select directly above it); ours kept the scope's `p1::c::f::W`
-// (tools/probe/r11u224repro/cases/IJ (the equal cases now under tests/probe/r11u224repro/cases/IJ) ij12).  Only where the scope joins with
+// (tests/probe/r11u224repro/cases/IJ ij12).  Only where the scope joins with
 // `::` (a module-scope width is folded, and no module case was measured).
 // Switch R11U224_IPSWIDTH_OFF.
 static std::string ipsWidthPfx224(const std::string& prefix, const std::string& selText,
@@ -1327,7 +1327,7 @@ static std::string ipsWidthPfx224(const std::string& prefix, const std::string& 
 // source end 4:4 (tests/probe/v11u220repro/cases/K/k04).  A class
 // property's initializer is not built by ExprEmit's literal arm and kept its
 // two-line span (golden `string s = "abc \<nl>def";` 3:14-3:25, ours 3:14-4:5,
-// tools/probe/r11u220repro/cases/SL (the equal cases now under tests/probe/r11u220repro/cases/SL) s48): design-final, a string constant
+// tests/probe/r11u220repro/cases/SL s48): design-final, a string constant
 // whose raw text holds a continued line and whose span is the raw text's
 // source geometry takes the computed end too, and the objects ending at its
 // source end follow (the variable declaration s50 included).  Run from
@@ -1401,7 +1401,7 @@ void strLitContOwnerDrain224(UHDM::Serializer& s) {
 // second), `"a\\b`<TAB>c"` +0, `"\na` \nb` c"` +8, a second literal on the
 // line adding its own shift after the first's, a net, port or typespec
 // later on a module header line shifted too (grid
-// tools/probe/r11u224repro/cases/SP (the equal cases now under tests/probe/r11u224repro/cases/SP) sp01-sp22, and the pass-220 residues
+// tests/probe/r11u224repro/cases/SP sp01-sp22, and the pass-220 residues
 // SL s30-s39, T/t12, T/t14).  The +2-per-backslash rule of
 // § strLitShiftNeedsBacktick220 was this law's count on the two shapes it
 // was measured on (StringWithBackslash `\\/ _| ...`, SL s08 s26: two
@@ -1573,7 +1573,7 @@ void strLitPpLineShiftDrain224(UHDM::Serializer& s) {
 // line is re-laid: an object starting at or before the literal and ending
 // where our literal or our call ended ends at golden's literal end; any other
 // start or end at or past our call end moves by the event's correction.
-// Grid tools/probe/r11u268repro/cases/M (the equal cases now under tests/probe/r11u268repro/cases/M).  Switch R11U268_STRMACLEN_OFF.
+// Grid tools/probe/r11u268repro/cases/M.  Switch R11U268_STRMACLEN_OFF.
 struct MacStrEv268 {
     // oursCallEnd: our column after the call; thresh: our column where the
     // spliced text after the literal begins (oursCallEnd when that text is
@@ -2001,7 +2001,7 @@ static bool evalOpPathOk195(const slang::ast::Expression& root,
     // net or variable read inside the function (`w + g(...)`, getValue finds
     // no binding) make the whole operation come back unreduced, its call
     // never evaluated, the actual bare (cases/E e01 e06 e07 e12 e16 e18 of
-    // tools/probe/v11u195repro (the equal cases now under tests/probe/v11u195repro); a formal, a module parameter, a bit select
+    // tools/probe/v11u195repro; a formal, a module parameter, a bit select
     // or an operation over a part select keep the stamp: e11 e19 e33 e34
     // e38).
     auto badOperand = [&](const Expression& o) {
@@ -2599,7 +2599,7 @@ static bool caLhsNotPlainName282(const Expression& e) {
 // `work@toph95.u8`); ours wrote the if-generate scope's name.  A WHOLE left
 // side (`assign b1 = {W{e_i[0]}}`, r10earl95repro/g2_depth95 g1; `o4 =
 // {W{1'b0}} | ...`, r10v94repro/v4_ctx94) keeps the scope: a draft without
-// that gate moved both away.  Grid tools/probe/r11u282repro/cases/C (the equal cases now under tests/probe/r11u282repro/cases/C) (*_repl_*,
+// that gate moved both away.  Grid tools/probe/r11u282repro/cases/C (*_repl_*,
 // rp_*).  Returns the instance name or empty to abstain.
 static std::string genCaReplCountInst282(const UHDM::any* parent, bool inGenCaRhs, bool lhsSel) {
     static const bool on = lawOn(282, "R11U282_CAREPLINST_OFF");
@@ -2626,7 +2626,7 @@ static std::string genCaReplCountInst282(const UHDM::any* parent, bool inGenCaRh
 // the reference reads the instance (`work@dut`); ours wrote the scope
 // (`work@dut.g`).  A module-body whole left side keeps the scope in golden and
 // is left alone; a ternary condition `(P == 1) ? ...` is a binary operand and
-// keeps the scope.  Grid tools/probe/r11u284repro/cases/C (the equal cases now under tests/probe/r11u284repro/cases/C).  Returns the
+// keeps the scope.  Grid tools/probe/r11u284repro/cases/C.  Returns the
 // instance name or empty to abstain.
 static std::string genCaCatMemberInst284(const UHDM::any* parent, bool inGenCaRhs, bool lhsSel,
                                          bool lhsGenLocal) {
@@ -2649,7 +2649,7 @@ static std::string genCaCatMemberInst284(const UHDM::any* parent, bool inGenCaRh
 // clone parented at the owning instance's param_assign: inside a
 // FOR-generate body at any depth of the right side (whole, operand,
 // concatenation, member path, ternary branch, system-call argument; grid
-// tools/probe/r11u256repro/cases/G (the equal cases now under tests/probe/r11u256repro/cases/G) g01-g05, g15-g17, g21, g22), and in an
+// tests/probe/r11u256repro/cases/G g01-g05, g15-g17, g21, g22), and in an
 // if / case scope when the select is the whole right side (g06); its
 // reference reads the instance (`work@top.u`), ours the scope
 // (`work@top.u.gb[0]`) or the member path.  An if / case scope's NESTED
@@ -2708,7 +2708,7 @@ static std::string genIpsBoundOwner256(const UHDM::any* ips, const std::string& 
 // golden's ref_obj `DataWidth` reads `prim_cipher_pkg::PRINCE_ROUND_CONST::
 // prim_cipher_pkg::PRINCE_ROUND_CONST::prim_cipher_pkg::PRINCE_ROUND_CONST::
 // DataWidth`, ours `work@prim_prince.p_pre_round_xor.<C>.<C>.DataWidth`.
-// Measured (tools/probe/r11u254repro/decode/P (the equal cases now under tests/probe/r11u254repro/decode/P), cases/Q): the scope prefix is
+// Measured (tools/probe/r11u254repro/decode/P, cases/Q): the scope prefix is
 // dropped, every select level the reference sits under is joined with `::`
 // and the base is written once more in front (`cp::R3[W-1][0]`: two copies,
 // `cp::RC[0][W-1:0]`: three) — when the select chain has two or more levels
@@ -3375,7 +3375,7 @@ static bool uuTok192(const syntax::SyntaxNode& n) {
 // `work@top.g[0].x` / `work@top.g[0]`), while a written select or member
 // target (`z[i]`, `z[0]`, `z[15:0]`, `s.f`), a generate-local or implicit
 // target, and a bare whole-RHS select take the owning instance's name (grid
-// tools/probe/v11u192repro/cases (the equal cases now under tests/probe/v11u192repro/cases) D, E, H, J, L, M, N).  This helper reads the
+// tools/probe/v11u192repro/cases D, E, H, J, L, M, N).  This helper reads the
 // syntax half: the target is a simple identifier.  Unknown syntax reads false
 // (the r11u192 law keeps its answer).
 static bool caLhsWholeName192v(const Expression& e) {
@@ -3492,7 +3492,7 @@ static bool caClonedOpRoot201(const Expression& e, const UHDM::any* parent) {
 // IMPLICIT net target (not among the netlist's nets when the assignment is
 // written) are never cloned, so the reduction runs on the listing's own
 // objects and golden keeps the stamp there (grid
-// tools/probe/v11u201repro/cases/O (the equal cases now under tests/probe/v11u201repro/cases/O) o01 o11 implicit nets, o09 o16
+// tools/probe/v11u201repro/cases/O o01 o11 implicit nets, o09 o16
 // interface bodies: EQUAL on the pristine binary, NOT_EQUAL under the
 // unrefined law in both forms).  The target is read from the syntax (a plain
 // identifier) and resolved through the listing's net map; any implicit net
@@ -3649,7 +3649,7 @@ static bool caRhsUnbasedUnsized192(const Expression& e) {
 // `p[c][r]`) comes back unreduced like a part select and keeps the formal's
 // typespec, the reference named after the select.  Our argument stamp listed
 // ref_obj, bit_select, part_select and indexed_part_select only.  Grid
-// tools/probe/r11u198repro/cases/V (the equal cases now under tests/probe/r11u198repro/cases/V) (parse and -elabuhdm forms): module and
+// tools/probe/r11u198repro/cases/V (parse and -elabuhdm forms): module and
 // generate-scope continuous assignments, two-level generates (the ibex_pmp
 // shape), an operand of an operation, a nested call, a second argument, a net
 // declaration, a package function, a child instance: golden stamps, ours bare.
@@ -3680,7 +3680,7 @@ static bool varSelRangeIdx198(const UHDM::var_select* vs) {
 //       but `$signed`, `$unsigned` and `$clog2` (UHDM ExprEval.cpp's
 //       sys_func_call arm reduces the arguments of those three only; `$bits`
 //       and its family read the argument's type, `$countones` and the rest
-//       are left alone) — every view; tools/probe/v11u198repro/cases/V (the equal cases now under tests/probe/v11u198repro/cases/V) t13
+//       are left alone) — every view; tests/probe/v11u198repro/cases/V t13
 //       `4'($countones(f(p[1][2])))`, t25 `g($countones(f(p[1][2])))` and t28
 //       `f(p[1][2]) + $countones(f(p[0][1]))` read EQUAL / type(1) on the
 //       pristine binary and a stamp golden lacks on the law binary;
@@ -3741,7 +3741,7 @@ static bool vsStampReducedCtxOnly198v(const UHDM::any* parent, bool opBare) {
 // (owner); (2) UhdmWriter::writeCont_assign's clone_tree of the whole
 // assignment when its Lhs is a ref_obj bound to a variable and its Rhs an
 // operation (every object re-parented in the clone: generate-scope name).
-// Measured on grid tools/probe/r11u198repro/cases/O (the equal cases now under tests/probe/r11u198repro/cases/O) (parse form and
+// Measured on grid tools/probe/r11u198repro/cases/O (parse form and
 // -elabuhdm form): a select, member, generate-local or implicit-net target
 // with the fold under a concatenation (o01 o05 o06 o07 o13 o40 o48), a
 // replication in an if / case scope (o08), a system-call argument (o02 o20
@@ -3884,7 +3884,7 @@ static std::string chainFullName175(const UHDM::BaseClass* o) {
 // scope, a name holding more than one `::`, a spaced or macro-shaped span
 // (ours not exactly the written name) all decline.  Applied design-final to
 // every listing (the AllPackages and TopPackages copies alike).  Grid
-// tools/probe/r11u227repro/cases/FW (the equal cases now under tests/probe/r11u227repro/cases/FW).
+// tools/probe/r11u227repro/cases/FW.
 // § fwdPkgRefConstSlotWhole227v (v11u227, the adversarial verification of
 // pass 227; switch R11V227_CONSTSLOT_OFF, R11V227_OFF drops every v11u227
 // refinement) — A CONSTANT-GRAMMAR SLOT INSIDE EXPRESSION GRAMMAR RESETS THE
@@ -3902,7 +3902,7 @@ static std::string chainFullName175(const UHDM::BaseClass* o) {
 // p2::E4):0]` 7:19-23 and `W[(C ? p2::E3 : 1):0]` 8:17-21 are `Q::` in
 // golden), and the base of an indexed part select and a bit-select index
 // are expression grammar (`W[p2::E1 +: 2]`, `W[p2::E1]`: `Q::`).  Grid
-// tools/probe/v11u227repro/cases/BF (the equal cases now under tests/probe/v11u227repro/cases/BF).
+// tools/probe/v11u227repro/cases/BF.
 static bool fwdConstSlot227v(const UHDM::BaseClass* p, const UHDM::BaseClass* child) {
     switch (p->UhdmType()) {
     case UHDM::uhdmpart_select: {
@@ -4050,7 +4050,7 @@ void fwdPkgRefClassScopeSpanDrain227(UHDM::Serializer& s) {
 // stored scoped `uvm_pkg::uvm_default_factory::register::obj`; a reference
 // under an operation of the index keeps the select's name too (`::arr::i`).
 // Ours named the clone's reference like the home's (`svaunit_pkg::...::
-// register::obj`).  Grid tools/probe/r11u220repro/cases/CI (the equal cases now under tests/probe/r11u220repro/cases/CI).  Switch
+// register::obj`).  Grid tools/probe/r11u220repro/cases/CI.  Switch
 // R11U220_CLONEIDX_OFF.
 static std::set<const UHDM::any*>& cloneHpIdxRoots220() {
     static std::set<const UHDM::any*> v;
@@ -4550,7 +4550,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
     // Ours stored the scope's name with those ancestors dropped; only such a
     // name is replaced (same root, same leaf).  Measured in class methods,
     // module functions and a module initial block, both listings (grid
-    // tools/probe/r11u201repro/cases/M (the equal cases now under tests/probe/r11u201repro/cases/M)); a method TASK call statement keeps
+    // tools/probe/r11u201repro/cases/M); a method TASK call statement keeps
     // its names in golden (m06, not a hier_path element).
     for (auto* kv226 : objs226) {
         if (!(lawOn(201, "R11U201_MARGNEST_OFF") && !landingOff(201)))
@@ -4618,7 +4618,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         // hier_path inside the method call's argument
         // (`v.exists(v.sva_info[index].get_name())`) is parented in golden at
         // that hier_path, not at the bit_select (measured on every shape of
-        // grid tools/probe/r11u270repro/cases/N (the equal cases now under tests/probe/r11u270repro/cases/N) n04: a bare path, a plain
+        // grid tests/probe/r11u270repro/cases/N n04: a bare path, a plain
         // call's argument, a method call's argument), so the reader's chain
         // skips the inner path and names it after the call it is an argument
         // of: golden `...::get_sva_tested::vpi_vif.sva_exists::index`
@@ -4684,7 +4684,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
     // uvm_report_handler.svh 319 `sev_id_overrides[id].exists(
     // uvm_severity'(severity))`).  Only a name that is the chain name with
     // those ancestors dropped is replaced (the chain must extend ours).
-    // Grid tools/probe/r11u246repro/cases/MC (the equal cases now under tests/probe/r11u246repro/cases/MC).
+    // Grid tools/probe/r11u246repro/cases/MC.
     for (auto* kv226 : objs226) {
         if (!lawOn(246, "R11U246_MARGCASTTS_OFF"))
             break;
@@ -4811,7 +4811,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
 // the TRAILING select keeps its own bit_select as the parent, and an lvalue
 // path parents every select index at its bit_select (compiled through the
 // lvalue arm).  Measured on the pinned Surelog (grid
-// tools/probe/r11u178repro/cases/hp (the equal cases now under tests/probe/r11u178repro/cases/hp)): `m.w[k].v`, `m.w[k].x[j]` (the `k`),
+// tools/probe/r11u178repro/cases/hp): `m.w[k].v`, `m.w[k].x[j]` (the `k`),
 // `m.w[k + 1].v`, `m.w[f(k)].v`, `m.w[s.k].v`, `m.w[$clog2(k)].v`,
 // `a[k + 1].v`, `a[f(k)].v` -- module initial, continuous assignment,
 // generate scope, module task/function, package function, class method --
@@ -4904,7 +4904,7 @@ static void noteHpSelIdx178(UHDM::hier_path* hp, UHDM::bit_select* bs,
 // § hierPathSelIdxCloneKeepsElem178v (v11u178, the adversarial verification
 // of § hierPathSelIdxAtPath178) — TWO RVALUE-LOOKING POSITIONS KEEP THE
 // INDEX AT ITS BIT_SELECT, NAMED THROUGH IT.  Measured on the pinned Surelog
-// (grid tools/probe/r11v178repro/cases/hk (the equal cases now under tests/probe/r11v178repro/cases/hk)):
+// (grid tools/probe/r11v178repro/cases/hk):
 //   * an INC/DEC OPERAND is an lvalue: `m.w[k+1].v++`, `--m.w[k*2].v`,
 //     `x = m.w[k].v++` (module initial, always_comb, a for step, module /
 //     package function, class method) keep golden's index at the member
@@ -5003,7 +5003,7 @@ void drainHierPathSelIdx178(UHDM::Serializer& s) {
 // keeps its stored bare name on both sides, and a path in a PLAIN select's
 // index (`a[rw.k]`) is already right.  Set design-final from the chain
 // (chainFullName175), after the path-index drains.  Grid
-// tools/probe/r11u244repro/cases/L (the equal cases now under tests/probe/r11u244repro/cases/L).
+// tools/probe/r11u244repro/cases/L.
 void drainHpSelIdxTrail244(UHDM::Serializer& s) {
     if (!lawOn(244, "R11U244_HPIDXTRAIL_OFF"))
         return;
@@ -5129,7 +5129,7 @@ void trace184(const char* law) {
 // when all of them miss does `mod->getValue(name)` mint the FRESH loc-less
 // `enum_const` parented on the reference (the mint below).  So the mint is
 // right for a module or package enum read through a module-level variable
-// (tools/probe/r11u184repro/cases/E (the equal cases now under tests/probe/r11u184repro/cases/E) e03: loc-less in golden), and wrong when
+// (tests/probe/r11u184repro/cases/E e03: loc-less in golden), and wrong when
 // the enum is declared in the block (ibex_multdiv_fast's `gen_mult_fast`
 // `mult_fsm_e`, e01) or typed a variable declared in the block (e02 module
 // enum, e04 package enum: golden 3:29-31, the shared constant).  Only the
@@ -5176,7 +5176,7 @@ static bool genLocalEnumKnown184(const slang::ast::Scope* blk,
 // (7:47-52), the outermost pair for `din[((i))]` (3:18-23).  slang binds the
 // parentheses away, so the selector's range is the content alone (ours
 // 7:48-51, 3:20-21).  Measured on the pinned Surelog (grid
-// tools/probe/r11u181repro/cases/bx (the equal cases now under tests/probe/r11u181repro/cases/bx)): a concatenation operand on either side
+// tools/probe/r11u181repro/cases/bx): a concatenation operand on either side
 // of a procedural assignment, a continuous assignment, a ternary arm, an
 // operation operand, a call argument, a memory word, an if condition, a
 // nonblocking right-hand side, a macro-born index whose body is parenthesized
@@ -5244,7 +5244,7 @@ static SourceRange methodCallIdxRange207(const Expression& sel) {
 // MEMBER select of a mixed path: an rvalue member select anchored at its index
 // (`y = s.f[(i)]`, a trailing select, or any select of a process / interface
 // port rvalue) spans the index's parentheses, `(i)` 10:13-16 in golden where
-// ours spanned the content 10:14-15 (grid tools/probe/r11u184repro/cases/P (the equal cases now under tests/probe/r11u184repro/cases/P);
+// ours spanned the content 10:14-15 (grid tools/probe/r11u184repro/cases/P;
 // r11v181's residue V2, px/p05).  The member-name anchored branches and the
 // lvalue branches are untouched.  Switch R11U184_MEMPAREN_OFF.
 static SourceRange memberParenIdxRange184(const Expression& sel) {
@@ -5302,7 +5302,7 @@ static SourceRange memberIdxRange312(const Expression& sel) {
 // bit_select spanning the whole select and named by its chain
 // (`work@top.m.w[k + 1].v.w`, 8:7-13; ours `m.w[k + 1]`, 8:7-8), the leaf
 // storing its own name (ours `work@top.v`).  Measured on the pinned Surelog
-// (grid tools/probe/r11u181repro/cases/im (the equal cases now under tests/probe/r11u181repro/cases/im)): post/pre increment and
+// (grid tools/probe/r11u181repro/cases/im): post/pre increment and
 // decrement, operation / reference / constant indices, a module initial, a
 // module function, a class method and a generate scope's always_comb, both
 // views.  § incDecMemberPathIsLvalue124 already gave the select-free member
@@ -5357,7 +5357,7 @@ static const Expression*& incDecSelTop184() {
 // typespec reference and a folded parameter constant (parented at its
 // param_assign) keep their names.  Ours named every object by the generate
 // scope; the law stores the chain name below the cast.  Grid
-// tools/probe/r11u198repro/cases/K (the equal cases now under tests/probe/r11u198repro/cases/K): k02 k04 k06 k12 k14 k15 k16 k17 k20
+// tests/probe/r11u198repro/cases/K: k02 k04 k06 k12 k14 k15 k16 k17 k20
 // k21 (golden the short chain name, ours the scope's); controls k01 k13 (module
 // scope), k03 k11 (a whole outside target: the ref_obj arm clones and
 // re-parents), k07 (a cast nested in an operation), the -elabuhdm form of
@@ -5572,7 +5572,7 @@ void nestShapeDrain306(bool elabView) {
                 // `...::iarr[].f::iarr::h.k[1:0]::k`, `...::iarr::h.v[i+:2]::v`;
                 // ours had stored the written text `h.k[1:0]`): Surelog stores
                 // none on the nested path's member select, so neither do we
-                // here.  Grid tools/probe/r11u308repro/cases/EC (the equal cases now under tests/probe/r11u308repro/cases/EC).  Switch
+                // here.  Grid tools/probe/r11u308repro/cases/EC.  Switch
                 // R11U308_LEAFSELELAB_OFF.
                 static const bool on308 = lawOn(308, "R11U308_LEAFSELELAB_OFF");
                 const std::string had = storedFullName308(b);
@@ -5597,7 +5597,7 @@ void nestShapeDrain306(bool elabView) {
     nestLeaf306().clear();
 }
 
-// ---- pass 308 (r11u308; tests/LAWS.md; tools/probe/r11u308repro (the equal cases now under tests/probe/r11u308repro)) ----
+// ---- pass 308 (r11u308; tests/LAWS.md; tools/probe/r11u308repro) ----
 // The STORED full name only: the generated getter computes an unstored name
 // and FREEZES it (a new symbol, a stored id), which a byte comparison sees
 // even where every name reads the same (the first law build moved MiniAmiq and
@@ -5792,7 +5792,7 @@ static void castTsNonTrailIdx308(UHDM::Serializer& s) {
 // runs; classes are outside that law, so this one leaves unstored exactly the
 // names under such an index whose stored value equals their own chain, in
 // a class, in the -elabuhdm view only (the definition view reads the same name
-// either way).  Grid tools/probe/r11u308repro/cases/EC (the equal cases now under tests/probe/r11u308repro/cases/EC).
+// either way).  Grid tools/probe/r11u308repro/cases/EC.
 static void elabClsNonTrailIdx308(UHDM::Serializer& s) {
     std::vector<UHDM::BaseClass*> all;
     for (auto& kv : s.AllObjects()) {
@@ -5908,7 +5908,7 @@ static void nonTrailIdxNamesByChain308(UHDM::Serializer& s) {
 // `work@grid::probe.h.arr[].f`).  Surelog stores no full name on a
 // ref_typespec, so golden reads its chain; ours is renamed to it when the
 // stored name and the chain both lie in the enclosing scope (computed, never
-// read through UHDM's getter).  Grid tools/probe/r11u310repro/cases/CD (the equal cases now under tests/probe/r11u310repro/cases/CD), CL.
+// read through UHDM's getter).  Grid tools/probe/r11u310repro/cases/CD, CL.
 static void castTsNonTrailIdx310(UHDM::Serializer& s) {
     std::vector<UHDM::ref_typespec*> rts;
     for (auto& kv : s.AllObjects()) {
@@ -6029,7 +6029,7 @@ static void castTsNonTrailIdx310(UHDM::Serializer& s) {
 // a reference directly under the select (UHDM skips the select there) and
 // an inc/dec operand were already golden's.  Only where the stored name is
 // the scope's plus the object's own name; a path in the index is left alone.
-// Grid tools/probe/r11u310repro/cases/TL (the equal cases now under tests/probe/r11u310repro/cases/TL), CL, FX.  Switch R11U310_CLSLVTRAIL_OFF.
+// Grid tools/probe/r11u310repro/cases/TL, CL, FX.  Switch R11U310_CLSLVTRAIL_OFF.
 //
 // § clsLvTrailConcatTarget312 (r11u312) — the same targets written as a
 // CONCATENATION's members (`{h.idx[i + 1], r} = 2`, `{r, h.idx[midx[i]]} =
@@ -6046,7 +6046,7 @@ static void castTsNonTrailIdx310(UHDM::Serializer& s) {
 // VT/vt18): § lvSelIdxChainName181's drain reaches process lvalues only and
 // the class gate above stopped at the module, so the subroutine's targets
 // read their chain too, `.`-joined; a module process stays as it was.  Grid
-// tools/probe/r11u312repro/cases/MD (the equal cases now under tests/probe/r11u312repro/cases/MD).  Switch R11U312_MODTF_OFF.
+// tools/probe/r11u312repro/cases/MD.  Switch R11U312_MODTF_OFF.
 //
 // § pkgTfLvTrailIdxNamesByChain312 (r11u312) — the same in a PACKAGE
 // subroutine (`function automatic void f(holder h, int i); h.idx[i + 1] =
@@ -6162,7 +6162,7 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
         // gate also takes a stored name that is a named block's (named
         // begin or fork between the target and the subroutine) plus the
         // object's own name; everything else is the law it extends.  Grid
-        // tools/probe/r11u314repro/cases/NB (the equal cases now under tests/probe/r11u314repro/cases/NB).  Switch R11U314_NAMEDBLK_OFF.
+        // tools/probe/r11u314repro/cases/NB.  Switch R11U314_NAMEDBLK_OFF.
         static const bool onBlk314 = lawOn(314, "R11U314_NAMEDBLK_OFF");
         std::vector<std::string> blk314;
         for (const UHDM::any* a = hp->VpiParent(); a && a != fn; a = a->VpiParent()) {
@@ -6297,7 +6297,7 @@ static void clsLvTrailIdxNames310(UHDM::Serializer& s) {
 // not touched.  Only where the stored name and the chain lie in the same
 // enclosing scope and end in the object's own name.  r11u310repro residue
 // 1 and v11u310repro residue 1's method-path half (MT mt61, mt62, mt65 to
-// mt68, VQ vq25 to vq29, VT/vt37).  Grid tools/probe/r11u312repro/cases/MI (the equal cases now under tests/probe/r11u312repro/cases/MI).
+// mt68, VQ vq25 to vq29, VT/vt37).  Grid tools/probe/r11u312repro/cases/MI.
 // Switch R11U312_METHIDXPAR_OFF.
 static void methRecvIdxAtPath312(UHDM::Serializer& s, bool elabView) {
     std::vector<UHDM::hier_path*> hps;
@@ -6487,7 +6487,7 @@ static void ipsBaseNames312(UHDM::Serializer& s) {
     // `work@top.a.v[[k + 1]+:2].v.ix.k`, `...::h.v[[]+:2]::v::ia`).  Only
     // names whose stored value is the scope's or an enclosing select's
     // plus the object's own (the select's own for a ref_typespec) move.
-    // Grid tools/probe/r11u314repro/cases/IO (the equal cases now under tests/probe/r11u314repro/cases/IO).  Switch
+    // Grid tools/probe/r11u314repro/cases/IO.  Switch
     // R11U314_IPSBASENAME_OFF.
     static const bool on314 = lawOn(314, "R11U314_IPSBASENAME_OFF");
     for (auto* ips : ipss) {
@@ -6720,7 +6720,7 @@ static bool lvStreamOperand181(const UHDM::BaseClass* parent) {
 // (§ lvIfaceBitSelWhole154 abstains) and named through the chain
 // (`work@m.bit_field_if.read_data[3].read_data`), inside a macro body
 // (§ macroIfacePathTokSpans183's token arm) or outside it (v11u256 M/vm17,
-// M/vm20; grid tools/probe/r11u258repro/cases/S (the equal cases now under tests/probe/r11u258repro/cases/S)).  The ElementSelect and
+// M/vm20; grid tools/probe/r11u258repro/cases/S).  The ElementSelect and
 // RangeSelect arms of emitExpr run with `inLhs` cleared for such a path,
 // restored on exit.
 struct StreamRead258 {
@@ -6747,7 +6747,7 @@ struct StreamRead258 {
 // Ours froze the bit_select's name through the getter while the path was
 // being built (a generate scope's process was not yet linked to its scope:
 // `work@top.r.w[g].v.w`, golden `work@top.G.r.w[g].v.w`, grid
-// tools/probe/r11u181repro/cases/im (the equal cases now under tests/probe/r11u181repro/cases/im) m06) and named every index reference by
+// tests/probe/r11u181repro/cases/im m06) and named every index reference by
 // the path's prefix, which is the chain only for a reference DIRECTLY under
 // the bit_select (the bit_select's name is skipped there): a reference inside
 // an operation or call index reads the bit_select's name too (`m.w[k+1].v =
@@ -6852,7 +6852,7 @@ void drainLvSelChain181(UHDM::Serializer& s) {
 // rvalue (`z = pi.data[i*8+:8]`) are already right (grid L i02, i03).
 // Applied design-final with § 181's guard (chainFix181: the stored name is
 // the chain with ancestors dropped, same root, same leaf).  Grid
-// tools/probe/r11u244repro/cases/L (the equal cases now under tests/probe/r11u244repro/cases/L) i01-i10.
+// tests/probe/r11u244repro/cases/L i01-i10.
 void drainLvIpsChain244(UHDM::Serializer& s) {
     if (!lawOn(244, "R11U244_LVIPSCHAIN_OFF"))
         return;
@@ -6951,7 +6951,7 @@ static const slang::ast::Expression*& newLhsTop181() {
 // `work@sub.t.$root.top.v`, `work@top.u.g.$root.top.v` in an elaborated
 // clone).  Ours stored the name itself (the no-full-name idiom), which reads
 // empty.  Measured on the pinned Surelog in every position (grid
-// tools/probe/r11u181repro/cases/rt (the equal cases now under tests/probe/r11u181repro/cases/rt): a system function / task argument
+// tools/probe/r11u181repro/cases/rt: a system function / task argument
 // (CovMacro's `$coverage_control(..., $root.top)`), a user call argument, an
 // operand, a whole lvalue, a module task / function body, a nonblocking
 // assignment, an event control, a generate-if and generate-for scope, a
@@ -7095,7 +7095,7 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
 /// object — the same fresh copy the landed $UNIT-function and module-scope
 /// arms already mint (the `bypassTypedefShare` clone below).  Only the gate
 /// lacked the module-function home.  MEASURED on real Surelog v1.87 goldens,
-/// tools/probe/r11u112repro/grid/t (the equal cases now under tests/probe/r11u112repro/grid/t) (both forms): logic (unsigned, signed,
+/// tools/probe/r11u112repro/grid/t (both forms): logic (unsigned, signed,
 /// parameter-bounded), bit and int typedefs; function assign-to-name,
 /// `return`, a task, two functions, a two-instance child.  The clone carries
 /// no vpiInstance.  A struct typedef (t12) is already golden and untouched.
@@ -7117,7 +7117,7 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
 /// index and § caOpFoldTs only an operation chain that reaches the
 /// cont_assign; an operation under a bit_select fell between the two and the
 /// constant came out bare (ibex_icache.sv:519, `round_robin_way_q[IC_NUM_WAYS-1]`).
-/// MEASURED, tools/probe/r11u112repro/grid/f (the equal cases now under tests/probe/r11u112repro/grid/f) f01/f03/f04/f05/f06/f09/f11/f12
+/// MEASURED, tools/probe/r11u112repro/grid/f f01/f03/f04/f05/f06/f09/f11/f12
 /// (int unsigned, int, untyped, logic [3:0]; header and body import; nested
 /// under `&`; `-` `+` `*`): golden stamps, ref named after the select.  The
 /// controls: f02 (bare index, § selFold9), f07 (module parameter), f08
@@ -7253,7 +7253,7 @@ static const std::string* genLpIdxOpPrefix112 = nullptr;
 // reference named after the SELECT (`work@top.g[0].h.a`, the select's own
 // full name), not after the localparam's declaring scope (`work@top.g[0]`,
 // which § genLpUseFoldParentScope47 measured for the select BOUNDS and which
-// they keep: grid cases/N n04 n05).  Grid tools/probe/r11u198repro/cases/N (the equal cases now under tests/probe/r11u198repro/cases/N):
+// they keep: grid cases/N n04 n05).  Grid tests/probe/r11u198repro/cases/N:
 // n01 bare, n02 operation, n07 inside a concatenation, n11 if inside if,
 // n12 an `int` localparam, n14 a written index: golden the select's name,
 // ours the declaring scope's; n09 / n10 (distance 2 / 0) never fold.
@@ -7805,7 +7805,7 @@ static bool insideMemberIsLiteral30(const slang::ast::Expression& e30) {
 // the next token's leading trivia (slang keeps a line comment and its newline
 // apart) and abstains on a token or slot from a macro, on any trivia but
 // whitespace, newlines and comments, and when the trivia's text is not the
-// buffer's text right before the token.  Grid tools/probe/r11u441repro (the equal cases now under tests/probe/r11u441repro) EA, EU.
+// buffer's text right before the token.  Grid tools/probe/r11u441repro EA, EU.
 // Returns the start of Surelog's token a-1 and its length in characters.
 static bool emptyArgPrevHiddenTok441(const slang::SourceManager* sm,
                                      const syntax::ArgumentListSyntax* al,
@@ -7945,7 +7945,7 @@ UHDM::constant* UhdmExporter::emptySlotArg24(
 // `p::c::f::arr::arr`), where the pristine binary is already right for the
 // indexed part select (grid NP np03 np04 --elabuhdm: EQUAL), so the law is
 // the parse view's alone (set by the caller).  Grid
-// tools/probe/r11u227repro/cases/NP (the equal cases now under tests/probe/r11u227repro/cases/NP).
+// tools/probe/r11u227repro/cases/NP.
 static bool newArrPsParseView227 = false;
 // § cloneWithOperandChainName248 (r11u248, R11U248_WITHCHAIN_OFF; MiniAmiq
 // d/t and SeqDriver d/t `found_to = from_node.m_sync.find_index(node) with
@@ -7966,7 +7966,7 @@ static bool newArrPsParseView227 = false;
 // the subroutine join `<prefix>::<name>` takes the receiver chain; a path
 // element written with no full name (`s` of `s.m_k`, `this.m_k`'s `m_k`)
 // stays without one.  Applied design-final, after every clone-body name
-// drain.  Grid tools/probe/r11u248repro/cases/W (the equal cases now under tests/probe/r11u248repro/cases/W).
+// drain.  Grid tools/probe/r11u248repro/cases/W.
 struct WithChain248 {
     UHDM::any* w;
     const UHDM::any* iter;  // the written iterator argument, if any
@@ -8080,7 +8080,7 @@ void drainWithChain248() {
 // instance; that view keeps the base (gated on !elabUhdmView121).  The law
 // parents the call at the assignment in the default view's importer copies,
 // design-final (drainNewArrParent244, ParamEmit), before any later drain
-// reads a name.  Grid tools/probe/r11u244repro/cases/W (the equal cases now under tests/probe/r11u244repro/cases/W).
+// reads a name.  Grid tools/probe/r11u244repro/cases/W.
 static std::vector<std::pair<UHDM::any*, UHDM::any*>> newArrParent244;
 void drainNewArrParent244() {
     for (auto& [c, p] : newArrParent244) {
@@ -8131,7 +8131,7 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
             // ComputeFullName skips a bit_select directly above a ref_obj, so
             // under the unparented `new` the chain is the bare name (golden
             // `new[arr[k]]` and `new[f(arr[k], b)]`: `ref_obj k` unnamed,
-            // ours `p::c::f::k`; grid tools/probe/r11u220repro/cases/NW (the equal cases now under tests/probe/r11u220repro/cases/NW) w11
+            // ours `p::c::f::k`; grid tests/probe/r11u220repro/cases/NW w11
             // w16).  An index under an operation keeps its name (w17:
             // golden `arr.k`, the chain through the bit_select; not
             // written).  Switch R11U220_NEWARRIDX_OFF.
@@ -8146,7 +8146,7 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
             // either: the writer's chain runs ref -> operation -> bit_select
             // (kept: its child is no ref_obj) -> ... -> the unparented `new`,
             // golden `new[arr[k+1] + 2]` `ref_obj k` = `arr.k`, ours the
-            // scoped `p::c::f::arr::k` (tools/probe/r11u220repro/cases/NW (the equal cases now under tests/probe/r11u220repro/cases/NW)
+            // scoped `p::c::f::arr::k` (tools/probe/r11u220repro/cases/NW
             // w17).  Grid tests/probe/r11u224repro/cases/NA.  Switch
             // R11U224_NEWARRIDXOP_OFF.
             if (lawOn(224, "R11U224_NEWARRIDXOP_OFF"))
@@ -8185,7 +8185,7 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
         // the same unparented `new` call (§ newArray11's model), so a
         // reference in `new[f(a, b)]`, `new[f(a + 1, b)]`, `new[$clog2(a)]` or
         // in the size call of `new[f(a)](src)` stores no name (grid
-        // tools/probe/r11u220repro/cases/NW (the equal cases now under tests/probe/r11u220repro/cases/NW) w01 w08 w09 w10), where the same
+        // tests/probe/r11u220repro/cases/NW w01 w08 w09 w10), where the same
         // call outside `new[...]` keeps the scoped names (w05, EQUAL at the
         // base).  Switch R11U220_NEWARRCALL_OFF.
         case UHDM::uhdmfunc_call:
@@ -8250,7 +8250,7 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
                     // body copies that stored bare name where golden's clone
                     // reads it too (`ref_obj (n)`); stripping it lets the
                     // clone compute `work@C::t::n` (grid
-                    // tools/probe/v11u201repro/cases/A (the equal cases now under tests/probe/v11u201repro/cases/A) a01 a07 a10
+                    // tests/probe/v11u201repro/cases/A a01 a07 a10
                     // -elabuhdm: EQUAL on the pristine binary, `fullname`
                     // under the unrefined law).  So a trailing element whose
                     // stored name IS its bare name keeps it; a scoped name
@@ -9335,7 +9335,7 @@ bool UhdmExporter::oobRefVarLocalHoistNet107(const slang::ast::Symbol& sym,
 // call whose node § nestedParamActualTs6 stamped.  Measured on real v1.87
 // goldens over the call's depth below a folded or kept outer call, an
 // overridden, a defaulted and a top-level parameter (grid
-// tools/probe/r11u246repro/cases/PA (the equal cases now under tests/probe/r11u246repro/cases/PA), both views).
+// tools/probe/r11u246repro/cases/PA, both views).
 namespace {
 struct CallArgCopy246 {
     UHDM::ref_typespec* rt;
@@ -9376,10 +9376,10 @@ std::vector<CallArgCopy246>& callArgCopies246() {
 // block and a parameter initializer (a select of a select, `L[1][3:0]` or
 // r10rgg13's `assign o = LP[0][0];`, stays unreduced; `L[1] ^ L[2]`, which
 // golden leaves unreduced too, is abstained on).  Grid
-// tools/probe/v11u246repro/cases/PE (the equal cases now under tests/probe/v11u246repro/cases/PE).
+// tools/probe/v11u246repro/cases/PE.
 namespace {
 // § callArgCopyReduceOpModel248 (r11u248, R11U248_PAREDUCE_OFF;
-// tools/probe/v11u246repro (the equal cases now under tests/probe/v11u246repro) README residue 1) — one step of the walk from a
+// tools/probe/v11u246repro README residue 1) — one step of the walk from a
 // reference to L up its syntax: true when the parent `a` (reached from child
 // `c`) is a place UHDM ExprEval::reduceExpr does not reduce through.  The
 // operators reduceExpr has a case for (ExprEval.cpp reduceExpr: the shifts,
@@ -9448,7 +9448,7 @@ bool callArgCopyLpReduced246v(const slang::ast::ParameterSymbol& lp) {
         // `g(L[1] + 8'd1) ^ 8'd1` keep the formal's int_typespec on the
         // instance's copied call actual (golden 3:41), where the law's
         // whole-path scan set the parameter's own (grid
-        // tools/probe/v11u248repro/cases/R (the equal cases now under tests/probe/v11u248repro/cases/R) r01, r18, r22, r23, the elaborated
+        // tools/probe/v11u248repro/cases/R r01, r18, r22, r23, the elaborated
         // view: one golden record lost each).  The default view keeps the
         // law's whole-path rule (the same cases move toward golden there).
         // The nearest OPERATOR decides: an opaque one (or a range selector)
@@ -9635,7 +9635,7 @@ static void macroParamMethNameEnd246(const slang::SourceManager* sm,
 // end across the line (ours 63084:11-63085:8).  The helper steps from that
 // guess over whitespace, comments and at most one dot to the name, and keeps the guess
 // when the text there does not spell the name.  Grid
-// tools/probe/r11u244repro/cases/D (the equal cases now under tests/probe/r11u244repro/cases/D).
+// tools/probe/r11u244repro/cases/D.
 static SourceLocation methNameLoc244(const slang::SourceManager* sm,
                                      SourceLocation g, std::string_view nm) {
     if (!sm || !g.valid() || nm.empty() ||
@@ -10161,7 +10161,7 @@ static bool splitScopedName12(const slang::syntax::NameSyntax& n,
     // outside it (golden MiniAmiq #434285 `svaunit_concurrent_assertion_info::
     // type_id::` 239:55-239:99, the call's `create` on the next line; ours ran
     // to 240:13).  Written without whitespace the two ends coincide.  Grid
-    // tools/probe/r11u270repro/cases/S (the equal cases now under tests/probe/r11u270repro/cases/S).
+    // tools/probe/r11u270repro/cases/S.
     if (sn.separator.range().end() != outEnd) {
         if (lawOn(270, "R11U270_SCOPEDEND_OFF")) {
             outEnd = sn.separator.range().end();
@@ -10386,7 +10386,7 @@ static bool superMethodCall17(const slang::syntax::SyntaxNode* n,
 }
 
 // § parenCallCallee479 (R11U479_PARENCALLEE_OFF; cases
-// tools/probe/r11u479repro/cases/PC (the equal cases now under tests/probe/r11u479repro/cases/PC), the v11u477 cases VP/vp10, vp13, vp26
+// tools/probe/r11u479repro/cases/PC, the v11u477 cases VP/vp10, vp13, vp26
 // and the r11u477 case CD/cd21) — THE CALLEE-SHAPE DECODERS READ THROUGH A
 // CALL'S PARENTHESES, as § parenCallWrittenArgs477 made the written-argument
 // decoders do.  slang stamps the ParenthesizedExpression on a call written
@@ -13854,7 +13854,7 @@ bool UhdmExporter::srlgIdxHasGenvar14(const slang::syntax::ExpressionSyntax& e,
 // (`h.idx[item::sget()] = r`: golden `h.idx[item::sget]`, the lvalue arm's
 // decompileHelper(INDEX) reading the ref_obj row); a NON-trailing select's
 // index (`iarr[item::sget()].f`, v11u312repro VS/vs02) is another shape,
-// golden keeping a func_call there.  Grid tools/probe/r11u314repro/cases/SC (the equal cases now under tests/probe/r11u314repro/cases/SC).  Switch
+// golden keeping a func_call there.  Grid tools/probe/r11u314repro/cases/SC.  Switch
 // R11U314_SCOPEDCALLIDX_OFF.
 static bool staticScopedCallRefName314(const slang::ast::Expression& e0, std::string& out) {
     using namespace slang::ast;
@@ -14188,7 +14188,7 @@ static bool replaceLastBracketBody94(std::string& nm, const std::string& body) {
 // § hpIdxBaseHierPathEmpty94's calibration).  prettyPrint dereferences an
 // operation's operands unchecked, so the render abstains on any operation
 // below the base with a missing operand.  Grid
-// tools/probe/r11u314repro/cases/IO (the equal cases now under tests/probe/r11u314repro/cases/IO).  Switch R11U314_IPSBASEOP_OFF.
+// tools/probe/r11u314repro/cases/IO.  Switch R11U314_IPSBASEOP_OFF.
 static bool ppSafe314(const UHDM::any* o, int d = 0) {
     if (!o || d > 32)
         return false;
@@ -16375,7 +16375,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     // the whole value to one constant (`assign y = PA ^ PB` golden vpiOpType
     // 30, ours UINT:36).  Parameter folds (paramCtx) keep folding: their value
     // is the instance's Value, which Surelog's own evaluator computes.  Grid
-    // tools/probe/r11u475repro/cases/XK (the equal cases now under tests/probe/r11u475repro/cases/XK).
+    // tools/probe/r11u475repro/cases/XK.
     ASTContext ctx(comp.getRoot(), LookupLocation::max);
     ConstantValue cv = ctx.tryEval(expr);
     if (!cv || !cv.isInteger())
@@ -16470,7 +16470,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
     // § sizeCastCaLitMask158 — A SIZE CAST OF A LITERAL AS A CONTINUOUS
     // ASSIGNMENT'S WHOLE VALUE FOLDS TO THE LITERAL'S BITS MASKED TO THE CAST
     // WIDTH, UNSIGNED, AT THE ASSIGNMENT'S WIDTH.  Golden (u2r harness grid
-    // tools/probe/r11u158repro/cases/sc (the equal cases now under tests/probe/r11u158repro/cases/sc)): `assign p = 2'(3)` and `SEL_W'(3)`
+    // tools/probe/r11u158repro/cases/sc): `assign p = 2'(3)` and `SEL_W'(3)`
     // (logic [3:0] p) -> UINT:3 size 4; `2'(7)` -> UINT:3 size 4; `2'(-1)`
     // and `2'(3 + 4)` into logic [7:0] -> UINT:3 size 8, `2'(V + 0)` with
     // `int V = 7` -> UINT:3, `2'(-V)` -> UINT:1 (an operator tree over
@@ -16546,7 +16546,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         // `W'(V)` -> UINT:7, into logic [3:0] `W'(-1)` -> UINT:15), where a
         // width EXPRESSION masks (`(W+1)'(15)` -> UINT:7).  The bare-name
         // operand joins the tree.  A typedef cast (`t2'(7)`, an alias type)
-        // is not a size cast.  Grid tools/probe/r11v158repro/cases/sc (the equal cases now under tests/probe/r11v158repro/cases/sc).
+        // is not a size cast.  Grid tools/probe/r11v158repro/cases/sc.
         // Switch R11V158_SCNAMEDW_OFF.
         const auto wk158 = sc.syntax->as<syntax::CastExpressionSyntax>().left->kind;
         const bool namedW158 = !sc.type->isAlias() &&
@@ -16616,7 +16616,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         // 2'(V)` (logic [3:0] p) is INT:-1 size 4, ours size 2, which the
         // plugin zero-extends through a $pos cell (`4'0011`, DIVERGENT).  A
         // bare name operand only (the measured shape).
-        // Grid tools/probe/r11u158repro/cases/sc (the equal cases now under tests/probe/r11u158repro/cases/sc).  Switch
+        // Grid tools/probe/r11u158repro/cases/sc.  Switch
         // R11U158_SCSIGNSIZE_OFF.
         if (!paramCtx && expr.type && &expr != &sc &&
             stripImplicitConv(sc.as<ConversionExpression>().operand()).kind ==
@@ -18071,7 +18071,7 @@ static std::optional<slang::SourceRange> streamOperandBraces140(const slang::Sou
 // the whole-variable ranged select alone, so every other select site read as
 // "not constant".  The nearest enclosing selector of the unary's syntax
 // decides: a simple range -> token, an indexed range -> token only under its
-// width, a bit select -> whole.  Grid tools/probe/r11v140repro/sca (the equal cases now under tests/probe/r11v140repro/sca).
+// width, a bit select -> whole.  Grid tools/probe/r11v140repro/sca.
 // Switch: R11V140_CONSTSEL_OFF.
 static bool sysArgUnaryConstSelToken140v(const Expression& e) {
     static const bool on = lawOn(140, "R11V140_CONSTSEL_OFF");
@@ -18106,7 +18106,7 @@ static bool sysArgUnaryConstSelToken140v(const Expression& e) {
 // indexed_part_select is skipped above a ref_obj and kept above anything
 // else, a part_select is always kept, an operation has no name.  So the
 // argument of `m.q[f(k)]` is `work@top.m.q.q.k` (golden, grid
-// tools/probe/r11u187repro/cases/T (the equal cases now under tests/probe/r11u187repro/cases/T) t01-t04, t07; r11u184's residue C/c01),
+// tests/probe/r11u187repro/cases/T t01-t04, t07; r11u184's residue C/c01),
 // `m.w[f(k) - 1]` gives `work@top.m.w[ - 1].w.k` (the hier_path's own name),
 // the part select of `s.g[i[1:0]]` in a generate scope is
 // `work@top.ga.gb.s.g.g.i` (r11u184's residue G/g01, grid t06), the bit
@@ -18210,7 +18210,7 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                 // `work@c::get::q.f::f::m`.  Ours stored the scope's
                 // `work@top.m` (the var_select was the one select kind the
                 // walk did not enter).  Grid
-                // tools/probe/r11u278repro/cases/VS (the equal cases now under tests/probe/r11u278repro/cases/VS).  Switch
+                // tools/probe/r11u278repro/cases/VS.  Switch
                 // R11U278_TRAILVARSEL_OFF.
                 case UHDM::uhdmvar_select: {
                     if (!onVs278)
@@ -18239,7 +18239,7 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                 // renamed the var_select (`vsp::probe::probes::two_d::q`).
                 // Only below a var_select this walk entered; a path directly
                 // under the trailing select's operations is named at its own
-                // site.  Grid tools/probe/r11u306repro/cases/VH (the equal cases now under tests/probe/r11u306repro/cases/VH).  Switch
+                // site.  Grid tools/probe/r11u306repro/cases/VH.  Switch
                 // R11U306_VSHPLEAF_OFF.
                 case UHDM::uhdmhier_path: {
                     static const bool onHp306 = lawOn(306, "R11U306_VSHPLEAF_OFF");
@@ -18251,7 +18251,7 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
                     // name and ComputeFullName skips a call, so golden reads
                     // the leaf through the var_select's path-derived name too
                     // (`vsp::probe::probes::bb.bin::bin::two_d::q`).  Grid
-                    // tools/probe/r11u308repro/cases/VO (the equal cases now under tests/probe/r11u308repro/cases/VO).  Switch
+                    // tools/probe/r11u308repro/cases/VO.  Switch
                     // R11U308_VSHPOP_OFF.
                     const UHDM::any* vs308 = up;
                     bool viaOp308 = false;
@@ -18339,7 +18339,7 @@ static void trailIdxNestedNames187(UHDM::bit_select* bs, const std::string& base
 // — a MEMBER path's indexed part select ends where its right bound ends, and
 // Surelog's right bound is the WRITTEN expression, parentheses included
 // (golden 97:17-40, the column after `)`; ours 97:17-39, the end of slang's
-// bound inner expression).  Grid tools/probe/r11u264repro/cases/G (the equal cases now under tests/probe/r11u264repro/cases/G).
+// bound inner expression).  Grid tools/probe/r11u264repro/cases/G.
 static slang::SourceLocation ipsRightEnd264(const Expression& right) {
     if (!lawOn(264, "R11U264_IPSPARENEND_OFF"))
         return right.sourceRange.end();
@@ -18366,7 +18366,7 @@ static slang::SourceLocation ipsRightEnd264(const Expression& right) {
 // 2].a_source`); ours named them after the owning instance.  A bound that is a
 // bare parameter (folded whole) keeps the instance (cases/G g04, g07); the
 // elaborated `--elabuhdm` view folds the whole operation and has no
-// reference.  Grid tools/probe/r11u264repro/cases/G (the equal cases now under tests/probe/r11u264repro/cases/G).
+// reference.  Grid tools/probe/r11u264repro/cases/G.
 static void selRootIpsOpChain264(UHDM::indexed_part_select* ips,
                                  const std::string& prefix,
                                  const std::string& lastName) {
@@ -18421,7 +18421,7 @@ static void selRootIpsOpChain264(UHDM::indexed_part_select* ips,
 // views; ours the scope's `work@top.g[0].k`.  Process lvalues have their own
 // laws (§ procLvTrailIdxNamesByPath140, § genScopeTrailSelNameLate184).  Only
 // a path whose emission parent is the cont_assign itself (a concatenation or
-// select target abstains).  Grid tools/probe/r11u264repro/cases/N (the equal cases now under tests/probe/r11u264repro/cases/N).
+// select target abstains).  Grid tools/probe/r11u264repro/cases/N.
 static bool caLvTrailIdx264(bool inLhs, const UHDM::BaseClass* parent,
                             const UHDM::any* idx) {
     if (!inLhs || !parent || parent->UhdmType() != UHDM::uhdmcont_assign ||
@@ -18441,7 +18441,7 @@ static bool caLvTrailIdx264(bool inLhs, const UHDM::BaseClass* parent,
 // side, Surelog's hier_path element (a var_select) spans the member name
 // through the last bracket (golden r11u39repro/a1 `sat` 42:19-42:30), the
 // same span the lvalue arm already writes; ours spanned the whole path from
-// the root token (42:16).  Grid tools/probe/r11u280repro/cases/VR (the equal cases now under tests/probe/r11u280repro/cases/VR).  Switch
+// the root token (42:16).  Grid tools/probe/r11u280repro/cases/VR.  Switch
 // R11U280_VSRVSPAN_OFF.
 static bool hpMemVarSelRvalSpan280On() {
     static const bool on = lawOn(280, "R11U280_VSRVSPAN_OFF");
@@ -18467,7 +18467,7 @@ static bool hpMemVarSelRvalSpan280On() {
 // the var_select or under unnamed operations below it, a reference below a
 // bit_select or an indexed part select skipping it.  A call, a nested path
 // or a nested var_select inside the index abstains for its subtree (traced).
-// Grid tools/probe/r11u280repro/cases/VR (the equal cases now under tests/probe/r11u280repro/cases/VR).  Switch R11U280_VSIDXNAME_OFF.
+// Grid tools/probe/r11u280repro/cases/VR.  Switch R11U280_VSIDXNAME_OFF.
 static void hpMemVarSelIdxNames280(UHDM::var_select* vs, const std::string& prefix,
                                    const UHDM::hier_path* hp) {
     static const bool on = lawOn(280, "R11U280_VSIDXNAME_OFF");
@@ -18698,7 +18698,7 @@ static bool rhsConstOnly282(const UHDM::any* x, int depth = 0) {
 // three writers of the name (the ips bound fold, genLpUseFoldBound47 and the
 // module-body gen-scope copy) disagree by depth; the law sets it design-final
 // on every generate-scope cont_assign whose left side is an indexed part
-// select.  Grid tools/probe/r11u282repro/cases/L (the equal cases now under tests/probe/r11u282repro/cases/L).
+// select.  Grid tools/probe/r11u282repro/cases/L.
 static void lhsIpsBoundInPlace282(const std::vector<const UHDM::cont_assign*>& cas) {
     static const bool on = lawOn(282, "R11U282_LHSIPSINPLACE_OFF");
     if (!on)
@@ -18726,7 +18726,7 @@ static void lhsIpsBoundInPlace282(const std::vector<const UHDM::cont_assign*>& c
         // and the reference reads the instance (`work@top`), in a for- as in
         // an if-generate, where the law wrote the select's chain (a break on
         // the for-generate, where pristine already wrote the instance) and
-        // pristine the generate block.  Grid tools/probe/r11u282repro/cases/N (the equal cases now under tests/probe/r11u282repro/cases/N).
+        // pristine the generate block.  Grid tools/probe/r11u282repro/cases/N.
         static const bool cloneOnly = lawOn(282, "R11U282_LHSIPSCLONE_OFF");
         if (cloneOnly && !rhsConstOnly282(ca->Rhs()) && !rhsHasUnsized282(ca->Rhs(), 0)) {
             fn = ownerInstName192(ca);
@@ -18760,7 +18760,7 @@ static void lhsIpsBoundInPlace282(const std::vector<const UHDM::cont_assign*>& c
 // which its grid confounded with the left side; ours wrote the generate scope,
 // the select or the instance by emission site.  A select that is the whole
 // right side reads the instance in every grid cell and is left alone.  Grid
-// tools/probe/r11u282repro/cases/I (the equal cases now under tests/probe/r11u282repro/cases/I).
+// tools/probe/r11u282repro/cases/I.
 // § genCaSelBoundUnsizedClone282's test: Surelog's DetectUnsizedConstant
 // (UhdmWriter.cpp), a constant of vpiSize -1 anywhere under the right side.
 static bool rhsHasUnsized282(const UHDM::any* x, int depth) {
@@ -18862,7 +18862,7 @@ static void genCaSelBoundNestedOwner282(const std::vector<const UHDM::cont_assig
                         // reference reads the instance (`assign imp =
                         // ^a[W:0]`, v11u262repro VL/vl13 and vl41: golden
                         // `work@top.u`), where the law wrote the select's
-                        // name.  Grid tools/probe/r11u282repro/cases/M (the equal cases now under tests/probe/r11u282repro/cases/M).
+                        // name.  Grid tools/probe/r11u282repro/cases/M.
                         if (lawOn(282, "R11U282_CAIMPLICIT_OFF") &&
                             sc->UhdmType() == UHDM::uhdmmodule_inst) {
                             auto* mi = (const UHDM::module_inst*)sc;
@@ -18949,7 +18949,7 @@ static void genCaSelBoundNestedOwner282(const std::vector<const UHDM::cont_assig
         // ? '0 : x[S:0]`, r11u192repro/cases/B/b11_genfor_unsized: golden
         // `work@top.gb[0].x`), where the law wrote the instance.  A
         // generate-local parameter's fold keeps its declaring scope as
-        // before.  Grid tools/probe/r11u282repro/cases/M (the equal cases now under tests/probe/r11u282repro/cases/M).
+        // before.  Grid tools/probe/r11u282repro/cases/M.
         bool cl282 = false;
         if (lhsOuter == 0 && lawOn(282, "R11U282_CAUNSIZED_OFF") && rhsHasUnsized282(ca->Rhs())) {
             cl282 = true;
@@ -18965,7 +18965,7 @@ static void genCaSelBoundNestedOwner282(const std::vector<const UHDM::cont_assig
         // reference is detached from its constant so that its chain reads
         // empty too (vpiParent is read by no comparator field and by no
         // uhdm2rtlil reader of a typespec reference).
-        // Grid tools/probe/r11u282repro/cases/I (the equal cases now under tests/probe/r11u282repro/cases/I) (*_cast_s_*, *_cast_l_*).
+        // Grid tools/probe/r11u282repro/cases/I (*_cast_s_*, *_cast_l_*).
         if (inGen && on && lhsOuter == 0 && ca->Rhs()->UhdmType() == UHDM::uhdmoperation &&
             ((const UHDM::operation*)ca->Rhs())->VpiOpType() == vpiCastOp &&
             lawOn(282, "R11U282_CASTORPHAN_OFF")) {
@@ -19078,7 +19078,7 @@ static void genCaSelBoundNestedOwner282(const std::vector<const UHDM::cont_assig
 // if-generate), where § genCaReplCountInst282 wrote the instance (a break in
 // the if-generate, where pristine already wrote the scope) and pristine the
 // instance in the for-generate.  Interfaces abstain.  Grid
-// tools/probe/r11u282repro/cases/N (the equal cases now under tests/probe/r11u282repro/cases/N).
+// tools/probe/r11u282repro/cases/N.
 static void genCaReplCountUnsizedClone282(const std::vector<const UHDM::cont_assign*>& cas) {
     static const bool on = lawOn(282, "R11U282_REPLCLONE_OFF");
     if (!on)
@@ -19265,7 +19265,7 @@ void hpMemVarSelNamesDrain280() {
 // `work@v7_repl105.u_leaf.gen_r[0]`.  The same gates as pass 262's, its
 // verifier's refinement included (§ loopBoundBinOperandPlainLhs262v: a select
 // that is a direct operand of a binary operation under a plain outside left
-// side keeps the select parent).  Grid tools/probe/r11u280repro/cases/LB (the equal cases now under tests/probe/r11u280repro/cases/LB).
+// side keeps the select parent).  Grid tools/probe/r11u280repro/cases/LB.
 // Switch R11U280_LOOPBOUNDCOPY_OFF.
 static std::pair<UHDM::param_assign*, std::string>
 loopDirectBoundPa280(const UHDM::any* parent, std::string_view sym, bool lhsSelOrLocal) {
@@ -19634,7 +19634,7 @@ static bool gcaUseSiteParamRead147(const Expression& e, const UHDM::any* parent)
     // site; a BARE bound (`PP[i-1][M:0]`, `PP[i][M:1]`) is the parameter's
     // own constant named by the instance in golden (`work@top`), which the
     // unrefined law renamed `work@top.g[1].PP.PP` (pristine-right ->
-    // patched-wrong, tools/probe/r11v147repro (the equal cases now under tests/probe/r11v147repro) brk/mul/g1 g7).  Switch:
+    // patched-wrong, tools/probe/r11v147repro brk/mul/g1 g7).  Switch:
     // R11V147_GCABARE_OFF.
     static const bool bare147v = lawOn(147, "R11V147_GCABARE_OFF");
     const UHDM::any* q = parent;
@@ -19743,14 +19743,14 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // index span, the dotted name) by `inProcessEmit`, which only a module's
     // processes and subroutines raise; a class method's body is emitted
     // outside it and took the continuous-assignment form (grid
-    // tools/probe/r11u181repro/cases/im (the equal cases now under tests/probe/r11u181repro/cases/im) m05: `q.w[j].v = 1` golden
+    // tests/probe/r11u181repro/cases/im m05: `q.w[j].v = 1` golden
     // bit_select 5:45-49 `work@top::C::g::q.w[j].v::w`, ours 5:47-48
     // `q.w[j]`; the inc/dec operand m03 alike).  Switch
     // R11U181_LVCLASS_OFF.
     // § lvIdxMixedPathIsRead181 (r11u181) — § lvIdxPathIsRead154's twin
     // for the MIXED path builder: a member path through selects NESTED in
     // an lvalue's select index (`m.w[n.w[k].v + 1].v = 2`) is a read, and
-    // golden builds it as one (grid tools/probe/r11u181repro/cases/adv (the equal cases now under tests/probe/r11u181repro/cases/adv) a01,
+    // golden builds it as one (grid tests/probe/r11u181repro/cases/adv a01,
     // cases/lx: the inner base `n` at its own token 18:9, its bit_select
     // named `n.w[k]` on the member token, the leaf named through the chain),
     // where ours applied the lvalue arms because the whole left-hand side is
@@ -20299,7 +20299,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                     // req_resp.req_aval_ptr`, ours `work@...i_imem_axi.
                     // req_aval_ptr`).  The reference stays at its bit_select
                     // and § hierPathSelIdxCloneKeepsElem178v's drain names it
-                    // from the chain.  Grid tools/probe/r11u290repro/cases/H (the equal cases now under tests/probe/r11u290repro/cases/H).
+                    // from the chain.  Grid tools/probe/r11u290repro/cases/H.
                     // Switch R11U290_BASEIDXELEM_OFF.
                     bool keepElem290 = false;
                     if (((UHDM::any*)ix)->UhdmType() == UHDM::uhdmref_obj &&
@@ -20633,7 +20633,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                       // variable; ours fell to the index-only arm below
                       // (`w.key[1]` 10:16-17), in the definition listing and
                       // in every elaborated instance (generate scopes too).
-                      // Grid tools/probe/r11u246repro/cases/LN (the equal cases now under tests/probe/r11u246repro/cases/LN).
+                      // Grid tools/probe/r11u246repro/cases/LN.
                       (baseNv->symbol.kind == SymbolKind::Net &&
                        lawOn(246, "R11U246_LVNETMIDSEL_OFF") &&
                        (lawTrace(246, "contLvMidSelNetBase246", dottedAt), true)))) {
@@ -20669,7 +20669,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                       // the doubled lazy name at the index below.  A trailing
                       // select, an interface or modport base, a function body
                       // and a continuous assignment keep their branches (grid
-                      // tools/probe/r11u195repro/cases/K (the equal cases now under tests/probe/r11u195repro/cases/K): k01 k02 k04 k07
+                      // tests/probe/r11u195repro/cases/K: k01 k02 k04 k07
                       // move; k05 k06 k09 controls).
                       (baseNv->symbol.kind == SymbolKind::Net && inProcessEmit &&
                        r195EX("R11U195_PROCNETSEL_OFF") && !idxNestedPath195(expr) &&
@@ -20982,7 +20982,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
                 // v11u306repro VB/vb13) spans its whole select as the bit
                 // selects there do (golden 9:19-26, ours its base to its width
                 // 9:21-25); its name is already the path's.  A call argument
-                // keeps its own span.  Grid tools/probe/r11u308repro/cases/BI (the equal cases now under tests/probe/r11u308repro/cases/BI).
+                // keeps its own span.  Grid tools/probe/r11u308repro/cases/BI.
                 // Switch R11U308_BAREIPS_OFF.
                 else if (e304->UhdmType() == UHDM::uhdmindexed_part_select && on304 &&
                          !inCall304) {
@@ -21090,7 +21090,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
             // element list), its walker reused with the bare select's name
             // as the outer name (a call argument keeping its index span, a
             // conditional's true branch too).  Probe r10uvm79repro/c2_idxkind
-            // (its d2 face).  Grid tools/probe/r11u306repro/cases/NB (the equal cases now under tests/probe/r11u306repro/cases/NB).
+            // (its d2 face).  Grid tools/probe/r11u306repro/cases/NB.
             // Switch R11U306_BARESEL_OFF.
             if (ix304 && ix304->UhdmType() == UHDM::uhdmbit_select &&
                 ix304->VpiParent() &&
@@ -21279,7 +21279,7 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
     // operator's form: a POSTFIX one (`ia[this.ia[i]++] = r`) spans the
     // whole select with the members loc-less (golden 12:8-18), a PREFIX
     // one stays the lvalue form (already golden's).  Grid
-    // tools/probe/r11u314repro/cases/TS (the equal cases now under tests/probe/r11u314repro/cases/TS).  Switch R11U314_THISSEL_OFF.
+    // tools/probe/r11u314repro/cases/TS.  Switch R11U314_THISSEL_OFF.
     bool rd314 = false, post314 = false;
     if (inLhs && lvIdxParent154(parent)) {
         static const bool on314 = lawOn(314, "R11U314_THISSEL_OFF");
@@ -21677,7 +21677,7 @@ UHDM::any* UhdmExporter::fnLocalParamRangeActual(std::string_view nm,
     // `logic_net (work@shift.len) 28:11-28:14` with no file, ours `dut.sv`;
     // every elaborated function that reads it shares the one net.  Noted
     // for ParamEmit's end-of-export pass (which leaves an elaborated
-    // module's net alone).  Grid tools/probe/r11u163repro/cases/fn (the equal cases now under tests/probe/r11u163repro/cases/fn).  Switch
+    // module's net alone).  Grid tools/probe/r11u163repro/cases/fn.  Switch
     // R11U163_FNPNETFILE_OFF.
     if (lawOn(163, "R11U163_FNPNETFILE_OFF")) {
         trace163("FNPNETFILE");
@@ -25012,7 +25012,7 @@ UHDM::task* topTaskClone455Find(const Symbol* pkg, const Symbol* home);
 // stops at an IMPORTER whenever the importer is written first, and the callee
 // is the IMPORTER'S COPY rather than the home package's object.
 //
-// THE GOLDEN GRID (tools/probe/r10uvm227repro/grid227 (the equal cases now under tests/probe/r10uvm227repro/grid227), every arm's rc checked;
+// THE GOLDEN GRID (tools/probe/r10uvm227repro/grid227, every arm's rc checked;
 // LHS is always golden):
 //   a1 uninstantiated interface, `import p2::*; import p1::*;`  -> p2's copy
 //   a2 the SAME interface INSTANTIATED                          -> p2's copy
@@ -25449,7 +25449,7 @@ static bool condPredEarlyBound81(const slang::syntax::SyntaxNode* n) {
 /// takes at its use site under a generate-scope cont_assign (`scopeFull` is
 /// the prefix the operand is emitted under: the generate scope's full name,
 /// or the select base's inside an index), or false (abstain: the landed instance
-/// name stands).  Measured on grid tools/probe/r11u169repro/cases/gc (the equal cases now under tests/probe/r11u169repro/cases/gc):
+/// name stands).  Measured on grid tools/probe/r11u169repro/cases/gc:
 ///  * an operand of a BINARY operation or a conditional, at any depth, and
 ///    the whole right side: the scope (`a[c] & P`, `(a[c] > P) ? a[c] : P`,
 ///    `{a[c], (P + 1)}`, `o = P`, `o = (P)`: `work@dut.g[0]`);
@@ -25507,7 +25507,7 @@ static void enumAliasCastRecord270(UHDM::ref_typespec* rt,
 // read the subroutine's (`work@top.auto`, `...::__m_uvm_field_automation`).
 // Measured: SeqDriver d/t's six records and MiniAmiq d/t #227043 / #227046 /
 // #227049 (`what__ inside {UVM_CHECK_FIELDS, ...}` in
-// `__m_uvm_field_automation`); grid tools/probe/r11u270repro/cases/I (the equal cases now under tests/probe/r11u270repro/cases/I).  The
+// `__m_uvm_field_automation`); grid tools/probe/r11u270repro/cases/I.  The
 // `==` form keeps the operation (R0/r03, I/i20); an operand of an operation
 // member (`UVM_SET + 1`) keeps it too (I/i17).  Recorded here while the set is
 // emitted (a fixed array: no heap traffic during emission), applied
@@ -25665,7 +25665,7 @@ static void tagKey177f(const slang::SourceManager* sm, const UHDM::any* tp,
 // is written in parentheses spans the parentheses (golden 4:33-36 `(8)`,
 // `((2))` the outer pair, `(4'd2 + 4'd1)`); ours spanned the value inside.
 // The key tagKey177f recorded stays the value's.  Grid
-// tools/probe/r11u195repro/cases/T (the equal cases now under tests/probe/r11u195repro/cases/T).
+// tools/probe/r11u195repro/cases/T.
 static slang::SourceRange tagPatParenSpan195(const slang::ast::Expression& val) {
     if (!r195EX("R11U195_TPPAREN_OFF"))
         return slang::SourceRange();
@@ -27130,7 +27130,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
     // Variable_lvalue arm, so it takes the read shape (the base reference on
     // its own token, a trailing select at its index).  An lvalue itself is
     // never a call, so a call parent under a raised `inLhs` is always such an
-    // index.  Grid tools/probe/r11u198repro/cases/L (the equal cases now under tests/probe/r11u198repro/cases/L).
+    // index.  Grid tools/probe/r11u198repro/cases/L.
     else if (inLhs && parent &&
              (((UHDM::any*)parent)->UhdmType() == UHDM::uhdmmethod_func_call ||
               ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmfunc_call ||
@@ -27202,7 +27202,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
     // The wrapper fires when emitMixedHierPath raised the non-trailing flag
     // and the parent climbs through operations only to the path's bit_select;
     // the path is built as before and then reshaped.  Grid
-    // tools/probe/r11u306repro/cases/NP (the equal cases now under tests/probe/r11u306repro/cases/NP).  Switch R11U306_NESTSHAPE_OFF.
+    // tools/probe/r11u306repro/cases/NP.  Switch R11U306_NESTSHAPE_OFF.
     if ((hpMidIdx306() || methTailHp310()) && g306NestTop() != &expr && parent) {
         const Expression& sx306 = stripImplicitConv(expr);
         // Through operations and selects nested in the index (`iarr[midx[h.k]].f`,
@@ -27286,7 +27286,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         // stayed (`h` 9:14-15, `k` `work@grid::probe::iarr[].get::k`).  The
         // builder now names its path in methTailHp310() around the index;
         // the climb must end at that path or at a select directly under it.
-        // Grid tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+        // Grid tools/probe/r11u310repro/cases/MT.  Switch
         // R11U310_METHTAIL_OFF.
         const UHDM::any* mt310 = hpMidIdx306() ? nullptr : methTailHp310();
         bool tail310 = mt310 && q306 &&
@@ -27332,7 +27332,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // leaf reference stores no full name.  Ours stopped the chain at
             // the select and kept the read shape.  mid308[j] is the select
             // written on mem306[j] (nullptr: none).  Grid
-            // tools/probe/r11u308repro/cases/MS (the equal cases now under tests/probe/r11u308repro/cases/MS).  Switch R11U308_NESTMIDSEL_OFF.
+            // tools/probe/r11u308repro/cases/MS.  Switch R11U308_NESTMIDSEL_OFF.
             static const bool onMid308 = lawOn(308, "R11U308_NESTMIDSEL_OFF");
             std::vector<const Expression*> mid308;
             const Expression* pendMid308 = nullptr;
@@ -27436,7 +27436,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // definition name and reads its full name through the final
                 // chain (`work@top.sa[].f.t.idx[i+:1].idx`), ours stored the
                 // written text `t.idx[i+:1]` and no definition name.  Grid
-                // tools/probe/r11u308repro/cases/IP (the equal cases now under tests/probe/r11u308repro/cases/IP).  Switch R11U308_IPSLEAF_OFF.
+                // tools/probe/r11u308repro/cases/IP.  Switch R11U308_IPSLEAF_OFF.
                 else if (leaf306 && leaf306->UhdmType() == UHDM::uhdmindexed_part_select &&
                          leafRange306) {
                     static const bool onIps308 = lawOn(308, "R11U308_IPSLEAF_OFF");
@@ -27468,7 +27468,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // built inside an lvalue's index), whose chain skips that path
                 // (`...::iarr[].f::i`).  The index goes back to its select and
                 // a reference is named from the chain by § hierPathSelIdxAtPath178's
-                // drain.  Grid tools/probe/r11u310repro/cases/LN (the equal cases now under tests/probe/r11u310repro/cases/LN), FX. Switch
+                // drain.  Grid tools/probe/r11u310repro/cases/LN, FX. Switch
                 // R11U310_LVNESTIDX_OFF.
                 if (q306 && hpIdxCtx236.lhs && hpIdxCtx236.hp == q306->VpiParent() &&
                     lvTop308(q306->VpiParent()) && el306->size() > 2) {
@@ -28179,7 +28179,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // INSIDE the parentheses for an `or` list too
                     // (`@(posedge clk or negedge clk)`; slang's EventList
                     // range keeps the parens) and the bare name without the
-                    // `@` (`a = @clk b;`).  tools/probe/v11u401repro (the equal cases now under tests/probe/v11u401repro) cases/IA.
+                    // `@` (`a = @clk b;`).  tools/probe/v11u401repro cases/IA.
                     SourceRange er401 = ae.timingControl->sourceRange;
                     const syntax::SyntaxNode* ts401 = ae.timingControl->syntax;
                     if (ts401 && fixOn(401, "R11V401_ASGEVSPAN_OFF")) {
@@ -28586,7 +28586,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // § misevalShareOperandOnly290v (v11u290) — the share holds
                 // only for a DIRECT OPERAND of an operator (DMI_OP_HI + 1):
                 // read inside a call, AW = $clog2(SIZE), golden lists its own
-                // copy (grid tools/probe/v11u290repro/cases/VC (the equal cases now under tests/probe/v11u290repro/cases/VC) vc16, vc17,
+                // copy (grid tools/probe/v11u290repro/cases/VC vc16, vc17,
                 // vc19 lost those records under the law).  Switch
                 // R11V290_SHAREOPND_OFF.
                 bool opnd290v = true;
@@ -28692,7 +28692,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // where joinPath wrote `.`; a module or interface
                 // subroutine or process keeps `.` (joinRef's own rule, the
                 // same join § staticScopedRef12 already uses for the class
-                // arm below).  Grid tools/probe/r11u292repro/cases/PQ (the equal cases now under tests/probe/r11u292repro/cases/PQ).
+                // arm below).  Grid tools/probe/r11u292repro/cases/PQ.
                 // Switch R11U292_PVLVSEP_OFF.
                 if (inLhs) {
                     std::string j292 = joinRef(prefix, nm9);
@@ -28823,7 +28823,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `G#()::LV` keeps the qualifier span in a bound too
                         // (golden 7:16-7:23 over `G#(4)::`, the unrefined
                         // law 7:16-7:25: pristine-right, law-wrong in both
-                        // forms, grid tools/probe/v11u201repro/cases/C (the equal cases now under tests/probe/v11u201repro/cases/C)
+                        // forms, grid tools/probe/v11u201repro/cases/C
                         // c01): only a plain class name spans the whole.
                         const bool plainCls201v =
                             !(fixOn(201, "R11V201_CLSPARAM_OFF") && !landingOff(201)) ||
@@ -28974,7 +28974,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // takes the same unbound `p2::C` ref_obj (full name
                 // `p2::p2::C`, no actual) in the definition listing: Surelog
                 // reads the written package scope the same way whatever the
-                // package.  Grid tools/probe/r11u401repro/cases/PE (the equal cases now under tests/probe/r11u401repro/cases/PE) pe06, pe19.
+                // package.  Grid tests/probe/r11u401repro/cases/PE pe06, pe19.
                 bool ownQual401 = home9 &&
                                   std::string(home9->asSymbol().name) == curPkg9 &&
                                   lawOn(401, "R11U401_OWNENUMQUAL_OFF");
@@ -29752,7 +29752,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // identifier in golden (17:53-64, 23:52-79); ours
                             // measured a qualifier that is not written (the
                             // package name + 2: 17:53-58).  Grid
-                            // tools/probe/r11u158repro/cases/uq (the equal cases now under tests/probe/r11u158repro/cases/uq).  Switch
+                            // tools/probe/r11u158repro/cases/uq.  Switch
                             // R11U158_AGGUNQSPAN_OFF.
                             static const bool uq158 =
                                 lawOn(158, "R11U158_AGGUNQSPAN_OFF");
@@ -29977,7 +29977,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     // § pkgInitImpReadFolds471 (r11u471,
                     // R11U471_PKGINITFOLD_OFF; grid
-                    // tools/probe/r11u471repro/cases/PI (the equal cases now under tests/probe/r11u471repro/cases/PI)) — ...EXCEPT an
+                    // tools/probe/r11u471repro/cases/PI) — ...EXCEPT an
                     // UNQUALIFIED read, which resolves through the package's
                     // own import: Surelog's importPackage materializes the
                     // imported parameter into the importing package's
@@ -30874,7 +30874,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // x/z-under-an-operator initializer stays § unknownOperand
                 // DeclinesFold102's ref_obj (xz102), and this is the LEAF road
                 // that law recorded as a residue.  Grid
-                // tools/probe/r11u427repro/cases/XP (the equal cases now under tests/probe/r11u427repro/cases/XP).
+                // tools/probe/r11u427repro/cases/XP.
                 bool xLeaf427 = false;
                 if (cv.isInteger() && cv.integer().hasUnknown() && !xz102 &&
                     psym.getInitializer() &&
@@ -31348,7 +31348,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // and an OCT one (`6'o41`) UINT:<decimal>, exactly the
                     // elaborated-instance respell of § impCopyBasedDecKeep;
                     // HEX and BIN keep their written form (golden, grid
-                    // tools/probe/r11u475repro/cases/QR (the equal cases now under tests/probe/r11u475repro/cases/QR): q05d INT:33, q05u
+                    // tools/probe/r11u475repro/cases/QR: q05d INT:33, q05u
                     // INT:9, q05h HEX:2a, q05b BIN:1010).  The unqualified
                     // read through an import keeps the literal form
                     // (EX/ex07).  OCT (golden UINT:33, q05o) is NOT written:
@@ -31742,7 +31742,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                        parent->UhdmType() ==
                                            UHDM::uhdmoperation;
                     // § procAsgRhsPkgFoldTs471 (r11u471, R11U471_PROCASGTS_OFF;
-                    // grid tools/probe/r11u471repro/cases/PF (the equal cases now under tests/probe/r11u471repro/cases/PF)) — the WHOLE right
+                    // grid tools/probe/r11u471repro/cases/PF) — the WHOLE right
                     // side of a procedural assignment in a module process
                     // (`always_comb y = PA;`, `s <= RST;`) folding an imported
                     // package parameter carries the same per-reference
@@ -32202,7 +32202,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         c->VpiSize((int32_t)psym.getType().getBitWidth());
                     // § impTdParamCaFoldTs471 (r11u471,
                     // R11U471_TDIMPFOLDTS_OFF; grid
-                    // tools/probe/r11u471repro/cases/TF (the equal cases now under tests/probe/r11u471repro/cases/TF)) — a module's
+                    // tools/probe/r11u471repro/cases/TF) — a module's
                     // import copy of a package parameter typed by a vector
                     // TYPEDEF (`typedef logic [3:0] t; parameter t PA`)
                     // folded as a continuous assignment's right side
@@ -32517,7 +32517,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // statement the generate block's
                                 // (`r[1] = NB + ND`, g2_orig76:
                                 // `work@g76origtop.u_o.gen_o`).  Grid
-                                // tools/probe/r11u282repro/cases/G (the equal cases now under tests/probe/r11u282repro/cases/G).
+                                // tools/probe/r11u282repro/cases/G.
                                 if (lawOn(282, "R11U282_PROCOPINPLACE_OFF")) {
                                     const UHDM::any* up282 = parent;
                                     const int ot282 = ((const UHDM::operation*)parent)->VpiOpType();
@@ -32560,7 +32560,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         // the bit_select itself, where pristine
                                         // and golden read
                                         // `work@top.g[0].s.f[4 - 1].f`
-                                        // (tools/probe/v11u282repro (the equal cases now under tests/probe/v11u282repro) VP/vp26,
+                                        // (tools/probe/v11u282repro VP/vp26,
                                         // chain away 2 in both views).
                                         if (lawFixOn(282, "R11V282_SELFINAL_OFF"))
                                             procSelFinal282().emplace_back(rt, up282);
@@ -32685,7 +32685,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // stays at the instance's param_assign and the
                                 // reference reads the instance (`work@top`),
                                 // ours the generate block.  Grid
-                                // tools/probe/r11u282repro/cases/G (the equal cases now under tests/probe/r11u282repro/cases/G) (*_ipsw_*).
+                                // tools/probe/r11u282repro/cases/G (*_ipsw_*).
                                 // § tfFoldCaseInsideBoundModule282 (r11u282,
                                 // R11U282_TFCASEINS_OFF): in a module
                                 // function or task, a wildcard-imported
@@ -33352,7 +33352,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // measured negative); a bare imported read is
                     // § ipsWidFold9's and is left alone; a conditional's true
                     // operand is left alone as there.  Grid
-                    // tools/probe/r11u314repro/cases/PW (the equal cases now under tests/probe/r11u314repro/cases/PW).  Switch
+                    // tools/probe/r11u314repro/cases/PW.  Switch
                     // R11U314_PKGIPSW_OFF.
                     if (expr.syntax && !inParamInit &&
                         rawText(expr.sourceRange).find("::") != std::string::npos) {
@@ -33494,7 +33494,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // size stays as the reader wrote it, the actual-less
                         // ref_typespec half still applies.  Procedural,
                         // operand, argument and return reads keep -1.  Cases
-                        // tools/probe/v11u423repro/cases/VS (the equal cases now under tests/probe/v11u423repro/cases/VS).  Switch
+                        // tools/probe/v11u423repro/cases/VS.  Switch
                         // R11V423_CAWHOLE_OFF.
                         const bool caWhole423v =
                             parent &&
@@ -33540,7 +33540,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // two objects where ours shares one; the grid's
                         // UP/up20 residue).  Values that do not fit 31 bits
                         // or hold x/z digits abstain.  Grid
-                        // tools/probe/r11u425repro/cases/UP (the equal cases now under tests/probe/r11u425repro/cases/UP).
+                        // tools/probe/r11u425repro/cases/UP.
                         const bool elabForm425 =
                             (qual425 || ndaTop104) &&
                             (base425 == 'd' || (base425 == 'o' && !(caWhole423v && !ndaTop104)));
@@ -33570,7 +33570,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // truncates only when the constant's own size
                         // exceeds the reader's, and an unsized literal's is
                         // -1, so golden keeps the written `'b101` (size the
-                        // reader's).  Grid tools/probe/r11u425repro/cases/UP (the equal cases now under tests/probe/r11u425repro/cases/UP).
+                        // reader's).  Grid tools/probe/r11u425repro/cases/UP.
                         if (ndaTop104 && base425 == 'b' &&
                             c->VpiConstType() == vpiBinaryConst &&
                             lawOn(425, "R11U425_BINNDATICK_OFF")) {
@@ -33598,7 +33598,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // ref_typespec of § unszBasedPkgFoldUnsized423
                         // (golden `wire [7:0] w = H` over `'h1F`, `'b101`,
                         // `'o17` with no vpiTypespec; the v11u423 case
-                        // VS/vs03).  Grid tools/probe/r11u425repro/cases/UP (the equal cases now under tests/probe/r11u425repro/cases/UP).
+                        // VS/vs03).  Grid tools/probe/r11u425repro/cases/UP.
                         if (ndaTop104 && !qual425 && c->Typespec() &&
                             lawOn(425, "R11U425_NDANOTS_OFF")) {
                             lawTrace(425, "unszPkgFoldNdaNoTs425", std::string(psym.name));
@@ -34124,7 +34124,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // § genIpsBoundOwner256 gives the imported
                                 // fold.  Earlgrey prim_ram_1p_adv
                                 // `rdata_sram[0+:Width]` (#464077 / #446024);
-                                // grid tools/probe/r11u262repro/cases/B (the equal cases now under tests/probe/r11u262repro/cases/B).
+                                // grid tools/probe/r11u262repro/cases/B.
                                 if (parent &&
                                     parent->UhdmType() ==
                                         UHDM::uhdmindexed_part_select &&
@@ -34956,7 +34956,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // operation, and a part-select bound, keep the
                             // instance's name (golden `{P, a}`, `{P{1'b1}}`,
                             // `~P`, `a[c][P:0]`: the landed name).  Grid
-                            // tools/probe/r11u169repro/cases/gc (the equal cases now under tests/probe/r11u169repro/cases/gc); the probe
+                            // tools/probe/r11u169repro/cases/gc; the probe
                             // cases v11u116repro/arms (N0471) and ibex_pmp.
                             // Switch: R11U169_GCACHAIN_OFF.
                             if (mi9 && lawOn(169, "R11U169_GCACHAIN_OFF")) {
@@ -34988,7 +34988,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // named it by the generate scope
                             // (`work@top.u.gf[0]`).  Typed, untyped and
                             // localparam alike; overridden or not.  Grid
-                            // tools/probe/r11u262repro/cases/B (the equal cases now under tests/probe/r11u262repro/cases/B) b13, b21-b34.
+                            // tests/probe/r11u262repro/cases/B b13, b21-b34.
                             if (inPsBound && parent &&
                                 (parent->UhdmType() == UHDM::uhdmpart_select ||
                                  parent->UhdmType() ==
@@ -35027,7 +35027,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // select (`work@top.u.gf[0].a`): the law
                                 // re-parented it at the param_assign, losing
                                 // the parent line golden and pristine share
-                                // (tools/probe/v11u262repro (the equal cases now under tests/probe/v11u262repro) cases/VL vl15,
+                                // (tools/probe/v11u262repro cases/VL vl15,
                                 // vl24 to vl33, vl36, VH vh04).  A select
                                 // left side (vl34, vl35, r11u262 B/b30), the
                                 // generate-local left side (vl40), the
@@ -35424,7 +35424,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // concatenation: golden's clone stays at the instance's
                         // param_assign, the reference reading the instance
                         // (`work@top`), not the generate block the operation
-                        // rule keeps.  Grid tools/probe/r11u282repro/cases/G (the equal cases now under tests/probe/r11u282repro/cases/G)
+                        // rule keeps.  Grid tools/probe/r11u282repro/cases/G
                         // (*_cat_*, *_repl_*).
                         bool cat282 = false;
                         if (keep154 && genPsBound9 && currentGenBlkScope &&
@@ -35498,7 +35498,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // netlist arm, `result->VpiParent(param_ass)`), its
                             // reference reading the instance (`work@top`): the
                             // instance's own name, gsProcInstPrefix75.  Grid
-                            // tools/probe/r11u282repro/cases/G (the equal cases now under tests/probe/r11u282repro/cases/G).
+                            // tools/probe/r11u282repro/cases/G.
                             if (lawOn(282, "R11U282_PROCSELINST_OFF") &&
                                 !gsProcInstPrefix75.empty() &&
                                 !genBlkFullName58.empty() &&
@@ -35529,7 +35529,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // unparented (no names).  One packed range only: a
                         // multi-dimensional declared type is the parameter's
                         // own object in golden (`work@top.Z.W`, grid gz/z07).
-                        // Grid tools/probe/r11u167repro/cases/gz (the equal cases now under tests/probe/r11u167repro/cases/gz).  Switch
+                        // Grid tools/probe/r11u167repro/cases/gz.  Switch
                         // R11U167_GSFOLDDECLTS_OFF.
                         if (declTs9 && !declTs9->VpiParent() && genPsBound9 && !rpfx9.empty() &&
                             lawOn(167, "R11U167_GSFOLDDECLTS_OFF")) {
@@ -36637,7 +36637,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         bind5 = false;
                     }
                     // § vifTdRefVarLocalImplicitNet481 (R11U481_REFVARNET_OFF;
-                    // cases tools/probe/r11u481repro/cases/RN (the equal cases now under tests/probe/r11u481repro/cases/RN), the r11u479
+                    // cases tools/probe/r11u481repro/cases/RN, the r11u479
                     // cases LV/lv07, lv09 and the v11u479 case VA/va15) — a
                     // reference, in a module or interface process, to a
                     // statement-block local that is a ref_var (the
@@ -36698,7 +36698,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                body481->asSymbol().kind != SymbolKind::InstanceBody)
                             body481 = body481->asSymbol().getParentScope();
                         // § visibleParamAbstain481v (R11V481_VISPARAM_OFF;
-                        // cases tools/probe/v11u481repro/cases/VA (the equal cases now under tests/probe/v11u481repro/cases/VA) va37, va51,
+                        // cases tools/probe/v11u481repro/cases/VA va37, va51,
                         // va52, va54) — a PARAMETER of the same name visible
                         // in the instance body through a wildcard or explicit
                         // package import or from $unit is met by Surelog's
@@ -36994,7 +36994,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // first (golden up19 `arr[i] = i` in `program prg`: both
                 // reads bind array_var work@top.p.i; ours bound a logic_net
                 // work@top.p.i listed in the program's nets).  Grid
-                // tools/probe/r11u443repro/cases/PF (the equal cases now under tests/probe/r11u443repro/cases/PF).  Switch
+                // tools/probe/r11u443repro/cases/PF.  Switch
                 // R11U443_PROGLVBIND_OFF.
                 else if (elabProgProc443() &&
                          nv.symbol.kind == SymbolKind::Iterator &&
@@ -37063,7 +37063,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // module task's read binds the module's net, M16);
                     // abstaining through a generate block or a class and
                     // where the declaration has no object in netMap.  Grid
-                    // tools/probe/r11u439repro/cases/LM (the equal cases now under tests/probe/r11u439repro/cases/LM).
+                    // tools/probe/r11u439repro/cases/LM.
                     // Switch R11U439_LVMODDECL_OFF.
                     UHDM::any* modDecl439 = nullptr;
                     if (!inet && nv.symbol.kind == SymbolKind::Iterator &&
@@ -37451,7 +37451,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // declares the name itself binds first (ub20).  So a local
             // `localparam CF = 0` shadowing the $unit `localparam CF` (fx68k's
             // fx68kAlu.sv 63 under fx68k.sv 22) is read as the $unit one in
-            // the definition listing.  Grid tools/probe/r11u431repro/cases/UB (the equal cases now under tests/probe/r11u431repro/cases/UB).
+            // the definition listing.  Grid tools/probe/r11u431repro/cases/UB.
             // The ELABORATED copy of a continuous assignment keeps a
             // bit-select index's reference as the clone of the definition's
             // (golden cases/UB ub24 `assign z = ~x[CF];` in work@top.u, the
@@ -38297,7 +38297,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // body, where Surelog substitutes the calling line instead: the
             // expansion location must be file text reading `__LINE__) with
             // a `line directive at the start of an earlier line of the same
-            // buffer.  Grid tools/probe/r11u425repro/cases/LD (the equal cases now under tests/probe/r11u425repro/cases/LD).
+            // buffer.  Grid tools/probe/r11u425repro/cases/LD.
             if (expr.sourceRange.start() != SourceLocation::NoLocation &&
                 sm->isMacroLoc(expr.sourceRange.start()) && !raw.empty() &&
                 std::all_of(raw.begin(), raw.end(),
@@ -38419,7 +38419,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // bare decimal wider than 64 bits reads
                     // `1000000000000000000000` in golden where ours kept the
                     // written `1_000_..._000` (the value was already
-                    // `DEC:<digits>`).  Grid tools/probe/r11v181repro/cases/us (the equal cases now under tests/probe/r11v181repro/cases/us).
+                    // `DEC:<digits>`).  Grid tools/probe/r11v181repro/cases/us.
                     // Switch R11V181_DECBIG_OFF.
                     if (raw.find('_') != std::string::npos &&
                         lawFixOn(181, "R11V181_DECBIG_OFF")) {
@@ -38438,7 +38438,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `UINT:1_0` reads back as 1 (the reader's strtoull stops
                     // at the separator: a downstream-visible value,
                     // v11u182 G/g04 DIVERGENT).  Measured on the pinned
-                    // Surelog (grid tools/probe/r11u181repro/cases/us (the equal cases now under tests/probe/r11u181repro/cases/us)): a
+                    // Surelog (grid tools/probe/r11u181repro/cases/us): a
                     // select or a whole net's continuous assignment, a
                     // parameter default and a localparam, a procedural
                     // assignment, a case item, a cast operand, a select index
@@ -38700,7 +38700,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // — Surelog's preprocessor expands only a macro DEFINED BEFORE
                 // the literal in the flattened text: a `NAME whose (last)
                 // definition comes later stays as written (cases/SM vs01 in
-                // tools/probe/v11u401repro (the equal cases now under tests/probe/v11u401repro); pristine was strict-equal there).
+                // tools/probe/v11u401repro; pristine was strict-equal there).
                 static std::map<std::string, SourceLocation>* defLoc401v = nullptr;
                 if (!objMac401) {
                     objMac401 = new std::map<std::string, std::string>();
@@ -39165,7 +39165,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // ours unlocated).  The cast syntax is recovered by climbing from
             // the Invalid operand's own syntax through the call, scoped-name
             // and parenthesis nodes to the CastExpression whose operand it
-            // is.  Grid tools/probe/r11u292repro/cases/CT (the equal cases now under tests/probe/r11u292repro/cases/CT).  Switch
+            // is.  Grid tools/probe/r11u292repro/cases/CT.  Switch
             // R11U292_CASTINV_OFF.
             if (!effCastSyn && conv.operand().kind == ExpressionKind::Invalid &&
                 conv.operand().syntax) {
@@ -39798,7 +39798,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // type parameter.  The elaborated gen-scope cont_assign is the
                 // def object carried over (`NetlistElaboration.cpp:765-772`),
                 // so the placeholder survives into every gen-scope copy.
-                // MEASURED (tools/probe/r11u113repro/grid/c (the equal cases now under tests/probe/r11u113repro/grid/c), real v1.87
+                // MEASURED (tools/probe/r11u113repro/grid/c, real v1.87
                 // goldens): header `parameter type` (logic / int / struct
                 // default, overridden or not), body `localparam type` and body
                 // `parameter type`, in gen-if, gen-else, nested gen-if and
@@ -39968,7 +39968,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // `#(.idx_t(logic [3:0]))` gives that instance's override
                 // object.  MEASURED on real goldens of both producers (v1.87
                 // pin and uhdm2rtlil's v1.87-5 with -DSYNTHESIS,
-                // tools/probe/r11u121repro/grid/t (the equal cases now under tests/probe/r11u121repro/grid/t)): a loop generate's
+                // tools/probe/r11u121repro/grid/t): a loop generate's
                 // cont_assign under a ternary (t07, t10, t16, t18, t19), an
                 // operation (t08, t17), a concat (t09), as a ternary
                 // condition (t20); the if-in-for else branch (t13 = the
@@ -40231,7 +40231,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // where the size-cast fallback below minted an
                     // integer_typespec at the name token.  The reference is
                     // made (and deferred) in the predicate.  Grid
-                    // tools/probe/r11u140repro/tdc (the equal cases now under tests/probe/r11u140repro/tdc).  Switch:
+                    // tools/probe/r11u140repro/tdc.  Switch:
                     // R11U140_PKGTDCAST_OFF.
                 }
                 // § ifacePortTdCastLogicTs405 (r11u405,
@@ -40341,7 +40341,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // uvm_field_flag_t range reads INT:27, where we reached
                     // the definition listing's UVM_FIELD_FLAG_RESERVED_BITS-1
                     // operation (differ:type(1)).  Grid
-                    // tools/probe/r11u429repro/cases/RC (the equal cases now under tests/probe/r11u429repro/cases/RC).
+                    // tools/probe/r11u429repro/cases/RC.
                     if (!cts172 && currentSubSym && expr.type &&
                         lawOn(429, "R11U429_UNITCLSCAST_OFF")) {
                         const Scope* ps429 = currentSubSym->getParentScope();
@@ -41960,7 +41960,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // written T at 10:15-16).  Only a predefined integer keyword
                 // default reaches this arm; a module's type parameter (stage 1,
                 // exit 4 on every binary) is not touched.  Grid
-                // tools/probe/r11u292repro/cases/CT (the equal cases now under tests/probe/r11u292repro/cases/CT).  Switch
+                // tools/probe/r11u292repro/cases/CT.  Switch
                 // R11U292_CASTTPDEF_OFF.
                 if (effCastSyn &&
                     effCastSyn->kind == syntax::SyntaxKind::CastExpression &&
@@ -42275,7 +42275,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
         case ExpressionKind::Call: {
             auto& call = expr.as<CallExpression>();
             // § taskNameReadImplicitNet451 (R11U451_TASKVAL_OFF; cases
-            // tools/probe/r11u451repro/cases/TV (the equal cases now under tests/probe/r11u451repro/cases/TV), the v11u448 case VA/va23) —
+            // tools/probe/r11u451repro/cases/TV, the v11u448 case VA/va23) —
             // a TASK name read as a value with no parentheses (`task
             // automatic t(); endtask initial $display("%b", t);`) in a module
             // slang never elaborates: Surelog's value lookup does not see
@@ -42317,7 +42317,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         SourceRange nr451 = expr.syntax->sourceRange();
                         setLoc(r451, nr451);
                         // § taskValBareRefGenNone451v (v11u451; cases
-                        // tools/probe/v11u451repro/cases/VT (the equal cases now under tests/probe/v11u451repro/cases/VT)) — Surelog mints
+                        // tools/probe/v11u451repro/cases/VT) — Surelog mints
                         // no wire and leaves the read a bare ref_obj (no
                         // vpiActual) in two places the law minted one: a read
                         // inside a generate block (`if (1) begin : g initial
@@ -42506,7 +42506,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 bool callStmtCtx0 = callStmtContext;
                 callStmtContext = false;
                 // § stmtMethodCallArgWindow481v (R11V481_STMTMETHOD_OFF; cases
-                // tools/probe/v11u481repro/cases/VA (the equal cases now under tests/probe/v11u481repro/cases/VA) va09, va34, va47, va48) —
+                // tests/probe/v11u481repro/cases/VA va09, va34, va47, va48) —
                 // the statement-call half of the binding window that
                 // § vifTdRefVarLocalImplicitNet481 reads holds for EVERY
                 // subroutine call written as a statement, not only a plain
@@ -42546,7 +42546,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // result takes its place: the callee's return-expression
                 // OBJECT ITSELF, shared (the walk sees it once; uhdm-dump
                 // prints only its header the second time).  Golden on the
-                // grid (tools/probe/r11u300repro (the equal cases now under tests/probe/r11u300repro), RF): `return f(x)` with
+                // grid (tools/probe/r11u300repro, RF): `return f(x)` with
                 // f = `return a + 1;` shares f's operation (v9fold8, va8, a1's
                 // c7, v3_clone13 through the import clone); `== 0` around a
                 // no-argument `$urandom()` callee shares the sys_func_call and
@@ -42578,7 +42578,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // branch (a)), and a direct `return` that calls a package function
                 // whose body is one `return a + 1` is replaced by that
                 // function's own expression object.  Golden on
-                // tools/probe/r11u457repro/cases/OR (the equal cases now under tests/probe/r11u457repro/cases/OR): the class copy of `C::f`
+                // tools/probe/r11u457repro/cases/OR: the class copy of `C::f`
                 // returns rep's operation where we kept the func_call (pass
                 // 446's CB/cb04 and CG, pass 455's VW/vw01).  The caller is
                 // read as the PACKAGE the out-of-body definition is written in
@@ -44008,7 +44008,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // uhdm-cmp stage 1) and hangs the index at the
                         // HIER_PATH (ours at the bit_select), so the gate of
                         // § dottedIdxRecvFromSyntax23 opens for it too.
-                        // Grid tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                        // Grid tools/probe/r11u310repro/cases/MT.  Switch
                         // R11U310_METHIDXTEXT_OFF.
                         if (!dotIdx23) {
                             bool selCall310 = false;
@@ -44101,7 +44101,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // iarr[jarr[i].get()].f`) spans its first name, as a
                         // call there does (§ hpIdxCallNameSpan184: golden
                         // `iarr[].get` 9:14-18, ours the whole call 9:14-29).
-                        // Grid tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                        // Grid tools/probe/r11u310repro/cases/MT.  Switch
                         // R11U310_METHPATHSPAN_OFF.
                         // § lvMethPathInIdxNameSpan312 (r11u312) — the same
                         // path in the non-trailing select index of an
@@ -44115,7 +44115,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // .f = r`, cases LS ls05 and ls12) keeps the whole
                         // call in golden, the lvalue branch hanging that index off
                         // the select (§ lvNestShapeMidIdxAtSel310's model).  Grid
-                        // tools/probe/r11u312repro/cases/LS (the equal cases now under tests/probe/r11u312repro/cases/LS).  Switch
+                        // tools/probe/r11u312repro/cases/LS.  Switch
                         // R11U312_LVMETHSPAN_OFF.
                         // § methPathPlainElemZeroWidth314: set when the
                         // first-name span below fires on a path that holds a
@@ -44224,7 +44224,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // whole receiver text up to it, as the written
                             // form is (golden `h.hh.arr[]` for `r =
                             // h.hh.arr[hd.k].get()`, ours `arr[]`).  Grid
-                            // tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                            // tools/probe/r11u310repro/cases/MT.  Switch
                             // R11U310_METHRECVCUM_OFF.
                             if (dotIdx23 && !pre310.empty()) {
                                 static const bool onCum310 = lawOn(310, "R11U310_METHRECVCUM_OFF");
@@ -44254,7 +44254,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // non-trailing path select's index (§
                             // hpIdxCallNameSpan184: golden `fn` 9:14-16, ours
                             // the whole call 9:14-21).  Grid
-                            // tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                            // tools/probe/r11u310repro/cases/MT.  Switch
                             // R11U310_METHIDXCALL_OFF.
                             struct MidIdx310 {
                                 bool v;
@@ -44269,7 +44269,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // 9:14-23; ours the scope's `work@grid::probe::midx`
                             // at its index 9:19-22), § hpMidSelIdxAtPath79's
                             // twin for the receiver.  Grid
-                            // tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                            // tools/probe/r11u310repro/cases/MT.  Switch
                             // R11U310_METHIDXSEL_OFF.
                             const Expression& sx310 = stripImplicitConv(*sg11.idx);
                             bool selIdx310 = dotIdx23 &&
@@ -44419,7 +44419,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // named `...::iarr[].get::midx::midx`; ours at
                             // its index); a call argument and a conditional's
                             // true branch keep the index span.  Grid
-                            // tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT).  Switch
+                            // tools/probe/r11u310repro/cases/MT.  Switch
                             // R11U310_METHNESTSEL_OFF.
                             if (auto* ix310 = (UHDM::any*)bs11->VpiIndex();
                                 ix310 && ix310->VpiParent() == hp11 &&
@@ -44908,7 +44908,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // invocation syntax when it reaches further; a user
                         // call (`i.f()`, `top.i.blk.f(3)`) already ends at its
                         // closing parenthesis and does not move.  Grid
-                        // tools/probe/r11u294repro/cases/DC (the equal cases now under tests/probe/r11u294repro/cases/DC).  Switch
+                        // tools/probe/r11u294repro/cases/DC.  Switch
                         // R11U294_DOTCALLSPAN_OFF.
                         {
                             const syntax::SyntaxNode* inv294 = expr.syntax;
@@ -46240,7 +46240,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // `iarr[c ? fn(i) : j].f` 9:18-23, ours the name 9:18-20),
                     // the § hpOpIdxTernTrueKeepsIdxLoc304v twin for §
                     // hpIdxCallNameSpan184.  Grid
-                    // tools/probe/r11u310repro/cases/MT (the equal cases now under tests/probe/r11u310repro/cases/MT), QC.  Switch
+                    // tools/probe/r11u310repro/cases/MT, QC.  Switch
                     // R11U310_CALLTERNTRUE_OFF.
                     bool keep310 = false;
                     if (reach184 && tern310 && !inLhs) {
@@ -46261,7 +46261,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // a member's select (`h.arr[fn(i)].f`) and a trailing
                     // select (`h.idx[fn(i)]`) keep the whole call, and a
                     // conditional's true branch keeps it too.  Grid
-                    // tools/probe/r11u312repro/cases/LR (the equal cases now under tests/probe/r11u312repro/cases/LR).  Switch
+                    // tools/probe/r11u312repro/cases/LR.  Switch
                     // R11U312_LVROOTCALL_OFF.
                     if (inLhs && procLvCall181 && reach184 && !tern310 &&
                         hpMidIdx306() && hpComp308() == 0) {
@@ -46352,7 +46352,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // `iarr[p::f(i)].f = r`, 18:22-25 for `always_comb r =
                         // sa[p::f(i)].f`; a trailing index, a plain read and a
                         // true branch keep the package token).  Grid
-                        // tools/probe/r11u310repro/cases/QC (the equal cases now under tests/probe/r11u310repro/cases/QC).  Switch
+                        // tools/probe/r11u310repro/cases/QC.  Switch
                         // R11U310_QUALCALLSPAN_OFF.
                         if (qualIdx310 && raw.rfind(q + "::", 0) == 0) {
                             static const bool onQ310 = lawOn(310, "R11U310_QUALCALLSPAN_OFF");
@@ -47011,7 +47011,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // part_select / indexed_part_select actual stays
                         // bare in every view (golden
                         // `$countones(f(p1[2]))`, `4'($countones(f(a)))`).
-                        // Grid tools/probe/r11u201repro/cases/S (the equal cases now under tests/probe/r11u201repro/cases/S).
+                        // Grid tools/probe/r11u201repro/cases/S.
                         const bool refKind201 =
                             a->UhdmType() == UHDM::uhdmref_obj ||
                             a->UhdmType() == UHDM::uhdmbit_select ||
@@ -47362,7 +47362,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // f({a[2:0], a[5:3]}) + 4'd1;`) leaves its
                             // concatenation argument bare in golden, which
                             // pristine wrote and the law moved away from
-                            // (tools/probe/v11u431repro/cases/VF (the equal cases now under tests/probe/v11u431repro/cases/VF) vf03, and
+                            // (tests/probe/v11u431repro/cases/VF vf03, and
                             // the pass 432 case FA/fa07).
                             bool wholeRhs431v =
                                 !fixOn(431, "R11V431_CAWHOLERHS_OFF") ||
@@ -49450,7 +49450,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          // path from the whole
                                          // complex_func_call node.  Read
                                          // from the call's own syntax.  Grid
-                                         // tools/probe/r11u158repro/cases/rz (the equal cases now under tests/probe/r11u158repro/cases/rz).
+                                         // tools/probe/r11u158repro/cases/rz.
                                          // Switch R11U158_RANDSPAN_OFF.
                                          static const bool rs158 =
                                              lawOn(158, "R11U158_RANDSPAN_OFF");
@@ -49481,7 +49481,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // whole call (v11u312repro VQ/vq07).  A receiver with no
                         // select (`iarr[h.q.size()].f`) keeps the whole call in
                         // golden, and so does a conditional's true branch.
-                        // Grid tools/probe/r11u314repro/cases/BM (the equal cases now under tests/probe/r11u314repro/cases/BM).  Switch
+                        // Grid tools/probe/r11u314repro/cases/BM.  Switch
                         // R11U314_BUILTINSPAN_OFF.
                         bool zwB314 = false;  // § methPathPlainElemZeroWidth314
                         if (!withExpr9 && !memberRand119 && !parensLess9 && !inParamInit &&
@@ -50352,7 +50352,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     // initializer: an interface or a program
                                     // instance re-elaborates it and golden
                                     // binds the elaborated `string_var`
-                                    // (grid tools/probe/r11v154repro/vi (the equal cases now under tests/probe/r11v154repro/vi) f4
+                                    // (grid tools/probe/r11v154repro/vi f4
                                     // f6 f8 f10; the law's rebind made the
                                     // walk list the definition net, `count`).
                                     // Switch: R11V154_VIDMOD_OFF.
@@ -50664,7 +50664,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // (golden: one constant with no location sized at the left
             // side) and is not this law; its definition view is TypeEmit's
             // (the r11u428 residue cases BB, bsg_source_sync_channel_control_
-            // master 143:53).  Grid tools/probe/r11u429repro/cases/GB (the equal cases now under tests/probe/r11u429repro/cases/GB).
+            // master 143:53).  Grid tools/probe/r11u429repro/cases/GB.
             if (name == "$bits" && !bitsKeep && bitsArg27 &&
                 (inGenScopeProc || defGenProcessEmit) && bitsArg27->syntax &&
                 genBody200(bitsArg27->syntax) &&
@@ -51356,7 +51356,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // golden's module `localparam L = cp::CFG.f[3:0]` /
                 // `parameter P = cp::CFG.f[3:0]` / `cp::CFG.f[3:0] + 1`
                 // param_assign Rhs is the hier_path `cp::CFG.f[3:0]`
-                // holding a part_select `f` (tools/probe/v11u121repro (the equal cases now under tests/probe/v11u121repro), arms
+                // holding a part_select `f` (tools/probe/v11u121repro, arms
                 // b1, b10, b16), which the erasure moved away from.
                 // `R11U121_OFF=1` / `R11U121_QMSELPI_OFF=1` drop it.
                 static const bool offQmPi121 =
@@ -51685,7 +51685,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (9:13-16) — where ours took the lvalue spans (9:11-12,
                 // 9:11-17) because the whole left side is emitted under
                 // `inLhs`.  Only the two spans move; the names already agree.
-                // Grid tools/probe/r11u184repro/cases/L (the equal cases now under tests/probe/r11u184repro/cases/L).  Switch
+                // Grid tools/probe/r11u184repro/cases/L.  Switch
                 // R11U184_LVIDXSEL_OFF.
                 const bool lvRd184 = inLhs && incDecSelTop184() != &expr &&
                                      lvIdxParent154(parent) &&
@@ -51711,7 +51711,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // 17:36-37, its name frozen as `CFG.d[0].d` before the
                 // param_assign hung under its module).  The gate is the member
                 // arm's: a parameter of packed or unpacked struct type read in a
-                // parameter initializer.  Grid tools/probe/r11u294repro/cases/PS (the equal cases now under tests/probe/r11u294repro/cases/PS).
+                // parameter initializer.  Grid tools/probe/r11u294repro/cases/PS.
                 // Switch R11U294_PISEL_OFF.
                 // The path stands under the parameter's own initializer
                 // through operations only: inside a system call's argument
@@ -52382,7 +52382,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // as every rvalue does (golden 143:57-58 where ours spanned the
             // whole select 143:40-59); the whole-select param-init rule
             // stays for operation operands and every other parent.  Grid
-            // tools/probe/r11u421repro/cases/PB (the equal cases now under tests/probe/r11u421repro/cases/PB).  Switch R11U421_PISYSBS_OFF.
+            // tools/probe/r11u421repro/cases/PB.  Switch R11U421_PISYSBS_OFF.
             const bool piSysArg421 =
                 inParamInit && !inLhs && parent &&
                 parent->UhdmType() == UHDM::uhdmsys_func_call &&
@@ -52461,7 +52461,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // m[m[b::stat.hval]]), where the operation-index rescoping below
             // added the base.  Under an operation (`arr[b::stat.hval + 1]`)
             // the base stays (golden p::r::f4::arr::b::stat).  Grid
-            // tools/probe/r11u292repro/cases/CI (the equal cases now under tests/probe/r11u292repro/cases/CI).  Switch R11U292_CHAINIDX_OFF.
+            // tools/probe/r11u292repro/cases/CI.  Switch R11U292_CHAINIDX_OFF.
             bool chainIdx292 = false;
             if (stripImplicitConv(es.selector()).kind != ExpressionKind::NamedValue &&
                 scopedChainDropBase48(stripImplicitConv(es.selector()))) {
@@ -52614,7 +52614,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // in work@fx68k.excUnit.alu: constant UINT:4 size 32 where we kept
             // the ref_obj; the grid's untyped, int, int unsigned, ranged,
             // logic, integer, byte, bit and signed localparams and parameters
-            // (tools/probe/r11u431repro/cases/EC (the equal cases now under tests/probe/r11u431repro/cases/EC)).  A hex-valued parameter
+            // (tools/probe/r11u431repro/cases/EC).  A hex-valued parameter
             // abstains: golden's fold there carries no value (cases EC ec12).
             if (elabConnEmit21 && ix &&
                 ix->UhdmType() == UHDM::uhdmref_obj &&
@@ -53351,7 +53351,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // golden's module `localparam L = cp::CFG.f[3:0]` /
                 // `parameter P = cp::CFG.f[3:0]` / `cp::CFG.f[3:0] + 1`
                 // param_assign Rhs is the hier_path `cp::CFG.f[3:0]`
-                // holding a part_select `f` (tools/probe/v11u121repro (the equal cases now under tests/probe/v11u121repro), arms
+                // holding a part_select `f` (tools/probe/v11u121repro, arms
                 // b1, b10, b16), which the erasure moved away from.
                 // `R11U121_OFF=1` / `R11U121_QMSELPI_OFF=1` drop it.
                 static const bool offQmPi121 =
@@ -55882,7 +55882,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // the scope's name (v11u310repro VT/vt27).  The gate is
                 // lvIdxParent154's (the path's parent is a select, directly
                 // or through operations).  Grid
-                // tools/probe/r11u312repro/cases/TH (the equal cases now under tests/probe/r11u312repro/cases/TH).  Switch
+                // tools/probe/r11u312repro/cases/TH.  Switch
                 // R11U312_THISIDX_OFF.
                 // (an inc/dec operand there, `ia[this.i++] = r`, keeps its
                 // operator's form: the postfix one spans the whole path with
@@ -56092,7 +56092,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // (golden v11u117repro/grid/b02 `localparam X =
                 // f(q2::IMPL.cfg);` ref_obj cfg work@top.cfg, ours bare); a
                 // system call's argument and a path written alone keep the
-                // bare leaf.  Grid tools/probe/r11u292repro/cases/PI (the equal cases now under tests/probe/r11u292repro/cases/PI).  Switch
+                // bare leaf.  Grid tools/probe/r11u292repro/cases/PI.  Switch
                 // R11U292_PICALLLEAF_OFF.
                 if (!scoped157 && leaf157 && pkgQualBase9 &&
                     paramInitStructMember && !thisPath &&
@@ -59236,7 +59236,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // both in the same paDollar_root_keyword arm
             // (CompileExpression.cpp, compileComplexFuncCall): `$root` is
             // populated from the NEXT name node and every element stores its
-            // own name (grid tools/probe/r11u181repro/cases/rt (the equal cases now under tests/probe/r11u181repro/cases/rt): golden `$root`
+            // own name (grid tools/probe/r11u181repro/cases/rt: golden `$root`
             // 3:42-45 on `top`, the leaf `v` unnamed, in every rvalue position
             // and both views; r11u170's R2).  An lvalue is already on that
             // form.  Switch R11U181_ROOTNET_OFF.
@@ -59796,7 +59796,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 // tests/probe/r11u246repro/cases/SB.
                 std::optional<SourceRange> tok246;
                 // § streamBraceParenMacro409 (R11U409_STREAMPAREN_OFF; cases
-                // tools/probe/r11u409repro/cases/SP (the equal cases now under tests/probe/r11u409repro/cases/SP)) — a stream written as a
+                // tools/probe/r11u409repro/cases/SP) — a stream written as a
                 // cast operand, `TYPE'({ << bit { __array }})`, carries the
                 // PARENTHESIZED syntax (slang strips the parentheses from the
                 // bound expression but keeps their node), so the macro-body
@@ -60094,7 +60094,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     r->Actual_group(inet);
                 }
                 // § ifaceInstValueImplicitNet483 (R11U483_IFACEVALNET_OFF;
-                // cases tools/probe/r11u483repro/cases/IV (the equal cases now under tests/probe/r11u483repro/cases/IV); the v11u481 cases
+                // cases tools/probe/r11u483repro/cases/IV; the v11u481 cases
                 // VA/va01, va30, va59, VC/vc01) — an interface INSTANCE
                 // named as a value (`g = u;`, `f(u)`, `c.set(u)`,
                 // `c = new(u)`, `virtual ifc g = u;`) in a module process or
@@ -60936,7 +60936,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 }
             }
             // § undeclaredReadImplicitNet447 (r11u447,
-            // R11U447_UNDECLNET_OFF; cases tools/probe/r11u447repro/cases/UN (the equal cases now under tests/probe/r11u447repro/cases/UN);
+            // R11U447_UNDECLNET_OFF; cases tools/probe/r11u447repro/cases/UN;
             // sv-tests generated/basejump bsg_scheduler_dataflow, whose
             // `$display(..., bypass_lo)` at bsg_scheduler_dataflow.sv 191:112
             // reads a name declared nowhere) — in a module body slang never
@@ -61183,7 +61183,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 // § nestedProcEnumValAbstain447v (v11u447,
-                // R11V447_ENUMVAL_OFF; cases tools/probe/v11u447repro/cases/VN (the equal cases now under tests/probe/v11u447repro/cases/VN))
+                // R11V447_ENUMVAL_OFF; cases tools/probe/v11u447repro/cases/VN)
                 // — a name that a named block or a subroutine of the module
                 // body declares as a constant of an ANONYMOUS enum
                 // (`initial begin : b enum {UX, UY} e; ... end`, `function

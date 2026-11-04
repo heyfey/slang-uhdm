@@ -50,7 +50,7 @@ int& ifaceDefArrNet436();  // § ifaceDefArrNetDimSym436 (TypeEmit.cpp)
 // property_decl and the $unit parameter wrote the span by hand.  Golden
 // `child \u.x (...)` ref_module 4:9-4:18 (ours 4:9-4:16), two blanks
 // 4:9-4:20; `.\a.p (a)` LowConn 4:19-4:28 (ours -26); `child \u.arr [1:0]`
-// module_array 4:9-4:20 (ours -18) (grid tools/probe/r11u295repro/cases/ES (the equal cases now under tests/probe/r11u295repro/cases/ES);
+// module_array 4:9-4:20 (ours -18) (grid tools/probe/r11u295repro/cases/ES;
 // probe r10earl54repro/v3_v54, v11u110repro/brk/v3/a36_escaped_inst_name).
 // A location inside a macro expansion keeps the hand-written span (nameSpan's
 // macro branch is not this law's).  Switch R11U295_ESCNAMESPAN_OFF.
@@ -80,7 +80,7 @@ static slang::SourceRange escNameSpanPick295(slang::SourceRange esc, slang::Sour
 // the assertion statement, syntax ImmediateAssertionMember), which every
 // process listing used to write as `always` + `immediate_assert`.  The same
 // assertion inside a procedural block is a statement and is untouched
-// (cases tools/probe/r11u406repro/cases/DA (the equal cases now under tests/probe/r11u406repro/cases/DA); sv-tests chapter-16/16.2
+// (cases tools/probe/r11u406repro/cases/DA; sv-tests chapter-16/16.2
 // assert-final, assert0, assume-final, assume0, cover-final, cover0).
 // Switch R11U406_DEFERREDASSERT_OFF.
 // § sequenceDeclListed406 — the listed declarations, by symbol, for the
@@ -268,7 +268,7 @@ static bool ifTernFillAll303(slang::ast::Compilation& comp, const slang::syntax:
 // end) are positions in that output like any other.  Golden `int \v.a = 1;`
 // imported into a module: the copy's int_typespec 3:3-3:19, ours 3:3-3:15;
 // `logic [7:0] \n.y = 8'h3;` the definition net's typespec 3:3-3:30, ours
-// -26 (grid tools/probe/r11u295repro/cases/ER (the equal cases now under tests/probe/r11u295repro/cases/ER); probe
+// -26 (grid tools/probe/r11u295repro/cases/ER; probe
 // r10v223repro/arms/v5_escaped).  The end now goes through setLoc's model
 // (the start written back untouched), a macro-expanded end included: the raw
 // SourceManager reading of an expansion location is column 0 of the macro
@@ -353,7 +353,7 @@ void trace196(const char* law, const std::string& detail);
 // The v11u196 refinements (tools/probe/v11u196repro/README.md): each reads
 // its own R11V196_<LAW>_OFF switch; R11V196_OFF drops all of them.
 // § regTdArrElabIsNet251 (r11u251, R11U251_REGNET_OFF; grid
-// tools/probe/r11u251repro/cases/RN (the equal cases now under tests/probe/r11u251repro/cases/RN)) — AN ELABORATED SIGNAL WRITTEN AS A BARE
+// tools/probe/r11u251repro/cases/RN) — AN ELABORATED SIGNAL WRITTEN AS A BARE
 // NAME OF A `reg`-KEYWORD UNPACKED-ARRAY TYPEDEF IS LISTED AMONG THE NETS.
 // Surelog NetlistElaboration::elabSignal decides net-vs-var from the
 // Signal's type, which for a typedef written over a built-in is the
@@ -622,7 +622,7 @@ static bool propBodyFenced112(const AssertionExpr& ae) {
 /// INSTANCED COPY — the $UNIT-typedef shape `drainFuncRet` already mints
 /// (`unitTd`), now for the module home.
 ///
-/// MEASURED on real Surelog v1.87 goldens (tools/probe/r11u112repro/grid/t (the equal cases now under tests/probe/r11u112repro/grid/t),
+/// MEASURED on real Surelog v1.87 goldens (tools/probe/r11u112repro/grid/t,
 /// the non-elab form, where the body reference binds the per-reference local):
 /// the local's typespec is `logic_typespec(t)` (no instance) with a
 /// Typedef_alias ref named `<local>.t` whose actual is a second
@@ -654,7 +654,7 @@ static bool propBodyFenced112(const AssertionExpr& ae) {
 /// element typespec only through `typedefTs` — an ANONYMOUS struct default
 /// has no entry there, so the header-parameter dims cell fell through too.
 ///
-/// MEASURED (tools/probe/r11u112repro/grid/k (the equal cases now under tests/probe/r11u112repro/grid/k), both forms): k01-k03, k07
+/// MEASURED (tools/probe/r11u112repro/grid/k, both forms): k01-k03, k07
 /// (nested struct member), k12 (two dims), k13 (alias of a typedef), k15
 /// (body `parameter type`), k16/k17 (always_comb / always_ff driven), k19
 /// (child instance), k20 (HEADER `parameter type` default, dims cell) ->
@@ -683,7 +683,7 @@ static const TypeParameterSymbol* tpStructKindNet112(const Symbol& sym) {
 /// (`x[i][B +: W]`, `x[i][j][B -: W]`) IS ONE `var_select` WHOSE vpiIndex LIST
 /// HOLDS EVERY BIT INDEX AND THEN THE `indexed_part_select`.
 ///
-/// GOLDEN (tools/probe/r11u112repro/grid/v (the equal cases now under tests/probe/r11u112repro/grid/v), both forms): the var_select is
+/// GOLDEN (tools/probe/r11u112repro/grid/v, both forms): the var_select is
 /// named after the base and spans the whole select; each bit index is emitted
 /// scoped through the select (`<scope>.x.i`); the `indexed_part_select` is
 /// named `x` with fullname `<scope>.x.x`, vpiDefName `x`, vpiConstantSelect 1,
@@ -704,7 +704,7 @@ static const TypeParameterSymbol* tpStructKindNet112(const Symbol& sym) {
 /// (`struct packed { enum logic [1:0] {A, B} e; ... }`) is a logic_typespec,
 /// so the loose scan read "net" where Surelog's enum member demotes the
 /// declaration: golden `packed_array_var`, the law wrote a `packed_array_net`
-/// (tools/probe/v11u112repro (the equal cases now under tests/probe/v11u112repro) grid k/b3b, k/m08: AWAY 20-22 cells per form).
+/// (tools/probe/v11u112repro grid k/b3b, k/m08: AWAY 20-22 cells per form).
 /// The fence declines the cell when the declared element struct has an enum
 /// field (directly or under packed dims), leaving the pristine road.
 static bool tpStructHasEnumField112(const Type& declared) {
@@ -1140,7 +1140,7 @@ void trace219(const char* law, const std::string& detail);  // R11U219_TRACE
 // left side is a plain declared net or variable of the module (§
 // genLpUintCaRhsOwnCopy148's `bindVariable` reach), a net declaration always.
 // The definition view keeps the call (golden).  Grid
-// tools/probe/r11u216repro/cases/GQ (the equal cases now under tests/probe/r11u216repro/cases/GQ) (generate) and NQ (net declarations).
+// tools/probe/r11u216repro/cases/GQ (generate) and NQ (net declarations).
 struct RqFold216 {
     bool ok = false;
     bool bare = false;
@@ -1332,7 +1332,7 @@ static UHDM::constant* rqFoldMake216(
         // (golden `$high(P)` with `parameter logic [W-1:0] P` reads the
         // call's span, INT:<v>; `[W+2:0]` UINT:<v>; module parameters,
         // localparams and a child instantiated twice alike, in the generate
-        // scope and in net initializers: grid tools/probe/v11u216repro/cases/F (the equal cases now under tests/probe/v11u216repro/cases/F)
+        // scope and in net initializers: grid tools/probe/v11u216repro/cases/F
         // f21 f22 f23, where the left-operand location read `line`).  A net
         // or variable operand keeps the left operand.  Switch
         // R11V216_PARAMOPLOC_OFF.
@@ -1389,7 +1389,7 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
         nm.insert(nm.begin(), '$');
     // § ndaSizeFoldReach219 (r11u219, pass 216's residue f14) — the reach of
     // § ndaSizeQueryFold216 is every shape Surelog's ExprEval reduces (grid
-    // tools/probe/r11u219repro/cases/S (the equal cases now under tests/probe/r11u219repro/cases/S), golden s01 s02 s04): writeCont_assign
+    // tools/probe/r11u219repro/cases/S, golden s01 s02 s04): writeCont_assign
     // folds `$size` of a net or variable to the location-less `UINT:<count>`
     // adjustSize sizes to the net for
     //   * a multi-dimensional operand, the count of its FIRST dimension
@@ -1418,7 +1418,7 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
         return false;
     auto& ct = sym.getType().getCanonicalType();
     // § sizeReachFollowsWalker219v (v11u219, the adversarial verification of
-    // r11u219: fresh cases tools/probe/v11u219repro/cases/S (the equal cases now under tests/probe/v11u219repro/cases/S) s01c s04 s08) —
+    // r11u219: fresh cases tools/probe/v11u219repro/cases/S s01c s04 s08) —
     // golden's fold is UHDM ExprEval::reduceExpr's `$size` arm
     // (third_party/Surelog/third_party/UHDM/templates/ExprEval.cpp): its
     // walker collects the dimensions of the call's first argument only
@@ -1741,7 +1741,7 @@ static bool portPackedBareImplicit202v(const slang::syntax::SyntaxNode* tsyn,
 // bind fails) and by a select or concatenation Lhs, which our emitter shared
 // with the definition (UnsizedParam default: `assign a = int'(Y)` onto an
 // implicit `a`, golden `work@top.u_sub_default.a` / `work@top.u_sub_5.a`;
-// grid tools/probe/r11u176repro/cases/CC (the equal cases now under tests/probe/r11u176repro/cases/CC)).  A bare operation without a
+// grid tools/probe/r11u176repro/cases/CC).  A bare operation without a
 // typespec (`w & 1'b1`, `~w`, `{w, w}`) keeps the shared object, as golden
 // does.  The copy is made DESIGN-FINAL (castRhsCloneDrain176, called from
 // exportDesign's post-passes) so it copies the definition object after every
@@ -1811,7 +1811,7 @@ static bool genericInheritsIfaceType185v(
 // ANSI generic ports; a run that does not open the port list abstains (after
 // a typed interface port the 185 rule applies, after a non-interface port
 // golden gives the port that port's own data type, not written).  Grid
-// tools/probe/r11u454repro/cases/GI (the equal cases now under tests/probe/r11u454repro/cases/GI).  Switch R11U454_GENRUNTS_OFF.
+// tools/probe/r11u454repro/cases/GI.  Switch R11U454_GENRUNTS_OFF.
 static const slang::ast::InterfacePortSymbol* genericRunHead454(
     const slang::ast::InterfacePortSymbol& ip) {
     using namespace slang::ast;
@@ -1975,7 +1975,7 @@ void genPlainViewDrain176(UHDM::Serializer& s) {
             if (view->Variables() || !nv->empty())
                 view->Variables(nv);
             // § genIfcViewSharesParamAssigns466 (r11u466,
-            // R11U466_GENVIEWPA_OFF; cases tools/probe/r11u466repro/cases/GP (the equal cases now under tests/probe/r11u466repro/cases/GP))
+            // R11U466_GENVIEWPA_OFF; cases tools/probe/r11u466repro/cases/GP)
             // — the view's param_assigns are the connected instance's too:
             // elab_interface_ hands a port copy `netl->param_assigns()` when
             // it has none, and a plain generic view's netlist is the
@@ -2061,7 +2061,7 @@ void progViewDrain176() {
 // object is installed as it is) or our fold already reads the object's
 // value, size, decompile and constant type and that constant is not UINT
 // (adjustSize re-sizes in place, and copies a UINT: FR f07, f11).  Grid
-// tools/probe/r11u273repro/cases/FR (the equal cases now under tests/probe/r11u273repro/cases/FR).  Switch R11U273_RETLITSHARE_OFF.
+// tools/probe/r11u273repro/cases/FR.  Switch R11U273_RETLITSHARE_OFF.
 // writeCont_assign's `tps` for an elaborated assignment (§ paramValRhs
 // SharesParamConst273 and § fnRetLitRhsSharesDefConst273): the left side's own
 // typespec, else for a plain name the typespec of what CompileHelper::
@@ -2096,7 +2096,7 @@ static bool lhsTyped273(const UHDM::cont_assign* ca) {
         // param_assign value once, under the param_assign, where ours listed a
         // copy at `assign i_gen = C.n;` inside `if (1) begin : gi`).  An
         // assignment at the interface's own level keeps the measured copy
-        // (x6_ifdefcast).  Grid tools/probe/r11u275repro/cases/IG (the equal cases now under tests/probe/r11u275repro/cases/IG).  Switch
+        // (x6_ifdefcast).  Grid tools/probe/r11u275repro/cases/IG.  Switch
         // R11U275_IFGENUNBOUND_OFF.
         if (a->UhdmType() == UHDM::uhdminterface_inst && a != ca->VpiParent() &&
             lawOn(275, "R11U275_IFGENUNBOUND_OFF")) {
@@ -2263,7 +2263,7 @@ void retLitShareDrain273(UHDM::Serializer& s) {
 // the law stands aside there.  The law, design-final per elaborated
 // instance: a constant Rhs at the span of a constant of the instance's (or
 // the generate scope's) param_assign values is replaced by that constant
-// under those conditions.  Grid tools/probe/r11u273repro/cases/PV (the equal cases now under tests/probe/r11u273repro/cases/PV).  Switch
+// under those conditions.  Grid tools/probe/r11u273repro/cases/PV.  Switch
 // R11U273_PARAMVALSHARE_OFF.
 void paramValShareDrain273(UHDM::design* d) {
     if (!d || !lawOn(273, "R11U273_PARAMVALSHARE_OFF"))
@@ -2803,7 +2803,7 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
                 // so the references in a part select's bounds read the
                 // instance chain too (golden `y[W-1:0]` at `u_a`:
                 // `work@top.u_a.y.W`, ours kept the definition's
-                // `work@m.y.W`).  Grid tools/probe/v11u193repro/cases/UC (the equal cases now under tests/probe/v11u193repro/cases/UC)
+                // `work@m.y.W`).  Grid tools/probe/v11u193repro/cases/UC
                 // uc08.  Switch R11V193_UCRANGE_OFF.
                 if (ucRange193v) {
                     unname((UHDM::any*)((UHDM::part_select*)x)->Left_range());
@@ -2938,7 +2938,7 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
 // in the definition view (ours: the port's scope `work@dut.m.a...`) and in
 // the elaborated view (ours: the parent's scope `work@dut...`).  Renames every
 // ref_obj / select under `idx` whose full name lies under `oldScope`.  Grid
-// tools/probe/r11u168repro/cases/H (the equal cases now under tests/probe/r11u168repro/cases/H).  Switch R11U168_HCIDXNAME_OFF (and
+// tools/probe/r11u168repro/cases/H.  Switch R11U168_HCIDXNAME_OFF (and
 // R11U168_OFF).
 static void hcSelIdxRescope168(UHDM::any* idx, const std::string& oldScope,
                                const std::string& newScope, const std::string& selFull,
@@ -3845,7 +3845,7 @@ static bool r191ConstCallPoison(const slang::ast::Expression& rhs0) {
                         // FOLDS in golden when the member's value in the
                         // parameter's assignment pattern is an UNSIZED
                         // DECIMAL literal (measured, grid
-                        // tools/probe/r11u237repro/cases/FM (the equal cases now under tests/probe/r11u237repro/cases/FM): m01 `S.e + i`,
+                        // tools/probe/r11u237repro/cases/FM: m01 `S.e + i`,
                         // m02 `S.m`, m04 `S.in.e` through a nested pattern,
                         // m07 through a wildcard import, m08 the gen-scope
                         // flavour, m11 a named pattern, m12 a default
@@ -3898,7 +3898,7 @@ static bool r191ConstCallKeeps(const slang::ast::Expression& rhs) {
 // call's own argument list (`for (auto io : *func->Io_decls()) if (args &&
 // index < args->size()) ... setValueInInstance`), so the defaulted formal is
 // never set and the body's read of it cannot reduce; writeCont_assign keeps
-// the call (golden tools/probe/r11u196repro/cases/DF (the equal cases now under tests/probe/r11u196repro/cases/DF): `f(1)` with `int b =
+// the call (golden tools/probe/r11u196repro/cases/DF: `f(1)` with `int b =
 // 2` kept, `f(1, 3)` folded; found on r11u191's fresh case V191/fd03).
 // § dfltArgTaintExec204v's executor: 1 keep, 0 fold, -1 undecided.
 static int r204TaintExec(const slang::ast::SubroutineSymbol& sub,
@@ -4195,7 +4195,7 @@ static int r204TaintExec(const slang::ast::SubroutineSymbol& sub,
 // package parameter to its `parameter` object, and no select arm reads a
 // `parameter` (the P arm's mechanism, there for a module parameter); an index
 // made of literals and parameters only is folded when Surelog compiles the
-// package function (grid tools/probe/r11u237repro/cases/FW (the equal cases now under tests/probe/r11u237repro/cases/FW): g03 `ENC[1].e`,
+// package function (grid tools/probe/r11u237repro/cases/FW: g03 `ENC[1].e`,
 // g13 `ENC[K]` fold).  Unlike the P arm the select may sit in a NESTED
 // callee or behind loops and branches: evalFunc EXECUTES the body, and the
 // nested call reduces through evalFunc again, so the select poisons the whole
@@ -4293,7 +4293,7 @@ static int r237PkgSelExec(slang::ast::EvalContext& ctx,
         // § bitsArgNotReduced237v (v11u237, R11V237_BITSARG_OFF): $bits
         // takes the operand's TYPE, so evalFunc never reduces the select
         // written inside it and the call folds in golden
-        // (tools/probe/v11u237repro/cases/PS (the equal cases now under tests/probe/v11u237repro/cases/PS) s04, s14, s17: `$bits(ENC[i])`
+        // (tools/probe/v11u237repro/cases/PS s04, s14, s17: `$bits(ENC[i])`
         // folds; `$size`, `$clog2` and `$signed` of the same select keep:
         // s15, s13, s16).
         if (ce.isSystemCall() && ce.getSubroutineName() == "$bits" &&
@@ -4504,7 +4504,7 @@ static bool r237PkgSelKeeps(const slang::ast::Expression& rhs0, const char* site
 // three more body shapes ExprEval::evalFunc does not reduce, so
 // writeCont_assign keeps the elaborated whole-Rhs call (the producer
 // § evalFuncSelectKeepsCall148 decodes; only a constant result replaces the
-// Rhs).  Measured on fresh golden cells (tools/probe/r11u287repro/cases/EV (the equal cases now under tests/probe/r11u287repro/cases/EV)):
+// Rhs).  Measured on fresh golden cells (tools/probe/r11u287repro/cases/EV):
 //   S  inside an ASSIGNMENT's right side (the statement arm reduces it with
 //      pexpr = the assignment, so ExprEval::getObject climbs to the
 //      function's io_decl / local variable instead of the bound value and
@@ -4604,7 +4604,7 @@ static bool r287EvalPoison(const slang::ast::Expression& rhs0, const char** arm)
     // `-`, `*`, `/`, `<<`, `&`, `|`, a unary `-` / `~` (`a * N + 1`,
     // `a + (-N)`, `~N`, `a << N`), and wherever the read is a PACKAGE
     // parameter reached from a module function, `p::W` or wildcard-imported
-    // (tools/probe/v11u287repro/cases/VE (the equal cases now under tests/probe/v11u287repro/cases/VE) ve01, ve02, ve04, ve11, ve16 and
+    // (tools/probe/v11u287repro/cases/VE ve01, ve02, ve04, ve11, ve16 and
     // the VM matrix: 35 operator x parameter-kind cells per scope); the
     // unrefined law kept the call there and ve01, ve02, ve04 and ve16 left
     // STRICT_EQUAL.
@@ -4837,7 +4837,7 @@ static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
     // assignment overwrites the unset value), and only an unset value that
     // reaches the returned result keeps the call; golden folds when the
     // read lies on a path the call does not take or its value is
-    // overwritten (grid tools/probe/v11u196repro/cases/DF (the equal cases now under tests/probe/v11u196repro/cases/DF): x01 `if (a > 0)
+    // overwritten (grid tools/probe/v11u196repro/cases/DF: x01 `if (a > 0)
     // return a; else return b;` f(1) folded, x03 a loop that never runs
     // folded, x05 an early return and `int t = b; if (a > 0) t = a;`
     // folded).  The law is claimed on the body's straight-line prefix only,
@@ -5047,7 +5047,7 @@ static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
 // definition listing `work@tb.u_m.u_c.p_a` and parents it at that
 // module_inst; a BOUND instance takes its TARGET-based path
 // (`work@tb.u_dut.u_chk.p_a`, even though the bound module_inst itself is
-// displayed `work@tb.u_chk`).  Grid tools/probe/r11u188repro/cases/B (the equal cases now under tests/probe/r11u188repro/cases/B) (single
+// displayed `work@tb.u_chk`).  Grid tools/probe/r11u188repro/cases/B (single
 // instance at two depths, in a generate block, a bind below the top, an
 // unlabelled assert + cover; the multi-instance cells are judge-unequal at
 // the base and read only for the last-writer order).  The bind road of
@@ -5456,7 +5456,7 @@ static bool scopedDeclSpan119(const Symbol& sym) {
 //     `populateCoreMembers(id, unpackedDimension, obj)`) spans the
 //     elaborated signal from its name to the initializer's end.
 // The bare-name form keeps the typedef's end and the name span (grid
-// tools/probe/r11u297repro/cases/VI (the equal cases now under tests/probe/r11u297repro/cases/VI) v03, v27, v28, v31).  Returns the
+// tests/probe/r11u297repro/cases/VI v03, v27, v28, v31).  Returns the
 // initializer's end for the qualified data-declaration form, else
 // NoLocation.
 static SourceLocation dataDeclInitEnd297(const Symbol& sym, bool scopedToo = false) {
@@ -9329,7 +9329,7 @@ UHDM::any* UhdmExporter::makeHoistHolder77(const Symbol& sym77, int kind77,
             // keeps the name (probe r11u88 i6_ifarray and y2_pkgvarkind,
             // `endcol(1)`; module and interface importers alike; a
             // multi-dimension declaration ends at its first dimension).
-            // Grid tools/probe/r11u293repro/cases/HE (the equal cases now under tests/probe/r11u293repro/cases/HE).
+            // Grid tools/probe/r11u293repro/cases/HE.
             if ((in77->UhdmType() == UHDM::uhdmstruct_net || named80) &&
                 !holderOff80() && lawOn(293, "R11U293_HOISTELEMSPAN_OFF"))
                 if (auto* ds293 = sym77.getSyntax();
@@ -9502,7 +9502,7 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
             // Probe cluster N0040 (r11u77repro y4, r11u82repro w3, w9,
             // r11u88repro i1, i8, y1, r11v75repro xe, r11v77repro ve), in the
             // module and the interface def views alike.  Grid
-            // tools/probe/r11u275repro/cases/IN (the equal cases now under tests/probe/r11u275repro/cases/IN).  Switch R11U275_IMPNETDIMEND_OFF.
+            // tools/probe/r11u275repro/cases/IN.  Switch R11U275_IMPNETDIMEND_OFF.
             if (ts9 && ts9->VpiLineNo() != 0 && ts9->VpiName().empty() &&
                 ts9->UhdmType() != UHDM::uhdmclass_typespec && dt9 &&
                 lawOn(275, "R11U275_IMPNETDIMEND_OFF")) {
@@ -9544,7 +9544,7 @@ void UhdmExporter::emitImportedPkgVarNets(const InstanceBodySymbol& body,
                 }
             }
             // § impNetEnumSlotEnd432 (r11u432, R11U432_IMPENUMSLOT_OFF; cases
-            // tools/probe/r11u432repro/cases/EB (the equal cases now under tests/probe/r11u432repro/cases/EB); sv-tests hdlconvertor p600's
+            // tools/probe/r11u432repro/cases/EB; sv-tests hdlconvertor p600's
             // file(2)/endline(2)/endcol(2)) — the module's re-created typespec
             // of an imported package variable declared with an INLINE
             // anonymous enum (`enum {A, B, C = 99} X;` in the package) takes
@@ -9826,9 +9826,9 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // classes).  Pass 196's listing is THE rule; the r11u200 form is its
         // fallback, alive only when R11U196_MODGENERIC_OFF drops pass 196's
         // listing, so each form is measurable alone
-        // (tools/probe/r11u202repro (the equal cases now under tests/probe/r11u202repro), section 1).  R11U200_CLASSCRASH_OFF
+        // (tools/probe/r11u202repro, section 1).  R11U200_CLASSCRASH_OFF
         // drops the fallback.  Grid tools/probe/r11u200dec/cases/K,
-        // tools/probe/r11u196repro/cases/MG (the equal cases now under tests/probe/r11u196repro/cases/MG).
+        // tools/probe/r11u196repro/cases/MG.
         const bool genericFallback200 =
             !lawOn(196, "R11U196_MODGENERIC_OFF") &&
             (lawOn(200, 202, "R11U200_CLASSCRASH_OFF") && !landingOff(202));
@@ -9852,7 +9852,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // home's own `vpiClassDefn` like any other class: Surelog's
         // ResolveSymbols::createFastLookup files every paClass_declaration of
         // the home syntactically (parameterized or not), and writeModule /
-        // writeProgram list them (golden tools/probe/r11u196repro/cases/MG (the equal cases now under tests/probe/r11u196repro/cases/MG):
+        // writeProgram list them (golden tools/probe/r11u196repro/cases/MG:
         // `class box #(type E = int)` inside `module sub` ->
         // `class_defn work@sub::box` with its `type_parameter E`).  slang
         // holds such a class as a GenericClassDefSymbol, which the ClassType
@@ -10185,7 +10185,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
         // § caStrPortNetRevertsToPort92 face C — a reverted net has no
         // declaration left to read a net keyword from (src/EmitHelpers.h).
         // § dynAliasNetType249 (r11u249, R11U249_DYNNETTYPE_OFF; cases
-        // tools/probe/r11u249repro/cases/U (the equal cases now under tests/probe/r11u249repro/cases/U) u05, N) — § unpackedAliasNetType65
+        // tests/probe/r11u249repro/cases/U u05, N) — § unpackedAliasNetType65
         // read for a DYNAMIC, QUEUE or ASSOCIATIVE typedef: Surelog's
         // SIMPLE_TYPEDEF rewrite reads no dimension, so a definition net
         // written as a bare typedef name whose (one-level) dynamic container
@@ -10237,7 +10237,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                        : 36;
         };
         // § defOnlyAliasVarNoNetType440 (R11U440_DEFONLYNETTYPE_OFF; cases
-        // tools/probe/r11u440repro/cases/NT (the equal cases now under tests/probe/r11u440repro/cases/NT); sv-tests basejump
+        // tools/probe/r11u440repro/cases/NT; sv-tests basejump
         // bsg_round_robin_fifo_to_fifo's `bsg_round_robin_fifo_to_fifo_t
         // zero_flat;`) — a module that is never elaborated (defOnlyDefs: an
         // unreferenced definition or one reached only from a generate branch
@@ -10286,7 +10286,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                 }
                             // § defOnlyNetLaterDeclNoType440v
                             // (R11V440_LATERDECL_OFF; cases
-                            // tools/probe/v11u440repro/cases/VN (the equal cases now under tests/probe/v11u440repro/cases/VN) vn11, vn16) —
+                            // tools/probe/v11u440repro/cases/VN vn11, vn16) —
                             // only the FIRST declarator of such a net
                             // declaration takes the keyword's net type; a later
                             // one (`wire t a, b, c;` -> b, c) prints none in
@@ -10810,7 +10810,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                 // and Surelog's late-binding mint copies the reference's four
                 // span fields and NO file (§ implicitNetNoFile119's producer):
                 // ClassTypeParam's `uvm_object` reads 26:18-26:28 with an
-                // empty file in golden.  Grid tools/probe/r11u130repro/grid/g4 (the equal cases now under tests/probe/r11u130repro/grid/g4).
+                // empty file in golden.  Grid tools/probe/r11u130repro/grid/g4.
                 if (lawOn(130, "R11U130_CLSARGNET_OFF"))
                     noteLateBindNet119(pn0);
                 nets->push_back(pn0);
@@ -10827,7 +10827,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // § progLocalDeclNets444 (R11U444_PRGSUBLOCAL_OFF, R11U444_PRGFORVAR_OFF,
     // R11U444_PRGLOCALORDER_OFF, R11U444_PRGLOCALDUP_OFF, and faces (e)
     // R11U444_PRGLOCALNT_OFF and (f) R11U444_PRGLOCALDIMEND_OFF below; cases
-    // tools/probe/r11u444repro/cases/PN (the equal cases now under tests/probe/r11u444repro/cases/PN); the sister passes 439's and 441's
+    // tools/probe/r11u444repro/cases/PN; the sister passes 439's and 441's
     // reported program-net face, r11u439 UP/up12, up15, v11u439 VP/vp01,
     // vp06, vp07, vp20, VI/vi05, vi11, vi13, v11u441 VJ/vj17) — the rule is
     // CompileProgram::collectObjects_'s DEFINITION walk: it descends the
@@ -10847,7 +10847,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // method locals stay out (the stop point).
     if (m->UhdmType() == UHDM::uhdmprogram) {
         // § nestProgAbstain444v (R11V444_NESTPROG_OFF; cases
-        // tools/probe/v11u444repro/cases/VP (the equal cases now under tests/probe/v11u444repro/cases/VP) vp22, vp32, vp33) — a program
+        // tools/probe/v11u444repro/cases/VP vp22, vp32, vp33) — a program
         // declared INSIDE a module is no program in golden: Surelog folds it
         // into the enclosing module (no work@prg object, the task locals
         // listed only as the module's subroutine variables), so the program
@@ -10892,7 +10892,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                         continue;
                     }
                 // § portNameLocalNoTs444v (R11V444_PORTLOCALTS_OFF; cases
-                // tools/probe/v11u444repro/cases/VP (the equal cases now under tests/probe/v11u444repro/cases/VP) vp34, vp38, vp39, vp40) —
+                // tools/probe/v11u444repro/cases/VP vp34, vp38, vp39, vp40) —
                 // a local named like one of the program's PORTS is still a
                 // second net of that name in golden (face (d)), but it carries
                 // NO typespec: Surelog files the local's data declaration
@@ -10954,7 +10954,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                     // type written as a keyword or a class name: that
                     // typespec is this declaration's own object (a typedef
                     // name binds a clone, grid IT s11 is stage-1).  Grid
-                    // tools/probe/r11u155repro/cases/IT (the equal cases now under tests/probe/r11u155repro/cases/IT).  Switch:
+                    // tools/probe/r11u155repro/cases/IT.  Switch:
                     // R11U155_PRGINITEND_OFF.
                     if (lawOn(155, "R11U155_PRGINITEND_OFF"))
                         if (auto* ds155 = bm.getSyntax();
@@ -11172,7 +11172,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
             if (kv452.second && kv452.second->VpiParent() == m)
                 conn452.insert(kv452.second);
         // § implicitNetAfterForwarded460 (r11u460, R11U460_IMPNETAFTER_OFF;
-        // cases tools/probe/r11u460repro/cases/IC (the equal cases now under tests/probe/r11u460repro/cases/IC); sv-tests
+        // cases tools/probe/r11u460repro/cases/IC; sv-tests
         // generated/uvm-examples/uvm_id_register.sv, hdl_top's
         // `.PWRITE(PWRITE)` with no PWRITE declared) — an IMPLICIT wire of
         // the definition (a port connection's `.b(y)`, a continuous
@@ -11874,7 +11874,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
     // after the last later-minted wire of the module's file that is written
     // before it; one written after it stays after it (probe UL/ul02, ul04).
     // Definition view only (the elaborated view lists neither).  Grid
-    // tools/probe/r11u420repro/cases/UL (the equal cases now under tests/probe/r11u420repro/cases/UL).  Switch R11U420_UNITVARORDER_OFF.
+    // tools/probe/r11u420repro/cases/UL.  Switch R11U420_UNITVARORDER_OFF.
     if (m->Nets() && !unitVarNets420().empty() &&
         lawOn(420, "R11U420_UNITVARORDER_OFF")) {
         auto* nv = m->Nets();
@@ -11974,7 +11974,7 @@ static const InstanceSymbol& elabConnDonor(const InstanceSymbol& inst) {
 // ordinary module_instantiation everywhere: the definition view lists its
 // ref_module and binds its names, and no connection is swallowed (golden
 // keeps the concatenation whole on port A at 8:10-8:20 and `w135` on its own
-// port as `work@dut.w135`; tools/probe/v11u171repro/cases/Q (the equal cases now under tests/probe/v11u171repro/cases/Q) c07, c12, which
+// port as `work@dut.w135`; tools/probe/v11u171repro/cases/Q c07, c12, which
 // uhdm-cmp rejected on every binary).  § udpSwallowLvalueOnly171v applied the
 // rule to the early swallow only; this applies it to the LATE wrap (the
 // pristine path).  The other readers of the UDP shape (the definition view's
@@ -12715,7 +12715,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
                 // closing bracket, in both views (golden 9:13-9:20, ours the
                 // selector 9:15-9:19), as compileSelectExpression locates it
                 // from the whole select node.  Grid
-                // tools/probe/r11u303repro/cases/MA (the equal cases now under tests/probe/r11u303repro/cases/MA).  Switch
+                // tools/probe/r11u303repro/cases/MA.  Switch
                 // R11U303_MODARRIPSSPAN_OFF.
                 if (e && e->UhdmType() == UHDM::uhdmindexed_part_select &&
                     lawOn(303, "R11U303_MODARRIPSSPAN_OFF")) {
@@ -12857,7 +12857,7 @@ UHDM::module_array* UhdmExporter::emitModuleArray(const InstanceArraySymbol& arr
     // r10earl104repro/vb4_instarr).  The definition view keeps the name
     // through the array (§ modArrayBoundRefArrayPath146), as golden does.
     // An interface array's elaborated view lists no ranges.  Grid
-    // tools/probe/r11u303repro/cases/MA (the equal cases now under tests/probe/r11u303repro/cases/MA).  Switch R11U303_MODARRSELNAME_OFF.
+    // tools/probe/r11u303repro/cases/MA.  Switch R11U303_MODARRSELNAME_OFF.
     if (modElems && lawOn(303, "R11U303_MODARRSELNAME_OFF")) {
         std::function<void(UHDM::any*)> unstore303 = [&](UHDM::any* x) {
             if (!x)
@@ -14738,7 +14738,7 @@ std::map<std::string, UHDM::typespec*> UhdmExporter::pkgClassKeys24(
 }
 
 // § transImpClassKeys466 (r11u466, R11U466_TRANSCLSKEYS_OFF; cases
-// tools/probe/r11u466repro/cases/IK (the equal cases now under tests/probe/r11u466repro/cases/IK); sv-tests generated/uvm-examples/
+// tools/probe/r11u466repro/cases/IK; sv-tests generated/uvm-examples/
 // uvm_use_models_pipelined_get_put.sv, `interface mbus_pipelined_driver_bfm`
 // under the file-scope `import mbus_pipelined_agent_pkg::*;`, that package
 // importing uvm_pkg) — AN IMPORT PUBLISHES THE CLASS KEYS THE IMPORTED
@@ -15206,7 +15206,7 @@ void UhdmExporter::modulePublishesPackageClasses45() {
     for (auto& [mv45, pkgs45] : modImportPkgs45) {
         auto* cur45 = mv45 ? mv45->Typespecs() : nullptr;
         // § emptyListClassKeys466 (r11u466, R11U466_EMPTYLISTKEYS_OFF; cases
-        // tools/probe/r11u466repro/cases/IK (the equal cases now under tests/probe/r11u466repro/cases/IK) ik05, ik06) — A VIEW WITH NO
+        // tests/probe/r11u466repro/cases/IK ik05, ik06) — A VIEW WITH NO
         // TYPEDEF OF ITS OWN STILL LISTS THE CLASS KEYS ITS IMPORTS PUBLISH.
         // importPackage inserts the class keys whatever else the map holds,
         // so a module or interface under a file-scope import of a package
@@ -15566,7 +15566,7 @@ void UhdmExporter::classKeyTsScopeOwner35(
 // uvm_messaging_example golden, 0 on SeqDriver's): an unlisted class_typespec
 // parented by its class_defn whose alias target is named `P::N`, with that
 // target listed by the TOP view of package P and NOT by P's DEF view, takes
-// P's TOP view.  Grid tools/probe/r11u446repro/cases/CT (the equal cases now under tests/probe/r11u446repro/cases/CT).  Switch
+// P's TOP view.  Grid tools/probe/r11u446repro/cases/CT.  Switch
 // R11U446_CLSTDTOPHOME_OFF.
 static void clsLocalTdTopHomeInst446(UHDM::design* d) {
     if (!d || !lawOn(446, "R11U446_CLSTDTOPHOME_OFF"))
@@ -16004,7 +16004,7 @@ static void importCopyElem8(UHDM::variables* cp, UHDM::variables* src,
 // container that is not a package, or a listing without the typedef, keeps
 // the copy.
 // § clsImpEnumTdShare452 (r11u452, R11U452_CLSIMPENUM_OFF; cases
-// tools/probe/r11u452repro/cases/CV (the equal cases now under tests/probe/r11u452repro/cases/CV)) — the ENUM twin of the rule above: a
+// tools/probe/r11u452repro/cases/CV) — the ENUM twin of the rule above: a
 // class's inherited copy of an imported package variable typed by a named
 // enum typedef (uvm_pkg's `uvm_core_state m_uvm_core_state`) binds the
 // container package's own listing of that typedef too, the one shared
@@ -16250,7 +16250,7 @@ static UHDM::any* importParamCopy82(UHDM::Serializer& s, UHDM::any* src,
         lawOn(183, "R11U183_IMPCOPY_OFF")) {
         tr183ME("classImportParamOwnRefs183");
         // § classImpTdParamTsClone408 (R11U408_CLSIMPTSCHAIN_OFF; cases
-        // tools/probe/r11u408repro/cases/UC (the equal cases now under tests/probe/r11u408repro/cases/UC)) — the class copy is Surelog's
+        // tools/probe/r11u408repro/cases/UC) — the class copy is Surelog's
         // importPackage clone_tree as the design copy is
         // (§ unitImpTdParamTsClone402), so a reference to a TYPEDEF'd
         // typespec reaches its own copied alias chain: a fresh typespec of
@@ -16769,7 +16769,7 @@ void UhdmExporter::classInheritsContainerImports23() {
 // sites record each write and the drain, run design-final before
 // § typedefParentLastWriter134's model (which still unparents an assigned
 // typedef), replays the winner's.  Struct and union objects are
-// § typedefParentLastWriter134's.  Grid tools/probe/r11u180repro/cases/H (the equal cases now under tests/probe/r11u180repro/cases/H).
+// § typedefParentLastWriter134's.  Grid tools/probe/r11u180repro/cases/H.
 // Switch R11U180_ENUMIMP_OFF.
 void trace180(const char* law, const std::string& detail);
 void trace186(const char* law, const std::string& detail); // R11U186_TRACE
@@ -16840,7 +16840,7 @@ void enumImportParentDrain180(UHDM::design* d) {
             it->second = i;
     }
     // § enumImpDefOwner180v (the r11u180 verifier, grid
-    // tools/probe/v11u180repro/cases/E (the equal cases now under tests/probe/v11u180repro/cases/E) e11-e13 and r11u180repro/cases/H h01,
+    // tests/probe/v11u180repro/cases/E e11-e13 and r11u180repro/cases/H h01,
     // h10, h20) — the winner's write may come from an ELABORATED instance of
     // the winning definition (emitInstance runs emitImportArtifacts on the
     // instance too), and the drain then parented the shared object at that
@@ -16958,7 +16958,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
     // below (the class-key publication, the typedef listing and the
     // subroutine hoist) take an interface whose body has no import of its
     // own (the body-import branch above is the interface's and is not mixed in).
-    // Grid tools/probe/r11u418repro/cases/IF (the equal cases now under tests/probe/r11u418repro/cases/IF).  Switch R11U418_IFCFILEIMP_OFF.
+    // Grid tools/probe/r11u418repro/cases/IF.  Switch R11U418_IFCFILEIMP_OFF.
     bool ifcFile418 = false;
     if (m->UhdmType() == UHDM::uhdminterface_inst &&
         lawOn(418, "R11U418_IFCFILEIMP_OFF")) {
@@ -17194,7 +17194,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
             // writeInterface's writeDataTypes walks it in that order (golden
             // mem_read_reg `mem_if` lists `p::req_t` before `p::rsp_t`,
             // declared rsp_t first; ours followed the declaration order).
-            // Grid tools/probe/r11u180repro/cases/I (the equal cases now under tests/probe/r11u180repro/cases/I).  Switch
+            // Grid tools/probe/r11u180repro/cases/I.  Switch
             // R11U180_IFACETDORDER_OFF.
             std::vector<const Symbol*> pms180;
             for (auto& pm : pkg->members())
@@ -18599,7 +18599,7 @@ void UhdmExporter::mintUnitEnumNets(const InstanceBodySymbol& body,
                 // block) belongs to the gen_scope and one inside a CLASS
                 // declared in the module to the class: golden leaves both
                 // ref_objs unbound and mints no net (probe
-                // tools/probe/v11u418repro/cases/VU (the equal cases now under tests/probe/v11u418repro/cases/VU) vu04, vu07, vu13, vu18,
+                // tools/probe/v11u418repro/cases/VU vu04, vu07, vu13, vu18,
                 // STRICT_EQUAL on pristine and NOT_EQUAL under the law),
                 // and when the module also reads the name, golden's wire sits
                 // at the module's own reference (vu16, vu17).  Switch
@@ -20038,7 +20038,7 @@ static void hcPathIdxBindsDefNet311(UHDM::instance* child, UHDM::instance* elabP
         }
         case UHDM::uhdmoperation:
             // A cast keeps its operand bound to the elaborated object
-            // (golden tools/probe/v11u296repro (the equal cases now under tests/probe/v11u296repro) VH/vh18_cast_in_port_idx and
+            // (golden tools/probe/v11u296repro VH/vh18_cast_in_port_idx and
             // VT/vt17_rhs_and_port, r11u311repro HB/b18_cast_idx_ctl).
             if (((UHDM::operation*)x)->VpiOpType() == vpiCastOp) {
                 lawTrace(311, "HCIDXDEF_CAST_ABSTAIN", where);
@@ -20151,7 +20151,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // an empty shell-less entry (§ nestedDefPortsNeedShell297) and wrote the
     // instance's content fresh.  The definition is read through the nested
     // definition of the same declaration that owns the shell.  Cases
-    // tools/probe/r11u307repro/cases/NR (the equal cases now under tests/probe/r11u307repro/cases/NR); r11u297repro NM m01, m04, m06, m12.
+    // tools/probe/r11u307repro/cases/NR; r11u297repro NM m01, m04, m06, m12.
     // Switch R11U307_NESTREPDEF_OFF.
     auto& def = [&]() -> const DefinitionSymbol& {
         auto& d0 = inst.getDefinition();
@@ -20423,7 +20423,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
     // located at its actual, each carrying only its HighConn (an empty `()`
     // the vpiNullOp at the closing parenthesis, `.*` nothing at all); an
     // instance-array element carries no port.  Ours elaborated the full
-    // body.  Cases tools/probe/r11u307repro/cases/ND (the equal cases now under tests/probe/r11u307repro/cases/ND); r11u297repro NM m02,
+    // body.  Cases tools/probe/r11u307repro/cases/ND; r11u297repro NM m02,
     // m03, m08, m09; r11u295repro NA/n02.  Switch R11U307_DEEPSTUB_OFF.
     if (deepStub307) {
         lawTrace(307, "DEEPSTUB", "inst " + prefix);
@@ -21768,7 +21768,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // vector typedef keeps its computed bound LOCATED at the
                 // bound's left operand (golden `INT:7` at the `X` of
                 // `logic [X-1:0]`, TypedefWithParameter / grid
-                // tools/probe/r11u134repro/grid/bc (the equal cases now under tests/probe/r11u134repro/grid/bc) bc02, bc04, bc06): the
+                // tests/probe/r11u134repro/grid/bc bc02, bc04, bc06): the
                 // bare, unparented fold is the MODULE-local clone's (bc01,
                 // bc05 unchanged).  Switch: R11U134_PKGCLONEBOUND_OFF.
                 if (auto sc134 = tv.as<TypeAliasType>().getParentScope();
@@ -21925,7 +21925,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // and range 3:10-3:16, the port's dims, where ours spanned the
             // body's `wire (strong1, weak0) [31:0]` 5:3-5:31).  The net
             // takes the merged-port typespec, as the port does.  Grid
-            // tools/probe/r11u277repro/cases/S (the equal cases now under tests/probe/r11u277repro/cases/S).  Switch
+            // tools/probe/r11u277repro/cases/S.  Switch
             // R11U277_STRPORTTS_OFF.
             const PortSymbol* strPort277 = nullptr;
             if (it.port && !it.portExprNet && netDeclStrength90(*it.sym) &&
@@ -21989,7 +21989,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // declaration's 6:18-6:22); its struct_net element starts
                 // there and keeps its end (the first unpacked dimension,
                 // 1:12-6:26), a logic_net element takes the header name span
-                // whole.  Grid tools/probe/r11u155repro/cases/UP (the equal cases now under tests/probe/r11u155repro/cases/UP).  Switch:
+                // whole.  Grid tools/probe/r11u155repro/cases/UP.  Switch:
                 // R11U155_NAARRNET_OFF.
                 SourceLocation hl155 = SourceLocation::NoLocation;
                 if (lawOn(155, "R11U155_NAARRNET_OFF"))
@@ -22016,7 +22016,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // (`output [1:0] o [2]; wire [1:0] o [2];`, `output o;
                 // wire [1:0] o [2];`) keeps the array_net at that
                 // declaration's name, as pristine read (golden 4:14-4:15).
-                // Grid tools/probe/v11u155repro/cases/NA (the equal cases now under tests/probe/v11u155repro/cases/NA).  Switch:
+                // Grid tools/probe/v11u155repro/cases/NA.  Switch:
                 // R11V155_NAARRSEP_OFF.
                 if (hl155 != SourceLocation::NoLocation &&
                     lawOn(155, "R11V155_NAARRSEP_OFF")) {
@@ -22443,7 +22443,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         lawTrace(245, "unitRealTdElabShares245", fullName);
                     }
             // § realtimeVarIsTime414 (r11u414, R11U414_REALTIME_OFF; cases
-            // tools/probe/r11u414repro/cases/RT (the equal cases now under tests/probe/r11u414repro/cases/RT); sv-tests
+            // tools/probe/r11u414repro/cases/RT; sv-tests
             // chapter-6/6.12--realtime.sv) — a `realtime` signal is
             // Surelog's time_var (paNonIntType_RealTime), and its elaborated
             // reference is a fresh time_typespec spanning the data type, as
@@ -22464,7 +22464,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             if (ctR.kind == SymbolKind::FloatingType &&
                 ctR.as<FloatingType>().floatKind == FloatingType::Real) {
                 // § unitRealTdElabShares245 (r11u245, R11U245_UNITREALTD_OFF;
-                // case tools/probe/r11u245repro (the equal cases now under tests/probe/r11u245repro) US/u05) — a `real` signal
+                // case tools/probe/r11u245repro US/u05) — a `real` signal
                 // typed by a $UNIT typedef (`typedef real ur_t; ur_t r;`)
                 // binds the typedef's design listing object in golden
                 // (`real_typespec (ur_t)` 7:9), as every other unranged $unit
@@ -22551,7 +22551,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // Data_declaration's variable spans its name through the
                 // initializer (elabSignal's `populateCoreMembers(id,
                 // unpackedDimension, obj)`; grid
-                // tools/probe/r11u297repro/cases/VI (the equal cases now under tests/probe/r11u297repro/cases/VI) v05, v26).  Switch
+                // tests/probe/r11u297repro/cases/VI v05, v26).  Switch
                 // R11U297_VARINITSPAN_OFF.
                 lawTrace(297, "VARINITSPAN", "var " + fullName);
                 setLoc(v, regNetSpan(*it.sym));
@@ -22572,7 +22572,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // declarator of `C c1 = C::make(), c2 = new;` /
             // `C c1 = new, c2 = null;`); a specialization (`C#(int) c = null`)
             // or a scoped name spans through any initializer (grid
-            // tools/probe/v11u152repro/cases/KW (the equal cases now under tests/probe/v11u152repro/cases/KW) + KX).  Switch
+            // tools/probe/v11u152repro/cases/KW + KX).  Switch
             // R11V152_CLSVARNEW_OFF.
             auto newDecl152v = [](const syntax::SyntaxNode* d) {
                 static const bool off =
@@ -23263,7 +23263,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                 ((UHDM::constant*)e)->VpiSize(w424);
                                 // § varInitUintMask414 (r11u414,
                                 // R11U414_VARINITMASK_OFF; cases
-                                // tools/probe/r11u414repro/cases/VM (the equal cases now under tests/probe/r11u414repro/cases/VM); sv-tests
+                                // tools/probe/r11u414repro/cases/VM; sv-tests
                                 // chapter-10/10.4.1--blocking-assignment.sv)
                                 // — CompileHelper::adjustSize's UINT branch also
                                 // MASKS the value to the variable's width and
@@ -23452,7 +23452,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
             // stretch it (golden 2:8-2:9, ours 2:8-2:17 through the anonymous
             // typespec arm below; probe cluster N1931: r11u108repro f5a18,
             // r11u110repro i03, i21, v11u110repro b08).  Grid
-            // tools/probe/r11u275repro/cases/TV (the equal cases now under tests/probe/r11u275repro/cases/TV).  Switch R11U275_TPVARINIT_OFF.
+            // tools/probe/r11u275repro/cases/TV.  Switch R11U275_TPVARINIT_OFF.
             bool tpTyped275 = false;
             if (auto dtp = it.sym->getDeclaredType();
                 dtp && dtp->getInitializer() && !realVar && !aliasOfAlias && !scoped119 &&
@@ -23884,7 +23884,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // § varDeclInitElabSpan297 — except a `var` / `const` /
                 // `static` Data_declaration: elabSignal spans it from the
                 // name to the initializer in its dimension slot (grid
-                // tools/probe/r11u297repro/cases/VI (the equal cases now under tests/probe/r11u297repro/cases/VI) v01, v02, v10; probe
+                // tests/probe/r11u297repro/cases/VI v01, v02, v10; probe
                 // r11u32repro/k9b).  Switch R11U297_VARINITSPAN_OFF.
                 if (lawOn(297, "R11U297_VARINITSPAN_OFF") &&
                     dataDeclInitEnd297(*it.sym) != SourceLocation::NoLocation) {
@@ -24273,7 +24273,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // compiled like a named actual and keeps the old form, as
                     // does a single-terminal list (a module_instantiation).
                     // Two components without blanks or selects only.  Grid
-                    // tools/probe/r11u305repro/cases/PM (the equal cases now under tests/probe/r11u305repro/cases/PM).  Switch
+                    // tools/probe/r11u305repro/cases/PM.  Switch
                     // R11U305_UDPMPPATH_OFF.
                     if (comps.size() == 2 &&
                         connRaw.find_first_of("[ \t\r\n") == std::string::npos &&
@@ -25340,7 +25340,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         bindIfaceTwinSrc[parentM].push_back(ii);
                         // § bindIfacePortRefDefName251 (r11u251,
                         // R11U251_BINDPORTREF_OFF; cases
-                        // tools/probe/r11u251repro/cases/BP (the equal cases now under tests/probe/r11u251repro/cases/BP), SimpleUVM's ten
+                        // tools/probe/r11u251repro/cases/BP, SimpleUVM's ten
                         // `add_sub_if0` port references) — the port
                         // connections of such a bound interface are named
                         // under the SAME parent-based path: a high-conn
@@ -25440,7 +25440,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 // name, not the elaborated one: Surelog keeps the binding the
                 // definition-time compile gave the hier_path's selects, while a
                 // plain select `.a(v[i])` is re-bound to the elaborated
-                // variable (golden tools/probe/r11u296repro (the equal cases now under tests/probe/r11u296repro) HC/hc01_direct_ref:
+                // variable (golden tools/probe/r11u296repro HC/hc01_direct_ref:
                 // the index `i` -> logic_net work@dut.i of the definition,
                 // ours the elaborated int_var; hc15_plain_vec_ctl binds the
                 // int_var on both).  UHDM's elaborator re-binds it in the
@@ -27107,7 +27107,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         // golden's chain names `work@X.gen_inst.u_c.ci.in_i`
                         // (genscope_module_ctx_reset).  The name only feeds
                         // the bound fold of an OPERATION bound, so it is read
-                        // only then.  Grid tools/probe/r11u155repro/cases/PS3 (the equal cases now under tests/probe/r11u155repro/cases/PS3).
+                        // only then.  Grid tools/probe/r11u155repro/cases/PS3.
                         // Switch: R11U155_PSELNAME_OFF.
                         const bool lazyA155 = lawOn(155, "R11U155_PSELNAME_OFF");
                         auto opBoundA155 = [&](const UHDM::any* b155) {
@@ -27491,7 +27491,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     // ({w13[0], w13[1]}, w135, w141)`: inner concat 725:32-38,
                     // `w13[0]` 32-38, `w13[1]` 40-46, `w135`
                     // `...a142.A.w135` bound to the net.  Grid
-                    // tools/probe/r11u171repro/cases/Q (the equal cases now under tests/probe/r11u171repro/cases/Q).  Switch
+                    // tools/probe/r11u171repro/cases/Q.  Switch
                     // R11U171_UDPSWALLOW_OFF.
                     bool swallow171 = false;
                     if (h && h->UhdmType() == UHDM::uhdmoperation &&
@@ -30719,7 +30719,7 @@ static bool caLhsBindsByName267(const Expression& lhsExpr) {
 }
 
 // § caLhsBindsUpScopes269 (r11u269, pass 267's residue: v11u267repro VB/vb01,
-// vb02, vb03, vb09; grid tools/probe/r11u269repro/cases/B (the equal cases now under tests/probe/r11u269repro/cases/B)) — bindVariable's
+// vb02, vb03, vb09; grid tools/probe/r11u269repro/cases/B) — bindVariable's
 // scope walk does not stop at the Lhs's own declaring scope: it switches on
 // function / task / begin / module_inst and tail-recurses on VpiParent, so
 // from a gen_scope it tries the enclosing module_inst's Nets and Variables BY
@@ -30762,7 +30762,7 @@ static bool caLhsBindsUpScopes269(const Expression& lhsExpr) {
 }
 
 // § selOpFoldReducibleKinds269v (v11u269, the adversarial verification of
-// r11u269; cases tools/probe/v11u269repro/cases/VO (the equal cases now under tests/probe/v11u269repro/cases/VO) and VS) — § selLhsOpFoldFresh269
+// r11u269; cases tools/probe/v11u269repro/cases/VO and VS) — § selLhsOpFoldFresh269
 // re-emits a select-Lhs cont_assign whose Rhs is an operation over literals and
 // parameters so that the general fold writes the reduced constant, but the
 // general fold writes the constant at the Lhs width (the plain-Lhs model, where
@@ -33808,7 +33808,7 @@ static void shareAdjust289(UHDM::constant* c, int newSize, bool trunc) {
 // `cloned`, and the reduce branch calls `adjustSize` only while `cloned ==
 // false`: under `assign #D o = P.a;` with D a parameter golden's Rhs is the
 // reduced operand left as it was (not re-sized, not truncated, not re-parented;
-// tools/probe/v11u289repro/cases (the equal cases now under tests/probe/v11u289repro/cases) VM/vm01_pdelay_hexwide, vm02_pdelay_binwide
+// tools/probe/v11u289repro/cases VM/vm01_pdelay_hexwide, vm02_pdelay_binwide
 // STRICT_EQUAL on pristine, stage 1 under the law; VC/vc09_own_pdelay_twoca the
 // module-body clone; VG/vg01_gen_pdelay golden's operand keeping size 12 where
 // the law wrote 4).  The three typed laws step aside on a delay written as a
@@ -35519,7 +35519,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // lists no Lhs net under that cont_assign (the shared net
                 // is already visited), where ours minted a fresh one.  A
                 // constant, an operation (over a path too) keeps the fresh
-                // Lhs.  Grid tools/probe/r11u164repro/cases/ND (the equal cases now under tests/probe/r11u164repro/cases/ND) n06 n10-n12
+                // Lhs.  Grid tests/probe/r11u164repro/cases/ND n06 n10-n12
                 // (n07 n09 n10 controls).  Switch R11U164_GENNDAHP_OFF.
                 if (!loopScope9 && ca->Rhs() &&
                     ca->Rhs()->UhdmType() == UHDM::uhdmhier_path &&
@@ -35541,7 +35541,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // loop scope gets the fresh Lhs net (`wire w = 1'b1;`,
                 // `wire w = ~b[0];`, golden lists the net under the cell).
                 // Default view only matters: the -elabuhdm view reads equal
-                // on both binaries.  Grid tools/probe/r11u303repro/cases/GN (the equal cases now under tests/probe/r11u303repro/cases/GN).
+                // on both binaries.  Grid tools/probe/r11u303repro/cases/GN.
                 // Switches R11U303_GENNDASEL_OFF and R11U303_GENNDAOP_OFF.
                 if (ca->Rhs()) {
                     auto rk303 = ca->Rhs()->UhdmType();
@@ -35588,7 +35588,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                 // DetectUnsizedConstant leg, so the cell gets a fresh Lhs net
                 // even where the select rule (§ genNdaSelRhsSharesNet303) or
                 // a scalar loop scope shares the scope net.  Grid
-                // tools/probe/r11u438repro/cases/ND (the equal cases now under tests/probe/r11u438repro/cases/ND).  Switch
+                // tools/probe/r11u438repro/cases/ND.  Switch
                 // R11U438_GENNDAUNSIZED_OFF.
                 if (loopScope9 && ca->Rhs() &&
                     ca->Rhs()->UhdmType() != UHDM::uhdmhier_path &&
@@ -36205,7 +36205,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // recorded neighbour of § defGenInitRhsKeepsParent200).  Only a
             // net or variable actual is dropped (a parameter or enum
             // constant reference is not in the grid).  Grid
-            // tools/probe/r11u202repro/cases/GI (the equal cases now under tests/probe/r11u202repro/cases/GI).
+            // tools/probe/r11u202repro/cases/GI.
             if ((lawOn(202, "R11U202_GENINITBIND_OFF") && !landingOff(202))) {
                 auto* gs202 = pv9.var->VpiParent();
                 std::function<void(UHDM::any*)> unbind202 = [&](UHDM::any* n) {
@@ -37838,7 +37838,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
             // hands the operand back unless it is a vpiUIntConst: golden's
             // generate-scope Rhs IS the instance's param_assign operand,
             // re-sized in place as § caStructParamModSharesPaOperand289
-            // models (grid tools/probe/r11u289repro/cases/MG (the equal cases now under tests/probe/r11u289repro/cases/MG); MS
+            // models (grid tools/probe/r11u289repro/cases/MG; MS
             // m23_modparam_gen: a module parameter with an inline default,
             // read in an if-generate onto the module's port).  Ours minted
             // a fresh member-width constant.
@@ -41432,7 +41432,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // reads the moved end, the elaborated copies included (they are cloned
     // after writeNets).  RangeSelect `tl_h2d_t a[4];` -> the typedef
     // tl_h2d_t 2:12-6:17 (the end of `[4]`).  Grid
-    // tools/probe/r11u134repro/grid/td (the equal cases now under tests/probe/r11u134repro/grid/td).  Switch: R11U134_TDNETEND_OFF.
+    // tools/probe/r11u134repro/grid/td.  Switch: R11U134_TDNETEND_OFF.
     auto tdNetEnd134 = [&](UHDM::typespec* ts134) {
         if (!ts134 || ts134->VpiName().empty() ||
             !(ts134->UhdmType() == UHDM::uhdmstruct_typespec ||
@@ -41464,7 +41464,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             // winning.  A bare or imported type name takes the StringConst
             // branch (no packed dimension); a `var` / data declaration is
             // not a net; an initializer abstains (not measured: stage 1 on
-            // every binary).  Grid tools/probe/r11u305repro/cases/WN (the equal cases now under tests/probe/r11u305repro/cases/WN).
+            // every binary).  Grid tools/probe/r11u305repro/cases/WN.
             // Switch R11U305_WIRESCOPEDEND_OFF.
             else if (!dd.initializer && dd.parent &&
                      dd.parent->kind == syntax::SyntaxKind::NetDeclaration &&
@@ -41475,7 +41475,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 // class-scoped typedef) take other producer roads (golden
                 // writes an unsupported_typespec for the $unit spelling), and
                 // the law moved the typedef's end away from golden there
-                // (tools/probe/v11u305repro/cases/VW (the equal cases now under tests/probe/v11u305repro/cases/VW) vw04_unit, vw17 chain
+                // (tools/probe/v11u305repro/cases/VW vw04_unit, vw17 chain
                 // away 4 and 7, vw16_class_scope away 1, stage 1 on every
                 // binary).  Switch R11V305_WIREPKG_OFF.
                 auto pkgScope305v = [&]() {
@@ -41505,7 +41505,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // § varDeclInitMovesSharedTsEnd297 — a `var` / `const` / `static`
         // declaration is a Data_declaration, whose dimension slot holds the
         // initializer: the end moves to the initializer's end (grid
-        // tools/probe/r11u297repro/cases/VI (the equal cases now under tests/probe/r11u297repro/cases/VI); probe r11u32repro/k9b).
+        // tools/probe/r11u297repro/cases/VI; probe r11u32repro/k9b).
         // Switch R11U297_VARINITTSEND_OFF.
         if (end134 == SourceLocation::NoLocation &&
             lawOn(297, "R11U297_VARINITTSEND_OFF")) {
@@ -41562,7 +41562,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // DATA1 reads TP1's `logic` 17:38-17:43 where ours built the resolved
     // type at the use (`int` 18:5-18:8, TypeParam; `logic` 14:3-14:9,
     // TypeParamOverride) — the map's structural class F (pass-130 R3).
-    // Grid tools/probe/r11u137repro/grid/tn (the equal cases now under tests/probe/r11u137repro/grid/tn).  Switch:
+    // Grid tools/probe/r11u137repro/grid/tn.  Switch:
     // R11U137_DEFNETTP_OFF.
     // § defNetTypeParamPackedDim144 (r11u144) — the same binding for a
     // type-parameter name carrying PACKED dimensions (`dtype [FifoDepth-1:0]
@@ -41609,7 +41609,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                             // typespec (its grid tq d3, NOT_EQUAL before and
                             // after): that is the judge-visible face, not
                             // this binding.  Grid
-                            // tools/probe/r11u160repro/cases/TV (the equal cases now under tests/probe/r11u160repro/cases/TV).  Switch
+                            // tools/probe/r11u160repro/cases/TV.  Switch
                             // R11U160_TPPACKEDVEC_OFF.
                             auto vecLeaf160 = [&](const Type& t0) {
                                 const Type* t1 = &t0;
@@ -41668,7 +41668,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 // object, its end moved by writeNets to the first packed
                 // dimension (10:28-17:15).  The definition's own
                 // type_parameter already holds that object: read it there.
-                // Grid tools/probe/r11u160repro/cases/BT (the equal cases now under tests/probe/r11u160repro/cases/BT).  Switch
+                // Grid tools/probe/r11u160repro/cases/BT.  Switch
                 // R11U160_BODYTPDEF_OFF.
                 if (!dflt137 && lawOn(160, "R11U160_BODYTPDEF_OFF")) {
                     const UHDM::any* up160 = pn.rt->VpiParent();
@@ -41774,7 +41774,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // then lands on that shared object at the Signal's slot, the first
     // unpacked dimension or the initializer (`p::t v = 8'h5C;` moves the
     // package typedef's end to the literal, in every listing).  Grid
-    // tools/probe/r11u134repro/grid/bc (the equal cases now under tests/probe/r11u134repro/grid/bc).  Switch: R11U134_SCOPEDPKGTD_OFF.
+    // tools/probe/r11u134repro/grid/bc.  Switch: R11U134_SCOPEDPKGTD_OFF.
     if (auto dt134 = pn.sym->getDeclaredType();
         dt134 && pn.rt->VpiParent() &&
         pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
@@ -41842,7 +41842,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // listing of the elaborated package (LogicTypespec: the typedef
     // 2:9-7:44, the end of `[1:0]`).  Ours minted a fresh unnamed
     // logic_typespec over the whole declaration.  Grid
-    // tools/probe/r11u290repro/cases/T (the equal cases now under tests/probe/r11u290repro/cases/T).  Switch: R11U290_PKGTDPACKED_OFF.
+    // tools/probe/r11u290repro/cases/T.  Switch: R11U290_PKGTDPACKED_OFF.
     if (auto dt290 = pn.sym->getDeclaredType();
         dt290 && pn.rt->VpiParent() &&
         pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
@@ -41917,7 +41917,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                     // (writeProgram, writeInterface, writeModule loops, each
                     // over a name-ordered map), so a module's net beats an
                     // interface's or a program's whatever the names
-                    // (grid tools/probe/v11u290repro/cases/VT (the equal cases now under tests/probe/v11u290repro/cases/VT) vt05 zif before
+                    // (grid tools/probe/v11u290repro/cases/VT vt05 zif before
                     // top, vt09 zprog before top: golden ends at top's net,
                     // the law at the interface's or the program's).  Within a
                     // kind the definition name orders, within a definition the
@@ -42039,7 +42039,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 ((UHDM::logic_typespec*)ts)->Typedef_alias(art);
             }
             // § defNetModTdCloneBoundSyntax440 (R11U440_DEFTDCLONEBOUND_OFF;
-            // cases tools/probe/r11u440repro/cases/TD (the equal cases now under tests/probe/r11u440repro/cases/TD); sv-tests basejump
+            // cases tools/probe/r11u440repro/cases/TD; sv-tests basejump
             // bsg_round_robin_fifo_to_fifo's `bsg_round_robin_fifo_to_fifo_t
             // zero_flat;`) — the definition net's own copy of a MODULE vector
             // typedef (`typedef logic [w-1:0] t; t z;` in a module that is not
@@ -42243,7 +42243,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                 // a clone whose member refs read the bare `tl_h2d_t.source`
                 // where golden's shared object reads
                 // `work@top.tl_h2d_t.source`, RangeSelect).  Grid
-                // tools/probe/r11u134repro/grid/td (the equal cases now under tests/probe/r11u134repro/grid/td).  Switch:
+                // tools/probe/r11u134repro/grid/td.  Switch:
                 // R11U134_TDARRSHARE_OFF.
                 if (lawOn(134, "R11U134_TDARRSHARE_OFF")) {
                     tdNetEnd134(shared5);
@@ -42440,7 +42440,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // source column: `logic [`SCR1_IMEM_DWIDTH/2-1:0] q_data [N];` (the macro
     // text `SCR1_IMEM_DWIDTH` 17 wide, its body `32` two) ends at 173:52 in
     // golden, 173:67 in ours.  The end goes through setLoc's end query (the
-    // start kept as written).  Grid tools/probe/r11u171repro/cases/K (the equal cases now under tests/probe/r11u171repro/cases/K).  Switch
+    // start kept as written).  Grid tools/probe/r11u171repro/cases/K.  Switch
     // R11U171_NETENDCOL_OFF.
     static const bool netEnd171 = lawOn(171, "R11U171_NETENDCOL_OFF");
     // The model does not align a token PASTE (r11u166's listed limit: a
@@ -42526,7 +42526,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // scoped `pk::C` keeping its `pk::` start).  Only a class written
         // directly (the declared element type is the ClassType itself, not a
         // typedef or a type parameter, whose objects are shared).  Grid
-        // tools/probe/r11u293repro/cases/CA (the equal cases now under tests/probe/r11u293repro/cases/CA).
+        // tools/probe/r11u293repro/cases/CA.
         bool clsArr293 = false;
         if (ts->UhdmType() == UHDM::uhdmclass_typespec &&
             lawOn(293, "R11U293_CLSARRDIMEND_OFF")) {
@@ -42546,7 +42546,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // logic_typespec read the end of the first unpacked dimension
         // (4:1-4:9; dynamic, queue and associative dims too).  The law's
         // unsupported_typespec of a covergroup element takes the same end.
-        // Grid tools/probe/v11u436repro/cases/VC (the equal cases now under tests/probe/v11u436repro/cases/VC).
+        // Grid tools/probe/v11u436repro/cases/VC.
         bool cgArr436v = false;
         if (ts->UhdmType() == UHDM::uhdmunsupported_typespec &&
             (dck3 == SymbolKind::FixedSizeUnpackedArrayType ||
@@ -42596,7 +42596,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // alert_handler_class.sv 15:9-15:22, alert_handler_esc_timer.sv;
         // map 12's AWAY records), while `input wire [..][..]`,
         // `input logic [..][..]` and `input signed [..][..]` keep the
-        // law's shape.  Grid tools/probe/v11u202repro/cases/PP (the equal cases now under tests/probe/v11u202repro/cases/PP).
+        // law's shape.  Grid tools/probe/v11u202repro/cases/PP.
         else if (dt3->getType().isPackedArray() && ts->VpiName().empty() &&
                  (!(pn.rt->VpiParent() &&
                     pn.rt->VpiParent()->UhdmType() == UHDM::uhdmport) ||
@@ -42764,7 +42764,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             // packed dimension: slang's ImplicitTypeSyntax range runs to its
             // placeholder token, which sits at the declarator's name, so the
             // element's end read the name's column.  Grid
-            // tools/probe/r11u231repro/cases/PE (the equal cases now under tests/probe/r11u231repro/cases/PE).  Switch
+            // tools/probe/r11u231repro/cases/PE.  Switch
             // R11U231_PORTELEMIMPL_OFF.
             // The end goes through setLoc's end query (the preprocessor
             // output model: a macro-written dimension ends at its expansion,
@@ -42814,7 +42814,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     //   * a named type with packed dimensions (`pkg::S [N-1:0] x;`) — the
     //     FIRST packed dimension.
     // The initializer arm is the stretch above (its file half is this law's
-    // too).  Grid tools/probe/r11u130repro/grid/g1 (the equal cases now under tests/probe/r11u130repro/grid/g1) (anonymous enums with and
+    // too).  Grid tools/probe/r11u130repro/grid/g1 (anonymous enums with and
     // without a base, multi-line, from an include, in an interface and a
     // sub-module; package struct/enum packed arrays, one and two dims).
     // Ports are written by another road (no stretch): excluded.
@@ -42830,7 +42830,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
         // {A, B, C} x;` / `var enum logic [1:0] {A, B} x;` unlocated (no
         // file, 0:0:0:0) in a module, an interface and a sub-module, and the
         // `var pkg::S [1:0] x;` packed array unlocated too (grid
-        // tools/probe/r11v130repro/grid/var (the equal cases now under tests/probe/r11v130repro/grid/var)).  The initializer arm above is
+        // tools/probe/r11v130repro/grid/var).  The initializer arm above is
         // unaffected (`var enum {..} x = B;` keeps its end and file, k09).
         // Switch: R11V130_DEFNETVAR_OFF.
         !(hasVarKeywordDecl(*pn.sym) && lawOn(130, "R11V130_DEFNETVAR_OFF"))) {
@@ -42934,7 +42934,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
     // runs to 3:20 (SignedWire, static_cast_simple), also for `wire signed w;`
     // whose type ends at the keyword and for an initialized net (the net
     // road has no initializer slot).  An unpacked dimension fills the slot
-    // first and keeps the type span (grid tools/probe/r11u130repro/grid/g5 (the equal cases now under tests/probe/r11u130repro/grid/g5)).
+    // first and keeps the type span (grid tools/probe/r11u130repro/grid/g5).
     if (ts && ts->VpiName().empty() && ts->VpiLineNo() != 0 &&
         pn.rt->VpiParent() &&
         pn.rt->VpiParent()->UhdmType() != UHDM::uhdmport &&
@@ -43754,7 +43754,7 @@ void UhdmExporter::emitTopPorts(TopPending& tp) {
                         return;
                     // § rngGenLpCaReadShape430v (v11u430, the adversarial
                     // verifier of r11u430; R11V430_RNGCAREAD_OFF; cases
-                    // tools/probe/v11u430repro/cases/VR (the equal cases now under tests/probe/v11u430repro/cases/VR) vr06, vr11, vr15,
+                    // tools/probe/v11u430repro/cases/VR vr06, vr11, vr15,
                     // vr16, vr17 to vr40) — THE BREAK: § defGenLpRangedTs430
                     // bound the bare value clone for a ranged untyped
                     // generate localparam on ANY continuous-assignment read,
@@ -44684,7 +44684,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 // typed port's LowConn is not located at all: golden's
                 // work@TESTBENCH.intf.intf reads 0:0 with no file (OneNetModPort
                 // tb.v, InterfaceModPort `program test(mem_if.tb tif)`; grid
-                // tools/probe/r11u176repro/cases/PG (the equal cases now under tests/probe/r11u176repro/cases/PG) g01-g04, g08, g09, g11:
+                // tests/probe/r11u176repro/cases/PG g01-g04, g08, g09, g11:
                 // modport-qualified and plain, positional and named).  Surelog's
                 // program writer (UhdmWriter::writeProgram -> writePorts) mints
                 // this reference without the populateCoreMembers the module
@@ -44909,7 +44909,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                 // above the port declaration (v15_ifdeclafterbody: golden
                 // ref_obj 3:15 bound to `wire o` at 3:15 where ours read the
                 // port declaration's 5:17).  The port keeps the port
-                // declaration's span.  Grid tools/probe/r11u293repro/cases/IF (the equal cases now under tests/probe/r11u293repro/cases/IF).
+                // declaration's span.  Grid tools/probe/r11u293repro/cases/IF.
                 const UHDM::any* first293 = mi93->second;
                 if (auto bn293 = netMap.find(internal);
                     bn293 != netMap.end() && bn293->second != mi93->second &&
@@ -45339,7 +45339,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
         {"rtranif1", vpiRtranif1Prim}, {"tran", vpiTranPrim},
         {"tranif0", vpiTranif0Prim}, {"tranif1", vpiTranif1Prim}};
     // § elabMosPullPrims402 (R11U402_GATEPRIM_OFF; cases
-    // tools/probe/r11u402repro/cases/GP (the equal cases now under tests/probe/r11u402repro/cases/GP)) — the MOS switches and the pull
+    // tools/probe/r11u402repro/cases/GP) — the MOS switches and the pull
     // gates reach the ELAB view too: nmos/pmos/cmos and their resistive
     // forms as switch_tran objects with the GATE terminal rule (term 0 the
     // output, the rest inputs), pullup/pulldown as gates with their one
@@ -45646,7 +45646,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                 // golden ref_obj t1 -> logic_net work@addergen1.bitnum[0].t1,
                 // ours no actual; uhdm-cmp's head).  The store the cont-assign
                 // branch already consults (§ caGenScopeNetNamesakeStore75).
-                // Grid tools/probe/r11u418repro/cases/GG (the equal cases now under tests/probe/r11u418repro/cases/GG).  Switch
+                // Grid tools/probe/r11u418repro/cases/GG.  Switch
                 // R11U418_GENGATENET_OFF.
                 else if (topView && lawOn(418, "R11U418_GENGATENET_OFF"))
                     if (auto git = genScopeNets.find(&nv.symbol);
@@ -45656,7 +45656,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                                  refScope + "." + std::string(nv.symbol.name));
                     }
                 // § nestedModGateUpwardNet436 (R11U436_NESTGATE_OFF; cases
-                // tools/probe/r11u436repro/cases/NM (the equal cases now under tests/probe/r11u436repro/cases/NM); sv-tests hdlconvertor
+                // tools/probe/r11u436repro/cases/NM; sv-tests hdlconvertor
                 // p719) — a gate in a NESTED module definition whose terminal
                 // names a net of the enclosing module (an upward reference
                 // slang resolves) gets, in each elaborated instance of the
@@ -45756,7 +45756,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             // `xor (t1, a[i], a[0]);` where the gate prefix gave
             // `work@m.b[0]..a` (the gate itself keeps its stored
             // `work@m.b[0].`).  Pass 402's VG/vg16 face.  Grid
-            // tools/probe/r11u418repro/cases/UG (the equal cases now under tests/probe/r11u418repro/cases/UG).  Switch
+            // tools/probe/r11u418repro/cases/UG.  Switch
             // R11U418_UNNAMEDGATETERM_OFF.
             std::string termPfx418 = gateFull;
             // A udp instance is left out (its definition name differs by
@@ -45773,13 +45773,13 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
             else if (auto* e = emitExpr(se, g, termPfx418, netMap)) {
                 setLoc(e, termLoc);
                 // § gateInBitSelIndexSpan402 (R11U402_GATEBITSEL_OFF; cases
-                // tools/probe/r11u402repro/cases/GP (the equal cases now under tests/probe/r11u402repro/cases/GP) gt0*) — an INPUT
+                // tools/probe/r11u402repro/cases/GP gt0*) — an INPUT
                 // terminal written as a bit select (`in[3]`) spans its INDEX
                 // expression alone in both views (Surelog locates the
                 // terminal's bit_select at the select's expression); an
                 // output terminal and a part select keep the whole terminal.
                 // § gateExprTermByGrammar402v (R11V402_GATETERM_OFF; cases
-                // tools/probe/v11u402repro/cases/VG (the equal cases now under tests/probe/v11u402repro/cases/VG)) — "input" is the
+                // tools/probe/v11u402repro/cases/VG) — "input" is the
                 // GRAMMAR's: Surelog's NetlistElaboration compiles a
                 // net_lvalue terminal (every output_terminal and both
                 // inout_terminals of a pass switch) with the whole span and
@@ -45837,7 +45837,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
     // `genblk1.genblk1.genblk1` for an unnamed `if (1)` block inside it,
     // `genblk1.genblk1` for a gate directly in it.  A NAMED else-if body, a
     // plain `else` body and a first branch keep one level (grid
-    // tools/probe/r11u171repro/cases/G (the equal cases now under tests/probe/r11u171repro/cases/G)).  Loop generates are left alone.
+    // tools/probe/r11u171repro/cases/G).  Loop generates are left alone.
     // Switch R11U171_GENELSEIF_OFF.
     std::string termScope171 = prefix;
     if (topView && lawOn(171, "R11U171_GENELSEIF_OFF")) {
@@ -46537,7 +46537,7 @@ static bool substNdaParamRefs(
         // instance-named ref (`work@top.s`), whatever the select's base (a
         // parameter or a net); a reference nested in a bound OPERATION
         // (`per_addr[13:DEC_WD-1]`) and a bit-select index are named after
-        // the selected object.  Grid tools/probe/r11u168repro/cases/P (the equal cases now under tests/probe/r11u168repro/cases/P).
+        // the selected object.  Grid tools/probe/r11u168repro/cases/P.
         // Switch R11U168_PSBOUNDTS_OFF (and R11U168_OFF).
         static const bool psBound168On = lawOn(168, "R11U168_PSBOUNDTS_OFF");
         rt->VpiFullName(!selFull.empty() && !paAnchor && !(psBound168 && psBound168On)
@@ -46854,7 +46854,7 @@ static const Expression* caStructParamSetter55(const Expression& rhsExpr,
     // path), so the elaborated cell keeps the written member read: golden
     // `hier_path I.y` where ours folded `UINT:2`.  A width written as a plain
     // parameter (`W'(2)`) or a literal folds as before (grid
-    // tools/probe/r11u301repro/cases/SC (the equal cases now under tests/probe/r11u301repro/cases/SC)).  Switch R11U301_SETCASTW_OFF.
+    // tools/probe/r11u301repro/cases/SC).  Switch R11U301_SETCASTW_OFF.
     if (const Expression* sx301 = whole55 ? &stripImplicitConv(*set55) : nullptr;
         sx301 && sx301->kind == ExpressionKind::Conversion && sx301->syntax &&
         sx301->syntax->kind == syntax::SyntaxKind::CastExpression) {
@@ -48412,7 +48412,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // (work@dut)` on the call; downstream r11u199 N6 / c06, the
             // plugin sizing the call from it).  The names are the written
             // assignment's list (§ above at the cont_assign stamp).  Grid
-            // tools/probe/r11u212repro/cases/NS (the equal cases now under tests/probe/r11u212repro/cases/NS) n01 n02 n04 n05.  Switch
+            // tests/probe/r11u212repro/cases/NS n01 n02 n04 n05.  Switch
             // R11U212_NDASYSTS_OFF.
             if (rhs && rhs->UhdmType() == UHDM::uhdmsys_func_call && defInfo &&
                 !((UHDM::expr*)rhs)->Typespec() &&
@@ -48714,7 +48714,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // net in full where ours had listed it already (`differ:depth`).  A
         // Rhs that stays a reference (a net, a variable) keeps the shared
         // net, as Surelog's reduceExpr leaves it unreduced.  Grid
-        // tools/probe/r11u271repro/cases/N (the equal cases now under tests/probe/r11u271repro/cases/N).  Switch R11U271_NDACONSTLHS_OFF.
+        // tools/probe/r11u271repro/cases/N.  Switch R11U271_NDACONSTLHS_OFF.
         // An `inside` Rhs is an operation Surelog's flattenPatternAssignments
         // hands back against the net's typespec, so it clones the cell too
         // (r10uvm99repro g99_a2_proc; containsOperation does not list it).
@@ -48791,7 +48791,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // takes writeCont_assign's DetectUnsizedConstant clone, its Lhs net
         // included, so golden lists a fresh Lhs net with its own typespec
         // copy where ours shared the module's net (`differ:depth`).  Grid
-        // tools/probe/r11u438repro/cases/PU (the equal cases now under tests/probe/r11u438repro/cases/PU), ND.  Switch
+        // tools/probe/r11u438repro/cases/PU, ND.  Switch
         // R11U438_NDAUNSIZED_OFF.
         bool unsized438 = false;
         if (rhs && !share428 && !isLiteralExpr(stripImplicitConv(ncInit)) &&
@@ -48844,7 +48844,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // § varDeclInitElabSpan297 — writeCont_assign's clone_tree
                 // copies the listed net, whose `var` / `const` / `static`
                 // Data_declaration span runs through the initializer (grid
-                // tools/probe/r11u297repro/cases/VI (the equal cases now under tests/probe/r11u297repro/cases/VI) v01, v02).  Switch
+                // tests/probe/r11u297repro/cases/VI v01, v02).  Switch
                 // R11U297_VARINITSPAN_OFF.
                 if (lawOn(297, "R11U297_VARINITSPAN_OFF") &&
                     dataDeclInitEnd297(*it.sym) != SourceLocation::NoLocation) {
@@ -49055,7 +49055,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     // reads UINT:2 (ours UINT:0, the assignment's implicit
                     // conversion to the one-bit net evaluated with it).
                     // Evaluate the written query under that conversion.
-                    // Grid tools/probe/r11u164repro/cases/RQ (the equal cases now under tests/probe/r11u164repro/cases/RQ).  Switch
+                    // Grid tools/probe/r11u164repro/cases/RQ.  Switch
                     // R11U164_RANGEQ_OFF.
                     const Expression& sx164 =
                         (qry9 && lawOn(164, "R11U164_RANGEQ_OFF"))
@@ -49460,7 +49460,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     // BY CONSTRUCTION — a `inner_t [1:0] arr` member written
                     // by a NESTED assignment pattern reaches the same
                     // `assemble()` bail and slips through (verifier grid
-                    // `tools/probe/r11v16repro (the equal cases now under tests/probe/r11v16repro)` `v3`: golden `UINT:5` through
+                    // `tools/probe/r11v16repro` `v3`: golden `UINT:5` through
                     // the leftover arm, ours the `BIN` slice).  It is NOT
                     // tightened by type: the SAME member written with a plain
                     // constant (`v13`) is one golden DOES assemble and fold,
@@ -49962,7 +49962,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             // all, so the elaborated cell keeps the written
                             // reference (golden v111_b6 `ref_obj w_v6`, ours
                             // folded `UINT:6`).  Grid
-                            // tools/probe/r11u301repro/cases/CV (the equal cases now under tests/probe/r11u301repro/cases/CV).  Switch
+                            // tools/probe/r11u301repro/cases/CV.  Switch
                             // R11U301_CONSTVARINIT_OFF.
                             bool noFold301 = false;
                             if (!written && lawOn(301, "R11U301_CONSTVARINIT_OFF")) {
@@ -50079,7 +50079,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // r10uvm99repro g99_a2_proc and g99_a9_fence: `differ:count(0)`, the
         // definition's `logic_net` listed once more under the shared Lhs).
         // The net-declaration twin is § ndaConstRhsFreshLhs271's `inside`
-        // branch.  Grid tools/probe/r11u301repro/cases/CI (the equal cases now under tests/probe/r11u301repro/cases/CI).  Switch
+        // branch.  Grid tools/probe/r11u301repro/cases/CI.  Switch
         // R11U301_CAINSIDE_OFF.
         // An `inside` whose operands are all constant reduces to a constant in
         // the clone (golden folds it); the law stands aside there (grid CI
@@ -50224,7 +50224,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                         l9.kind == ExpressionKind::RangeSelect;
         }
         // § selLhsOpFoldFresh269 (r11u269, pass 267's residue R/r11 to r14,
-        // grid tools/probe/r11u269repro/cases/S (the equal cases now under tests/probe/r11u269repro/cases/S)) — a bit, part, indexed-part
+        // grid tools/probe/r11u269repro/cases/S) — a bit, part, indexed-part
         // select or concatenation Lhs whose Rhs is an OPERATION over literals
         // and parameters re-compiles too: UhdmWriter::writeCont_assign's
         // trailing `simplified == false` arm reduces the Rhs, and a constant
@@ -50694,7 +50694,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                             // the elaborated cell's reduceExpr: golden keeps
                             // the written ternary where ours folded the arm
                             // to `INT:16`.  Grid
-                            // tools/probe/r11u301repro/cases/TF (the equal cases now under tests/probe/r11u301repro/cases/TF).  Switch
+                            // tools/probe/r11u301repro/cases/TF.  Switch
                             // R11U301_TERNTPQUERY_OFF.
                             static const bool tpq301 =
                                 lawOn(301, "R11U301_TERNTPQUERY_OFF");
@@ -50822,7 +50822,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // installs (golden `REAL:1.5` at the arm's own span), exactly
                 // as an x/z or wide integer arm below; ours kept the written
                 // ternary because leafValue9 answers integers only.  Grid
-                // tools/probe/r11u301repro/cases/TF (the equal cases now under tests/probe/r11u301repro/cases/TF).  Switch
+                // tools/probe/r11u301repro/cases/TF.  Switch
                 // R11U301_TERNREAL_OFF.
                 if (!ternFold9 && sel9->kind == ExpressionKind::RealLiteral &&
                     lawOn(301, "R11U301_TERNREAL_OFF")) {
@@ -50846,7 +50846,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // ref_obj binds the instance's parameter (§ caDelayParamRefSpelling90's
         // elaborated half), where ours shared the definition object and its
         // unbound reference (stage 1: `ref_obj::Actual_group` RHS <null>).
-        // Grid tools/probe/r11u164repro/cases/DL (the equal cases now under tests/probe/r11u164repro/cases/DL) d05 d09 d10 d11.  Switch
+        // Grid tests/probe/r11u164repro/cases/DL d05 d09 d10 d11.  Switch
         // R11U164_DLYPARAMELAB_OFF.
         bool dlyParamFresh164 = false;
         if (topView && lawOn(164, "R11U164_DLYPARAMELAB_OFF"))
@@ -50872,7 +50872,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // ours shared the definition cont_assign, whose index carries the
         // definition's scoped name.  A right side that reads anything keeps
         // the shared object (cases/IA i03, i07).  Grid
-        // tools/probe/r11u225repro/cases/IA (the equal cases now under tests/probe/r11u225repro/cases/IA).  Switch R11U225_IFARRELEMCA_OFF.
+        // tools/probe/r11u225repro/cases/IA.  Switch R11U225_IFARRELEMCA_OFF.
         bool ifArrElemLit225 = false;
         if (topView && literalRhs && shareWithDef && defInfo &&
             myIdx < defInfo->contAssigns.size() &&
@@ -51087,7 +51087,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // leg's and abstains.  The interface twin is
             // § ifCaUnsizedRhsClonePerInst305 with R11U305_IFPLAINLHS_OFF.
             // The drain is § caUnsizedRhsClonePerInst193's.  Grid
-            // tools/probe/r11u438repro/cases/PU (the equal cases now under tests/probe/r11u438repro/cases/PU).  Switch
+            // tools/probe/r11u438repro/cases/PU.  Switch
             // R11U438_PLAINUNSIZED_OFF.
             else if (topView && m && plainLhs && !caMemSelBase &&
                      lawOn(438, "R11U438_PLAINUNSIZED_OFF") &&
@@ -51165,7 +51165,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // cont_assign only (the walk visits the shared object once) and the
         // object ends parented at the LAST one.  The elaborated view clones
         // each cont_assign with its own copy (both listed), as ours already
-        // does.  Grid tools/probe/r11u164repro/cases/DL (the equal cases now under tests/probe/r11u164repro/cases/DL).  Switch
+        // does.  Grid tools/probe/r11u164repro/cases/DL.  Switch
         // R11U164_CADELAY_OFF.
         static std::map<std::pair<const void*, const void*>, UHDM::expr*>
             caDelayShared164;
@@ -51497,7 +51497,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 // BIN:1, size -1) where ours minted the all-ones UINT at
                 // slang's width: the elaborated cell now carries the
                 // definition's constant as § initHierFillKept225 does.  Grid
-                // tools/probe/r11u301repro/cases/FP (the equal cases now under tests/probe/r11u301repro/cases/FP).  Switch
+                // tools/probe/r11u301repro/cases/FP.  Switch
                 // R11U301_FILLAGGELAB_OFF.
                 if (cv && !fill225 && caFillPackedAggregateKeepsRaw43(ae.left()) &&
                     defInfo && myIdx < defInfo->contAssigns.size() &&
@@ -52242,7 +52242,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     // two bits, r11 UINT:20 onto four), and an expression
                     // bound (`logic [N-1:0]`) is an INT constant it skips
                     // too (r08: INT:3 / INT:7 onto one bit).  Grid
-                    // tools/probe/v11u164repro/cases/RQ (the equal cases now under tests/probe/v11u164repro/cases/RQ) r03 r08 r11 r12 r14-r18.
+                    // tools/probe/v11u164repro/cases/RQ r03 r08 r11 r12 r14-r18.
                     // Switch R11V164_RQMASK_OFF.
                     int32_t w164 = (int32_t)lS9.type->getBitWidth();
                     if (rqVarArg164v && w164 < 64 &&
@@ -53274,7 +53274,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // param_assign constant object (golden lists no Rhs under the
             // cell, the object having been listed at the param_assign; ours
             // kept the written ternary).  Only a constant already at the
-            // target width.  Grid tools/probe/r11u301repro/cases/TP (the equal cases now under tests/probe/r11u301repro/cases/TP).  Switch
+            // target width.  Grid tools/probe/r11u301repro/cases/TP.  Switch
             // R11U301_TERNPARAMARM_OFF.
             if (!rhs && sawTern92 && !ternArm92 &&
                 sel92->kind == ExpressionKind::NamedValue &&
@@ -53688,7 +53688,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // own constant: every instance lists a fresh copy of the literal
             // (golden u_a and u_b each `32'd10`), where ours shared the
             // definition's object and the second instance listed nothing.
-            // Grid tools/probe/r11u301repro/cases/DL (the equal cases now under tests/probe/r11u301repro/cases/DL).  Switch
+            // Grid tools/probe/r11u301repro/cases/DL.  Switch
             // R11U301_DLYLITFRESH_OFF.
             if (!signExt9 && raw.find('\'') != std::string::npos &&
                 dlyParamFresh164 && defRhs9 &&
@@ -53717,7 +53717,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // right (§ selBareDec144 keeps the literal's own shape); only
             // the identity moves.  f3m.v 592 `assign C[195:194] = 0;` under
             // point_scalar_mult's func3 instances; grid
-            // tools/probe/r11u171repro/cases/Y (the equal cases now under tests/probe/r11u171repro/cases/Y).  Switch
+            // tools/probe/r11u171repro/cases/Y.  Switch
             // R11U171_SELDECSHARE_OFF.
             else if (!signExt9 && selLitLhs && !memberSelLitLhs && !bitsRhs &&
                      lawOn(144, "R11U144_SELBAREDEC_OFF") &&
@@ -53758,7 +53758,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
         // that operand, re-parented at the last cont_assign that takes it, and
         // the walk lists it once, under the param_assign (tests/probe
         // r11u114repro/grid/f1 a25 and a28, v11u114repro/grid/set1/g25; grid
-        // tools/probe/r11u289repro/cases/MS (the equal cases now under tests/probe/r11u289repro/cases/MS)).  Ours minted a fresh constant
+        // tools/probe/r11u289repro/cases/MS).  Ours minted a fresh constant
         // at the member's width per cont_assign.  A miss (no constant operand,
         // an unsized or UINT operand, a wider binary one) keeps the fresh one.
         const bool dly289v = caSyn9 && caDelayNameRef289v(caSyn9->delay, &body) &&
@@ -54396,7 +54396,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             // conversion but stamped only a written system call (stage 1:
             // golden `ref_typespec (work@dut)` on the call, ours none;
             // downstream the plugin sizes the call from that typespec, r11u199
-            // N6 / c06).  Grid tools/probe/r11u212repro/cases/NS (the equal cases now under tests/probe/r11u212repro/cases/NS) n03.  Switch
+            // N6 / c06).  Grid tests/probe/r11u212repro/cases/NS n03.  Switch
             // R11U212_SIGNCASTTS_OFF.
             else if (rcs.kind == ExpressionKind::Conversion &&
                      !((UHDM::expr*)rhs)->Typespec() &&
@@ -54715,7 +54715,7 @@ void UhdmExporter::drainFuncRet(bool pkgOnly) {
                 // (probe r10uvm171 g171_a_pos, g171_b_homes, g171_c_shapes,
                 // r10uvm194 g194_c_clone, `depth(1)`).  The home body keeps
                 // its select binding (this branch is the clone's only).
-                // Grid tools/probe/r11u293repro/cases/CR (the equal cases now under tests/probe/r11u293repro/cases/CR).
+                // Grid tools/probe/r11u293repro/cases/CR.
                 if (lawOn(293, "R11U293_CLONERETSEL_OFF")) {
                     lawTrace(293, "cloneRetNameSelRefBindsHomeReturn293",
                           std::string(r->VpiFullName()));
@@ -56364,7 +56364,7 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // `$` the unbounded constant (`STRING:$`, size 1, ct 10).
             // MEASURED on real v1.87 goldens (tools/probe/r11u113repro/grid/q
             // q01-q05, q08, q09, q13, q14; pass 110's V1 arms under
-            // tools/probe/v11u112repro/grid/brk (the equal cases now under tests/probe/v11u112repro/grid/brk)*/p).  We pushed the operand
+            // tools/probe/v11u112repro/grid/brk*/p).  We pushed the operand
             // alone.  GATED to the property-declaration home
             // (`propDeclScope`, pass 110's § propDeclDisableIffSkip112 body)
             // and to literal / `$` bounds (a formal- or parameter-named bound
@@ -56586,7 +56586,7 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // chapter-16/16.7--sequence-and-uvm.sv, 16.7--sequence-or-uvm.sv,
             // 16.7--sequence-and-range-uvm.sv: `((dif.req ##5 dif.gnt0) and
             // (dif.req ##8 dif.gnt1)) ##0 dif.gnt2`, the rows' uhdm-cmp head
-            // at 120:29).  Grid tools/probe/r11u420repro/cases/SA (the equal cases now under tests/probe/r11u420repro/cases/SA).  Switch
+            // at 120:29).  Grid tools/probe/r11u420repro/cases/SA.  Switch
             // R11U420_SEQANDOR_OFF.
             if ((bae.op == BinaryAssertionOperator::And ||
                  bae.op == BinaryAssertionOperator::Or) &&
@@ -56802,7 +56802,7 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // `a ##1 b ##1 c` -> [a, 1, [b, 1, c]]); two elements stay one
             // flat operation.  Ours listed every element flat.
             // § seqNestLeadingDelay406v (v11u406, R11V406_SEQLEAD_OFF; cases
-            // tools/probe/v11u406repro/cases/VQ (the equal cases now under tests/probe/v11u406repro/cases/VQ) vq20, vq21, vq24) — a
+            // tests/probe/v11u406repro/cases/VQ vq20, vq21, vq24) — a
             // concatenation whose FIRST element carries a leading delay
             // (`##1 a ##1 b ##1 c`, the consequent of `a |-> ##1 b ##1 c ##1
             // d`) is in golden the unary cycle-delay operation (53) spanning
@@ -56814,7 +56814,7 @@ UHDM::any* UhdmExporter::emitAssertionExpr(const AssertionExpr& ae, UHDM::BaseCl
             // is the same operation with the range operand of
             // § sequenceDeclListed406 (golden vq24).
             // § seqNestRangedDelay406v (v11u406, R11V406_SEQRANGE_OFF; cases
-            // tools/probe/v11u406repro/cases/VQ (the equal cases now under tests/probe/v11u406repro/cases/VQ) vq01, vq25) — a RANGED delay
+            // tests/probe/v11u406repro/cases/VQ vq01, vq25) — a RANGED delay
             // inside the right-nested chain (`a ##[1:2] b ##1 c`) is the
             // range operand at the written `1:2` as in the flat form of
             // § sequenceDeclListed406, where the chain wrote the minimum
@@ -57280,7 +57280,7 @@ bool UhdmExporter::sizeDimFoldsWithoutParams(
 // Surelog computes that bound with its OVERRIDE-EXPRESSION reducer, NOT with the
 // declaration-site {producer, adjustSize} pair that fills the parameter's own
 // `param_assign`.  Two consequences, both measured on every overridden cell of
-// the grid in `tools/probe/r10rgg4repro (the equal cases now under tests/probe/r10rgg4repro)` and on the real Rggen head:
+// the grid in `tools/probe/r10rgg4repro` and on the real Rggen head:
 //
 //   * the leaf parameter's DECLARED TYPE never narrows the bound (`int R`
 //     overridden by `#(.R(25))` reads size 64, not 32), and
@@ -57435,7 +57435,7 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                 // (setLoc never replaces a file already set) beside the
                 // dimension's line and columns.  The law clears the literal's
                 // file first so the relocation writes the dimension's.  Grid
-                // tools/probe/r11u212repro/cases/SF (the equal cases now under tests/probe/r11u212repro/cases/SF) f01-f03 (two files: by
+                // tools/probe/r11u212repro/cases/SF f01-f03 (two files: by
                 // name, positional, a decimal-based sized literal).  Switch
                 // R11U212_SIZEDIMFILE_OFF.
                 const bool dimFile212 = (lawOn(212, "R11U212_SIZEDIMFILE_OFF") && !landingOff(212));
@@ -58061,7 +58061,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
                         // a foreach body the same way (cases WT/wt04).  The
                         // foreach loop variable itself is not an interface
                         // symbol and is left alone, as before.  Grid
-                        // tools/probe/r11u456repro/cases/WT (the equal cases now under tests/probe/r11u456repro/cases/WT).  Switch
+                        // tools/probe/r11u456repro/cases/WT.  Switch
                         // R11U456_IFCWAIT_OFF.
                         if (lawOn(456, "R11U456_IFCWAIT_OFF")) {
                             auto tr456 = [&]() {
@@ -58287,7 +58287,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
             else if (int32_t u65 = unpackedAliasNetType65(*it.sym))
                 ifnt65 = u65;  // the dimensioned half: `wire v_t n5 [2]` = 36
             // § ifaceDynAliasNetType251 (r11u251, R11U251_IFDYNNT_OFF; cases
-            // tools/probe/r11u251repro/cases/IN (the equal cases now under tests/probe/r11u251repro/cases/IN), v11u249 D/d02, N/n04) — the
+            // tools/probe/r11u251repro/cases/IN, v11u249 D/d02, N/n04) — the
             // interface definition road's twin of § dynAliasNetType249: a
             // net written as a bare typedef name whose one-level DYNAMIC,
             // QUEUE or ASSOCIATIVE container holds an alias-free four-state
@@ -58616,7 +58616,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceDef(const InstanceSymbol& inst)
         // the def-listing cont_assigns above take.
         defStmtImportScope9 = &body;
         // § uninstIfaceAssertListing436 (R11U436_IFCUNINST_OFF; cases
-        // tools/probe/r11u436repro/cases/IU (the equal cases now under tests/probe/r11u436repro/cases/IU); sv-tests uvm-examples
+        // tools/probe/r11u436repro/cases/IU; sv-tests uvm-examples
         // apb_protocol_monitor) — an UNINSTANTIATED interface's definition
         // lists its named sequence and property declarations and its
         // concurrent assertions, as the module road's definition view does
@@ -59235,7 +59235,7 @@ UHDM::interface_inst* UhdmExporter::makeIfaceRefDup(const InstanceSymbol& inst,
 // at the first MODULE instantiation, i.e. the receiver (never an ancestor,
 // grid s06).
 //
-// GOLDEN GRID (tools/probe/r11u115repro/grid/i (the equal cases now under tests/probe/r11u115repro/grid/i), real v1.87, both forms;
+// GOLDEN GRID (tools/probe/r11u115repro/grid/i, real v1.87, both forms;
 // `interface itf #(int A = 16, int B = 32, int C = B, int D = A * 2)`,
 // elements `#(8, 32, 64)`):
 //   receiver declares            A        B        C        D
@@ -60605,7 +60605,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // its ref_typespec with it; the param_assign's other objects keep the
     // view's path.  A MODPORT-qualified port (`my_iface.mp bus`) is listed
     // under the module with the override and path names (grid
-    // tools/probe/r11u130repro/grid/g6 (the equal cases now under tests/probe/r11u130repro/grid/g6): p01-p04 def names, p05 path names).
+    // tests/probe/r11u130repro/grid/g6: p01-p04 def names, p05 path names).
     // Only a param_assign whose Rhs is a CONSTANT reads the definition's
     // object: a struct-valued default kept as an OPERATION is re-elaborated
     // under the view and named by its path (GenIfIfaceParamStructField,
@@ -60910,7 +60910,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     // ModuleInstance of its own).  On the miss the view is elaborated from the
     // definition (:1913-1934): declaration defaults, the receiver's shadowing
     // parameters (§ pvRecvShadow115), and no `vpiOverriden`.
-    // GOLDEN GRID (tools/probe/r11u115repro/grid/i (the equal cases now under tests/probe/r11u115repro/grid/i), real v1.87, both forms;
+    // GOLDEN GRID (tools/probe/r11u115repro/grid/i, real v1.87, both forms;
     // `itf #(8, 32, 64) i`): receiver in a gen-if / gen-for / an inner gen
     // block with the actual at module scope or in the outer block (n05, o01,
     // o06, o07), the modport expression `i.m` (o08), and an ENCLOSING
@@ -61798,7 +61798,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 // would relocate every reader of `my_t` into the interface
                 // (golden keeps `my_t` at its declaration and gives the port
                 // its own unnamed typespec, a stage-1 face this law does not
-                // model).  Grid tools/probe/v11u209repro/cases/PD (the equal cases now under tests/probe/v11u209repro/cases/PD) v01.
+                // model).  Grid tools/probe/v11u209repro/cases/PD v01.
                 // Switch R11V209_PDNAMED_OFF.
                 if (!ts205->VpiName().empty() &&
                     lawFixOn(209, "R11V209_PDNAMED_OFF")) {
@@ -62439,7 +62439,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
     }
     else {
         // § genericIfacePosConnNoDouble412 (r11u412,
-        // R11U412_GENPOSNODBL_OFF; cases tools/probe/r11u412repro/cases/GI (the equal cases now under tests/probe/r11u412repro/cases/GI);
+        // R11U412_GENPOSNODBL_OFF; cases tools/probe/r11u412repro/cases/GI;
         // sv-tests hdlconvertor std2017/p761, p762) — the doubling is a
         // NAMED connection's: an interface handed POSITIONALLY to an unbound
         // generic port (`memMod mem(sb_intf);`) lists its variables once
@@ -62592,7 +62592,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             for (auto& [sy466, ne466] : ifcEvents466)
                 evNames466.insert(std::string(sy466->name));
             // § ifcEventShadowSkip466v (v11u466, R11V466_EVSHADOW_OFF; cases
-            // tools/probe/v11u466repro/cases/VE (the equal cases now under tests/probe/v11u466repro/cases/VE) ve03, ve09, ve13, ve14, ve15)
+            // tests/probe/v11u466repro/cases/VE ve03, ve09, ve13, ve14, ve15)
             // — A NAME DECLARED AGAIN IN A TASK, FUNCTION, BLOCK OR LOOP IS
             // NOT A REFERENCE TO THE EVENT: golden places the wire at the
             // first reference that resolves to the interface's event (ve03
@@ -63030,7 +63030,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // work@top.d.in.port.clk.clk without vpiNetType where
                         // ours wrote 36; `input logic clk` and `input wire
                         // clk` keep 36 and 1).  Grid
-                        // tools/probe/r11u418repro/cases/MP (the equal cases now under tests/probe/r11u418repro/cases/MP).  Switch
+                        // tools/probe/r11u418repro/cases/MP.  Switch
                         // R11U418_MPIMPLNETTYPE_OFF.
                         bool implHdr418 = false;
                         if (msym.kind == SymbolKind::Net &&
@@ -63078,7 +63078,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // `wire [31:0]` 5:3-5:14.  A body declaration written
                         // first keeps the body's net (v15_ifdeclafterbody's
                         // order, § mintUntyped93).  Grid
-                        // tools/probe/r11u305repro/cases/PV (the equal cases now under tests/probe/r11u305repro/cases/PV).  Switch
+                        // tools/probe/r11u305repro/cases/PV.  Switch
                         // R11U305_PVHDRPORTDECL_OFF.
                         if (portBacked9 && hasBodyDecl(msym) &&
                             lawOn(305, "R11U305_PVHDRPORTDECL_OFF")) {
@@ -63120,7 +63120,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // (vx8_strifport, v14_ndamodport: golden `w_plain` where
                         // ours read work@dut.u_s.p.mp.w_plain.w_plain under the
                         // io_decl).  The same cell predicate as LAW A.  Grid
-                        // tools/probe/r11u293repro/cases/PV (the equal cases now under tests/probe/r11u293repro/cases/PV).  A HEADER PORT
+                        // tools/probe/r11u293repro/cases/PV.  A HEADER PORT
                         // of a non-ANSI interface stands aside: its port
                         // declaration's signal comes first and carries no cell
                         // (pb19_modportview: golden's io_decl net is the port
@@ -63179,7 +63179,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                                 // (`work@top.g.u_s.p.mp.w.w`, cases VP/vp04,
                                 // vp15, vp16, vp18 elaborated; the law's stored
                                 // `w` was copied into the clone: chain away 1
-                                // to 4).  Cases tools/probe/v11u293repro/cases/VP (the equal cases now under tests/probe/v11u293repro/cases/VP).
+                                // to 4).  Cases tools/probe/v11u293repro/cases/VP.
                                 if (auto* rt293 = ln293->Typespec()) {
                                     if (lawFixOn(293, "R11V293_PVTSUNSTORED_OFF")) {
                                         lawTrace(293, "pvNdaTsNameUnstored293v",
@@ -63393,7 +63393,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     // `assign p = o` bind work@dut.u_if.o at 3:17, ours the
                     // body's 5:15).  Only a body NET (a `logic` variable is
                     // found among the variables first).  Grid
-                    // tools/probe/r11u293repro/cases/IF (the equal cases now under tests/probe/r11u293repro/cases/IF).
+                    // tools/probe/r11u293repro/cases/IF.
                     if (auto mi293 = ifaceMintNet93.find(sym);
                         mi293 != ifaceMintNet93.end() && mi293->second != var &&
                         var->UhdmType() == UHDM::uhdmlogic_net &&
@@ -63764,7 +63764,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // § ifNdaUnsizedFreshLhs438 (r11u438) — the interface twin of
             // § ndaUnsizedRhsFreshLhs438 (DetectUnsizedConstant clones the
             // cell, its Lhs net included).  Grid
-            // tools/probe/r11u438repro/cases/ND (the equal cases now under tests/probe/r11u438repro/cases/ND).  Switch
+            // tools/probe/r11u438repro/cases/ND.  Switch
             // R11U438_IFNDAUNSIZED_OFF.
             bool unsized438 = false;
             if (rhs88 && !constRhs271 &&
@@ -63984,7 +63984,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // the package parameter's param_assign operand, or for the
             // interface's own parameter the clone an earlier cell's read
             // made (tests/probe r11u88repro/grid/j3_ifcaselect; grid
-            // tools/probe/r11u289repro/cases/MI (the equal cases now under tests/probe/r11u289repro/cases/MI)).  Ours kept the definition's
+            // tools/probe/r11u289repro/cases/MI).  Ours kept the definition's
             // cell (hier_path Rhs, work@ifc.bitsel).  A select cell with no
             // earlier clone to take keeps the definition's cell.
             UHDM::expr* selShare289 = nullptr;
@@ -63992,7 +63992,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // the re-list below copies a part select's bounds only when they
             // are constants (cpBound): on `assign e[W-1:0] = K.m;` the law
             // wrote the elaborated part_select with no left range where
-            // golden keeps the operation W-1 (tools/probe/v11u289repro/cases (the equal cases now under tests/probe/v11u289repro/cases)
+            // golden keeps the operation W-1 (tools/probe/v11u289repro/cases
             // VI/vi01_pkg_partsel_parambounds, vi03_own_partsel_parambounds:
             // the bound's records lost).  A part-select Lhs whose bounds are
             // not both constants keeps the definition's cell.
@@ -64072,7 +64072,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // {8{sig}} : '0` with P = 0: an elaborated cell `work@top.bi.w`
             // = the `'0` constant at 5:31-5:33, ours none) and the unsized leg
             // clones the whole cell.  The fill and unsized laws take a
-            // whole-name Lhs too.  Grid tools/probe/r11u305repro/cases/IU (the equal cases now under tests/probe/r11u305repro/cases/IU).
+            // whole-name Lhs too.  Grid tools/probe/r11u305repro/cases/IU.
             // Switch R11U305_IFPLAINLHS_OFF.
             const bool plainLhs305 =
                 defCa->Lhs() && defCa->Lhs()->UhdmType() == UHDM::uhdmref_obj &&
@@ -64160,7 +64160,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 // leg's gates: a select or concatenation Lhs, no cast Rhs (the
                 // cast leg), no named delay (the delay leg clones first).  The
                 // module drain builds the copy.  Grid
-                // tools/probe/r11u305repro/cases/IU (the equal cases now under tests/probe/r11u305repro/cases/IU).  Switch
+                // tools/probe/r11u305repro/cases/IU.  Switch
                 // R11U305_IFUNSIZED_OFF.
                 if (ae83 && iface && defCa->Lhs() && defCa->Rhs() &&
                     (defCa->Lhs()->UhdmType() != UHDM::uhdmref_obj ||
@@ -64199,7 +64199,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         // holding a user function call (`f(sig) | '0`, a
                         // package function `pk::f(sig) | '0`, `{8{g(sig)}}`):
                         // the clone broke uhdm-cmp equality in the elaborated
-                        // view (tools/probe/v11u305repro/cases/VU (the equal cases now under tests/probe/v11u305repro/cases/VU) vu05, vu23,
+                        // view (tools/probe/v11u305repro/cases/VU vu05, vu23,
                         // vu24, vu25 `_el` judge-equal -> stage 1, vu21_el
                         // chain away 6), the call's own re-evaluation in the
                         // producer's clone not being transcribed.  Switch
@@ -64343,7 +64343,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                     // cell carries its own copy (golden lists `#4` under both
                     // cells of `assign #4 p = 1, q = 2;`); ours shared the
                     // definition's object and the second cell listed none.
-                    // Grid tools/probe/r11u301repro/cases/DL (the equal cases now under tests/probe/r11u301repro/cases/DL).  Switch
+                    // Grid tools/probe/r11u301repro/cases/DL.  Switch
                     // R11U301_IFDLYCONST_OFF.
                     else if (dly83->UhdmType() == UHDM::uhdmconstant &&
                              lawOn(301, "R11U301_IFDLYCONST_OFF")) {
@@ -64596,7 +64596,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
             // struct-parameter member read IS the elaborated interface's own
             // param_assign operand, re-parented at the last cell that takes
             // it, whatever its kind and width, when the parameter is a
-            // PACKAGE's (grid tools/probe/r11u289repro/cases/MI (the equal cases now under tests/probe/r11u289repro/cases/MI) i05).  An
+            // PACKAGE's (grid tests/probe/r11u289repro/cases/MI i05).  An
             // interface's own parameter reduces through getValue's clone,
             // which ours already mints (MI i01, i03 STRICT_EQUAL on pristine
             // and broken by a draft that shared those too).  Ours minted a
@@ -65835,7 +65835,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                     // per declaration, shared by its declarators.
                     // § defGenLpRangedTs430 (r11u430,
                     // R11U430_GENLPRANGEDTS_OFF; cases
-                    // tools/probe/r11u430repro/cases/GL (the equal cases now under tests/probe/r11u430repro/cases/GL) gl04, gl07, gl08) — a
+                    // tools/probe/r11u430repro/cases/GL gl04, gl07, gl08) — a
                     // generate-block parameter whose implicit type carries a
                     // packed range (`localparam [31:0] x7 = y + i - 6;`) is
                     // described in the definition view by an int_typespec
@@ -65902,7 +65902,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                         its2 = noBlockTs430;
                     }
                     // § genLpUntypedDefNoTs410 (R11U410_GENLPNOTS_OFF; cases
-                    // tools/probe/r11u410repro/cases/GP (the equal cases now under tests/probe/r11u410repro/cases/GP); sv-tests basejump
+                    // tools/probe/r11u410repro/cases/GP; sv-tests basejump
                     // bsg_encode_one_hot, bsg_mesh_router, ...) — in the
                     // DEFINITION view an UNTYPED generate-block parameter
                     // carries no typespec at all, whatever its initializer
@@ -67971,7 +67971,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 }
                                 // § defGenConnVarSelIdxPart440
                                 // (R11U440_GENVSIDXPART_OFF; cases
-                                // tools/probe/r11u440repro/cases/VI (the equal cases now under tests/probe/r11u440repro/cases/VI); sv-tests
+                                // tools/probe/r11u440repro/cases/VI; sv-tests
                                 // basejump bsg_round_robin_fifo_to_fifo's
                                 // `.i(data_head[in_top_channel_i][0+:W])`) —
                                 // the INDEXED twin of § defGenConnVarSelRange424:
@@ -68456,7 +68456,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                             // The whole text goes to trimIdx311 so an index
                             // with leading blanks only (`farr[ 1]`, which moves
                             // the select's location) logs its firing too
-                            // (v11u311: tools/probe/v11u311repro (the equal cases now under tests/probe/v11u311repro)
+                            // (v11u311: tools/probe/v11u311repro
                             // VT/vt12_uninst_branch_lead_blank wrote with no
                             // trace line); trimming the left-trimmed text gave
                             // the same index.

@@ -41,7 +41,7 @@ class BaseClass;
 
 namespace slang_uhdm {
 
-// ---- pass 223 (tests/LAWS.md; tools/probe/r11u223repro (the equal cases now under tests/probe/r11u223repro)) ----
+// ---- pass 223 (tests/LAWS.md; tools/probe/r11u223repro) ----
 // v11u223 (the adversarial verification of r11u223,
 // tools/probe/v11u223repro/README.md): every refinement reads its own
 // R11V223_<NAME>_OFF switch; R11V223_OFF drops all of them, R11U223_OFF drops
@@ -108,7 +108,7 @@ inline FormalTdReg223& formalTdTok223() {
     return reg;
 }
 
-// ---- pass 225 (tests/LAWS.md; tools/probe/r11u225repro (the equal cases now under tests/probe/r11u225repro)) ----
+// ---- pass 225 (tests/LAWS.md; tools/probe/r11u225repro) ----
 } // namespace slang_uhdm
 #include <utility>
 #include <vector>
@@ -135,7 +135,7 @@ namespace slang_uhdm {
 // § fillSymbolicRootOnly225v (v11u225, the adversarial verification of r11u225):
 // the refinements' switches.  R11V225_OFF drops every one of them.
 
-// ---- pass 228 (tests/LAWS.md; tools/probe/r11u228repro (the equal cases now under tests/probe/r11u228repro)) ----
+// ---- pass 228 (tests/LAWS.md; tools/probe/r11u228repro) ----
 } // namespace slang_uhdm
 
 // v11u228 (the adversarial verification of r11u228,
@@ -147,7 +147,7 @@ inline void trv228(const char* law, const std::string& detail = std::string()) {
     lawTrace(228, law, detail);
 }
 
-// ---- pass 231 (tests/LAWS.md; tools/probe/r11u231repro (the equal cases now under tests/probe/r11u231repro)) ----
+// ---- pass 231 (tests/LAWS.md; tools/probe/r11u231repro) ----
 } // namespace slang_uhdm
 
 // § cloneAliasTargetOwnCopy231's record: the typedef-alias refs
@@ -172,7 +172,7 @@ inline std::vector<std::pair<void*, std::string>>& r231OobClassTdRefs() {
     return v;
 }
 
-// ---- pass 236 (tests/LAWS.md; tools/probe/r11u236repro (the equal cases now under tests/probe/r11u236repro)) ----
+// ---- pass 236 (tests/LAWS.md; tools/probe/r11u236repro) ----
 // v11u236 (the adversarial verification, tools/probe/v11u236repro/README.md):
 // each refinement reads its own R11V236_<X>_OFF; R11V236_OFF (or R11U236_OFF)
 // drops all of them.
@@ -196,7 +196,7 @@ inline std::map<const void*, void*>& pkgDefPatShareMemo236() {
     return m;
 }
 
-// ---- pass 238 (tests/LAWS.md; tools/probe/r11u238repro (the equal cases now under tests/probe/r11u238repro)) ----
+// ---- pass 238 (tests/LAWS.md; tools/probe/r11u238repro) ----
 // v11u238 (the adversarial verification, tools/probe/v11u238repro/README.md):
 // each refinement reads its own R11V238_<NAME>_OFF; R11V238_OFF drops all of
 // them, and R11U238_OFF drops them with the laws they refine.
@@ -231,7 +231,7 @@ inline std::vector<UHDM::ref_typespec*>& deferredStrTs238() {
     return v;
 }
 
-// ---- pass 248 (tests/LAWS.md; tools/probe/r11u248repro (the equal cases now under tests/probe/r11u248repro)) ----
+// ---- pass 248 (tests/LAWS.md; tools/probe/r11u248repro) ----
 // v11u248 (adversarial verification of r11u248): every fix reads its own
 // R11V248_<FIX>_OFF switch; R11V248_OFF drops all of them (R11U248_OFF still
 // restores the base's bytes: each fix lives inside a law's branch).
@@ -251,7 +251,7 @@ inline std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_var*>>& deferredClon
     return v;
 }
 
-// ---- pass 249 (tests/LAWS.md; tools/probe/r11u249repro (the equal cases now under tests/probe/r11u249repro)) ----
+// ---- pass 249 (tests/LAWS.md; tools/probe/r11u249repro) ----
 // § unitDynArrTd249 / § modDynArrTd249 — set by a typedef writer around its
 // buildUnpackedArrayTypedefTs call to ask the builder's dynamic-container
 // branch for the kind-marker range (defined in TypeEmit.cpp).
@@ -265,13 +265,13 @@ namespace slang_uhdm {
 // writers list (TypeEmit.cpp).
 bool unitDynTdShape249(const slang::ast::TypeAliasType& ta);
 
-// ---- pass 251 (tests/LAWS.md; tools/probe/r11u251repro (the equal cases now under tests/probe/r11u251repro)) ----
+// ---- pass 251 (tests/LAWS.md; tools/probe/r11u251repro) ----
 // § regTdArrElabIsNet251 — the elaborated array_vars ModuleEmit placed among
 // the nets (the design-final $unit typedef pass leaves their typespec
 // unfolded: the net branch reads the typedef's own typespec).
 extern std::unordered_set<const void*> g251RegNetVars;
 
-// ---- pass 255 (tests/LAWS.md; tools/probe/r11u255repro (the equal cases now under tests/probe/r11u255repro)) ----
+// ---- pass 255 (tests/LAWS.md; tools/probe/r11u255repro) ----
 // § fwWinnerListedObject255's record: every object § bareTdNameFirstWriterWins98
 // handed out (fwWinnerTs98) with the winning TypeAliasType symbol, in emission
 // order; drained design-final in UhdmExporter.
@@ -280,7 +280,7 @@ inline std::vector<std::pair<void*, const void*>>& r255Fw98() {
     return v;
 }
 
-// ---- pass 258 (tests/LAWS.md; tools/probe/r11u258repro (the equal cases now under tests/probe/r11u258repro)) ----
+// ---- pass 258 (tests/LAWS.md; tools/probe/r11u258repro) ----
 // § cloneLoopVarAssocIdxTs258: the clone's shared loop-variable object of a
 // foreach over an associative array whose index is not a class, string or int
 // gets the index typespec only after UhdmExporter's clone-body member binder
@@ -305,7 +305,7 @@ inline std::map<std::string, std::pair<UHDM::foreach_stmt*, UHDM::foreach_stmt*>
     return m;
 }
 
-// ---- pass 263 (tests/LAWS.md; tools/probe/r11u263repro (the equal cases now under tests/probe/r11u263repro)) ----
+// ---- pass 263 (tests/LAWS.md; tools/probe/r11u263repro) ----
 }  // namespace slang_uhdm
 
 // v11u263 (adversarial verification of r11u263,
@@ -314,7 +314,7 @@ inline std::map<std::string, std::pair<UHDM::foreach_stmt*, UHDM::foreach_stmt*>
 // R11U263_OFF still restores the base's bytes.
 namespace slang_uhdm {
 
-// ---- pass 266 (tests/LAWS.md; tools/probe/r11u266repro (the equal cases now under tests/probe/r11u266repro)) ----
+// ---- pass 266 (tests/LAWS.md; tools/probe/r11u266repro) ----
 // § sgnLitElabFreshIntTs266: the parameters the law marked (ParamEmit), read
 // back at the generate-scope fold sites (ExprEmit).
 inline std::set<const void*>& sgnLit266() {
@@ -322,7 +322,7 @@ inline std::set<const void*>& sgnLit266() {
     return s;
 }
 
-// ---- pass 269 (tests/LAWS.md; tools/probe/r11u269repro (the equal cases now under tests/probe/r11u269repro)) ----
+// ---- pass 269 (tests/LAWS.md; tools/probe/r11u269repro) ----
 // § retTopRangeOwnPkg269: the elaborated package object whose subroutine's
 // per-reference return-name local ModuleEmit drainFuncRet is compiling (null
 // everywhere else); TypeEmit's package-parameter range binding reads it.
@@ -332,7 +332,7 @@ inline const void* retTopPkg269 = nullptr;
 // R11V269_<FIX>_OFF switch; R11V269_OFF drops all of them (the law's bytes),
 // R11U269_OFF still drops the laws and the refinements together (pristine).
 
-// ---- pass 270 (tests/LAWS.md; tools/probe/r11u270repro (the equal cases now under tests/probe/r11u270repro)) ----
+// ---- pass 270 (tests/LAWS.md; tools/probe/r11u270repro) ----
 // (r11u272: the r11v270On helper pre-written here for a verifier that wrote
 // no fix was never called; removed, v11u270repro README's finding.)
 // the trace is on: callers build their detail strings only then (no heap
@@ -352,7 +352,7 @@ size_t enumAliasCastN270();
 void enumAliasCastRec270(size_t i, UHDM::ref_typespec*& rt,
                          const slang::ast::Symbol*& sym);
 
-// ---- pass 272 (tests/LAWS.md; tools/probe/r11u272repro (the equal cases now under tests/probe/r11u272repro)) ----
+// ---- pass 272 (tests/LAWS.md; tools/probe/r11u272repro) ----
 // the trace is on: callers build their detail strings only then (no heap
 // traffic while the design is emitted when it is off)
 }  // namespace slang_uhdm
@@ -364,7 +364,7 @@ namespace slang_uhdm {
 void lotsValueCopyRec272(const UHDM::BaseClass* pa);
 bool lotsValueCopy272(const UHDM::BaseClass* pa);
 
-// ---- pass 275 (tests/LAWS.md; tools/probe/r11u275repro (the equal cases now under tests/probe/r11u275repro)) ----
+// ---- pass 275 (tests/LAWS.md; tools/probe/r11u275repro) ----
 // v11u275 (the adversarial verification of r11u275,
 // tools/probe/v11u275repro/README.md): each refinement reads its own
 // R11V275_<FIX>_OFF switch; R11V275_OFF drops all of them, giving the
@@ -372,7 +372,7 @@ bool lotsValueCopy272(const UHDM::BaseClass* pa);
 // § defNetTpPatKeepsActual275v (UhdmExporter.cpp): after the ElaboratorListener.
 void defNetTpPatKeepActual275v();
 
-// ---- pass 278 (tests/LAWS.md; tools/probe/r11u278repro (the equal cases now under tests/probe/r11u278repro)) ----
+// ---- pass 278 (tests/LAWS.md; tools/probe/r11u278repro) ----
 }  // namespace slang_uhdm
 
 // v11u278 (adversarial verification of r11u278): the verifier's refinements
@@ -380,7 +380,7 @@ void defNetTpPatKeepActual275v();
 // (giving the r11u278 law's bytes) and R11U278_OFF still drops everything.
 namespace slang_uhdm {
 
-// ---- pass 280 (tests/LAWS.md; tools/probe/r11u280repro (the equal cases now under tests/probe/r11u280repro)) ----
+// ---- pass 280 (tests/LAWS.md; tools/probe/r11u280repro) ----
 }  // namespace slang_uhdm
 
 // § hpMemVarSelNamesFinal280: ExprEmit's design-final drain, called at the
@@ -388,7 +388,7 @@ namespace slang_uhdm {
 namespace slang_uhdm {
 void hpMemVarSelNamesDrain280();
 
-// ---- pass 282 (tests/LAWS.md; tools/probe/r11u282repro (the equal cases now under tests/probe/r11u282repro)) ----
+// ---- pass 282 (tests/LAWS.md; tools/probe/r11u282repro) ----
 // v11u282 (the adversarial verification of r11u282,
 // tools/probe/v11u282repro/README.md): a refinement reads its own
 // R11V282_<X>_OFF switch; R11V282_OFF drops every refinement (the law's
@@ -401,7 +401,7 @@ namespace UHDM { class Serializer; }
 namespace slang_uhdm {
 void foldTsNameFinalDrain282(UHDM::Serializer& s);
 
-// ---- pass 284 (tests/LAWS.md; tools/probe/r11u284repro (the equal cases now under tests/probe/r11u284repro)) ----
+// ---- pass 284 (tests/LAWS.md; tools/probe/r11u284repro) ----
 // The verifier's refinements (v11u284, tools/probe/v11u284repro/README.md):
 // R11V284_<X>_OFF each, R11V284_OFF all; R11U284_OFF still drops everything.
 }  // namespace slang_uhdm
@@ -487,7 +487,7 @@ inline std::string chainFullName284(const UHDM::BaseClass* self) {
     return f;
 }
 
-// ---- pass 286 (tests/LAWS.md; tools/probe/r11u286repro (the equal cases now under tests/probe/r11u286repro)) ----
+// ---- pass 286 (tests/LAWS.md; tools/probe/r11u286repro) ----
 // The verifier's refinements (v11u286): R11V286_<X>_OFF each; R11U286_OFF
 // drops them with the laws.
 // § elabCastKeyBindsDefNet286: the definition listing's minted cast-pattern
@@ -503,7 +503,7 @@ inline std::set<UHDM::logic_net*>& castKeyAdopt286() {
     return v;
 }
 
-// ---- pass 287 (tests/LAWS.md; tools/probe/r11u287repro (the equal cases now under tests/probe/r11u287repro)) ----
+// ---- pass 287 (tests/LAWS.md; tools/probe/r11u287repro) ----
 // § pvRecvBodyParamTs287: (the constant's ref_typespec, the receiver's
 // ParameterSymbol), bound design-final to that parameter's elaborated typespec.
 inline std::vector<std::pair<void*, const void*>>& pvRecvTs287() {
@@ -517,7 +517,7 @@ inline std::vector<const void*>& pvFlatTs287() {
     return v;
 }
 
-// ---- pass 288 (tests/LAWS.md; tools/probe/r11u288repro (the equal cases now under tests/probe/r11u288repro)) ----
+// ---- pass 288 (tests/LAWS.md; tools/probe/r11u288repro) ----
 }  // namespace slang_uhdm
 // § randWithCallParentByConsumer288: every with-form scope randomize
 // method_func_call § scopeRandomizeIsBareCall116 mints, with its constraint
@@ -566,7 +566,7 @@ inline bool& rzElabView288v() {
     return v;
 }
 
-// ---- pass 290 (tests/LAWS.md; tools/probe/r11u290repro (the equal cases now under tests/probe/r11u290repro)) ----
+// ---- pass 290 (tests/LAWS.md; tools/probe/r11u290repro) ----
 // v11u290 (adversarial verification of r11u290): the verifier's
 // refinements read r11v290On; R11V290_OFF drops them all (the law's bytes),
 // R11U290_OFF still drops every law and refinement (pristine's bytes).
@@ -603,7 +603,7 @@ inline int& misevalSpliceDepth290() {
 void noteMisevalSplice290(UHDM::any* e, int force = 0);
 void noteMisevalCopyNames290(UHDM::any* c, const UHDM::any* src);
 
-// ---- pass 300 (tests/LAWS.md; tools/probe/r11u300repro (the equal cases now under tests/probe/r11u300repro)) ----
+// ---- pass 300 (tests/LAWS.md; tools/probe/r11u300repro) ----
 // v11u300 (adversarial verification of r11u300): the verifier's refinement
 //   § retShareActualFoldAbstain300v R11V300_ACTFOLD_OFF (ExprEmit, inside the
 //                                      law's site); R11V300_OFF drops it and
@@ -624,7 +624,7 @@ inline std::map<const void*, UHDM::any*>& retCondHome300() {
     return m;
 }
 
-// ---- pass 302 (tests/LAWS.md; tools/probe/r11u302repro (the equal cases now under tests/probe/r11u302repro)) ----
+// ---- pass 302 (tests/LAWS.md; tools/probe/r11u302repro) ----
 // § pkgPatLeftoverSrcPkgListing302's record: a package parameter's elaborated
 // Rhs object in the package's OWN (TopPackages) listing, keyed by its symbol.
 inline std::map<const void*, UHDM::any*>& pkgOwnElabRhs302() {
