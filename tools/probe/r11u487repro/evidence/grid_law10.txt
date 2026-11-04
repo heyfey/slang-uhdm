@@ -1,0 +1,102 @@
+BR/br01 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=b21d43aa
+BR/br02 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=0d67af82
+BR/br03 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=2d7cdfca
+BR/br04 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=236867f3
+BR/br05 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=ffc6c65d
+BR/br06 rc=0 cmp=0 STRICT_EQUAL 81 objects md5=afed91b1
+BR/br07 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=02643473
+BR/br08 rc=0 cmp=0 STRICT_EQUAL 62 objects md5=2605a7b5
+BR/br09 rc=0 cmp=0 STRICT_EQUAL 68 objects md5=d319478a
+BR/br10 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=6aa6e9d1
+BR/br11 rc=0 cmp=0 STRICT_EQUAL 61 objects md5=9fe614d2
+BR/br12 rc=0 cmp=0 STRICT_EQUAL 61 objects md5=fa447459
+BR/br13 rc=0 cmp=64 NOT_EQUAL stage1 md5=91e86f1c
+BR/br14 rc=0 cmp=64 NOT_EQUAL stage1 md5=58a6f6d8
+BR/br15 rc=0 cmp=17 NOT_EQUAL stage1 md5=a1b81403
+BR/br16 rc=0 cmp=48 NOT_EQUAL stage1 md5=15dc28cd
+CT/ct01 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=4a4e1a9e
+CT/ct02 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=9a74aa45
+CT/ct03 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=752837ad
+CT/ct04 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=b13ab341
+CT/ct05 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=c70e8349
+CT/ct06 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=2be603ef
+CT/ct07 rc=0 cmp=0 STRICT_EQUAL 74 objects md5=38594c42
+CT/ct08 rc=0 cmp=0 STRICT_EQUAL 74 objects md5=632e94d3
+CT/ct09 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=5b7f5a52
+CT/ct10 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=46561927
+CT/ct11 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=d7b1fec6
+CT/ct12 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=c9d6c798
+CT/ct13 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=60279089
+CT/ct14 rc=0 cmp=0 STRICT_EQUAL 57 objects md5=a06281da
+CT/ct15 rc=0 cmp=0 STRICT_EQUAL 56 objects md5=56e93492
+CT/ct16 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=9e7b7cb8
+CT/ct17 rc=0 cmp=0 STRICT_EQUAL 98 objects md5=567b8523
+CT/ct18 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=9799525a
+CT/ct19 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=21c371e5
+CT/ct20 rc=0 cmp=0 STRICT_EQUAL 53 objects md5=9bb02928
+CT/ct21 rc=0 cmp=0 STRICT_EQUAL 79 objects md5=f535b25d
+CT/ct22 rc=0 cmp=0 STRICT_EQUAL 79 objects md5=181a42b5
+CT/ct23 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=3b0ef06b
+CT/ct24 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=8d08e8bc
+CT/ct25 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=5edb1006
+CT/ct26 rc=0 cmp=0 STRICT_EQUAL 83 objects md5=0c098a24
+CT/ct27 rc=0 cmp=36 NOT_EQUAL stage1 md5=8b8a4cb2
+CT/ct28 rc=0 cmp=31 NOT_EQUAL stage1 md5=d272e091
+CV/cv01 rc=0 cmp=0 STRICT_EQUAL 77 objects md5=903b6115
+CV/cv02 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=db668421
+CV/cv03 rc=0 cmp=0 STRICT_EQUAL 141 objects md5=15104b2a
+CW/cw01 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=d1cc347a
+CW/cw02 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=2c39d5ae
+CW/cw03 rc=0 cmp=0 STRICT_EQUAL 52 objects md5=fd38aae7
+CW/cw04 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=4333cd86
+CW/cw05 rc=0 cmp=0 STRICT_EQUAL 131 objects md5=3a6bd0f1
+CW/cw06 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=2559ab10
+CW/cw07 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=426e0f31
+CW/cw08 rc=0 cmp=0 STRICT_EQUAL 62 objects md5=661fa0d8
+CW/cw09 rc=0 cmp=0 STRICT_EQUAL 65 objects md5=10960805
+CW/cw10 rc=0 cmp=30 NOT_EQUAL stage1 md5=2a239dcc
+DD/dd01 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=22dbf3a6
+DD/dd02 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=001cd189
+DD/dd03 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=cb0ae5d1
+DD/dd04 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=0235ed42
+DD/dd05 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=170ac718
+DD/dd06 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=99a2cebd
+DD/dd07 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=03935fa7
+DD/dd08 rc=0 cmp=0 STRICT_EQUAL 74 objects md5=44ad2c38
+DD/dd09 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=6ceedba8
+DD/dd10 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=0d5f2db4
+DD/dd11 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=22446ba3
+DD/dd12 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=9c05e01a
+DD/dd13 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=552d61d1
+DD/dd14 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=32ed874e
+DD/dd15 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=f8d52c7a
+DD/dd16 rc=0 cmp=0 STRICT_EQUAL 70 objects md5=56cd6ea4
+DD/dd17 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=c1da0d32
+DD/dd18 rc=0 cmp=0 STRICT_EQUAL 71 objects md5=9cc4dd80
+DD/dd19 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=0bca05ca
+DD/dd20 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=95b5ec34
+DD/dd21 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=616e7ef6
+DD/dd22 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=f21d7b1a
+DD/dd23 rc=0 cmp=0 STRICT_EQUAL 78 objects md5=456a9a5a
+DD/dd24 rc=0 cmp=0 STRICT_EQUAL 98 objects md5=cb0f9fe3
+DD/dd25 rc=0 cmp=0 STRICT_EQUAL 114 objects md5=9d653ba7
+DD/dd26 rc=0 cmp=0 STRICT_EQUAL 74 objects md5=5cf67b60
+DD/dd27 rc=0 cmp=64 NOT_EQUAL stage1 md5=a78f0f7e
+DD/dd28 rc=0 cmp=50 NOT_EQUAL stage1 md5=c0f7685e
+DD/dd29 rc=0 cmp=0 STRICT_EQUAL 79 objects md5=ae906bfa
+DD/dd30 rc=0 cmp=0 STRICT_EQUAL 69 objects md5=5492713f
+DD/dd31 rc=0 cmp=36 NOT_EQUAL stage1 md5=723ca053
+DD/dd32 rc=0 cmp=36 NOT_EQUAL stage1 md5=33649746
+DD/dd33 rc=0 cmp=36 NOT_EQUAL stage1 md5=6fcaf9f0
+DD/dd34 rc=0 cmp=36 NOT_EQUAL stage1 md5=4643ea78
+DM/dm01 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=b3bd35ef
+DM/dm02 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=ce337cd7
+DM/dm03 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=2a89cc93
+DM/dm04 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=ce4bf5c4
+DM/dm05 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=2d712607
+DM/dm06 rc=0 cmp=30 NOT_EQUAL stage1 md5=854b8fc8
+DM/dm07 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=40a01fbd
+DM/dm08 rc=0 cmp=0 STRICT_EQUAL 65 objects md5=ca766cfa
+DM/dm09 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=701de1cf
+DM/dm10 rc=0 cmp=0 STRICT_EQUAL 80 objects md5=c91fa2ea
+DM/dm11 rc=0 cmp=64 NOT_EQUAL stage1 md5=8f58cf47

@@ -1,0 +1,5 @@
+r11u423repro/evidence/residue_cases/g1a ours=4 upstream=0
+r11u423repro/evidence/residue_cases/g1b ours=4 upstream=0
+v11u415repro/cases/VT/vt03 ours=0 upstream=0
+SURELOG_ONLY 75 slang error: details 75 exporter unsupported-shape details 0
+bp_unicore alone on law10 with the size guard on: rc 3 in 15.3 s at 814 MB maximum resident (basic_string::substr, the guarded crash text)

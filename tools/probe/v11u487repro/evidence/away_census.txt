@@ -1,0 +1,37 @@
+dirs 14493 exit-code movers 0 pristine->law byte movers 34 law->verified byte movers 0
+selection: every fence-filtered tools/probe case dir (dut.sv) whose source holds '#(' or 'defparam' (11545 dirs) united with the implementer's 10621-dir list: 14493 dirs; each run on pristine, law and verified (exit code + md5, outputs deleted first)
+--- the pristine->law movers judged against golden (rc, uhdm-cmp lines, strict verdict; dump distance)
+G/g09_int_array_concat rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+cx/x06_range_query_param_fold rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_NOTEQUAL|pristine=48 law=38
+K/k35 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=25 law=15
+NU/nu03 rc=0 cmp=64 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=18 law=16
+NU/nu05 rc=0 cmp=64 NOT_EQUAL|rc=0 cmp=0 STRICT_NOTEQUAL|pristine=102 law=100
+r11u413repro/evidence/residue_cases/UD/ud05 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=36 NOT_EQUAL|pristine=22 law=12
+r11u415repro/evidence/residue_cases/GL/gl03 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=52 law=42
+BF/bf16 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+PB/pb03 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+PB/pb04 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+PB/pb05 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+r11u423repro/evidence/residue_cases/ud04 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=36 NOT_EQUAL|pristine=20 law=10
+DF/df05 rc=0 cmp=64 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=2 law=0
+r11v131repro/par/b01_read_ca rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+r11v131repro/par/b04_localparam_body rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+VK/vk04 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+VK/vk13 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=25 law=15
+PU/vs01_module_forms rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+VK/vk01 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+VK/vk02 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+VK/vk03 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=10 law=0
+VB/vb09 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=17 NOT_EQUAL|pristine=12 law=2
+VB/vb27 rc=0 cmp=72 NOT_EQUAL|rc=0 cmp=72 NOT_EQUAL|pristine=40 law=30
+VB/vb30 rc=0 cmp=86 NOT_EQUAL|rc=0 cmp=86 NOT_EQUAL|pristine=50 law=40
+VP/vp01 rc=0 cmp=17 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=12 law=2
+VP/vp02 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=36 NOT_EQUAL|pristine=20 law=10
+VP/vp03 rc=0 cmp=15 NOT_EQUAL|rc=0 cmp=15 NOT_EQUAL|pristine=39 law=29
+VP/vp04 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=36 NOT_EQUAL|pristine=28 law=18
+VP/vp06 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=36 NOT_EQUAL|pristine=20 law=10
+VP/vp09 rc=0 cmp=15 NOT_EQUAL|rc=0 cmp=15 NOT_EQUAL|pristine=62 law=52
+VP/vp10 rc=0 cmp=52 NOT_EQUAL|rc=0 cmp=52 NOT_EQUAL|pristine=36 law=16
+VO/vo12 rc=0 cmp=50 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=14 law=0
+VF/vf04 rc=0 cmp=64 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=6 law=0
+VF/vf14 rc=0 cmp=36 NOT_EQUAL|rc=0 cmp=0 STRICT_EQUAL|pristine=18 law=0

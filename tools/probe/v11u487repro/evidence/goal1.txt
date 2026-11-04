@@ -1,0 +1,4 @@
+r11u423repro/evidence/residue_cases/g1a (C::mk().arr[1]) law=4 verified=4 upstream=0 surelog=3
+r11u423repro/evidence/residue_cases/g1b (u.mk(3).a[2])   law=4 verified=4 upstream=0 surelog=3
+v11u415repro/cases/VT/vt03 (this.mk().inner.s)         law=0 verified=0 upstream=0 surelog=3
+results/golden_svtests.csv SURELOG_ONLY rows 75: 75 details hold a slang 'error:' diagnostic, 0 the exporter's own unsupported-shape message

@@ -1,0 +1,5 @@
+# prediction written before the sweep, from the traced census of law9 (probe, surelog, uhdm2rtlil through tests/sweep.sh --corpus 'probe surelog uhdm2rtlil', R11U487_TRACE on) and of law10 (the 302 sv-tests candidate rows through the runner, R11U487_TRACE and R11U483_TRACE on)
+law9 census: probe EQUAL 4025 + STRICT_NOTEQUAL 62, 0/0/0; surelog 480 + 474, 0/0/0; uhdm2rtlil func_upto d/t CMP_EQUAL -> CMP_NOTEQUAL (the only trace: bareOvRefUint64_487 on typed localparam [HI:LO] A_CONST = A_VAL, 8576 firings)
+fix (law10): the untyped test requires no packed dimension and no signing; func_upto law10 byte-identical to pristine with no trace file
+law10 sv-tests census: 302 candidate rows (text census: defparam, or assign with a parameter, in the row's own files, plus the target row), no R11U487 firing; positive control R11U483 trace fired on uvm_param_vif_config_db; the target row reads JUDGE_EQUAL differ:fullname(3) as at the base
+PREDICTED MOVERS IN THE SWEEP: NONE in any stage (probe, surelog, uhdm2rtlil, downstream, svtests); the sweep's trace directory is predicted empty

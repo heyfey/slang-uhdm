@@ -1,0 +1,14 @@
+BR/br13 pris=2 law9=2 
+BR/br14 pris=14 law9=14 
+BR/br15 pris=37 law9=37 
+CT/ct27 pris=2 law9=2 
+CT/ct28 pris=12 law9=12 
+CW/cw10 pris=35 law9=35 
+DD/dd27 pris=22 law9=4 
+DD/dd28 pris=52 law9=34 
+DD/dd31 pris=16 law9=16 
+DD/dd32 pris=16 law9=16 
+DD/dd33 pris=16 law9=16 
+DD/dd34 pris=16 law9=16 
+DM/dm06 pris=35 law9=35 
+DM/dm11 pris=10 law9=4 

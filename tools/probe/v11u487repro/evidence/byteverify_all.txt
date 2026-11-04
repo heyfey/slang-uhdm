@@ -1,0 +1,12 @@
+== v11u487sl vs intr11u485 surelog: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 SELFCHECK (every file vs one fixed file): 961 / 962 flagged 
+== v11u487sl vs intr11u485 uhdm2rtlil: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+== v11u487sl vs intr11u485 downstream: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 
+== v11u487sv vs v11u487sl surelog: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 SELFCHECK (every file vs one fixed file): 961 / 962 flagged 
+== v11u487sv vs v11u487sl uhdm2rtlil: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+== v11u487sv vs v11u487sl downstream: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 
+== v11u487sv vs intr11u485 surelog: PATH_SETS_IDENTICAL (962 paths) MOVERS: 0 / 962 SELFCHECK (every file vs one fixed file): 961 / 962 flagged 
+== v11u487sv vs intr11u485 uhdm2rtlil: PATH_SETS_IDENTICAL (1608 paths) MOVERS: 0 / 1608 SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged 
+== v11u487sv vs intr11u485 downstream: PATH_SETS_IDENTICAL (805 paths) MOVERS: 0 / 805 SELFCHECK (every file vs one fixed file): 804 / 805 flagged 
+== v11u487sv vs v11u487sl probe: databases: patched=0 pristine=0 
+== v11u487sl vs intr11u485 probe: databases: patched=0 pristine=0 
+probe: 4087 databases, path-normalised dump md5 law vs control: 0 movers; shifted-pair negative control flags 4085 of 4086; verified vs law by workdir-normalised bytes: 0 movers
