@@ -1716,7 +1716,7 @@ UHDM::ref_var* UhdmExporter::makeNameBasedArrayTdRefVar166(
 // golden and nothing in ours, the home's reading nothing in both.  The law
 // parents the clone's array_typespec at the local's ref_typespec, inside an
 // importer copy only (`pkgImportCloneEmit`).  Grid
-// tools/probe/r11u241repro/cases/AA.
+// tools/probe/r11u241repro/cases/AA (the equal cases now under tests/probe/r11u241repro/cases/AA).
 // The parent is set DESIGN-FINAL (UhdmExporter exportDesign, after every
 // drain): emission-time and drain-time walks read typespec parent chains, and
 // setting it at the site moved an unrelated MiniAmiq typespec (a judge-visible
@@ -1733,7 +1733,7 @@ UHDM::ref_var* UhdmExporter::makeNameBasedArrayTdRefVar166(
 // other ANSI formal (§ tfSigningSpanFollowsCompilePath200); an inherited
 // direction does not count (`f3(input int unsigned a, int unsigned b)`: `b`
 // takes the keyword).  Measured on functions and tasks, bare and
-// macro-written, in packages and $unit (tools/probe/r11u247repro/cases/P).
+// macro-written, in packages and $unit (tests/probe/r11u247repro/cases/P).
 // A non-pure method's formals and an extern prototype's are untouched.
 static const slang::syntax::IntegerTypeSyntax*
 pureProtoNoDirKw247(const slang::ast::FormalArgumentSymbol& arg) {
@@ -1772,7 +1772,7 @@ std::vector<UHDM::task_func*> g_cloneTf241; // § cloneAggTsAtHomeListing241
 // by § cloneArrElemAggOwnCopy482 in UhdmExporter, never iterated).
 std::set<const UHDM::typespec*> g_cloneFixArr482;
 // § ownNamedAliasLocalIsRefVar484 (r11u484, R11U484_ALIASLOCAL_OFF; cases
-// tools/probe/r11u484repro/cases/RV) -- the LOCAL-VARIABLE twin of
+// tools/probe/r11u484repro/cases/RV (the equal cases now under tests/probe/r11u484repro/cases/RV)) -- the LOCAL-VARIABLE twin of
 // § ownNamedAliasRetIsRefVar177 (src/EmitHelpers.h, the return variable).
 // Surelog's compileVariable (CompileType.cpp, the slStringConst branch) asks
 // component->getDataType(name)->getActual()->getTypespec() and only then
@@ -1932,7 +1932,7 @@ UHDM::array_var* UhdmExporter::makeQueueDynArrayVar(const Symbol& vs,
     // unsupported_typespec m_inst_typename_alias_t 2036:3 @uvm_pkg where ours
     // bound the class's struct_typespec (598:11); the scalar local of
     // set_inst_alias (1388) is § 198's and already equal.  Grid
-    // tools/probe/r11u446repro/cases/QU.  Switch R11U446_CLSTDQLOCAL_OFF.
+    // tests/probe/r11u446repro/cases/QU.  Switch R11U446_CLSTDQLOCAL_OFF.
     else if (importCopyTsInst && pkgClassTfClone && qelem0 &&
              qelem0->kind == SymbolKind::TypeAlias &&
              lawOn(446, "R11U446_CLSTDQLOCAL_OFF")) {
@@ -2584,7 +2584,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             oobDefs.push_back(impl0);
         }
         // § oobMacroDefAtExpansion402 (R11U402_OOBMACRO_OFF; cases
-        // tools/probe/r11u402repro/cases/OM) — an out-of-body definition
+        // tests/probe/r11u402repro/cases/OM) — an out-of-body definition
         // written by a MACRO (UVM 1800.2-2017's uvm_packer
         // `M__UVM_GET_PACKED(byte)` ...) is ordered where the macro is
         // EXPANDED: Surelog compiles the preprocessed text, so the expansion
@@ -2617,7 +2617,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (sm->isMacroLoc(d402->location))
                     lawTrace(402, "oobMacroDefAtExpansion402", std::string(d402->name));
         // § unitOobDefsNotInClass402 (R11U402_UNITOOB_OFF; cases
-        // tools/probe/r11u402repro/cases/UO) — a class declared in $unit
+        // tests/probe/r11u402repro/cases/UO) — a class declared in $unit
         // lists NONE of its out-of-body definitions: Surelog compiles them in
         // the compilation unit, where a FUNCTION lands on the design's own
         // vpiTaskFunc as `cls::f` (not modelled here, a residue) and a TASK
@@ -2690,7 +2690,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         return {};
     };
     // § oobUnitClsTdUnsupported410 (R11U410_OOBUNITCLSTD_OFF; cases
-    // tools/probe/r11u410repro/cases/OT; sv-tests
+    // tools/probe/r11u410repro/cases/OT (the equal cases now under tests/probe/r11u410repro/cases/OT); sv-tests
     // generic/member/class_member_test_18.sv, _19) — the same placeholder
     // for a TYPEDEF the class body declares, when the class's home is
     // `$unit` (its out-of-body FUNCTION listed on the design by
@@ -3359,7 +3359,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     *arg, io, ioFull)) {
                 io->Ranges(ranges);
                 // § clsMethodDimRefColons410 (R11U410_CLSDIMREF_OFF; cases
-                // tools/probe/r11u410repro/cases/PD; sv-tests
+                // tests/probe/r11u410repro/cases/PD; sv-tests
                 // generic/member/class_member_test_19.sv) — inside a CLASS
                 // method (prototype, in-body or package class) a param-sized
                 // formal dim's reference is named `<formal>::N`, the class
@@ -3679,7 +3679,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // virtual FUNCTION ends at its last qualifier (`pure virtual`,
             // 3:5-3:17 for `pure virtual function int f();`), where ours
             // spanned the whole ClassMethodPrototype with its `;`.  Grid
-            // tools/probe/r11u137repro/grid/pv.  Switch:
+            // tests/probe/r11u137repro/grid/pv.  Switch:
             // R11U137_PUREVIRTSPAN_OFF.
             if (auto psyn = mp.getSyntax(); psyn && lawOn(137, "R11U137_PUREVIRTSPAN_OFF")) {
                 const syntax::ClassMethodPrototypeSyntax* cmp137 = nullptr;
@@ -3803,7 +3803,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // reads the ref_var at the token, grid PV v06).  Only
                         // a named return type that is a typedef; a class named
                         // directly keeps the rule it has.  Grid
-                        // tools/probe/r11u231repro/cases/PV.
+                        // tests/probe/r11u231repro/cases/PV.
                         // Switch R11U231_PVRETTOK_OFF.
                         if (prsyn && prsyn->kind == syntax::SyntaxKind::NamedType &&
                             mp.getReturnType().kind != SymbolKind::ClassType &&
@@ -3821,7 +3821,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // return type with packed dimensions spans its return
                         // variable over the whole written type (golden vr08
                         // logic_var 3:25-3:66 where ours read 3:25-3:38).
-                        // Grid tools/probe/r11u301repro/cases/PA.  Switch
+                        // Grid tools/probe/r11u301repro/cases/PA (the equal cases now under tests/probe/r11u301repro/cases/PA).  Switch
                         // R11U301_PUREAGG_OFF.
                         if (prsyn &&
                             (prsyn->kind == syntax::SyntaxKind::StructType ||
@@ -4405,7 +4405,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // `automatic` is marked.  A method with a qualifier in front
         // (`static`, `virtual`, `local`, `protected`) is one Surelog's class
         // compile misnames after the class and leaves unmarked (grid TA ta03,
-        // ta05), so it abstains.  Grid tools/probe/r11u462repro/cases/TA.
+        // ta05), so it abstains.  Grid tools/probe/r11u462repro/cases/TA (the equal cases now under tests/probe/r11u462repro/cases/TA).
         // Switch R11U462_CLSMETHODAUTO_OFF.
         else if (classScope && !dpiImport && !dpiExport && !protoOf &&
                  lawOn(462, "R11U462_CLSMETHODAUTO_OFF")) {
@@ -4465,7 +4465,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             bool staticSpan = false;
             bool virtualQual = false;
             // § classMethodQualSpan144 (r11u144) — measured on golden, grid
-            // tools/probe/r11u144repro/grid/vf: a class FUNCTION written with
+            // tools/probe/r11u144repro/grid/vf (the equal cases now under tests/probe/r11u144repro/grid/vf): a class FUNCTION written with
             // class-item qualifiers spans its FIRST qualifier token, `virtual`
             // included (`virtual function void f();` 2:3-2:10, `virtual
             // protected function` on `virtual`), while a class TASK spans the
@@ -4560,7 +4560,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // otherwise the second of those children: `input string s`
                 // the data type, `input a` zero-width at the name, `input var
                 // int v` the var keyword, `(* k *) input int a` the direction
-                // (grid tools/probe/r11u277repro/cases/C; MiniAmiq #241741 /
+                // (grid tools/probe/r11u277repro/cases/C (the equal cases now under tests/probe/r11u277repro/cases/C); MiniAmiq #241741 /
                 // #243118).  Switch R11U277_CTORRETSPAN_OFF.
                 if (lawOn(277, "R11U277_CTORRETSPAN_OFF")) {
                     const syntax::SyntaxNode* fp277 = nullptr;
@@ -5289,7 +5289,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             *retAlias, std::string(rdt.name), /*cloneForm=*/true);
                     cl9->VpiName(rdt.name);
                     // § dynTdRetTwinNoAlias251 (r11u251, R11U251_RETTWINALIAS_OFF;
-                    // cases tools/probe/r11u251repro/cases/RT, SimpleUVM
+                    // cases tools/probe/r11u251repro/cases/RT (the equal cases now under tests/probe/r11u251repro/cases/RT), SimpleUVM
                     // #202914 uvm_misc.svh 642 `typedef TYPE types_t[$]`
                     // returned by uvm_utils::find_all) — the return twin of a
                     // dynamic-container class typedef whose element is a
@@ -5556,7 +5556,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // arm resolves `P::S` to the package DataType and hands back its
             // typespec, so the bare aliased copy LAW S makes for a return
             // (§ lawS's r6 cell: an UNQUALIFIED return) is not made here
-            // (golden grid tools/probe/r11u196repro/cases/FR f01: `P::S`
+            // (golden grid tools/probe/r11u196repro/cases/FR (the equal cases now under tests/probe/r11u196repro/cases/FR) f01: `P::S`
             // 4:13-4:24 with no vpiTypedefAlias, where ours wrote `S` ->
             // `P::S`; an imported `B` return keeps `B` -> `P::B`, f02).  The
             // marker set is LAW S's skip, as § dpiListingIoRt33's is.
@@ -5627,7 +5627,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             else if (sub.returnValVar)
                 deferForeignTopTs(*sub.returnValVar, rt, ts);
             // § tpProtoRetDefaultTs432 (r11u432, R11U432_TPRETTS_OFF; cases
-            // tools/probe/r11u432repro/cases/TP; sv-tests hdlconvertor
+            // tests/probe/r11u432repro/cases/TP; sv-tests hdlconvertor
             // p193_2's line(3)) — the CLASS-BODY PROTOTYPE of an `extern`
             // method returning the class's TYPE PARAMETER (§ tpRetOobRefVar424's
             // ref_var) references the type parameter's DEFAULT typespec, the
@@ -5659,7 +5659,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // § unionRetVarAtTypeToken237 (r11u237, R11U237_UNIONRET_OFF) —
             // a union typedef's return variable likewise: golden locates the
             // union_var at the written return type exactly as the struct_var
-            // (grid tools/probe/r11u237repro/cases/CU u04 against its struct
+            // (grid tools/probe/r11u237repro/cases/CU (the equal cases now under tests/probe/r11u237repro/cases/CU) u04 against its struct
             // twin u08, u12 package, u13 module).
             const bool unionRet237 =
                 ts->UhdmType() == UHDM::uhdmunion_typespec &&
@@ -5667,7 +5667,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             if (unionRet237)
                 lawTrace(237, "unionRetVarAtTypeToken237", std::string(sub.name));
             // § unitTdRetVarAtTypeToken245 (r11u245, R11U245_UNITRETLOC_OFF;
-            // case tools/probe/r11u245repro US/u07) — a function returning a
+            // case tools/probe/r11u245repro (the equal cases now under tests/probe/r11u245repro) US/u07) — a function returning a
             // $UNIT scalar or predefined-kind typedef: golden locates the
             // return variable at the written return type (`function automatic
             // ustr_t f` string_var 5:22-5:28) exactly as for a package
@@ -5714,7 +5714,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     setLoc(rv, oobTpRange424);
                 // § classTdRetVarAtTypeToken412 (r11u412,
                 // R11U412_CLSTDRETLOC_OFF; cases
-                // tools/probe/r11u412repro/cases/OR) — a function whose
+                // tools/probe/r11u412repro/cases/OR (the equal cases now under tests/probe/r11u412repro/cases/OR)) — a function whose
                 // return type names a typedef the CLASS declares, of a
                 // scalar or predefined kind (`typedef int T; function T
                 // h();`, its `extern` prototype, its out-of-body
@@ -5757,7 +5757,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                      std::string(sub.name));
                         }
                 // § tdAtomRetAliasTwin412 (r11u412, R11U412_RETALIASTWIN_OFF;
-                // cases tools/probe/r11u412repro/cases/OR) — a function whose
+                // cases tools/probe/r11u412repro/cases/OR (the equal cases now under tests/probe/r11u412repro/cases/OR)) — a function whose
                 // return type names a CLASS- or MODULE-scope typedef of an
                 // integer atom, string, real or time kind binds, once per
                 // function (its first listing: the class body, or the module
@@ -5848,7 +5848,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // this_type get();` ref_var in uvm_callback.svh where the
                 // law kept the specialization typedef's file (setLoc keeps
                 // an existing VpiFile): map 12's AWAY records N2467 and
-                // N2468.  Grid tools/probe/v11u202repro/cases/TR.
+                // N2468.  Grid tools/probe/v11u202repro/cases/TR (the equal cases now under tests/probe/v11u202repro/cases/TR).
                 const bool retVar202v =
                     classTdRet200 && (lawFixOn(202, "R11V202_TDRETVAR_OFF") && !landingOff(202));
                 if (classTdRet200 &&
@@ -5887,7 +5887,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 }
             }
             // § oobScopedClsTdRetUnsup412 (r11u412, R11U412_OOBSCOPEDRET_OFF;
-            // cases tools/probe/r11u412repro/cases/OR) — the out-of-body
+            // cases tools/probe/r11u412repro/cases/OR (the equal cases now under tests/probe/r11u412repro/cases/OR)) — the out-of-body
             // definition of a method of a `$unit` class whose return type is
             // written `C::T` (T a typedef of that class, any kind): golden
             // binds an unsupported_typespec named as written and spanned at
@@ -6108,7 +6108,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // `populateCoreMembers(declarationId, declarationId, result)` on the
             // Data_type node (the § tfSigningSpanFollowsCompilePath200 decode);
             // ours spanned `struct packed`.  Golden grid
-            // tools/probe/r11u299repro/cases/RF: r01 module function, r03 a
+            // tools/probe/r11u299repro/cases/RF (the equal cases now under tests/probe/r11u299repro/cases/RF): r01 module function, r03 a
             // union, r04 a class method, r05 a $unit function, r06 a multi-line
             // type (golden logic_var 3:22-3:63 where ours read 3:22-3:35).  A
             // return type without dimensions is not this shape (r02, stage 1
@@ -7019,7 +7019,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // file: golden `uvm_bitstream_t` uvm_misc.svh 483:42-483:57,
                 // where ours kept the typedef's uvm_object_globals.svh (setLoc
                 // fills only an EMPTY file, and makeTypespec had filed the
-                // clone at the typedef).  Grid tools/probe/r11u196repro/cases/SF.
+                // clone at the typedef).  Grid tests/probe/r11u196repro/cases/SF.
                 if (argTsyn && lawOn(196, "R11U196_FORMALCLONEFILE_OFF"))
                     if (auto st196 = argTsyn->sourceRange().start();
                         st196 != SourceLocation::NoLocation)
@@ -7231,7 +7231,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             auto* cp478 = aggImportCloneCopy32(src478);
                             // § aliasFormalCopyPerClone478 (r11u478,
                             // R11U478_ALIASCOPY_OFF; cases
-                            // tools/probe/r11u478repro/cases/AF; the face
+                            // tools/probe/r11u478repro/cases/AF (the equal cases now under tests/probe/r11u478repro/cases/AF); the face
                             // (d) of uvm_param_vif_config_db) — the bare
                             // alias-of-alias enum copy § cloneAliasFormalOwnChain214
                             // gives a clone's formal is the formal's OWN
@@ -7404,7 +7404,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     slot33c = (UHDM::typespec*)ts;
                 }
             // § clsTdArgAliasTwin414 (r11u414, R11U414_ARGALIASTWIN_OFF; cases
-            // tools/probe/r11u414repro/cases/TA; sv-tests
+            // tools/probe/r11u414repro/cases/TA (the equal cases now under tests/probe/r11u414repro/cases/TA); sv-tests
             // generic/member/class_member_test_9.sv) — a formal typed by a
             // CLASS- or MODULE-scope typedef of an integer atom, scalar bit,
             // string, real or time kind binds a twin compiled at the formal's
@@ -7422,7 +7422,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     asc414 && (asc414->asSymbol().kind == SymbolKind::ClassType ||
                                asc414->asSymbol().kind == SymbolKind::InstanceBody) &&
                     // § tdArgTwinOwnScope414v (v11u414, R11V414_ARGTWINSCOPE_OFF;
-                    // cases tools/probe/v11u414repro/cases/VA) — golden binds
+                    // cases tools/probe/v11u414repro/cases/VA (the equal cases now under tests/probe/v11u414repro/cases/VA)) — golden binds
                     // the typedef's own object, no twin, when the typedef is
                     // not declared in the subroutine's own class or module (an
                     // inherited typedef VA/va13 and va25, an enclosing class's
@@ -7486,7 +7486,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             }
                         }
             // § ifaceClsScopedArgUnsup414 (r11u414, R11U414_IFCLSARG_OFF; cases
-            // tools/probe/r11u414repro/cases/IT; sv-tests
+            // tests/probe/r11u414repro/cases/IT; sv-tests
             // chapter-8/8.26.3--type_access_implements.sv) — a formal written
             // `ic::T` with `ic` an INTERFACE class binds an
             // unsupported_typespec named as written: Surelog never lists an
@@ -7538,7 +7538,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
             // / `union` keyword, when none does (the § tfArgQualOutsideWriter176
             // reading of the same node).  Ours spanned `struct packed` either
             // way (the declared-signal span).  Golden grid
-            // tools/probe/r11u299repro/cases/PF: p01 a function, p02 a task,
+            // tools/probe/r11u299repro/cases/PF (the equal cases now under tests/probe/r11u299repro/cases/PF): p01 a function, p02 a task,
             // p03 a union, p09 a class method, p11 two dimensions, p14 no
             // dimension, p15 a multi-line type, p16 an interface function,
             // p17 a $unit function (the dimensions' typespec the typespec the
@@ -7877,7 +7877,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         setLoc(c452, ts452->sourceRange());
                         // § tfClsArrElemNamedOutsidePkgCls452v (v11u452,
                         // R11V452_TFCLSARRNAME_OFF; cases
-                        // tools/probe/v11u452repro/cases/VC) — in a
+                        // tools/probe/v11u452repro/cases/VC (the equal cases now under tests/probe/v11u452repro/cases/VC)) — in a
                         // subroutine that is neither a class method nor a
                         // package subroutine (a module, interface, program,
                         // generate-block or $unit task or function) the
@@ -7907,7 +7907,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // + Surelog citations: EmitHelpers.h.
                     // § fixArrLocalNamedAggElemTs480 (r11u480,
                     // R11U480_FIXARRAGG_OFF; cases
-                    // tools/probe/r11u480repro/cases/FA; the v11u478 residues
+                    // tools/probe/r11u480repro/cases/FA (the equal cases now under tests/probe/r11u480repro/cases/FA); the v11u478 residues
                     // VM/vm04, vm11 to vm13, vm16, vm17 and r11u478 AM/am08) --
                     // a FIXED-SIZE array local of a subroutine whose element is
                     // written as the NAME of a struct, union or enum typedef
@@ -7935,7 +7935,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             return nullptr;
                         // § cloneFixArrAggElemShared482 (r11u482,
                         // R11U482_CLONEFIXAGG_OFF; cases
-                        // tools/probe/r11u482repro/cases/CI) -- the import
+                        // tools/probe/r11u482repro/cases/CI (the equal cases now under tests/probe/r11u482repro/cases/CI)) -- the import
                         // clone half: in an importer's copy the element takes
                         // the shared typedef object too, and the design-final
                         // drains give the copy its private struct or union
@@ -8018,7 +8018,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     }
                     // § tfLocalClassArrElemClassTs452 (r11u452,
                     // R11U452_TFCLSARRELEM_OFF; cases
-                    // tools/probe/r11u452repro/cases/CA) — a fixed-size array
+                    // tests/probe/r11u452repro/cases/CA) — a fixed-size array
                     // local of a CLASS type in a subroutine body (`task body;
                     // bus_seq_base seq_array[4];`, uvm_generation_seq's
                     // rand_order_seq::body) gets, as the element typespec of
@@ -8191,7 +8191,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                 // 59:9-59:15; probe cluster N0127:
                                 // r10uvm122repro g122_b, g122_d, g122_f,
                                 // r10v122repro q1, q7, r10v96repro a4).  Grid
-                                // tools/probe/r11u275repro/cases/TA.  Switch
+                                // tools/probe/r11u275repro/cases/TA (the equal cases now under tests/probe/r11u275repro/cases/TA).  Switch
                                 // R11U275_TFARRRANGEEND_OFF.
                                 if (dim0->specifier &&
                                     dim0->specifier->kind ==
@@ -8673,7 +8673,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 bool blockLocal = isEnumArr || namedTypeLocal;
                 // § namedTypeLocalTfItemOutsideClass426 (r11u426; sv-tests
                 // generated/hdlconv_std2017/hdlconvertor_std2017_p179.sv,
-                // cases tools/probe/r11u426repro/cases/CV) — the
+                // cases tests/probe/r11u426repro/cases/CV) — the
                 // block-member model above for a NAMED-type local (a
                 // typedef or a class name, `box_t r;`, `A a1;`) holds in a
                 // CLASS method only (case CV/cv11).  In the tf-item form
@@ -8710,7 +8710,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 // not the name; grid LV l01 l02 l04 l07, and l08 a task with
                 // a body `input`); a block-item local (a paren-less task with
                 // no body port, l05) stays at the name.  Grid
-                // tools/probe/r11u209repro/cases/LV.  Switch
+                // tools/probe/r11u209repro/cases/LV (the equal cases now under tests/probe/r11u209repro/cases/LV).  Switch
                 // R11U209_TFINITTYPE_OFF.
                 bool initAtType209 =
                     hasInit && !blockLocal && !blockItems9 &&
@@ -9333,7 +9333,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                          ? nullptr
                          : emitStmt(sub.getBody(), tf, fullName, funcMap);
         // § unitOobBodyRefChainName432 (r11u432, R11U432_UNITOOBREF_OFF;
-        // cases tools/probe/r11u432repro/cases/TN; sv-tests hdlconvertor
+        // cases tests/probe/r11u432repro/cases/TN; sv-tests hdlconvertor
         // p193_2's fullname cells) — in the body of a $unit class's
         // out-of-body FUNCTION listed on the design (§ unitOobFuncOnDesign402,
         // named `C::f` with no package or class on its parent chain) golden
@@ -9348,7 +9348,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // synthesis through the package) is not on this path.  The
         // references (ref_obj) are the objects that carry such a name.
         // § unitOobBodyArgRefUnbound432 (r11u432, R11U432_UNITOOBARG_OFF;
-        // cases tools/probe/r11u432repro/cases/TP tp02, TN tn09) — in the
+        // cases tests/probe/r11u432repro/cases/TP tp02, TN tn09) — in the
         // same body a reference to one of the function's own arguments or
         // locals carries no actual in golden (TP/tp02 `return a;` ref_obj a
         // with no vpiActual, ours bound to the io_decl `a`; TN/tn02 a local
@@ -9618,7 +9618,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         pkgDefViewBody9 = savedPDV9;
         pkgRetFoldHome86 = savedPRF86;
         // § tfDeclOnlyBodyBegin412 (r11u412, R11U412_DECLONLYBODY_OFF; cases
-        // tools/probe/r11u412repro/cases/TB; sv-tests hdlconvertor
+        // tools/probe/r11u412repro/cases/TB (the equal cases now under tests/probe/r11u412repro/cases/TB); sv-tests hdlconvertor
         // std2012/p90, std2017/p126) — a BLOCK-ITEM body holding
         // declarations and NO statement: Surelog compiles each declaration
         // as a body item, so with two or more of them its synthesised
@@ -9631,7 +9631,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
         // non-void function's single multi-declarator item (tb02 f2, where
         // golden hangs the second local under an assignment) abstains.
         // § cloneDeclOnlyTwinOwnObject458 (r11u458, R11U458_CLONETWIN_OFF;
-        // cases tools/probe/r11u458repro/cases/LT) — an IMPORTER's copy of a
+        // cases tests/probe/r11u458repro/cases/LT) — an IMPORTER's copy of a
         // subroutine whose body is declarations only is Surelog's deep clone
         // (UHDM DeepClone) of the home's compiled subroutine, which clones
         // every entry of the variable list on its own: the second listing of
@@ -9683,7 +9683,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     }
                     // § fnDeclOnlyFirstTwice412v (v11u412,
                     // R11V412_FNFIRSTTWICE_OFF; cases
-                    // tools/probe/v11u412repro/cases/VD) — a FUNCTION
+                    // tools/probe/v11u412repro/cases/VD (the equal cases now under tests/probe/v11u412repro/cases/VD)) — a FUNCTION
                     // (void or not) whose one declaration item is its whole
                     // body lists every declarator once and then the FIRST
                     // again, the second and later declarators each parented
@@ -9841,7 +9841,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
     classBodyHomePkg75 = nullptr;
     pkgFreeSubHomePkg117 = nullptr;
     // § unitTaskNotListed408 (R11U408_UNITTASK_OFF; cases
-    // tools/probe/r11u408repro/cases/UT; sv-tests hdlconvertor std2017
+    // tools/probe/r11u408repro/cases/UT (the equal cases now under tests/probe/r11u408repro/cases/UT); sv-tests hdlconvertor std2017
     // p230, p332, p530) — a `$unit` TASK is not on the design's vpiTaskFunc:
     // golden lists every `$unit` function there and no task at all (UT ut01,
     // ut04, ut05 against the function controls ut03, ut06).  The task object

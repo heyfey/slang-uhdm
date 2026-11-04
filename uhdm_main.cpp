@@ -64,7 +64,7 @@ namespace slang_uhdm {
 // the name its own chain computes is left unstored (the definition view reads
 // the same name either way; the clone now computes its own).  A name that
 // differs from its chain is a modelled deviation and stays.  Grid
-// tools/probe/r11u137repro/grid/eb.  Switch: R11U137_ELABCLONE_OFF.
+// tools/probe/r11u137repro/grid/eb (the equal cases now under tests/probe/r11u137repro/grid/eb).  Switch: R11U137_ELABCLONE_OFF.
 namespace {
 struct FullNameAcc137 {
     std::string_view (*get)(UHDM::BaseClass*);
@@ -232,7 +232,7 @@ void elabCloneFullNameUnstored137(UHDM::design* d, UHDM::Serializer& s) {
         // class_defn-parented objects), and golden's elaborated clone under
         // the instance keeps the stored `p::seqb::set_arbitration` where the
         // unstored name read the instance path `work@top.set_arbitration`
-        // (grid tools/probe/r11u231repro/cases AL a02/a05/a07/a08, AO o05,
+        // (grid tools/probe/r11u231repro/cases (the equal cases now under tests/probe/r11u231repro/cases) AL a02/a05/a07/a08, AO o05,
         // the -elabuhdm view).  Only a class a PACKAGE declares: a class
         // declared in a module is cloned with its instance and golden reads
         // the instance path there (`work@top::u::C::f`, grids r11u181repro
@@ -608,7 +608,7 @@ static int realMain(int argc, char** argv) {
     // inside, conditionals balanced inside); on ANY disagreement the sources
     // are re-parsed WITHOUT the three handlers and L7 stands down too, i.e.
     // the pristine reading (pristine bytes) for the whole run.  Grid
-    // tools/probe/r11v120repro/grid/F: x01-x05 and x20 back at their pristine
+    // tests/probe/r11v120repro/grid/F: x01-x05 and x20 back at their pristine
     // verdicts, x06-x19 and x21 keep L6/L7's bytes.  `R11V120_FPSPLIT_OFF=1`
     // drops it.
     bool fpSplit120v = false;
@@ -794,7 +794,7 @@ static int realMain(int argc, char** argv) {
     // to 0 from the line of the next re-anchoring expansion on.
     //
     // Measured with uhdm2rtlil's own Surelog, -DSYNTHESIS with vs without
-    // -filterprotected (tools/probe/r11u120repro/grid/gF, fpspans.sh):
+    // -filterprotected (tests/probe/r11u120repro/grid/gF, fpspans.sh):
     // inactive `ifndef/`else translate_on +1 (f01, f07), twice +2 (f05), a
     // stray active translate_on +1 (f03), a closing one 0 (f04, f06), a
     // with-args macro re-anchors from its line (f02, f09, f12), a no-arg

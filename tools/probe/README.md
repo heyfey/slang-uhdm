@@ -7,6 +7,9 @@ NOT_EQUAL against the pinned Surelog (the shapes the exporter does not
 model; none occurs in either corpus).
 
 The cases that judge EQUAL were moved to `tests/probe/<same path>` on
-2026-09-23 and run as the first stage of `tests/sweep.sh`; a README or
+2026-09-23, and every case that judged EQUAL or STRICT_NOTEQUAL on
+2026-11-04 (27856 of 40722; the NOT_EQUAL, SLANG_FAIL and SURELOG_FAIL
+cases and the duplicates stay) followed them; they run as the first stage
+of `tests/sweep.sh`; a README or
 script here that names `<pass>repro/<grid>/<case>/dut.sv` refers to that
 location for those cases.

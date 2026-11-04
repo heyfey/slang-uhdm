@@ -112,7 +112,8 @@ and never in the gate; report its cost when run.
   except the three known exceptions above (EQUAL 1937 of 2346, STRICT_NOTEQUAL
   0, DIFFERENT 3, SURELOG_ONLY 75, BOTH_REJECT 303, SLANG_ONLY 19,
   SURELOG_CRASH 8, TIMEOUT 1). The corpus gates stand at surelog 954 of 954,
-  uhdm2rtlil 1606 + 0, probe 4025 + 62, downstream 803/66/2/0. From here every
+  uhdm2rtlil 1606 + 0, probe 4025 + 62 (29901 + 2042 of 31943 after the probe census of
+  2026-11-04, which moved 27856 more tools/probe cases into the gate), downstream 803/66/2/0. From here every
   landing keeps all five stages at 0 regressions and the passes work the
   residue backlogs of the two grounds (tools/probe/r11uNNNrepro READMEs); a
   row that moves is a CHANGE or REGRESSION to attribute by its pass switch.

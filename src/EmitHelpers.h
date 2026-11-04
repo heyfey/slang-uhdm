@@ -1412,7 +1412,7 @@ inline uint64_t slPackedWidth(const Type& t0) {
 // shapes below are evaluated (literals, implicit and explicit conversions,
 // + - * / % and unary +/-, non-overridden parameter reads, $bits of a type or
 // a plain name); anything else on a reaching path abstains.  Grid
-// tools/probe/r11u459repro/cases/BE.
+// tools/probe/r11u459repro/cases/BE (the equal cases now under tests/probe/r11u459repro/cases/BE).
 inline const Expression& stripImplicitConv(const Expression& e);
 inline bool srlgZeroEnumBits459(const Type& t0, uint64_t& out, bool& reached,
                                 int depth) {
@@ -2410,7 +2410,7 @@ inline int32_t mapBinaryOp(BinaryOperator op) {
         // is vpiEqOp: Surelog's UhdmWriter maps paBinOp_Equivalence to
         // vpiEqOp (UhdmWriter.cpp UhdmWriter::getVpiOpType); the exporter
         // rejected the operator.  sv-tests 11.4.7 rows; grid
-        // tools/probe/r11u401repro/cases/LE.
+        // tests/probe/r11u401repro/cases/LE.
         case BinaryOperator::LogicalEquivalence:
             if (!lawOn(401, "R11U401_LOGEQUIV_OFF"))
                 return 0;
@@ -3773,7 +3773,7 @@ inline std::vector<NetOrderItem> collectNetOrder(const InstanceBodySymbol& body,
 // file into one compilation unit (Surelog's default IS one unit, so the
 // scope alone cannot separate them).
 // § unitImpRootFileDef477 (r11u477, R11U477_ROOTFILE_OFF; cases
-// tools/probe/r11u477repro/cases/RF; generated/easyUVM/top.sv, whose
+// tools/probe/r11u477repro/cases/RF (the equal cases now under tests/probe/r11u477repro/cases/RF); generated/easyUVM/top.sv, whose
 // input_if, output_if and adder are written in files top.sv includes after
 // its `import uvm_pkg::*;`) -- the file-scope import reaches every module,
 // interface and program in the FileContent of the import's file, and
@@ -3800,7 +3800,7 @@ inline slang::BufferID unitRootBuf477(const slang::SourceManager& sm,
 }
 
 // § paramEncNoAddLeaf477v (v11u477, R11V477_PARAMENC_OFF; cases
-// tools/probe/v11u477repro/cases/VA/va33, va34, va37) -- the parameter
+// tests/probe/v11u477repro/cases/VA/va33, va34, va37) -- the parameter
 // marker paramIntEnc is NOT widened by § caAddLeafIntMint477.  A marked
 // parameter reads INT under ANY operator of a later fold (isIntEncoded's
 // NamedValue branch), so marking `localparam logic [7:0] L = P + 8'd1` made
@@ -4237,7 +4237,7 @@ inline std::vector<const slang::ast::VariableSymbol*> collectImportedPkgVars(
                 // under `package c; import a::*; import b::*;` gives a module
                 // importing c two copies of va (net and variable), where this
                 // walk skipped the explicit item and listed one (uhdm-cmp
-                // NOT_EQUAL).  Grid tools/probe/r11u453repro/cases/XV.
+                // NOT_EQUAL).  Grid tests/probe/r11u453repro/cases/XV.
                 if (pm.kind == SymbolKind::ExplicitImport) {
                     static const bool on453 =
                         lawOn(453, "R11U453_XVARREEXP_OFF");
@@ -13636,7 +13636,7 @@ inline UHDM::logic_typespec* copyLogicTs111(
 /// import) is resolved through the typedef's own `tpclone` instead -- the bare
 /// clone with its Typedef_alias -- which is the arm we already emit.  So the
 /// name is WHICH OBJECT IS COPIED, never a uniform `pkg::` rewrite.
-/// Golden grid tools/probe/r11u111repro/grid/f1 (a01-a23) and r11u108repro
+/// Golden grid tools/probe/r11u111repro/grid/f1 (the equal cases now under tests/probe/r11u111repro/grid/f1) (a01-a23) and r11u108repro
 /// pk k01-k03/k17/k20-k22: the elab copy is named `pkg::T`, Instance the
 /// package, NO Typedef_alias, FOLDED bounds, parented at the parameter's ref;
 /// the DEF parameter (module definition AND a package home, a16) and its DEF
@@ -13945,7 +13945,7 @@ inline bool boundIsIntOp111(const syntax::ExpressionSyntax* e) {
 /// scope (`import p0::*` / `import p0::C0` into the package, `X = {C0, B}`):
 /// golden's module copy folds that leaf to its constant (with its ts ref) and
 /// keeps the operand order, where the flag made it an actual-less ref and
-/// reordered the concat -- tools/probe/v11u111repro/brk f5 x52, y51, y52, y55.
+/// reordered the concat -- tools/probe/v11u111repro/brk (the equal cases now under tests/probe/v11u111repro/brk) f5 x52, y51, y52, y55.
 /// `home` is the package that declares the copied parameter.
 inline bool hasQualParamRef111(const Expression& e0, const Scope* home = nullptr) {
     bool q = false;
@@ -13981,7 +13981,7 @@ inline void dropEnumActuals111(UHDM::any* e) {
 /// ALONE: the elaboration path that replaces the actual has no packed-dim
 /// detector, so the written dims are dropped (the § typeParamNamedElemPackedDim31
 /// comment's grid arm g12 measured the same drop for an overridden default).
-/// Witnesses tools/probe/v11u110repro/brk v3/a35, v4/q01-q03, q05 (copied into
+/// Witnesses tools/probe/v11u110repro/brk (the equal cases now under tests/probe/v11u110repro/brk) v3/a35, v4/q01-q03, q05 (copied into
 /// tools/probe/r11u111repro/grid/f6).  Returns the named alias, or null.
 inline const TypeAliasType* tpOvrNamedDimsAlias111(const TypeParameterSymbol& tps) {
     if (!tpOvrNamedDims111On())
@@ -13999,7 +13999,7 @@ inline const TypeAliasType* tpOvrNamedDimsAlias111(const TypeParameterSymbol& tp
     // is refused too: golden's instance there keeps the DEFINITION's
     // type_parameter and default (Surelog binds no ordered type override),
     // so rebinding moves the port variable's typespec away --
-    // tools/probe/v11u111repro/brk f6 x64, y64.  (The override's NamedType is
+    // tools/probe/v11u111repro/brk (the equal cases now under tests/probe/v11u111repro/brk) f6 x64, y64.  (The override's NamedType is
     // synthesized by slang with no parent, so the instantiation is read.)
     if (auto* bs = tps.getParentScope();
         bs && bs->asSymbol().kind == SymbolKind::InstanceBody)
@@ -14032,7 +14032,7 @@ inline const TypeAliasType* tpOvrNamedDimsAlias111(const TypeParameterSymbol& tp
     // (v11u111) An ENUM element (`.T(pk::e_t [1:0])`) likewise: golden's port
     // variable is an enum_var, and the same factory builds a packed_array_var
     // that GAINS a range and an enum_var element off the rebound enum --
-    // tools/probe/v11u111repro/brk f6 x61, y66.
+    // tools/probe/v11u111repro/brk (the equal cases now under tests/probe/v11u111repro/brk) f6 x61, y66.
     auto& ac = t->getCanonicalType();
     if (ac.isStruct() || ac.isUnion() || ac.isEnum())
         return nullptr;
@@ -14625,7 +14625,7 @@ inline bool caseItemTs116Lit(const ParameterSymbol& ps) {
 /// and stamps the parameter's typespec as it does for a literal.  An
 /// initializer naming another parameter, a call, a conditional, a concat or
 /// a select stays fenced (the encoding the 116 fence convicted).  Cases
-/// tools/probe/r11u423repro/cases/CI.  Switch R11U423_CIOPS_OFF.
+/// tests/probe/r11u423repro/cases/CI.  Switch R11U423_CIOPS_OFF.
 inline bool caseItemTsOps423Tree(const Expression& x, int depth = 0) {
     if (depth > 32)
         return false;
@@ -14657,7 +14657,7 @@ inline bool caseItemTsOps423Tree(const Expression& x, int depth = 0) {
 /// ref_typespec carries no actual (the copy's `Lhs()->Typespec()` is null);
 /// ours sized it at the parameter's 32-bit int and stamped the import
 /// copy's unattached int_typespec.  Written spelling only: a parenthesized
-/// literal is not reached.  Cases tools/probe/r11u423repro/cases/US.  Switch
+/// literal is not reached.  Cases tools/probe/r11u423repro/cases/US (the equal cases now under tests/probe/r11u423repro/cases/US).  Switch
 /// R11U423_UNSZFOLD_OFF.
 inline bool unszBasedLit423(const Expression* init) {
     if (!init)
@@ -14706,7 +14706,7 @@ inline char unszBasedLitBase425(const Expression* init) {
 /// assignment reads as its whole right-hand side is shared with that read and
 /// resized by it (golden parents it at the cont_assign, size = the reader's
 /// width), which ours already writes; the law reaches only a respelled copy
-/// still parented at its param_assign.  Cases tools/probe/r11u423repro/cases/UD.
+/// still parented at its param_assign.  Cases tests/probe/r11u423repro/cases/UD.
 /// Switch R11U423_DECUNSZ_OFF.
 inline std::set<const void*>& decUnszElab423() {
     static std::set<const void*> v;
@@ -14718,7 +14718,7 @@ inline std::set<const void*>& decUnszElab423() {
 /// in the instance's own listing and in a materialized import copy), exactly
 /// as § sizedOctElabRespell does for the sized spelling; ours kept `'o17`
 /// OCT.  The signed spelling is fenced as § unsizedBasedParamRhsSize106 fences
-/// it.  Cases tools/probe/r11u423repro/cases/UO.  Switch R11U423_OCTUNSZ_OFF.
+/// it.  Cases tools/probe/r11u423repro/cases/UO (the equal cases now under tests/probe/r11u423repro/cases/UO).  Switch R11U423_OCTUNSZ_OFF.
 inline std::set<const void*>& octUnszElab423() {
     static std::set<const void*> v;
     return v;
@@ -14869,7 +14869,7 @@ inline bool pkgQualPsRtFull118On() {
 /// (`ps_parameter_identifier constant_select`) and populates the select from
 /// that whole node; the Primary arm of an ordinary expression populates it
 /// from the Select node, which starts at the `[`.  Grid
-/// tools/probe/r11u131repro/ips.  Switch: R11U131_IPSSPAN_OFF.
+/// tools/probe/r11u131repro/ips (the equal cases now under tests/probe/r11u131repro/ips).  Switch: R11U131_IPSSPAN_OFF.
 inline bool paramIdxPartSelWholeSpan131On() {
     static const bool on = lawOn(131, "R11U131_IPSSPAN_OFF");
     return on;
@@ -14900,7 +14900,7 @@ inline bool ipsQualBaseRangeSpan141On() {
 /// A[8 +: 8] : 0` 5:42-48 keep the token / range span, where a binary or
 /// unary operand, a concatenation or replication element, a cast operand, a
 /// conditional's predicate and its ELSE operand take the whole node (grid
-/// tools/probe/r11v131repro qc/ ips/).  Walks the syntax parents from the
+/// tools/probe/r11v131repro (the equal cases now under tests/probe/r11v131repro) qc/ ips/).  Walks the syntax parents from the
 /// expression up to the initializer.  Switch: R11V131_ARGCTX_OFF.
 inline bool constCtxWholeNode131(const slang::syntax::SyntaxNode* n) {
     static const bool on = !envSet("R11U131_OFF") &&
@@ -14936,7 +14936,7 @@ inline bool constCtxWholeNode131(const slang::syntax::SyntaxNode* n) {
 /// a parameter initializer (`parameter p::cfg_t CFG = p::build()`, a
 /// localparam's `p::f(4)`) spans the qualifier WITH its `::` (`p::`,
 /// 16:39-42), where the same call in a continuous assignment or a process
-/// spans the package-name token.  Grid tools/probe/r11u131repro/qc.
+/// spans the package-name token.  Grid tools/probe/r11u131repro/qc (the equal cases now under tests/probe/r11u131repro/qc).
 /// Switch: R11U131_QCALL_OFF.
 inline bool pkgQualCallQualSpan131On() {
     static const bool on = lawOn(131, "R11U131_QCALL_OFF");
@@ -14954,7 +14954,7 @@ inline bool pkgQualCallQualSpan131On() {
 /// ` 6:22:6:25`, ours `dut.sv 6:22:6:25`).  Definition view only, as the
 /// pass-119 law: an elaborated twin keeps its file.  The mint sites note the
 /// net; ParamEmit's end-of-export pass clears the file (after every setLoc).
-/// Grid tools/probe/r11u131repro/inet.  Switch: R11U131_INETFILE_OFF.
+/// Grid tools/probe/r11u131repro/inet (the equal cases now under tests/probe/r11u131repro/inet).  Switch: R11U131_INETFILE_OFF.
 inline std::vector<UHDM::BaseClass*>& implicitNetMints131() {
     static std::vector<UHDM::BaseClass*> v;
     return v;
@@ -14971,7 +14971,7 @@ inline void noteImplicitNetMint131(UHDM::BaseClass* n) {
 /// (golden NonSynthError `$size(int)` 4:15-20).  MEASURED on `int`, `byte`,
 /// `shortint`, `integer` and a scalar `logic`, in a parameter default, a
 /// localparam operand, an overridable port parameter and a continuous
-/// assignment (grid tools/probe/r11u131repro/sfc); a typedef name and a
+/// assignment (grid tools/probe/r11u131repro/sfc (the equal cases now under tests/probe/r11u131repro/sfc)); a typedef name and a
 /// variable keep the whole call.  The gate is slang's predefined-integer
 /// and scalar kinds.  Surelog's call node is the `System_task_names` name
 /// node (CompileExpression.cpp paSystem_task_names) — the keyword argument
@@ -15008,7 +15008,7 @@ inline bool sysCallKwTypeArgNameSpan131On() {
 /// (BitsCallOnExpression `dr_q[$bits(~dr_q)-1:0]`) and a parameter
 /// initializer (`localparam int P = $bits(~a)`) — where it spans the operator
 /// token alone.  Census over every judge-equal golden and grid
-/// tools/probe/r11u140repro/sca.  Switch: R11U140_SYSUNARY_OFF.
+/// tools/probe/r11u140repro/sca (the equal cases now under tests/probe/r11u140repro/sca).  Switch: R11U140_SYSUNARY_OFF.
 inline bool sysArgUnaryWholeSpan140On() {
     static const bool on = lawOn(140, "R11U140_SYSUNARY_OFF");
     return on;
@@ -15018,7 +15018,7 @@ inline bool sysArgUnaryWholeSpan140On() {
 /// PROCESS LVALUE: the index of a path's trailing select (`s.sat[i] = v`,
 /// `w.f.sat[i] = v`, `s.sat[i + 1] = v`) is named by its parent chain
 /// (golden `work@dut.s.sat[i].i`, `work@dut.s.sat[i + 1].sat.i`).  Grid
-/// tools/probe/r11u140repro/plv.  Switch: R11U140_LVIDX_OFF.
+/// tools/probe/r11u140repro/plv (the equal cases now under tests/probe/r11u140repro/plv).  Switch: R11U140_LVIDX_OFF.
 inline bool procLvTrailIdxNamesByPath140On() {
     static const bool on = lawOn(140, "R11U140_LVIDX_OFF");
     return on;
@@ -15028,7 +15028,7 @@ inline bool procLvTrailIdxNamesByPath140On() {
 /// selected (`tbl[r].sat[i] = v`): the trailing select's bit_select spans the
 /// INDEX and stores the path's name (`tbl[r].sat[i]`), as a cont-assign
 /// lvalue's does; a plain base keeps the member+index span.  Grid
-/// tools/probe/r11u140repro/plv.  Switch: R11U140_LVTRAIL_OFF.
+/// tools/probe/r11u140repro/plv (the equal cases now under tests/probe/r11u140repro/plv).  Switch: R11U140_LVTRAIL_OFF.
 inline bool procLvBaseSelTrailAtIdx140On() {
     static const bool on = lawOn(140, "R11U140_LVTRAIL_OFF");
     return on;
@@ -15039,7 +15039,7 @@ inline bool procLvBaseSelTrailAtIdx140On() {
 /// like every located object golden writes (§ vpiFileOnEveryLocated117),
 /// carries its file: census over every judge-equal golden, 19158 located
 /// unsupported_typespecs, every one with a file; ours copied the span alone.
-/// Grid tools/probe/r11u140repro/fav.  Switch: R11U140_FEFILE_OFF.
+/// Grid tests/probe/r11u140repro/fav.  Switch: R11U140_FEFILE_OFF.
 inline bool foreachArrayPlaceholderFile140On() {
     static const bool on = lawOn(140, "R11U140_FEFILE_OFF");
     return on;
@@ -15051,7 +15051,7 @@ inline bool foreachArrayPlaceholderFile140On() {
 /// substituted by the pattern's own operation tree, and golden locates that
 /// operation at the READING reference (ParamScope 11:25-35 in both elaborated
 /// listings), where the pristine exporter kept the package declaration's
-/// span.  Grid tools/probe/r11u140repro/pso.  Switch: R11U140_PATOPSPAN_OFF.
+/// span.  Grid tools/probe/r11u140repro/pso (the equal cases now under tests/probe/r11u140repro/pso).  Switch: R11U140_PATOPSPAN_OFF.
 inline bool elabPatOperandRefSpan140On() {
     static const bool on = lawOn(140, "R11U140_PATOPSPAN_OFF");
     return on;
@@ -15062,7 +15062,7 @@ inline bool elabPatOperandRefSpan140On() {
 /// declarators (`int i, r;`) is one item (one Surelog data_declaration),
 /// where slang lists one VariableDeclaration per declarator.  Golden
 /// func_local_compound_xor's body begin 19:5-20 (the first statement after
-/// `logic [7:0] result, temp;`).  Grid tools/probe/r11u140repro/mdi.
+/// `logic [7:0] result, temp;`).  Grid tests/probe/r11u140repro/mdi.
 /// Switch: R11U140_MULTIDECL_OFF.
 inline bool multiDeclOneItem140On() {
     static const bool on = lawOn(140, "R11U140_MULTIDECL_OFF");
@@ -15074,7 +15074,7 @@ inline bool multiDeclOneItem140On() {
 /// folded constant and X's typespec only when P is a multi-dimensional packed
 /// array, the clone's reference then named by the definition; any other P is
 /// re-folded with its own typespec (pass 133's residue R5, IntegerConcat,
-/// ParamFromPackage).  Grid tools/probe/r11u140repro/pfp.  Switch:
+/// ParamFromPackage).  Grid tools/probe/r11u140repro/pfp (the equal cases now under tests/probe/r11u140repro/pfp).  Switch:
 /// R11U140_PKGREFMD_OFF.
 inline bool pkgRefFoldClonesMultiDimOnly140On() {
     static const bool on = lawOn(140, "R11U140_PKGREFMD_OFF");
@@ -15086,7 +15086,7 @@ inline bool pkgRefFoldClonesMultiDimOnly140On() {
 /// typedef's own typespec as the cast target (golden def_ctx_struct_param,
 /// latch_decoder_partial, latch_tlb_napot), not the integer_typespec the
 /// size-cast fallback mints at the name token.  Grid
-/// tools/probe/r11u140repro/tdc.  Switch: R11U140_PKGTDCAST_OFF.
+/// tools/probe/r11u140repro/tdc (the equal cases now under tests/probe/r11u140repro/tdc).  Switch: R11U140_PKGTDCAST_OFF.
 inline bool pkgTypedefCastTargetTs140On() {
     static const bool on = lawOn(140, "R11U140_PKGTDCAST_OFF");
     return on;
@@ -15121,7 +15121,7 @@ inline bool pkgTypedefCastTargetTs140On() {
 /// explicit IMPORT makes of a package `'{default: X}` parameter in a module
 /// view mints one constant per element, each parented at the array_expr
 /// (golden DefaultPatternInt: `work@top.V` two constants, the package
-/// listing's one shared).  Grid tools/probe/r11u145repro/dfi.  Switch:
+/// listing's one shared).  Grid tests/probe/r11u145repro/dfi.  Switch:
 /// R11U145_DEFFILLIMP_OFF.
 inline bool defaultFillImportCopies145On() {
     static const bool on = lawOn(145, "R11U145_DEFFILLIMP_OFF");
@@ -15135,7 +15135,7 @@ inline bool defaultFillImportCopies145On() {
 /// only packed dimensions extend the end), in every view and at every
 /// reference that shares it (golden GenCase 6:13-6:16 for
 /// `parameter bit unsigned x_1b0`, ours 6:13-6:25).  Grid
-/// tools/probe/r11u145repro/usp.  Switch: R11U145_UNSPARAMTS_OFF.
+/// tests/probe/r11u145repro/usp.  Switch: R11U145_UNSPARAMTS_OFF.
 inline bool unsignedScalarParamTsAtKeyword145On() {
     static const bool on = lawOn(145, "R11U145_UNSPARAMTS_OFF");
     return on;
@@ -15147,7 +15147,7 @@ inline bool unsignedScalarParamTsAtKeyword145On() {
 /// a bound nested in an operation already was: census over every
 /// judge-equal golden (3591 bare simple part-select bounds, every one named
 /// `<select>.<name>` outside a class method's `::` path and a hier_path
-/// member select).  Grid tools/probe/r11u145repro/psb.  Switch:
+/// member select).  Grid tests/probe/r11u145repro/psb.  Switch:
 /// R11U145_PSBAREREF_OFF.
 inline bool psBoundBareRefByBase145On() {
     static const bool on = lawOn(145, "R11U145_PSBAREREF_OFF");
@@ -15166,7 +15166,7 @@ inline bool psBoundBareRefByBase145On() {
 /// over every judge-equal golden (constants reached as operands whose parent
 /// is a param_assign).  Returns the enclosing module/interface instance's
 /// full name when `parent` is a unary operation, else "".  Grid
-/// tools/probe/r11u145repro/uop.  Switch: R11U145_UNARYOWN_OFF.
+/// tests/probe/r11u145repro/uop.  Switch: R11U145_UNARYOWN_OFF.
 inline std::string unaryOperandOwnerName145(const UHDM::any* parent, bool lhsSelect) {
     static const bool on = lawOn(145, "R11U145_UNARYOWN_OFF");
     if (!on || !lhsSelect || !parent || parent->UhdmType() != UHDM::uhdmoperation)
@@ -15191,7 +15191,7 @@ inline std::string unaryOperandOwnerName145(const UHDM::any* parent, bool lhsSel
 /// golden's param_assign constant itself: its ref_typespec is named by the
 /// scope that owns the param_assign (the instance), not by the select base.
 /// Returns that scope's full name ("" when the law is off or the owner has
-/// none).  Grid tools/probe/r11u145repro/lpb.  Switch:
+/// none).  Grid tests/probe/r11u145repro/lpb.  Switch:
 /// R11U145_LPBOUNDOWN_OFF.
 inline std::string paOwnerFullName145(const UHDM::any* pa) {
     static const bool on = lawOn(145, "R11U145_LPBOUNDOWN_OFF");
@@ -15216,7 +15216,7 @@ inline std::string paOwnerFullName145(const UHDM::any* pa) {
 /// `c ? a[7:L] : 0`; Rggen rggen_address_decoder `i_address[WIDTH-1:LSB] ==
 /// BEGIN_ADDRESS`) keeps the select base's name in golden, as pristine did.
 /// Returns true when the law must abstain: `sel` is the part-select and its
-/// own parent is an operation.  Grid tools/probe/r11v145repro/lpb.  Switch:
+/// own parent is an operation.  Grid tools/probe/r11v145repro/lpb (the equal cases now under tests/probe/r11v145repro/lpb).  Switch:
 /// R11V145_LPOPND_OFF.
 inline bool lpBoundOperandKeepsBase145v(const UHDM::any* sel) {
     static const bool on = !envSet("R11V145_LPOPND_OFF");
@@ -15231,7 +15231,7 @@ inline bool lpBoundOperandKeepsBase145v(const UHDM::any* sel) {
 /// spans the WHOLE written init (golden ibex_pkg.sv 384:45-55 in every ibex
 /// module view, HierPathStructTypespec 11:34-61); the package's own
 /// elaborated listing and the module definition's copy keep the top
-/// operator's LEFT operand.  Grid tools/probe/r11u145repro/iaw.  Switch:
+/// operator's LEFT operand.  Grid tests/probe/r11u145repro/iaw.  Switch:
 /// R11U145_IMPARITH_OFF.
 inline bool impElabArithWholeSpan145On() {
     static const bool on = lawOn(145, "R11U145_IMPARITH_OFF");
@@ -15382,7 +15382,7 @@ inline bool nestedPatOpTsNoParent151On() {
 //   R11U147_GCAUSESITE_OFF   § gcaUseSiteParamConst147          (ExprEmit.cpp)
 //   R11V147_GCABARE_OFF      § gcaBareBoundKeepsInst147v        (ExprEmit.cpp; the verifier's
 //                            refinement of the law above: a BARE part-select bound keeps the
-//                            instance's constant; tools/probe/r11v147repro)
+//                            instance's constant; tools/probe/r11v147repro (the equal cases now under tests/probe/r11v147repro))
 //   R11U147_FIRSTPOS_OFF     § firstOrderedConnBitSelWhole147   (ExprEmit.cpp)
 //   R11U147_ENUMCLONE_OFF    § memberEnumCloneKeepsBase147      (ParamEmit.cpp)
 //   R11U147_ENUMQSPAN_OFF    § enumQualDefaultDefSpan147        (ExprEmit.cpp)
@@ -15459,7 +15459,7 @@ inline void trace154(const char* law);
 /// the member's token, the leaf name-only) because the whole left-hand side
 /// is emitted under `inLhs`.  The gate is § lvIdxBitSelAtIndex147's: the
 /// path's parent is a select, directly or through operations.  Grid
-/// tools/probe/r11u154repro/lx.  Switch: R11U154_LVIDXREAD_OFF.
+/// tests/probe/r11u154repro/lx.  Switch: R11U154_LVIDXREAD_OFF.
 inline bool lvIdxParent154(const UHDM::BaseClass* parent) {
     const UHDM::BaseClass* p = parent;
     while (p && p->UhdmType() == UHDM::uhdmoperation)
@@ -15507,7 +15507,7 @@ inline bool lvIdxPathIsRead154(const UHDM::BaseClass* parent) {
 /// struct range-select arm kept the base's own length (31-33) and the
 /// interface-path arms its own token (28-30).  A path inside the lvalue's
 /// own index is a read (§ lvIdxPathIsRead154).  Grid
-/// tools/probe/r11u154repro/lv.  Switch: R11U154_LVBASEMEM_OFF.
+/// tests/probe/r11u154repro/lv.  Switch: R11U154_LVBASEMEM_OFF.
 inline bool lvBaseAtFirstMember154(bool inLhs, const UHDM::BaseClass* parent) {
     static const bool on = lawOn(154, "R11U154_LVBASEMEM_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
@@ -15578,7 +15578,7 @@ inline bool lvIfaceBitSelWhole154(bool inLhs, const UHDM::BaseClass* parent) {
 /// ours kept the rvalue shape (the base's own token, the leaf named by the
 /// scope).  The gate is a path that IS the bound (its parent is the
 /// part_select); a path under a bound operation is another face.  Grid
-/// tools/probe/r11u154repro/pb.  Switch: R11U154_PSBOUNDPATH_OFF.
+/// tests/probe/r11u154repro/pb.  Switch: R11U154_PSBOUNDPATH_OFF.
 inline bool psBoundPathFirstMember154(const UHDM::BaseClass* parent, size_t nParts) {
     static const bool on = lawOn(154, "R11U154_PSBOUNDPATH_OFF");
     if (!on || !parent || nParts < 2 || parent->UhdmType() != UHDM::uhdmpart_select)
@@ -15616,7 +15616,7 @@ inline void trace154(const char* law) {
 /// `work@top.s.compare.t`; a reference under an operation argument alike
 /// (`s.substr(i, i+1)`); ours named them by the scope (`work@top.b.t`).
 /// Only references parented at the call (or at an operation under it) are
-/// renamed.  Grid tools/probe/r11u154repro/sm.  Switch: R11U154_MARGNAME_OFF.
+/// renamed.  Grid tests/probe/r11u154repro/sm.  Switch: R11U154_MARGNAME_OFF.
 inline void builtinMethodArgNames154(UHDM::VectorOfany* args,
                                      const UHDM::any* call,
                                      const std::string& base) {
@@ -15663,7 +15663,7 @@ inline bool isVariableKind154(const UHDM::any* o) {
 }
 
 // ===========================================================================
-// r11u158 — the expression/parameter ground (tools/probe/r11u158repro).
+// r11u158 — the expression/parameter ground (tools/probe/r11u158repro (the equal cases now under tests/probe/r11u158repro)).
 // Every law reads its own switch; R11U158_OFF drops every one of them (the
 // pristine bytes).  R11U158_TRACE=1 prints one stderr line per firing.
 //   R11U158_EVALIASEND_OFF  § enumAliasEndAtDimOrInitDecl158 (ParamEmit.cpp)
@@ -15678,7 +15678,7 @@ inline bool isVariableKind154(const UHDM::any* o) {
 // R11U157_* switches in ExprEmit.cpp.
 // ===========================================================================
 // r11v158 — the adversarial verification's refinements of pass 158's laws
-// (tools/probe/r11v158repro).  Each refinement reads its own switch;
+// (tools/probe/r11v158repro (the equal cases now under tests/probe/r11v158repro)).  Each refinement reads its own switch;
 // R11V158_OFF drops every one of them (the r11u158 bytes).
 //   R11V158_SCNARROW_OFF  § sizeCastNarrowTargetAbstain158v (ExprEmit.cpp)
 //   R11V158_SCSLIT_OFF    § sizeCastSignedLitAbstain158v    (ExprEmit.cpp)
@@ -15715,7 +15715,7 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
 //   R11V170_SCSCOPED_OFF    § sizeCastScopedNameUnsigned170v (ExprEmit.cpp)
 
 // ===========================================================================
-// r11u163 — the expression/parameter ground (tools/probe/r11u163repro).
+// r11u163 — the expression/parameter ground (tools/probe/r11u163repro (the equal cases now under tests/probe/r11u163repro)).
 // Every law reads its own switch; R11U163_OFF drops every one of them (the
 // pristine bytes).  R11U163_TRACE=1 prints one stderr line per firing.
 //   R11U163_AGGFOLDYNAME_OFF  § elabAggFoldYCopyDefNamed163    (ParamEmit.cpp)
@@ -15744,7 +15744,7 @@ inline int& paramRhsView163() {
 }
 
 // ===========================================================================
-// r11u167 — the expression/parameter ground (tools/probe/r11u167repro).
+// r11u167 — the expression/parameter ground (tools/probe/r11u167repro (the equal cases now under tests/probe/r11u167repro)).
 // Every law reads its own switch; R11U167_OFF drops every one of them (the
 // pristine bytes).  R11U167_TRACE=1 prints one stderr line per firing.
 //   R11U167_TPSTRUCTUSE_OFF   § tpAnonStructLastParamUser167   (ParamEmit.cpp)
@@ -15763,7 +15763,7 @@ inline void trace167(const char* law) {
 }
 
 // ===========================================================================
-// r11u169 — the expression/parameter ground (tools/probe/r11u169repro).
+// r11u169 — the expression/parameter ground (tools/probe/r11u169repro (the equal cases now under tests/probe/r11u169repro)).
 // Every law reads its own switch; R11U169_OFF drops every one of them (the
 // pristine bytes).  R11U169_TRACE=1 prints one stderr line per firing.
 //   R11U169_GCACHAIN_OFF   § genCaFoldTsChainNamed169    (ExprEmit.cpp)
@@ -15777,7 +15777,7 @@ inline void trace169(const char* law) {
         fprintf(stderr, "R11U169_TRACE %s\n", law);
 }
 // ===========================================================================
-// r11u174 — the expression/parameter ground (tools/probe/r11u174repro).
+// r11u174 — the expression/parameter ground (tools/probe/r11u174repro (the equal cases now under tests/probe/r11u174repro)).
 // Every law reads its own switch; R11U174_OFF drops every one of them,
 // r11u172's law included (the pristine bytes).  R11U174_TRACE=1 prints one
 // stderr line per firing.
@@ -15793,7 +15793,7 @@ inline void trace174(const char* law) {
         fprintf(stderr, "R11U174_TRACE %s\n", law);
 }
 // ===========================================================================
-// r11u198 — the expression/parameter ground (tools/probe/r11u198repro).
+// r11u198 — the expression/parameter ground (tools/probe/r11u198repro (the equal cases now under tests/probe/r11u198repro)).
 // Every law reads its own R11U198_<LAW>_OFF switch; R11U198_OFF drops every
 // one of them (the pristine bytes).  R11U198_TRACE=<dir> names every firing
 // (one file per process, `<dir>/<pid>.T198`, first line `OUT <-o path>`,
@@ -15807,7 +15807,7 @@ inline void trace198(const char* law) {
     }
 }
 // ===========================================================================
-// r11u201 — the expression/parameter ground (tools/probe/r11u201repro).
+// r11u201 — the expression/parameter ground (tools/probe/r11u201repro (the equal cases now under tests/probe/r11u201repro)).
 // Every law reads its own R11U201_<LAW>_OFF switch; R11U201_OFF drops every
 // one of them (the pristine bytes; the r11u200 laws this pass lands keep
 // their own R11U200_* switches).  R11U201_TRACE=<dir> names every firing
@@ -15840,19 +15840,19 @@ inline void trace201(const char* law) {
     }
 }
 // ===========================================================================
-// v11u201 — the adversarial verification of r11u201 (tools/probe/v11u201repro).
+// v11u201 — the adversarial verification of r11u201 (tools/probe/v11u201repro (the equal cases now under tests/probe/v11u201repro)).
 // Each refinement narrows one r11u201 / r11u200 law and reads its own
 // R11V201_<NAME>_OFF switch; R11V201_OFF drops every refinement (the r11u201
 // patch's own bytes).  Firings are traced through trace201 (R11U201_TRACE).
 // ===========================================================================
 // ===========================================================================
-// r11u207 — the expression/parameter ground (tools/probe/r11u207repro).
+// r11u207 — the expression/parameter ground (tools/probe/r11u207repro (the equal cases now under tests/probe/r11u207repro)).
 // Every law reads its own R11U207_<LAW>_OFF switch; R11U207_OFF drops every
 // one of them (the pristine bytes).  R11U207_TRACE=<dir> names every firing
 // (one file per process, `<dir>/<pid>.T207`, first line `OUT <-o path>`,
 // then one law name per firing): the firing census that predicts the movers.
 // ===========================================================================
-// r11u207's adversarial verification (tools/probe/v11u207repro): every
+// r11u207's adversarial verification (tools/probe/v11u207repro (the equal cases now under tests/probe/v11u207repro)): every
 // refinement reads its own R11V207_<LAW>_OFF switch; R11V207_OFF drops them
 // all (the implementer's bytes).
 inline void trace207(const char* law) {
@@ -15863,7 +15863,7 @@ inline void trace207(const char* law) {
     }
 }
 // ===========================================================================
-// r11u210 — the expression/parameter ground (tools/probe/r11u210repro).
+// r11u210 — the expression/parameter ground (tools/probe/r11u210repro (the equal cases now under tests/probe/r11u210repro)).
 // Every law reads its own R11U210_<LAW>_OFF switch; R11U210_OFF drops every
 // one of them, and the r11u205 law this pass lands (R11U205_<LAW>_OFF,
 // R11U205_OFF) too: one switch restores the pristine bytes.
@@ -15905,7 +15905,7 @@ inline void trace210(const char* law) {
     }
 }
 // ===========================================================================
-// r11u215 — the expression/parameter ground (tools/probe/r11u215repro).
+// r11u215 — the expression/parameter ground (tools/probe/r11u215repro (the equal cases now under tests/probe/r11u215repro)).
 // Every law reads its own R11U215_<LAW>_OFF switch; R11U215_OFF drops every
 // one of them (the pristine bytes).  R11U215_TRACE=<dir> names every firing
 // (one file per process, `<dir>/<pid>.T215`, first line `OUT <-o path>`,
@@ -16190,7 +16190,7 @@ inline SizeCastUbMask93 srlgSizeCastUbMask93(const Expression& e) {
 // SIGNED LEAF for Surelog's ExprEval?  Its `oper_signed` reads the reduced
 // operand constant's typespec, which is signed only for a signed based
 // literal (`16'sd5`) and for a read of a parameter declared `int` or as a
-// signed `logic` / `bit` / `reg` vector (measured, tools/probe/r11u435repro
+// signed `logic` / `bit` / `reg` vector (measured, tools/probe/r11u435repro (the equal cases now under tests/probe/r11u435repro)
 // cases PS); `integer`, `byte`, `shortint` and `longint` parameters and every
 // operation (`-1`, `-K`, `K + 1`) read unsigned.  1 = signed leaf, 0 = read
 // unsigned, -1 = not modelled (an untyped or typedef-typed parameter, an
@@ -16238,7 +16238,7 @@ inline int patCastOperandSignedLeaf435(const Expression& od) {
     }
 }
 
-// ---- pass 449 (tests/LAWS.md; tools/probe/r11u449repro) ----
+// ---- pass 449 (tests/LAWS.md; tools/probe/r11u449repro (the equal cases now under tests/probe/r11u449repro)) ----
 // § cloneLvFormalTdTopListing449: the shared home object of a wildcard-import
 // clone's loop variable whose array is a formal of a package aggregate
 // typedef; StmtEmit records it, ParamEmit drainUnsizedBasedRhs106 rebinds its

@@ -12,9 +12,9 @@ after the first run.
 | `third_party/Surelog` | the pinned Surelog (v1.87): the producer binary once built, its `tests/` and `third_party/tests/` suites (one `<Name>.sl` command line per test) and `third_party/UVM` | 798 tests |
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
-| `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 4087 rows |
+| `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 31943 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 4087 cases |
+| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 31943 cases |
 | `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the cases that still judge NOT_EQUAL) | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
