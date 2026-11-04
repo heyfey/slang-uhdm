@@ -1,0 +1,22 @@
+r11u485 prediction, written BEFORE the law sweep, from the traced census of law8
+(md5 3cea9c1e8e880dbd38368f67653b4b52; R11U485_TRACE on):
+
+- probe (all 4087 cases through scripts/check_probe.py): EQUAL 4025, STRICT_NOTEQUAL 62, csv equal
+  to the control /tmp/intr11u476/probe.csv row for row; no trace file written; every database's
+  path-normalised dump equal to the control's (4087 compared, 0 movers; negative control: each of
+  99 databases against its neighbour's control, 99 of 99 flagged).
+- surelog both modes and uhdm2rtlil both modes (scripts/verify_golden.py): csvs equal to the control
+  row for row except the two LowMem testflags log-path texts; byteverify against the control
+  0 of 962 (SELFCHECK 961/962) and 0 of 1608 (1607/1608); no trace file written.
+- sv-tests: the 20 rows whose sources (the test and its :files:) hold a defparam, a non-wire
+  `default_nettype or a named override with a scoped actual, run traced through the runner:
+  every status equal to results/golden_svtests.csv, no R11U485 trace line; positive control
+  R11U483_TRACE in the same runs: the four clsScopedOvRhsRefObj483 firings in
+  uvm_param_vif_config_db (env reaches the binary).  The laws need a class-scoped named
+  override, a defparam on an instantiation-overridden parameter, a non-wire/non-none
+  `default_nettype with a minted wire, or `default_nettype none with an interface instance
+  read as a value: the text census over 19873 fence-filtered corpus and sv-tests sources finds
+  defparam in 55 files and a non-wire non-none default_nettype in 4 files, none of them in a
+  shape the laws fire on (the traced runs confirm).
+PREDICTED MOVERS: none (no byte mover, no exit-code mover, no status change) in probe, surelog,
+uhdm2rtlil, downstream and sv-tests.  The laws fire only on the case grids.

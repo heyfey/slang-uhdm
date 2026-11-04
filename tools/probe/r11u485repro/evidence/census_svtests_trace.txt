@@ -1,0 +1,5 @@
+clsScopedOvRhsRefObj483 work@hdl_top.SFR_MASTER SFR::sfr_addr_width
+clsScopedOvRhsRefObj483 work@hdl_top.SFR_MASTER SFR::sfr_data_width
+clsScopedOvRhsRefObj483 work@hdl_top.SFR_MONITOR SFR::sfr_addr_width
+clsScopedOvRhsRefObj483 work@hdl_top.SFR_MONITOR SFR::sfr_data_width
+R11U485 trace files: 0

@@ -60127,6 +60127,43 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     auto& ib483 = sy9.getParentScope()->asSymbol().as<InstanceBodySymbol>();
                     if (ib483.getDefinition().defaultNetType.isError()) {
                         lawTrace(483, "ifaceInstValueImplicitNet483", "noneAbstain " + dotted);
+                        // § ifaceValNoneBindsInst485 (r11u485,
+                        // R11U485_NONEBIND_OFF; cases tools/probe/
+                        // r11u485repro/cases/NN, pass 483's IV/iv08) -- under
+                        // `default_nettype none the late binder mints nothing
+                        // and the reference keeps what its instance lookup
+                        // found: the ELABORATED interface_inst of the first
+                        // instance of the holding module in design order
+                        // (nn03 work@top.s1.u, nn06 work@top.zb.u, nn07
+                        // work@top.m1.s.u).  The interface_inst exists only
+                        // once the elaborated tree is written, so the
+                        // binding is recorded here and made design-final
+                        // (ParamEmit's drain, ifaceInstMap by symbol).
+                        // § noneBindSameDefRead485v (v11u485,
+                        // R11V485_NONEXSCOPE_OFF; case tools/probe/v11u485repro/
+                        // cases/VN/vn08) -- the binding holds only for a read
+                        // written in the definition that declares the
+                        // instance: a module nested inside it that reads the
+                        // outer instance (`module top; ifc u(clk); module
+                        // inner; ... mv = u; endmodule`) keeps golden's
+                        // unbound ref_obj, which pristine wrote and the law
+                        // replaced by work@top.u.  The reading instance's
+                        // definition name (the part after the last `@` and
+                        // `::` of its vpiDefName) must be the declaring
+                        // definition's name.
+                        bool sameDef485v = true;
+                        if (fixOn(485, "R11V485_NONEXSCOPE_OFF")) {
+                            std::string rd485(implicitNetModule->VpiDefName());
+                            if (auto a = rd485.rfind('@'); a != std::string::npos)
+                                rd485 = rd485.substr(a + 1);
+                            if (auto c = rd485.rfind("::"); c != std::string::npos)
+                                rd485 = rd485.substr(c + 2);
+                            sameDef485v = rd485 == ib483.getDefinition().name;
+                            if (!sameDef485v)
+                                lawTrace(485, "ifaceValNoneBindsInst485", "crossScopeAbstain " + dotted);
+                        }
+                        if (sameDef485v && lawOn(485, "R11U485_NONEBIND_OFF"))
+                            ifaceNoneBind485().push_back({r, &sy9});
                     }
                     // § ifaceValNestedModAbstain483v (v11u483,
                     // R11V483_NESTMOD_OFF; case tools/probe/v11u483repro/

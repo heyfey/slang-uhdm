@@ -1,0 +1,25 @@
+# away census: 1806 fence-filtered earlier case dirs (tools/probe/[rv]1[01]u*repro, dut.sv holding default_nettype, defparam or a #( ... :: override), pristine vs final verified, rc + md5
+rc movers 0, byte movers 11:
+./r11u474repro/cases/CS/cs06
+./r11u483repro/cases/IV/iv08
+./r11u483repro/cases/OV/ov06
+./r11u483repro/cases/OV/ov16
+./r11u483repro/cases/OV/ov23
+./v11u474repro/cases/VP/vp06
+./v11u483repro/cases/VI/vi14
+./v11u483repro/cases/VO/vo07
+./v11u483repro/cases/VO/vo12
+./v11u483repro/cases/VO/vo13
+./v11u483repro/cases/VO/vo20
+# judged:
+r11u474repro/cases/CS/cs06 rc=0 cmp=36 dist=80 NOT_EQUAL stage1|rc=0 cmp=36 dist=54 NOT_EQUAL stage1
+r11u483repro/cases/IV/iv08 rc=0 cmp=139 dist=4 NOT_EQUAL stage1|rc=0 cmp=0 dist=2 STRICT_EQUAL 67
+r11u483repro/cases/OV/ov06 rc=0 cmp=98 dist=80 NOT_EQUAL stage1|rc=0 cmp=98 dist=48 NOT_EQUAL stage1
+r11u483repro/cases/OV/ov16 rc=0 cmp=98 dist=71 NOT_EQUAL stage1|rc=0 cmp=98 dist=45 NOT_EQUAL stage1
+r11u483repro/cases/OV/ov23 rc=0 cmp=98 dist=74 NOT_EQUAL stage1|rc=0 cmp=98 dist=48 NOT_EQUAL stage1
+v11u474repro/cases/VP/vp06 rc=0 cmp=36 dist=21 NOT_EQUAL stage1|rc=0 cmp=36 dist=8 NOT_EQUAL stage1
+v11u483repro/cases/VI/vi14 rc=0 cmp=32 dist=4 NOT_EQUAL stage1|rc=0 cmp=0 dist=2 STRICT_EQUAL 54
+v11u483repro/cases/VO/vo07 rc=0 cmp=0 dist=4 STRICT_NOTEQUAL endcol|rc=0 cmp=0 dist=2 STRICT_EQUAL 69
+v11u483repro/cases/VO/vo12 rc=0 cmp=17 dist=29 NOT_EQUAL stage1|rc=0 cmp=50 dist=16 NOT_EQUAL stage1
+v11u483repro/cases/VO/vo13 rc=0 cmp=64 dist=6 NOT_EQUAL stage1|rc=0 cmp=0 dist=2 STRICT_EQUAL 73
+v11u483repro/cases/VO/vo20 rc=0 cmp=64 dist=6 NOT_EQUAL stage1|rc=0 cmp=0 dist=2 STRICT_EQUAL 100

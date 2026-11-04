@@ -1,0 +1,10 @@
+== surelog census (law8) vs control
+databases: patched=962 pristine=962
+PATH_SETS_IDENTICAL (962 paths)
+MOVERS: 0 / 962
+SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+== uhdm2rtlil census (law8) vs control
+databases: patched=1608 pristine=1608
+PATH_SETS_IDENTICAL (1608 paths)
+MOVERS: 0 / 1608
+SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged

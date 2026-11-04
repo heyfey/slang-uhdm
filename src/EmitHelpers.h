@@ -16074,6 +16074,22 @@ UHDM::operation* buildMatchOp403(UHDM::Serializer& s, const slang::ast::Expressi
     return op;
 }
 
+// § ifaceValNoneBindsInst485 -- (reference, interface instance symbol)
+// pairs recorded by ExprEmit under `default_nettype none, bound design-final
+// by ParamEmit's drain.  A side list.
+inline std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>>& ifaceNoneBind485() {
+    static std::vector<std::pair<UHDM::ref_obj*, const slang::ast::Symbol*>> v;
+    return v;
+}
+
+// § implicitNetDefaultType485 -- every wire mintImplicitNet403 mints, in
+// mint order; ParamEmit's design-final drain gives each the vpiNetType of its
+// definition's `default_nettype.  A side list, read only by that drain.
+inline std::vector<UHDM::logic_net*>& implicitNetMints485() {
+    static std::vector<UHDM::logic_net*> v;
+    return v;
+}
+
 // The implicit module wire Surelog's netlist elaboration mints for a name it
 // cannot resolve (by name: an existing logic_net of that name is reused),
 // located at `r`, vpiNetType 1, no file (§ implicitNetMintNoFile131).  Used
@@ -16095,6 +16111,7 @@ UHDM::logic_net* mintImplicitNet403(UHDM::Serializer& s, UHDM::instance* mod,
     in->VpiNetType(1);
     setLoc(in, r);
     noteImplicitNetMint131(in);  // § implicitNetMintNoFile131
+    implicitNetMints485().push_back(in);  // § implicitNetDefaultType485
     auto* nets = mod->Nets();
     if (!nets) {
         nets = s.MakeNetVec();

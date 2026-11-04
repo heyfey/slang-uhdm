@@ -1,0 +1,6 @@
+census probe dump comparison (law8 vs control /tmp/intr11u476/probe), path-normalised
+first pass (file paths normalised only): 631 flagged, all checkout-path text (vpiRefFile etc.)
+second pass over the 631 with the checkout root normalised: compared 631 movers 0
+negative control: 99 of 99 flagged
+probe cases: EQUAL=4025 STRICT_NOTEQUAL=62 (of 4087); goldens built now=0, from cache=4087
+probe strict: equal=4025 differ:fullname=28 differ:line=8 differ:depth=6 differ:endcol=5 differ:file=5 differ:name=5 differ:type=3 differ:col=1 differ:endline=1

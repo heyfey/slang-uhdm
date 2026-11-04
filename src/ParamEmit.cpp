@@ -85,7 +85,143 @@ static bool clsScopedOvActual483(const slang::ast::ParameterSymbol& ps,
     name = std::string(pkg.empty() ? cls : pkg) + "::" + std::string(member);
     range = SourceRange(ini->getFirstToken().location(),
                         sc.right->getFirstToken().location());
+    // § clsOvSpanSepEnd485 (r11u485, R11U485_SEPEND_OFF; case v11u483
+    // VO/vo07, cases/SE) -- the span ends where the LAST `::` token ends,
+    // not where the member name starts: `K :: w` is 4:35-4:39 in golden
+    // (Surelog's class-scope node is `K ::` and its end column is the end
+    // of the separator token); the two agree when nothing separates them.
+    if (lawOn(485, "R11U485_SEPEND_OFF")) {
+        auto sepEnd = sc.separator.location() + sc.separator.rawText().length();
+        if (sepEnd != range.end())
+            lawTrace(485, "clsOvSpanSepEnd485", name);
+        range = SourceRange(range.start(), sepEnd);
+    }
     return true;
+}
+
+// § clsOvExprActualOpTree485 -- one class-scoped LEAF `K::w` (or `p::K::w`)
+// of an override actual's operation tree: the same lookup and naming as
+// clsScopedOvActual483, the span the same rule (to the end of the last
+// `::`, § clsOvSpanSepEnd485).
+static bool clsScopedLeaf485(const slang::syntax::ScopedNameSyntax& sc,
+                             const slang::ast::Scope* ovScope, std::string& name,
+                             slang::SourceRange& range) {
+    using namespace slang;
+    using namespace slang::ast;
+    if (!ovScope || sc.separator.kind != parsing::TokenKind::DoubleColon || !sc.left ||
+        !sc.right || sc.right->kind != syntax::SyntaxKind::IdentifierName)
+        return false;
+    std::string_view member = sc.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+    std::string_view pkg, cls;
+    const Symbol* ls = nullptr;
+    if (sc.left->kind == syntax::SyntaxKind::IdentifierName) {
+        cls = sc.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        ls = cls.empty() ? nullptr : ovScope->lookupName(cls);
+    }
+    else if (sc.left->kind == syntax::SyntaxKind::ScopedName) {
+        auto& sc2 = sc.left->as<syntax::ScopedNameSyntax>();
+        if (sc2.separator.kind != parsing::TokenKind::DoubleColon || !sc2.left || !sc2.right ||
+            sc2.left->kind != syntax::SyntaxKind::IdentifierName ||
+            sc2.right->kind != syntax::SyntaxKind::IdentifierName)
+            return false;
+        pkg = sc2.left->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        cls = sc2.right->as<syntax::IdentifierNameSyntax>().identifier.valueText();
+        auto* pk = pkg.empty() ? nullptr : ovScope->getCompilation().getPackage(pkg);
+        ls = (pk && !cls.empty()) ? pk->find(cls) : nullptr;
+    }
+    else
+        return false;
+    if (ls && ls->kind == SymbolKind::TypeAlias)
+        ls = &ls->as<TypeAliasType>().targetType.getType().getCanonicalType();
+    if (!ls || ls->kind != SymbolKind::ClassType || member.empty())
+        return false;
+    name = std::string(pkg.empty() ? cls : pkg) + "::" + std::string(member);
+    auto sepEnd = sc.separator.location() + sc.separator.rawText().length();
+    range = SourceRange(sc.getFirstToken().location(),
+                        lawOn(485, "R11U485_SEPEND_OFF") ? sepEnd
+                                                         : sc.right->getFirstToken().location());
+    return true;
+}
+
+// § clsOvExprActualOpTree485 -- is this NAMED override actual an operation
+// tree whose leaves are class-scoped names (at least one) and unsized or
+// sized-'d decimal literals, over binary, unary (- ~ !) and conditional
+// operators?  Returns the actual's syntax (parentheses stripped) or null.
+static const slang::syntax::ExpressionSyntax*
+clsOvExprActual485(const slang::ast::ParameterSymbol& ps, const slang::ast::Scope* ovScope) {
+    using namespace slang;
+    using namespace slang::ast;
+    if (!ovScope)
+        return nullptr;
+    auto dt = ps.getDeclaredType();
+    const syntax::SyntaxNode* ini0 = dt ? dt->getInitializerSyntax() : nullptr;
+    const syntax::SyntaxNode* up = ini0 ? ini0->parent : nullptr;
+    while (up && up->kind == syntax::SyntaxKind::ParenthesizedExpression)
+        up = up->parent;
+    if (!ini0 || !up || up->kind != syntax::SyntaxKind::NamedParamAssignment ||
+        !syntax::ExpressionSyntax::isKind(ini0->kind))
+        return nullptr;
+    auto unwrap = [](const syntax::ExpressionSyntax* n) {
+        while (n && n->kind == syntax::SyntaxKind::ParenthesizedExpression)
+            n = n->as<syntax::ParenthesizedExpressionSyntax>().expression.get();
+        return n;
+    };
+    const auto* root = unwrap(&ini0->as<syntax::ExpressionSyntax>());
+    int leaves = 0;
+    std::function<bool(const syntax::ExpressionSyntax*)> ok =
+        [&](const syntax::ExpressionSyntax* n0) -> bool {
+        const auto* n = unwrap(n0);
+        if (!n)
+            return false;
+        if (n->kind == syntax::SyntaxKind::ScopedName) {
+            std::string nm;
+            SourceRange rg;
+            if (!clsScopedLeaf485(n->as<syntax::ScopedNameSyntax>(), ovScope, nm, rg))
+                return false;
+            leaves++;
+            return true;
+        }
+        if (n->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+            return true;
+        if (n->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+            auto& iv = n->as<syntax::IntegerVectorExpressionSyntax>();
+            std::string bs(iv.base.rawText());
+            return !iv.size.rawText().empty() && (bs == "'d" || bs == "'D");
+        }
+        if (n->kind == syntax::SyntaxKind::UnaryMinusExpression ||
+            n->kind == syntax::SyntaxKind::UnaryBitwiseNotExpression ||
+            n->kind == syntax::SyntaxKind::UnaryLogicalNotExpression)
+            return ok(n->as<syntax::PrefixUnaryExpressionSyntax>().operand);
+        if (syntax::BinaryExpressionSyntax::isKind(n->kind) && mapSynBinaryOp9(n->kind)) {
+            auto& b = n->as<syntax::BinaryExpressionSyntax>();
+            return ok(b.left) && ok(b.right);
+        }
+        if (n->kind == syntax::SyntaxKind::ConditionalExpression) {
+            auto& ce = n->as<syntax::ConditionalExpressionSyntax>();
+            return ce.predicate->conditions.size() == 1 &&
+                   !ce.predicate->conditions[0]->matchesClause && ce.attributes.empty() &&
+                   ok(ce.predicate->conditions[0]->expr) && ok(ce.left) && ok(ce.right);
+        }
+        return false;
+    };
+    if (!root || root->kind == syntax::SyntaxKind::ScopedName || !ok(root) || leaves == 0)
+        return nullptr;
+    return root;
+}
+
+// § clsOvDepParamOpTree485 — the typespec references the law writes whose
+// actual is bound only later in the export (an elaborated parameter's
+// ref_typespec gets its actual after emitParameters): (owner, reference,
+// the parameter whose typespec it points at), filled design-final at the end
+// of drainPaNameCopySrc38.  A side list, not an exporter member.
+struct DepParamTs485 {
+    UHDM::expr* owner;
+    UHDM::ref_typespec* rt;
+    const UHDM::parameter* src;
+};
+static std::vector<DepParamTs485>& depParamTs485() {
+    static std::vector<DepParamTs485> v;
+    return v;
 }
 
 // § oobInheritedCallBindsOwnPkgClone455 (r11u455) — the top-view wildcard-
@@ -11298,6 +11434,11 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // § clsScopedOvRhsRefObj483 — the records, a side list (see
     // clsScopedOvActual483).
     std::vector<std::tuple<UHDM::param_assign*, std::string, SourceRange>> clsOv483;
+    // § clsOvExprActualOpTree485 — the operation-tree actuals (pa, the
+    // actual's syntax, the instantiating scope).
+    std::vector<std::tuple<UHDM::param_assign*, const syntax::ExpressionSyntax*,
+                           const Scope*>>
+        clsEx485;
     std::vector<const ParameterSymbol*> paramSyms;
     for (auto& member0 : body.members())
         if (member0.kind == SymbolKind::Parameter)
@@ -13818,6 +13959,20 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     clsOv483.push_back({pa, nm483, rg483});
                 else
                     lawTrace(483, "clsScopedOvRhsRefObj483", "OFF " + prefix + " " + nm483);
+            }
+            // § clsOvExprActualOpTree485 — THE RECORD for an operation-tree
+            // actual (the law is at clsOvExprActual485; the tree is built
+            // after the listing, with § clsScopedOvRhsRefObj483's Rhs).
+            else if (const syntax::ExpressionSyntax* ex485 =
+                         pi483 ? clsOvExprActual485(ps, pi483->getParentScope()) : nullptr) {
+                const auto* hon485 =
+                    body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode;
+                if (hon485 && ps.getSyntax() &&
+                    hon485->paramOverrides.find(ps.getSyntax()) !=
+                        hon485->paramOverrides.end())
+                    lawTrace(485, "clsOvExprActualOpTree485", "defparamAbstain " + prefix);
+                else if (lawOn(485, "R11U485_EXPRACTUAL_OFF"))
+                    clsEx485.push_back({pa, ex485, pi483->getParentScope()});
             }
         }
         // The ELAB Rhs of a -P'd parameter is fromString's constant, built from
@@ -30706,6 +30861,581 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
         pa483->Rhs(ro483);
         lawTrace(483, "clsScopedOvRhsRefObj483", pfx483 + " " + nm483);
     }
+    // § ovDefparamWinsValue485 (r11u485, R11U485_DEFPARAMVAL_OFF; cases
+    // tools/probe/r11u485repro/cases/DF, v11u483 VO/vo13, vo20) -- a
+    // parameter overridden BOTH by its instantiation (#(.A(5)), #(5),
+    // #(.A(K::w))) and by a defparam: Surelog's elaborated param_assign Rhs
+    // is the DEFPARAM's value (the design's defparam table is applied on top
+    // of the instance's override), the constant keeping its shape (int
+    // typespec, size, location at the declaration default); ours wrote the
+    // instantiation actual's folded value while the parameter's own value
+    // (slang applies the defparam as well) already reads the defparam's.  The
+    // law re-values that constant from the defparam's written unsized decimal
+    // (UINT or INT kept as the constant had it, decompile the written
+    // digits); any other defparam value, or a non-constant Rhs, abstains.
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode &&
+        lawOn(485, "R11U485_DEFPARAMVAL_OFF")) {
+        const auto* honD = body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode;
+        for (auto* paD : *passigns) {
+            if (!paD || !paD->VpiOverriden() || !paD->Lhs() ||
+                paD->Lhs()->UhdmType() != UHDM::uhdmparameter || !paD->Rhs() ||
+                paD->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            const ParameterSymbol* psD = nullptr;
+            for (auto* p : paramSyms)
+                if (p->name == paD->Lhs()->VpiName()) {
+                    if (psD && psD != p) {
+                        psD = nullptr;
+                        break;
+                    }
+                    psD = p;
+                }
+            if (!psD || !psD->getSyntax())
+                continue;
+            auto itD = honD->paramOverrides.find(psD->getSyntax());
+            if (itD == honD->paramOverrides.end() || !itD->second.defparam ||
+                itD->second.defparam->kind != syntax::SyntaxKind::DefParamAssignment)
+                continue;
+            auto& dpa = itD->second.defparam->as<syntax::DefParamAssignmentSyntax>();
+            const syntax::ExpressionSyntax* dv = dpa.setter->expr;
+            while (dv && dv->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                dv = dv->as<syntax::ParenthesizedExpressionSyntax>().expression.get();
+            std::string lit;
+            if (dv && dv->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                lit = std::string(dv->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+            // a sized 'd defparam value: golden decompiles the value's digits
+            // (4'd6 reads 6, cases/DF df05)
+            if (dv && dv->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                auto& ivD = dv->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string bD(ivD.base.rawText());
+                if (!ivD.size.rawText().empty() && (bD == "'d" || bD == "'D"))
+                    lit = std::string(ivD.value.rawText());
+            }
+            auto* cD = (UHDM::constant*)paD->Rhs();
+            std::string val(cD->VpiValue());
+            if (lit.empty() || lit.size() > 9 ||
+                lit.find_first_not_of("0123456789") != std::string::npos ||
+                (val.rfind("UINT:", 0) != 0 && val.rfind("INT:", 0) != 0)) {
+                lawTrace(485, "ovDefparamWinsValue485", "abstain " + prefix + " " + std::string(psD->name));
+                continue;
+            }
+            std::string nv = (val.rfind("UINT:", 0) == 0 ? "UINT:" : "INT:") +
+                             std::to_string(std::stoull(lit));
+            if (nv == val && cD->VpiDecompile() == std::to_string(std::stoull(lit)))
+                continue;
+            cD->VpiValue(nv);
+            cD->VpiDecompile(std::to_string(std::stoull(lit)));
+            lawTrace(485, "ovDefparamWinsValue485", prefix + " " + std::string(psD->name) + " " + nv);
+        }
+    }
+    // § clsOvExprActualOpTree485 (r11u485, R11U485_EXPRACTUAL_OFF; cases
+    // tools/probe/r11u485repro/cases/EA, pass 483's residue OV/ov16) -- a
+    // NAMED override actual that is an operation tree over class-scoped
+    // names, `.A(K::w + 1)`, cannot be valued by Surelog for the same reason
+    // as a bare `K::w` (§ clsScopedOvRhsRefObj483), so elab_parameters_
+    // keeps the unreduced actual as the elaborated Rhs: the written tree,
+    // parentheses dropped, each operation at its own span (an operation
+    // whose left operand is parenthesized starts at that parenthesis, ea05),
+    // every class-scoped leaf a ref_obj named and spanned as
+    // § clsScopedOvRhsRefObj483's with the full name <instance>.<name>
+    // (ea04 lists two distinct objects for K::w + K::w), an unsized decimal
+    // UINT:<v> size 64 and a sized 'd literal DEC:<v> of its width (ea08), no
+    // typespec anywhere; a parameter of the instance reading it then sees
+    // this operation as A's complex value (§ clsOvDepParamOpTree485, ea11,
+    // where the operation also takes A's typespec).  Ours wrote the folded
+    // value.  Only binary, unary - ~ ! and conditional operators over those
+    // leaves are written (clsOvExprActual485 decides); a defparam on the
+    // parameter abstains as § clsOvDefparamAbstain483v does.
+    for (auto& [pa485, ex485, sc485] : clsEx485) {
+        std::string pfxE = prefix;
+        if (pfxE.size() >= 2 && pfxE.compare(pfxE.size() - 2, 2, "::") == 0)
+            pfxE.resize(pfxE.size() - 2);
+        std::function<UHDM::any*(const syntax::ExpressionSyntax*)> mk =
+            [&](const syntax::ExpressionSyntax* n0) -> UHDM::any* {
+            const syntax::ExpressionSyntax* n = n0;
+            while (n && n->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                n = n->as<syntax::ParenthesizedExpressionSyntax>().expression.get();
+            if (!n)
+                return nullptr;
+            if (n->kind == syntax::SyntaxKind::ScopedName) {
+                std::string nm;
+                SourceRange rg;
+                if (!clsScopedLeaf485(n->as<syntax::ScopedNameSyntax>(), sc485, nm, rg))
+                    return nullptr;
+                auto* ro = s.MakeRef_obj();
+                ro->VpiName(nm);
+                ro->VpiFullName(pfxE + "." + nm);
+                setLoc(ro, rg);
+                return ro;
+            }
+            if (n->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+                std::string t(n->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+                if (t.empty() || t.size() > 18 ||
+                    t.find_first_not_of("0123456789") != std::string::npos)
+                    return nullptr;
+                auto* c = s.MakeConstant();
+                c->VpiValue("UINT:" + std::to_string(std::stoull(t)));
+                c->VpiDecompile(t);
+                c->VpiSize(64);
+                c->VpiConstType(vpiUIntConst);
+                setLoc(c, n->sourceRange());
+                return c;
+            }
+            if (n->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                auto& iv = n->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string sz(iv.size.rawText()), vl(iv.value.rawText());
+                if (sz.empty() || sz.size() > 2 ||
+                    sz.find_first_not_of("0123456789") != std::string::npos || vl.empty() ||
+                    vl.size() > 18 || vl.find_first_not_of("0123456789") != std::string::npos ||
+                    std::stoi(sz) < 1 || std::stoi(sz) > 64)
+                    return nullptr;
+                auto* c = s.MakeConstant();
+                c->VpiValue("DEC:" + std::to_string(std::stoull(vl)));
+                c->VpiDecompile(rawText(n->sourceRange()));
+                c->VpiSize(std::stoi(sz));
+                c->VpiConstType(vpiDecConst);
+                setLoc(c, n->sourceRange());
+                return c;
+            }
+            std::vector<const syntax::ExpressionSyntax*> kids;
+            int32_t t = 0;
+            if (n->kind == syntax::SyntaxKind::UnaryMinusExpression ||
+                n->kind == syntax::SyntaxKind::UnaryBitwiseNotExpression ||
+                n->kind == syntax::SyntaxKind::UnaryLogicalNotExpression) {
+                t = mapSynUnaryOp9(n->kind);
+                kids.push_back(n->as<syntax::PrefixUnaryExpressionSyntax>().operand);
+            }
+            else if (syntax::BinaryExpressionSyntax::isKind(n->kind) &&
+                     mapSynBinaryOp9(n->kind)) {
+                t = mapSynBinaryOp9(n->kind);
+                auto& b = n->as<syntax::BinaryExpressionSyntax>();
+                kids = {b.left.get(), b.right.get()};
+            }
+            else if (n->kind == syntax::SyntaxKind::ConditionalExpression) {
+                t = vpiConditionOp;
+                auto& ce = n->as<syntax::ConditionalExpressionSyntax>();
+                kids = {ce.predicate->conditions[0]->expr.get(), ce.left.get(), ce.right.get()};
+            }
+            if (!t)
+                return nullptr;
+            auto* op = s.MakeOperation();
+            op->VpiOpType(t);
+            setLoc(op, n->sourceRange());
+            auto* ops = s.MakeAnyVec();
+            op->Operands(ops);
+            for (auto* k : kids) {
+                UHDM::any* o = mk(k);
+                if (!o)
+                    return nullptr;  // decided by clsOvExprActual485 first
+                o->VpiParent(op);
+                ops->push_back(o);
+            }
+            return op;
+        };
+        if (UHDM::any* r485 = mk(ex485)) {
+            r485->VpiParent(pa485);
+            pa485->Rhs(r485);
+            clsOv483.push_back({pa485, std::string(), SourceRange()});
+            lawTrace(485, "clsOvExprActualOpTree485",
+                     pfxE + "." + std::string(pa485->Lhs() ? pa485->Lhs()->VpiName() : ""));
+        }
+    }
+    // § clsOvDepParamOpTree485 (r11u485, R11U485_DEPPARAM_OFF; cases
+    // tools/probe/r11u485repro/cases/DP, pass 483's residues OV/ov06, ov23,
+    // v11u483 VO/vo12) -- a parameter of the same instance whose initializer
+    // READS a parameter A that § clsScopedOvRhsRefObj483 left unvalued.
+    // Surelog's DesignElaboration compiles each such initializer with
+    // Reduce::Yes in the instance (DesignElaboration.cpp, the
+    // paParam_assignment loop): a reference to A inside an operation is
+    // replaced by A's COMPLEX value, the very ref_obj of A's param_assign
+    // (shared, not copied), the reduction fails, and the operation is kept
+    // as the instance's complex value, so elab_parameters_ writes it whole as
+    // the elaborated Rhs.  Golden, measured (cases/DP):
+    //   * the Rhs is the written operation tree, parentheses dropped (dp19),
+    //     each operation at its own span; an unsized decimal literal is
+    //     UINT:<v> size 64 (vpiConstType 9), a sized 'd literal DEC:<v> of
+    //     its width (const type 1, dp25), the name of another parameter of
+    //     the instance whose Rhs is already a constant a copy of that
+    //     constant at the name's span with no typespec (dp26);
+    //   * every reference to A is A's ref_obj itself (dp07 A + A lists it
+    //     twice); a binary or conditional operation re-parents its direct
+    //     operands (the ref_obj's parent is the LAST such operation, dp18),
+    //     a unary one does not (dp15, dp28);
+    //   * a parameter read whose own value is complex (B = A + 1; C = B + 1)
+    //     is that parameter's operation itself (dp11, dp24), and a bare
+    //     C = B is B's operation as C's whole Rhs, not re-parented (dp27);
+    //   * a BARE A (B = A, B = (A)) reduces to A's VALUE, which is still its
+    //     declaration default: UINT:<default> size 64, no typespec, or for
+    //     a declared int B the size 32 constant with B's typespec (dp03,
+    //     dp04, dp06, dp21, dp23);
+    //   * a declared type on B types the operation with B's typespec (dp13),
+    //     an implicit one leaves it untyped;
+    //   * A's ref_obj gains a ref_typespec to A's own typespec (dp01, dp03:
+    //     set while the reader compiles), none when A has none (dp22).
+    // Ours wrote slang's folded value.  Abstains (pristine kept) on any other
+    // leaf: calls ($clog2(A): golden a different, cloned shape, dp09), based
+    // literals, names of later or non-constant parameters, and on an
+    // overridden reader.  The body bound and continuous assignment reading B
+    // are the sister's (TypeEmit, ModuleEmit).
+    if (!clsOv483.empty() && topView && lawOn(485, "R11U485_DEPPARAM_OFF")) {
+        std::string pfx485 = prefix;
+        if (pfx485.size() >= 2 && pfx485.compare(pfx485.size() - 2, 2, "::") == 0)
+            pfx485.resize(pfx485.size() - 2);
+        std::map<std::string, const ParameterSymbol*> sym485;
+        for (auto* p485 : paramSyms) {
+            auto [it485, fresh485] = sym485.emplace(std::string(p485->name), p485);
+            if (!fresh485 && it485->second != p485)
+                it485->second = nullptr;  // ambiguous: abstain on that name
+        }
+        std::map<std::string, UHDM::any*> cx485;      // complex values
+        std::map<std::string, UHDM::param_assign*> a485;  // the unvalued A's
+        for (auto& [pa483, nm483, rg483] : clsOv483)
+            if (pa483->Lhs() && pa483->Rhs() &&
+                pa483->Lhs()->UhdmType() == UHDM::uhdmparameter) {
+                std::string an485(pa483->Lhs()->VpiName());
+                cx485[an485] = pa483->Rhs();
+                a485[an485] = pa483;
+            }
+        std::map<std::string, const UHDM::constant*> cst485;
+        std::set<std::string> usedA485;
+        auto unwrap485 = [](const syntax::ExpressionSyntax* n) {
+            while (n && n->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                n = n->as<syntax::ParenthesizedExpressionSyntax>().expression.get();
+            return n;
+        };
+        auto decDigits485 = [](std::string_view t) {
+            if (t.empty())
+                return false;
+            for (char ch : t)
+                if (!isdigit((unsigned char)ch))
+                    return false;
+            return true;
+        };
+        // dry == true: only answer whether the tree is writable.
+        std::function<UHDM::any*(const syntax::ExpressionSyntax*, bool, bool&)> bld485 =
+            [&](const syntax::ExpressionSyntax* n0, bool dry, bool& ok) -> UHDM::any* {
+            const syntax::ExpressionSyntax* n = unwrap485(n0);
+            if (!ok || !n) {
+                ok = false;
+                return nullptr;
+            }
+            if (n->kind == syntax::SyntaxKind::IdentifierName) {
+                std::string id(n->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                if (auto it = cx485.find(id); it != cx485.end()) {
+                    if (!dry && a485.count(id))
+                        usedA485.insert(id);
+                    return dry ? nullptr : it->second;
+                }
+                auto ic = cst485.find(id);
+                if (ic == cst485.end() || !ic->second) {
+                    ok = false;
+                    return nullptr;
+                }
+                if (dry)
+                    return nullptr;
+                auto* c = s.MakeConstant();
+                c->VpiValue(ic->second->VpiValue());
+                c->VpiDecompile(ic->second->VpiDecompile());
+                c->VpiSize(ic->second->VpiSize());
+                c->VpiConstType(ic->second->VpiConstType());
+                setLoc(c, n->sourceRange());
+                return c;
+            }
+            if (n->kind == syntax::SyntaxKind::IntegerLiteralExpression) {
+                std::string t(n->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+                if (!decDigits485(t) || t.size() > 18) {
+                    ok = false;
+                    return nullptr;
+                }
+                if (dry)
+                    return nullptr;
+                auto* c = s.MakeConstant();
+                c->VpiValue("UINT:" + std::to_string(std::stoull(t)));
+                c->VpiDecompile(t);
+                c->VpiSize(64);
+                c->VpiConstType(vpiUIntConst);
+                setLoc(c, n->sourceRange());
+                return c;
+            }
+            if (n->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                auto& iv = n->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string sz(iv.size.rawText()), bs(iv.base.rawText()), vl(iv.value.rawText());
+                if (!decDigits485(sz) || sz.size() > 2 || (bs != "'d" && bs != "'D") ||
+                    !decDigits485(vl) || vl.size() > 18 || std::stoi(sz) > 64 ||
+                    std::stoi(sz) < 1) {
+                    ok = false;
+                    return nullptr;
+                }
+                if (dry)
+                    return nullptr;
+                auto* c = s.MakeConstant();
+                c->VpiValue("DEC:" + std::to_string(std::stoull(vl)));
+                c->VpiDecompile(rawText(n->sourceRange()));
+                c->VpiSize(std::stoi(sz));
+                c->VpiConstType(vpiDecConst);
+                setLoc(c, n->sourceRange());
+                return c;
+            }
+            if (int32_t ut = mapSynUnaryOp9(n->kind);
+                ut && (ut == vpiMinusOp || ut == vpiPlusOp || ut == vpiBitNegOp ||
+                       ut == vpiNotOp) &&
+                n->kind != syntax::SyntaxKind::UnaryPlusExpression) {
+                auto* opnd = n->as<syntax::PrefixUnaryExpressionSyntax>().operand.get();
+                if (dry) {
+                    bld485(opnd, true, ok);
+                    return nullptr;
+                }
+                auto* op = s.MakeOperation();
+                op->VpiOpType(ut);
+                setLoc(op, n->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                op->Operands(ops);
+                bool shared = false;
+                UHDM::any* o = bld485(opnd, false, ok);
+                for (auto& [k485, v485] : cx485)
+                    if (v485 == o)
+                        shared = true;
+                if (o && !shared)
+                    o->VpiParent(op);
+                if (o)
+                    ops->push_back(o);
+                return op;
+            }
+            if (int32_t bt = mapSynBinaryOp9(n->kind);
+                bt && syntax::BinaryExpressionSyntax::isKind(n->kind)) {
+                auto& b = n->as<syntax::BinaryExpressionSyntax>();
+                if (dry) {
+                    bld485(b.left, true, ok);
+                    bld485(b.right, true, ok);
+                    return nullptr;
+                }
+                auto* op = s.MakeOperation();
+                op->VpiOpType(bt);
+                setLoc(op, n->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                op->Operands(ops);
+                for (auto* side : {b.left.get(), b.right.get()})
+                    if (UHDM::any* o = bld485(side, false, ok)) {
+                        o->VpiParent(op);
+                        ops->push_back(o);
+                    }
+                return op;
+            }
+            if (n->kind == syntax::SyntaxKind::ConditionalExpression) {
+                auto& ce = n->as<syntax::ConditionalExpressionSyntax>();
+                if (ce.predicate->conditions.size() != 1 ||
+                    ce.predicate->conditions[0]->matchesClause || !ce.attributes.empty()) {
+                    ok = false;
+                    return nullptr;
+                }
+                const syntax::ExpressionSyntax* parts[3] = {
+                    ce.predicate->conditions[0]->expr.get(), ce.left.get(), ce.right.get()};
+                if (dry) {
+                    for (auto* p : parts)
+                        bld485(p, true, ok);
+                    return nullptr;
+                }
+                auto* op = s.MakeOperation();
+                op->VpiOpType(vpiConditionOp);
+                setLoc(op, n->sourceRange());
+                auto* ops = s.MakeAnyVec();
+                op->Operands(ops);
+                for (auto* p : parts)
+                    if (UHDM::any* o = bld485(p, false, ok)) {
+                        o->VpiParent(op);
+                        ops->push_back(o);
+                    }
+                return op;
+            }
+            ok = false;
+            return nullptr;
+        };
+        std::function<bool(const syntax::SyntaxNode*)> mentions485 =
+            [&](const syntax::SyntaxNode* n) -> bool {
+            if (!n)
+                return false;
+            if (n->kind == syntax::SyntaxKind::IdentifierName &&
+                cx485.count(std::string(n->as<syntax::IdentifierNameSyntax>().identifier.valueText())))
+                return true;
+            for (size_t i = 0; i < n->getChildCount(); i++)
+                if (mentions485(n->childNode(i)))
+                    return true;
+            return false;
+        };
+        for (auto* pa : *passigns) {
+            if (!pa || !pa->Lhs() || pa->Lhs()->UhdmType() != UHDM::uhdmparameter)
+                continue;
+            std::string nm(pa->Lhs()->VpiName());
+            if (a485.count(nm))
+                continue;
+            auto keepConst = [&]() {
+                if (pa->Rhs() && pa->Rhs()->UhdmType() == UHDM::uhdmconstant)
+                    cst485.emplace(nm, (const UHDM::constant*)pa->Rhs());
+            };
+            auto is = sym485.find(nm);
+            const ParameterSymbol* ps485 = is == sym485.end() ? nullptr : is->second;
+            const syntax::ExpressionSyntax* ini = nullptr;
+            if (ps485 && ps485->getSyntax() &&
+                ps485->getSyntax()->kind == syntax::SyntaxKind::Declarator) {
+                auto& dcl = ps485->getSyntax()->as<syntax::DeclaratorSyntax>();
+                if (dcl.initializer)
+                    ini = dcl.initializer->expr.get();
+            }
+            if (pa->VpiOverriden() || !ini || !mentions485(ini)) {
+                keepConst();
+                continue;
+            }
+            // B's written type: implicit (untyped) or the keyword int.
+            const syntax::DataTypeSyntax* dts = nullptr;
+            if (const syntax::SyntaxNode* pd = ps485->getSyntax()->parent;
+                pd && pd->kind == syntax::SyntaxKind::ParameterDeclaration)
+                dts = pd->as<syntax::ParameterDeclarationSyntax>().type.get();
+            bool untyped = dts && dts->kind == syntax::SyntaxKind::ImplicitType &&
+                           dts->as<syntax::ImplicitTypeSyntax>().signing.kind ==
+                               parsing::TokenKind::Unknown &&
+                           dts->as<syntax::ImplicitTypeSyntax>().dimensions.empty();
+            bool intTyped = dts && dts->kind == syntax::SyntaxKind::IntType;
+            auto* bp485 = (const UHDM::parameter*)pa->Lhs();
+            bool bts = bp485->Typespec() != nullptr;
+            if (!untyped && !(intTyped && bts)) {
+                lawTrace(485, "clsOvDepParamOpTree485", "typeAbstain " + pfx485 + "." + nm);
+                continue;
+            }
+            const syntax::ExpressionSyntax* core = unwrap485(ini);
+            UHDM::any* nr = nullptr;
+            if (core && core->kind == syntax::SyntaxKind::IdentifierName) {
+                std::string id(core->as<syntax::IdentifierNameSyntax>().identifier.valueText());
+                if (a485.count(id)) {
+                    // the bare A: A's declaration default as its value
+                    auto ia = sym485.find(id);
+                    const syntax::ExpressionSyntax* dini = nullptr;
+                    if (ia != sym485.end() && ia->second && ia->second->getSyntax() &&
+                        ia->second->getSyntax()->kind == syntax::SyntaxKind::Declarator) {
+                        auto& d2 = ia->second->getSyntax()->as<syntax::DeclaratorSyntax>();
+                        if (d2.initializer)
+                            dini = unwrap485(d2.initializer->expr.get());
+                    }
+                    std::string t, hx;
+                    if (dini && dini->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                        t = std::string(dini->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+                    // an unsized 'h default (dp22): HEX:<digits> size -1,
+                    // const type 5, decompile as written
+                    if (dini && dini->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                        auto& iv2 = dini->as<syntax::IntegerVectorExpressionSyntax>();
+                        std::string b2(iv2.base.rawText()), v2(iv2.value.rawText());
+                        bool hexOk = iv2.size.rawText().empty() && (b2 == "'h" || b2 == "'H") &&
+                                     !v2.empty() && v2.size() <= 16;
+                        for (char ch : v2)
+                            if (!isxdigit((unsigned char)ch))
+                                hexOk = false;
+                        if (hexOk)
+                            hx = v2;
+                    }
+                    auto* old = pa->Rhs();
+                    if (!hx.empty() && untyped && old && old->UhdmType() == UHDM::uhdmconstant) {
+                        auto* oc = (UHDM::constant*)old;
+                        auto* c = s.MakeConstant();
+                        c->VpiFile(oc->VpiFile());
+                        c->VpiLineNo(oc->VpiLineNo());
+                        c->VpiColumnNo(oc->VpiColumnNo());
+                        c->VpiEndLineNo(oc->VpiEndLineNo());
+                        c->VpiEndColumnNo(oc->VpiEndColumnNo());
+                        c->VpiValue("HEX:" + hx);
+                        c->VpiDecompile(rawText(dini->sourceRange()));
+                        c->VpiSize(-1);
+                        c->VpiConstType(vpiHexConst);
+                        c->VpiParent(pa);
+                        usedA485.insert(id);
+                        pa->Rhs(c);
+                        lawTrace(485, "clsOvDepParamOpTree485", "hex " + pfx485 + "." + nm);
+                        continue;
+                    }
+                    if (!decDigits485(t) || t.size() > 9 || !old ||
+                        old->UhdmType() != UHDM::uhdmconstant) {
+                        lawTrace(485, "clsOvDepParamOpTree485", "bareAbstain " + pfx485 + "." + nm);
+                        continue;
+                    }
+                    auto* oc = (UHDM::constant*)old;
+                    auto* c = s.MakeConstant();
+                    c->VpiFile(oc->VpiFile());
+                    c->VpiLineNo(oc->VpiLineNo());
+                    c->VpiColumnNo(oc->VpiColumnNo());
+                    c->VpiEndLineNo(oc->VpiEndLineNo());
+                    c->VpiEndColumnNo(oc->VpiEndColumnNo());
+                    c->VpiValue("UINT:" + std::to_string(std::stoull(t)));
+                    c->VpiDecompile(t);
+                    c->VpiConstType(vpiUIntConst);
+                    if (untyped)
+                        c->VpiSize(64);
+                    else {
+                        c->VpiSize(oc->VpiSize());
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiParent(c);
+                        rt->VpiFullName(pfx485);
+                        c->Typespec(rt);
+                        depParamTs485().push_back({c, rt, bp485});
+                    }
+                    c->VpiParent(pa);
+                    usedA485.insert(id);
+                    nr = c;
+                }
+                else if (auto ic = cx485.find(id); ic != cx485.end())
+                    nr = ic->second;  // C = B: B's complex value, not re-parented
+            }
+            else {
+                bool okDry = true;
+                bld485(ini, true, okDry);
+                if (!okDry) {
+                    lawTrace(485, "clsOvDepParamOpTree485", "shapeAbstain " + pfx485 + "." + nm);
+                    continue;
+                }
+                bool ok = true;
+                nr = bld485(ini, false, ok);
+                if (nr && nr->UhdmType() == UHDM::uhdmoperation) {
+                    nr->VpiParent(pa);
+                    if (!untyped && bts) {
+                        auto* rt = s.MakeRef_typespec();
+                        rt->VpiParent(nr);
+                        rt->VpiFullName(pfx485);
+                        ((UHDM::operation*)nr)->Typespec(rt);
+                        depParamTs485().push_back({(UHDM::expr*)nr, rt, bp485});
+                    }
+                }
+                else
+                    nr = nullptr;
+            }
+            if (!nr)
+                continue;
+            pa->Rhs(nr);
+            if (nr->UhdmType() == UHDM::uhdmoperation)
+                cx485[nm] = nr;
+            lawTrace(485, "clsOvDepParamOpTree485", pfx485 + "." + nm);
+        }
+        // A's ref_obj takes A's own typespec once a reader compiled it
+        // (the actual is bound design-final, see depParamTs485).
+        for (auto& an : usedA485) {
+            auto* pa = a485[an];
+            UHDM::expr* ro = pa && pa->Rhs() &&
+                                     (pa->Rhs()->UhdmType() == UHDM::uhdmref_obj ||
+                                      pa->Rhs()->UhdmType() == UHDM::uhdmoperation)
+                                 ? (UHDM::expr*)pa->Rhs()
+                                 : nullptr;
+            auto* ap = (const UHDM::parameter*)pa->Lhs();
+            if (!ro || ro->Typespec() || !ap->Typespec())
+                continue;
+            auto* rt = s.MakeRef_typespec();
+            rt->VpiParent(ro);
+            // an operation's reference is named after the instance (ea11)
+            rt->VpiFullName(ro->UhdmType() == UHDM::uhdmoperation ? pfx485
+                                                                   : std::string(((UHDM::ref_obj*)ro)->VpiFullName()));
+            ro->Typespec(rt);
+            depParamTs485().push_back({ro, rt, ap});
+        }
+    }
     if (!params->empty())
         m->Parameters(params);
     if (!passigns->empty())
@@ -31955,6 +32685,168 @@ void UhdmExporter::drainPaNameCopySrc38() {
     }
     pkgInitTs471().clear();
     pkgVifNetCopy479(s);
+    // § clsOvDepParamOpTree485 — the deferred typespec actuals: the
+    // parameter's own, or no typespec at all when it has none.
+    for (auto& d485 : depParamTs485()) {
+        const UHDM::typespec* at485 = d485.src && d485.src->Typespec()
+                                          ? d485.src->Typespec()->Actual_typespec()
+                                          : nullptr;
+        if (at485) {
+            d485.rt->Actual_typespec(const_cast<UHDM::typespec*>(at485));
+            lawTrace(485, "clsOvDepParamOpTree485", "ts " + std::string(d485.rt->VpiFullName()));
+        }
+        else {
+            d485.owner->Typespec(nullptr);
+            lawTrace(485, "clsOvDepParamOpTree485", "tsAbstain " + std::string(d485.rt->VpiFullName()));
+        }
+    }
+    depParamTs485().clear();
+    // § implicitNetDefaultType485 (r11u485, R11U485_NETTYPE_OFF; cases
+    // tools/probe/r11u485repro/cases/NT, v11u483 VI/vi14) -- the wire the
+    // late binder mints for an unresolved name (UhdmWriter::lateBinding,
+    // UhdmWriter.cpp, the lookup-miss branch) is stamped
+    // getVpiNetType(elem->m_defaultNetType): the `default_nettype in force
+    // where the HOLDING definition is declared, so under `default_nettype
+    // tri the wire is vpiNetType 4 (vi14), wand 2, wor 3, and so on, where
+    // mintImplicitNet403 wrote a flat 1.  The pass reads each minted wire's
+    // parent instance, finds its definition by name (abstaining when the
+    // name is ambiguous or unknown) and re-stamps the type when that
+    // definition's default is neither wire nor none (none mints nothing in
+    // golden and the mint sites abstain there).
+    if (!implicitNetMints485().empty() && lawOn(485, "R11U485_NETTYPE_OFF")) {
+        // § ndtSameFileDirective485v -- see the check below; one answer per
+        // definition, found by walking the definition's syntax tree in token
+        // order up to the definition's first token.
+        std::map<const DefinitionSymbol*, bool> sameFile485v;
+        auto ndtSameFile485v = [&](const DefinitionSymbol& d) -> bool {
+            if (auto f = sameFile485v.find(&d); f != sameFile485v.end())
+                return f->second;
+            bool res = false;
+            const syntax::SyntaxNode* syn = d.getSyntax();
+            if (syn && sm) {
+                const syntax::SyntaxNode* root = syn;
+                while (root->parent)
+                    root = root->parent;
+                parsing::Token defTok = syn->getFirstToken();
+                SourceLocation defLoc = defTok.location();
+                if (defLoc.valid() && sm->isFileLoc(defLoc) && !sm->isIncludedFileLoc(defLoc)) {
+                    BufferID b = defLoc.buffer();
+                    bool includeInB = false, haveDir = false, dirOk = false, stop = false;
+                    auto onTok = [&](parsing::Token t) {
+                        for (auto& tv : t.trivia()) {
+                            if (tv.kind != parsing::TriviaKind::Directive || !tv.syntax())
+                                continue;
+                            const syntax::SyntaxNode* ds = tv.syntax();
+                            SourceLocation dl = ds->getFirstToken().location();
+                            if (ds->kind == syntax::SyntaxKind::IncludeDirective) {
+                                if (dl.buffer() == b)
+                                    includeInB = true;
+                            }
+                            else if (ds->kind == syntax::SyntaxKind::DefaultNetTypeDirective) {
+                                haveDir = true;
+                                dirOk = dl.buffer() == b && sm->isFileLoc(dl) && !includeInB;
+                            }
+                        }
+                        if (t.location() == defLoc && t.kind == defTok.kind)
+                            stop = true;
+                    };
+                    std::function<void(const syntax::SyntaxNode*)> walk =
+                        [&](const syntax::SyntaxNode* n) {
+                            for (size_t i = 0; i < n->getChildCount() && !stop; i++) {
+                                if (auto* cn = n->childNode(i))
+                                    walk(cn);
+                                else
+                                    onTok(n->childToken(i));
+                            }
+                        };
+                    walk(root);
+                    res = stop && haveDir && dirOk;
+                }
+            }
+            sameFile485v[&d] = res;
+            return res;
+        };
+        std::map<std::string, const DefinitionSymbol*> defs485;
+        std::set<std::string> dup485;
+        for (auto* d : comp.getDefinitions()) {
+            if (!d || d->kind != SymbolKind::Definition)
+                continue;
+            std::string n(d->name);
+            if (!defs485.emplace(n, &d->as<DefinitionSymbol>()).second)
+                dup485.insert(n);
+        }
+        for (auto* n485 : implicitNetMints485()) {
+            if (!n485 || n485->VpiNetType() != 1)
+                continue;
+            auto* inst = dynamic_cast<const UHDM::instance*>(n485->VpiParent());
+            if (!inst)
+                continue;
+            std::string dn(inst->VpiDefName());
+            if (dn.rfind("work@", 0) == 0)
+                dn = dn.substr(5);
+            if (auto c = dn.rfind("::"); c != std::string::npos)
+                dn = dn.substr(c + 2);
+            auto it = defs485.find(dn);
+            if (it == defs485.end() || dup485.count(dn))
+                continue;
+            const NetType& nt = it->second->defaultNetType;
+            if (nt.isError())
+                continue;
+            int32_t k = 0;
+            switch (nt.netKind) {
+                case NetType::WAnd: k = vpiWand; break;
+                case NetType::WOr: k = vpiWor; break;
+                case NetType::Tri: k = vpiTri; break;
+                case NetType::TriAnd: k = vpiTriAnd; break;
+                case NetType::TriOr: k = vpiTriOr; break;
+                case NetType::Tri0: k = vpiTri0; break;
+                case NetType::Tri1: k = vpiTri1; break;
+                case NetType::TriReg: k = vpiTriReg; break;
+                case NetType::Supply0: k = vpiSupply0; break;
+                case NetType::Supply1: k = vpiSupply1; break;
+                case NetType::UWire: k = vpiUwire; break;
+                default: k = 0; break;
+            }
+            if (!k)
+                continue;
+            // § ndtSameFileDirective485v (v11u485, R11V485_SAMEFILE_OFF; cases
+            // tools/probe/v11u485repro/cases/VT vt01, vt09) -- Surelog does
+            // not carry the directive across files: CompilationUnit::
+            // getDefaultNetType takes the last directive recorded with the
+            // design element's OWN file id (a directive's file id is its
+            // parse file's main file, its line the preprocessed line) at a
+            // line not after the element's line, else wire.  So a directive
+            // in another source file (vt01) or a module written in an
+            // included file (vt09) leaves golden's wire at vpiNetType 1
+            // where slang's single unit carries the default.  The law keeps
+            // firing only when the directive slang applied (the last one in
+            // token order before the definition) sits directly in the
+            // definition's own top-level file with no include before it in
+            // that file (so its preprocessed line is its written line) and
+            // the definition is not in an included file; else it abstains.
+            if (fixOn(485, "R11V485_SAMEFILE_OFF") && !ndtSameFile485v(*it->second)) {
+                lawTrace(485, "implicitNetDefaultType485",
+                         "otherFileAbstain " + std::string(n485->VpiFullName()));
+                continue;
+            }
+            n485->VpiNetType(k);
+            lawTrace(485, "implicitNetDefaultType485",
+                     std::string(n485->VpiFullName()) + " " + std::to_string(k));
+        }
+    }
+    implicitNetMints485().clear();
+    // § ifaceValNoneBindsInst485 — the deferred bindings (law at ExprEmit's
+    // § ifaceInstValueImplicitNet483 site).
+    for (auto& [r485, sy485] : ifaceNoneBind485()) {
+        auto it = ifaceInstMap.find(sy485);
+        if (!r485 || r485->Actual_group() || it == ifaceInstMap.end() || !it->second) {
+            lawTrace(485, "ifaceValNoneBindsInst485", "abstain");
+            continue;
+        }
+        r485->Actual_group(it->second);
+        lawTrace(485, "ifaceValNoneBindsInst485", std::string(it->second->VpiFullName()));
+    }
+    ifaceNoneBind485().clear();
 }
 
 // § importCopyTsInstByRole469 (r11u469, R11U469_IMPTSINST_OFF; grid

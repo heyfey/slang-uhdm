@@ -1,0 +1,5 @@
+bp_unicore alone, sv-tests runner command, verified binary, guard on: rc 3 secs 14.5 maxrss_MB 816; slang-uhdm: error: basic_string::substr: __pos (which is 18) > this->size() (which is 17)
+v11u413 VC/vc04 C::mk().arr[1]: law rc 4, verified rc 4, upstream slang rc 0
+v11u413 VI/vi06 u.mk(x).a[2]: law rc 4, verified rc 4, upstream slang rc 0
+v11u415 VT/vt03 this.mk().inner.s: law rc 0, verified rc 0, upstream slang rc 0
+SURELOG_ONLY rows: 75, every detail an upstream slang error: line, none naming the exporter

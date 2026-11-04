@@ -1,0 +1,24 @@
+# switch checks over 174 dirs (both grids): rc + md5
+R11U485_OFF on verified vs pristine: 0 differ
+R11V485_OFF on verified vs law: 0 differ
+verified vs law movers:
+VN/vn08
+VT/vt01
+VT/vt04
+VT/vt09
+VT/vt13
+R11V485_SAMEFILE_OFF movers:
+VT/vt01
+VT/vt04
+VT/vt09
+VT/vt13
+R11V485_NONEXSCOPE_OFF movers:
+VN/vn08
+# per-law switches on the first verified build (159 dirs), movers vs that binary:
+DEPPARAM 48
+EXPRACTUAL 29
+SEPEND 9
+DEFPARAMVAL 18
+NETTYPE 21
+NONEBIND 14
+two-switch dirs: VS/vs04 (EXPRACTUAL+SEPEND), EA/ea11 (DEPPARAM+EXPRACTUAL), SE/se09 (EXPRACTUAL+SEPEND)

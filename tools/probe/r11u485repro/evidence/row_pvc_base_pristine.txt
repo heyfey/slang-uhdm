@@ -1,0 +1,16 @@
+uvm_param_vif_config_db,generated/uvm-examples/uvm_param_vif_config_db.sv,uvm,simulation,uvm-examples uvm,0,360,OK,0,0.0,,OK,0,14.2,,JUDGE_EQUAL,differ:fullname(3),JUDGE_EQUAL,ok,ok
+#93329 fullname
+  A: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  B: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  raw fullname A: sfr_agent_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE | B: sfr_test_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE
+#165115 fullname
+  A: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  B: 6	ref_typespec			<in>UVM_SEQ_ARB_TYPE		0	0	0	0		0		
+  raw fullname A: tb_params_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE | B: sfr_test_pkg::uvm_sequencer_base::set_arbitration::val::UVM_SEQ_ARB_TYPE
+#201344 type
+  A: 12	typespec_member	data			uvm_pkg.sv	255	18	255	22				
+  B: 12	operation				uvm_reg_map.svh	2034	39	2034	43		0		
+objects 1002258 vs 1002253
+fields: type=1 name=1 fullname=2 file=1 line=1 col=1 endline=1 endcol=1 size=1 objects_differing=3 (walk diverged)
+STRICT_NOTEQUAL fullname
+uhdm-cmp lines: 0
