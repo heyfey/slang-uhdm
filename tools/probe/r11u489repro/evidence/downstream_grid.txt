@@ -1,0 +1,122 @@
+pristine DS/ds01 {'name': 'DS_ds01', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds02 {'name': 'DS_ds02', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds03 {'name': 'DS_ds03', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds04 {'name': 'DS_ds04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds05 {'name': 'DS_ds05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine DS/ds06 {'name': 'DS_ds06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds07 {'name': 'DS_ds07', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine DS/ds08 {'name': 'DS_ds08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb01 {'name': 'NB_nb01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb02 {'name': 'NB_nb02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb03 {'name': 'NB_nb03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb04 {'name': 'NB_nb04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb05 {'name': 'NB_nb05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb06 {'name': 'NB_nb06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb07 {'name': 'NB_nb07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb08 {'name': 'NB_nb08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb09 {'name': 'NB_nb09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb10 {'name': 'NB_nb10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb11 {'name': 'NB_nb11', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb12 {'name': 'NB_nb12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb13 {'name': 'NB_nb13', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb14 {'name': 'NB_nb14', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb15 {'name': 'NB_nb15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb16 {'name': 'NB_nb16', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb17 {'name': 'NB_nb17', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine NB/nb18 {'name': 'NB_nb18', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine NB/nb19 {'name': 'NB_nb19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb20 {'name': 'NB_nb20', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb21 {'name': 'NB_nb21', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb22 {'name': 'NB_nb22', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb23 {'name': 'NB_nb23', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine NB/nb24 {'name': 'NB_nb24', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine NB/nb25 {'name': 'NB_nb25', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine OS/os01 {'name': 'OS_os01', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine OS/os02 {'name': 'OS_os02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine OS/os03 {'name': 'OS_os03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine OS/os04 {'name': 'OS_os04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine OS/os05 {'name': 'OS_os05', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine OS/os06 {'name': 'OS_os06', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine OS/os07 {'name': 'OS_os07', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine OS/os08 {'name': 'OS_os08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm01 {'name': 'WM_wm01', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm02 {'name': 'WM_wm02', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm03 {'name': 'WM_wm03', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm04 {'name': 'WM_wm04', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm05 {'name': 'WM_wm05', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm06 {'name': 'WM_wm06', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm07 {'name': 'WM_wm07', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm08 {'name': 'WM_wm08', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm09 {'name': 'WM_wm09', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm10 {'name': 'WM_wm10', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm11 {'name': 'WM_wm11', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm12 {'name': 'WM_wm12', 'verdict': 'STATUS_DIFF', 'surelog_status': 'NO_GATES', 'slang_status': 'READ_FAIL', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm13 {'name': 'WM_wm13', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm14 {'name': 'WM_wm14', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm15 {'name': 'WM_wm15', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm16 {'name': 'WM_wm16', 'verdict': 'DIVERGENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il synth', 'detail': '❌ Constant value mismatch — circuits are NOT equivalent for /tmp/r11u489_ds_pristine/WM_wm16/equiv/WM_wm16'}
+pristine WM/wm17 {'name': 'WM_wm17', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+pristine WM/wm18 {'name': 'WM_wm18', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm19 {'name': 'WM_wm19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+pristine WM/wm20 {'name': 'WM_wm20', 'verdict': 'EQUIVALENT', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': 'nohier il', 'detail': 'ℹ️  No common assign statements to compare — skipping'}
+law6 DS/ds01 {'name': 'DS_ds01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds02 {'name': 'DS_ds02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds03 {'name': 'DS_ds03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds04 {'name': 'DS_ds04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds05 {'name': 'DS_ds05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds06 {'name': 'DS_ds06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds07 {'name': 'DS_ds07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 DS/ds08 {'name': 'DS_ds08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb01 {'name': 'NB_nb01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb02 {'name': 'NB_nb02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb03 {'name': 'NB_nb03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb04 {'name': 'NB_nb04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb05 {'name': 'NB_nb05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb06 {'name': 'NB_nb06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb07 {'name': 'NB_nb07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb08 {'name': 'NB_nb08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb09 {'name': 'NB_nb09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb10 {'name': 'NB_nb10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb11 {'name': 'NB_nb11', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb12 {'name': 'NB_nb12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb13 {'name': 'NB_nb13', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb14 {'name': 'NB_nb14', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb15 {'name': 'NB_nb15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb16 {'name': 'NB_nb16', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb17 {'name': 'NB_nb17', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb18 {'name': 'NB_nb18', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb19 {'name': 'NB_nb19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb20 {'name': 'NB_nb20', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb21 {'name': 'NB_nb21', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb22 {'name': 'NB_nb22', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb23 {'name': 'NB_nb23', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb24 {'name': 'NB_nb24', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 NB/nb25 {'name': 'NB_nb25', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os01 {'name': 'OS_os01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os02 {'name': 'OS_os02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os03 {'name': 'OS_os03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os04 {'name': 'OS_os04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os05 {'name': 'OS_os05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os06 {'name': 'OS_os06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os07 {'name': 'OS_os07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 OS/os08 {'name': 'OS_os08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm01 {'name': 'WM_wm01', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm02 {'name': 'WM_wm02', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm03 {'name': 'WM_wm03', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm04 {'name': 'WM_wm04', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm05 {'name': 'WM_wm05', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm06 {'name': 'WM_wm06', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm07 {'name': 'WM_wm07', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm08 {'name': 'WM_wm08', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm09 {'name': 'WM_wm09', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm10 {'name': 'WM_wm10', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm11 {'name': 'WM_wm11', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm12 {'name': 'WM_wm12', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm13 {'name': 'WM_wm13', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm14 {'name': 'WM_wm14', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm15 {'name': 'WM_wm15', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm16 {'name': 'WM_wm16', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm17 {'name': 'WM_wm17', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm18 {'name': 'WM_wm18', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm19 {'name': 'WM_wm19', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}
+law6 WM/wm20 {'name': 'WM_wm20', 'verdict': 'IDENTICAL', 'surelog_status': 'NO_GATES', 'slang_status': 'NO_GATES', 'surelog_gates': 0, 'slang_gates': 0, 'differs': '', 'detail': ''}

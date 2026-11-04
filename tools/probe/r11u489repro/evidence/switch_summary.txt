@@ -1,0 +1,6 @@
+UNBOUNDED alone moves: DS/ds02 WM/wm01 WM/wm03 WM/wm05 WM/wm06 WM/wm07 WM/wm08 WM/wm09 WM/wm10 WM/wm11 WM/wm12 
+UNBOUNDEDDEP alone moves: WM/wm04 WM/wm13 WM/wm14 WM/wm15 WM/wm16 WM/wm19 WM/wm20 
+BITNEG alone moves: NB/nb01 NB/nb02 NB/nb03 NB/nb04 NB/nb05 NB/nb06 NB/nb07 NB/nb08 NB/nb09 NB/nb11 NB/nb12 NB/nb13 NB/nb14 NB/nb15 NB/nb17 NB/nb18 NB/nb19 NB/nb21 NB/nb22 NB/nb23 NB/nb24 NB/nb25 
+DPUINT alone moves: DS/ds01 DS/ds02 DS/ds03 DS/ds04 DS/ds05 DS/ds07 WM/wm01 WM/wm02 WM/wm03 WM/wm05 WM/wm06 WM/wm07 WM/wm08 WM/wm09 WM/wm10 WM/wm11 WM/wm12 
+ADDSIZE alone moves: DS/ds02 WM/wm09 WM/wm10 WM/wm15 WM/wm19 
+OVSIZED alone moves: OS/os01 OS/os04 OS/os05 OS/os06 OS/os07 WM/wm17 

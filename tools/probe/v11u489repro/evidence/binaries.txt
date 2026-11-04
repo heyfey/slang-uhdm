@@ -1,0 +1,5 @@
+91613eefa1398fab14ca1024d1a9f64a  /tmp/v11u489_bin/law
+f5161479d6c35d56a5ab4dae08c33981  /tmp/v11u489_bin/pristine
+fa6e4f42f252ae0ab69d9845003e71c5  /tmp/v11u489_bin/strictcmp
+slang-uhdm using slang version 12.0.0+545f88b2e
+slang-uhdm using UHDM version 1.87 (18837c10ed3d1a20171d5c02bf2397e10fccb424)

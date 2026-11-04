@@ -29,6 +29,14 @@ static std::set<const UHDM::any*>& dpReval487() {
     return v;
 }
 
+// The elaborated constants § dpDepBitNegUint489 rewrote as Surelog's
+// masked UINT bitwise not; a continuous assignment's clone that ModuleEmit
+// wrote as an INT is turned into the UINT masked to its width.
+static std::set<const UHDM::any*>& dpBitNeg489() {
+    static std::set<const UHDM::any*> v;
+    return v;
+}
+
 // The bit width of a continuous assignment's plain left side, read off the
 // net or variable its ref_obj binds: a logic, bit or int typespec whose
 // ranges all have constant bounds; -1 when it cannot be read.
@@ -309,6 +317,129 @@ ev487(const slang::ast::Expression& e,
             if (!v)
                 return std::nullopt;
             return conv(std::move(*v));
+        }
+        default:
+            return std::nullopt;
+    }
+}
+
+// § dpDepUnboundedEval489 (r11u489, R11U489_UNBOUNDED_OFF) -- ev487's twin
+// in Surelog's arithmetic: ExprEval::reduceExpr adds, subtracts, multiplies
+// and shifts its operands' 64-bit values with no mask to any operand's width
+// (`4'd15 + 4'd1` is 16, where slang's self-determined 4-bit sum is 0), so the
+// value is kept as a plain 64-bit integer through implicit conversions.  Only
+// the shapes whose result does not depend on how Surelog signs the operation:
+// a negative operand of a division, modulus, bitwise operator or shift, a
+// bitwise not, an explicit cast, a value at or above 2^62, an overflow or any
+// other shape returns nullopt and the caller keeps ev487's value.
+static std::optional<int64_t>
+ev489u(const slang::ast::Expression& e,
+       const std::map<const slang::ast::Symbol*, int64_t>& sub, int depth = 0) {
+    using namespace slang;
+    using namespace slang::ast;
+    constexpr int64_t lim = (int64_t)1 << 62;
+    auto ok = [&](int64_t v) -> std::optional<int64_t> {
+        if (v >= lim || v <= -lim)
+            return std::nullopt;
+        return v;
+    };
+    auto fromSv = [&](const SVInt& a) -> std::optional<int64_t> {
+        if (a.hasUnknown() || a.getBitWidth() > 64)
+            return std::nullopt;
+        if (a.isSigned()) {
+            auto x = a.as<int64_t>();
+            if (!x)
+                return std::nullopt;
+            return ok(*x);
+        }
+        auto x = a.as<uint64_t>();
+        if (!x || *x >= (uint64_t)lim)
+            return std::nullopt;
+        return (int64_t)*x;
+    };
+    if (depth > 64 || !e.type || !e.type->isIntegral())
+        return std::nullopt;
+    switch (e.kind) {
+        case ExpressionKind::IntegerLiteral:
+            return fromSv(e.as<IntegerLiteral>().getValue());
+        case ExpressionKind::NamedValue: {
+            auto& sym = e.as<NamedValueExpression>().symbol;
+            if (auto it = sub.find(&sym); it != sub.end())
+                return it->second;
+            if (sym.kind != SymbolKind::Parameter)
+                return std::nullopt;
+            auto& v = sym.as<ParameterSymbol>().getValue();
+            if (!v.isInteger())
+                return std::nullopt;
+            return fromSv(v.integer());
+        }
+        case ExpressionKind::Conversion: {
+            auto& ce = e.as<ConversionExpression>();
+            if (!ce.isImplicit())
+                return std::nullopt;
+            return ev489u(ce.operand(), sub, depth + 1);
+        }
+        case ExpressionKind::UnaryOp: {
+            auto& ue = e.as<UnaryExpression>();
+            auto a = ev489u(ue.operand(), sub, depth + 1);
+            if (!a)
+                return std::nullopt;
+            switch (ue.op) {
+                case UnaryOperator::Plus: return a;
+                case UnaryOperator::Minus: return ok(-*a);
+                case UnaryOperator::LogicalNot: return (int64_t)(*a == 0);
+                default: return std::nullopt;
+            }
+        }
+        case ExpressionKind::BinaryOp: {
+            auto& be = e.as<BinaryExpression>();
+            auto l = ev489u(be.left(), sub, depth + 1);
+            auto r = ev489u(be.right(), sub, depth + 1);
+            if (!l || !r)
+                return std::nullopt;
+            int64_t a = *l, b = *r, x = 0;
+            bool nn = a >= 0 && b >= 0;
+            switch (be.op) {
+                case BinaryOperator::Add: return ok(a + b);
+                case BinaryOperator::Subtract: return ok(a - b);
+                case BinaryOperator::Multiply:
+                    if (__builtin_mul_overflow(a, b, &x))
+                        return std::nullopt;
+                    return ok(x);
+                case BinaryOperator::Divide:
+                    if (!nn || b == 0) return std::nullopt;
+                    return a / b;
+                case BinaryOperator::Mod:
+                    if (!nn || b == 0) return std::nullopt;
+                    return a % b;
+                case BinaryOperator::BinaryAnd: if (!nn) return std::nullopt; return a & b;
+                case BinaryOperator::BinaryOr: if (!nn) return std::nullopt; return a | b;
+                case BinaryOperator::BinaryXor: if (!nn) return std::nullopt; return a ^ b;
+                case BinaryOperator::LogicalShiftLeft:
+                case BinaryOperator::ArithmeticShiftLeft:
+                    if (!nn || b >= 62 || (a >> (62 - b)) != 0) return std::nullopt;
+                    return a << b;
+                case BinaryOperator::LogicalShiftRight:
+                case BinaryOperator::ArithmeticShiftRight:
+                    if (!nn) return std::nullopt;
+                    return b >= 63 ? 0 : a >> b;
+                case BinaryOperator::Equality: return (int64_t)(a == b);
+                case BinaryOperator::Inequality: return (int64_t)(a != b);
+                case BinaryOperator::LessThan: return (int64_t)(a < b);
+                case BinaryOperator::LessThanEqual: return (int64_t)(a <= b);
+                case BinaryOperator::GreaterThan: return (int64_t)(a > b);
+                case BinaryOperator::GreaterThanEqual: return (int64_t)(a >= b);
+                default: return std::nullopt;
+            }
+        }
+        case ExpressionKind::ConditionalOp: {
+            auto& ce = e.as<ConditionalExpression>();
+            if (ce.conditions.size() != 1 || ce.conditions[0].pattern)
+                return std::nullopt;
+            auto c = ev489u(*ce.conditions[0].expr, sub, depth + 1);
+            if (!c)
+                return std::nullopt;
+            return ev489u(*c != 0 ? ce.left() : ce.right(), sub, depth + 1);
         }
         default:
             return std::nullopt;
@@ -31245,6 +31376,176 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             lawTrace(485, "ovDefparamWinsValue485", prefix + " " + std::string(psD->name) + " " + nv);
         }
     }
+    // § dpConstUintForm489 (r11u489, R11U489_DPUINT_OFF; cases
+    // tools/probe/r11u489repro/cases/DS, WM) -- the elaborated param_assign
+    // constant of a parameter a DEFPARAM overrides: Surelog applies the
+    // defparam table's value (DesignElaboration) as a UINT constant, so the
+    // constant's type is vpiUIntConst whatever form the default had (a sized
+    // 'd default ds03, a 4'hF default ds04, a typed logic [3:0] ds07, golden
+    // vpiConstType 9 where ours kept the default's 7 or 5); and when the
+    // parameter is untyped, its constant carries no typespec (a sized
+    // default: an unsized default has the implicit int typespec, ds08) and
+    // the defparam value is an unsized decimal, the constant is that
+    // unsized value, UINT of size 64 (ds01, ds02, WM wm01 to wm12; ds05
+    // with an 8'd3 instance actual, where ours wrote INT:6 size -1).  A
+    // constant read by a continuous assignment is then cloned at the left
+    // side's width (the reuse gate in ModuleEmit declines a UINT), as golden
+    // clones it (ds01).
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode &&
+        lawOn(489, "R11U489_DPUINT_OFF")) {
+        const auto* honU = body.asSymbol().as<InstanceBodySymbol>().hierarchyOverrideNode;
+        for (auto* paU : *passigns) {
+            if (!paU || !paU->Lhs() || paU->Lhs()->UhdmType() != UHDM::uhdmparameter ||
+                !paU->Rhs() || paU->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            const ParameterSymbol* psU = nullptr;
+            int nU = 0;
+            for (auto* p : paramSyms)
+                if (p && p->name == paU->Lhs()->VpiName() && p->getParentScope() == &body) {
+                    psU = p;
+                    nU++;
+                }
+            if (nU != 1 || !psU->getSyntax())
+                continue;
+            auto itU = honU->paramOverrides.find(psU->getSyntax());
+            if (itU == honU->paramOverrides.end() || !itU->second.defparam ||
+                itU->second.defparam->kind != syntax::SyntaxKind::DefParamAssignment)
+                continue;
+            auto* cU = (UHDM::constant*)paU->Rhs();
+            std::string vU(cU->VpiValue());
+            bool untypedU = true;
+            if (auto d = psU->getDeclaredType())
+                if (auto t = d->getTypeSyntax())
+                    untypedU = t->kind == syntax::SyntaxKind::ImplicitType &&
+                               t->as<syntax::ImplicitTypeSyntax>().dimensions.empty() &&
+                               !t->as<syntax::ImplicitTypeSyntax>().signing;
+            const syntax::ExpressionSyntax* dvU =
+                itU->second.defparam->as<syntax::DefParamAssignmentSyntax>().setter->expr;
+            while (dvU && dvU->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                dvU = dvU->as<syntax::ParenthesizedExpressionSyntax>().expression.get();
+            std::string litU;
+            if (dvU && dvU->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                litU = std::string(dvU->as<syntax::LiteralExpressionSyntax>().literal.rawText());
+            bool digitsU = !litU.empty() && litU.size() <= 9 &&
+                           litU.find_first_not_of("0123456789") == std::string::npos;
+            if (untypedU && digitsU && !cU->Typespec() &&
+                (vU.rfind("UINT:", 0) == 0 || vU.rfind("INT:", 0) == 0) &&
+                std::string_view(cU->VpiDecompile()) == std::to_string(std::stoull(litU)) &&
+                vU.substr(vU.find(':') + 1) == std::to_string(std::stoull(litU))) {
+                std::string nv = "UINT:" + std::to_string(std::stoull(litU));
+                if (nv != vU || cU->VpiSize() != 64 || cU->VpiConstType() != vpiUIntConst) {
+                    cU->VpiValue(nv);
+                    cU->VpiSize(64);
+                    cU->VpiConstType(vpiUIntConst);
+                    lawTrace(489, "dpConstUintForm489", "unsized " + prefix + " " + std::string(psU->name));
+                }
+                continue;
+            }
+            // the type alone: only for a decimal defparam value, unsized or
+            // a sized 'd (ds03, ds04, ds07); a based or named value keeps
+            // its own form in golden (v11u407 VX/vx05 4'b10x0, v11u279
+            // VA/va03_defparam p::D2), where retyping our stale constant
+            // moved them away
+            bool decU = digitsU;
+            if (dvU && dvU->kind == syntax::SyntaxKind::IntegerVectorExpression) {
+                auto& ivU = dvU->as<syntax::IntegerVectorExpressionSyntax>();
+                std::string bU(ivU.base.rawText());
+                decU = !ivU.size.rawText().empty() && (bU == "'d" || bU == "'D") && lit487(dvU).has_value();
+            }
+            if (decU && vU.rfind("UINT:", 0) == 0 && cU->VpiConstType() != vpiUIntConst &&
+                cU->VpiConstType() != vpiDecConst) {
+                cU->VpiConstType(vpiUIntConst);
+                lawTrace(489, "dpConstUintForm489", "type " + prefix + " " + std::string(psU->name));
+            }
+        }
+    }
+    // § ovSizedActualSize489 (r11u489, R11U489_OVSIZED_OFF; cases
+    // tools/probe/r11u489repro/cases/OS, WM/wm17) -- an untyped parameter
+    // with a sized default (`parameter A = 4'd15`, its constant carrying no
+    // typespec) overridden by its instantiation with a SIZED literal: the
+    // elaborated param_assign constant is the actual as Surelog compiled it,
+    // a 4'd14 or 6'd14 actual INT of its width (os01, os05, os06; ours
+    // -1) and a 4'hE actual HEX:E with the decompile 4'hE and size 4 (os04;
+    // ours INT:14 size -1); a continuous assignment reading it then shares
+    // the INT constant and resizes it as golden does (os07).  Only a 'd or
+    // 'h base, digits only, no defparam on the parameter; an unsized default
+    // (os02) or an unsized actual (os03, os08) is already golden's.
+    if (topView && !inPackage && !funcScope && m &&
+        (m->UhdmType() == UHDM::uhdmmodule_inst ||
+         m->UhdmType() == UHDM::uhdminterface_inst) &&
+        body.asSymbol().kind == SymbolKind::InstanceBody &&
+        lawOn(489, "R11U489_OVSIZED_OFF")) {
+        auto& ibS = body.asSymbol().as<InstanceBodySymbol>();
+        const auto* honS = ibS.hierarchyOverrideNode;
+        for (auto* paS : *passigns) {
+            if (!paS || !paS->VpiOverriden() || !paS->Lhs() ||
+                paS->Lhs()->UhdmType() != UHDM::uhdmparameter || !paS->Rhs() ||
+                paS->Rhs()->UhdmType() != UHDM::uhdmconstant)
+                continue;
+            auto* cS = (UHDM::constant*)paS->Rhs();
+            if (cS->VpiSize() != -1 || cS->Typespec())
+                continue;
+            const ParameterSymbol* psS = nullptr;
+            int nS = 0;
+            for (auto* p : paramSyms)
+                if (p && p->name == paS->Lhs()->VpiName() && p->getParentScope() == &body) {
+                    psS = p;
+                    nS++;
+                }
+            if (nS != 1 || !psS->getSyntax())
+                continue;
+            if (auto d = psS->getDeclaredType())
+                if (auto t = d->getTypeSyntax())
+                    if (t->kind != syntax::SyntaxKind::ImplicitType ||
+                        !t->as<syntax::ImplicitTypeSyntax>().dimensions.empty() ||
+                        t->as<syntax::ImplicitTypeSyntax>().signing)
+                        continue;
+            if (honS) {
+                auto itS = honS->paramOverrides.find(psS->getSyntax());
+                if (itS != honS->paramOverrides.end() && itS->second.defparam)
+                    continue;
+            }
+            const syntax::ExpressionSyntax* dS = paramDefaultSyn(*psS);
+            while (dS && dS->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                dS = dS->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!dS || dS->kind != syntax::SyntaxKind::IntegerVectorExpression ||
+                dS->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty())
+                continue;
+            const syntax::ExpressionSyntax* aS = instOvActual487(ibS, *psS);
+            while (aS && aS->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                aS = aS->as<syntax::ParenthesizedExpressionSyntax>().expression;
+            if (!aS || aS->kind != syntax::SyntaxKind::IntegerVectorExpression)
+                continue;
+            auto& ivS = aS->as<syntax::IntegerVectorExpressionSyntax>();
+            std::string szS(ivS.size.rawText()), bS(ivS.base.rawText()), dgS(ivS.value.rawText());
+            auto lvS = lit487(aS);
+            if (szS.empty() || !lvS || dgS.find('_') != std::string::npos)
+                continue;
+            std::string vS(cS->VpiValue());
+            std::string have = vS.substr(vS.find(':') + 1);
+            if (bS == "'d" || bS == "'D") {
+                if (vS.rfind("INT:", 0) != 0 || have != dgS)
+                    continue;
+                cS->VpiSize((int)lvS->getBitWidth());
+                lawTrace(489, "ovSizedActualSize489", "dec " + prefix + " " + std::string(psS->name));
+            }
+            else if (bS == "'h") {
+                auto u = lvS->as<uint64_t>();
+                if (!u || (vS.rfind("INT:", 0) != 0 && vS.rfind("UINT:", 0) != 0) ||
+                    have != std::to_string(*u))
+                    continue;
+                cS->VpiValue("HEX:" + dgS);
+                cS->VpiDecompile(szS + bS + dgS);
+                cS->VpiSize((int)lvS->getBitWidth());
+                cS->VpiConstType(vpiHexConst);
+                lawTrace(489, "ovSizedActualSize489", "hex " + prefix + " " + std::string(psS->name));
+            }
+        }
+    }
     // § clsOvExprActualOpTree485 (r11u485, R11U485_EXPRACTUAL_OFF; cases
     // tools/probe/r11u485repro/cases/EA, pass 483's residue OV/ov16) -- a
     // NAMED override actual that is an operation tree over class-scoped
@@ -31764,8 +32065,10 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
     // defparam before valuing the dependents, so ours wrote B = 7.  The law
     // re-values the dependent's elaborated constant: the defparam'd
     // parameter's pre-defparam value is the instantiation's written actual
-    // or the declaration default, an unsized decimal or a sized 'd literal
-    // (any other form abstains), the dependent's bound initializer is
+    // or the declaration default, an integer literal as lit487 reads it (an
+    // unsized decimal, or a d, h, o or b based literal, unsized or sized up
+    // to 64 bits, digits only; any other form abstains), the dependent's
+    // bound initializer is
     // re-evaluated over it (ev487: literals, names, implicit conversions,
     // unary, binary and conditional operators; anything else abstains) and
     // the constant takes the new digits in its own form (UINT or INT, size
@@ -31872,11 +32175,74 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
             }
         }
         // § dpDepPreDefparamValue487
+        bool dpRan489 = false;
+        // § unboundedAddSize489 (r11u489, R11U489_ADDSIZE_OFF; cases
+        // tools/probe/r11u489repro/cases/WM wm09, wm10, wm15, wm17, wm19, DS
+        // ds02) -- the size of a constant the two valuation laws of this pass
+        // re-value: Surelog's vpiAddOp / vpiSubOp result takes the larger of
+        // its operands' sizes, so `localparam B = A + 4'd1` over a 4'd15
+        // default (or a 4'd14 actual, or the pre-defparam 4'd15) is size 4,
+        // where ours wrote 64 (or -1 under an override).  Only when every
+        // leaf is a SIZED literal or a parameter of the instance whose value
+        // comes from a sized literal (its actual, else its default) or from
+        // an earlier dependent of this shape, through + and - only: then
+        // the larger operand size is slang's self-determined width of the
+        // initializer, the size written.
+        static const bool addSz489 = lawOn(489, "R11U489_ADDSIZE_OFF");
+        std::set<const Symbol*> sizedDep489;
+        std::function<bool(const Expression&)> sized489 = [&](const Expression& x) -> bool {
+            switch (x.kind) {
+                case ExpressionKind::IntegerLiteral:
+                    return !x.as<IntegerLiteral>().isDeclaredUnsized;
+                case ExpressionKind::Conversion:
+                    return x.as<ConversionExpression>().isImplicit() &&
+                           sized489(x.as<ConversionExpression>().operand());
+                case ExpressionKind::BinaryOp: {
+                    auto& b = x.as<BinaryExpression>();
+                    return (b.op == BinaryOperator::Add || b.op == BinaryOperator::Subtract) &&
+                           sized489(b.left()) && sized489(b.right());
+                }
+                case ExpressionKind::NamedValue: {
+                    auto& sy = x.as<NamedValueExpression>().symbol;
+                    if (sizedDep489.count(&sy))
+                        return true;
+                    if (sy.kind != SymbolKind::Parameter || sy.getParentScope() != &body)
+                        return false;
+                    auto& pp = sy.as<ParameterSymbol>();
+                    const syntax::ExpressionSyntax* sx = instOvActual487(ib487, pp);
+                    if (!sx)
+                        sx = paramDefaultSyn(pp);
+                    while (sx && sx->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                        sx = sx->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                    return sx && sx->kind == syntax::SyntaxKind::IntegerVectorExpression &&
+                           !sx->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty() &&
+                           lit487(sx).has_value();
+                }
+                default:
+                    return false;
+            }
+        };
+        auto applySize489 = [&](const ParameterSymbol& q, UHDM::constant* c) {
+            if (!addSz489 || !c || c->Typespec() || !q.getInitializer() ||
+                !sized489(*q.getInitializer()))
+                return;
+            sizedDep489.insert(&q);
+            auto& t = q.getType();
+            if (!t.isIntegral() || t.getBitWidth() > 64 || c->VpiSize() == (int)t.getBitWidth())
+                return;
+            c->VpiSize((int)t.getBitWidth());
+            lawTrace(489, "unboundedAddSize489", prefix + " " + std::string(q.name) + " " +
+                                                     std::to_string(t.getBitWidth()));
+        };
         const auto* hon487 = ib487.hierarchyOverrideNode;
         if (hon487 && !hon487->paramOverrides.empty() &&
             lawOn(487, "R11U487_DEPPREDP_OFF")) {
             std::map<const Symbol*, ConstantValue> sub;
             std::set<const Symbol*> bad;
+            // § dpDepUnboundedEval489: the same walk in Surelog's unmasked
+            // 64-bit arithmetic, for untyped dependents
+            static const bool unb489 = lawOn(489, "R11U489_UNBOUNDED_OFF");
+            std::map<const Symbol*, int64_t> subU;
             for (auto* ps : paramSyms) {
                 if (!ps || !ps->getSyntax() || ps->getParentScope() != &body)
                     continue;
@@ -31898,8 +32264,15 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                     continue;
                 }
                 sub[ps] = ConstantValue(*v).convertToInt(t.getBitWidth(), t.isSigned(), t.isFourState());
+                if (unb489)
+                    if (auto x = v->isSigned() ? v->as<int64_t>()
+                                               : (v->as<uint64_t>() && *v->as<uint64_t>() < ((uint64_t)1 << 62)
+                                                      ? std::optional<int64_t>((int64_t)*v->as<uint64_t>())
+                                                      : std::nullopt))
+                        subU[ps] = *x;
             }
             if (!sub.empty() || !bad.empty()) {
+                dpRan489 = true;
                 for (auto* ps : paramSyms) {
                     if (!ps || sub.count(ps) || bad.count(ps) || isOverriddenParam(*ps) ||
                         !ps->getInitializer() || ps->getParentScope() != &body)
@@ -31925,6 +32298,34 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         continue;
                     }
                     sub[ps] = *v;
+                    // § dpDepUnboundedEval489 (r11u489, R11U489_UNBOUNDED_OFF;
+                    // cases tools/probe/r11u489repro/cases/WM, v11u487 VD/vd14)
+                    // -- an UNTYPED dependent is valued by Surelog with no
+                    // mask to the operands' widths (`parameter A = 4'd15`,
+                    // `localparam B = A + 4'd1`, `defparam u.A = 6`: golden
+                    // INT:16 where slang's 4-bit sum wraps to 0).  When
+                    // ev489u values the initializer and its value differs
+                    // from ev487's, the constant takes ev489u's value if it
+                    // lies in [0, 2^31) and the law abstains otherwise; when
+                    // ev489u cannot value it, ev487's value stands as before.
+                    std::optional<std::string> dgU489;
+                    bool skipU489 = false;
+                    if (unb489 && untyped487(*ps)) {
+                        if (auto u = ev489u(*ps->getInitializer(), subU)) {
+                            subU[ps] = *u;
+                            std::string du = std::to_string(*u);
+                            if (du != v->integer().toString(LiteralBase::Decimal, false)) {
+                                if (*u > -((int64_t)1 << 31) && *u < ((int64_t)1 << 31))
+                                    dgU489 = du;
+                                else
+                                    skipU489 = true;
+                            }
+                        }
+                    }
+                    if (skipU489) {
+                        lawTrace(489, "dpDepUnboundedEval489", "abstainRange " + prefix + " " + std::string(ps->name));
+                        continue;
+                    }
                     auto* pa = paOf487(ps->name);
                     bool u = false;
                     auto* c = pa ? simpleConst487(pa->Rhs(), u) : nullptr;
@@ -31932,24 +32333,212 @@ void UhdmExporter::emitParameters(const Scope& body, UHDM::scope* m, const std::
                         lawTrace(487, "dpDepPreDefparamValue487", "abstainRhs " + prefix + " " + std::string(ps->name));
                         continue;
                     }
+                    if (dgU489 && u && (*dgU489)[0] == '-') {
+                        // a negative value in Surelog's form is an INT
+                        lawTrace(489, "dpDepUnboundedEval489", "abstainNegUint " + prefix + " " + std::string(ps->name));
+                        continue;
+                    }
                     const SVInt& iv = v->integer();
-                    bool neg = iv.isSigned() && iv.isNegative();
+                    bool neg = !dgU489 && iv.isSigned() && iv.isNegative();
                     if (u && neg) {
                         lawTrace(487, "dpDepPreDefparamValue487", "abstainNeg " + prefix + " " + std::string(ps->name));
                         continue;
                     }
-                    std::string dg = iv.toString(LiteralBase::Decimal, false);
+                    std::string dg = dgU489 ? *dgU489 : iv.toString(LiteralBase::Decimal, false);
+                    if (dgU489)
+                        lawTrace(489, "dpDepUnboundedEval489", prefix + " " + std::string(ps->name) + " " + dg);
                     std::string nv = (u ? "UINT:" : "INT:") + dg;
                     // the Rhs now holds the pre-defparam value (re-valued
                     // below, or already: a bare `B = A` copied A's constant
                     // before § ovDefparamWinsValue485 re-valued A)
                     dpReval487().insert(c);
+                    if (dgU489 || untyped487(*ps))
+                        applySize489(*ps, c);
                     if (nv == std::string(c->VpiValue()))
                         continue;
                     c->VpiValue(nv);
                     c->VpiDecompile(dg);
                     lawTrace(487, "dpDepPreDefparamValue487", prefix + " " + std::string(ps->name) + " " + nv);
                 }
+            }
+        }
+        // § untypedDepUnboundedValue489 (r11u489, R11U489_UNBOUNDEDDEP_OFF;
+        // cases tools/probe/r11u489repro/cases/WM wm13 to wm16, wm20) -- the
+        // same valuation with no defparam in the instance: an untyped
+        // parameter with an initializer, `localparam B = A + 4'd1;` with A's
+        // default 4'd15, gets Surelog's unmasked value (golden INT:16, -1 for
+        // 4'd0 - 4'd1, 300 for 8'd200 + 8'd100 and 301 for a dependent of
+        // that, 18 for 4'd9 * 4'd2) where slang's self-determined width wraps
+        // it (0, 15, 44, 45, 2).  ev489u walks every untyped, not overridden
+        // parameter in declaration order, each one's value feeding its
+        // dependents; a parameter it cannot value poisons every dependent
+        // reading it, a value outside (-2^31, 2^31) or a negative value in a
+        // UINT constant abstains, and only a constant whose value is plainly
+        // its digits is re-valued (the form, size and typespec kept).  Only
+        // for an instance § dpDepPreDefparamValue487 did not walk.
+        if (!dpRan489 && lawOn(489, "R11U489_UNBOUNDEDDEP_OFF")) {
+            std::map<const Symbol*, int64_t> subU;
+            std::set<const Symbol*> failU;
+            for (auto* ps : paramSyms) {
+                if (!ps || ps->getParentScope() != &body || !untyped487(*ps) ||
+                    isOverriddenParam(*ps) || !ps->getInitializer())
+                    continue;
+                bool poisoned = false;
+                ps->getInitializer()->visit(makeVisitor([&](auto& vv, const NamedValueExpression& nv) {
+                    if (failU.count(&nv.symbol))
+                        poisoned = true;
+                    vv.visitDefault(nv);
+                }));
+                auto u = poisoned ? std::nullopt : ev489u(*ps->getInitializer(), subU);
+                if (!u) {
+                    failU.insert(ps);
+                    continue;
+                }
+                subU[ps] = *u;
+                auto& cv = ps->getValue();
+                if (!cv.isInteger() || cv.integer().hasUnknown())
+                    continue;
+                std::string du = std::to_string(*u);
+                if (du == cv.integer().toString(LiteralBase::Decimal, false)) {
+                    // the value stands; only the size law reads it
+                    auto* paS = paOf487(ps->name);
+                    bool isUS = false;
+                    if (auto* cS = paS ? simpleConst487(paS->Rhs(), isUS) : nullptr)
+                        applySize489(*ps, cS);
+                    continue;
+                }
+                if (*u <= -((int64_t)1 << 31) || *u >= ((int64_t)1 << 31)) {
+                    lawTrace(489, "untypedDepUnboundedValue489", "abstainRange " + prefix + " " + std::string(ps->name));
+                    continue;
+                }
+                auto* pa = paOf487(ps->name);
+                bool isU = false;
+                auto* c = pa ? simpleConst487(pa->Rhs(), isU) : nullptr;
+                if (!c || (isU && *u < 0)) {
+                    lawTrace(489, "untypedDepUnboundedValue489", "abstainRhs " + prefix + " " + std::string(ps->name));
+                    continue;
+                }
+                c->VpiValue((isU ? "UINT:" : "INT:") + du);
+                c->VpiDecompile(du);
+                dpReval487().insert(c);
+                applySize489(*ps, c);
+                lawTrace(489, "untypedDepUnboundedValue489", prefix + " " + std::string(ps->name) + " " +
+                                                                 cv.integer().toString(LiteralBase::Decimal, false) +
+                                                                 "->" + du);
+            }
+        }
+        // § dpDepBitNegUint489 (r11u489, R11U489_BITNEG_OFF; cases
+        // tools/probe/r11u489repro/cases/NB, r11u487 DD/dd31 to dd34) -- an
+        // untyped parameter whose whole initializer is a bitwise not of an
+        // untyped parameter of the same instance, `localparam B = ~A;`:
+        // Surelog's ExprEval::reduceExpr vpiBitNegOp takes the operand's
+        // elaborated constant, negates its 64-bit value and masks it to the
+        // operand constant's size, writing a UINT of that size (no mask for
+        // size -1), so B is UINT:4294967291 size 32 for an unsized decimal
+        // default 4 (nb01), UINT:18446744073709551610 size 64 under an
+        // instance override .A(5) or #(5) (nb02, nb19; the override value is
+        // the unsized UINT § bareOvRefUint64_487 reads), UINT:11 size 4 for
+        // a 4'd4 default or a 4'd5 actual (nb03, nb04), and with no mask at
+        // size -1 for an unsized based default 'h4 (nb07); a defparam on A
+        // is applied after the dependents are valued (nb05, nb06).  slang
+        // writes the signed INT:-5 that ModuleEmit's reuse shares with a
+        // reading continuous assignment, where golden's UINT is cloned at
+        // the left side's width (UINT:251 into 8 bits): with the constant
+        // UINT the reuse gate declines and the clone takes the masked value
+        // through § caFoldValueFollowsPa487 or, for a clone ModuleEmit wrote
+        // as an INT (a 32-bit left side, nb15), through this law's step in
+        // patchParamTypespecs.  The operand's size is read from how its
+        // value is written: an override actual or the default, an unsized
+        // decimal (64 as an actual, 32 as a default), a sized literal (its
+        // width) or an unsized based default (-1); a bare-name actual
+        // (nb20), any other form, a typed B (nb10) or A, an overridden B and
+        // any other initializer shape (~A + 1, nb16) abstain.
+        if (lawOn(489, "R11U489_BITNEG_OFF")) {
+            for (auto* psB : paramSyms) {
+                if (!psB || psB->getParentScope() != &body || !untyped487(*psB) ||
+                    isOverriddenParam(*psB) || !psB->getInitializer())
+                    continue;
+                auto& ini = stripImplicitConv(*psB->getInitializer());
+                if (ini.kind != ExpressionKind::UnaryOp ||
+                    ini.as<UnaryExpression>().op != UnaryOperator::BitwiseNot)
+                    continue;
+                auto& opd = stripImplicitConv(ini.as<UnaryExpression>().operand());
+                if (opd.kind != ExpressionKind::NamedValue)
+                    continue;
+                auto& sa = opd.as<NamedValueExpression>().symbol;
+                if (sa.kind != SymbolKind::Parameter || sa.getParentScope() != &body)
+                    continue;
+                auto& psA = sa.as<ParameterSymbol>();
+                // a typed A: its declared type's width for a default, 64 for
+                // an unsized decimal actual (nb08, nb21 to nb23)
+                int typedW = 0;
+                if (!untyped487(psA)) {
+                    auto& ta = psA.getType();
+                    if (!ta.isIntegral() || ta.getBitWidth() > 64)
+                        continue;
+                    typedW = (int)ta.getBitWidth();
+                }
+                const syntax::ExpressionSyntax* src = instOvActual487(ib487, psA);
+                bool isAct = src != nullptr;
+                if (!src)
+                    src = paramDefaultSyn(psA);
+                const syntax::ExpressionSyntax* sx = src;
+                while (sx && sx->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    sx = sx->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                auto lv = lit487(sx);
+                if (!sx || !lv) {
+                    lawTrace(489, "dpDepBitNegUint489", "abstainSrc " + prefix + " " + std::string(psB->name));
+                    continue;
+                }
+                int size = 0;
+                if (typedW) {
+                    if (sx->kind == syntax::SyntaxKind::IntegerLiteralExpression && isAct)
+                        size = 64;
+                    else if (!isAct && (typedW == 64 || (lv->as<uint64_t>() &&
+                                                         (*lv->as<uint64_t>() >> typedW) == 0)) &&
+                             (sx->kind == syntax::SyntaxKind::IntegerLiteralExpression ||
+                              !sx->as<syntax::IntegerVectorExpressionSyntax>().size.rawText().empty()))
+                        size = typedW;
+                    else {
+                        lawTrace(489, "dpDepBitNegUint489", "abstainTyped " + prefix + " " + std::string(psB->name));
+                        continue;
+                    }
+                }
+                else if (sx->kind == syntax::SyntaxKind::IntegerLiteralExpression)
+                    size = isAct ? 64 : 32;
+                else {
+                    auto& iv = sx->as<syntax::IntegerVectorExpressionSyntax>();
+                    if (!iv.size.rawText().empty())
+                        size = (int)lv->getBitWidth();
+                    else if (!isAct)
+                        size = -1;
+                    else {
+                        lawTrace(489, "dpDepBitNegUint489", "abstainUnsizedAct " + prefix + " " + std::string(psB->name));
+                        continue;
+                    }
+                }
+                auto raw = lv->as<uint64_t>();
+                if (!raw)
+                    continue;
+                uint64_t val = ~*raw;
+                if (size > 0 && size < 64)
+                    val &= ((uint64_t)1 << size) - 1;
+                auto* pa = paOf487(psB->name);
+                bool u = false;
+                auto* c = pa ? simpleConst487(pa->Rhs(), u) : nullptr;
+                if (!c || c->Typespec()) {
+                    lawTrace(489, "dpDepBitNegUint489", "abstainRhs " + prefix + " " + std::string(psB->name));
+                    continue;
+                }
+                std::string dg = std::to_string(val);
+                c->VpiValue("UINT:" + dg);
+                c->VpiDecompile(dg);
+                c->VpiSize(size);
+                c->VpiConstType(vpiUIntConst);
+                dpReval487().insert(c);
+                dpBitNeg489().insert(c);
+                lawTrace(489, "dpDepBitNegUint489", prefix + " " + std::string(psB->name) + " UINT:" + dg +
+                                                        " size " + std::to_string(size));
             }
         }
     }
@@ -39399,6 +39988,30 @@ void UhdmExporter::patchParamTypespecs(size_t lo, size_t hi,
                        : nullptr;
         if (pr && pr != c) {
             auto* cc = (UHDM::constant*)c;
+            // § dpDepBitNegUint489's clone step (law text at its site): an
+            // INT clone of the rewritten UINT takes its two's-complement
+            // digits at its own width, the form golden's adjustSize clone of
+            // a UINT has (nb15: UINT:4294967291 into 32 bits)
+            if (dpBitNeg489().count(pr) && cc->VpiConstType() == vpiIntConst &&
+                cc->VpiSize() > 0 && cc->VpiSize() <= 64 &&
+                std::string_view(cc->VpiValue()).rfind("INT:", 0) == 0) {
+                long long iv = 0;
+                std::string_view d(cc->VpiValue());
+                d.remove_prefix(4);
+                auto [e, ec] = std::from_chars(d.data(), d.data() + d.size(), iv);
+                if (ec == std::errc() && e == d.data() + d.size() &&
+                    std::string_view(cc->VpiDecompile()) == d) {
+                    uint64_t uv = (uint64_t)iv;
+                    if (cc->VpiSize() < 64)
+                        uv &= ((uint64_t)1 << cc->VpiSize()) - 1;
+                    cc->VpiValue("UINT:" + std::to_string(uv));
+                    cc->VpiDecompile(std::to_string(uv));
+                    cc->VpiConstType(vpiUIntConst);
+                    lawTrace(489, "dpDepBitNegUint489", "caClone " +
+                             std::string(((UHDM::instance*)mi)->VpiFullName()) + " " +
+                             std::string(pc.ps->name) + " UINT:" + std::to_string(uv));
+                }
+            }
             std::string pv(pr->VpiValue()), cv(cc->VpiValue());
             // only a Rhs known to hold the elaborated value: one this pass
             // re-valued, or a parameter no override reaches (a dependent's

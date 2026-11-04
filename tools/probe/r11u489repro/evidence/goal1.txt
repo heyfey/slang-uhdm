@@ -1,0 +1,5 @@
+r11u423repro/evidence/residue_cases/g1a ours=4 upstream=0
+r11u423repro/evidence/residue_cases/g1b ours=4 upstream=0
+v11u415repro/cases/VT/vt03 ours=0 upstream=0
+SURELOG_ONLY 75 rows: exporter unsupported-shape details 0 (results/golden_svtests.csv detail column)
+bp_unicore alone on law6 with the size guard on: rc 3 elapsed 14.1s maxrss 828 MB (basic_string::substr, the guarded crash text)

@@ -1,0 +1,15 @@
+Prediction written before the sweep, from the traced census of law6 (drivers/census.py,
+evidence/census_law6.txt): law6 run with R11U489_TRACE on every fence-filtered row of the probe
+(4087 cases), surelog default+testflags (954 control databases + 569 control rows without a
+database + 50 rows whose control ran no slang side), uhdm2rtlil default+testflags (1606 + 134)
+and sv-tests (2346 rows, 24 control databases kept), each with the command its control cmds.txt
+recorded.
+- No law of this pass fires on any corpus row or probe case: every trace empty.
+- Byte comparison against the control: surelog 954 of 954 same, uhdm2rtlil 1606 of 1606 same,
+  sv-tests 24 of 24 kept same; the probe's 4087 differ from the control only in the embedded
+  source path (worktree vs main tree), the trace empty on all.
+- sv-tests: one row's trace holds lines, generated/rsd/rsd.sv (SURELOG_CRASH), two abstains of
+  untypedDepUnboundedValue489 (abstainRange DATA_MINUS_ONE, DATA_MINIMUM in divUnit), bytes
+  identical to the control's kept database.
+- PREDICTED: 0 byte movers, 0 exit-code movers, 0 conversions and 0 changes in every stage;
+  the sweep's trace to read only rsd's two abstains.

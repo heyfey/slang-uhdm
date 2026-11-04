@@ -1,0 +1,5 @@
+r11u423repro/evidence/residue_cases/g1a law=4 pri=4 upstream=0
+r11u423repro/evidence/residue_cases/g1b law=4 pri=4 upstream=0
+v11u415repro/cases/VT/vt03 law=0 pri=0 upstream=0
+SURELOG_ONLY rows whose detail names an unsupported shape: 0 of 75
+bp_unicore not re-measured by this verifier

@@ -1,0 +1,16 @@
+r11u427repro/cases/OT/ot10 rc=0 cmp=64 dist=6 NOT_EQUAL stage1 md5=bba01725|r11u427repro/cases/OT/ot10 rc=0 cmp=64 dist=6 NOT_EQUAL stage1 md5=bba01725
+r11u487repro/cases/DD/dd28 rc=0 cmp=50 dist=34 NOT_EQUAL stage1 md5=1c1f9b97|r11u487repro/cases/DD/dd28 rc=0 cmp=50 dist=32 NOT_EQUAL stage1 md5=bd501280
+r11u487repro/cases/DD/dd31 rc=0 cmp=36 dist=16 NOT_EQUAL stage1 md5=1cd1d97c|r11u487repro/cases/DD/dd31 rc=0 cmp=0 dist=0 STRICT_EQUAL 70 objects md5=ac96737d
+r11u487repro/cases/DD/dd33 rc=0 cmp=36 dist=16 NOT_EQUAL stage1 md5=0e6babb0|r11u487repro/cases/DD/dd33 rc=0 cmp=0 dist=0 STRICT_EQUAL 70 objects md5=ae9cdef6
+r11u487repro/cases/DD/dd32 rc=0 cmp=36 dist=16 NOT_EQUAL stage1 md5=dd116ea4|r11u487repro/cases/DD/dd32 rc=0 cmp=0 dist=0 STRICT_EQUAL 70 objects md5=8443a042
+r11u487repro/cases/DD/dd34 rc=0 cmp=36 dist=16 NOT_EQUAL stage1 md5=4f961285|r11u487repro/cases/DD/dd34 rc=0 cmp=0 dist=0 STRICT_EQUAL 70 objects md5=7b906028
+v11u279repro/cases/VA/va03_defparam rc=0 cmp=64 dist=145 NOT_EQUAL stage1 md5=60fd4ce3|v11u279repro/cases/VA/va03_defparam rc=0 cmp=64 dist=145 NOT_EQUAL stage1 md5=60fd4ce3
+v11u407repro/cases/VX/vx05 rc=0 cmp=64 dist=6 NOT_EQUAL stage1 md5=8667ada3|v11u407repro/cases/VX/vx05 rc=0 cmp=64 dist=6 NOT_EQUAL stage1 md5=8667ada3
+v11u423repro/cases/VD/vd08 rc=0 cmp=36 dist=8 NOT_EQUAL stage1 md5=31631421|v11u423repro/cases/VD/vd08 rc=0 cmp=28 dist=4 NOT_EQUAL stage1 md5=5aba6766
+v11u427repro/cases/VD/vd05 rc=0 cmp=64 dist=37 NOT_EQUAL stage1 md5=36d5c8a2|v11u427repro/cases/VD/vd05 rc=0 cmp=64 dist=37 NOT_EQUAL stage1 md5=36d5c8a2
+v11u477repro/cases/VA/va09 rc=0 cmp=36 dist=8 NOT_EQUAL stage1 md5=30ca005d|v11u477repro/cases/VA/va09 rc=0 cmp=36 dist=6 NOT_EQUAL stage1 md5=b721a598
+v11u477repro/cases/VA/va27 rc=0 cmp=36 dist=2 NOT_EQUAL stage1 md5=795b57ea|v11u477repro/cases/VA/va27 rc=0 cmp=0 dist=0 STRICT_EQUAL 118 objects md5=abcb536b
+v11u487repro/cases/VD/vd14 rc=0 cmp=36 dist=8 NOT_EQUAL stage1 md5=56a98068|v11u487repro/cases/VD/vd14 rc=0 cmp=0 dist=0 STRICT_EQUAL 63 objects md5=7b6997fa
+v11u487repro/cases/VD/vd22 rc=0 cmp=64 dist=2 NOT_EQUAL stage1 md5=38228b0f|v11u487repro/cases/VD/vd22 rc=0 cmp=0 dist=0 STRICT_EQUAL 83 objects md5=f99e4b3e
+v11u487repro/cases/VG/vg11 rc=0 cmp=36 dist=10 NOT_EQUAL stage1 md5=d5a3a1de|v11u487repro/cases/VG/vg11 rc=0 cmp=0 dist=0 STRICT_EQUAL 55 objects md5=11dce4be
+v11u487repro/cases/VT/vt04 rc=0 cmp=36 dist=10 NOT_EQUAL stage1 md5=4b8373b7|v11u487repro/cases/VT/vt04 rc=0 cmp=0 dist=0 STRICT_EQUAL 57 objects md5=d0ec324f
