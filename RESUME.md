@@ -107,6 +107,15 @@ and never in the gate; report its cost when run.
   generated/tnoc/tnoc.sv stay DIFFERENT in results/golden_svtests.csv. They are
   Surelog artefacts the exporter does not copy: no law targets them and no pass
   briefs them. A change on them is still a CHANGE to attribute at a landing.
+- SV-TESTS GATE ALL CLEAN (2026-11-04, pass 478 at ffae79cae): every row that
+  slang and Surelog both accept reads EQUAL in results/golden_svtests.csv
+  except the three known exceptions above (EQUAL 1937 of 2346, STRICT_NOTEQUAL
+  0, DIFFERENT 3, SURELOG_ONLY 75, BOTH_REJECT 303, SLANG_ONLY 19,
+  SURELOG_CRASH 8, TIMEOUT 1). The corpus gates stand at surelog 954 of 954,
+  uhdm2rtlil 1606 + 0, probe 4025 + 62, downstream 803/66/2/0. From here every
+  landing keeps all five stages at 0 regressions and the passes work the
+  residue backlogs of the two grounds (tools/probe/r11uNNNrepro READMEs); a
+  row that moves is a CHANGE or REGRESSION to attribute by its pass switch.
 - `r10earl23` (Earlgrey pass 23, `/tmp/r10earl23.patch`) is QUARANTINED: its
   agent edited a file outside its worktree (`.handled`) — flagged by a
   security classifier as a possible fake-review marker. Do not integrate it
