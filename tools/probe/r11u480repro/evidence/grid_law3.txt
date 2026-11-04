@@ -1,0 +1,30 @@
+AS/as01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 321 objects dd=68 md5=5d7d8804
+AS/as02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 465 objects dd=68 md5=6bf80a86
+FA/fa01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 142 objects dd=2 md5=455dc8c3
+FA/fa02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 268 objects dd=2 md5=dc5f335d
+FA/fa03 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=2 md5=483cfa27
+FA/fa04 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 94 objects dd=2 md5=2a25e76f
+FA/fa05 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 124 objects dd=2 md5=241fb148
+FA/fa06 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=2 md5=68cc877d
+FA/fa07 law3 slrc=0 rc=0 cmp=80 NOT_EQUAL stage1 dd=56 md5=7cc8d2b0
+FA/fa08 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 106 objects dd=2 md5=ec0a3eb7
+FA/fa09 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 113 objects dd=2 md5=be424e20
+FA/fa10 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=81 md5=730db5e4
+FA/fa11 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 168 objects dd=2 md5=247a3431
+FA/fa12 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 160 objects dd=2 md5=1d34c512
+FA/fa13 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 144 objects dd=2 md5=186dce13
+FA/fa14 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 263 objects dd=72 md5=ee71124d
+FA/fa15 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 67 objects dd=2 md5=48c6d37c
+FA/fa16 law3 slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=586 md5=3cd4ee0e
+FA/fa17 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 117 objects dd=2 md5=93ff8893
+FA/fa18 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 130 objects dd=2 md5=8353822f
+FA/fa19 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 183 objects dd=2 md5=31f76f35
+FA/fa20 law3 slrc=0 rc=0 cmp=1058 NOT_EQUAL stage1 dd=76 md5=d8c5ddf4
+FA/fa21 law3 slrc=0 rc=0 cmp=29 NOT_EQUAL stage1 dd=18 md5=34905bc6
+FA/fa22 law3 slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=7 md5=9c1f1dc8
+FA/fa23 law3 slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=7 md5=267b7710
+FA/fa24 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 139 objects dd=2 md5=32167067
+FA/fa25 law3 slrc=0 rc=0 cmp=271 NOT_EQUAL stage1 dd=47 md5=ef40072f
+FA/fa26 law3 slrc=0 rc=0 cmp=52 NOT_EQUAL stage1 dd=8 md5=2b586a3a
+FA/fa27 law3 slrc=0 rc=0 cmp=104 NOT_EQUAL stage1 dd=48 md5=4b9d4199
+FA/fa28 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 260 objects dd=10 md5=8df4dc2e

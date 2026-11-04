@@ -1,0 +1,30 @@
+AS/as01 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 321 objects dd=68 md5=5d7d8804
+AS/as02 law3 slrc=0 rc=0 cmp=0 STRICT_EQUAL 465 objects dd=68 md5=6bf80a86
+FA/fa01 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=e7b51517
+FA/fa02 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=16 md5=b1bdb559
+FA/fa03 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=c9652558
+FA/fa04 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=a3b22d7d
+FA/fa05 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=a8095cb3
+FA/fa06 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=ee55bd18
+FA/fa07 law3 slrc=0 rc=0 cmp=80 NOT_EQUAL stage1 dd=56 md5=7cc8d2b0
+FA/fa08 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=2498f0dc
+FA/fa09 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=e6531119
+FA/fa10 law3 slrc=0 rc=0 cmp=17 NOT_EQUAL stage1 dd=82 md5=b5d7ead0
+FA/fa11 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=88155a73
+FA/fa12 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=b2e77416
+FA/fa13 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=74ec030d
+FA/fa14 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=86 md5=b60aaa9a
+FA/fa15 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=2b0515c3
+FA/fa16 law3 slrc=0 rc=0 cmp=94 NOT_EQUAL stage1 dd=608 md5=dcef5719
+FA/fa17 law3 slrc=0 rc=0 cmp=90 NOT_EQUAL stage1 dd=7 md5=a02fdc6e
+FA/fa18 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=1513abe3
+FA/fa19 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=82ec7220
+FA/fa20 law3 slrc=0 rc=0 cmp=1058 NOT_EQUAL stage1 dd=77 md5=af308966
+FA/fa21 law3 slrc=0 rc=0 cmp=29 NOT_EQUAL stage1 dd=23 md5=46bf04f5
+FA/fa22 law3 slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=7 md5=9c1f1dc8
+FA/fa23 law3 slrc=0 rc=0 cmp=86 NOT_EQUAL stage1 dd=7 md5=267b7710
+FA/fa24 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=7 md5=4191ad0c
+FA/fa25 law3 slrc=0 rc=0 cmp=271 NOT_EQUAL stage1 dd=47 md5=ef40072f
+FA/fa26 law3 slrc=0 rc=0 cmp=52 NOT_EQUAL stage1 dd=13 md5=8aa91dbf
+FA/fa27 law3 slrc=0 rc=0 cmp=104 NOT_EQUAL stage1 dd=48 md5=4b9d4199
+FA/fa28 law3 slrc=0 rc=0 cmp=0 STRICT_NOTEQUAL type dd=25 md5=3d41bc80

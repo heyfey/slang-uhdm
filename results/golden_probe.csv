@@ -711,7 +711,7 @@ r10uvm125repro/g125_b_shapes,EQUAL,,equal
 r10uvm125repro/g125_d_homes,EQUAL,,equal
 r10uvm127repro/g127_b_oob,EQUAL,,equal
 r10uvm127repro/g127_c_import,EQUAL,,equal
-r10uvm129repro/g129_d_bases,STRICT_NOTEQUAL,differ:type(1),differ:type(1)
+r10uvm129repro/g129_d_bases,EQUAL,,equal
 r10uvm12repro/t,EQUAL,,equal
 r10uvm12repro/t10_t,EQUAL,,equal
 r10uvm12repro/t11_t,EQUAL,,equal

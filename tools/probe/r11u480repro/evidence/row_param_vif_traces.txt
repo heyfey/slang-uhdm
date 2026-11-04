@@ -1,0 +1,11 @@
+== pristine: equal,IDENTICAL,ok,ok
+    332 aliasCopyParamUnnamed478
+      5 aliasFormalCopyPerClone478
+      6 cloneHierArrElemMember478
+   3962 providerBodyCopyBind478
+== law3: equal,IDENTICAL,ok,ok
+    332 aliasCopyParamUnnamed478
+      5 aliasFormalCopyPerClone478
+    332 aliasParamStoredRead480
+      6 cloneHierArrElemMember478
+   3962 providerBodyCopyBind478

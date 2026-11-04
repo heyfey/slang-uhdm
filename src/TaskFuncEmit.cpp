@@ -7815,6 +7815,53 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // already had); `logic` / `reg` / `bit` and every NAMED
                     // type fall through to the two arms below unchanged.  Law
                     // + Surelog citations: EmitHelpers.h.
+                    // § fixArrLocalNamedAggElemTs480 (r11u480,
+                    // R11U480_FIXARRAGG_OFF; cases
+                    // tools/probe/r11u480repro/cases/FA; the v11u478 residues
+                    // VM/vm04, vm11 to vm13, vm16, vm17 and r11u478 AM/am08) --
+                    // a FIXED-SIZE array local of a subroutine whose element is
+                    // written as the NAME of a struct, union or enum typedef
+                    // (`op_t acc[2];`, packed or unpacked) types its element
+                    // on the typedef's own typespec in golden: Surelog's
+                    // compileVariable hands the declaration's data type to
+                    // CompileType, which resolves the name to the typedef's
+                    // typespec and wraps it in the array_typespec, the same
+                    // object bound by the element variable's ref_typespec
+                    // (golden struct_typespec (op_t) 3:11 on both refs),
+                    // where the vector branch below minted a located
+                    // logic_typespec (bit_typespec for a two-state enum) over
+                    // the written name and listed it as an orphan of the
+                    // design.  The shared typedef object is taken (the one
+                    // the queue and dynamic branch makeQueueDynArrayVar already
+                    // reaches through makeTypespec), never stamped here.
+                    UHDM::typespec* sh480 = nullptr;
+                    auto fixArrNamedAggElemTs480 = [&]() -> UHDM::typespec* {
+                        // An import clone's local abstains: golden's deep
+                        // clone hangs a private copy of the struct off the
+                        // clone's ref_typespec, which the shared object does
+                        // not model (the v11u478 VM cases, where taking it
+                        // re-homed the home listing's typedef).
+                        if (!lawOn(480, "R11U480_FIXARRAGG_OFF") ||
+                            importCopyTsInst || pkgImportCloneEmit)
+                            return nullptr;
+                        const Type& el480 =
+                            arrayElemLeaf(fmv.getDeclaredType()->getType());
+                        if (el480.kind != SymbolKind::TypeAlias)
+                            return nullptr;
+                        auto k480 = el480.getCanonicalType().kind;
+                        if (k480 != SymbolKind::PackedStructType &&
+                            k480 != SymbolKind::UnpackedStructType &&
+                            k480 != SymbolKind::PackedUnionType &&
+                            k480 != SymbolKind::UnpackedUnionType &&
+                            k480 != SymbolKind::EnumType)
+                            return nullptr;
+                        auto* t480 = sharedAliasTs(el480);
+                        if (t480)
+                            lawTrace(480, "fixArrLocalNamedAggElemTs480",
+                                     std::string(fmv.name) + " " +
+                                         std::string(el480.name));
+                        return t480;
+                    };
                     const syntax::SyntaxNode* tsynK126 =
                         fmv.getDeclaredType()->getTypeSyntax();
                     if (auto* kwTs126 = writtenKeywordElemTs126(
@@ -7847,6 +7894,9 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // with parameters abstains.
                     else if ((cls452 = clsArrElemTs452(fmv, *leaf))) {
                         elemTs = cls452;
+                    }
+                    else if ((sh480 = fixArrNamedAggElemTs480())) {
+                        elemTs = sh480;
                     }
                     else {
                         // A packed-vector leaf (reg [3:0]) gets a LOCATED
@@ -7961,7 +8011,8 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     // package, so their element typespecs carry it as
                     // vpiInstance — same rule (and same tsInst) the flat-local
                     // arm below already applies (AllPackageSignal).
-                    if (elemTs && tsInst && !elemTs->Instance() && !cls452)
+                    if (elemTs && tsInst && !elemTs->Instance() && !cls452 &&
+                        !sh480)
                         elemTs->Instance(importCopyTsInst ? importCopyTsInst
                                                           : tsInst);
                     // § classScopedTdDeclTsUnsupported11, SITE 4c of 5 —

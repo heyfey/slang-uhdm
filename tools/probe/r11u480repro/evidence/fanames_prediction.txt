@@ -1,0 +1,21 @@
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneLong129 longBase129_e 28
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneBit129 bitBase129_e 29
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneLogic129 logicBase129_e 30
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneInteg129 integBase129_e 31
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::twoInteg129 integBase129_e 32
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::triInteg129 integBase129_e 33
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::twoInt129 intBase129_e 22
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneByte129 byteBase129_e 24
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneUint129 uintBase129_e 23
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::twoPlain129 plainBase129_e 19
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::onePlain129 plainBase129_e 18
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneInt129 intBase129_e 21
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::triPlain129 plainBase129_e 20
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::twoByte129 byteBase129_e 25
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneUbyte129 ubyteBase129_e 26
+HIT probe/r10uvm129repro__g129_d_bases.uhdm pk129d::Tally129::run129::oneShort129 shortBase129_e 27
+HIT svtests/work/generated/rsd/rsd/slang.uhdm DecideCommit.headOfThisInsn CommitLaneIndexPath 97
+HIT svtests/work/generated/rsd/rsd/slang.uhdm DecideCommit.tailOfThisInsn CommitLaneIndexPath 98
+HIT svtests/work/generated/rsd/rsd/slang.uhdm DecideCommit.recoveryPoint CommitLaneIndexPath 101
+HIT svtests/work/generated/rsd/rsd/slang.uhdm DecideCommit.opRefetchType RefetchType 113
+databases scanned: 7475 (the master's control /tmp/intr11u478, our side, fence-filtered); hits: 20

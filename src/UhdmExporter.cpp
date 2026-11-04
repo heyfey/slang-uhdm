@@ -818,6 +818,19 @@ template struct Rob287<RtsFull291, &UHDM::ref_typespec::vpiFullName_>;
 static bool storedRtsFullName291(const UHDM::ref_typespec* r) {
     return (bool)(r->*get287(RtsFull291()));
 }
+// § aliasParamStoredRead480 -- the stored full name of a parameter, read
+// without the getter (which would compute and store one from the parent
+// chain): the same explicit instantiation r11u287 uses for ref_obj.
+namespace {
+struct ParFull480 {
+    typedef UHDM::SymbolId UHDM::parameter::*type;
+    friend type get287(ParFull480);
+};
+} // namespace
+template struct Rob287<ParFull480, &UHDM::parameter::vpiFullName_>;
+static bool storedParFullName480(const UHDM::parameter* p) {
+    return (bool)(p->*get287(ParFull480()));
+}
 // § anonAggMemberChainName291 (r11u291, R11U291_ANONMEMBNAME_OFF) — A MEMBER
 // REFERENCE OF AN ANONYMOUS STRUCT OR UNION IS NAMED BY ITS FINAL PARENT
 // CHAIN.  Surelog stores no full name on a typespec_member's ref_typespec;
@@ -28425,30 +28438,6 @@ UHDM::design* UhdmExporter::exportDesign() {
     // element typespec is a struct or union with a member of that name, binds
     // that member.  An element after a bound member is not resolved further
     // (DeepClone's next lookup reads a ref_obj there, and a member is not).
-    // § cloneHierArrElemMember478 (r11u478, R11U478_ARRMEMBER_OFF; cases
-    // tools/probe/r11u478repro/cases/AM; uvm_param_vif_config_db's
-    // uvm_reg_map.svh 2034 face `p.push_back(accesses[i0].data[i1*8+:8])`) —
-    // an import clone's dotted path is made by UHDM's hier_path::DeepClone
-    // (clone_tree.cpp), which walks the path elements and, when the element
-    // before holds an ARRAY variable (array_var or packed_array_var) whose
-    // element typespec is a struct or union, binds the next element to the
-    // member of that name (`cro->Actual_group(member)`, the array_var case of
-    // its first switch).  The element before is the CLONE's, so the member is
-    // the one of the struct the clone's array variable reaches: the home's for
-    // a direct importer (golden sfr_agent_pkg's `data` -> uvm_pkg's listing
-    // member), the provider clone's own copy for a package that reaches the
-    // home through § cloneViaProviderTopClone476 (golden tb_params_pkg's
-    // `data` -> sfr_agent_pkg::uvm_reg_map::do_bus_access::accesses::
-    // uvm_pkg::uvm_reg_bus_op::data).  Our clone bodies are emitted, not
-    // cloned, and left that element unbound.  Design-final, after every
-    // pool that binds a path element (final287, after finish241's
-    // § cloneAggLocalOwnCopy241 gives a clone's local array its own struct
-    // copy, which golden's provider binding reaches): in each import clone (g_cloneTf241),
-    // each hier_path element after the first that is a ref_obj kind with no
-    // actual, following a ref_obj kind bound to an array variable whose
-    // element typespec is a struct or union with a member of that name, binds
-    // that member.  An element after a bound member is not resolved further
-    // (DeepClone's next lookup reads a ref_obj there, and a member is not).
     if (lawOn(478, "R11U478_ARRMEMBER_OFF") && !cloneTfs478.empty()) {
         std::set<const UHDM::any*> clones478(cloneTfs478.begin(), cloneTfs478.end());
         auto elemTs478 = [](const UHDM::any* a) -> const UHDM::typespec* {
@@ -30998,7 +30987,26 @@ UHDM::design* UhdmExporter::exportDesign() {
                         (l->VpiParent() != pa && l->VpiParent() != c))
                         continue;
                     auto* vp = (UHDM::parameter*)l;
-                    const std::string fn(vp->VpiFullName());
+                    // § aliasParamStoredRead480 (r11u480, R11U480_APSTORED_OFF;
+                    // the v11u478 finding) -- UHDM's generated
+                    // parameter::VpiFullName() computes the full name and
+                    // STORES it when none is stored, so reading it here wrote
+                    // a name on every candidate the law then left alone, with
+                    // no trace line (the pattern § clsPropSpecFullNameLazy470
+                    // removed from pass 468).  The STORED name is read first,
+                    // as pass 470's reader does; a parameter with none stored
+                    // is left as it is (its computed chain name ends with the
+                    // copy's name, so the law never fired on it).
+                    std::string fn;
+                    if (lawOn(480, "R11U480_APSTORED_OFF")) {
+                        if (!storedParFullName480(vp)) {
+                            lawTrace(480, "aliasParamStoredRead480",
+                                     cn + "." + std::string(vp->VpiName()) +
+                                         " has no stored name");
+                            continue;
+                        }
+                    }
+                    fn = std::string(vp->VpiFullName());
                     if (fn.empty())
                         continue;
                     const std::string nm(vp->VpiName());

@@ -1,0 +1,12 @@
+surelog: databases: patched=962 pristine=962
+surelog: PATH_SETS_IDENTICAL (962 paths)
+surelog: MOVERS: 0 / 962
+surelog: SELFCHECK (every file vs one fixed file): 961 / 962 flagged
+uhdm2rtlil: databases: patched=1608 pristine=1608
+uhdm2rtlil: PATH_SETS_IDENTICAL (1608 paths)
+uhdm2rtlil: MOVERS: 0 / 1608
+uhdm2rtlil: SELFCHECK (every file vs one fixed file): 1607 / 1608 flagged
+downstream: databases: patched=805 pristine=805
+downstream: PATH_SETS_IDENTICAL (805 paths)
+downstream: MOVERS: 0 / 805
+downstream: SELFCHECK (every file vs one fixed file): 804 / 805 flagged
