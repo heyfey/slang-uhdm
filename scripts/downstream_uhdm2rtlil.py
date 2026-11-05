@@ -71,8 +71,12 @@ def surelog_db(dirpath, sl_args, work, timeout):
     if _ID is None:
         _ID = surelog_identity()
     parts = [_ID, vg._portable(dirpath)] + [vg._portable(a) for a in sl_args]
-    if vg._reaches_outside(sl_args):
-        parts.append(os.path.abspath(dirpath))
+    # Always keyed per checkout location: the plugin's output depends on the
+    # length of the source paths the database carries (yosys_lane), so the
+    # Surelog lane must be built from the same checkout as the slang lane. A
+    # golden shared from another checkout read three IDENTICAL rows as
+    # EQUIVALENT on a fresh clone (2026-11-05).
+    parts.append(os.path.abspath(dirpath))
     cdir = os.path.join(vg.cache_base(), hashlib.sha1('\0'.join(parts).encode()).hexdigest()[:20])
     hit = vg.cache_load(cdir)
     if hit and hit[1]:

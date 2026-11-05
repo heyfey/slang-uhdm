@@ -173,7 +173,13 @@ It needs the downstream toolchain built once inside the submodule:
     make CPU_CORES=4          # its Yosys fork (out/current/bin/yosys), its Surelog, build/uhdm2rtlil.so
 
 (`YOSYS`, `UHDM2RTLIL_PLUGIN`, `UHDM2RTLIL_SURELOG` and `UHDM2RTLIL_ROOT`
-override the locations. The Yosys fork needs bison 3.6 or newer; without
+override the locations. To reuse a toolchain built in another checkout, set
+the three binaries and put that checkout's `out/current/bin` on `PATH` for
+`test_equivalence.sh`; leave `UHDM2RTLIL_ROOT` at this clone's submodule, since
+the slang lane reads the corpus stage's databases. The stage's Surelog
+goldens are cached per checkout location, because the plugin's output shifts
+with the length of the source paths a database carries, so the first
+downstream run of a new clone rebuilds its 871 goldens. The Yosys fork needs bison 3.6 or newer; without
 tcl, readline, libffi or zlib headers configure its build with the matching
 `-DYOSYS_WITHOUT_*=ON` options before running make.)
 
