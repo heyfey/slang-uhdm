@@ -67,9 +67,13 @@ times from their `cmds.txt` command; all hashes agree.
 
     git add -- src/<files> tests/LAWS.md results/<changed csvs> tools/probe/r11u<N>repro tools/probe/v11u<N>repro tests/probe/r11u<N>repro tests/probe/v11u<N>repro <docs>
     git commit -F <message file>
-    python3 scripts/law_index.py && git add tests/LAWS.md && git commit --amend --no-edit   # the index records the landing's own hash
+    python3 scripts/law_index.py && git add tests/LAWS.md && git commit -m 'tests/LAWS.md: the commit column of pass <N>'
     python3 scripts/law_index.py --check      # current
     git status --porcelain | wc -l            # 0
+
+The index records each law's commits by hash, so the landing's own hash can
+only be written after the landing exists: the second commit is the rule, not
+an amend (an amend changes the hash it just recorded).
 
 Never `git add -A`, never `git stash`. The message names the laws as
 `§ name` (the law index reads commits for them); the evidence lives in the
