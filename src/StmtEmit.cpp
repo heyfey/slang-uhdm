@@ -9,8 +9,8 @@
 
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"  // § unitImpTransLateList459 (the package order scan)
-#include "LawSwitch.h"
-#include "LawState.h"
+#include "law/LawSwitch.h"
+#include "law/LawState.h"
 #include <uhdm/UhdmListener.h>
 
 #include <functional>
@@ -101,7 +101,6 @@ struct CloneLocalWrap175 {
 static std::vector<CloneLocalWrap175> cloneLocalWraps175;
 // the v11u178 verifier switches (ExprEmit.cpp)
 // The r11u181 switches and census trace (ExprEmit.cpp).
-void trace181(const char* law);
 // § invalidStmtAnchorSyntax181 (r11u181) — THE SUBROUTINE BODY'S WRAPPER
 // ANCHORS AT ITS SECOND ITEM EVEN WHEN SLANG COULD NOT BIND IT.  Surelog
 // populates the synthesised body `begin` from the second body item's parse
@@ -118,7 +117,7 @@ static slang::SourceRange invalidStmtAnchor181(const slang::ast::Statement& st) 
     if (st.sourceRange.start().valid() || !st.syntax ||
         !lawOn(181, "R11U181_INVSTMT_OFF"))
         return st.sourceRange;
-    trace181("INVSTMT");
+    lawTrace(181, "INVSTMT");
     return st.syntax->sourceRange();
 }
 static std::vector<std::pair<UHDM::assignment*, UHDM::variables*>> cloneLocalLhs175;
@@ -915,7 +914,7 @@ void UhdmExporter::endSelTrack() {
                     continue;
                 if (it->second != (const UHDM::expr*)cur) {
                     wr.ref->Actual_group(it->second);
-                    trace151("ARRNB");
+                    lawTrace(151, "ARRNB");
                 }
                 break;
             }
@@ -4560,7 +4559,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
             if (!dwSyn181 && dw.cond.syntax && dw.cond.syntax->parent &&
                 dw.cond.syntax->parent->kind == syntax::SyntaxKind::DoWhileStatement &&
                 lawOn(181, "R11U181_DWSYN_OFF")) {
-                trace181("DWSYN");
+                lawTrace(181, "DWSYN");
                 dwSyn181 = dw.cond.syntax->parent;
             }
             // § doWhileSpansToCloseParen175 (r11u175) — golden's do_while
@@ -4615,7 +4614,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                             stmt.sourceRange.start() < oe181 &&
                             sm->getLineNumber(oe181) ==
                                 sm->getLineNumber(stmt.sourceRange.start())) {
-                            trace181("DWMACRO");
+                            lawTrace(181, "DWMACRO");
                             dwMacro181 = true;
                             setLoc(w, SourceRange(stmt.sourceRange.start(), ce178));
                         }
@@ -5471,7 +5470,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                         rt207 = &*rt207->as<syntax::ScopedNameSyntax>().left;
                     if (rt207->kind == syntax::SyntaxKind::ThisHandle) {
                         this207 = rt207->sourceRange();
-                        trace207("foreachThisArrAtThisToken207");
+                        lawTrace(207, "foreachThisArrAtThisToken207");
                     }
                 }
                 setLoc(rv, this207 ? *this207
@@ -8787,7 +8786,7 @@ UHDM::any* UhdmExporter::emitStmt(const Statement& stmt, UHDM::BaseClass* parent
                                     std::string fn210 = joinRef(prefix, pp210->name);
                                     if (((UHDM::ref_obj*)ue)->VpiFullName() != fn210) {
                                         ((UHDM::ref_obj*)ue)->VpiFullName(fn210);
-                                        trace210("caseItemImpWildParamScopeName210");
+                                        lawTrace(210, "caseItemImpWildParamScopeName210");
                                     }
                                 }
                             }

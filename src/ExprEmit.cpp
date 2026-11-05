@@ -24,9 +24,9 @@
 #include "slang/syntax/SyntaxTree.h"
 #include "slang/ast/expressions/Operator.h"
 #include "slang/ast/symbols/CoverSymbols.h"
-#include "LawSwitch.h"
+#include "law/LawSwitch.h"
 #include <uhdm/ExprEval.h>
-#include "LawState.h"
+#include "law/LawState.h"
 #include <array>
 #include <uhdm/UhdmListener.h>
 
@@ -1754,13 +1754,6 @@ static bool lhsOfLiteralAssign205(const syntax::SyntaxNode* n5) {
             return true;
         default:
             return false;
-    }
-}
-static void trace200(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(200, "200E");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
     }
 }
 
@@ -3706,14 +3699,14 @@ static bool vsStampReducedCtxOnly198v(const UHDM::any* parent, bool opBare) {
             case UHDM::uhdmsys_func_call: {
                 std::string_view nm = q->VpiName();
                 if (nm != "$signed" && nm != "$unsigned" && nm != "$clog2") {
-                    trace198("vsStampReducedCtxOnly198v");
+                    lawTrace(198, "vsStampReducedCtxOnly198v");
                     return true;
                 }
                 break;
             }
             case UHDM::uhdmoperation:
                 if (opBare) {
-                    trace198("vsStampReducedCtxOnly198v");
+                    lawTrace(198, "vsStampReducedCtxOnly198v");
                     return true;
                 }
                 break;
@@ -4531,7 +4524,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
             continue;
         if (margop198)
-            trace198("methodArgOpRefChainName198");
+            lawTrace(198, "methodArgOpRefChainName198");
         ro175->VpiFullName(want);
         set226.n++;
     }
@@ -4668,7 +4661,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         size_t hr = have.find_first_of(":.");
         if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
             continue;
-        trace201("methodArgNestedRefChain201");
+        lawTrace(201, "methodArgNestedRefChain201");
         ro201->VpiFullName(want);
         set226.n++;
     }
@@ -4795,7 +4788,7 @@ void refFullNameThroughNamedExpr175(UHDM::Serializer& s) {
         size_t hr = have.find_first_of(":.");
         if (hr == std::string::npos || want.compare(0, hr + 1, have, 0, hr + 1) != 0)
             continue;
-        trace201("callArgInSelIdxChainName201");
+        lawTrace(201, "callArgInSelIdxChainName201");
         ro->VpiFullName(want);
         set226.n++;
     }
@@ -4837,7 +4830,6 @@ static std::vector<std::pair<const UHDM::any*, UHDM::any*>>& hpSelIdx178() {
     return v;
 }
 // The r11u181 switches and census trace (defined below, beside the laws).
-void trace181(const char* law);
 // § lvIdxMixedPathIsRead181 — the path being built is a read nested in an
 // lvalue's select index (set by emitMixedHierPath, see there), and the paths
 // so built (their reference names are set design-final from the chain).
@@ -4873,7 +4865,7 @@ static void noteHpSelIdx178(UHDM::hier_path* hp, UHDM::bit_select* bs,
     // (measured with an RVALUE outer path, pass 178's h09) is skipped.
     const bool lvRead181 = lvIdxReadNow181();
     if (lvRead181) {
-        trace181("LVIDXREAD idx");
+        lawTrace(181, "LVIDXREAD idx");
         lvIdxReadHps181().push_back(hp);
     }
     // A path NESTED in another path's select index keeps ours: golden
@@ -5100,20 +5092,10 @@ void drainHpSelIdxTrail244(UHDM::Serializer& s) {
 // The r11u181 switches (tools/probe/r11u181repro/README.md): every r11u181
 // law reads its own R11U181_<LAW>_OFF switch; R11U181_OFF drops all of them.
 // R11U181_TRACE=1 prints one stderr line per firing (the census / predictor).
-void trace181(const char* law) {
-    static const bool on = lawTraceOn(181);
-    if (on)
-        fprintf(stderr, "R11U181 law %s\n", law);
-}
 
 // The r11u184 switches (tools/probe/r11u184repro/README.md): every r11u184
 // law reads its own R11U184_<LAW>_OFF switch; R11U184_OFF drops all of them.
 // R11U184_TRACE=1 prints one stderr line per firing (the census / predictor).
-void trace184(const char* law) {
-    static const bool on = lawTraceOn(184);
-    if (on)
-        fprintf(stderr, "R11U184 law %s\n", law);
-}
 // The r11v184 refinements (tools/probe/r11v184repro/README.md, the adversarial
 // verification of r11u184): each reads its own R11V184_<FIX>_OFF switch;
 // R11V184_OFF drops all of them, and R11U184_OFF (every law of the pass) too.
@@ -5203,7 +5185,7 @@ static SourceRange parenIdxRange181(const Expression& sel) {
         top = p;
     if (!top)
         return sel.sourceRange;
-    trace181("PARENIDX");
+    lawTrace(181, "PARENIDX");
     return top->sourceRange();
 }
 
@@ -5236,7 +5218,7 @@ static SourceRange methodCallIdxRange207(const Expression& sel) {
     if (sr.start() != r.start() || sr.end() == r.end() ||
         sr.end().buffer() != r.end().buffer() || sr.end() < r.end())
         return r;
-    trace207("bitSelMethodCallIdxSpan207");
+    lawTrace(207, "bitSelMethodCallIdxSpan207");
     return sr;
 }
 
@@ -5261,7 +5243,7 @@ static SourceRange memberParenIdxRange184(const Expression& sel) {
         top = p;
     if (!top)
         return sel.sourceRange;
-    trace184("MEMPAREN");
+    lawTrace(184, "MEMPAREN");
     return top->sourceRange();
 }
 
@@ -6798,7 +6780,7 @@ void drainLvSelChain181(UHDM::Serializer& s) {
             case UHDM::uhdmref_obj: {
                 auto* r = (UHDM::ref_obj*)e;
                 if (chainFix181(r, r->VpiFullName())) {
-                    trace181("LVCHAIN ref");
+                    lawTrace(181, "LVCHAIN ref");
                     r->VpiFullName(chainFullName175(r));
                 }
                 return;
@@ -6820,7 +6802,7 @@ void drainLvSelChain181(UHDM::Serializer& s) {
                 // `...::arr::i`, probe r10uvm79repro/v79v2_recv)
                 auto* b = (UHDM::bit_select*)e;
                 if (chainFix181(b, b->VpiFullName())) {
-                    trace181("LVCHAIN idxsel");
+                    lawTrace(181, "LVCHAIN idxsel");
                     b->VpiFullName(chainFullName175(b));
                 }
                 if (auto* ix = (UHDM::any*)b->VpiIndex())
@@ -6833,7 +6815,7 @@ void drainLvSelChain181(UHDM::Serializer& s) {
         };
     for (auto* bs : v) {
         if (chainFix181(bs, bs->VpiFullName())) {
-            trace181("LVCHAIN bitsel");
+            lawTrace(181, "LVCHAIN bitsel");
             bs->VpiFullName(chainFullName175(bs));
         }
         if (auto* ix = (UHDM::any*)bs->VpiIndex())
@@ -6923,7 +6905,7 @@ void drainLvIdxRead181(UHDM::Serializer& s) {
                     continue;
                 auto* r = (UHDM::ref_obj*)e;
                 if (chainFix181(r, r->VpiFullName())) {
-                    trace181("LVIDXREAD name");
+                    lawTrace(181, "LVIDXREAD name");
                     r->VpiFullName(chainFullName175(r));
                 }
             }
@@ -7031,7 +7013,7 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
             else if (p184 && p184->UhdmType() == UHDM::uhdmcont_assign)
                 lhs184 = ((const UHDM::cont_assign*)p184)->Lhs() == hp;
             if (lhs184 && hp->VpiLineNo() > 0) {
-                trace184("ROOTLV");
+                lawTrace(184, "ROOTLV");
                 hp->VpiEndLineNo(hp->VpiLineNo());
                 hp->VpiEndColumnNo(hp->VpiColumnNo() + 6);
                 auto* el = hp->Path_elems();
@@ -7044,7 +7026,7 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
                                            : hn.rfind(en + "[");
                     auto* ix = (const UHDM::any*)bs->VpiIndex();
                     if (at != std::string::npos && ix && ix->VpiLineNo() > 0) {
-                        trace184("ROOTLV select");
+                        lawTrace(184, "ROOTLV select");
                         bs->VpiFullName(hn.substr(at));
                         bs->VpiLineNo(ix->VpiLineNo());
                         bs->VpiColumnNo(ix->VpiColumnNo());
@@ -7056,9 +7038,9 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
         }
         if (fn181) {
             if (rootPathLvalueSel181(hp)) {
-                trace181("ROOTFN lvalue-select keep");
+                lawTrace(181, "ROOTFN lvalue-select keep");
             } else {
-                trace181("ROOTFN");
+                lawTrace(181, "ROOTFN");
                 hp->VpiFullName(std::string_view());
             }
         }
@@ -7074,7 +7056,7 @@ void rootPathFullNameByChain181(UHDM::Serializer& s) {
                     // stored; the element is overwritten either way)
                     if (r->VpiFullName() == r->VpiName())
                         continue;
-                    trace181("ROOTELEM");
+                    lawTrace(181, "ROOTELEM");
                     r->VpiFullName(r->VpiName());
                 }
     }
@@ -8261,11 +8243,11 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
                     auto* tr201 = (UHDM::ref_obj*)pe->back();
                     if ((fixOn(201, "R11V201_NEWARRBARE_OFF") && !landingOff(201)) &&
                         tr201->VpiFullName() == tr201->VpiName()) {
-                        trace201("newArrayKeepFrozenBare201v");
+                        lawTrace(201, "newArrayKeepFrozenBare201v");
                     }
                     else {
                         tr201->VpiFullName(std::string());
-                        trace200("newArrayArgPathElemsStripped200",
+                        lawTrace(200, "newArrayArgPathElemsStripped200",
                                  std::string(tr201->VpiName()));
                     }
                 }
@@ -8276,7 +8258,7 @@ static void stripRefFullNames11(UHDM::any* o, int depth = 0) {
                         if (e && e->UhdmType() == UHDM::uhdmref_obj &&
                             !((UHDM::ref_obj*)e)->VpiFullName().empty()) {
                             ((UHDM::ref_obj*)e)->VpiFullName(std::string());
-                            trace200("newArrayArgPathElemsStripped200",
+                            lawTrace(200, "newArrayArgPathElemsStripped200",
                                      std::string(((UHDM::ref_obj*)e)->VpiName()));
                         }
             return;
@@ -8690,11 +8672,6 @@ static UHDM::any* patMemberSlot(UHDM::any* rhs, const std::string& mem,
 // off pkgParamDefRhs, which is registered PER VIEW, so a def-view member value
 // resolves against the def listing and an elab one against the elab listing —
 // THE LAW, for free.
-static void trace170(const char* law) {
-    static const bool on = lawTraceOn(170);
-    if (on)
-        fprintf(stderr, "R11V170_TRACE %s\n", law);
-}
 
 // § genCaLhsUnitEnumShared170v (r11u170) — whether the compilation unit can
 // see an enum constant: its enum type is declared at compilation-unit scope,
@@ -8709,7 +8686,7 @@ static bool unitVisibleEnum170(const Symbol& ev, Compilation& comp) {
     for (auto sc = ev.getParentScope(); sc; sc = sc->asSymbol().getParentScope()) {
         auto k = sc->asSymbol().kind;
         if (k == SymbolKind::CompilationUnit) {
-            trace170("GCALHSUNIT");
+            lawTrace(170, "GCALHSUNIT");
             return true;
         }
         if (k == SymbolKind::Package) {
@@ -8728,7 +8705,7 @@ static bool unitVisibleEnum170(const Symbol& ev, Compilation& comp) {
                  (const Symbol*)m.as<WildcardImportSymbol>().getPackage() == pkg170) ||
                 (m.kind == SymbolKind::ExplicitImport && m.name == ev.name &&
                  (const Symbol*)m.as<ExplicitImportSymbol>().package() == pkg170)) {
-                trace170("GCALHSUNIT");
+                lawTrace(170, "GCALHSUNIT");
                 return true;
             }
         }
@@ -16518,12 +16495,12 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
                         while (os170->kind == syntax::SyntaxKind::ParenthesizedExpression)
                             os170 = os170->as<syntax::ParenthesizedExpressionSyntax>().expression;
                         if (os170->kind == syntax::SyntaxKind::ScopedName) {
-                            trace170("SCSCOPED");
+                            lawTrace(170, "SCSCOPED");
                             return true;
                         }
                         if (auto* ps170 = e.as<NamedValueExpression>().symbol.getParentScope();
                             ps170 && ps170->asSymbol().kind == SymbolKind::CompilationUnit) {
-                            trace170("SCSCOPED");
+                            lawTrace(170, "SCSCOPED");
                             return true;
                         }
                     }
@@ -16569,7 +16546,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
         // Switch R11V158_SCNARROW_OFF.
         const bool narrow158 = tw158 < cw158 && fixOn(158, "R11V158_SCNARROW_OFF");
         if (sLit158 || narrow158)
-            trace158(sLit158 ? "V:SCSLIT" : "V:SCNARROW");
+            lawTrace(158, sLit158 ? "V:SCSLIT" : "V:SCNARROW");
         if (!sLit158 && !narrow158 && litTree158(op158, !namedW158) && cw158 > 0 &&
             cw158 < 64 && expr.type->getBitWidth() <= 64) {
             ASTContext octx158(comp.getRoot(), LookupLocation::max);
@@ -16588,11 +16565,11 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
                 if (!namedW158)
                     low158 &= (1ULL << cw158) - 1ULL;
                 else {
-                    trace158("V:SCNAMEDW");
+                    lawTrace(158, "V:SCNAMEDW");
                     if (tw158 < 64)
                         low158 &= (1ULL << tw158) - 1ULL;
                 }
-                trace158("SCLITMASK");
+                lawTrace(158, "SCLITMASK");
                 auto* c = s.MakeConstant();
                 c->VpiDecompile(std::to_string(low158));
                 c->VpiSize((int32_t)expr.type->getBitWidth());
@@ -16622,7 +16599,7 @@ UHDM::any* UhdmExporter::tryFoldConst(const Expression& expr, const Expression* 
             stripImplicitConv(sc.as<ConversionExpression>().operand()).kind ==
                 ExpressionKind::NamedValue &&
             lawOn(158, "R11U158_SCSIGNSIZE_OFF")) {
-            trace158("SCSIGNSIZE");
+            lawTrace(158, "SCSIGNSIZE");
             c->VpiSize((int32_t)expr.type->getBitWidth());
         }
         c->VpiValue("INT:" + std::to_string(sv));
@@ -17247,11 +17224,6 @@ static bool hpRoute157NameOn() {
     return on;
 }
 // R11U157_TRACE=1: one stderr line per firing of a non-route law (the census).
-static void trace157(const char* law) {
-    static const bool on = lawTraceOn(157);
-    if (on)
-        fprintf(stderr, "R11U157 law %s\n", law);
-}
 // `hp` (already located) guards the SUBSTITUTED value: a parameter's value
 // tree re-emitted at a use site (`$clog2(Depth)` in an instance whose Depth is
 // `Info.x`, golden ClogParam) keeps the route of the place it was WRITTEN, so
@@ -17431,7 +17403,7 @@ UHDM::hier_path* UhdmExporter::buildDottedHierPath(const Expression& expr,
         static const bool rootSpan157 = r157("R11U157_ROOT_OFF", "R11U157_SPAN_OFF");
         static const bool rootName157 = r157("R11U157_ROOT_OFF", "R11U157_NAME_OFF");
         if (rootSpan157 || rootName157)
-            trace157("ROOT");
+            lawTrace(157, "ROOT");
         if (rootSpan157)
             selSpan157 = true;
         if (rootName157)
@@ -19406,11 +19378,6 @@ static void baseSelOpIdxNames145(const std::string& prefix, const UHDM::hier_pat
 
 // r11u147 census: `R11U147_TRACE=1` prints one stderr line per law firing
 // (tools/probe/r11u147repro/drivers/census.sh predicts the movers with it).
-static void trace147(const char* law) {
-    static const bool on = lawTraceOn(147);
-    if (on)
-        fprintf(stderr, "R11U147_TRACE %s\n", law);
-}
 
 // § ifaceMemberTrailIdxNamesByPath147 — § hpTrailSelIdxNamesByPath133's rule
 // holds on the DOTTED interface-member element select too (`sub.ben[s]`,
@@ -19434,7 +19401,7 @@ static void ifaceTrailIdxNames147(UHDM::bit_select* bs, const std::string& prefi
             return;
         if (e->UhdmType() == UHDM::uhdmref_obj) {
             auto* r = (UHDM::ref_obj*)e;
-            trace147("IFTRAILIDX");
+            lawTrace(147, "IFTRAILIDX");
             r->VpiFullName(direct ? joinRef(base, r->VpiName())
                                   : joinRef(joinRef(base, bs->VpiName()), r->VpiName()));
         }
@@ -19478,7 +19445,7 @@ static void hpPsBoundNames154(UHDM::any* bound, const UHDM::any* owner,
                 auto* r = (UHDM::ref_obj*)e;
                 if (r->VpiName().empty())
                     return;
-                trace154("HPPSBOUND");
+                lawTrace(154, "HPPSBOUND");
                 r->VpiFullName(joinRef(base, r->VpiName()));
                 return;
             }
@@ -19517,7 +19484,7 @@ static std::string hpElemSelName154(const std::string& comp,
     static const bool on = lawOn(154, "R11U154_HPELEMNAME_OFF");
     if (!on || soFar.empty() || soFar == comp)
         return comp;
-    trace154("HPELEMNAME");
+    lawTrace(154, "HPELEMNAME");
     return soFar;
 }
 
@@ -19782,12 +19749,12 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     // Switch R11U184_STREAMRD_OFF.
     if (inLhs && lvStreamOperand181(parent) &&
         lawOn(184, "R11U184_STREAMRD_OFF")) {
-        trace184("STREAMRD");
+        lawTrace(184, "STREAMRD");
         inLhs = false;
     }
     if (inLhs && lvIdxParent154(parent) &&
         lawOn(181, "R11U181_LVIDXREAD_OFF")) {
-        trace181("LVIDXREAD");
+        lawTrace(181, "LVIDXREAD");
         inLhs = false;
         lvIdxReadNow181() = true;
         ++lvIdxReadDepth181();
@@ -19827,8 +19794,8 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
     if (!lvIdxReadFired181 && !inLhs && lvIdxReadNow181() &&
         lawFixOn(181, "R11V181_NESTRD_OFF") &&
         (!nestIdxOnly190v || lvIdxParent154(parent) ||
-         (trace181("V190 NESTIDX skip"), false))) {
-        trace181("V181 NESTRD");
+         (lawTrace(181, "V190 NESTIDX skip"), false))) {
+        lawTrace(181, "V181 NESTRD");
         inLhs = true;
         lvIdxReadNow181() = false;
         nestRd181v = true;
@@ -19843,7 +19810,7 @@ UHDM::hier_path* UhdmExporter::emitMixedHierPath(const Expression& expr,
         (inLhs && !streamOrIdx181 && currentSubSym &&
          currentSubSym->getParentScope() &&
          currentSubSym->getParentScope()->asSymbol().kind == SymbolKind::ClassType &&
-         lawOn(181, "R11U181_LVCLASS_OFF") && (trace181("LVCLASS"), true));
+         lawOn(181, "R11U181_LVCLASS_OFF") && (lawTrace(181, "LVCLASS"), true));
     // § hierPathSelIdxCloneKeepsElem178v — the inc/dec operand and the
     // elaborated cont-assign clone keep the index at its bit_select.
     const bool keep178v =
@@ -21318,7 +21285,7 @@ UHDM::hier_path* UhdmExporter::emitThisPathSelectErased(const Expression& expr,
     static const bool thisName157 = r157("R11U157_THIS_OFF", "R11U157_NAME_OFF");
     const bool incDec157 = !inLhs && incDecOperand124() == &expr;
     if (incDec157 && (thisName157 || thisFile157))
-        trace157("THIS");
+        lawTrace(157, "THIS");
     for (auto& m : mems) {
         auto* r = s.MakeRef_obj();
         r->VpiName(m.name);
@@ -21680,7 +21647,7 @@ UHDM::any* UhdmExporter::fnLocalParamRangeActual(std::string_view nm,
     // module's net alone).  Grid tools/probe/r11u163repro/cases/fn.  Switch
     // R11U163_FNPNETFILE_OFF.
     if (lawOn(163, "R11U163_FNPNETFILE_OFF")) {
-        trace163("FNPNETFILE");
+        lawTrace(163, "FNPNETFILE");
         noteImplicitNetMint131(inet);
     }
     auto* nets9 = implicitNetModule->Nets();
@@ -25577,7 +25544,7 @@ static bool genCaUseSiteChainName169(const UHDM::BaseClass* parent,
             // the instance's name.
             if (t == vpiInsideOp && insideSetOps169v.count(a) &&
                 gcaInsideSetOn169v()) {
-                trace169("GCACHAIN insideset abstain");
+                lawTrace(169, "GCACHAIN insideset abstain");
                 return false;
             }
             continue;
@@ -27118,7 +27085,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
          (parent && (((UHDM::any*)parent)->UhdmType() == UHDM::uhdmmethod_func_call ||
                      ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmfunc_call ||
                      ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmsys_func_call)))) {
-        trace184("V194 IDCALLARG read");
+        lawTrace(184, "V194 IDCALLARG read");
         lhsGuard194.on = true;
         inLhs = false;
     }
@@ -27136,7 +27103,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
               ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmfunc_call ||
               ((UHDM::any*)parent)->UhdmType() == UHDM::uhdmsys_func_call) &&
              lawOn(198, "R11U198_LVCALLARG_OFF")) {
-        trace198("lvIdxCallArgIsRead198");
+        lawTrace(198, "lvIdxCallArgIsRead198");
         lhsGuard194.on = true;
         inLhs = false;
     }
@@ -27178,7 +27145,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             break;
                     }
                 }
-                trace198("genCaCastRhsRefUnnamed198");
+                lawTrace(198, "genCaCastRhsRefUnnamed198");
             }
             return r198;
         }
@@ -27578,7 +27545,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (!unary204 && genHopFoldSelName198On() && f112->Typespec() &&
                 !genLpIdxOpSelName198.empty()) {
                 f112->Typespec()->VpiFullName(genLpIdxOpSelName198);
-                trace198("genHopFoldSelName198");
+                lawTrace(198, "genHopFoldSelName198");
             }
             return f112;
         }
@@ -28832,10 +28799,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         if (up201 && up201->UhdmType() == UHDM::uhdmpart_select) {
                             if (plainCls201v) {
                                 setLoc(r12, ns12->sourceRange());
-                                trace201("clsScopedBoundWholeSpan201");
+                                lawTrace(201, "clsScopedBoundWholeSpan201");
                             }
                             else
-                                trace201("clsScopedBoundPlainClass201v");
+                                lawTrace(201, "clsScopedBoundPlainClass201v");
                         }
                     }
                     return r12;
@@ -28878,7 +28845,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // not reached.  Switch: R11U207_HIDDENVARFILE_OFF.
                     if (lawOn(207, "R11U207_HIDDENVARFILE_OFF")) {
                         noteImplicitNetMint131(inet9);
-                        trace207("hiddenBlockVarMintNoFile207");
+                        lawTrace(207, "hiddenBlockVarMintNoFile207");
                     }
                     auto* nets9 = implicitNetModule->Nets();
                     if (!nets9) {
@@ -29758,7 +29725,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 lawOn(158, "R11U158_AGGUNQSPAN_OFF");
                             if (uq158 && rawText(expr.sourceRange).find("::") ==
                                              std::string::npos) {
-                                trace158("AGGUNQSPAN");
+                                lawTrace(158, "AGGUNQSPAN");
                                 setLoc(folded, expr.sourceRange);
                                 tr177();
                                 return folded;
@@ -29781,7 +29748,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 lawOn(163, "R11U163_AGGQUALSPAN_OFF");
                             if (qs163 && paramRhsView163() == 2 &&
                                 folded->UhdmType() == UHDM::uhdmconstant) {
-                                trace163("AGGQUALSPAN elab");
+                                lawTrace(163, "AGGQUALSPAN elab");
                                 setLoc(folded, expr.sourceRange);
                                 tr177();
                                 return folded;
@@ -29793,7 +29760,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  sn163.separator.range().end());
                                 if (q163.end() != expr.sourceRange.start() +
                                                       scope->asSymbol().name.size() + 2)
-                                    trace163("AGGQUALSPAN def");
+                                    lawTrace(163, "AGGQUALSPAN def");
                                 setLoc(folded, q163);
                                 tr177();
                                 return folded;
@@ -32649,7 +32616,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     std::string own198 = ownerInstName192(parent);
                                     if (!own198.empty() && own198 != nm192) {
                                         nm192 = own198;
-                                        trace198("genCaUnclonedFoldOwner198");
+                                        lawTrace(198, "genCaUnclonedFoldOwner198");
                                     }
                                 }
                                 // § defConnIpsFoldTsOwner236 — the BASE or
@@ -33818,7 +33785,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                       expr.sourceRange.start(),
                                                       expr.sourceRange.start() +
                                                           (qp147 + 2)));
-                                        trace147("ENUMQSPAN");
+                                        lawTrace(147, "ENUMQSPAN");
                                     }
                                 }
                                 // § pkgQualOperandSpanInParam218 — a qualified
@@ -34106,7 +34073,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     parent->UhdmType() == UHDM::uhdmoperation &&
                                     lawOn(198, "R11U198_OVRBOUND_OFF")) {
                                     ipfx = prefix;
-                                    trace198("ovrParamBoundOpSelName198");
+                                    lawTrace(198, "ovrParamBoundOpSelName198");
                                 }
                                 // § genIpsOvrParamOwner262 (r11u262,
                                 // R11U262_IPSOVROWN_OFF) — the same fold as
@@ -34637,7 +34604,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     const bool useSite147 =
                         genCaLoopParamFold && gcaUseSiteParamRead147(expr, parent);
                     if (useSite147)
-                        trace147("GCAUSESITE");
+                        lawTrace(147, "GCAUSESITE");
                     if (!inPsBound && !useSite147) {
                         const UHDM::BaseClass* mw9 = parent;
                         while (mw9 &&
@@ -34760,13 +34727,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             std::string ch5;
                                             if (genCaUseSiteChainName169(
                                                     parent, prefix, ch5)) {
-                                                trace169(ch5 != tsN5
+                                                lawTrace(169, ch5 != tsN5
                                                              ? "GCACHAIN c5"
                                                              : "GCACHAIN c5 same");
                                                 tsN5 = ch5;
                                             }
                                             else
-                                                trace169("GCACHAIN c5 abstain");
+                                                lawTrace(169, "GCACHAIN c5 abstain");
                                         }
                                     }
                                     else {
@@ -34963,13 +34930,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 std::string ch9;
                                 if (genCaUseSiteChainName169(parent, prefix,
                                                              ch9)) {
-                                    trace169(ch9 != tsName9
+                                    lawTrace(169, ch9 != tsName9
                                                  ? "GCACHAIN c9"
                                                  : "GCACHAIN c9 same");
                                     tsName9 = ch9;
                                 }
                                 else
-                                    trace169("GCACHAIN c9 abstain");
+                                    lawTrace(169, "GCACHAIN c9 abstain");
                             }
                         }
                         else {
@@ -35457,7 +35424,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         }
                         if (keep154 && genPsBound9 && currentGenBlkScope &&
                             prefix != selectBasePrefix)
-                            trace154("GSFOLDTS");
+                            lawTrace(154, "GSFOLDTS");
                         if (!keep154 && genPsBound9 && currentGenBlkScope &&
                             prefix != selectBasePrefix) {
                             int drop9 = 0;
@@ -35548,14 +35515,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             if (!x->VpiName().empty()) {
                                                 ((UHDM::ref_obj*)x)->VpiFullName(
                                                     rpfx9 + "." + std::string(x->VpiName()));
-                                                trace167("genProcFoldDeclTsScopeNamed167 ref");
+                                                lawTrace(167, "genProcFoldDeclTsScopeNamed167 ref");
                                             }
                                             break;
                                         case UHDM::uhdmconstant:
                                             if (auto* crt = ((UHDM::constant*)x)->Typespec();
                                                 crt && crt->VpiFullName().empty()) {
                                                 crt->VpiFullName(rpfx9);
-                                                trace167("genProcFoldDeclTsScopeNamed167 constts");
+                                                lawTrace(167, "genProcFoldDeclTsScopeNamed167 constts");
                                             }
                                             break;
                                         case UHDM::uhdmoperation:
@@ -36294,7 +36261,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                  nv.symbol) &&
                             lawOn(184, "R11U184_GENENUM_OFF")) {
                             // § genLocalEnumConstShared184 (see its helper)
-                            trace184("GENENUM");
+                            lawTrace(184, "GENENUM");
                             ref->Actual_group(eit->second);
                         }
                         else if (auto eit = enumConstMap.find(&nv.symbol);
@@ -36937,7 +36904,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                          // Switch R11V170_GCALHSUNIT_OFF.
                          !(fixOn(170, "R11V170_GCALHSUNIT_OFF") &&
                            unitVisibleEnum170(nv.symbol, comp))) {
-                    trace158("GCALHSENUM");
+                    lawTrace(158, "GCALHSENUM");
                     auto* shared = (UHDM::enum_const*)eit->second;
                     auto* ec = s.MakeEnum_const();
                     ec->VpiName(shared->VpiName());
@@ -38107,13 +38074,13 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if ((opType == vpiPostIncOp || opType == vpiPreIncOp ||
                  opType == vpiPostDecOp || opType == vpiPreDecOp) &&
                 !inLhs && incDecMixedPath181(stripImplicitConv(ue.operand()))) {
-                trace181("INCDECMIX");
+                lawTrace(181, "INCDECMIX");
                 inLhs = true;
             }
             else if ((opType == vpiPostIncOp || opType == vpiPreIncOp ||
                       opType == vpiPostDecOp || opType == vpiPreDecOp) &&
                      !inLhs && incDecMemberSel184(stripImplicitConv(ue.operand()))) {
-                trace184("INCDECSEL");
+                lawTrace(184, "INCDECSEL");
                 inLhs = true;
                 incDecSelTop184() = &stripImplicitConv(ue.operand());
                 if (!envSet("R11V194_OFF") &&
@@ -38131,7 +38098,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (incDec439v)
                 --incDecProgDepth439v;
             if (idTopSaved184v != nullptr && lawFixOn(184, "R11V184_IDTOP_OFF")) {
-                trace184("V184 IDTOP restore");
+                lawTrace(184, "V184 IDTOP restore");
                 incDecSelTop184() = idTopSaved184v;
             }
             else
@@ -38423,7 +38390,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Switch R11V181_DECBIG_OFF.
                     if (raw.find('_') != std::string::npos &&
                         lawFixOn(181, "R11V181_DECBIG_OFF")) {
-                        trace181("V181 DECBIG");
+                        lawTrace(181, "V181 DECBIG");
                         c->VpiDecompile(dg9);
                     }
                 }
@@ -38448,7 +38415,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     // Switch R11U181_DECUS_OFF.
                     if (raw.find('_') != std::string::npos &&
                         lawOn(181, "R11U181_DECUS_OFF")) {
-                        trace181("DECUS");
+                        lawTrace(181, "DECUS");
                         raw = dg9;
                         c->VpiDecompile(raw);
                     }
@@ -40220,7 +40187,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                  cesyn.left->kind == syntax::SyntaxKind::IdentifierName)
                                  pkgTdCast151DefView().insert(rt140);
                              if (pkgEmitTopView && typedefTs.count(expr.type))
-                                 trace151("D2-elab");
+                                 lawTrace(151, "D2-elab");
                              deferredCast = true;
                              return true;
                          }()) {
@@ -40318,7 +40285,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 cts172 = t172->second;
                     }
                     if (cts172)
-                        trace174(cts->UhdmType() != UHDM::uhdmlogic_typespec
+                        lawTrace(174, cts->UhdmType() != UHDM::uhdmlogic_typespec
                                      ? "DEPTH172 top"
                                      : "DEPTH172 top logic alias");
                     if (cts172 && cts->UhdmType() != UHDM::uhdmlogic_typespec)
@@ -40605,7 +40572,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             art2->VpiParent(cl2);
                             art2->Actual_typespec(cts172 ? cts172 : cts);
                             if (cts172)
-                                trace174("DEPTH172 alias written");
+                                lawTrace(174, "DEPTH172 alias written");
                             ((UHDM::logic_typespec*)cl2)->Typedef_alias(art2);
                             cts = cl2;
                         }
@@ -40739,7 +40706,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      std::string(pobj9->VpiFullName()) + "." +
                                      std::string(pobj9->VpiName()));
                                  else {
-                                     trace207("parenCastWidthRefPkgBare207 cast");
+                                     lawTrace(207, "parenCastWidthRefPkgBare207 cast");
                                      parenCastWidthRefs[nullptr].push_back(r9);
                                  }
                                  r9->VpiParent(cts);
@@ -41160,7 +41127,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                     (UHDM::ref_obj*)dts9->Cast_to_expr();
                                 // § elabCastSharesDeclRef154 (below).
                                 if (castSharesDeclRef154On()) {
-                                    trace154("CASTREF");
+                                    lawTrace(154, "CASTREF");
                                     its0->Cast_to_expr(dr9);
                                 }
                                 else {
@@ -41276,7 +41243,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 // R11U154_CASTREF_OFF.
                                 if (dts0->Cast_to_expr() &&
                                     castSharesDeclRef154On()) {
-                                    trace154("CASTREF");
+                                    lawTrace(154, "CASTREF");
                                     its0->Cast_to_expr(dts0->Cast_to_expr());
                                 }
                                 else {
@@ -41714,7 +41681,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                          jt151 != typedefTs.end() && jt151->second)
                                     cts = jt151->second;
                                 if (cts)
-                                    trace151("DCAST");
+                                    lawTrace(151, "DCAST");
                             }
                         }
                     }
@@ -43600,7 +43567,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             .expression;
                             if (sy207->sourceRange().start() == callRng11.start() &&
                                 sy207->sourceRange().end() > callRng11.end())
-                                trace207("parenMethodCallPathSpan207");
+                                lawTrace(207, "parenMethodCallPathSpan207");
                         }
                         auto sr11 = sy207->sourceRange();
                         if (sr11.start() == callRng11.start() &&
@@ -44356,7 +44323,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             }
                                         };
                                     ren215(((UHDM::operation*)ix11)->Operands());
-                                    trace215("opIdxRecvElemFollowsPath215",
+                                    lawTrace(215, "opIdxRecvElemFollowsPath215",
                                              std::string(bs11->VpiFullName()));
                                 }
                                 // § opIdxRecvPlainElab215 (r11u215, grid
@@ -44396,7 +44363,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                         r215->VpiFullName(joinRef(
                                             joinRef(prefix, std::string(hp11->VpiName())),
                                             nm215));
-                                        trace215("opIdxRecvPlainElab215", nm215);
+                                        lawTrace(215, "opIdxRecvPlainElab215", nm215);
                                     }
                                 }
                                 bs11->VpiIndex((UHDM::expr*)ix11);
@@ -45847,10 +45814,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             for (size_t fi207 : wo207)
                                 wr207.push_back(all207[fi207]);
                             if (!wr207.empty())
-                                trace207("namedUnlinkedWrittenOrder207 nolink");
+                                lawTrace(207, "namedUnlinkedWrittenOrder207 nolink");
                         }
                         else if (!namedWrittenOrder207(call).empty())
-                            trace207("namedOrderLinkedDeclines207v");
+                            lawTrace(207, "namedOrderLinkedDeclines207v");
                         auto wa207 = writtenArgs16(call);
                         std::span<const Expression* const> argsSeq207 =
                             wr207.empty() ? wa207
@@ -46202,12 +46169,12 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     lawTrace(286, "GENLVCALL", std::string(sub.name) +
                                            (defGenProcessEmit ? " def" : " elab"));
                 if (procLvCall181)
-                    trace181("LVCALL");
+                    lawTrace(181, "LVCALL");
                 else if (inLhs && !inParamInit && (inProcessEmit || currentSubSym) &&
                          (rdCall181 || psBound181))
-                    trace181(rdCall181 ? "V181 RDCALL lhs" : "V181 LVCALLPS");
+                    lawTrace(181, rdCall181 ? "V181 RDCALL lhs" : "V181 LVCALLPS");
                 if (rdCall181 && !inLhs && !inParamInit)
-                    trace181("V181 RDCALL");
+                    lawTrace(181, "V181 RDCALL");
                 bool hpIdxCall184 = false;
                 bool idxCall310 = false;
                 bool lvRoot312 = false;  // § lvRootSelCallNameSpan312
@@ -46284,7 +46251,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         idxCall310 = onCall310;
                     }
                     if (hpIdxCall184)
-                        trace184("HPIDXCALL");
+                        lawTrace(184, "HPIDXCALL");
                 }
                 if (((inParamInit || inLhs || rdCall181) && !procLvCall181) ||
                     hpIdxCall184 || idxCall310 || lvRoot312) {
@@ -46768,7 +46735,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (namedArgs9 && !haveSlots4 &&
                     !(linked4 && fixOn(207, "R11V207_NAMEDLINK_OFF") &&
                       (namedWrittenOrder207(call).empty() ||
-                       (trace207("namedOrderLinkedDeclines207v"), true)))) {
+                       (lawTrace(207, "namedOrderLinkedDeclines207v"), true)))) {
                     wOrd207 = namedWrittenOrder207(call);
                     if (!wOrd207.empty()) {
                         isW207.assign(call.arguments().size(), false);
@@ -46794,7 +46761,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // span.  Switch: R11U207_SLOTFILE_OFF.
                             if (lawOn(207, "R11U207_SLOTFILE_OFF")) {
                                 f207->VpiFile(rootFilePath(call.sourceRange.start()));
-                                trace207("namedSlotFillerRootFile207");
+                                lawTrace(207, "namedSlotFillerRootFile207");
                             }
                             args->push_back(f207);
                             argIdx++;
@@ -47020,7 +46987,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         const bool sysBare201 =
                             refKind201 && (lawOn(201, "R11U201_SYSARG_OFF") && !landingOff(201)) &&
                             vsStampReducedCtxOnly198v(parent, false) &&
-                            (trace201("sysCtxRefArgBare201"), true);
+                            (lawTrace(201, "sysCtxRefArgBare201"), true);
                         // § opCtxRefArgBare201 (r11u201, R11U201_OPARG_OFF;
                         // clause (2) of § vsStampReducedCtxOnly198v for the
                         // pristine actuals, v11u198's v22) — in the
@@ -47109,7 +47076,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else if (nonRed201) {
                                 if ((lawOn(201, "R11U201_NONRED_OFF") && !landingOff(201))) {
                                     opBare201 = true;
-                                    trace201("nonReduceOpArgBare201");
+                                    lawTrace(201, "nonReduceOpArgBare201");
                                 }
                             }
                             else if (def201 && firstOp201 &&
@@ -47119,10 +47086,10 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (caTargetBindable201v(expr, parent, netMap,
                                                          elabUhdmView121)) {
                                     opBare201 = true;
-                                    trace201("opCtxRefArgBare201");
+                                    lawTrace(201, "opCtxRefArgBare201");
                                 }
                                 else
-                                    trace201("opCtxBindableTarget201v");
+                                    lawTrace(201, "opCtxBindableTarget201v");
                             }
                         }
                         bool refArg = !sysBare201 && !opBare201 &&
@@ -47990,7 +47957,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             else if (a->UhdmType() == UHDM::uhdmvar_select) {
                                 // § callArgVarSelStamp198
                                 argFull = ((UHDM::var_select*)a)->VpiFullName();
-                                trace198("callArgVarSelStamp198");
+                                lawTrace(198, "callArgVarSelStamp198");
                             }
                             rt->VpiFullName(argFull);
                             rt->VpiParent(r);
@@ -48148,7 +48115,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                     for (size_t q = 0; q < perm207.size(); q++)
                         (*args)[q] = perm207[q];
-                    trace207("namedUnlinkedWrittenOrder207");
+                    lawTrace(207, "namedUnlinkedWrittenOrder207");
                 }
                 callArgDepth--;
                 qualCallArg20 = savedQCA20;
@@ -49462,7 +49429,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                                      expr.sourceRange.start() &&
                                                  sr158.end() >
                                                      expr.sourceRange.end()) {
-                                                 trace158("RANDSPAN");
+                                                 lawTrace(158, "RANDSPAN");
                                                  return SourceRange(
                                                      expr.sourceRange.start(),
                                                      sr158.end());
@@ -49846,7 +49813,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 r157("R11U157_WITHRECV_OFF", "R11U157_NAME_OFF");
                             if (withExpr9 && withRecvOn157 &&
                                 k74 + 1 != dots.size())
-                                trace157("WITHRECV");
+                                lawTrace(157, "WITHRECV");
                             r0->VpiFullName(
                                 ((withExpr9 &&
                                   (!withRecvOn157 || k74 + 1 == dots.size())) ||
@@ -50376,7 +50343,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                             }
                                     if (!dn || dn == act)
                                         return;
-                                    trace154("VARINITDEF");
+                                    lawTrace(154, "VARINITDEF");
                                     r->Actual_group(dn);
                                 };
                             for (auto* a : *margs)
@@ -50640,7 +50607,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     !envSet("R11U210_GENBITS201_OFF")) {
                     bitsKeep = true;
                     ownPropFold61 = false;
-                    trace200("genBlockBitsKeepsSelect200", std::string(name));
+                    lawTrace(200, "genBlockBitsKeepsSelect200", std::string(name));
                 }
             }
             // § genBodyBitsOuterNameKeeps429 (r11u429,
@@ -51691,7 +51658,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      lvIdxParent154(parent) &&
                                      lawOn(184, "R11U184_LVIDXSEL_OFF");
                 if (lvRd184)
-                    trace184("LVIDXSEL");
+                    lawTrace(184, "LVIDXSEL");
                 // § paramInitMemberSelLvShape294 (r11u294) — A STRUCT
                 // PARAMETER'S MEMBER READ ENDING IN A SELECT, IN A PARAMETER
                 // INITIALIZER, TAKES THE LVALUE PATH SHAPE.  Surelog compiles a
@@ -51793,7 +51760,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         // P/p07.  Switch R11U184_GSTRAIL_OFF.
                         if ((inGenScopeProc || defGenProcessEmit) &&
                             lawOn(184, "R11U184_GSTRAIL_OFF"))
-                            trace184("GSTRAIL");
+                            lawTrace(184, "GSTRAIL");
                         // § lvStreamBaseKeepsActual258: a streaming
                         // target's stream operation is parented after its
                         // operands, so the frozen name would lose the scope
@@ -51825,7 +51792,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             // G/g01)
                             (inGenScopeProc && inLhs &&
                              lawOn(184, "R11U184_GSTRAIL_OFF") &&
-                             (trace184("GSTRAIL lvidx"), true)))
+                             (lawTrace(184, "GSTRAIL lvidx"), true)))
                             trailIdx133b = bs2;
                         // § hpIdxClassBodyNeverLateBinds143 — a path-element index
                         // compiled inside a CLASS BODY is handed a parentless
@@ -51911,7 +51878,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ((UHDM::assignment*)parent)->VpiBlocking())
                                 note151 = true;
                             if (note151) {
-                                trace151("ARR");
+                                lawTrace(151, "ARR");
                                 noteSelectObj(&nv2.symbol, vs);
                             }
                         }
@@ -52320,9 +52287,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // § firstOrderedConnBitSelWhole147 (helper above emitMixedHierPath).
             const bool firstPos147 = firstOrderedConnSel147(expr, parent);
             if (lvIdx147)
-                trace147("LVIDXBS");
+                lawTrace(147, "LVIDXBS");
             if (firstPos147)
-                trace147("FIRSTPOS");
+                lawTrace(147, "FIRSTPOS");
             // § incDecBitSelWholeSpan181 (r11u181) — AN INC/DEC OPERAND
             // SPANS THE WHOLE SELECT.  Surelog compiles the operand of a pre/
             // post increment or decrement through its Variable_lvalue arm
@@ -52356,14 +52323,14 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             const bool newLhs181 = inLhs && newLhsSel181() &&
                                    &stripImplicitConv(expr) == newLhsTop181();
             if (newLhs181)
-                trace181("NEWLHS");
+                lawTrace(181, "NEWLHS");
             static const bool incDecBs181 = lawOn(181, "R11U181_INCDECBS_OFF");
             const bool incDecSel181 =
                 incDecBs181 && !inLhs && !inParamInit && !firstPos147 &&
                 (incDecOperand124() == &expr ||
                  incDecOperand124() == &stripImplicitConv(expr));
             if (incDecSel181)
-                trace181("INCDECBS");
+                lawTrace(181, "INCDECBS");
             // § bitSelParenIdxSpan181 — the rvalue anchor keeps the
             // index's parentheses.
             // § streamLvMemberPathRead184 — a streaming lvalue's operand
@@ -52373,7 +52340,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                      lvStreamOperand181(parent) &&
                                      lawOn(184, "R11U184_STREAMRD_OFF");
             if (streamRd184)
-                trace184("STREAMRD select");
+                lawTrace(184, "STREAMRD select");
             // § paramInitSysArgBitSelAtIndex421 (r11u421) — a PARAM-INIT
             // bit_select that is itself an ARGUMENT of a system call
             // (`localparam W = $bits(P[1]);`, `$clog2(P[1])`, sv-tests
@@ -52552,7 +52519,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     if (genHopFoldSelName198On() && if67->Typespec()) {
                         if67->Typespec()->VpiFullName(
                             joinRef(prefix, nv.symbol.name));
-                        trace198("genHopFoldSelName198");
+                        lawTrace(198, "genHopFoldSelName198");
                     }
                     bs->VpiIndex(if67);
                     return bs;
@@ -52760,7 +52727,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 if (genHopFoldSelName198On() &&
                                     bf112->Typespec() && !vsq118) {
                                     bf112->Typespec()->VpiFullName(baseFull);
-                                    trace198("genHopFoldSelName198");
+                                    lawTrace(198, "genHopFoldSelName198");
                                 }
                                 idxs->push_back(bf112);
                                 continue;
@@ -52862,7 +52829,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ? std::string(ips->VpiFullName())
                                 : baseFull;
                         if (ipsBasePfx147 != baseFull)
-                            trace147("VSIPSBASE");
+                            lawTrace(147, "VSIPSBASE");
                         if (auto* bf47 = genLpUseFoldBound47(rs.left(), prefix))
                             ips->Base_expr(bf47);
                         else if (auto* b = emitExpr(rs.left(), ips, ipsBasePfx147, netMap))
@@ -52889,7 +52856,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 ((UHDM::assignment*)parent)->VpiBlocking())
                                 note151 = true;
                             if (note151) {
-                                trace151("ARR");
+                                lawTrace(151, "ARR");
                                 noteSelectObj(&nvb.symbol, vs);
                             }
                         }
@@ -55272,7 +55239,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             // R11U154_GSPROCPS_OFF.
             else if (inGenScopeProc && !prefix.empty() &&
                      lawOn(154, "R11U154_GSPROCPS_OFF")) {
-                trace154("GSPROCPS");
+                lawTrace(154, "GSPROCPS");
                 psel->VpiFullName(joinRef(prefix, nv.symbol.name));
             }
             // § streamPartSelLazyName288 (r11u288, R11U288_STREAMPS_OFF) — a
@@ -55782,7 +55749,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             const bool lhsM154 = inLhs && !lvIdxPathIsRead154(parent) &&
                                  !(lvStreamOperand181(parent) &&
                                    lawOn(184, "R11U184_STREAMRD_OFF") &&
-                                   (trace184("STREAMRD member"), true));
+                                   (lawTrace(184, "STREAMRD member"), true));
             bool paramInitStructMember =
                 inParamInit && !chain.empty() &&
                 nv.symbol.kind == SymbolKind::Parameter &&
@@ -55802,7 +55769,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                  (nv.symbol.getType().getCanonicalType().kind ==
                       SymbolKind::UnpackedStructType &&
                   lawOn(154, "R11U154_PIUNPACKED_OFF") &&
-                  (trace154("PIUNPACKED"), true)));
+                  (lawTrace(154, "PIUNPACKED"), true)));
             // § vifClockingPathComponent5 — SITE 1 of 3.  The components slang
             // collapsed out of a virtual-interface reference, recovered and
             // spliced in between the base and the leaf.  `chain.size() == 1` is
@@ -55932,9 +55899,9 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             const bool foreachName157 = foreachArr157 && nameAx157;
             const bool foreachFile157 = foreachArr157 && fileAx157;
             if (thisSpan157 || thisName157 || thisFile157)
-                trace157("THIS");
+                lawTrace(157, "THIS");
             if (foreachName157 || foreachFile157)
-                trace157("FOREACH");
+                lawTrace(157, "FOREACH");
             if (foreachFile157)
                 ;  // no location (and so no file)
             else if (thisPath &&
@@ -55993,7 +55960,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         name215 = r215 == HpRoute157::Sel;
                 }
                 if (!span215 || !name215)
-                    trace215("incDecOperandKeepsLvalueForm215", std::string(nv.symbol.name));
+                    lawTrace(215, "incDecOperandKeepsLvalueForm215", std::string(nv.symbol.name));
                 selSpan157 = selName157 = true;
             }
             if (!pkgQualBase9 && vifComps5.empty() && !thisPath && !chain.empty() &&
@@ -58010,7 +57977,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             lawOn(210, "R11U210_PKGREPLTS_OFF")) {
                             rc7->VpiParent(op);
                             rrt7->VpiFullName(pkgTopWidePat210());
-                            trace210("pkgTopWidePatReplTsName210");
+                            lawTrace(210, "pkgTopWidePatReplTsName210");
                         }
                         preE = rc7;
                     }
@@ -58756,7 +58723,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     const syntax::ExpressionSyntax* dvSyn147 =
                         nestedDefaultValueSyntax147(psyn);
                     if (dvSyn147)
-                        trace147("NESTDEFLOC");
+                        lawTrace(147, "NESTDEFLOC");
                     if (dvSyn147 && !tp->VpiLineNo()) {
                         setLoc(tp, dvSyn147->sourceRange());
                         tagKey177f(sm, tp, dvSyn147->sourceRange());
@@ -59126,7 +59093,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                     }
                 }
                 if (trimmed167) {
-                    trace167("hpDotWsTrimmed167");
+                    lawTrace(167, "hpDotWsTrimmed167");
                     std::string j167;
                     for (size_t i167 = 0; i167 < parts.size(); i167++)
                         j167 += (i167 ? "." : "") + parts[i167].first;
@@ -59243,7 +59210,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
             if (raw.rfind("$root.", 0) == 0 && parts.size() > 1 &&
                 (!selSpan157 || !selName157) &&
                 lawOn(181, "R11U181_ROOTNET_OFF")) {
-                trace181("ROOTNET");
+                lawTrace(181, "ROOTNET");
                 selSpan157 = true;
                 selName157 = true;
             }
@@ -59344,7 +59311,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                         lawOn(210, "R11U210_IFARREXPR_OFF") &&
                         lhsOfLiteralAssign205(expr.syntax)) {
                         syntaxRefPrefix += "." + base;
-                        trace210("elabIfArrIdxExprChainName210");
+                        lawTrace(210, "elabIfArrIdxExprChainName210");
                     }
                     if (auto* ix = emitSyntaxExpr(*baseSelSyn, hp))
                         bs->VpiIndex((UHDM::expr*)ix);
@@ -59413,7 +59380,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                             (lawOn(205, 210, "R11U205_IFARRIDX_OFF") && !envSet("R11U220_LANDING205A_OFF")) &&
                             lhsOfLiteralAssign205(expr.syntax)) {
                             ir->VpiFullName(prefix + "." + raw + "." + idx);
-                            trace210("elabIfArrIdxChainName205");
+                            lawTrace(210, "elabIfArrIdxChainName205");
                         }
                         ir->VpiParent(hp);
                         // An ENUM-CONSTANT selector
@@ -59564,7 +59531,7 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 if (inLhs && caLhs9 && (genTgt9 || idxBase9) &&
                     !elems->empty()) {
                     if (!idxBase9 && (genTgtSpan157 || genTgtName157))
-                        trace157("GENTGT");
+                        lawTrace(157, "GENTGT");
                     if (idxBase9 || !genTgtSpan157) {
                         auto* fe9 = (UHDM::expr*)elems->front();
                         hp->VpiEndLineNo(fe9->VpiEndLineNo());

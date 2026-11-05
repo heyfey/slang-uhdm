@@ -17,8 +17,8 @@
 #include <algorithm>
 #include <vector>
 #include <uhdm/UhdmListener.h>
-#include "LawSwitch.h"
-#include "LawState.h"
+#include "law/LawSwitch.h"
+#include "law/LawState.h"
 
 namespace slang_uhdm {
 
@@ -47,7 +47,6 @@ const slang::ast::Symbol* g_unitOobEmit402 = nullptr;
 // census): one file per process, `<dir>/<pid>.TF`, its first line the
 // `-o` database path read off the command line, then one law name per firing.
 void noteQualTdRt196(const UHDM::ref_typespec* rt);
-void trace196(const char* law, const std::string& detail);
 static void tr191TF(const char* law) {
     static FILE* tf = lawTraceFile(191, "TF");
     if (tf) {
@@ -60,12 +59,7 @@ static bool r191TF(const char* sw) {
         return false;
     return getenv(sw) == nullptr;
 }
-void trace200(const char* law, const std::string& detail); // R11U200_TRACE
-void trace202(const char* law, const std::string& detail); // R11U202_TRACE
 bool landingOff(int n); // § landingSwitchReach219 (UhdmExporter.cpp)
-void trace214(const char* law, const std::string& detail);
-void trace209(const char* law, const std::string& detail); // R11U209_TRACE
-void trace206(const char* law, const std::string& detail); // R11U206_TRACE
 void noteTpUse180(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
                   const slang::syntax::SyntaxNode* typeSyn); // § classTpDefaultTsAtUse180 (TypeEmit.cpp)
 void noteTpGroupMember234(UHDM::typespec* ts, const slang::ast::Symbol& declSymbol,
@@ -2132,7 +2126,6 @@ static void tr183TF(const char* law) {
         fflush(tf);
     }
 }
-void trace186(const char* law, const std::string& detail); // R11U186_TRACE
 
 UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                                                  const std::string& afull,
@@ -2300,7 +2293,7 @@ UHDM::array_var* UhdmExporter::makeAssocArrayVar(const Symbol& vs,
                                   lawOn(183, "R11U183_RANGEFILE_OFF") &&
                                   lawOn(183, "R11U183_ASSOCBRACKET_OFF") &&
                                   (inPkg186 ||
-                                   (trace186("assocBracketPkgOnly186", std::string(vs.name)),
+                                   (lawTrace(186, "assocBracketPkgOnly186", std::string(vs.name)),
                                     false));
         if (atBracket183) {
             tr183TF("assocPromotedBoundAtBracket183");
@@ -5377,7 +5370,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         // earlier), the bound flag naming whether the law
                         // below can then bind.
                         buildClassTypedefTs(ocl206, std::string(ocl206.name));
-                        trace206("classScopeTdRetBuildsOwner206",
+                        lawTrace(206, "classScopeTdRetBuildsOwner206",
                                  std::string(sub.name) +
                                      (typedefTs.count(&sub.getReturnType())
                                           ? " bound"
@@ -5395,7 +5388,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     !tts200->VpiName().empty()) {
                     ts = tts200;
                     classTdRet200 = true;
-                    trace200("classTdRetSharesTypedefTs200", std::string(sub.name));
+                    lawTrace(200, "classTdRetSharesTypedefTs200", std::string(sub.name));
                 }
             }
             if (!ts) {
@@ -5577,7 +5570,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                             !pk196.empty() && comp.getPackage(pk196) && ps196 &&
                             &ps196->asSymbol() == comp.getPackage(pk196)) {
                             noteQualTdRt196(rt);
-                            trace196("retPkgQualTdNoAlias196",
+                            lawTrace(196, "retPkgQualTdNoAlias196",
                                      std::string(pk196) + "::" +
                                          std::string(sub.getReturnType().name));
                         }
@@ -5856,7 +5849,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     if (auto* rsynT = retTypeSyn175(sub)) {
                         if (retVar202v) {
                             rv->VpiFile("");
-                            trace202("classTdRetVarKeepsWrittenLoc202v",
+                            lawTrace(202, "classTdRetVarKeepsWrittenLoc202v",
                                      std::string(sub.name));
                         }
                         setLoc(rv, rsynT->sourceRange());
@@ -5881,7 +5874,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         int ol200 = rv->VpiEndColumnNo();
                         setLoc(rv, rr200);
                         if (rv->VpiEndColumnNo() != ol200)
-                            trace200("tfSigningSpanFollowsCompilePath200",
+                            lawTrace(200, "tfSigningSpanFollowsCompilePath200",
                                      "retvar " + std::string(sub.name));
                     }
                 }
@@ -7026,7 +7019,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (auto f196 = fullFilePath(st196);
                             !f196.empty() && f196 != ts->VpiFile()) {
                             ts->VpiFile(f196);
-                            trace196("tfFormalTdCloneFile196", std::string(at.name));
+                            lawTrace(196, "tfFormalTdCloneFile196", std::string(at.name));
                         }
                 auto* mainTs = typedefTs[&at];
                 // ...and the ALIAS half of the same law: the clone points at
@@ -7097,7 +7090,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                         if (auto f196 = fullFilePath(st196);
                             !f196.empty() && f196 != ts->VpiFile()) {
                             ts->VpiFile(f196);
-                            trace196("tfFormalTdCloneFile196", std::string(elAl0.name));
+                            lawTrace(196, "tfFormalTdCloneFile196", std::string(elAl0.name));
                         }
                 auto* art0 = s.MakeRef_typespec();
                 art0->VpiFullName(std::string(elAl0.name));
@@ -7364,7 +7357,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                                         argTsyn->sourceRange().start()));
                                     setLoc(acp32, argTsyn->sourceRange());
                                 }
-                                trace214("CLONENAME", std::string(arg->name));
+                                lawTrace(214, "CLONENAME", std::string(arg->name));
                                 // § cloneAliasTargetOwnCopy231 — recorded for
                                 // the design-final copy (UhdmExporter).
                                 if (ce214->Typedef_alias() &&
@@ -8716,7 +8709,7 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                     hasInit && !blockLocal && !blockItems9 &&
                     lawOn(209, "R11U209_TFINITTYPE_OFF");
                 if (initAtType209)
-                    trace209("tfItemInitLocalAtType209", std::string(fmv.name));
+                    lawTrace(209, "tfItemInitLocalAtType209", std::string(fmv.name));
                 if (blockLocal || (hasInit && !initAtType209) || blockItems9) {
                     // BLOCK-item locals anchor at the NAME token; the tf_item
                     // form keeps the declared-type span.

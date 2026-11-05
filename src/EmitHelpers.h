@@ -8,7 +8,7 @@
 
 #include <uhdm/uhdm.h>
 
-#include "LawSwitch.h"
+#include "law/LawSwitch.h"
 
 #include <algorithm>
 #include <cctype>
@@ -15258,11 +15258,6 @@ inline bool impElabArithWholeSpan145On() {
 /// stderr each time a law of this pass changes what pristine would write
 /// (tools/probe/r11u151struct/drivers/census.py reads it).  No byte of the
 /// database depends on it.
-inline void trace151(const char* law) {
-    static const bool on = lawTraceOn(151);
-    if (on)
-        fprintf(stderr, "R11U151 %s\n", law);
-}
 
 /// § pkgTdCastTargetOwnView151 — a package parameter's cast to its own
 /// package's struct/union typedef (§ pkgTypedefCastTargetTs140) targets the
@@ -15449,7 +15444,6 @@ inline bool castSharesDeclRef154On() {
     return on;
 }
 
-inline void trace154(const char* law);
 
 /// § lvIdxPathIsRead154 — A DOTTED PATH INSIDE AN LVALUE SELECT'S INDEX IS A
 /// READ.  `m[sub.adr][7:0] <= d` (uhdm2rtlil mem_ff_partial_rsp): golden
@@ -15491,7 +15485,7 @@ inline bool lvIdxPathIsRead154(const UHDM::BaseClass* parent) {
         case UHDM::uhdmbit_select:
         case UHDM::uhdmpart_select:
         case UHDM::uhdmindexed_part_select:
-            trace154("LVIDXREAD");
+            lawTrace(154, "LVIDXREAD");
             return true;
         default:
             return false;
@@ -15512,7 +15506,7 @@ inline bool lvBaseAtFirstMember154(bool inLhs, const UHDM::BaseClass* parent) {
     static const bool on = lawOn(154, "R11U154_LVBASEMEM_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
-    trace154("LVBASEMEM");
+    lawTrace(154, "LVBASEMEM");
     return true;
 }
 
@@ -15553,7 +15547,7 @@ inline bool lvSelNamedByChain154(bool inLhs, const UHDM::BaseClass* parent) {
     static const bool on = lawOn(154, "R11U154_LVSELNAME_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
-    trace154("LVSELNAME");
+    lawTrace(154, "LVSELNAME");
     return true;
 }
 
@@ -15565,7 +15559,7 @@ inline bool lvIfaceBitSelWhole154(bool inLhs, const UHDM::BaseClass* parent) {
     static const bool on = lawOn(154, "R11U154_LVBSSPAN_OFF");
     if (!on || !inLhs || lvIdxParent154(parent))
         return false;
-    trace154("LVBSSPAN");
+    lawTrace(154, "LVBSSPAN");
     return true;
 }
 
@@ -15583,7 +15577,7 @@ inline bool psBoundPathFirstMember154(const UHDM::BaseClass* parent, size_t nPar
     static const bool on = lawOn(154, "R11U154_PSBOUNDPATH_OFF");
     if (!on || !parent || nParts < 2 || parent->UhdmType() != UHDM::uhdmpart_select)
         return false;
-    trace154("PSBOUNDPATH");
+    lawTrace(154, "PSBOUNDPATH");
     return true;
 }
 
@@ -15600,11 +15594,6 @@ inline std::vector<NestedPatTs154>& nestedPatTs154() {
     return v;
 }
 
-inline void trace154(const char* law) {
-    static const bool on = lawTraceOn(154);
-    if (on)
-        fprintf(stderr, "R11U154_TRACE %s\n", law);
-}
 
 /// § builtinMethodArgNamedByPath154 — A BUILT-IN METHOD CALL'S ARGUMENTS ARE
 /// NAMED THROUGH THE PATH.  Surelog's hier_path loop compiles `recv.meth(args)`
@@ -15631,7 +15620,7 @@ inline void builtinMethodArgNames154(UHDM::VectorOfany* args,
                 auto* r = (UHDM::ref_obj*)e;
                 if (r->VpiName().empty())
                     return;
-                trace154("MARGNAME");
+                lawTrace(154, "MARGNAME");
                 r->VpiFullName(joinRef(base, r->VpiName()));
             }
             else if (e->UhdmType() == UHDM::uhdmoperation) {
@@ -15684,11 +15673,6 @@ inline bool isVariableKind154(const UHDM::any* o) {
 //   R11V158_SCSLIT_OFF    § sizeCastSignedLitAbstain158v    (ExprEmit.cpp)
 //   R11V158_SCNAMEDW_OFF  § sizeCastNamedWidthNoCast158v    (ExprEmit.cpp)
 //   R11V158_AQPARAM_OFF   § arrQueryParamArgOnly158v        (ParamEmit.cpp)
-inline void trace158(const char* law) {
-    static const bool on = lawTraceOn(158);
-    if (on)
-        fprintf(stderr, "R11U158_TRACE %s\n", law);
-}
 
 /// § genCaLhsEnumConstClone158 — whether `parent` sits in the LEFT side of
 /// an elaborated GENERATE-SCOPE continuous assignment: the nearest
@@ -15729,11 +15713,6 @@ inline bool genCaLhsCtx158(const UHDM::BaseClass* parent) {
 //   R11U163_PATLISTCOPY_OFF   § pkgPatListingCopyWhenShared163 (ParamEmit.cpp)
 //   R11U163_FNPNETFILE_OFF    § fnParamRangeNetNoFile163       (ExprEmit.cpp)
 // ===========================================================================
-inline void trace163(const char* law) {
-    static const bool on = lawTraceOn(163);
-    if (on)
-        fprintf(stderr, "R11U163_TRACE %s\n", law);
-}
 /// Whether the expression being emitted is a parameter's Rhs emitted by
 /// emitParameters' generic arm (the `rhs = emitExpr(*emitInit9, ...)` call),
 /// and in which view: 0 = not there, 1 = the definition listing, 2 = the
@@ -15756,11 +15735,6 @@ inline int& paramRhsView163() {
 //   R11V167_S2PRECHECK_OFF    § s2ClonePrecheck167v            (ParamEmit.cpp;
 //                             the verifier's refinement of § evalFuncBodyRhsStampClone167)
 // ===========================================================================
-inline void trace167(const char* law) {
-    static const bool on = lawTraceOn(167);
-    if (on)
-        fprintf(stderr, "R11U167_TRACE %s\n", law);
-}
 
 // ===========================================================================
 // r11u169 — the expression/parameter ground (tools/probe/r11u169repro).
@@ -15771,11 +15745,6 @@ inline void trace167(const char* law) {
 //   R11U169_MLARGLOC_OFF   § memLeftFormalArgLoc169      (ParamEmit.cpp)
 //   R11U169_PATFLATSPAN_OFF § patFlatMemberLeftSpan169   (ParamEmit.cpp)
 // ===========================================================================
-inline void trace169(const char* law) {
-    static const bool on = lawTraceOn(169);
-    if (on)
-        fprintf(stderr, "R11U169_TRACE %s\n", law);
-}
 // ===========================================================================
 // r11u174 — the expression/parameter ground (tools/probe/r11u174repro).
 // Every law reads its own switch; R11U174_OFF drops every one of them,
@@ -15787,11 +15756,6 @@ inline void trace169(const char* law) {
 //   R11U174_ASMSPAN_OFF    § asmRefQualWholeSpanElab174    (ParamEmit.cpp)
 //   R11U174_MOPUNLOC_OFF   § elabStructMemberOpFoldUnlocated174 (ParamEmit.cpp)
 // ===========================================================================
-inline void trace174(const char* law) {
-    static const bool on = lawTraceOn(174);
-    if (on)
-        fprintf(stderr, "R11U174_TRACE %s\n", law);
-}
 // ===========================================================================
 // r11u198 — the expression/parameter ground (tools/probe/r11u198repro).
 // Every law reads its own R11U198_<LAW>_OFF switch; R11U198_OFF drops every
@@ -15799,13 +15763,6 @@ inline void trace174(const char* law) {
 // (one file per process, `<dir>/<pid>.T198`, first line `OUT <-o path>`,
 // then one law name per firing): the firing census that predicts the movers.
 // ===========================================================================
-inline void trace198(const char* law) {
-    static FILE* tf = lawTraceFile(198, "T198");
-    if (tf) {
-        fprintf(tf, "%s\n", law);
-        fflush(tf);
-    }
-}
 // ===========================================================================
 // r11u201 — the expression/parameter ground (tools/probe/r11u201repro).
 // Every law reads its own R11U201_<LAW>_OFF switch; R11U201_OFF drops every
@@ -15832,13 +15789,6 @@ inline void trace198(const char* law) {
 /// R11U183_OFF, R11U191_OFF and their landing passes' switches still drop
 /// both grounds); R11U224_OFF does not read these (the base keeps its
 /// landings).  The reach table is tools/probe/r11u224repro/README.md.
-inline void trace201(const char* law) {
-    static FILE* tf = lawTraceFile(201, "T201");
-    if (tf) {
-        fprintf(tf, "%s\n", law);
-        fflush(tf);
-    }
-}
 // ===========================================================================
 // v11u201 — the adversarial verification of r11u201 (tools/probe/v11u201repro).
 // Each refinement narrows one r11u201 / r11u200 law and reads its own
@@ -15855,13 +15805,6 @@ inline void trace201(const char* law) {
 // r11u207's adversarial verification (tools/probe/v11u207repro): every
 // refinement reads its own R11V207_<LAW>_OFF switch; R11V207_OFF drops them
 // all (the implementer's bytes).
-inline void trace207(const char* law) {
-    static FILE* tf = lawTraceFile(207, "T207");
-    if (tf) {
-        fprintf(tf, "%s\n", law);
-        fflush(tf);
-    }
-}
 // ===========================================================================
 // r11u210 — the expression/parameter ground (tools/probe/r11u210repro).
 // Every law reads its own R11U210_<LAW>_OFF switch; R11U210_OFF drops every
@@ -15897,13 +15840,6 @@ inline bool& pkgImpParamTs210() {
     static bool on = false;
     return on;
 }
-inline void trace210(const char* law) {
-    static FILE* tf = lawTraceFile(210, "T210");
-    if (tf) {
-        fprintf(tf, "%s\n", law);
-        fflush(tf);
-    }
-}
 // ===========================================================================
 // r11u215 — the expression/parameter ground (tools/probe/r11u215repro).
 // Every law reads its own R11U215_<LAW>_OFF switch; R11U215_OFF drops every
@@ -15921,13 +15857,6 @@ inline void trace210(const char* law) {
 /// Returns false (and leaves `out` empty) when nothing is stored.  Defined in
 /// ParamEmit.cpp.
 bool r215StoredFullName(const UHDM::BaseClass* o, std::string& out);
-inline void trace215(const char* law, const std::string& detail = std::string()) {
-    static FILE* tf = lawTraceFile(215, "T215");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 
 // § matchesOpPattern403 (r11u403, R11U403_MATCHOP_OFF) — the pattern operand
 // of a `matches` operator as Surelog's CompileExpression writes it (golden

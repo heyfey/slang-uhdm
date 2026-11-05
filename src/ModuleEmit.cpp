@@ -26,8 +26,8 @@
 #include "slang/ast/EvalContext.h"
 #include "slang/ast/symbols/CheckerSymbols.h"
 #include "slang/syntax/SyntaxTree.h"
-#include "LawSwitch.h"
-#include "LawState.h"
+#include "law/LawSwitch.h"
+#include "law/LawState.h"
 
 namespace slang_uhdm {
 extern bool g474IfaceElab;  // § elabParamClsScopedSubst474 (TypeEmit.cpp)
@@ -349,7 +349,6 @@ static void tr191ME(const char* law) {
     }
 }
 void noteModClassDefn196(const void* def, std::string_view name, UHDM::class_defn* cd);
-void trace196(const char* law, const std::string& detail);
 // The v11u196 refinements (tools/probe/v11u196repro/README.md): each reads
 // its own R11V196_<LAW>_OFF switch; R11V196_OFF drops all of them.
 // § regTdArrElabIsNet251 (r11u251, R11U251_REGNET_OFF; grid
@@ -1105,16 +1104,10 @@ void tpEndTopTwin149(
     tpEndMoves149().clear();
 }
 bool v11u171Law(const char* sw); // the v11u171 refinements (UhdmExporter.cpp)
-void trace171(const char* law, const std::string& detail); // R11U171_TRACE
-void trace176(const char* law, const std::string& detail); // R11U176_TRACE
-void trace193(const char* law, const std::string& detail);
 // § mpOrphanLaterWriter209v (v11u209): a port view's bare or one-select member
 // connection writers (§ ifaceSigConnNamedByChildPort155's w155), recorded per
 // view object as (line, column) of the last writer (UhdmExporter.cpp).
 void noteMpWriter209v(const UHDM::any* viewObj, uint32_t line, uint32_t col);
-void trace209(const char* law, const std::string& detail);  // R11U209_TRACE
-void trace216(const char* law, const std::string& detail);  // R11U216_TRACE
-void trace219(const char* law, const std::string& detail);  // R11U219_TRACE
 // § genScopeRangeQueryFold216 / § ndaRangeQueryFold216 (r11u216) — the RANGE
 // QUERY an elaborated generate-scope cont_assign or an elaborated net
 // declaration assignment writes as its whole right side (`assign c =
@@ -1523,12 +1516,12 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
             if (walk219v) {
                 std::vector<int64_t> wd;
                 if (!walkerDims219v(wd)) {
-                    trace219("sizeReachFollowsWalker219v", "declined first " + std::string(sym.name));
+                    lawTrace(219, "sizeReachFollowsWalker219v", "declined first " + std::string(sym.name));
                     return false;
                 }
             }
             // the element may be anything with a first dimension known
-            trace219("ndaSizeFoldReach219", "first " + std::string(sym.name));
+            lawTrace(219, "ndaSizeFoldReach219", "first " + std::string(sym.name));
         }
         count = (int64_t)at.range.width();
     }
@@ -1609,14 +1602,14 @@ static bool rqSizePlan216(const slang::ast::Expression& rhs, int64_t& count,
                 }
             }
             if (!walked && !generic1d) {
-                trace219("sizeReachFollowsWalker219v",
+                lawTrace(219, "sizeReachFollowsWalker219v",
                          std::string(nargs == 2 ? "declined dim " : "declined first ") +
                              std::string(sym.name));
                 return false;
             }
         }
         count = dims[d - 1];
-        trace219("ndaSizeFoldReach219", (nargs == 2 ? "dim " : "first ") +
+        lawTrace(219, "ndaSizeFoldReach219", (nargs == 2 ? "dim " : "first ") +
                                             std::string(sym.name));
     }
     else
@@ -1636,7 +1629,7 @@ static UHDM::any* ndaQueryFold216(
         if (plan.ok)
             if (auto* c = rqFoldMake216(s, plan, ca, width, emitSyn, loc,
                                         rqNetBound216(nets, plan))) {
-                trace216("ndaRangeQueryFold216", who + " " + plan.what);
+                lawTrace(216, "ndaRangeQueryFold216", who + " " + plan.what);
                 return c;
             }
     }
@@ -1652,19 +1645,14 @@ static UHDM::any* ndaQueryFold216(
         c->VpiConstType(vpiUIntConst);
         c->VpiSize(width > 0 ? width : 64);
         c->VpiParent(ca);
-        trace216("ndaSizeQueryFold216", who + " " + what);
+        lawTrace(216, "ndaSizeQueryFold216", who + " " + what);
         return c;
     }
     return nullptr;
 }
-void trace214(const char* law, const std::string& detail);
-void trace212(const char* law, const std::string& detail);  // R11U212_TRACE
-void trace205(const char* law, const std::string& detail);  // R11U205_TRACE
 bool& defGenInitRvalue202();  // § defGenInitBitSelAtIndex202 (TypeEmit.cpp)
 bool& defGenConnSelAtIndex416();  // § defGenConnSelAtIndex416 (TypeEmit.cpp)
 bool& defGenLpSelIdx424();  // § defGenLpSelIdxThroughBase424 (TypeEmit.cpp)
-void trace202(const char* law, const std::string& detail);
-void trace200(const char* law, const std::string& detail);
 // § tfSigningSpanFollowsCompilePath200 — a GENERATE-block variable's builtin
 // typespec keeps compileBuiltinTypespec's end in both views: an integer atom
 // ends at its keyword under `signed` (trimTypeSigning), a SCALAR bit / logic /
@@ -1687,10 +1675,9 @@ static slang::SourceRange genVarBuiltinTsSpan200(
     auto kr = its.keyword.range();
     if (kr.start() == slang::SourceLocation::NoLocation)
         return trimmed;
-    trace200("tfSigningSpanFollowsCompilePath200", "genvar " + who);
+    lawTrace(200, "tfSigningSpanFollowsCompilePath200", "genvar " + who);
     return kr;
 }
-void trace206(const char* law, const std::string& detail);  // R11U206_TRACE
 // § portPackedBareImplicitTruncates202v — true when a port's type syntax is
 // an ImplicitType with no signing token under a port header with no net
 // type and no `var` keyword (the bare `input [A] [B] a`).
@@ -1715,7 +1702,7 @@ static bool portPackedBareImplicit202v(const slang::syntax::SyntaxNode* tsyn,
     }
     else
         return false;
-    trace202("portPackedBareImplicitTruncates202v", who);
+    lawTrace(202, "portPackedBareImplicitTruncates202v", who);
     return true;
 }
 // § castRhsClonePerInst176 (r11u176) — Surelog's UhdmWriter::writeCont_assign
@@ -1998,7 +1985,7 @@ void genPlainViewDrain176(UHDM::Serializer& s) {
             }
             // (the view's nets are not the connected instance's: golden
             // r11u173 cx/x07's view lists no net)
-            trace176("GENPLAINVARS", pre + " <- " + std::string(view->VpiName()));
+            lawTrace(176, "GENPLAINVARS", pre + " <- " + std::string(view->VpiName()));
         }
         // The HighConn's copy lists the variables alone (golden r11u173
         // cx/x07's `work@top.bus` 13:0 lists no net).
@@ -2034,7 +2021,7 @@ void progViewDrain176() {
                 if (auto* rt = n->Typespec())
                     rt->VpiFullName("");
             }
-        trace176("PROGVIEW", std::string(ii->VpiName()));
+        lawTrace(176, "PROGVIEW", std::string(ii->VpiName()));
     }
     progViews176.clear();
 }
@@ -2446,7 +2433,7 @@ void castRhsCloneDrain176(UHDM::Serializer& s) {
         };
         unname(c->Lhs());
         (*r.cas)[r.idx] = c;
-        trace176("CASTCLONE", std::string(r.m->VpiName()) + " " +
+        lawTrace(176, "CASTCLONE", std::string(r.m->VpiName()) + " " +
                                   std::to_string(c->VpiLineNo()) + ":" +
                                   std::to_string(c->VpiColumnNo()));
     }
@@ -2924,7 +2911,7 @@ void unsizedRhsCloneDrain193(UHDM::Serializer& s) {
                                             std::to_string(c->VpiColumnNo()));
         }
         (*r.cas)[r.idx] = c;
-        trace193("caUnsizedRhsClonePerInst193", std::string(r.m->VpiName()) + " " +
+        lawTrace(193, "caUnsizedRhsClonePerInst193", std::string(r.m->VpiName()) + " " +
                                                     std::to_string(c->VpiLineNo()) + ":" +
                                                     std::to_string(c->VpiColumnNo()));
     }
@@ -3241,10 +3228,6 @@ static bool port139On() {
     static const bool on = lawOn(139, 137, "R11U139_PORT_OFF");
     return on;
 }
-static bool trace139() {
-    static const bool on = lawTraceOn(139);
-    return on;
-}
 using NetMap139 = std::map<const slang::ast::Symbol*, UHDM::any*>;
 static NetMap139 defView139(const NetMap139& elab, const NetMap139& def);
 // § castOperandLeafElab193 (r11u193) — the leaves a CAST's operand binds in
@@ -3392,10 +3375,6 @@ static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>>&
 genLpRtMirror148() {
     static std::vector<std::pair<UHDM::ref_typespec*, UHDM::ref_typespec*>> v;
     return v;
-}
-static bool trace148() {
-    static const bool on = lawTraceOn(148);
-    return on;
 }
 // § evalFuncSelectKeepsCall148 — THE PRODUCER.  An elaborated cont_assign
 // whose whole right-hand side is a user function call is reduced by
@@ -4977,7 +4956,7 @@ static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
                          er == Statement::EvalResult::Return) &&
                         res.isInteger() && res.integer().hasUnknown()) {
                         hit = true;
-                        trace196("dfltArgExecutedPathEval196v", std::string(sub.name));
+                        lawTrace(196, "dfltArgExecutedPathEval196v", std::string(sub.name));
                     }
                 }
             }
@@ -5009,7 +4988,7 @@ static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
             }
         }
         if (!hit)
-            trace196("dfltArgExecutedRead196v", std::string(sub.name) + " declined");
+            lawTrace(196, "dfltArgExecutedRead196v", std::string(sub.name) + " declined");
     }
     else {
         sub.getBody().visit(makeVisitor([&](auto& v, const NamedValueExpression& nv) {
@@ -5019,7 +4998,7 @@ static bool r196OmittedDefaultKeeps(const slang::ast::Expression& rhs0) {
         }));
     }
     if (hit)
-        trace196("evalFuncOmittedDefaultKeepsCall196", std::string(sub.name));
+        lawTrace(196, "evalFuncOmittedDefaultKeepsCall196", std::string(sub.name));
     return hit;
 }
 static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
@@ -5029,7 +5008,7 @@ static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
         return false;
     const char* arm = nullptr;
     bool hit = evalFuncSelectPoison148(rhs, &arm);
-    if (hit && trace148())
+    if (hit && lawTraceOn(148))
         fprintf(stderr, "R11U148E site=%s arm=%s scope=%s\n", site, arm ? arm : "?",
                 scope.c_str());
     return hit;
@@ -5057,7 +5036,6 @@ static bool evalFuncSelectKeepsCall148(const slang::ast::Expression& rhs,
 // objects the root OWNS: VpiParent chain reaching the root; a reference's
 // target is never followed) from the def-time prefix to the instance path and
 // re-parents the roots at the instance, so the last visit wins.
-void trace188(const char* law, const std::string& detail);
 static std::map<const slang::ast::DefinitionSymbol*, std::string>& sharedPropPrefix188() {
     static std::map<const slang::ast::DefinitionSymbol*, std::string> m;
     return m;
@@ -5343,7 +5321,7 @@ static void propAssertLastInst188(const slang::ast::DefinitionSymbol* def,
         }
         r->VpiParent(m);
     }
-    trace188("propAssertLastInstPath188",
+    lawTrace(188, "propAssertLastInstPath188",
              cur + " -> " + instPath + " roots=" + std::to_string(roots.size()) +
                  " renamed=" + std::to_string(n));
     cur = instPath;
@@ -9842,7 +9820,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                            .getDefaultSpecialization(body);
                         dsp200 && dsp200->kind == SymbolKind::ClassType) {
                         clist95.push_back(&dsp200->as<ClassType>());
-                        trace200("modGenericClassListedAtDefault200",
+                        lawTrace(200, "modGenericClassListedAtDefault200",
                                  prefix + "::" + std::string(mem.name));
                     }
                 }
@@ -9869,7 +9847,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                            .getDefaultSpecialization(body);
                         dsp196 && dsp196->kind == SymbolKind::ClassType) {
                         clist95.push_back(&dsp196->as<ClassType>());
-                        trace196("modGenericClassListed196",
+                        lawTrace(196, "modGenericClassListed196",
                                  prefix + "::" + std::string(mem.name));
                     }
         // § caModGenBlockClassIsModuleOwn98 — LAW B1 (r11u98).  A MODULE
@@ -9924,7 +9902,7 @@ UHDM::instance* UhdmExporter::emitModuleDef(const InstanceSymbol& inst, bool top
                                                .getDefaultSpecialization(*blk);
                             dsp196 && dsp196->kind == SymbolKind::ClassType) {
                             clist95.push_back(&dsp196->as<ClassType>());
-                            trace196("modGenericClassListed196",
+                            lawTrace(196, "modGenericClassListed196",
                                      prefix + "::" + std::string(mem.name));
                         }
                     }
@@ -12048,7 +12026,7 @@ static bool udpFormSwallow176(const syntax::SyntaxNode* from) {
     for (auto* hinst : hi->instances) {
         auto& oc176 = hinst->connections[0]->as<syntax::OrderedPortConnectionSyntax>();
         if (oc176.expr && !netLvalueSyntax176(oc176.expr)) {
-            trace176("UDPLV", std::string(hinst->decl ? hinst->decl->name.valueText() : ""));
+            lawTrace(176, "UDPLV", std::string(hinst->decl ? hinst->decl->name.valueText() : ""));
             return false;
         }
     }
@@ -13518,7 +13496,7 @@ UHDM::instance* UhdmExporter::emitModuleDefPorts(const InstanceSymbol& inst) {
                     if (fe200 && !fe200->getFirstToken().isMissing() &&
                         !isNetLvalueSyntax(*fe200)) {
                         hasOpConn = false;
-                        trace200("posOpConnKeepsRefModule200",
+                        lawTrace(200, "posOpConnKeepsRefModule200",
                                  prefix + "." + std::string(child.name));
                     }
                 }
@@ -16130,7 +16108,7 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
                     continue;
                 if (ev->VpiFullName() != own214) {
                     ev->VpiFullName(own214);
-                    trace214("IMPVARELEM", own214);
+                    lawTrace(214, "IMPVARELEM", own214);
                 }
                 if (auto* ert = ev->Typespec(); ert && ert->VpiParent() == ev &&
                                                 ert->VpiFullName() != own214)
@@ -16144,7 +16122,7 @@ static UHDM::variables* importVarCopy5(UHDM::Serializer& s, UHDM::variables* src
                     if (auto* sat214 = srt214->Actual_typespec();
                         sat214 && sat214 != at214 && !sat214->VpiParent()) {
                         at214->VpiParent(nullptr);
-                        trace214("IMPVARELEM", own214 + " ts");
+                        lawTrace(214, "IMPVARELEM", own214 + " ts");
                     }
     }
     if (auto* e5 = cp->Expr())
@@ -16771,8 +16749,6 @@ void UhdmExporter::classInheritsContainerImports23() {
 // typedef), replays the winner's.  Struct and union objects are
 // § typedefParentLastWriter134's.  Grid tools/probe/r11u180repro/cases/H.
 // Switch R11U180_ENUMIMP_OFF.
-void trace180(const char* law, const std::string& detail);
-void trace186(const char* law, const std::string& detail); // R11U186_TRACE
 // § enumImpNamedItemWrites190v (r11u190, the second verification of pass 180;
 // grid tools/probe/r11u190verify/cases/E e05, e09-e11, e13) — an EXPLICIT
 // import writes only the typedef it NAMES.  CompileHelper::importPackage
@@ -16793,7 +16769,7 @@ static bool explicitImportNotNaming190v(const slang::ast::Symbol& mem,
     auto& ei = mem.as<slang::ast::ExplicitImportSymbol>();
     if (ei.importName == tdName)
         return false;
-    trace180("ENUMITEM190V", std::string(ei.packageName) + "::" +
+    lawTrace(180, "ENUMITEM190V", std::string(ei.packageName) + "::" +
                                  std::string(ei.importName) + " is not " +
                                  std::string(tdName));
     return true;
@@ -16914,7 +16890,7 @@ void enumImportParentDrain180(UHDM::design* d) {
             else if (auto dit = defObj180v.find({w.rank, w.def});
                      dit != defObj180v.end() && dit->second != w.owner) {
                 owner = dit->second;
-                trace180("ENUMDEF", std::string(ts->VpiName()) + " -> " + w.def);
+                lawTrace(180, "ENUMDEF", std::string(ts->VpiName()) + " -> " + w.def);
             }
         }
         // § enumDefOwnerNotInstance191 — the winner's own write may be the
@@ -16937,7 +16913,7 @@ void enumImportParentDrain180(UHDM::design* d) {
             }
         }
         if (moved)
-            trace180("ENUMIMP", std::string(ts->VpiName()) + " -> " + w.def);
+            lawTrace(180, "ENUMIMP", std::string(ts->VpiName()) + " -> " + w.def);
     }
     enumImpWrites180.clear();
 }
@@ -17157,7 +17133,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                  [](const auto& a, const auto& b) {
                                      return a.second->name < b.second->name;
                                  });
-                trace186("ifaceTwoPkgTdNameOrder186", std::string(m->VpiDefName()));
+                lawTrace(186, "ifaceTwoPkgTdNameOrder186", std::string(m->VpiDefName()));
             }
         }
         // The replay: with the merge, ONE pass over `merged186`; without it,
@@ -17208,7 +17184,7 @@ void UhdmExporter::emitImportArtifacts(const InstanceBodySymbol& body, UHDM::ins
                                      return a->name < b->name;
                                  });
                 if (pms180 != before180)
-                    trace180("IFACETDORDER", std::string(m->VpiDefName()) + " " +
+                    lawTrace(180, "IFACETDORDER", std::string(m->VpiDefName()) + " " +
                                                  std::string(pn));
             }
             passes186.push_back({pn, pms180});
@@ -24168,11 +24144,11 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                 }
                 if (genMpNamed176) {
                     setLocNamed(lc, ip);
-                    trace176("GENMPLOC", std::string(lc->VpiFullName()));
+                    lawTrace(176, "GENMPLOC", std::string(lc->VpiFullName()));
                 }
                 else if (genPlainNamed176) {
                     setLoc(lc, findConnSyntax(inst, ip.name)->sourceRange());
-                    trace176("GENPLAINLOC", std::string(lc->VpiFullName()));
+                    lawTrace(176, "GENPLAINLOC", std::string(lc->VpiFullName()));
                 }
                 else if (auto npc = findConnSyntax(inst, ip.name))
                     setLoc(lc, ESC_NAME_SPAN295(npc->name.location(), ip.name,
@@ -24810,7 +24786,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         dit != modportsByDef.end())
                         if (auto mit = dit->second.find(std::string(mpName));
                             mit != dit->second.end() && mit->second) {
-                            trace176("PROGMPDEF", prefix + "." +
+                            lawTrace(176, "PROGMPDEF", prefix + "." +
                                                       std::string(ip.name));
                             return mit->second;
                         }
@@ -25023,7 +24999,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                             if (!own200)
                                                 continue;
                                             io200->Expr(own200);
-                                            trace200(
+                                            lawTrace(200, 
                                                 "ifaceArrPortElemViewNamedByArray200",
                                                 "ownvar " + prefix + "." + ename +
                                                     "." + std::string(io200->VpiName()));
@@ -25061,7 +25037,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             if (auto* ps200 = ei->Ports())
                                 for (auto* p200 : *ps200)
                                     re200(p200->Typespec());
-                            trace200("ifaceArrPortElemViewNamedByArray200",
+                            lawTrace(200, "ifaceArrPortElemViewNamedByArray200",
                                      "name " + old200 + " -> " + new200);
                         }
                     }
@@ -25424,7 +25400,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                     lawOn(188, "R11U188_BINDPARENT_OFF"))
                     if (auto dp188 = prefix.rfind('.'); dp188 != std::string::npos) {
                         if (prefix.substr(0, dp188) != currentTopPrefix)
-                            trace188("bindDisplayTargetParent188",
+                            lawTrace(188, "bindDisplayTargetParent188",
                                      prefix + " -> " + prefix.substr(0, dp188) + "." +
                                          std::string(child.name));
                         bindBase188 = prefix.substr(0, dp188);
@@ -27541,7 +27517,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                         const bool lvOk171 =
                             !v11u171Law("R11V171_UDPLVALUE_OFF") || lv171(*expr);
                         if (!lvOk171)
-                            trace171("UDPLVALUE-DECLINE", prefix + "." + std::string(ps.name));
+                            lawTrace(171, "UDPLVALUE-DECLINE", prefix + "." + std::string(ps.name));
                         if (lvOk171 && ordE171.size() > 1 && ordE171[0] == expr) {
                             auto* in171 = (UHDM::operation*)h;
                             if (auto* iops171 = in171->Operands()) {
@@ -27579,7 +27555,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                             wrap171->Operands(wops171);
                             h = wrap171;
                             swallow171 = true;
-                            trace171("UDPSWALLOW", prefix + "." + std::string(ps.name));
+                            lawTrace(171, "UDPSWALLOW", prefix + "." + std::string(ps.name));
                         }
                     }
                     // A CONCAT HighConn's direct ref operands scope through
@@ -27856,7 +27832,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                 rt193->VpiFullName() !=
                                                     castTsName193) {
                                                 rt193->VpiFullName(castTsName193);
-                                                trace193("connCastTsNamedByPort193",
+                                                lawTrace(193, "connCastTsNamedByPort193",
                                                          castTsName193);
                                             }
                                         if (auto* os139 =
@@ -27875,7 +27851,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                                 if (a193 &&
                                                     a193->UhdmType() ==
                                                         UHDM::uhdmref_obj)
-                                                    trace193(
+                                                    lawTrace(193, 
                                                         "connSysCallArgDefNet193",
                                                         pfx139 +
                                                             std::string(
@@ -28000,7 +27976,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                             }
                                     if (cLeaf193 && (isElab139 ||
                                                      r139->Actual_group() != a139))
-                                        trace193("castOperandLeafElab193",
+                                        lawTrace(193, "castOperandLeafElab193",
                                                  "conn " + pfx139 +
                                                      std::string(r139->VpiName()));
                                     if (isElab139 && n139 != leaf139 && !cLeaf193 &&
@@ -28013,7 +27989,7 @@ UHDM::instance* UhdmExporter::emitInstance(const InstanceSymbol& inst, const std
                                     if (cLeaf193 && r139->Actual_group())
                                         castKeep193.push_back(
                                             {r139, r139->Actual_group()});
-                                    if (trace139())
+                                    if (lawTraceOn(139))
                                         fprintf(stderr,
                                                 "R11U139PORT %s%s leaf=%d "
                                                 "udp=%d rebind=%d\n",
@@ -35761,7 +35737,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             lawOn(206, "R11U206_GENCLSSPAN_OFF")) {
                             setLoc(tsC206, ntC206->name->as<syntax::ClassNameSyntax>()
                                                .identifier.range());
-                            trace206("genScopeClassVarSpecAtName206", vfullC);
+                            lawTrace(206, "genScopeClassVarSpecAtName206", vfullC);
                         }
                         auto* cv206 = s.MakeClass_var();
                         cv206->VpiName(gm.name);
@@ -35776,7 +35752,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                         cv206->Typespec(crt206);
                         netMap[&gm] = cv206;
                         gvars->push_back(cv206);
-                        trace206("genScopeClassVarListed206", vfullC);
+                        lawTrace(206, "genScopeClassVarListed206", vfullC);
                         continue;
                     }
             UHDM::variables* iv = nullptr;
@@ -36227,7 +36203,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                           dynamic_cast<const UHDM::variables*>(a)))
                         return;
                     r->Actual_group(nullptr);
-                    trace202("genVarInitOuterRefUnbound202",
+                    lawTrace(202, "genVarInitOuterRefUnbound202",
                              std::string(r->VpiFullName()));
                 };
                 unbind202(e0);
@@ -36557,7 +36533,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             else
                                 genLpRtMirror148().push_back({srt148, rt148});
                         }
-                        if (trace148())
+                        if (lawTraceOn(148))
                             fprintf(stderr, "R11U148E2 scope=%s name=%s\n",
                                     fullName.c_str(), std::string(rsym0.name).c_str());
                         rhs = c148;
@@ -38805,7 +38781,7 @@ void UhdmExporter::emitGenScopes(const InstanceBodySymbol& body, UHDM::instance*
                             [&](UHDM::BaseClass* o, SourceRange r) { setLoc(o, r); },
                             rqNetBound216(netMap, plan216));
                         if (rhs)
-                            trace216("genScopeRangeQueryFold216",
+                            lawTrace(216, "genScopeRangeQueryFold216",
                                      fullName + " " + plan216.what +
                                          (plan216.bare ? " bare" : "") + " w=" +
                                          std::to_string(w216));
@@ -42495,7 +42471,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
             setLoc(ts, SourceRange(st, de));
             ts->VpiLineNo(l0);
             ts->VpiColumnNo(c0);
-            trace171("NETENDCOL", std::string(pn.sym->name));
+            lawTrace(171, "NETENDCOL", std::string(pn.sym->name));
             return;
         }
         ts->VpiEndLineNo(sm->getLineNumber(de));
@@ -42603,7 +42579,7 @@ void UhdmExporter::materializeDefNetTs(PendingNetTs& pn) {
                   !(lawOn(200, 202, "R11U200_PORTPACKED_OFF") && !landingOff(202)) ||
                   portPackedBareImplicit202v(dt3->getTypeSyntax(),
                                              std::string(pn.sym->name)) ||
-                  (trace200("defPortPackedTsKeepsWholeSpan200",
+                  (lawTrace(200, "defPortPackedTsKeepsWholeSpan200",
                             std::string(pn.sym->name)),
                    false))) {
             if (auto tsyn3 = dt3->getTypeSyntax();
@@ -44697,7 +44673,7 @@ void UhdmExporter::emitPorts(const InstanceBodySymbol& body, UHDM::instance* m,
                     lc->VpiColumnNo(0);
                     lc->VpiEndLineNo(0);
                     lc->VpiEndColumnNo(0);
-                    trace176("PROGLCLOC", std::string(lc->VpiFullName()));
+                    lawTrace(176, "PROGLCLOC", std::string(lc->VpiFullName()));
                 }
                 p->Low_conn(lc);
                 ports->push_back(p);
@@ -45905,7 +45881,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                     prefix.begin() + (std::ptrdiff_t)inst171.size(), prefix.end(), '.');
                 if (ev171 > segs171.size()) {
                     ok171 = false;
-                    trace171("GENFLAT-DECLINE", prefix + " prefixSegs=" +
+                    lawTrace(171, "GENFLAT-DECLINE", prefix + " prefixSegs=" +
                                                     std::to_string(ev171) + " chain=" +
                                                     std::to_string(segs171.size()));
                 }
@@ -45953,7 +45929,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                     for (auto& sg : segs171)
                         path += "." + sg.name;
                     termScope171 = path;
-                    trace176("ELSEBEGIN", path);
+                    lawTrace(176, "ELSEBEGIN", path);
                 }
             }
         }
@@ -45989,7 +45965,7 @@ void UhdmExporter::emitGates(const Scope& body, UHDM::BaseClass* m,
                 path += "." + sg.name;
             }
             termScope171 = path;
-            trace171("GENELSEIF", path);
+            lawTrace(171, "GENELSEIF", path);
         }
     }
     for (auto& member : body.members()) {
@@ -48069,7 +48045,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                   (kind == 2 && sym.location.valid() && lhs.location.valid() &&
                    sym.location.buffer() == lhs.location.buffer() &&
                    sym.location.offset() < lhs.location.offset());
-        if (trace139())
+        if (lawTraceOn(139))
             fprintf(stderr, "R11U139NDA %s.%s leaf=%s kind=%d elab=%d\n",
                     prefix.c_str(), std::string(lhs.name).c_str(),
                     std::string(sym.name).c_str(), kind, (int)ok);
@@ -48164,7 +48140,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     if (r->VpiLineNo() == l193 && r->VpiColumnNo() == c193 &&
                         r->VpiName() == sym.name && r->Actual_group() == di->second) {
                         r->Actual_group(ei->second);
-                        trace193("castOperandLeafElab193",
+                        lawTrace(193, "castOperandLeafElab193",
                                  "nda " + prefix + "." + std::string(lhs.name) + " " +
                                      std::string(sym.name));
                     }
@@ -48495,7 +48471,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     if (any428n)
                         g428NdaSysTs.insert(rt);
                     pendingSysFuncTs.push_back({rt, defInfo->mod, it.sym, qry212});
-                    trace212("ndaSysCallNetTs212", std::string(it.sym->name) + " " + nm212);
+                    lawTrace(212, "ndaSysCallNetTs212", std::string(it.sym->name) + " " + nm212);
                 }
             }
         }
@@ -50812,7 +50788,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 sel9->kind == ExpressionKind::UnbasedUnsizedIntegerLiteral) {
                 ternArm9 = sel9;
                 ternFillArm193 = true;
-                trace193("caTernFillArmKept193", prefix);
+                lawTrace(193, "caTernFillArmKept193", prefix);
             }
             else if (ok9 && sawTern9 && sel9->kind != ExpressionKind::ConditionalOp) {
                 ternFold9 = leafValue9(*sel9);
@@ -51325,7 +51301,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
             if (keyed193 && f193 != fill193.end() && f193->second) {
                 rhs = f193->second;
                 rhs->VpiParent(ca);
-                trace193("caTernFillArmKept193", "shared " + prefix);
+                lawTrace(193, "caTernFillArmKept193", "shared " + prefix);
             }
             else {
                 rhs = emitExpr(*ternArm9, ca, prefix, netMap);
@@ -53727,7 +53703,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                          ExpressionKind::IntegerLiteral) {
                 rhs = (UHDM::any*)defRhs9;
                 ((UHDM::constant*)defRhs9)->VpiParent(ca);
-                trace171("SELDECSHARE", prefix);
+                lawTrace(171, "SELDECSHARE", prefix);
             }
         }
         // Dotted-LHS re-emits share the def Rhs object wholesale.
@@ -54417,7 +54393,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                     rt->VpiParent(rhs);
                     ((UHDM::expr*)rhs)->Typespec(rt);
                     pendingSysFuncTs.push_back({rt, defInfo->mod, &lsym212, implNet212});
-                    trace212("signCastSysCallLhsTs212", std::string(lsym212.name));
+                    lawTrace(212, "signCastSysCallLhsTs212", std::string(lsym212.name));
                 }
             }
         }
@@ -54509,7 +54485,7 @@ void UhdmExporter::emitContAssigns(const InstanceBodySymbol& body, UHDM::instanc
                 caLhsDef139 = defView139(netMap, defInfo->nets);
                 lhsMapP139 = &caLhsDef139;
             }
-            if (trace139())
+            if (lawTraceOn(139))
                 fprintf(stderr, "R11U139CA %s.%s defRhsOp=%d found=%d def=%d\n",
                         prefix.c_str(), std::string(lsym139.name).c_str(),
                         (int)defRhsOp139, (int)elabFound139,
@@ -57446,7 +57422,7 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                             if (dimFile212) {
                                 std::string f212 = fullFilePath(bs->expr->sourceRange().start());
                                 if (!f212.empty() && f212 != std::string(c->VpiFile())) {
-                                    trace212("sizeDimOvrFileAtDim212", std::string(sym->name));
+                                    lawTrace(212, "sizeDimOvrFileAtDim212", std::string(sym->name));
                                     c->VpiFile(f212);
                                 }
                             }
@@ -57486,7 +57462,7 @@ bool UhdmExporter::fillSizeDimRange(UHDM::range* r,
                                         std::string f212 = fullFilePath(
                                             bs->expr->sourceRange().start());
                                         if (!f212.empty() && f212 != std::string(ov->VpiFile())) {
-                                            trace212("sizeDimOvrFileAtDim212",
+                                            lawTrace(212, "sizeDimOvrFileAtDim212",
                                                      std::string(sym->name));
                                             ov->VpiFile(f212);
                                         }
@@ -61802,7 +61778,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                 // Switch R11V209_PDNAMED_OFF.
                 if (!ts205->VpiName().empty() &&
                     lawFixOn(209, "R11V209_PDNAMED_OFF")) {
-                    trace209("pdTsNotTypedefListing209v", std::string(pb205->name));
+                    lawTrace(209, "pdTsNotTypedefListing209v", std::string(pb205->name));
                     continue;
                 }
                 auto& dl = *dit205->second;
@@ -61818,7 +61794,7 @@ UHDM::interface_inst* UhdmExporter::emitInterfaceInstance(const InstanceSymbol& 
                         ok205 = false;
                 if (!ok205)
                     continue;
-                trace205("ifacePortDeclTsAtPortDecl205", std::string(pb205->name));
+                lawTrace(205, "ifacePortDeclTsAtPortDecl205", std::string(pb205->name));
                 setLoc(ts205, SourceRange(start205.at(pb205->name),
                                           dl[dl.size() - 1]->sourceRange().end()));
                 for (size_t k = 0; k < dl.size(); k++) {
@@ -66543,7 +66519,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 !(lawOn(200, 202, "R11U200_GENINIT_OFF") && !landingOff(202)))
                                 ((UHDM::expr*)rI2)->VpiParent(nullptr);
                             else
-                                trace200("defGenInitRhsKeepsParent200",
+                                lawTrace(200, "defGenInitRhsKeepsParent200",
                                          branchPrefix + "." + vname);
                             as2->Rhs((UHDM::expr*)rI2);
                         }
@@ -67874,7 +67850,7 @@ void UhdmExporter::emitDefGenStmts(const InstanceBodySymbol& body, UHDM::instanc
                                 std::string pfx205 =
                                     branchPrefix + "." + iname + "." + formal +
                                     "." + std::string(hp37->VpiName());
-                                trace205("genConnTrailSelChain205",
+                                lawTrace(205, "genConnTrailSelChain205",
                                          pfx205 + " (def)");
                                 bs205->VpiFullName(
                                     pfx205 + "." + std::string(bs205->VpiName()));

@@ -10,8 +10,8 @@
 
 #include "EmitHelpers.h"
 #include "slang/syntax/SyntaxTree.h"
-#include "LawSwitch.h"
-#include "LawState.h"
+#include "law/LawSwitch.h"
+#include "law/LawState.h"
 
 // § cloneArrayRecvArgMintsElemVar193's `pushVar` half uses a recursive lambda.
 #include <functional>
@@ -255,32 +255,15 @@ void genPlainViewDrain176(UHDM::Serializer& s); // § genericPlainNamedView176 (
 // law reads its own R11U176_<LAW>_OFF switch; R11U176_OFF drops all of them.
 // R11U176_TRACE=1 names every firing of an r11u176 law on stderr
 // (`R11U176 <LAW> <detail>`), for the mover attribution.
-void trace176(const char* law, const std::string& detail) {
-    static const bool on = lawTraceOn(176);
-    if (on)
-        fprintf(stderr, "R11U176 %s %s\n", law, detail.c_str());
-}
 // The r11u180 switches (tools/probe/r11u180repro/README.md): every r11u180
 // law reads its own R11U180_<LAW>_OFF switch; R11U180_OFF drops all of them.
 // R11U180_TRACE=1 names every firing of an r11u180 law on stderr
 // (`R11U180 <LAW> <detail>`), for the mover attribution.
-void trace180(const char* law, const std::string& detail) {
-    static const bool on = lawTraceOn(180);
-    if (on)
-        fprintf(stderr, "R11U180 %s %s\n", law, detail.c_str());
-}
 // The r11u186 switches (tools/probe/r11u186repro/README.md): every r11u186
 // law reads its own R11U186_<LAW>_OFF switch; R11U186_OFF drops all of them.
 // R11U186_TRACE=<dir> names every firing of an r11u186 law (the mover census):
 // one file per process, `<dir>/<pid>.186`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
-void trace186(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(186, "186");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 bool tpKeywordChainRoot188(const slang::ast::Symbol& tp); // § classTpKeywordTsAtDefault188 (TypeEmit.cpp)
 bool tpKeywordDefault188(const slang::ast::Symbol& tp);
 const slang::syntax::SyntaxNode* tpHeaderDefaultSyn188(const slang::ast::Symbol& tp);
@@ -295,13 +278,6 @@ const slang::syntax::SyntaxNode* tpHeaderDefaultSyn188(const slang::ast::Symbol&
 // R11U188_TRACE=<dir> names every firing of an r11u188 law (the mover census):
 // one file per process, `<dir>/<pid>.188`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
-void trace188(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(188, "188");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u193 switches (tools/probe/r11u193repro/README.md): every r11u193
 // law reads its own R11U193_<LAW>_OFF switch; R11U193_OFF drops all of them.
 //   R11U193_CASTLEAF_OFF      § castOperandLeafElab193        (ModuleEmit.cpp)
@@ -352,13 +328,6 @@ void trace188(const char* law, const std::string& detail) {
 // R11U200_TRACE=<dir> names every firing of an r11u200 law (the mover census):
 // one file per process, `<dir>/<pid>.200`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
-void trace200(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(200, "200");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u202 switches (tools/probe/r11u202repro/README.md): every r11u202
 // law reads its own R11U202_<LAW>_OFF switch; R11U202_OFF drops all of them
 // AND the r11u200 laws this pass landed (r11u200Law reads it).
@@ -388,36 +357,15 @@ void trace200(const char* law, const std::string& detail) {
 // R11U206_TRACE=<dir> names every firing of an r11u206 law (the mover
 // census): one file per process, `<dir>/<pid>.206`, its first line
 // `OUT <-o path>`, then one `<law> <detail>` line per firing.
-void trace206(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(206, "206");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // R11U202_TRACE=<dir> names every firing of an r11u202 law (the mover
 // census): one file per process, `<dir>/<pid>.202`, its first line
 // `OUT <-o path>`, then one `<law> <detail>` line per firing.
-void trace202(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(202, "202");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u209 switches (tools/probe/r11u209repro/README.md, pass 209 on the
 // module/type ground): every law reads its own R11U209_<LAW>_OFF switch;
 // R11U209_OFF drops all of them and the r11u205 laws this pass landed (the
 // pristine bytes).  R11U209_TRACE=<dir> names every firing (one file per
 // process, `<dir>/<pid>.209`, first line `OUT <-o path>`, then
 // `<law> <detail>`).
-void trace209(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(209, "209");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u216 switches (tools/probe/r11u216repro/README.md): every law of
 // pass r11u216 reads its own R11U216_<LAW>_OFF switch; R11U216_OFF drops all
 // of them (the pristine bytes).  R11U216_TRACE=<dir> names every firing (one
@@ -427,25 +375,11 @@ void trace209(const char* law, const std::string& detail) {
 // of the adversarial verification of r11u216 reads its own R11V216_<X>_OFF
 // switch; R11V216_OFF drops all of them (r11u216's bytes).  Each runs only
 // where its r11u216 law fires, so R11U216_OFF drops them too.
-void trace216(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(216, "216");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u212 switches (tools/probe/r11u212repro/README.md): every law of
 // pass r11u212 reads its own R11U212_<LAW>_OFF switch; R11U212_OFF drops all
 // of them (the pristine bytes).  R11U212_TRACE=<dir> names every firing (one
 // file per process, `<dir>/<pid>.212`, first line `OUT <-o path>`, then
 // `<law> <detail>`).
-void trace212(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(212, "212");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The v11u212 switches (tools/probe/r11u212verify/README.md, the adversarial
 // verification of pass r11u212): every refinement reads its own
 // R11V212_<LAW>_OFF switch; R11V212_OFF drops all of them (the pass-212 law as
@@ -458,13 +392,6 @@ void trace212(const char* law, const std::string& detail) {
 // Landed by pass r11u209 (tools/probe/r11u209repro/README.md), which also
 // drops them under its own pass switch R11U209_OFF and traces them under
 // R11U209_TRACE.
-void trace205(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(205, "205");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The v11u193 refinements (tools/probe/v11u193repro/README.md, the adversarial
 // verification of r11u193): each reads its own R11V193_<NAME>_OFF switch;
 // R11V193_OFF (or R11U193_OFF) drops all of them.
@@ -479,26 +406,12 @@ bool v11u193Law(const char* sw) {
 // R11U193_TRACE=<dir> names every firing of an r11u193 law (the mover census):
 // one file per process, `<dir>/<pid>.193`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
-void trace193(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(193, "193");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u196 switches (tools/probe/r11u196repro/README.md): every r11u196
 // law reads its own R11U196_<LAW>_OFF switch; R11U196_OFF drops all of them.
 // The r11u191 laws landed with this pass keep their own R11U191_* switches.
 // R11U196_TRACE=<dir> names every firing of an r11u196 law (the mover census):
 // one file per process, `<dir>/<pid>.196`, its first line `OUT <-o path>`,
 // then one `<law> <detail>` line per firing.  Unset, nothing is written.
-void trace196(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(196, "196");
-    if (tf) {
-        fprintf(tf, "%s %s\n", law, detail.c_str());
-        fflush(tf);
-    }
-}
 // § modClassTsLinksDefListing196 (r11u196, R11U196_MODCLSLINK_OFF) — the
 // module / program class listing, keyed by (definition, class name): every
 // instance body of a definition holds its OWN class symbols (slang
@@ -547,11 +460,6 @@ void classTpDefaultTsDrain180();
 void modAggCloneDrain180(UHDM::Serializer& s); // § modAggTfArgCloneFollows180 (TypeEmit.cpp)
 // R11U171_TRACE=1 names every firing of an r11u171 law on stderr
 // (`R11U171 <LAW> <detail>`), for the mover attribution.
-void trace171(const char* law, const std::string& detail) {
-    static const bool on = lawTraceOn(171);
-    if (on)
-        fprintf(stderr, "R11U171 %s %s\n", law, detail.c_str());
-}
 
 // § enumAliasClone161 (r11u161) — defined in TypeEmit.cpp.
 const slang::syntax::SyntaxNode* enumAliasSyn161(const slang::ast::TypeAliasType& ta);
@@ -1169,26 +1077,10 @@ static void pkgTsRefObjChainName134(UHDM::Serializer& s) {
 // Every refinement sits behind its own R11V219_<LAW>_OFF switch; R11V219_OFF
 // drops all of them (r11u219's bytes).  Each refines a law of pass 219 and
 // runs only where that law fires, so R11U219_OFF drops them too.
-void trace219(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(219, "219", /*stderrWhenOne=*/true);
-    if (tf) {
-        fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U219 " : "", law,
-                detail.c_str());
-        fflush(tf);
-    }
-}
 // R11U214_TRACE=1 names every firing on stderr (`R11U214 <LAW> <detail>`);
 // R11U214_TRACE=<dir> writes one file per process instead, `<dir>/<pid>.214`,
 // its first line `OUT <-o path>`, then one `<LAW> <detail>` line per firing
 // (the mover census, tools/probe/r11u214dec/drivers/census.sh).
-void trace214(const char* law, const std::string& detail) {
-    static FILE* tf = lawTraceFile(214, "214", /*stderrWhenOne=*/true);
-    if (tf) {
-        fprintf(tf, "%s%s %s\n", tf == stderr ? "R11U214 " : "", law,
-                detail.c_str());
-        fflush(tf);
-    }
-}
 // The r11u219 refinements of § enumTdLastWriter214 (r11u219's away census on
 // raw full names over 13495 earlier case directories, tools/probe/
 // r11u219repro/README.md section 3: records golden holds and the law moved
@@ -1421,7 +1313,7 @@ static void enumTdLastWriter214(
                     if (auto* ts = c->Typespecs())
                         for (auto* t : *ts)
                             if (pkgEnum(t) || pkgClsTd(t)) {
-                                trace219("enumClsWriterUnitScopeOnly219",
+                                lawTrace(219, "enumClsWriterUnitScopeOnly219",
                                          std::string(c->VpiName()) + " " +
                                              std::string(t->VpiName()));
                                 break;
@@ -1542,7 +1434,7 @@ static void enumTdLastWriter214(
         if (!w)
             continue;
         if (unexpl219.count(u)) {
-            trace219("enumPkgWriterImportsType219", "declined " + std::string(ms[0]->VpiName()));
+            lawTrace(219, "enumPkgWriterImportsType219", "declined " + std::string(ms[0]->VpiName()));
             continue;
         }
         for (auto* t : ms) {
@@ -1560,7 +1452,7 @@ static void enumTdLastWriter214(
                         std::string nm = refName(t);
                         if (ar->VpiFullName() != nm) {
                             ar->VpiFullName(nm);
-                            trace214("CLASSTDW", std::string(t->VpiName()) + " -> " + nm);
+                            lawTrace(214, "CLASSTDW", std::string(t->VpiName()) + " -> " + nm);
                         }
                     }
                     continue;
@@ -1570,7 +1462,7 @@ static void enumTdLastWriter214(
                     std::string nm = refName(e);
                     if (e->Typedef_alias()->VpiFullName() != nm) {
                         e->Typedef_alias()->VpiFullName(nm);
-                        trace214("ENUMALIASNAME", std::string(t->VpiName()) + " -> " + nm);
+                        lawTrace(214, "ENUMALIASNAME", std::string(t->VpiName()) + " -> " + nm);
                     }
                 }
                 continue;
@@ -1647,7 +1539,7 @@ static void enumTdLastWriter214(
                                     moveName((UHDM::ref_typespec*)r);
                             }
                         }
-                trace214(isCls ? "CLASSTDW" : why,
+                lawTrace(214, isCls ? "CLASSTDW" : why,
                          std::string(t->VpiName()) + " -> " + nm);
                 continue;
             }
@@ -1656,7 +1548,7 @@ static void enumTdLastWriter214(
                 e->Base_typespec()->VpiFullName(nm);
             if (e->Typedef_alias())
                 e->Typedef_alias()->VpiFullName(nm);
-            trace214(why, std::string(t->VpiName()) + " -> " + nm);
+            lawTrace(214, why, std::string(t->VpiName()) + " -> " + nm);
         }
     }
 }
@@ -1848,7 +1740,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                         ((UHDM::enum_typespec*)t)->Typedef_alias() &&
                         t->VpiParent() == nullptr) {
                         setNP(t, c);
-                        trace212("pkgEnumAliasListingParent212", std::string(t->VpiName()));
+                        lawTrace(212, "pkgEnumAliasListingParent212", std::string(t->VpiName()));
                     }
         };
         if (auto* v = d->TopPackages())
@@ -2214,7 +2106,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                             auto dit = byDef.find(od);
                             UHDM::BaseClass* own = dit == byDef.end() ? nullptr : dit->second;
                             if (own != mem)
-                                trace212("anonMemberTdOwnerDef212v",
+                                lawTrace(212, "anonMemberTdOwnerDef212v",
                                          std::string(o->VpiName()) + " " + od);
                             mem = own;
                         }
@@ -2252,7 +2144,7 @@ static void typedefParentModel134(UHDM::design* d, UHDM::Serializer& s,
                     }
                     setNP(o, mem);
                     if (o->VpiParent() != mem)
-                        trace212("anonMemberTdLastWriter212",
+                        lawTrace(212, "anonMemberTdLastWriter212",
                              std::string(o->VpiName()) + " -> " +
                                  std::string(mem->VpiName()));
                 }
@@ -4991,7 +4883,7 @@ static void pkgArrTdElemClone209(UHDM::Serializer& s, UHDM::design* d) {
             cl->VpiParent(er);
             dropNames(cl);
             er->Actual_typespec(cl);
-            trace209("pkgArrTdElemClone209", std::string(pa->VpiName()));
+            lawTrace(209, "pkgArrTdElemClone209", std::string(pa->VpiName()));
         }
     };
     if (d->TopPackages())
@@ -5037,7 +4929,7 @@ static void portConnOpLeafChain209(UHDM::Serializer& s) {
             return;
         auto* leaf = (UHDM::ref_obj*)pes->back();
         leaf->VpiFullName("");
-        trace209("portConnOpLeafChain209", std::string(leaf->VpiName()));
+        lawTrace(209, "portConnOpLeafChain209", std::string(leaf->VpiName()));
     };
     for (auto& kv : s.AllObjects()) {
         auto* o = (const UHDM::any*)kv.first;
@@ -5162,7 +5054,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
                      ot209 == vpiMultiAssignmentPatternOp ||
                      ot209 == vpiStreamLROp || ot209 == vpiStreamRLOp) &&
                     lawFixOn(209, "R11V209_MPCONCAT_OFF")) {
-                    trace209("mpOrphanSkipConcat209v", std::to_string(ot209));
+                    lawTrace(209, "mpOrphanSkipConcat209v", std::to_string(ot209));
                     continue;
                 }
             }
@@ -5187,7 +5079,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
                                                  w != mpWriter209v().end() &&
                                                  at209 < w->second;
                                              if (later)
-                                                 trace209("mpOrphanLaterWriter209v",
+                                                 lawTrace(209, "mpOrphanLaterWriter209v",
                                                           std::string(vo->VpiName()));
                                              return later;
                                          }),
@@ -5218,7 +5110,7 @@ static void modportOpOrphanReparent209(UHDM::Serializer& s, UHDM::design* d) {
                 }
                 if (vt)
                     vt->VpiFullName("");
-                trace209("modportOpOrphanReparent209", std::string(vo->VpiName()));
+                lawTrace(209, "modportOpOrphanReparent209", std::string(vo->VpiName()));
             }
             orphan->Operands(ov);
         }
@@ -5314,7 +5206,7 @@ static void genConnTrailSelChain205(UHDM::design* d) {
             std::string pfx = ifull + "." + std::string(p->VpiName()) + "." +
                               std::string(hp->VpiName());
             std::string want = pfx + "." + std::string(bs->VpiName());
-            trace205("genConnTrailSelChain205", want);
+            lawTrace(205, "genConnTrailSelChain205", want);
             bs->VpiFullName(want);
             if (auto* ix = bs->VpiIndex()) {
                 if (ix->VpiLineNo() != 0) {
@@ -5775,7 +5667,7 @@ static void tpUseBindsDefDefault160(
                             lawOn(206, "R11U206_TPARRELEM_OFF");
                         auto fixArr206 = [&](UHDM::ref_typespec* rt) {
                             if (rt && e2d.count(rt->Actual_typespec()))
-                                trace206("tpArrayElemBindsDefDefault206",
+                                lawTrace(206, "tpArrayElemBindsDefDefault206",
                                          std::string(rt->VpiFullName()));
                             fix(rt);
                         };
@@ -5900,7 +5792,7 @@ static void tpCastUseBindsDefDefault206(
         if (f == it->second.end())
             continue;
         rt->Actual_typespec(f->second);
-        trace206("tpCastUseBindsDefDefault206",
+        lawTrace(206, "tpCastUseBindsDefDefault206",
                  std::string(mi->VpiName()) + " " +
                      std::to_string(f->second->VpiLineNo()) + ":" +
                      std::to_string(f->second->VpiColumnNo()));
@@ -6825,7 +6717,7 @@ struct Model {
         // R11U219_PPDOTNAME_OFF.
         if (!endQuery && o > 0 && lawOn(219, "R11U219_PPDOTNAME_OFF"))
             if (const Pos* dp = dotName(b, o)) {
-                trace219("ppDotNameAfterArgToken219", "start");
+                lawTrace(219, "ppDotNameAfterArgToken219", "start");
                 return dp;
             }
         // § ppIdentEndInRebuiltText219 (r11u219, map 13's F1 family: the
@@ -6857,7 +6749,7 @@ struct Model {
                      lawOn(219, "R11U219_PPDOTNAME_OFF")) {
                 sp = dotName(b, so);
                 if (sp)
-                    trace219("ppDotNameAfterArgToken219", "end");
+                    lawTrace(219, "ppDotNameAfterArgToken219", "end");
             }
             if (sp) {
                 auto& out = regions[(size_t)sp->region].out;
@@ -6878,7 +6770,7 @@ struct Model {
                     static thread_local Pos tmp2;
                     tmp2 = *sp;
                     tmp2.off = sp->off + n;
-                    trace219("ppIdentEndInRebuiltText219",
+                    lawTrace(219, "ppIdentEndInRebuiltText219",
                              out.substr(sp->off, n));
                     return &tmp2;
                 }
@@ -12137,7 +12029,7 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                             auto& cn196 = nm196->as<syntax::ClassNameSyntax>();
                             setLoc(cts, SourceRange(ts183->sourceRange().start(),
                                                     cn196.identifier.range().end()));
-                            trace196("classPropElemClassTsAtName196",
+                            lawTrace(196, "classPropElemClassTsAtName196",
                                      std::string(cn196.identifier.valueText()));
                         }
                         // § classPropElemQualTs186 (r11u186) — a PACKAGE-
@@ -12170,7 +12062,7 @@ UHDM::variables* UhdmExporter::classElemVar(const Type& elemType,
                                 setLoc(cts, SourceRange(sn186.left->sourceRange().start(),
                                                         sn186.separator.range().end()));
                                 cts->VpiName(out186);
-                                trace186("classPropElemQualTs186", out186);
+                                lawTrace(186, "classPropElemQualTs186", out186);
                             }
                         }
                     }
@@ -13073,7 +12965,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                                     out180 += c;
                             if (out180 != nm180)
                                 cts->VpiName(out180);
-                            trace180("TPQUAL", out180);
+                            lawTrace(180, "TPQUAL", out180);
                         }
                     }
                 }
@@ -13114,7 +13006,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                     lawOn(188, "R11U188_TPDEFSYN_OFF") && tpKeywordDefault188(mem))
                     if (auto* hd188 = tpHeaderDefaultSyn188(mem); hd188 && hd188 != dsyn) {
                         osyn188 = hd188;
-                        trace188("tpOwnTsAtHeaderDefault188", std::string(tps.name));
+                        lawTrace(188, "tpOwnTsAtHeaderDefault188", std::string(tps.name));
                     }
                 its = makeTypespec(mem, osyn188);
                 // § classTpUnitTdAliasClone418 (r11u418) — a class type
@@ -13447,7 +13339,7 @@ void UhdmExporter::emitClassParameters(const ClassType& cls, UHDM::class_defn* c
                                             parsing::TokenKind::LocalParamKeyword;
                         if (sgn202 && kw202)
                             pv->VpiSigned(true);
-                        trace202("classValueParamIntSigned202",
+                        lawTrace(202, "classValueParamIntSigned202",
                                  fullName + "::" + std::string(ps.name));
                     }
                 }
@@ -13894,7 +13786,7 @@ UHDM::class_defn* UhdmExporter::classDefnFor(const Type& ct) {
             if (auto it196 = modClassListing196().find(
                     std::make_pair(d196, std::string(ct.name)));
                 it196 != modClassListing196().end()) {
-                trace196("modClassTsLinksDefListing196", std::string(ct.name));
+                lawTrace(196, "modClassTsLinksDefListing196", std::string(ct.name));
                 return it196->second;
             }
         }
@@ -14058,14 +13950,14 @@ void respanSpecArgs202(
             if (pa)
                 clear(pa);
             loc(act, cn.parameters->sourceRange());
-            trace202("classSpecExprArgUnlocated202",
+            lawTrace(202, "classSpecExprArgUnlocated202",
                      std::string(site) + " expr " + std::string(m.name));
         }
         else if (a->kind != syntax::SyntaxKind::ScopedName &&
                  a->kind != syntax::SyntaxKind::ClassName &&
                  act->UhdmType() != UHDM::uhdmclass_typespec) {
             loc(act, a->sourceRange());
-            trace202("classSpecExprArgUnlocated202",
+            lawTrace(202, "classSpecExprArgUnlocated202",
                      std::string(site) + " data " + std::string(m.name));
         }
     }
@@ -19231,7 +19123,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                             spanE = &stripImplicitConv(
                                 spanE->as<BinaryExpression>().left());
                             if (spanE->kind == ExpressionKind::BinaryOp)
-                                trace200("unitBoundFoldAtLeftOperand200",
+                                lawTrace(200, "unitBoundFoldAtLeftOperand200",
                                          "init " + std::string(ps.name));
                         }
                     }
@@ -20639,7 +20531,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                                 // c15).
                                 if ((lawOn(202, "R11U202_UNITCLSTD_OFF") && !landingOff(202))) {
                                     r = cn->identifier.range();
-                                    trace202("unitClassTdSpecAtName202",
+                                    lawTrace(202, "unitClassTdSpecAtName202",
                                              std::string(ta.name));
                                 }
                                 respanSpecArgs202(
@@ -20772,10 +20664,10 @@ UHDM::design* UhdmExporter::exportDesign() {
                             cts->VpiEndLineNo(sm202.getLineNumber(e202));
                             cts->VpiEndColumnNo(sm202.getColumnNumber(e202));
                             if (mod202)
-                                trace202("unitClassTdEndAtInit202",
+                                lawTrace(202, "unitClassTdEndAtInit202",
                                          std::string(ta.name) + " " + bestKey202);
                             if (bestRank206 < 2)
-                                trace206("unitClassTdEndAtInitIfcPrg206",
+                                lawTrace(206, "unitClassTdEndAtInitIfcPrg206",
                                          std::string(ta.name) + " " + bestKey202);
                         }
                     }
@@ -22599,7 +22491,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                                    std::string(cp->VpiName())});
             if (it == src214.end() || it->second->VpiValue() == cp->VpiValue())
                 return;
-            trace214("VALENC", std::string(cp->VpiName()) + " " +
+            lawTrace(214, "VALENC", std::string(cp->VpiName()) + " " +
                                    std::string(cp->VpiValue()) + " -> " +
                                    std::string(it->second->VpiValue()));
             cp->VpiValue(std::string(it->second->VpiValue()));
@@ -22653,14 +22545,14 @@ UHDM::design* UhdmExporter::exportDesign() {
             if (auto* rt402 = impTsChain402(s, cp->Typespec(), cp, std::string(cp->VpiName()))) {
                 rt402->VpiFullName("");
                 cp->Typespec(rt402);
-                trace214("UNITCOPYTS", std::string(cp->VpiName()));
+                lawTrace(214, "UNITCOPYTS", std::string(cp->VpiName()));
                 return;
             }
             auto* rt = s.MakeRef_typespec();
             rt->VpiParent(cp);
             rt->Actual_typespec((UHDM::typespec*)cp->Typespec()->Actual_typespec());
             cp->Typespec(rt);
-            trace214("UNITCOPYTS", std::string(cp->VpiName()));
+            lawTrace(214, "UNITCOPYTS", std::string(cp->VpiName()));
         };
         if (auto* v = d->Parameters())
             for (auto* a : *v)
@@ -25569,7 +25461,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     t->VpiColumnNo(m.src->VpiColumnNo());
                     t->VpiEndLineNo(m.src->VpiEndLineNo());
                     t->VpiEndColumnNo(m.src->VpiEndColumnNo());
-                    trace180("PKGAGGCLONE", m.name);
+                    lawTrace(180, "PKGAGGCLONE", m.name);
                 }
         }
     }
@@ -25751,7 +25643,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                                           rest[ts - 1] == '_' || rest[ts - 1] == '$'))
                             --ts;
                         if (ts < k && pkgNames193v.count(rest.substr(ts, k - ts))) {
-                            trace193("nestChainKeepsPkgQual193v", fn);
+                            lawTrace(193, "nestChainKeepsPkgQual193v", fn);
                             ++k;
                             continue;
                         }
@@ -25760,7 +25652,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 }
                 std::string nn = nd.second + "." + F + (rest.empty() ? "" : "." + rest);
                 x->VpiFullName(nn);
-                trace193("nestedDefChainName193", fn + " -> " + nn);
+                lawTrace(193, "nestedDefChainName193", fn + " -> " + nn);
             };
             const bool nestSel193v = v11u193Law("R11V193_NESTSEL_OFF");
             for (auto& kv : s.AllObjects()) {
@@ -32258,7 +32150,7 @@ UHDM::design* UhdmExporter::exportDesign() {
             ++b193;
         }
         if (a193 || b193)
-            trace193("tfArgOutsideCopyOrder193", std::string(td->name) + " top=" +
+            lawTrace(193, "tfArgOutsideCopyOrder193", std::string(td->name) + " top=" +
                                                      std::to_string(a193) + " copies=" +
                                                      std::to_string(b193));
     };
@@ -32530,11 +32422,11 @@ UHDM::design* UhdmExporter::exportDesign() {
                     lastPkg176 = &w;
             }
             if (outCls216 && lastCls176)
-                trace216("tfArgOutsideClassOrder216",
+                lawTrace(216, "tfArgOutsideClassOrder216",
                          std::string(td->name) + " " +
                              std::string(clsName176(lastCls176->cls176)));
             last = lastCls176;
-            trace176("CLSMETHOD", std::string(td->name));
+            lawTrace(176, "CLSMETHOD", std::string(td->name));
         }
         else if (splitIn176 && splitOut176) {
             last = splitOut176;
@@ -32626,7 +32518,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                 if (!aggTd176.count(td))
                     applyW(defTs, splitIn176);
                 applyW(topTs, splitOut176);
-                trace176("DEFTOPSPLIT", std::string(td->name));
+                lawTrace(176, "DEFTOPSPLIT", std::string(td->name));
             }
             continue;
         }
@@ -32726,7 +32618,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     applyW(et, lastPkg176);
                     if (in231)
                         lawTrace(231, "tfArgImportCloneFollowsIn231", dn216);
-                    trace216("tfArgImportCloneFollows216",
+                    lawTrace(216, "tfArgImportCloneFollows216",
                              dn216 + " refs=" + std::to_string(cnt.first));
                 }
             }
@@ -32787,7 +32679,7 @@ UHDM::design* UhdmExporter::exportDesign() {
                     lawTrace(231, "tfArgAliasDefListFollowsElab231",
                           std::string(td->name) + " refs=" + std::to_string(n231));
             }
-            trace176("CLSMETHODAPPLY", std::string(td->name));
+            lawTrace(176, "CLSMETHODAPPLY", std::string(td->name));
             continue;
         }
         // A PACKAGE typedef written from outside its package (an importing
@@ -32807,7 +32699,7 @@ UHDM::design* UhdmExporter::exportDesign() {
         if (aggTd176.count(td) && (!outside || !qual176))
             continue;
         if (aggTd176.count(td))
-            trace176("QUALAGG", std::string(td->name));
+            lawTrace(176, "QUALAGG", std::string(td->name));
         if (auto it = typedefTs.find(td); it != typedefTs.end() && !outside) {
             // § modEnumTfArgCloneFollows299 — the module enum's declaration
             // span before the move (the copies' key).

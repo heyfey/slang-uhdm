@@ -149,6 +149,8 @@ and never in the gate; report its cost when run.
 ~/git-repos/slang-uhdm            this repo (branch matrix-1.87; main = PR target)
   src/{ExprEmit,ModuleEmit,ParamEmit,StmtEmit,TaskFuncEmit,TypeEmit,UhdmExporter}.cpp
   include/UhdmExporter.h          the emitter (~200k lines; laws are § comments)
+  src/law/LawSwitch.h             the one switch reader (lawOn/fixOn) and trace writer (lawTrace) of every pass
+  src/law/LawState.h              the per-pass state sections (instrumentation only; no exporter logic in src/law/)
   build/slang-uhdm                the binary (cmake --build build -j 2)
   scripts/verify_golden.py        THE harness (one classification engine)
   scripts/accounting.py --md      regenerates the baseline table from results/*.csv
