@@ -22259,7 +22259,7 @@ laws with cases in the gate: 2507.
 - cases in the evidence (tools/probe/): r10buvm8repro/v1_argts8.sv r10buvm8repro/v20ord8.sv? r10buvm8repro/v21shadow8.sv? r10buvm8repro/v2_argts8.sv r10buvm8repro/v5a8.sv? r10buvm8repro/v5kinds8.sv? r10buvm8repro/v7misc8.sv? r10buvm8repro/vshadowcells8/v21_s4.sv? r10buvm8repro/vshadowcells8/v21_s9.sv?
 
 ### `pkgRetTopArgTsImportClone492`
-- commits: 22e1a1b43
+- commits: c02c05def
 - pass: r11u492repro
 - switches: R11U492_RETARGCLONE_OFF
 - source: src/ExprEmit.cpp(1) src/UhdmExporter.cpp(1)
@@ -26656,7 +26656,7 @@ laws with cases in the gate: 2507.
 - also mentioned by: r11u180repro r11u185verify r11u193repro r11u196repro r11u223repro r11u299repro r11u492repro v11u193repro
 
 ### `tfArgQualVecTdShared492`
-- commits: 22e1a1b43
+- commits: c02c05def
 - pass: r11u492repro
 - switches: R11U492_QUALVECTD_OFF
 - source: src/TaskFuncEmit.cpp(1) src/UhdmExporter.cpp(1)
