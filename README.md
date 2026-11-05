@@ -86,7 +86,7 @@ The default build compiles slang and UHDM in-tree from the submodules;
 | [tests/README.md](tests/README.md) | the gate: stages, statuses, baselines, golden cache |
 | [tests/LAWS.md](tests/LAWS.md) | every law, its pass, commits, switches and cases |
 | [tests/FENCED.md](tests/FENCED.md) | the four fenced tests |
-| [RESUME.md](RESUME.md), [PLAYBOOK.md](PLAYBOOK.md) | operator manual and method of the campaign |
+| [AGENTS.md](AGENTS.md), [.agents/skills/](.agents/skills/) | how agents work here: the rules, and the skills to claim EQUAL, fix one test, converge a group |
 
 ## License
 

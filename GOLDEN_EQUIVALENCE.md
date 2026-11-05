@@ -1,18 +1,15 @@
 > **2026-11-04:** the target below is reached on the strict gate and the campaign
-> is stopped at `9889dcaad` (tests/README.md has the measured baseline; RESUME.md
-> the operator manual). Since this file was written the gate gained the strict
+> is stopped at `9889dcaad` (tests/README.md has the measured baseline; AGENTS.md and
+> `.agents/skills/` the method). Since this file was written the gate gained the strict
 > comparator (2026-09-24), the probe stage (31943 cases) and the sv-tests stage
 > (2026-10-15); the corpora are submodules (871 and 798 tests).
 
 # GOLDEN EQUIVALENCE — phase 2 of the convergence campaign
 
-PLAYBOOK.md governs **how** to run a convergence campaign (gates, revert-and-
-refine, never-pause). HANDOFF.md records **where** the emitter stands, wave by
-wave. This document defines **phase 2**: what "equal to golden" means now that
+The method of the campaign is in AGENTS.md and `.agents/skills/`. This document defines **phase 2**: what "equal to golden" means now that
 phase 1 (uhdm2rtlil 0 DIFF) is done, and how to measure and drive it.
 
-Read PLAYBOOK.md first. Everything in it still applies — this file only changes
-the target and the measurement.
+This file defines the target and the measurement.
 
 ---
 
@@ -316,7 +313,7 @@ Denominator accounting (every excluded test is one of): `SLANG_REJECT`
 `CMP_NOTEQUAL`, the four slang-fenced tests (out of scope) account for 8 of the
 row-modes; the rest are on active head chains (the old "documented-unreachable
 BuildUVMPkg/SeqDriver/SimpleUVM PPCache" claim is OBSOLETE since 2026-08-16 —
-r10uvm83 brought the UVM container wall from 1.45M cmp lines to 54; see RESUME.md).
+r10uvm83 brought the UVM container wall from 1.45M cmp lines to 54; see the pass READMEs under tools/probe/).
 
 Byte identity (`dump=match`) is tracked on `CMP_EQUAL` rows only (phase-3
 metric; not-equal rows deliberately skip the dump).
@@ -525,7 +522,7 @@ per-commit gate becomes u2r testflags + Surelog testflags, always.**
 
 ### 4.3 Working method
 
-Unchanged from PLAYBOOK.md: sweep-and-cluster. Converge many failures into one
+Unchanged from the first phase: sweep-and-cluster. Converge many failures into one
 scratch dir, normalise each diff (digits → N, `(names)` → `(X)`), group by first
 divergence. Shared rules surface as families; families are what make a single
 fix worth many tests. Marker sweeps (append a unique suffix at every candidate
