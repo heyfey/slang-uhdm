@@ -97,7 +97,7 @@ on sources outside the grid is a mover you must predict.
    away; residues (cases still wrong on both binaries) are listed, not hidden.
 4. Run the full gate (claim-equal §4). Every mover must be one you predicted;
    an unpredicted mover means the predicate is wider than the law.
-5. Boundary: the probe stage of the sweep runs all 31943 cases; only your
+5. Boundary: the probe stage of the sweep runs every probe case; only your
    pass's cases may move, and any earlier case that moves must move toward
    golden (re-judge it against its golden by hand).
 

@@ -32,8 +32,8 @@ makes every old database unreadable; the cache handles that (below), but any
 ## 3. Let the golden cache rebuild
 
 The cache key holds Surelog's version line. After a Surelog or UHDM move the
-first full sweep rebuilds every golden (hours at three jobs: 798 + 871
-corpus tests in two modes, 31943 probe cases, 2346 sv-tests rows); nothing to
+first full sweep rebuilds every golden (hours at three jobs: both corpora in
+two modes, every probe case, every sv-tests row); nothing to
 do by hand, and the old entries stay valid for the old matrix (a different
 `GOLDEN_CACHE=<dir>` per matrix keeps them apart). A slang-only move leaves
 every golden valid: only our side changes.

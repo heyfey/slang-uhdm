@@ -83,7 +83,8 @@ procedure is the land-change skill):
 - Surelog or uhdm2rtlil row: edit that exact row in `results/golden_surelog.csv`
   or `results/golden_uhdm2rtlil.csv` to `CMP_EQUAL`, empty detail, strict `equal`.
 - Probe: `cp /tmp/<tag>/probe.csv results/golden_probe.csv` (the harness writes
-  the baseline's exact shape; on a clean run the two files are byte-identical).
+  the baseline's exact shape and order; on a clean run the two files are
+  byte-identical, so the diff of a promotion is the promoted rows alone).
 - sv-tests: `python3 scripts/check_svtests.py --write ...` or copy the sweep's
   `svtests.csv` over `results/golden_svtests.csv`.
 - Then `python3 scripts/accounting.py --md` to refresh GOLDEN_EQUIVALENCE.md §3.3,

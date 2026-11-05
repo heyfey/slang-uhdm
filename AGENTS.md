@@ -35,7 +35,7 @@ See `.agents/skills/claim-equal/SKILL.md`.
 | `tools/uhdm-strictcmp/` | the strict comparator |
 | `tests/sweep.sh`, `scripts/*.py` | the five-stage gate and its harnesses |
 | `results/golden_*.csv`, `results/downstream_uhdm2rtlil.csv` | the committed baselines |
-| `tests/probe/<pass>/.../dut.sv` + `LAW` | 31943 probe cases (one law each), stage one of the gate |
+| `tests/probe/<pass>/.../dut.sv` + `LAW` | the probe cases (one law each), stage one of the gate |
 | `tools/probe/<pass>repro/` | per-pass evidence: README, grid scripts, measurements, residue cases |
 | `tests/LAWS.md` | generated law index: law to pass, commits, switches, source sites, cases |
 | `tests/FENCED.md` | the four fenced tests |
@@ -88,8 +88,10 @@ bytes back, optional `lawTrace(<pass>, "§ name", detail)` tracing, state in
 `src/law/LawState.h`, and the cases that prove it under `tests/probe/<pass>/`
 with a `LAW` file. `python3 scripts/law_index.py` regenerates `tests/LAWS.md`;
 the sweep fails when it is stale. Work is organised in numbered **passes**
-(`r11u<N>repro` implementer, `v11u<N>repro` verifier); the last landed pass
-is 491, so the next is 492. See `.agents/skills/fix-one-test/SKILL.md`.
+(`r11u<N>repro` implementer, `v11u<N>repro` verifier); the next pass number
+is one above the highest under `tools/probe/` and `tests/probe/`
+(`ls tools/probe tests/probe | grep -oE 'r11u[0-9]+' | sort -t u -k 2 -n | tail -n 1`).
+See `.agents/skills/fix-one-test/SKILL.md`.
 
 ## Hard rules
 
@@ -112,9 +114,15 @@ is 491, so the next is 492. See `.agents/skills/fix-one-test/SKILL.md`.
 - **One landing = one commit**: law, cases, pass README, `tests/LAWS.md`,
   promoted rows together, and the message names the laws as `§ name` (the
   law index reads them from `git log`).
-- **Agents work in their own git worktree** at a named base and write only
-  under their pass directory and their scratch. Never `git stash`. Never touch
-  another agent's processes or files.
+- **Work in the checkout you were given.** A git worktree is for concurrent
+  agents only: when another agent builds or sweeps in the same checkout at the
+  same time, each takes its own worktree at the same base (a worktree needs
+  its own build). An agent writes only under its pass directory, the files
+  its law touches and its scratch. Never `git stash`. Never touch another
+  agent's processes or files.
+- **A landing in the main tree takes a verify-pass first** when the resource
+  defaults allow a second agent; a lone agent records in its pass README that
+  no independent verifier ran.
 
 ## Skills
 

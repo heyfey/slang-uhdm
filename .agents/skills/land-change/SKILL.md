@@ -53,8 +53,10 @@ times from their `cmds.txt` command; all hashes agree.
 
 - Converted Surelog or uhdm2rtlil rows: edit the exact row in
   `results/golden_*.csv` (`CMP_EQUAL`, empty detail, strict `equal`).
-- Probe: `cp /tmp/int<N>/probe.csv results/golden_probe.csv`; sv-tests:
-  `check_svtests.py --write` or copy the sweep's csv.
+- Probe: `cp /tmp/int<N>/probe.csv results/golden_probe.csv` (the baseline is
+  in the harness's order, so the diff is the promoted rows alone; a diff that
+  reorders rows means the copy came from a filtered or different run: stop);
+  sv-tests: `check_svtests.py --write` or copy the sweep's csv.
 - `python3 scripts/accounting.py --md` (GOLDEN_EQUIVALENCE.md §3.3),
   `python3 scripts/law_index.py` (tests/LAWS.md).
 - Documents the landing implies (counts in README.md's table or
@@ -65,6 +67,8 @@ times from their `cmds.txt` command; all hashes agree.
 
     git add -- src/<files> tests/LAWS.md results/<changed csvs> tools/probe/r11u<N>repro tools/probe/v11u<N>repro tests/probe/r11u<N>repro tests/probe/v11u<N>repro <docs>
     git commit -F <message file>
+    python3 scripts/law_index.py && git add tests/LAWS.md && git commit --amend --no-edit   # the index records the landing's own hash
+    python3 scripts/law_index.py --check      # current
     git status --porcelain | wc -l            # 0
 
 Never `git add -A`, never `git stash`. The message names the laws as
