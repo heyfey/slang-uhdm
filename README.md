@@ -71,7 +71,7 @@ only with the UHDM version that wrote it (`slang-uhdm --version` prints it).
 
 | slang-uhdm | [slang](https://github.com/MikePopoloski/slang) | [UHDM](https://github.com/chipsalliance/UHDM) | [Surelog](https://github.com/chipsalliance/Surelog) | [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) |
 |---|---|---|---|---|
-| branch `matrix-1.87` (unreleased) | v12.0 | v1.87 | v1.87 | v0.68 |
+| branch `slang-v12_0-surelog-v1_87-uhdm-v1_87-uhdm2rtlil-v0_68` (unreleased) | v12.0 | v1.87 | v1.87 | v0.68 |
 
 slang is the compiler front end, UHDM the database library, Surelog the golden
 producer and a test suite, uhdm2rtlil a test suite and the downstream consumer.
