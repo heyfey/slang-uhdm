@@ -1,7 +1,7 @@
 > **STATUS 2026-11-04 (last doc review): the convergence campaign is STOPPED**
 > by user directive at `9889dcaad` on `matrix-1.87`, after passes 401 to 491 of the
 > sv-tests campaign and the second probe census landed: the sv-tests gate ALL CLEAN (EQUAL 1937 of 2346, STRICT_NOTEQUAL 0, DIFFERENT 3 = the known exceptions p733, p737, tnoc), surelog 954 of 954 comparable row-modes CMP_EQUAL (Tnoc d/t CMP_NOTEQUAL and the four fenced tests by decision), uhdm2rtlil 1606 of 1606 (stamped_gen_param d/t CMP_NOTEQUAL by decision), probe 29901 EQUAL + 2042 STRICT_NOTEQUAL of 31943, downstream 803 IDENTICAL / 66 SLANG_REJECT / 2 EQUIVALENT / 0 DIVERGENT of 871. No agent is live and no
-> slot is refilled; the next work is the release cut (SUPPORT_MATRIX.md). The
+> slot is refilled; the next work is the release cut (README.md). The
 > procedures below remain the manual for resuming a campaign; the control and
 > worktree names in §2, §3 and §6 are those of the 2026-08 block (the later
 > passes used `/tmp/intr11u<pass>` sweep workdirs, `/tmp/wt_r11u<pass>` and
@@ -323,7 +323,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > --jobs 3, row-joins vs results/*.csv and the controls, byteverify with
 > a-priori movers by name, the canary battery from tools/probe/r11u107repro,
 > the ten hard db pins, promotion by surgical sed + accounting.py --md +
-> SUPPORT_MATRIX.md in the SAME commit, control rotation, family prune).
+> tests/README.md in the SAME commit, control rotation, family prune).
 > Instrument laws recorded at the end: a substituted parameter read keeps
 > its initializer literal's BASED encoding (the producer clones the
 > param_assign right-hand side); a generate block is its own design
@@ -370,7 +370,7 @@ Everything else — pins, canary names, fenced tests, quarantine — is in §1.
 > exact row text (u2r: golden_uhdm2rtlil.csv both modes + gate_uhdm2rtlil.csv
 > testflags; surelog: golden_surelog.csv per converted mode), regenerate the
 > GOLDEN_EQUIVALENCE.md §3.3 rows from scripts/accounting.py --md and update
-> SUPPORT_MATRIX.md in the SAME commit; then rotate the controls to
+> tests/README.md in the SAME commit; then rotate the controls to
 > /tmp/ctl_wd_{sl,u2r,u2r_def}_<head> + /tmp/ctl_*_<head>.csv +
 > /tmp/pris_<md5-4>.bin, prune the pair's worktrees and /tmp scratch, and
 > re-measure every open head on the new controls before refilling. Open
@@ -894,7 +894,7 @@ only shrinks from Windows.
 
 - `RESUME.md` (this) — procedures current; reviewed 2026-11-04 (status banner,
   §1 directives, §2 map, §3 slots); the §3b snapshot is the 2026-09-24 example.
-- `SUPPORT_MATRIX.md` — the pins and the measured baseline at the stop (2026-11-04).
+- the pins: README.md (Dependencies); the measured baseline: tests/README.md (SUPPORT_MATRIX.md was folded into README.md on 2026-11-05).
 - `tests/README.md`, `tests/probe/README.md`, `tools/probe/README.md` — the
   five-stage gate, the probe set after the second census, the evidence tree.
 - `tests/FENCED.md` — the fenced tests; `tests/LAWS.md` — generated law index.

@@ -1,64 +1,93 @@
 # slang-uhdm
 
-SystemVerilog → UHDM exporter built on [slang](https://github.com/MikePopoloski/slang).
-Produces `.uhdm` databases **structurally identical to Surelog's** folded
-output, so slang can drive UHDM consumers (uhdm2rtlil, synlig, sv-pathfinder)
-as a drop-in replacement for `surelog -parse`.
+A SystemVerilog to [UHDM](https://github.com/chipsalliance/UHDM) exporter built on [slang](https://github.com/MikePopoloski/slang).
+It writes the same `.uhdm` database that [Surelog](https://github.com/chipsalliance/Surelog)
+writes for the same sources, so any downstream UHDM consumer
+([uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil),
+[sv-pathfinder](https://github.com/alainmarcel/sv-pathfinder)) can use slang
+in place of `surelog -parse`.
 
-    slang-uhdm -f design.f -o design.uhdm     # accepts the full slang CLI
+    slang-uhdm -f design.f -o design.uhdm     # the full slang command line, plus -o
 
-## Compatibility contract
+## Every result is verified
 
-A `.uhdm` file only interops with the exact UHDM commit that wrote it.
-The pins are the submodules under `third_party/`:
+The claim: for every test slang and Surelog both compile, the two generated
+databases are equal. "Equal" is measured, never asserted.
 
-| Component | Where | Pin | Role |
-|---|---|---|---|
-| Surelog | `third_party/Surelog` | v1.87 (`0445655e`) | reference producer and test suites |
-| UHDM | `third_party/Surelog/third_party/UHDM` | as Surelog pins it (`c756248`, v1.87) | linked library, schema, `uhdm-cmp` / `uhdm-dump` |
-| slang | `third_party/slang` | `545f88b2e` (v12.0) | frontend library |
+- **Surelog is the golden.** The pinned Surelog writes the reference
+  database. Surelog, UHDM and slang are never patched.
+- **Two comparators must agree.** `uhdm-cmp` (UHDM's own structural compare)
+  and `uhdm-strictcmp` (ours), which also compares full names, file names,
+  spans, decompiled text, sizes, values and child order. A pair is EQUAL only
+  when both say so.
+- **A gated baseline.** `tests/sweep.sh` runs five stages and fails on any row
+  that leaves equality against the committed csvs in `results/`. Every commit
+  of the campaign passed the full gate first.
+- **Downstream proof.** uhdm2rtlil's Yosys plugin synthesizes Surelog's and
+  slang-uhdm's database through the same flow; the netlists must be
+  byte-identical or proven equivalent.
 
-`slang-uhdm --version` prints the slang and UHDM versions a binary was
-built with, including the UHDM commit. A build with
-`-DSLANG_UHDM_USE_SYSTEM_DEPS=ON` links the UHDM installed at the prefix
-instead of the submodule; the campaign's gate binaries were built that way
-against UHDM `18837c1`, an earlier commit of the same v1.87 line (the
-`bump-1.87` merge `c756248` changed no schema), and judge equal against
-goldens written by the submodule's Surelog.
+Details: [GOLDEN_EQUIVALENCE.md](GOLDEN_EQUIVALENCE.md), [tests/README.md](tests/README.md).
 
-## Build
+## Test status
 
-    git submodule update --init --recursive       # slang, Surelog, and Surelog's UHDM + capnproto
+| Suite | Total | Both compile | Equal | Rate |
+|---|---|---|---|---|
+| Surelog suite | 798 | 484 | 480 | 99.2% |
+| uhdm2rtlil | 871 | 804 | 803 | 99.9% |
+| sv-tests | 2346 | 1940 | 1937 | 99.8% |
+| uhdm2rtlil downstream synthesis | 871 | 805 | 805 | 100% |
+| probe cases, `uhdm-cmp` | 31943 | 31943 | 31943 | 100% |
+| probe cases, strict | 31943 | 31943 | 29901 | 93.6% |
+
+Not claimed:
+
+- **Sources slang rejects.** slang-uhdm compiles what slang compiles. Tests
+  Surelog accepts and slang diagnoses are out of scope (see tests/README.md
+  for the counts).
+- **Four fenced tests** where slang and Surelog evaluate a constant
+  differently before the exporter runs ([tests/FENCED.md](tests/FENCED.md)).
+- **Surelog's non-database output:** caching, logging, preprocessor dumps.
+
+## Quick start
+
+    git submodule update --init --recursive
     cmake -B build -DCMAKE_BUILD_TYPE=Release
     cmake --build build -j 4
+    build/slang-uhdm -f design.f -o design.uhdm
 
-That builds slang and UHDM in-tree from the submodules. To link installed
-packages instead (`cmake --install` of slang and UHDM to a prefix):
+Database options beyond slang's: `--elabuhdm` (Surelog's `-elabuhdm`),
+`--nobuiltin`, `--sverilog`, `--single-unit`.
 
-    cmake -B build -DCMAKE_BUILD_TYPE=Release -DSLANG_UHDM_USE_SYSTEM_DEPS=ON -DCMAKE_PREFIX_PATH=$HOME/.local
+To reproduce the verification: `make -C third_party/Surelog release`, then
+`tests/sweep.sh`. The first run builds every golden and takes hours; later
+runs take about an hour.
 
-The producer for the test sweep is built separately inside the Surelog
-submodule; see tests/README.md.
+## Dependencies
 
-## Status
+Each slang-uhdm release is developed and verified against one set of tool
+versions, pinned as submodules under `third_party/`. A `.uhdm` file interops
+only with the UHDM version that wrote it (`slang-uhdm --version` prints it).
 
-Converged on the strict gate (uhdm-cmp equal AND uhdm-strictcmp equal) and
-stopped for the release cut on 2026-11-04 at `9889dcaad`: the sv-tests gate ALL CLEAN (EQUAL 1937 of 2346, STRICT_NOTEQUAL 0, DIFFERENT 3 = the known exceptions p733, p737, tnoc), surelog 954 of 954 comparable row-modes CMP_EQUAL (Tnoc d/t CMP_NOTEQUAL and the four fenced tests by decision), uhdm2rtlil 1606 of 1606 (stamped_gen_param d/t CMP_NOTEQUAL by decision), probe 29901 EQUAL + 2042 STRICT_NOTEQUAL of 31943, downstream 803 IDENTICAL / 66 SLANG_REJECT / 2 EQUIVALENT / 0 DIVERGENT of 871.
-Every exporter rule is a law (`§ name`) decoded from Surelog's source; the
-law index `tests/LAWS.md` maps each law to its pass, commits, source sites,
-switches and probe cases. See SUPPORT_MATRIX.md for the pins and the measured
-baseline, tests/README.md for the gate, RESUME.md for the operator manual of
-the convergence campaign, GOLDEN_EQUIVALENCE.md for the target definition.
-HANDOFF.md, PLAN.md and NOTES.md are historical logs of the first phases.
+| slang-uhdm | [slang](https://github.com/MikePopoloski/slang) | [UHDM](https://github.com/chipsalliance/UHDM) | [Surelog](https://github.com/chipsalliance/Surelog) | [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) |
+|---|---|---|---|---|
+| branch `matrix-1.87` (unreleased) | v12.0 | v1.87 | v1.87 | v0.68 |
 
-## Testing
+slang is the compiler front end, UHDM the database library, Surelog the golden
+producer and a test suite, uhdm2rtlil a test suite and the downstream consumer.
+The default build compiles slang and UHDM in-tree from the submodules;
+`-DSLANG_UHDM_USE_SYSTEM_DEPS=ON` links packages installed at a prefix instead.
 
-The reference corpora (Surelog's suites, 798 tests; uhdm2rtlil's, 871 tests)
-are submodules, the producer is built from `third_party/Surelog`, and Surelog's
-golden databases are cached after the first run. The fifth stage runs the
-chipsalliance sv-tests suite (2346 tests) from a checkout next to this
-repository. See tests/README.md.
+## Documentation
 
-    tests/sweep.sh                                # the gate: 31943 probe cases, both corpora x both modes, downstream uhdm2rtlil, sv-tests
-    ./scripts/converge.sh <dut.sv>                # one-test dump-diff + cmp
-    ./scripts/triage.sh out.csv                   # per-round priorities
+| Document | Content |
+|---|---|
+| [GOLDEN_EQUIVALENCE.md](GOLDEN_EQUIVALENCE.md) | the target, the two modes, the flag policy |
+| [tests/README.md](tests/README.md) | the gate: stages, statuses, baselines, golden cache |
+| [tests/LAWS.md](tests/LAWS.md) | every law, its pass, commits, switches and cases |
+| [tests/FENCED.md](tests/FENCED.md) | the four fenced tests |
+| [RESUME.md](RESUME.md), [PLAYBOOK.md](PLAYBOOK.md) | operator manual and method of the campaign |
+
+## License
+
+MIT.

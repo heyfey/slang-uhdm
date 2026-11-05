@@ -1,5 +1,5 @@
 > **2026-11-04:** the target below is reached on the strict gate and the campaign
-> is stopped at `9889dcaad` (SUPPORT_MATRIX.md has the measured baseline; RESUME.md
+> is stopped at `9889dcaad` (tests/README.md has the measured baseline; RESUME.md
 > the operator manual). Since this file was written the gate gained the strict
 > comparator (2026-09-24), the probe stage (31943 cases) and the sv-tests stage
 > (2026-10-15); the corpora are submodules (871 and 798 tests).
@@ -291,7 +291,7 @@ error handler. It cannot change the database.
 
 > Regenerated 2026-11-04 at `9889dcaad` (the convergence stop) by
 > `python3 scripts/accounting.py --md`. For the probe and sv-tests stages see
-> SUPPORT_MATRIX.md.
+> tests/README.md.
 
 The authoritative numbers come from the committed per-test CSVs via
 `python3 scripts/accounting.py` (`--md` for this table). Prose and commit

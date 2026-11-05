@@ -1,6 +1,6 @@
 > **2026-11-04: the convergence campaign is STOPPED** (user directive) at
 > `9889dcaad` on `matrix-1.87`, with every gate clean except the rows excluded by
-> decision (SUPPORT_MATRIX.md). The next work is the release cut, not another
+> decision (README.md). The next work is the release cut, not another
 > pass. This prompt stays as the manual for resuming a convergence campaign.
 
 # RESUME_PROMPT — paste this to the model that takes over (any model, any time)
