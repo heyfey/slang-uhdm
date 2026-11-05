@@ -67,12 +67,9 @@ times from their `cmds.txt` command; all hashes agree.
     git commit -F <message file>
     git status --porcelain | wc -l            # 0
 
-Never `git add -A`, never `git stash`. The message: a subject naming the pass
-and its laws; the decoded rule with Surelog file:line; durable measurements
-(rows converted, cases, movers, "gate clean" in one line); residues; the
-evidence pointer (`tools/probe/r11u<N>repro/README.md`). No `/tmp` paths, no
-md5s, no worktree or rotation notes, no "(user DATE)" tags. Project
-attribution trailers as the user's instructions state.
+Never `git add -A`, never `git stash`. The message names the laws as
+`§ name` (the law index reads commits for them); the evidence lives in the
+pass README, not in the message.
 
 ## 6. Rotate and prune
 

@@ -110,9 +110,8 @@ is 491, so the next is 492. See `.agents/skills/fix-one-test/SKILL.md`.
   with every database byte-identical (full sweep + md5 comparison against a
   control sweep). Exporter logic is refactored only when the gate stays clean.
 - **One landing = one commit**: law, cases, pass README, `tests/LAWS.md`,
-  promoted rows together. The message states the mechanism (Surelog file:line,
-  the rule) and durable measurements only: no `/tmp` paths, no md5s, no
-  worktree notes, no "(user DATE)" tags.
+  promoted rows together, and the message names the laws as `§ name` (the
+  law index reads them from `git log`).
 - **Agents work in their own git worktree** at a named base and write only
   under their pass directory and their scratch. Never `git stash`. Never touch
   another agent's processes or files.

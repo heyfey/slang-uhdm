@@ -114,8 +114,7 @@ on sources outside the grid is a mover you must predict.
   sweep summary. The README is where the next agent learns why the law exists.
 - `python3 scripts/law_index.py && python3 scripts/law_index.py --check`.
 - Promote converted rows (claim-equal §5) and commit everything in one commit
-  whose message names `§ <lawName><N>`, the Surelog site, the rule and the
-  durable counts. No `/tmp` paths, no md5s.
+  whose message names `§ <lawName><N>`.
 
 ## Emitter facts that break naive fixes
 
