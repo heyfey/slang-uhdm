@@ -2,7 +2,7 @@
 //! @file LawSwitch.h
 //! @brief The one switch reader and trace writer shared by every landed pass
 //
-// Every pass NNN (src/RNNN.h, tests/LAWS.md) guards each of its laws with an
+// Every pass NNN (its section in LawState.h, tests/LAWS.md) guards each of its laws with an
 // environment switch so a verifier can drop one law, one pass, or one pass's
 // refinements and get the earlier bytes back:
 //   lawOn(NNN, "R11UNNN_<LAW>_OFF")   false when R11UNNN_OFF or the switch is set
@@ -14,7 +14,10 @@
 // lawTrace(NNN, law, detail) appends one line per firing or abstention to
 // <dir>/<pid>.NNN when R11UNNN_TRACE=<dir> (or, for the early passes 204 to
 // 233, R11VNNN_TRACE) is set; the first line of the file is `OUT <-o path>`.
-// With the variable unset no file is opened.
+// R11UNNN_TRACE=1 prints the lines to stderr instead. With the variable unset
+// nothing is opened. Since 2026-11-04 every pass traces this way: the per-pass
+// writers of passes 139 to 219 (stderr prefixes, suffixed files such as
+// <pid>.200E) were folded into lawTrace, so a pass-200 trace is one file.
 //
 // SPDX-License-Identifier: MIT
 //------------------------------------------------------------------------------
@@ -131,7 +134,8 @@ inline FILE* open(int pass) {
     if (s.tried)
         return s.fp;
     s.tried = true;
-    s.fp = openFile(pass, std::to_string(pass));
+    const char* d = traceDir(pass);
+    s.fp = (d && std::string(d) == "1") ? stderr : openFile(pass, std::to_string(pass));
     return s.fp;
 }
 }  // namespace lawtrace_detail
