@@ -46580,6 +46580,46 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                                 t8 = ate8;
                     return t8;
                 };
+                // § pkgRetTopArgTsImportClone492 (r11u492, probe
+                // r10buvm8repro/vxpkg8) — a BARE call of a function another
+                // package's wildcard import brought in (`zf(a, b)` in `ap`
+                // importing `zp::*`), in a return of the elaborated listing,
+                // stamps its actuals with the formal typespecs of the
+                // importer's CLONE (`ap::zf`, the function the call binds),
+                // not with the home function's elaborated twin's: golden
+                // vxpkg8 `ap::af`'s `a` and `b` read `ap::zf`'s formal
+                // copies (alias -> the bare unaliased `zb_t`), where ours
+                // read `zp::zf`'s (alias -> the listing `zp::zb_t`).  The
+                // clone's formal copies are final only after
+                // § importCloneBareTdAlias16 (design-final), so the call, the
+                // clone and the objects stamped here are recorded and
+                // UhdmExporter::exportDesign re-points every actual still
+                // holding its stamp to the clone's formal typespec when that
+                // is a scalar or vector kind (an enum formal abstains: grid
+                // r11u446 EB/eb03 moved away).  Grid
+                // tools/probe/r11u492repro/cases/RC.  Switch
+                // R11U492_RETARGCLONE_OFF.
+                if (pkgTopEmit && pkgRetTopExpr8 && isFunc && curPkgEmitSym && !boundClone &&
+                    stampTf8 && stampTf8->Io_decls() && sub.getParentScope() &&
+                    &sub.getParentScope()->asSymbol() != (const Symbol*)curPkgEmitSym &&
+                    rawText(expr.sourceRange).find("::") == std::string::npos &&
+                    lawOn(492, "R11U492_RETARGCLONE_OFF"))
+                    if (auto c492 = importCopyFunc.find(
+                            {(const Symbol*)curPkgEmitSym, (const Symbol*)&sub});
+                        c492 != importCopyFunc.end() && c492->second &&
+                        (UHDM::task_func*)c492->second != stampTf8 &&
+                        c492->second->Io_decls() &&
+                        c492->second->Io_decls()->size() == stampTf8->Io_decls()->size()) {
+                        QualRetClone492 r492;
+                        r492.call = (UHDM::tf_call*)fc;
+                        r492.clone = c492->second;
+                        r492.home = stampTf8;
+                        for (size_t i492 = 0; i492 < stampTf8->Io_decls()->size(); i492++)
+                            r492.stamped.push_back(formalTs8v(i492));
+                        retArgClone492().push_back(std::move(r492));
+                        lawTrace(492, "pkgRetTopArgTsImportClone492",
+                                 std::string(c492->second->VpiFullName()));
+                    }
                 // slang materialises a DEFAULTED formal as a full argument
                 // expression (located at the declaration's default). Surelog
                 // lists only the arguments actually WRITTEN — probe-verified

@@ -20,10 +20,10 @@ several laws and nothing says which one a case exercises, the case is listed und
 each of them with a trailing `?` until its author writes its LAW file. A
 verification pass owns the laws of the pass it verifies.
 
-Laws: 3477. Cases in the gate: 31943, tied to one law 30692, listed with `?`
+Laws: 3479. Cases in the gate: 31979, tied to one law 30728, listed with `?`
 under several 630, tied to no law 621 (listed at the end).
-Laws with a commit on this branch: 2815;
-laws with cases in the gate: 2505.
+Laws with a commit on this branch: 2817;
+laws with cases in the gate: 2507.
 
 ## 1. Laws
 
@@ -15119,10 +15119,10 @@ laws with cases in the gate: 2505.
 ### `importCloneBareTdAlias16`
 - commits: none on this branch
 - pass: r10uvm16repro
-- source: include/UhdmExporter.h(2) src/ParamEmit.cpp(1) src/TaskFuncEmit.cpp(2) src/TypeEmit.cpp(2) src/UhdmExporter.cpp(1)
+- source: include/UhdmExporter.h(2) src/ExprEmit.cpp(1) src/ParamEmit.cpp(1) src/TaskFuncEmit.cpp(2) src/TypeEmit.cpp(2) src/UhdmExporter.cpp(2)
 - cases in the gate (tests/probe/): none
 - cases in the evidence (tools/probe/): r10uvm16repro/t26/t.sv r10uvm36repro/t48b/dut.sv
-- also mentioned by: r10earl96repro r10earl_repro r10uvm123repro r10uvm17repro r10uvm180repro r10uvm204repro r10uvm205repro r10uvm207repro r10uvm36repro r10v123repro
+- also mentioned by: r10earl96repro r10earl_repro r10uvm123repro r10uvm17repro r10uvm180repro r10uvm204repro r10uvm205repro r10uvm207repro r10uvm36repro r10v123repro r11u492repro
 
 ### `importCloneBodyLocalCopies175`
 - commits: 1e8a21012 3ffaa399f 7d6db9cad 80a1c2af2 50a01bc3d
@@ -22258,6 +22258,14 @@ laws with cases in the gate: 2505.
 - cases in the gate (tests/probe/): r10buvm8repro/v11coll8 r10buvm8repro/v12coll8 r10buvm8repro/v21_s1 r10buvm8repro/v21_s2 r10buvm8repro/v21_s3 r10buvm8repro/v21_s5 r10buvm8repro/v21_s6 r10buvm8repro/v21_s7 r10buvm8repro/v21_s8 r10buvm8repro/v22body8 r10buvm8repro/v3_argts8 r10buvm8repro/v5b8 r10buvm8repro/v6ctx8 r10buvm8repro/v9fold8 r10buvm8repro/vfwd8 r10buvm8repro/vfwdts8 r10buvm8repro/vxpkg8
 - cases in the evidence (tools/probe/): r10buvm8repro/v1_argts8.sv r10buvm8repro/v20ord8.sv? r10buvm8repro/v21shadow8.sv? r10buvm8repro/v2_argts8.sv r10buvm8repro/v5a8.sv? r10buvm8repro/v5kinds8.sv? r10buvm8repro/v7misc8.sv? r10buvm8repro/vshadowcells8/v21_s4.sv? r10buvm8repro/vshadowcells8/v21_s9.sv?
 
+### `pkgRetTopArgTsImportClone492`
+- commits: 22e1a1b43
+- pass: r11u492repro
+- switches: R11U492_RETARGCLONE_OFF
+- source: src/ExprEmit.cpp(1) src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): r10buvm8repro/vxpkg8 r11u492repro/cases/RC/rc01_dpi_bare r11u492repro/cases/RC/rc02_vec_td r11u492repro/cases/RC/rc03_int_formals r11u492repro/cases/RC/rc04_qualified_call r11u492repro/cases/RC/rc05_two_importers r11u492repro/cases/RC/rc06_not_return
+- cases in the evidence (tools/probe/): r11u492repro/cases/Q/q15_unpacked_formal/dut.sv r11u492repro/cases/Q/q27_byte_td/dut.sv r11u492repro/cases/Q/q33_clone_in_writer/dut.sv r11u492repro/cases/Q/q34_clone_in_other_importer/dut.sv r11u492repro/cases/Q/q35_clone_no_import_writer/dut.sv r11u492repro/cases/RC/rc07_nested_expr/dut.sv
+
 ### `pkgRetTopCallArgFormalTs8`
 - commits: 79efb6474
 - pass: r10buvm8repro
@@ -22265,7 +22273,7 @@ laws with cases in the gate: 2505.
 - corpus tests: BuildUVMPkg
 - cases in the gate (tests/probe/): r10buvm8repro/v10rep8 r10buvm8repro/v11coll8 r10buvm8repro/v12coll8 r10buvm8repro/v21_s1 r10buvm8repro/v21_s2 r10buvm8repro/v21_s3 r10buvm8repro/v21_s5 r10buvm8repro/v21_s6 r10buvm8repro/v21_s7 r10buvm8repro/v21_s8 r10buvm8repro/v22body8 r10buvm8repro/v3_argts8 r10buvm8repro/v4order8 r10buvm8repro/v5b8 r10buvm8repro/v6ctx8 r10buvm8repro/v8twice8 r10buvm8repro/v9fold8 r10buvm8repro/vfwd8 r10buvm8repro/vfwdts8 r10buvm8repro/voob8 r10buvm8repro/vxpkg8
 - cases in the evidence (tools/probe/): r10buvm8repro/v1_argts8.sv r10buvm8repro/v20ord8.sv? r10buvm8repro/v21shadow8.sv? r10buvm8repro/v2_argts8.sv r10buvm8repro/v5a8.sv? r10buvm8repro/v5kinds8.sv? r10buvm8repro/v7misc8.sv? r10buvm8repro/vshadowcells8/v21_s4.sv? r10buvm8repro/vshadowcells8/v21_s9.sv?
-- also mentioned by: r10buvm13repro r10uvm127repro r10uvm86repro r11u298repro r11u300repro r11u48repro
+- also mentioned by: r10buvm13repro r10uvm127repro r10uvm86repro r11u298repro r11u300repro r11u48repro r11u492repro
 
 ### `pkgRetTopExpr8`
 - commits: none on this branch
@@ -26611,7 +26619,7 @@ laws with cases in the gate: 2505.
 - commits: c4f260792
 - pass: - (verified by v11u216repro)
 - switches: R11U216_OFF R11V216_CLSKEY_OFF
-- source: src/UhdmExporter.cpp(2)
+- source: src/UhdmExporter.cpp(3)
 - corpus tests: BuildUVMPkg Earlgrey MiniAmiq Scoreboard SeqDriver SimpleUVM cfg_func_width_loop
 - cases in the gate (tests/probe/): r11u221verify/cases/W/w01 r11u221verify/cases/W/w02 r11u221verify/cases/W/w03 r11u221verify/cases/W/w05 v11u216repro/cases/T/t01 v11u216repro/cases/T/t02 v11u216repro/cases/T/t03 v11u216repro/cases/T/t04 v11u216repro/cases/T/t09 v11u216repro/cases/T/t12
 - cases in the evidence (tools/probe/): r11u221verify/cases/W/w06/a.sv r11u221verify/cases/W/w06/b.sv v11u216repro/cases/T/t11/dut.sv v11u216repro/cases/T/t11/pk.sv
@@ -26631,7 +26639,7 @@ laws with cases in the gate: 2505.
 - commits: b8719ea92
 - pass: r11u193repro (verified by v11u193repro)
 - switches: R11U193_CASTLEAF_OFF R11U193_CASTTSNAME_OFF R11U193_COPYORDER_OFF R11U193_NESTNAME_OFF R11U193_OFF R11U193_SYSARGDEF_OFF R11U193_TERNFILL_OFF R11U193_UNSIZEDCLONE_OFF R11V193_NESTPKGQ_OFF R11V193_NESTSEL_OFF R11V193_OFF R11V193_UCRANGE_OFF
-- source: src/UhdmExporter.cpp(2)
+- source: src/UhdmExporter.cpp(3)
 - corpus tests: ibex_pmp rsp_gen_minimal
 - cases in the gate (tests/probe/): r11u193repro/cases/PM/p01_same r11u193repro/cases/PM/p02_writer_first r11u193repro/cases/PM/p03_writer_last r11u193repro/cases/PM/p04_bare_writer r11u193repro/cases/PM/p05_iface_writer r11u193repro/cases/PM/p06_program_writer r11u193repro/cases/PM/p08_two_files r11u193repro/cases/PM/p10_macro_writer r11u193repro/cases/PM/p11_two_importers r11u199verify/cases/O/o01_two_importers_one_writer r11u199verify/cases/O/o02_program_writer r11u199verify/cases/O/o04_writer_in_header v11u193repro/cases/PM/pm01_two_writers v11u193repro/cases/PM/pm02_uppercase v11u193repro/cases/PM/pm05_scalar v11u193repro/cases/PM/pm07_pkg_users v11u193repro/cases/PM/pm08_two_params v11u193repro/cases/PM/pm09_twofiles_same_pos v11u193repro/cases/PM/pm10_hdr_writer v11u193repro/cases/PM/pm12_samepos_twofiles
 - cases in the evidence (tools/probe/): r11u193repro/cases/PM/p07_pkg_importer/dut.sv r11u193repro/cases/PM/p09_enum/dut.sv r11u199verify/cases/O/o03_iface_writer/dut.sv r11u199verify/cases/O/o05_pkg_imports_pkg/dut.sv v11u193repro/cases/PM/pm03_iface_importer/dut.sv v11u193repro/cases/PM/pm04_explicit_import/dut.sv v11u193repro/cases/PM/pm06_writer_imports/dut.sv
@@ -26641,11 +26649,19 @@ laws with cases in the gate: 2505.
 - commits: c029f423b 804e3b75c
 - pass: r11u176repro (verified by v11u176repro)
 - switches: R11U175_FSPAN_OFF R11U175_OFF R11U176_CASTCLONE_OFF R11U176_CLSMETHOD_OFF R11U176_DEFTOPSPLIT_OFF R11U176_ELSEBEGIN_OFF R11U176_GENARR_OFF R11U176_GENMPLOC_OFF R11U176_GENPLAINLOC_OFF R11U176_GENPLAINVARS_OFF R11U176_OFF R11U176_PROGLCLOC_OFF R11U176_PROGMPDEF_OFF R11U176_PROGVIEW_OFF R11U176_QUALFORMAL_OFF R11U176_TDKEY_OFF R11U176_TDTIE_OFF R11U176_UDPLV_OFF R11V176_TDKEYUNRES_OFF
-- source: src/TaskFuncEmit.cpp(2) src/TypeEmit.cpp(1) src/UhdmExporter.cpp(8)
+- source: src/TaskFuncEmit.cpp(2) src/TypeEmit.cpp(1) src/UhdmExporter.cpp(9)
 - corpus tests: BuildUVMPkg MiniAmiq SeqDriver SimpleUVM arb_idx_cast const_cast_signext func_typename_ret
 - cases in the gate (tests/probe/): r11u176repro/cases/PQ/q01_enum r11u176repro/cases/PQ/q02_struct r11u176repro/cases/PQ/q03_two_funcs r11u176repro/cases/PQ/q04_task r11u176repro/cases/PQ/q05_mix_bare r11u176repro/cases/PQ/q06_pkgfunc_other_pkg r11u176repro/cases/PQ/q07_spaced r11u176repro/cases/PQ/q08_port_and_formal r11u176repro/cases/PQ/q09_union r11u176repro/cases/PQ/q11_two_modules r11u176repro/cases/PQ/q12_alias r11u176repro/cases/PQ/q13_return_ctl r11u176repro/cases/PQ/q14_unpacked_formal r11u176repro/cases/PQ/q16_unused_func r11u176repro/cases/PQ/q17_struct_bare_import r11u176repro/cases/PQ/q18_struct_inside_pkg r11u176repro/cases/PQ/q19_func_input_dir r11u176repro/cases/PQ/q20_bare_input_dir r11u185verify/cases/TW/w04_qual_formal_imported_pkg r11u185verify/cases/TW/w05_three_containers r11u185verify/cases/TW/w14_cls_qual_imported_only r11u185verify/cases/TW/w15_qual_iface_ref_struct r11u185verify/cases/TW/w16_qual_union_modfunc v11u176repro/cases/PQ/q01_cls_other_pkg_qual v11u176repro/cases/PQ/q02_iface_func_qual_struct v11u176repro/cases/PQ/q03_rtl_qual_struct v11u176repro/cases/PQ/q04_rtl_qual_enum_case v11u176repro/cases/PQ/q05_two_pkgs_same_name v11u176repro/cases/PQ/q06_qual_and_import_other_mod v11u176repro/cases/PQ/q07_qual_unpacked_struct v11u176repro/cases/PQ/q08_qual_task_output v11u176repro/cases/PQ/q09_qual_prog v11u176repro/cases/PQ/q10_qual_typedef_in_module_pkgtype v11u176repro/cases/PQ/q11_ref_dir v11u176repro/cases/PQ/q12_const_ref_dir v11u176repro/cases/PQ/q13_input_two_declarators v11u176repro/cases/PQ/q14_inout_task v11u176repro/cases/PQ/q15_qual_packed_dim v11u176repro/cases/PQ/q16_qual_macro v11u176repro/cases/PQ/q17_qual_multiline v11u176repro/cases/PQ/q18_qual_unused_func_twice v11u176repro/cases/PQ/q19_qual_pasted v11u176repro/cases/PQ/q20_qual_macro_arg_func v11u176repro/cases/PQ/q21_qual_inactive_branch
 - cases in the evidence (tools/probe/): r11u176repro/cases/PQ/q15_in_pkg_self/dut.sv
-- also mentioned by: r11u180repro r11u185verify r11u193repro r11u196repro r11u223repro r11u299repro v11u193repro
+- also mentioned by: r11u180repro r11u185verify r11u193repro r11u196repro r11u223repro r11u299repro r11u492repro v11u193repro
+
+### `tfArgQualVecTdShared492`
+- commits: 22e1a1b43
+- pass: r11u492repro
+- switches: R11U492_QUALVECTD_OFF
+- source: src/TaskFuncEmit.cpp(1) src/UhdmExporter.cpp(1)
+- cases in the gate (tests/probe/): r10buvm8repro/vxpkg8 r11u492repro/cases/Q/q01_one_formal r11u492repro/cases/Q/q02_two_formals r11u492repro/cases/Q/q03_ret_only r11u492repro/cases/Q/q04_module_var r11u492repro/cases/Q/q05_task r11u492repro/cases/Q/q06_two_pkgs r11u492repro/cases/Q/q07_module_func r11u492repro/cases/Q/q08_int_td r11u492repro/cases/Q/q09_struct_td r11u492repro/cases/Q/q10_enum_td r11u492repro/cases/Q/q11_import_bare_and_qual r11u492repro/cases/Q/q12_qual_then_bare r11u492repro/cases/Q/q13_no_caller r11u492repro/cases/Q/q14_dir_input r11u492repro/cases/Q/q16_nonansi r11u492repro/cases/Q/q17_class_method r11u492repro/cases/Q/q18_bit_td r11u492repro/cases/Q/q19_alias_of_alias r11u492repro/cases/Q/q20_inside_own_pkg r11u492repro/cases/Q/q21_pkg_then_module r11u492repro/cases/Q/q22_pkg_fn_and_class r11u492repro/cases/Q/q23_two_modules r11u492repro/cases/Q/q24_param_range r11u492repro/cases/Q/q25_module_and_class r11u492repro/cases/Q/q26_two_pkgs_name_order r11u492repro/cases/Q/q28_output_formal r11u492repro/cases/Q/q29_module_bare_import r11u492repro/cases/Q/q30_bare_pkg_and_qual_pkg r11u492repro/cases/Q/q31_two_instances r11u492repro/cases/Q/q32_home_bare_and_outside_qual
+- cases in the evidence (tools/probe/): r11u492repro/cases/Q/q15_unpacked_formal/dut.sv r11u492repro/cases/Q/q27_byte_td/dut.sv r11u492repro/cases/Q/q33_clone_in_writer/dut.sv r11u492repro/cases/Q/q34_clone_in_other_importer/dut.sv r11u492repro/cases/Q/q35_clone_no_import_writer/dut.sv r11u492repro/cases/RC/rc07_nested_expr/dut.sv
 
 ### `tfArgScalarTdCallArgFollows231`
 - commits: 7d6de7c1b
@@ -26679,11 +26695,11 @@ laws with cases in the gate: 2505.
 - commits: 75a564b01
 - pass: r11u223repro (verified by v11u223repro)
 - switches: R11U223_OFF R11U223_SCALARTDEXP_OFF R11U223_SCALARTDTOK_OFF R11V223_DETREG_OFF R11V223_OFF
-- source: src/TaskFuncEmit.cpp(2) src/UhdmExporter.cpp(2)
+- source: src/TaskFuncEmit.cpp(2) src/UhdmExporter.cpp(4)
 - corpus tests: BuildUVMPkg MiniAmiq Scoreboard SeqDriver SimpleUVM
 - cases in the gate (tests/probe/): r11u223repro/cases/F/f01 r11u223repro/cases/F/f02 r11u223repro/cases/F/f03 r11u223repro/cases/F/f04 r11u223repro/cases/F/f05 r11u223repro/cases/F/f06 r11u223repro/cases/F/f07 r11u223repro/cases/F/f08 r11u223repro/cases/F/f09 r11u223repro/cases/F/f11 r11u223repro/cases/F/f12 r11u223repro/cases/F/f13 r11u223repro/cases/F/f14 r11u223repro/cases/F/f15 r11u223repro/cases/F/f16 r11u223repro/cases/F/f17 r11u223repro/cases/F/f18 r11u223repro/cases/F/f19 r11u223repro/cases/F/f21 r11u223repro/cases/F/f22 r11u223repro/cases/F/f23 r11u223repro/cases/F/f27 r11u223repro/cases/F/f28 r11u223repro/cases/F/f29 r11u226verify/cases/F/f01_all_scalar_kinds r11u226verify/cases/F/f03_scopes_ifc_prog_mod r11u226verify/cases/F/f09_static_virtual_override r11u226verify/cases/F/f12_time_real_string r11u226verify/cases/F/f13_exp_first_mod_plain r11u226verify/cases/F/f15_exp_first_mod_localtd r11u226verify/cases/X/x01_scalar_formal_clone_ret r11u226verify/cases/X/x06_scalar_formal_extern_clone r11u229verify/cases/E/e01 r11u229verify/cases/E/e02 r11u229verify/cases/E/e03 r11u229verify/cases/E/e05 r11u229verify/cases/E/e07 v11u223repro/cases/A/a02_inherited v11u223repro/cases/A/a03_tdoftd v11u223repro/cases/A/a04_logicvariants v11u223repro/cases/A/a05_ctor_static v11u223repro/cases/A/a06_ifaceclass v11u223repro/cases/A/a07_pkgfunc_calls v11u223repro/cases/A/a08_shadow v11u223repro/cases/A/a09_iface_gen v11u223repro/cases/A/a10_nested v11u223repro/cases/A/a12_explicit_import v11u223repro/cases/A/a15_covergroup v11u223repro/cases/A/a17_fixedunpacked v11u223repro/cases/A/a18_multiline_comments v11u223repro/cases/A/a20_include_macro v11u223repro/cases/A/a21_crlf v11u223repro/cases/A/a22_extern_oob v11u223repro/cases/A/a23_modclass_unit v11u223repro/cases/A/a24_elab_twice v11u223repro/cases/A/a25_import_clone v11u223repro/cases/A/a26_reexport v11u223repro/cases/A/a28_paramclass_spec v11u223repro/cases/A/a29_samefile_twoformals_sameline v11u223repro/cases/A/a30_modclass_elab v11u223repro/cases/A/a31_registry_order
 - cases in the evidence (tools/probe/): r11u223repro/cases/F/f10/dut.sv r11u223repro/cases/F/f20/dut.sv r11u223repro/cases/F/f24/dut.sv r11u223repro/cases/F/f25/dut.sv r11u223repro/cases/F/f25/pkg.sv r11u223repro/cases/F/f26/dut.sv r11u226verify/cases/F/f02_signed_packed_multi/dut.sv r11u226verify/cases/F/f04_dpi_import_export_after/dut.sv r11u226verify/cases/F/f05_nonscalar_typedefs/dut.sv r11u226verify/cases/F/f06_unpacked_typedef_formal/dut.sv r11u226verify/cases/F/f07_crlf_tabs_defaults/dut.sv r11u226verify/cases/F/f08_extern_oob_unit_modcls/dut.sv r11u226verify/cases/F/f10_two_pkgs_same_name/dut.sv r11u226verify/cases/F/f11_export_before_mod/dut.sv r11u226verify/cases/F/f14_exp_first_pkg_cname/dut.sv r11u226verify/cases/F/f16_exp_first_pkg_imported_td/dut.sv r11u226verify/cases/F/f17_exp_first_mod_task/dut.sv r11u229verify/cases/E/e04/dut.sv r11u229verify/cases/E/e06/dut.sv r11u229verify/cases/E/e08/dut.sv v11u223repro/cases/A/a01_typeparam/dut.sv v11u223repro/cases/A/a11_var_constref/dut.sv v11u223repro/cases/A/a13_twopkg_same/dut.sv v11u223repro/cases/A/a16_program/dut.sv v11u223repro/cases/A/a19_twofiles/dut.sv v11u223repro/cases/A/a19_twofiles/pkg.sv v11u223repro/cases/A/a27_modalias/dut.sv
-- also mentioned by: r11u222map r11u225repro r11u226verify r11u229verify r11u231repro r11u299repro
+- also mentioned by: r11u222map r11u225repro r11u226verify r11u229verify r11u231repro r11u299repro r11u492repro
 
 ### `tfArgTypeParamDefaultWriter231`
 - commits: 7d6de7c1b
@@ -31284,6 +31300,7 @@ lists it under the law).
 | r11u489repro |  | `dpConstUintForm489` `dpDepBitNegUint489` `dpDepUnboundedEval489` `ovSizedActualSize489` `unboundedAddSize489` `untypedDepUnboundedValue489` | 58 | 3 |
 | r11u48repro |  | `callArgSubroutineLocalOffRetExprNoTs48` `foldedBoundTsIsTheSignednessCapture48` | 34 | 6 |
 | r11u491repro |  | `bitNegBareNameActual491` `bitNegTypedOperandSize491` `bitNegUnsizedBasedActual491` `ovSizedActualMoreBases491` `ovUnsizedBasedActualForm491` `unboundedDepBesideDefparam491` `unboundedSubSize64_491` | 170 | 27 |
+| r11u492repro |  | `pkgRetTopArgTsImportClone492` `tfArgQualVecTdShared492` | 36 | 6 |
 | r11u49repro |  | `pkgScopeMemberSelect49` `unpackedPkgPatFlat49` | 1 | 13 |
 | r11u4repro |  | `ifacePortViewPaFoldsDeclDefault` | 0 | 3 |
 | r11u50repro |  | `pkgSubstEncBasedLitAbstain50v` `pkgSubstEncIsReduceTable50` | 0 | 3 |

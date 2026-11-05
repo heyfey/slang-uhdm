@@ -1,0 +1,43 @@
+r10buvm8repro/vxpkg8 cmp=PASS_CMP strict=STRICT_EQUAL 349 objects dumpdiff=362
+Q/q01_one_formal cmp=PASS_CMP strict=STRICT_EQUAL 64 objects dumpdiff=0
+Q/q02_two_formals cmp=PASS_CMP strict=STRICT_EQUAL 88 objects dumpdiff=0
+Q/q03_ret_only cmp=PASS_CMP strict=STRICT_EQUAL 79 objects dumpdiff=0
+Q/q04_module_var cmp=PASS_CMP strict=STRICT_EQUAL 82 objects dumpdiff=0
+Q/q05_task cmp=PASS_CMP strict=STRICT_EQUAL 64 objects dumpdiff=0
+Q/q06_two_pkgs cmp=PASS_CMP strict=STRICT_EQUAL 102 objects dumpdiff=18
+Q/q07_module_func cmp=PASS_CMP strict=STRICT_EQUAL 62 objects dumpdiff=0
+Q/q08_int_td cmp=PASS_CMP strict=STRICT_EQUAL 46 objects dumpdiff=0
+Q/q09_struct_td cmp=PASS_CMP strict=STRICT_EQUAL 104 objects dumpdiff=18
+Q/q10_enum_td cmp=PASS_CMP strict=STRICT_EQUAL 80 objects dumpdiff=20
+Q/q11_import_bare_and_qual cmp=PASS_CMP strict=STRICT_EQUAL 110 objects dumpdiff=0
+Q/q12_qual_then_bare cmp=PASS_CMP strict=STRICT_EQUAL 110 objects dumpdiff=0
+Q/q13_no_caller cmp=PASS_CMP strict=STRICT_EQUAL 45 objects dumpdiff=0
+Q/q14_dir_input cmp=PASS_CMP strict=STRICT_EQUAL 64 objects dumpdiff=0
+Q/q15_unpacked_formal cmp=CMP_FAIL strict=NOT_EQUAL stage1 dumpdiff=40
+Q/q16_nonansi cmp=PASS_CMP strict=STRICT_EQUAL 64 objects dumpdiff=0
+Q/q17_class_method cmp=PASS_CMP strict=STRICT_EQUAL 68 objects dumpdiff=10
+Q/q18_bit_td cmp=PASS_CMP strict=STRICT_EQUAL 64 objects dumpdiff=0
+Q/q19_alias_of_alias cmp=PASS_CMP strict=STRICT_EQUAL 98 objects dumpdiff=4
+Q/q20_inside_own_pkg cmp=PASS_CMP strict=STRICT_EQUAL 62 objects dumpdiff=0
+Q/q21_pkg_then_module cmp=PASS_CMP strict=STRICT_EQUAL 100 objects dumpdiff=0
+Q/q22_pkg_fn_and_class cmp=PASS_CMP strict=STRICT_EQUAL 104 objects dumpdiff=10
+Q/q23_two_modules cmp=PASS_CMP strict=STRICT_EQUAL 114 objects dumpdiff=0
+Q/q24_param_range cmp=PASS_CMP strict=STRICT_EQUAL 80 objects dumpdiff=14
+Q/q25_module_and_class cmp=PASS_CMP strict=STRICT_EQUAL 102 objects dumpdiff=10
+Q/q26_two_pkgs_name_order cmp=PASS_CMP strict=STRICT_EQUAL 102 objects dumpdiff=18
+Q/q27_byte_td cmp=PASS_CMP strict=STRICT_NOTEQUAL depth dumpdiff=23
+Q/q28_output_formal cmp=PASS_CMP strict=STRICT_EQUAL 79 objects dumpdiff=6
+Q/q29_module_bare_import cmp=PASS_CMP strict=STRICT_EQUAL 122 objects dumpdiff=0
+Q/q30_bare_pkg_and_qual_pkg cmp=PASS_CMP strict=STRICT_EQUAL 124 objects dumpdiff=18
+Q/q31_two_instances cmp=PASS_CMP strict=STRICT_EQUAL 105 objects dumpdiff=0
+Q/q32_home_bare_and_outside_qual cmp=PASS_CMP strict=STRICT_EQUAL 110 objects dumpdiff=22
+Q/q33_clone_in_writer cmp=PASS_CMP strict=STRICT_NOTEQUAL fullname dumpdiff=307
+Q/q34_clone_in_other_importer cmp=CMP_FAIL strict=NOT_EQUAL stage1 dumpdiff=382
+Q/q35_clone_no_import_writer cmp=CMP_FAIL strict=NOT_EQUAL stage1 dumpdiff=261
+RC/rc01_dpi_bare cmp=PASS_CMP strict=STRICT_EQUAL 521 objects dumpdiff=468
+RC/rc02_vec_td cmp=PASS_CMP strict=STRICT_EQUAL 205 objects dumpdiff=229
+RC/rc03_int_formals cmp=PASS_CMP strict=STRICT_EQUAL 110 objects dumpdiff=26
+RC/rc04_qualified_call cmp=PASS_CMP strict=STRICT_EQUAL 205 objects dumpdiff=233
+RC/rc05_two_importers cmp=PASS_CMP strict=STRICT_EQUAL 314 objects dumpdiff=395
+RC/rc06_not_return cmp=PASS_CMP strict=STRICT_EQUAL 226 objects dumpdiff=273
+RC/rc07_nested_expr cmp=CMP_FAIL strict=NOT_EQUAL stage1 dumpdiff=45

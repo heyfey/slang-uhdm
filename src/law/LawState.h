@@ -652,4 +652,63 @@ inline std::map<const void*, slang::SVInt>& mintSlice302v() {
     return m;
 }
 
+
+// ---- pass 492 (tests/LAWS.md; tools/probe/r11u492repro) ----
+// § tfArgQualVecTdShared492's registry: every subroutine formal whose data
+// type is written package-qualified (`p::t`) and names a package typedef of a
+// scalar or vector kind, in emission order: the formal's ref_typespec, the
+// written NamedType syntax, the typedef (a slang TypeAlias), and whether the
+// formal is an ANSI port (a writer of the typedef's object) or a body
+// declaration (`input p::t a;`, bound only).  Static storage, no allocation
+// during emission (§ formalRegNoHeap223v's lesson); entries beyond the
+// capacity spill to the heap vector in the same order.
+struct QualVecTdFormal492 {
+    UHDM::ref_typespec* rt = nullptr;
+    const void* tsyn = nullptr;
+    const void* td = nullptr;
+    bool ansi = false;
+};
+inline std::vector<QualVecTdFormal492>& qualVecTdHeap492() {
+    static std::vector<QualVecTdFormal492> v;
+    return v;
+}
+struct QualVecTdReg492 {
+    static constexpr size_t kCap = 1u << 12;
+    QualVecTdFormal492 fixed[kCap];
+    size_t n = 0;
+    void push_back(const QualVecTdFormal492& e) {
+        if (n >= kCap)
+            qualVecTdHeap492().push_back(e);
+        else
+            fixed[n++] = e;
+    }
+    bool empty() const { return n == 0; }
+    template <typename F>
+    void forEach(F&& f) {
+        for (size_t i = 0; i < n; i++)
+            f(fixed[i]);
+        for (auto& e : qualVecTdHeap492())
+            f(e);
+    }
+};
+inline QualVecTdReg492& qualVecTd492() {
+    static QualVecTdReg492 reg;
+    return reg;
+}
+
+// § pkgRetTopArgTsImportClone492's record: a bare call in an elaborated
+// package listing of a function an import clone stands for, the clone, the
+// home function's elaborated twin the actuals were stamped from, and the
+// objects stamped (empty, no heap block, until the law fires).
+struct QualRetClone492 {
+    UHDM::tf_call* call = nullptr;
+    UHDM::task_func* clone = nullptr;
+    UHDM::task_func* home = nullptr;
+    std::vector<UHDM::typespec*> stamped;
+};
+inline std::vector<QualRetClone492>& retArgClone492() {
+    static std::vector<QualRetClone492> v;
+    return v;
+}
+
 }  // namespace slang_uhdm

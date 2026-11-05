@@ -6552,6 +6552,50 @@ void UhdmExporter::emitTaskFuncs(const Scope& body, UHDM::BaseClass* m,
                 if (ansi223)
                     formalTdTok223().push_back({rt, argTsyn->sourceRange()});
             }
+            // § tfArgQualVecTdShared492 (r11u492) — record a formal whose data
+            // type is written package-qualified (`zp::zb_t a`) and names a
+            // typedef of a scalar or vector kind declared in that package: the
+            // design-final pass in UhdmExporter::exportDesign binds it to the
+            // typedef's elaborated object and moves that object to the last
+            // ANSI writer's qualifier (law and decode at that pass).  A DPI
+            // import, an import copy, an unpacked formal other than fixed-size
+            // and a class-scope qualifier are not recorded.
+            if (argTsyn && argTsyn->kind == syntax::SyntaxKind::NamedType &&
+                argTsyn->as<syntax::NamedTypeSyntax>().name->kind ==
+                    syntax::SyntaxKind::ScopedName &&
+                !(sub.flags & MethodFlags::DPIImport) && !importCopyTsInst &&
+                lawOn(492, "R11U492_QUALVECTD_OFF")) {
+                auto& sn492 = argTsyn->as<syntax::NamedTypeSyntax>()
+                                  .name->as<syntax::ScopedNameSyntax>();
+                const Type* t492 = &arg->getDeclaredType()->getType();
+                while (t492->kind == SymbolKind::FixedSizeUnpackedArrayType)
+                    t492 = &t492->as<FixedSizeUnpackedArrayType>().elementType;
+                if (sn492.left->kind == syntax::SyntaxKind::IdentifierName &&
+                    sn492.right->kind == syntax::SyntaxKind::IdentifierName &&
+                    sn492.separator.kind == parsing::TokenKind::DoubleColon &&
+                    t492->kind == SymbolKind::TypeAlias)
+                    if (auto* ps492 = t492->as<TypeAliasType>().getParentScope();
+                        ps492 && ps492->asSymbol().kind == SymbolKind::Package &&
+                        ps492->asSymbol().name ==
+                            sn492.left->as<syntax::IdentifierNameSyntax>()
+                                .identifier.valueText() &&
+                        t492->name == sn492.right->as<syntax::IdentifierNameSyntax>()
+                                          .identifier.valueText()) {
+                        bool ansi492 = false;
+                        for (auto q492 = argTsyn->parent; q492; q492 = q492->parent) {
+                            if (q492->kind == syntax::SyntaxKind::FunctionPort) {
+                                ansi492 = true;
+                                break;
+                            }
+                            if (q492->kind == syntax::SyntaxKind::PortDeclaration ||
+                                q492->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                                q492->kind == syntax::SyntaxKind::TaskDeclaration)
+                                break;
+                        }
+                        qualVecTd492().push_back(
+                            {rt, (const void*)argTsyn, (const void*)t492, ansi492});
+                    }
+            }
             // A PACKAGE subroutine's formal typespecs are resolved in the
             // package's scope, so every one of them — including the fresh
             // per-formal typedef CLONES the branches below mint — carries the

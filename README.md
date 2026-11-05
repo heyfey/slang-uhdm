@@ -37,8 +37,8 @@ Details: [GOLDEN_EQUIVALENCE.md](GOLDEN_EQUIVALENCE.md), [tests/README.md](tests
 | uhdm2rtlil | 871 | 804 | 803 | 99.9% |
 | sv-tests | 2346 | 1940 | 1937 | 99.8% |
 | uhdm2rtlil downstream synthesis | 871 | 805 | 805 | 100% |
-| probe cases, `uhdm-cmp` | 31943 | 31943 | 31943 | 100% |
-| probe cases, strict | 31943 | 31943 | 29901 | 93.6% |
+| probe cases, `uhdm-cmp` | 31979 | 31979 | 31979 | 100% |
+| probe cases, strict | 31979 | 31979 | 29946 | 93.6% |
 
 Not claimed:
 

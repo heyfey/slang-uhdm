@@ -25911,6 +25911,330 @@ UHDM::design* UhdmExporter::exportDesign() {
         }
     }
 
+    // § pkgRetTopArgTsImportClone492's design-final half (law and decode at
+    // the stamp, ExprEmit): every actual still holding its stamp (or the home
+    // twin's final formal typespec) takes the clone's final formal typespec
+    // when that is a scalar or vector kind.
+    for (auto& r492 : retArgClone492()) {
+        auto* args = r492.call ? r492.call->Tf_call_args() : nullptr;
+        auto* ios = r492.clone ? r492.clone->Io_decls() : nullptr;
+        auto* hios = r492.home ? r492.home->Io_decls() : nullptr;
+        if (!args || !ios)
+            continue;
+        int n492 = 0;
+        for (size_t i = 0; i < args->size() && i < ios->size() && i < r492.stamped.size(); i++) {
+            auto* e = any_cast<UHDM::expr*>((*args)[i]);
+            auto* rt = e ? (UHDM::ref_typespec*)e->Typespec() : nullptr;
+            auto* io = (*ios)[i];
+            auto* fin = io && io->Typespec() ? io->Typespec()->Actual_typespec() : nullptr;
+            const UHDM::typespec* hfin = nullptr;
+            if (hios && i < hios->size() && (*hios)[i] && (*hios)[i]->Typespec())
+                hfin = (*hios)[i]->Typespec()->Actual_typespec();
+            if (!rt || !fin || !rt->Actual_typespec() || rt->Actual_typespec() == fin)
+                continue;
+            if (rt->Actual_typespec() != r492.stamped[i] && rt->Actual_typespec() != hfin)
+                continue;
+            switch (fin->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+            case UHDM::uhdmbit_typespec:
+            case UHDM::uhdmint_typespec:
+            case UHDM::uhdminteger_typespec:
+            case UHDM::uhdmbyte_typespec:
+            case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmlong_int_typespec:
+                break;
+            default:
+                continue;
+            }
+            if (fin->UhdmType() != rt->Actual_typespec()->UhdmType())
+                continue;
+            rt->Actual_typespec(fin);
+            ++n492;
+        }
+        if (n492)
+            lawTrace(492, "pkgRetTopArgTsImportClone492",
+                     std::string(r492.clone->VpiFullName()) + " actuals " + std::to_string(n492));
+    }
+    // § tfArgQualVecTdShared492 (r11u492, probe r10buvm8repro/vxpkg8, pass
+    // 299's residue 2) — a subroutine formal written PACKAGE-QUALIFIED
+    // (`zp::zb_t a`) whose typedef is a scalar or vector kind (logic, bit,
+    // int, integer, byte, shortint, longint) binds the typedef's SHARED
+    // object, the elaborated package's listing object, and an ANSI formal
+    // MOVES that object to its qualifier.  Surelog: compileTypespec's
+    // paPackage_scope arm (CompileType.cpp, `case VObjectType::
+    // paPackage_scope`) answers `p::t` with the package's DataType's own
+    // typespec (`sit->getTypespec()` for a SimpleType, no clone; only the
+    // bare name's compileDatastructureTypespec clones, the ground of
+    // § tfArgScalarTdWriter223), and compileTfPortList (CompileStmt.cpp
+    // 1809) runs `fC->populateCoreMembers(type, type, ts)` on it, where
+    // `type` is the data type's first child: the Package_scope node `zp::`
+    // (the whole scoped name with a direction keyword, the
+    // § tfArgQualOutsideWriter176 decode).  The last compiled writer wins:
+    // packages' own subroutines in source order, then module and interface
+    // subroutines in definition-name order, then programs, then class
+    // methods in class-map key order (`p::C`, `work@m::C`), the orders
+    // § tfArgOutsideCopyOrder193 and § tfArgOutsideClassKeyOrder216v
+    // decoded.  The definition package listing keeps its declaration span;
+    // a body-declared formal (`input zp::zb_t a;`) binds the object without
+    // moving it; an elaborated instance variable's unaliased bare copy
+    // (LAW S), minted at elaboration after every compile, carries the moved
+    // span; a bare formal outside the typedef's package (§ 223's copy)
+    // aliases the moved object in the definition view too.  Ours bound a
+    // per-formal named clone at the whole written type and left the object
+    // at the typedef declaration.  A qualified writer inside the typedef's own package is a
+    // writer like any other (grid q20).  Abstains: a writer in `$unit` or in
+    // an out-of-body definition.  Golden grid
+    // tools/probe/r11u492repro/cases/Q.  Switch R11U492_QUALVECTD_OFF
+    // (recording side, TaskFuncEmit).
+    if (!qualVecTd492().empty()) {
+        struct Rec492 {
+            std::vector<UHDM::ref_typespec*> rts;
+            std::vector<const syntax::FunctionPortSyntax*> writers;
+            bool poisoned = false;
+        };
+        std::map<const Type*, Rec492> recs492;
+        std::vector<const Type*> order492;
+        qualVecTd492().forEach([&](QualVecTdFormal492& e) {
+            auto* rt = e.rt;
+            auto* io = rt ? rt->VpiParent() : nullptr;
+            if (!io || io->UhdmType() != UHDM::uhdmio_decl ||
+                ((UHDM::io_decl*)io)->Typespec() != rt)
+                return;
+            auto* td = (const Type*)e.td;
+            auto it = pkgTopTypedefTs.find((const void*)td);
+            if (it == pkgTopTypedefTs.end() || !it->second)
+                return;
+            switch (it->second->UhdmType()) {
+            case UHDM::uhdmlogic_typespec:
+            case UHDM::uhdmbit_typespec:
+            case UHDM::uhdmint_typespec:
+            case UHDM::uhdminteger_typespec:
+            case UHDM::uhdmbyte_typespec:
+            case UHDM::uhdmshort_int_typespec:
+            case UHDM::uhdmlong_int_typespec:
+                break;
+            default:
+                return;
+            }
+            if (!recs492.count(td))
+                order492.push_back(td);
+            auto& r = recs492[td];
+            r.rts.push_back(rt);
+            if (!e.ansi)
+                return;
+            auto* ts = (const syntax::DataTypeSyntax*)e.tsyn;
+            if (!ts->parent || ts->parent->kind != syntax::SyntaxKind::FunctionPort) {
+                r.poisoned = true;
+                return;
+            }
+            auto* fp = &ts->parent->as<syntax::FunctionPortSyntax>();
+            if (std::find(r.writers.begin(), r.writers.end(), fp) == r.writers.end())
+                r.writers.push_back(fp);
+        });
+        // The compile-order key of a writer: (phase, unit or class key).
+        auto key492 = [&](const syntax::FunctionPortSyntax* fp,
+                          std::pair<int, std::string>& k) -> bool {
+            const syntax::SyntaxNode* unit = nullptr;
+            const syntax::SyntaxNode* cls = nullptr;
+            for (const syntax::SyntaxNode* q = fp->parent; q; q = q->parent) {
+                if ((q->kind == syntax::SyntaxKind::FunctionDeclaration ||
+                     q->kind == syntax::SyntaxKind::TaskDeclaration) &&
+                    q->as<syntax::FunctionDeclarationSyntax>().prototype &&
+                    q->as<syntax::FunctionDeclarationSyntax>().prototype->name &&
+                    q->as<syntax::FunctionDeclarationSyntax>().prototype->name->kind ==
+                        syntax::SyntaxKind::ScopedName)
+                    return false;  // an out-of-body definition
+                if (q->kind == syntax::SyntaxKind::ClassDeclaration)
+                    cls = q;  // the outermost class
+                if (q->kind == syntax::SyntaxKind::ModuleDeclaration ||
+                    q->kind == syntax::SyntaxKind::InterfaceDeclaration ||
+                    q->kind == syntax::SyntaxKind::ProgramDeclaration ||
+                    q->kind == syntax::SyntaxKind::PackageDeclaration) {
+                    unit = q;
+                    break;
+                }
+            }
+            if (!unit)
+                return false;  // `$unit`
+            std::string un(unit->as<syntax::ModuleDeclarationSyntax>().header->name.valueText());
+            if (cls) {
+                k = {3, (unit->kind == syntax::SyntaxKind::PackageDeclaration ? un
+                                                                               : "work@" + un) +
+                            "::" +
+                            std::string(cls->as<syntax::ClassDeclarationSyntax>().name.valueText())};
+                return true;
+            }
+            switch (unit->kind) {
+            case syntax::SyntaxKind::PackageDeclaration: k = {0, ""}; break;
+            case syntax::SyntaxKind::ProgramDeclaration: k = {2, un}; break;
+            default: k = {1, un}; break;
+            }
+            return true;
+        };
+        for (auto* td : order492) {
+            auto& r = recs492[td];
+            if (r.poisoned)
+                continue;
+            UHDM::typespec* x = pkgTopTypedefTs[(const void*)td];
+            const syntax::FunctionPortSyntax* last = nullptr;
+            std::pair<int, std::string> lastKey;
+            bool ok = true;
+            for (auto* fp : r.writers) {
+                std::pair<int, std::string> k;
+                if (!key492(fp, k)) {
+                    ok = false;
+                    break;
+                }
+                if (!last || lastKey < k ||
+                    (lastKey == k && srcOrderLess(last->sourceRange().start(),
+                                                  fp->sourceRange().start()))) {
+                    last = fp;
+                    lastKey = k;
+                }
+            }
+            if (!ok) {
+                lawTrace(492, "tfArgQualVecTdShared492", std::string(td->name) + " abstains");
+                continue;
+            }
+            for (auto* rt : r.rts)
+                rt->Actual_typespec(x);
+            if (!last) {
+                lawTrace(492, "tfArgQualVecTdShared492",
+                         std::string(td->name) + " bound " + std::to_string(r.rts.size()));
+                continue;
+            }
+            auto& sn = last->dataType->as<syntax::NamedTypeSyntax>()
+                           .name->as<syntax::ScopedNameSyntax>();
+            SourceRange tok(sn.left->getFirstToken().location(),
+                            last->direction.valid() ? sn.right->getLastToken().range().end()
+                                                    : sn.separator.range().end());
+            const std::string f0(x->VpiFile());
+            const uint32_t l0 = x->VpiLineNo(), c0 = x->VpiColumnNo(),
+                           l1 = x->VpiEndLineNo(), c1 = x->VpiEndColumnNo();
+            setLoc(x, tok);
+            x->VpiFile(fullFilePath(tok.start()));
+            UHDM::typespec* def492 = nullptr;
+            if (auto di = typedefTs.find(td); di != typedefTs.end())
+                def492 = di->second;
+            // The elaborated instances' variables of the type hold a bare,
+            // unaliased copy of the object (LAW S) still at its declaration
+            // span: golden mints it at elaboration, after the move.
+            {
+                std::string bare492(x->VpiName());
+                if (auto k = bare492.rfind("::"); k != std::string::npos)
+                    bare492 = bare492.substr(k + 2);
+                std::set<UHDM::typespec*> done492;
+                std::function<void(const UHDM::module_inst*)> inst492 =
+                    [&](const UHDM::module_inst* mi) {
+                        if (!mi)
+                            return;
+                        if (mi->Variables())
+                            for (auto* v : *mi->Variables()) {
+                                auto* rt = v ? v->Typespec() : nullptr;
+                                auto* c = rt ? rt->Actual_typespec() : nullptr;
+                                if (!c || c == x || c == def492 || done492.count(c) ||
+                                    c->UhdmType() != x->UhdmType() || c->Typedef_alias() ||
+                                    c->VpiName() != bare492 ||
+                                    std::string_view(c->VpiFile()) != f0 ||
+                                    c->VpiLineNo() != l0 || c->VpiColumnNo() != c0 ||
+                                    c->VpiEndLineNo() != l1 || c->VpiEndColumnNo() != c1)
+                                    continue;
+                                done492.insert(c);
+                                c->VpiFile(std::string(x->VpiFile()));
+                                c->VpiLineNo(x->VpiLineNo());
+                                c->VpiColumnNo(x->VpiColumnNo());
+                                c->VpiEndLineNo(x->VpiEndLineNo());
+                                c->VpiEndColumnNo(x->VpiEndColumnNo());
+                            }
+                        if (mi->Modules())
+                            for (auto* sub : *mi->Modules())
+                                inst492(sub);
+                    };
+                if (d && d->TopModules())
+                    for (auto* tm : *d->TopModules())
+                        inst492(tm);
+                if (!done492.empty())
+                    lawTrace(492, "tfArgQualVecTdShared492",
+                             std::string(td->name) + " elab copies follow " +
+                                 std::to_string(done492.size()));
+            }
+            // An importer's DEFINITION-view clone of a home package
+            // subroutine (§ importCloneBareTdAlias16) aliases its formal's
+            // bare copy to a bare, unaliased copy of the elaborated object:
+            // golden vxpkg8 reads it at the moved span (`ap::zf`'s x, y and
+            // return, 15:37), the elaborated-view clone's keeps the
+            // declaration span.
+            if (def492 && def492 != x)
+                if (auto ci = cloneBareScalarTdCopy16.find(def492);
+                    ci != cloneBareScalarTdCopy16.end() && ci->second &&
+                    ci->second->Typedef_alias())
+                    if (auto* tg = (UHDM::typespec*)ci->second->Typedef_alias()->Actual_typespec();
+                        tg && tg != x && tg != def492 &&
+                        std::string_view(tg->VpiFile()) == f0 && tg->VpiLineNo() == l0 &&
+                        tg->VpiColumnNo() == c0 && tg->VpiEndLineNo() == l1 &&
+                        tg->VpiEndColumnNo() == c1) {
+                        tg->VpiFile(std::string(x->VpiFile()));
+                        tg->VpiLineNo(x->VpiLineNo());
+                        tg->VpiColumnNo(x->VpiColumnNo());
+                        tg->VpiEndLineNo(x->VpiEndLineNo());
+                        tg->VpiEndColumnNo(x->VpiEndColumnNo());
+                        lawTrace(492, "tfArgQualVecTdShared492",
+                                 std::string(td->name) + " def clone alias follows");
+                    }
+            // A BARE formal outside the typedef's package (an importer's
+            // `zb_t a`, § tfArgScalarTdWriter223's own copy) aliases the
+            // elaborated object in every view: golden grid q11 / q12 read the
+            // definition package's copy aliased to the moved object, where
+            // ours aliased the definition twin, unmoved.
+            if (def492 && def492 != x) {
+                std::string_view home492;
+                std::string hf492;
+                uint32_t hl0 = 0, hc0 = 0, hl1 = 0, hc1 = 0;
+                if (auto* ps = td->as<TypeAliasType>().getParentScope()) {
+                    home492 = ps->asSymbol().name;
+                    if (auto* hs = ps->asSymbol().getSyntax()) {
+                        locLineCol(hs->sourceRange().start(), hl0, hc0);
+                        locLineCol(hs->sourceRange().end(), hl1, hc1);
+                        hf492 = fullFilePath(hs->sourceRange().start());
+                    }
+                }
+                int n492 = 0;
+                formalTdTok223().forEach([&](auto& ent) {
+                    auto* rt = ent.first;
+                    auto* io = rt ? rt->VpiParent() : nullptr;
+                    if (!io || io->UhdmType() != UHDM::uhdmio_decl ||
+                        ((UHDM::io_decl*)io)->Typespec() != rt)
+                        return;
+                    auto* c = rt->Actual_typespec();
+                    auto* al = c ? c->Typedef_alias() : nullptr;
+                    if (!al || al->Actual_typespec() != def492)
+                        return;
+                    // an import clone of the home package's own subroutine
+                    // (its formal sits in the home package's text) keeps it
+                    if (hl0 && std::string_view(io->VpiFile()) == hf492 &&
+                        io->VpiLineNo() >= hl0 && io->VpiLineNo() <= hl1)
+                        return;
+                    for (const UHDM::any* a = io->VpiParent(); a; a = a->VpiParent())
+                        if (a->UhdmType() == UHDM::uhdmpackage) {
+                            if (a->VpiName() == home492)
+                                return;
+                            break;
+                        }
+                    ((UHDM::ref_typespec*)al)->Actual_typespec(x);
+                    ++n492;
+                });
+                if (n492)
+                    lawTrace(492, "tfArgQualVecTdShared492",
+                             std::string(td->name) + " outside bare aliases " +
+                                 std::to_string(n492));
+            }
+            lawTrace(492, "tfArgQualVecTdShared492",
+                     std::string(td->name) + " bound " + std::to_string(r.rts.size()) +
+                         " moved " + std::to_string(l0) + ":" + std::to_string(c0) + "->" +
+                         std::to_string(x->VpiLineNo()) + ":" + std::to_string(x->VpiColumnNo()));
+        }
+    }
+
     // r11u231's design-final laws, run at every return of the rest of
     // exportDesign (§ 146's two early returns below included, which the
     // passes placed before them avoid the same way).

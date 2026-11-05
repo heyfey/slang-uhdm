@@ -1,6 +1,6 @@
 # tests/probe — the probe-case regression set
 
-31943 SystemVerilog cases (a probe case: one `dut.sv` written to
+31979 SystemVerilog cases (a probe case: one `dut.sv` written to
 exercise one law; older pass READMEs under `tools/probe/` say "arm"), each
 judged EQUAL by `uhdm-cmp`
 against the golden database the pinned Surelog writes for it. They are the
@@ -57,8 +57,8 @@ with `uhdm-cmp <golden> <out>`; an "unsupported constructs" exit with a
 written database is judged like any other, as the corpus harness does.
 A case is EQUAL only when `uhdm-cmp` and `uhdm-strictcmp` both read
 equal; a judge-equal case the strict comparator rejects reads
-STRICT_NOTEQUAL (the baseline holds 29901 EQUAL and 2042 STRICT_NOTEQUAL
-rows after the second census). The gate compares the run's csv against the committed
+STRICT_NOTEQUAL (the baseline holds 29946 EQUAL and 2033 STRICT_NOTEQUAL
+rows after pass 492). The gate compares the run's csv against the committed
 baseline `results/golden_probe.csv`: a case leaving EQUAL is a regression
 and fails the gate; a case entering EQUAL is a conversion the landing
 commits by re-baselining.
