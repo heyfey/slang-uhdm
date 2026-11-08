@@ -11,7 +11,7 @@
 # binary. -DSLANG_UHDM_USE_SYSTEM_DEPS=ON uses installed packages instead
 # (find_package via CMAKE_PREFIX_PATH); the pins are then the operator's job.
 cmake_minimum_required(VERSION 3.20)
-project(slang-uhdm VERSION 0.1.0 LANGUAGES CXX)
+project(slang-uhdm VERSION 0.12.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -66,6 +66,7 @@ target_include_directories(slang_uhdm_obj_lib PUBLIC include ${CMAKE_CURRENT_BIN
 target_link_libraries(slang_uhdm_obj_lib PUBLIC slang::slang uhdm::uhdm)
 
 add_executable(slang_uhdm uhdm_main.cpp)
+target_compile_definitions(slang_uhdm PRIVATE SLANG_UHDM_VERSION="${PROJECT_VERSION}")
 target_link_libraries(slang_uhdm PRIVATE slang_uhdm_obj_lib)
 set_target_properties(slang_uhdm PROPERTIES OUTPUT_NAME "slang-uhdm")
 
