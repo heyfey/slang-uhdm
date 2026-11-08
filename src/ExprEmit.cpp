@@ -26187,6 +26187,203 @@ bool gcSyntax433(const syntax::SyntaxNode* n, GcVal433& out, int depth = 0) {
         return false;
     return gcApply433(t, {l, r}, out);
 }
+// § enumCastChainKeepsInnerCast493 (r11u493) — A CAST CHAIN SLANG FOLDS INTO
+// ONE NODE IS WRITTEN AS SURELOG WRITES IT: ONE CAST OPERATION PER WRITTEN
+// CAST.  slang's ConversionExpression::fromSyntax (v12.1,
+// ConversionExpression.cpp:383-401) binds a static cast whose target and
+// operand are both numeric in the assignment-like context of the target
+// ([10.8]); when the propagated type is equivalent to the operand's type and
+// the operand is itself an explicit cast, slang re-types that inner node to
+// the outer target and returns it, so `sev_e'(st_e'(x))` is ONE
+// ConversionExpression (syntax the outer CastExpression, operand `x`).  v12.0
+// folded only an assignment-compatible target the same way; v12.1 extends the
+// fold to the enum target ("Fixed sizing of the operand of a cast to an enum
+// type"), which is where the gate saw it (tests/probe/r11u246repro/cases/X/
+// x04_dpiunit, EQUAL -> NOT_EQUAL at the slang v12.1 bump).  Surelog compiles
+// every written cast (CompileExpression.cpp, the `paCast` arm) into its own
+// vpiCastOp operation with its own ref_typespec, nested as written.  The
+// inner cast is rebuilt from the outer cast's parenthesised operand syntax:
+// its target type is bound as slang binds a cast target (a data-type name,
+// or a positive constant width with the operand's integral flags) in the
+// scope of the operand's value symbol (else the outer target's scope), and
+// the chain is emitted as the two nodes slang v12.0 produced, the outer
+// keeping the folded node's syntax and span.  Memoised per
+// folded node so every emission of it sees one object identity.  Grid
+// tools/probe/r11u493repro (README).  Switch R11U493_CASTCHAIN_OFF.
+static const Scope* castChainScope493(const Expression& e, int depth = 0) {
+    if (depth > 8)
+        return nullptr;
+    switch (e.kind) {
+    case ExpressionKind::NamedValue:
+    case ExpressionKind::HierarchicalValue:
+        return e.as<ValueExpressionBase>().symbol.getParentScope();
+    case ExpressionKind::Conversion:
+        return castChainScope493(e.as<ConversionExpression>().operand(), depth + 1);
+    case ExpressionKind::ElementSelect:
+        return castChainScope493(e.as<ElementSelectExpression>().value(), depth + 1);
+    case ExpressionKind::RangeSelect:
+        return castChainScope493(e.as<RangeSelectExpression>().value(), depth + 1);
+    case ExpressionKind::MemberAccess:
+        return castChainScope493(e.as<MemberAccessExpression>().value(), depth + 1);
+    case ExpressionKind::UnaryOp:
+        return castChainScope493(e.as<UnaryExpression>().operand(), depth + 1);
+    case ExpressionKind::BinaryOp: {
+        auto& b = e.as<BinaryExpression>();
+        if (auto* sc = castChainScope493(b.left(), depth + 1))
+            return sc;
+        return castChainScope493(b.right(), depth + 1);
+    }
+    case ExpressionKind::Concatenation:
+        for (auto* o : e.as<ConcatenationExpression>().operands())
+            if (auto* sc = castChainScope493(*o, depth + 1))
+                return sc;
+        return nullptr;
+    default:
+        return nullptr;
+    }
+}
+// The rebuilt two-node chain for a folded cast node (nullptr, with `why`,
+// when the inner target cannot be bound).  Memoised per folded node.
+// § enumCastChainKeepsInnerCast493 (v11u493 fix) — THE SCOPE THE INNER CAST
+// IS WRITTEN IN.  The operand's value symbol is not always declared where the
+// cast is written: a hierarchical operand (`t32'(u.a)`) lives in the child
+// instance, a package variable (`t32'(p::pv)`) in its package, a module
+// variable read inside a function or generate block that declares its own
+// `t_t` sits one scope above the shadowing typedef, and a call, ternary or
+// streaming operand has no value symbol at all.  Binding the inner target in
+// such a scope either fails (the law abstained: p01, p04, p06, p07, t12 of
+// tools/probe/v11u493repro) or binds ANOTHER typedef of the same name (p02:
+// the child's 64-bit `t32`; p08: the package's).  The home is the scope whose
+// declaration syntax is the NEAREST syntactic ancestor of the written cast:
+// from each candidate start (the operand's scope, the cast-site scopes the
+// emitter tracks, the outer target's scope) walk up the scope parents to a
+// scope whose syntax encloses the cast, then down through member scopes
+// (subroutine, generate block, statement block) that enclose it too; the
+// candidate whose home is nearest wins, the operand's scope on a tie.  A
+// candidate whose scopes never enclose the cast is dropped, so a stale site
+// scope cannot bind.  Switch R11V493_CASTHOME_OFF (the implementer's operand
+// scope).
+static const Scope* castChainHome493(const Scope* start,
+                                     const std::vector<const syntax::SyntaxNode*>& anc,
+                                     int& at) {
+    auto idx = [&](const Scope& s) -> int {
+        auto* sy = s.asSymbol().getSyntax();
+        if (!sy)
+            return -1;
+        for (size_t i = 0; i < anc.size(); i++)
+            if (anc[i] == sy)
+                return int(i);
+        return -1;
+    };
+    const Scope* sc = start;
+    at = -1;
+    for (int g = 0; sc && g < 64; g++) {
+        at = idx(*sc);
+        if (at >= 0)
+            break;
+        sc = sc->asSymbol().getParentScope();
+    }
+    if (!sc || at < 0)
+        return nullptr;
+    for (bool moved = true; moved && at > 0;) {
+        moved = false;
+        for (auto& m : sc->members()) {
+            const Scope* ms = nullptr;
+            switch (m.kind) {
+            case SymbolKind::Subroutine: ms = &m.as<SubroutineSymbol>(); break;
+            case SymbolKind::GenerateBlock: ms = &m.as<GenerateBlockSymbol>(); break;
+            case SymbolKind::GenerateBlockArray: ms = &m.as<GenerateBlockArraySymbol>(); break;
+            case SymbolKind::StatementBlock: ms = &m.as<StatementBlockSymbol>(); break;
+            default: break;
+            }
+            if (!ms)
+                continue;
+            int j = idx(*ms);
+            if (j >= 0 && j < at) {
+                sc = ms;
+                at = j;
+                moved = true;
+                break;
+            }
+        }
+    }
+    return sc;
+}
+static const Expression* foldedCastChain493(Compilation& comp,
+                                            const ConversionExpression& conv,
+                                            const syntax::CastExpressionSyntax& inner,
+                                            std::string& why,
+                                            std::initializer_list<const Scope*> sites = {}) {
+    static std::map<const Expression*, const Expression*> memo;
+    auto it = memo.find(&conv);
+    if (it != memo.end())
+        return it->second;
+    const Expression& operand = conv.operand();
+    const Scope* sc = castChainScope493(operand);
+    const Scope* tsc = nullptr;
+    if (conv.type->isAlias())
+        tsc = conv.type->getParentScope();
+    if (!tsc)
+        tsc = conv.type->getCanonicalType().getParentScope();
+    if (fixOn(493, "R11V493_CASTHOME_OFF")) {
+        std::vector<const syntax::SyntaxNode*> anc;
+        for (const syntax::SyntaxNode* p = inner.parent; p; p = p->parent)
+            anc.push_back(p);
+        const Scope* best = nullptr;
+        int bestAt = -1;
+        auto consider = [&](const Scope* start) {
+            if (!start)
+                return;
+            int at = -1;
+            if (auto* h = castChainHome493(start, anc, at); h && (!best || at < bestAt)) {
+                best = h;
+                bestAt = at;
+            }
+        };
+        consider(sc);
+        for (auto* s : sites)
+            consider(s);
+        consider(tsc);
+        lawTrace(493, "CASTHOME", best ? std::string(best->asSymbol().name) + " at " +
+                                             std::to_string(bestAt)
+                                       : std::string("none"));
+        sc = best;
+    }
+    else if (!sc) {
+        sc = tsc;
+    }
+    const Expression* out = nullptr;
+    if (!sc) {
+        why = "no-scope";
+    }
+    else {
+        ASTContext cx(*sc, LookupLocation::max);
+        auto& te = Expression::bind(*inner.left, cx, ASTFlags::AllowDataType);
+        const Type* ity = nullptr;
+        if (te.kind == ExpressionKind::DataType) {
+            ity = te.type;
+        }
+        else if (!te.bad() && operand.type->isIntegral()) {
+            if (auto v = cx.evalInteger(te); v && *v > 0)
+                ity = &comp.getType(bitwidth_t(*v), operand.type->getIntegralFlags());
+        }
+        if (!ity || ity->isError()) {
+            why = "no-target-type";
+        }
+        else {
+            auto* in = comp.emplace<ConversionExpression>(
+                *ity, ConversionKind::Explicit, const_cast<Expression&>(operand),
+                inner.sourceRange());
+            in->syntax = &inner;
+            auto* o = comp.emplace<ConversionExpression>(*conv.type, ConversionKind::Explicit,
+                                                         *in, conv.sourceRange);
+            o->syntax = conv.syntax;
+            out = o;
+        }
+    }
+    memo[&conv] = out;
+    return out;
+}
 } // namespace
 
 UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* parent,
@@ -39122,6 +39319,35 @@ UHDM::any* UhdmExporter::emitExpr(const Expression& expr, UHDM::BaseClass* paren
                 castSynOverride)
                 effCastSyn = castSynOverride;
             castSynOverride = nullptr;
+            // § enumCastChainKeepsInnerCast493 — the written inner cast slang
+            // folded into this node (its operand is not an explicit cast while
+            // the written operand is one) is rebuilt by foldedCastChain493 and
+            // the two-node chain is emitted in its place.
+            if (effCastSyn && effCastSyn->kind == syntax::SyntaxKind::CastExpression) {
+                const syntax::ExpressionSyntax* in493 =
+                    effCastSyn->as<syntax::CastExpressionSyntax>().right->expression;
+                while (in493 &&
+                       in493->kind == syntax::SyntaxKind::ParenthesizedExpression)
+                    in493 = in493->as<syntax::ParenthesizedExpressionSyntax>().expression;
+                const Expression& c493 = stripImplicitConv(conv.operand());
+                if (in493 && in493->kind == syntax::SyntaxKind::CastExpression &&
+                    c493.kind != ExpressionKind::Conversion &&
+                    c493.kind != ExpressionKind::Invalid) {
+                    if (lawOn(493, "R11U493_CASTCHAIN_OFF")) {
+                        std::string why493;
+                        if (auto* re493 = foldedCastChain493(
+                                comp, conv, in493->as<syntax::CastExpressionSyntax>(),
+                                why493, {castSiteScope57, currentScope, castBindScope})) {
+                            lawTrace(493, "CASTCHAIN", in493->toString());
+                            return emitExpr(*re493, parent, prefix, netMap);
+                        }
+                        lawTrace(493, "CASTCHAIN_ABSTAIN", why493 + " " + in493->toString());
+                    }
+                    else {
+                        lawTrace(493, "CASTCHAIN_OFF", in493->toString());
+                    }
+                }
+            }
             // § castInvalidOperandSyntax292 (r11u292) — slang wraps an
             // UNRESOLVABLE operand (`int'(T::get())` inside a generic class,
             // the InvalidExpression § invalidScopedCallRef59 decodes) in an

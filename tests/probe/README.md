@@ -1,6 +1,6 @@
 # tests/probe — the probe-case regression set
 
-31979 SystemVerilog cases (a probe case: one `dut.sv` written to
+32039 SystemVerilog cases (a probe case: one `dut.sv` written to
 exercise one law; older pass READMEs under `tools/probe/` say "arm"), each
 judged EQUAL by `uhdm-cmp`
 against the golden database the pinned Surelog writes for it. They are the

@@ -1,7 +1,7 @@
 > **2026-11-04:** the target below is reached on the strict gate and the campaign
 > is stopped at `9889dcaad` (tests/README.md has the measured baseline; AGENTS.md and
 > `.agents/skills/` the method). Since this file was written the gate gained the strict
-> comparator (2026-09-24), the probe stage (31979 cases) and the sv-tests stage
+> comparator (2026-09-24), the probe stage (32039 cases) and the sv-tests stage
 > (2026-10-15); the corpora are submodules (871 and 798 tests).
 
 # GOLDEN EQUIVALENCE — phase 2 of the convergence campaign

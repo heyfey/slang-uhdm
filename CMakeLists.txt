@@ -11,7 +11,7 @@
 # binary. -DSLANG_UHDM_USE_SYSTEM_DEPS=ON uses installed packages instead
 # (find_package via CMAKE_PREFIX_PATH); the pins are then the operator's job.
 cmake_minimum_required(VERSION 3.20)
-project(slang-uhdm VERSION 0.12.0 LANGUAGES CXX)
+project(slang-uhdm VERSION 0.12.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

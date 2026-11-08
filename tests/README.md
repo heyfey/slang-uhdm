@@ -12,11 +12,11 @@ after the first run.
 | `third_party/Surelog` | the pinned Surelog (v1.87): the producer binary once built, its `tests/` and `third_party/tests/` suites (one `<Name>.sl` command line per test) and `third_party/UVM` | 798 tests |
 | `third_party/uhdm2rtlil` | the pinned uhdm2rtlil checkout; `test/<name>/dut.sv` (or `dut.v`, or a `project.f`) per test | 871 tests |
 | `results/golden_surelog.csv`, `results/golden_uhdm2rtlil.csv` | the committed scoreboards: one row per test and mode (`name,mode,status,detail,blocked_by,strict`) | 1596 + 1742 rows |
-| `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 31979 rows |
+| `results/golden_probe.csv` | the committed probe baseline: one row per probe case (`case,status,detail,strict`) | 32039 rows |
 | `results/golden_svtests.csv` | the committed sv-tests baseline: one row per test of the chipsalliance sv-tests suite (`case,status,detail,strict`; see the sv-tests stage below) | 2346 rows |
 | `results/downstream_uhdm2rtlil.csv` | the downstream verdicts (see the downstream gate below) | 871 rows |
 | `results/gate_uhdm2rtlil.csv` | the uhdm2rtlil testflags rows alone (the older gate) | 871 rows |
-| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 31979 cases |
+| `tests/probe/<pass>/<grid>/<case>/dut.sv` | the probe-case regression set, judged by uhdm-cmp and uhdm-strictcmp against cached Surelog goldens (see tests/probe/README.md) | 32039 cases |
 | `tools/probe/` | per-pass evidence (READMEs, scripts, measurements, and the cases that still judge NOT_EQUAL) | |
 
 Two modes per test. In `default` mode both tools get only the sources. In
@@ -100,7 +100,7 @@ the other locations the same way.
 ## Running
 
     tests/sweep.sh                     # probe cases, both corpora in both modes, the downstream gate, then sv-tests
-    tests/sweep.sh --corpus probe      # the 31979 probe cases alone (about ten minutes at three jobs once their goldens are cached)
+    tests/sweep.sh --corpus probe      # the 32039 probe cases alone (about ten minutes at three jobs once their goldens are cached)
     tests/sweep.sh --corpus svtests    # the sv-tests stage alone
     tests/sweep.sh --corpus uhdm2rtlil --filter '^ibex'
 

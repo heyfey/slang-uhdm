@@ -20,10 +20,10 @@ several laws and nothing says which one a case exercises, the case is listed und
 each of them with a trailing `?` until its author writes its LAW file. A
 verification pass owns the laws of the pass it verifies.
 
-Laws: 3479. Cases in the gate: 31979, tied to one law 30728, listed with `?`
+Laws: 3480. Cases in the gate: 32039, tied to one law 30788, listed with `?`
 under several 630, tied to no law 621 (listed at the end).
 Laws with a commit on this branch: 2817;
-laws with cases in the gate: 2507.
+laws with cases in the gate: 2508.
 
 ## 1. Laws
 
@@ -9233,6 +9233,14 @@ laws with cases in the gate: 2507.
 - corpus tests: MiniAmiq SeqDriver
 - cases in the gate (tests/probe/): r10uvm114repro/g114_f_twopkg r10uvm114repro/g114_g_split
 - cases in the evidence (tools/probe/): r10uvm114repro/g114_a_pkghome.sv r10uvm114repro/g114_b_modhome.sv r10uvm114repro/g114_c_clspkg.sv r10uvm114repro/g114_d_unit.sv r10uvm114repro/g114_e_enumbase.sv r10uvm114repro/g114_h_ops.sv
+
+### `enumCastChainKeepsInnerCast493`
+- commits: none on this branch
+- pass: r11u493repro (verified by v11u493repro)
+- switches: R11U493_CASTCHAIN_OFF R11V493_CASTHOME_OFF
+- source: src/ExprEmit.cpp(3)
+- cases in the gate (tests/probe/): r11u493repro/cases/E/e01_fn_struct r11u493repro/cases/E/e02_fn_vec_td r11u493repro/cases/E/e03_fn_enum_inner r11u493repro/cases/E/e04_fn_int_inner r11u493repro/cases/E/e05_fn_sized r11u493repro/cases/E/e06_fn_three r11u493repro/cases/E/e07_assign r11u493repro/cases/E/e09_pkg_qual r11u493repro/cases/E/e10_class r11u493repro/cases/E/e11_initial r11u493repro/cases/E/e12_literal r11u493repro/cases/E/e13_bitsel r11u493repro/cases/E/e14_pkg_fn r11u493repro/cases/E/e15_call_arg r11u493repro/cases/S/s01_int_int r11u493repro/cases/S/s02_td_int r11u493repro/cases/S/s03_sized_same r11u493repro/cases/S/s04_td_struct r11u493repro/cases/S/s05_sized_wider r11u493repro/cases/S/s06_narrow v11u493repro/cases/C/c01_caseitem v11u493repro/cases/C/c02_ifcond v11u493repro/cases/C/c03_return v11u493repro/cases/C/c04_forbound v11u493repro/cases/D/d01_four v11u493repro/cases/D/d02_twoinst v11u493repro/cases/D/d03_twoinst_enum v11u493repro/cases/D/d04_twoinst_call v11u493repro/cases/D/d05_twomods_call v11u493repro/cases/N/n01_wideouter v11u493repro/cases/N/n02_generic292 v11u493repro/cases/N/n03_narrowinner v11u493repro/cases/O/o01_arith v11u493repro/cases/O/o02_compare v11u493repro/cases/O/o03_concat v11u493repro/cases/P/p01_hier_fn v11u493repro/cases/P/p02_hiershadow_fn v11u493repro/cases/P/p03_member v11u493repro/cases/P/p04_call v11u493repro/cases/P/p04b_call_td_fn v11u493repro/cases/P/p05_concat v11u493repro/cases/P/p06_ternary v11u493repro/cases/P/p06b_ternary_td_fn v11u493repro/cases/P/p07_pkgvar_fn v11u493repro/cases/P/p08_pkgvarshadow_fn v11u493repro/cases/P/p09_genblk_hier_fn v11u493repro/cases/T/t01_pkgqual v11u493repro/cases/T/t03_paramsize v11u493repro/cases/T/t04_onebit v11u493repro/cases/T/t05_64bit v11u493repro/cases/T/t06_real_intinner v11u493repro/cases/T/t07_int_realinner v11u493repro/cases/T/t08_shortreal_real_fn v11u493repro/cases/T/t09_int_signed v11u493repro/cases/T/t10_signed_int v11u493repro/cases/T/t11_chain_signed v11u493repro/cases/T/t12_stream v11u493repro/cases/Z/z01_genif v11u493repro/cases/Z/z05_program v11u493repro/cases/Z/z09_paramclass
+- cases in the evidence (tools/probe/): r11u493repro/cases/E/e08_localparam/dut.sv r11u493repro/cases/S/s07_byte_td/dut.sv v11u493repro/cases/K/k01_ctl_single_td/dut.sv v11u493repro/cases/T/t02_classqual_fn/dut.sv v11u493repro/cases/Z/z02_genfor/dut.sv v11u493repro/cases/Z/z03_genshadow_fn/dut.sv v11u493repro/cases/Z/z04_iface/dut.sv v11u493repro/cases/Z/z06_pkgfn/dut.sv v11u493repro/cases/Z/z07_unit_fn/dut.sv v11u493repro/cases/Z/z08_classstatic/dut.sv v11u493repro/cases/Z/z10_fnshadow/dut.sv v11u493repro/cases/Z/z11_fnshadow_modvar/dut.sv
 
 ### `enumCastInitNotEvaluated`
 - commits: none on this branch
@@ -31301,6 +31309,7 @@ lists it under the law).
 | r11u48repro |  | `callArgSubroutineLocalOffRetExprNoTs48` `foldedBoundTsIsTheSignednessCapture48` | 34 | 6 |
 | r11u491repro |  | `bitNegBareNameActual491` `bitNegTypedOperandSize491` `bitNegUnsizedBasedActual491` `ovSizedActualMoreBases491` `ovUnsizedBasedActualForm491` `unboundedDepBesideDefparam491` `unboundedSubSize64_491` | 170 | 27 |
 | r11u492repro |  | `pkgRetTopArgTsImportClone492` `tfArgQualVecTdShared492` | 36 | 6 |
+| r11u493repro |  | `enumCastChainKeepsInnerCast493` | 20 | 2 |
 | r11u49repro |  | `pkgScopeMemberSelect49` `unpackedPkgPatFlat49` | 1 | 13 |
 | r11u4repro |  | `ifacePortViewPaFoldsDeclDefault` | 0 | 3 |
 | r11u50repro |  | `pkgSubstEncBasedLitAbstain50v` `pkgSubstEncIsReduceTable50` | 0 | 3 |
@@ -31668,6 +31677,7 @@ lists it under the law).
 | v11u487repro | r11u487repro | `bareOvRefParamActual487v` `bareOvRefUint64_487` `caFoldLhsWidthGrow487` `caFoldTsFollowsPa487` `caFoldValueFollowsPa487` `dpDepPreDefparamValue487` `ovDefparamMaskWidth487` `ovOrderedTypeParamSlot487v` | 88 | 30 |
 | v11u489repro | r11u489repro | `dpConstUintForm489` `dpDepBitNegUint489` `dpDepUnboundedEval489` `ovSizedActualSize489` `unboundedAddSize489` `untypedDepUnboundedValue489` | 93 | 35 |
 | v11u491repro | r11u491repro | `bitNegBareNameActual491` `bitNegTypedOperandSize491` `bitNegUnsizedBasedActual491` `ovRefUnszBasedFormCopy491v` `ovSizedActualMoreBases491` `ovUnsizedBasedActualForm491` `unboundedDepBesideDefparam491` `unboundedSubSize64_491` | 171 | 98 |
+| v11u493repro | r11u493repro | `enumCastChainKeepsInnerCast493` | 40 | 10 |
 | v11u63repro | r11u63repro | `connPathRootOwnTs63` | 0 | 3 |
 | v11u64repro | r11u64repro | `patFlatUnsizedMemberNoInstWidth64` | 0 | 5 |
 | v11u93b107repro | r11u107repro | `anonPackedAggDimTs107` `tpElemRebindDefView107` `typeParamAnonAggDefault107` | 31 | 16 |
