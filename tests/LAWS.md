@@ -22,7 +22,7 @@ verification pass owns the laws of the pass it verifies.
 
 Laws: 3480. Cases in the gate: 32039, tied to one law 30788, listed with `?`
 under several 630, tied to no law 621 (listed at the end).
-Laws with a commit on this branch: 2817;
+Laws with a commit on this branch: 2818;
 laws with cases in the gate: 2508.
 
 ## 1. Laws
@@ -9235,7 +9235,7 @@ laws with cases in the gate: 2508.
 - cases in the evidence (tools/probe/): r10uvm114repro/g114_a_pkghome.sv r10uvm114repro/g114_b_modhome.sv r10uvm114repro/g114_c_clspkg.sv r10uvm114repro/g114_d_unit.sv r10uvm114repro/g114_e_enumbase.sv r10uvm114repro/g114_h_ops.sv
 
 ### `enumCastChainKeepsInnerCast493`
-- commits: none on this branch
+- commits: 7309fc1fd
 - pass: r11u493repro (verified by v11u493repro)
 - switches: R11U493_CASTCHAIN_OFF R11V493_CASTHOME_OFF
 - source: src/ExprEmit.cpp(3)
