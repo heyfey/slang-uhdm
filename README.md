@@ -4,7 +4,7 @@ A SystemVerilog to [UHDM](https://github.com/chipsalliance/UHDM) exporter built 
 It writes the same `.uhdm` database that [Surelog](https://github.com/chipsalliance/Surelog)
 writes for the same sources, so any downstream UHDM consumer
 ([uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil),
-[sv-pathfinder](https://github.com/alainmarcel/sv-pathfinder)) can use slang
+[sv-pathfinder](https://github.com/heyfey/sv-pathfinder)) can use slang
 in place of `surelog -parse`.
 
     slang-uhdm -f design.f -o design.uhdm     # the full slang command line, plus -o
