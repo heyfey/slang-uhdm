@@ -64,7 +64,7 @@ promotion rules as in claim-equal §5).
 
 One commit: the submodule pins, the baselines, `tests/LAWS.md`, and the
 documents that state versions: README.md (a new row in the release matrix
-table; the version column of Dependencies), tests/README.md counts,
+table of the Compatibility matrix), tests/README.md counts,
 GOLDEN_EQUIVALENCE.md §3.3 (`scripts/accounting.py --md`). Tag the release
 on that commit. The row names the slang-uhdm release and the four tool
 versions; commits are not listed, the version pins them.

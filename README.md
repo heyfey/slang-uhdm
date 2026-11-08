@@ -63,20 +63,21 @@ To reproduce the verification: `make -C third_party/Surelog release`, then
 `tests/sweep.sh`. The first run builds every golden and takes hours; later
 runs take about an hour.
 
-## Dependencies
+## Compatibility matrix
 
-Each slang-uhdm release is developed and verified against one set of tool
-versions, pinned as submodules under `third_party/`. A `.uhdm` file interops
-only with the UHDM version that wrote it (`slang-uhdm --version` prints it).
+Each slang-uhdm release is built on one slang and one UHDM, writes the same
+database as one Surelog version, and is verified with one uhdm2rtlil version.
+The four are pinned as submodules under `third_party/`. A `.uhdm` file
+interops only with the UHDM version that wrote it (`slang-uhdm --version`
+prints it).
 
-| slang-uhdm | [slang](https://github.com/MikePopoloski/slang) | [UHDM](https://github.com/chipsalliance/UHDM) | [Surelog](https://github.com/chipsalliance/Surelog) | [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) |
+| slang-uhdm | built on [slang](https://github.com/MikePopoloski/slang) | writes [UHDM](https://github.com/chipsalliance/UHDM) | same database as [Surelog](https://github.com/chipsalliance/Surelog) | verified with [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) |
 |---|---|---|---|---|
 | branch `slang-v12.0-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68` (unreleased) | v12.0 | v1.87 | v1.87 | v0.68 |
 
-slang is the compiler front end, UHDM the database library, Surelog the golden
-producer and a test suite, uhdm2rtlil a test suite and the downstream consumer.
 The default build compiles slang and UHDM in-tree from the submodules;
 `-DSLANG_UHDM_USE_SYSTEM_DEPS=ON` links packages installed at a prefix instead.
+Surelog and uhdm2rtlil are built only to run the gate.
 
 ## Documentation
 
