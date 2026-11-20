@@ -73,10 +73,10 @@ prints it).
 
 | slang-uhdm | built on [slang](https://github.com/MikePopoloski/slang) | writes [UHDM](https://github.com/chipsalliance/UHDM) | same database as [Surelog](https://github.com/chipsalliance/Surelog) | verified with [uhdm2rtlil](https://github.com/alainmarcel/uhdm2rtlil) |
 |---|---|---|---|---|
-| v0.12.1 (branch `slang-v12.1-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68`) | v12.1 | v1.87 | v1.87 | v0.68 |
-| v0.12.0 (branch `slang-v12.0-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68`) | v12.0 | v1.87 | v1.87 | v0.68 |
+| `slang-v12.1-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68` | v12.1 | v1.87 | v1.87 | v0.68 |
+| `slang-v12.0-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68` | v12.0 | v1.87 | v1.87 | v0.68 |
 
-The release number follows slang's: v0.12.1 is built on slang v12.1, v0.12.0 on slang v12.0.
+A release is tagged with its matrix name, and its branch is `dev/<matrix>`.12.1 is built on slang v12.1, v0.12.0 on slang v12.0.
 The default build compiles slang and UHDM in-tree from the submodules;
 `-DSLANG_UHDM_USE_SYSTEM_DEPS=ON` links packages installed at a prefix instead.
 Surelog and uhdm2rtlil are built only to run the gate.
