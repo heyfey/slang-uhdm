@@ -76,7 +76,7 @@ prints it).
 | `slang-v12.1-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68` | v12.1 | v1.87 | v1.87 | v0.68 |
 | `slang-v12.0-surelog-v1.87-uhdm-v1.87-uhdm2rtlil-v0.68` | v12.0 | v1.87 | v1.87 | v0.68 |
 
-A release is tagged with its matrix name, and its branch is `dev/<matrix>`.12.1 is built on slang v12.1, v0.12.0 on slang v12.0.
+A release is tagged with its matrix name, and its branch is `dev/<matrix>`.
 The default build compiles slang and UHDM in-tree from the submodules;
 `-DSLANG_UHDM_USE_SYSTEM_DEPS=ON` links packages installed at a prefix instead.
 Surelog and uhdm2rtlil are built only to run the gate.
